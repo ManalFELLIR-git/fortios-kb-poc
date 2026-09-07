@@ -1,0 +1,190 @@
+id: system.ips-urlfilter-dns
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  address:
+    canonical:
+      type: ipv4-address
+      required: true
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: DNS server IP address.
+      source_attribute: address
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id001
+        description: DNS server IP address.
+        source_attribute: address
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: address
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: DNS server IP address.
+        default: 0.0.0.0
+        source_attribute: address
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id002
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id002
+  ipv6_capability:
+    canonical:
+      type: enum
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      choices: &id003
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable this server for IPv6 queries.
+      source_attribute: ipv6-capability
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: Enable/disable this server for IPv6 queries.
+        source_attribute: ipv6_capability
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ipv6_capability
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable this server for IPv6 queries.
+        default: disable
+        source_attribute: ipv6-capability
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      choices: &id005
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable using this DNS server for IPS URL filter DNS queries.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Enable/disable using this DNS server for IPS URL filter DNS queries.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable using this DNS server for IPS URL filter DNS queries.
+        default: enable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: address
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict

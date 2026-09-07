@@ -1,0 +1,898 @@
+id: system.sdn-vpn
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  bgp_as:
+    canonical:
+      type: integer
+      version_ranges: &id001
+      - - v7.6.1
+        - ''
+      default: '65000'
+      min: 1
+      max: 4294967295
+      description: BGP Router AS number.
+      source_attribute: bgp-as
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id001
+        description: BGP Router AS number.
+        source_attribute: bgp_as
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: bgp_as
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: BGP Router AS number.
+        default: '65000'
+        min: 1
+        max: 4294967295
+        source_attribute: bgp-as
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cgw_gateway:
+    canonical:
+      type: ipv4-address-any
+      version_ranges: &id002
+      - - v7.6.1
+        - ''
+      default: 0.0.0.0
+      description: Public IP address of the customer gateway.
+      source_attribute: cgw-gateway
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id002
+        description: Public IP address of the customer gateway.
+        source_attribute: cgw_gateway
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cgw_gateway
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: Public IP address of the customer gateway.
+        default: 0.0.0.0
+        source_attribute: cgw-gateway
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id003
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id003
+  cgw_name:
+    canonical:
+      type: string
+      version_ranges: &id004
+      - - v7.6.1
+        - ''
+      min_length: 0
+      max_length: 35
+      description: AWS customer gateway name to be created.
+      source_attribute: cgw-name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id004
+        description: AWS customer gateway name to be created.
+        source_attribute: cgw_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: cgw_name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: AWS customer gateway name to be created.
+        max_length: 35
+        source_attribute: cgw-name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  code:
+    canonical:
+      type: integer
+      default: '0'
+      min: 0
+      max: 255
+      description: SDN VPN error code. Read-only.
+      source_attribute: code
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 255
+        source_attribute: code
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: SDN VPN error code. Read-only.
+        default: '0'
+        min: 0
+        max: 255
+        source_attribute: code
+    sources:
+    - cli_reference
+    - terraform
+  internal_interface:
+    canonical:
+      type: string
+      references: &id006
+      - system.interface.name
+      version_ranges: &id005
+      - - v7.6.1
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Internal interface with local subnet.
+      source_attribute: internal-interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: Internal interface with local subnet. Source system.interface.name.
+        references: *id006
+        source_attribute: internal_interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: internal_interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Internal interface with local subnet.
+        max_length: 15
+        source_attribute: internal-interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  local_cidr:
+    canonical:
+      type: ipv4-classnet
+      version_ranges: &id007
+      - - v7.6.1
+        - ''
+      default: 0.0.0.0 0.0.0.0
+      description: Local subnet address and subnet mask.
+      source_attribute: local-cidr
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: Local subnet address and subnet mask.
+        source_attribute: local_cidr
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: local_cidr
+      cli_reference:
+        type: ipv4-classnet
+        raw_type: ipv4-classnet
+        description: Local subnet address and subnet mask.
+        default: 0.0.0.0 0.0.0.0
+        source_attribute: local-cidr
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id008
+          primitive: string
+          format: ipv4-classnet
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id008
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id009
+      - - v7.6.1
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Public cloud VPN name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id009
+        description: Public cloud VPN name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Public cloud VPN name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  nat_traversal:
+    canonical:
+      type: enum
+      version_ranges: &id011
+      - - v7.6.1
+        - ''
+      choices: &id010
+      - disable
+      - enable
+      default: enable
+      description: Enable/disable use for NAT traversal. Please enable if your FortiGate device is behind a NAT/PAT device.
+      source_attribute: nat-traversal
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id011
+        description: Enable/disable use for NAT traversal. Please enable if your FortiGate device is behind a NAT/PAT device.
+        source_attribute: nat_traversal
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: nat_traversal
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable use for NAT traversal. Please enable if your FortiGate device is behind a NAT/PAT device.
+        default: enable
+        source_attribute: nat-traversal
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  psksecret:
+    canonical:
+      type: password-3
+      version_ranges: &id012
+      - - v7.6.1
+        - ''
+      description: Pre-shared secret for PSK authentication. Auto-generated if not specified
+      source_attribute: psksecret
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id012
+        description: Pre-shared secret for PSK authentication. Auto-generated if not specified
+        source_attribute: psksecret
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: psksecret
+      cli_reference:
+        type: password-3
+        raw_type: password-3
+        description: Pre-shared secret for PSK authentication. Auto-generated if not specified
+        source_attribute: psksecret
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id013
+          primitive: string
+          format: password-3
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id013
+  remote_cidr:
+    canonical:
+      type: ipv4-classnet
+      version_ranges: &id014
+      - - v7.6.1
+        - ''
+      default: 0.0.0.0 0.0.0.0
+      description: Remote subnet address and subnet mask.
+      source_attribute: remote-cidr
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: Remote subnet address and subnet mask.
+        source_attribute: remote_cidr
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: remote_cidr
+      cli_reference:
+        type: ipv4-classnet
+        raw_type: ipv4-classnet
+        description: Remote subnet address and subnet mask.
+        default: 0.0.0.0 0.0.0.0
+        source_attribute: remote-cidr
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id015
+          primitive: string
+          format: ipv4-classnet
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id015
+  remote_type:
+    canonical:
+      type: enum
+      version_ranges: &id017
+      - - v7.6.1
+        - ''
+      choices: &id016
+      - vgw
+      - tgw
+      default: vgw
+      description: Type of remote device.
+      source_attribute: remote-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id016
+        version_ranges: *id017
+        description: Type of remote device.
+        source_attribute: remote_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: remote_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Type of remote device.
+        default: vgw
+        source_attribute: remote-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  routing_type:
+    canonical:
+      type: enum
+      version_ranges: &id019
+      - - v7.6.1
+        - ''
+      choices: &id018
+      - static
+      - dynamic
+      default: dynamic
+      description: Type of routing.
+      source_attribute: routing-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id018
+        version_ranges: *id019
+        description: Type of routing.
+        source_attribute: routing_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: routing_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Type of routing.
+        default: dynamic
+        source_attribute: routing-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sdn:
+    canonical:
+      type: string
+      references: &id021
+      - system.sdn-connector.name
+      version_ranges: &id020
+      - - v7.6.1
+        - ''
+      min_length: 0
+      max_length: 35
+      description: SDN connector name.
+      source_attribute: sdn
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id020
+        description: SDN connector name. Source system.sdn-connector.name.
+        references: *id021
+        source_attribute: sdn
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: sdn
+      cli_reference:
+        type: string
+        raw_type: string
+        description: SDN connector name.
+        max_length: 35
+        source_attribute: sdn
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: integer
+      default: '0'
+      min: 0
+      max: 255
+      description: SDN VPN status. Read-only.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 255
+        source_attribute: status
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: SDN VPN status. Read-only.
+        default: '0'
+        min: 0
+        max: 255
+        source_attribute: status
+    sources:
+    - cli_reference
+    - terraform
+  subnet_id:
+    canonical:
+      type: string
+      version_ranges: &id022
+      - - v7.6.1
+        - ''
+      min_length: 0
+      max_length: 63
+      description: AWS subnet id for TGW route propagation.
+      source_attribute: subnet-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id022
+        description: AWS subnet id for TGW route propagation.
+        source_attribute: subnet_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: subnet_id
+      cli_reference:
+        type: string
+        raw_type: string
+        description: AWS subnet id for TGW route propagation.
+        max_length: 63
+        source_attribute: subnet-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  tgw_id:
+    canonical:
+      type: string
+      version_ranges: &id023
+      - - v7.6.1
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Transit gateway id.
+      source_attribute: tgw-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id023
+        description: Transit gateway id.
+        source_attribute: tgw_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: tgw_id
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Transit gateway id.
+        max_length: 63
+        source_attribute: tgw-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  tunnel_interface:
+    canonical:
+      type: string
+      references: &id025
+      - system.interface.name
+      version_ranges: &id024
+      - - v7.6.1
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Tunnel interface with public IP.
+      source_attribute: tunnel-interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id024
+        description: Tunnel interface with public IP. Source system.interface.name.
+        references: *id025
+        source_attribute: tunnel_interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: tunnel_interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Tunnel interface with public IP.
+        max_length: 15
+        source_attribute: tunnel-interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  type:
+    canonical:
+      type: integer
+      default: '0'
+      min: 0
+      max: 65535
+      description: SDN VPN type. Read-only.
+      source_attribute: type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: type
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: SDN VPN type. Read-only.
+        default: '0'
+        min: 0
+        max: 65535
+        source_attribute: type
+    sources:
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  vgw_id:
+    canonical:
+      type: string
+      version_ranges: &id026
+      - - v7.6.1
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Virtual private gateway id.
+      source_attribute: vgw-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id026
+        description: Virtual private gateway id.
+        source_attribute: vgw_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: vgw_id
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Virtual private gateway id.
+        max_length: 63
+        source_attribute: vgw-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: cgw_gateway
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict
+- attribute: local_cidr
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-classnet
+  classification: representation_or_real_conflict
+- attribute: psksecret
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password-3
+  classification: representation_or_real_conflict
+- attribute: remote_cidr
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-classnet
+  classification: representation_or_real_conflict

@@ -1,0 +1,645 @@
+id: firewall.on-demand-sniffer
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  advanced_filter:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v7.4.4
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Advanced freeform filter that will be used over existing filter settings if set. Can only be used by super
+        admin.
+      source_attribute: advanced-filter
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Advanced freeform filter that will be used over existing filter settings if set. Can only be used by
+          super admin.
+        source_attribute: advanced_filter
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: advanced_filter
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Advanced freeform filter that will be used over existing filter settings if set. Can only be used by
+          super admin.
+        max_length: 255
+        source_attribute: advanced-filter
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  hosts:
+    canonical:
+      type: list
+      elements: dict
+      children: &id003
+        host:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id005
+          - - v7.4.4
+            - ''
+          description: IPv4 or IPv6 host.
+      version_ranges: &id002
+      - - v7.4.4
+        - ''
+      max_length: 255
+      description: IPv4 or IPv6 hosts to filter in this traffic sniffer. IPv4 or IPv6 host.
+      source_attribute: hosts
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id002
+        description: IPv4 or IPv6 hosts to filter in this traffic sniffer.
+        children: *id003
+        source_attribute: hosts
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          host:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 255
+        source_attribute: hosts
+      cli_reference:
+        type: string
+        raw_type: string
+        description: IPv4 or IPv6 hosts to filter in this traffic sniffer. IPv4 or IPv6 host.
+        max_length: 255
+        source_attribute: hosts
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id004
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id004
+  hosts.host:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id005
+      min_length: 0
+      max_length: 255
+      description: IPv4 or IPv6 host.
+      source_attribute: hosts.host
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id005
+        description: IPv4 or IPv6 host.
+        source_attribute: hosts.host
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: hosts.host
+    sources:
+    - ansible
+    - terraform
+  interface:
+    canonical:
+      type: string
+      references: &id007
+      - system.interface.name
+      version_ranges: &id006
+      - - v7.4.4
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Interface name that on-demand packet sniffer will take place.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id006
+        description: Interface name that on-demand packet sniffer will take place. Source system.interface.name.
+        references: *id007
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Interface name that on-demand packet sniffer will take place.
+        max_length: 35
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  max_packet_count:
+    canonical:
+      type: integer
+      version_ranges: &id008
+      - - v7.4.4
+        - ''
+      default: '0'
+      min: 1
+      max: 20000
+      description: Maximum number of packets to capture per on-demand packet sniffer.
+      source_attribute: max-packet-count
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id008
+        description: Maximum number of packets to capture per on-demand packet sniffer.
+        source_attribute: max_packet_count
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 20000
+        source_attribute: max_packet_count
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum number of packets to capture per on-demand packet sniffer.
+        default: '0'
+        min: 1
+        max: 20000
+        source_attribute: max-packet-count
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id009
+      - - v7.4.4
+        - ''
+      min_length: 0
+      max_length: 35
+      description: On-demand packet sniffer name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id009
+        description: On-demand packet sniffer name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: On-demand packet sniffer name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  non_ip_packet:
+    canonical:
+      type: enum
+      version_ranges: &id011
+      - - v7.4.4
+        - ''
+      choices: &id010
+      - enable
+      - disable
+      default: disable
+      description: Include non-IP packets.
+      source_attribute: non-ip-packet
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id011
+        description: Include non-IP packets.
+        source_attribute: non_ip_packet
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: non_ip_packet
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Include non-IP packets.
+        default: disable
+        source_attribute: non-ip-packet
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ports:
+    canonical:
+      type: list
+      elements: dict
+      children: &id013
+        port:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id015
+          - - v7.4.4
+            - ''
+          description: Port to filter in this traffic sniffer. see <a href='#notes'>Notes</a>.
+      version_ranges: &id012
+      - - v7.4.4
+        - ''
+      min: 1
+      max: 65536
+      description: Ports to filter for in this traffic sniffer. Port to filter in this traffic sniffer.
+      source_attribute: ports
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id012
+        description: Ports to filter for in this traffic sniffer.
+        children: *id013
+        source_attribute: ports
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          port:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 65536
+        source_attribute: ports
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Ports to filter for in this traffic sniffer. Port to filter in this traffic sniffer.
+        min: 1
+        max: 65536
+        source_attribute: ports
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id014
+          element_type: integer
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id014
+  ports.port:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id015
+      min: 1
+      max: 65536
+      description: Port to filter in this traffic sniffer. see <a href='#notes'>Notes</a>.
+      source_attribute: ports.port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id015
+        description: Port to filter in this traffic sniffer. see <a href='#notes'>Notes</a>.
+        source_attribute: ports.port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 65536
+        source_attribute: ports.port
+    sources:
+    - ansible
+    - terraform
+  protocols:
+    canonical:
+      type: list
+      elements: dict
+      children: &id017
+        protocol:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id019
+          - - v7.4.4
+            - ''
+          description: Integer value for the protocol type as defined by IANA (0 - 255). see <a href='#notes'>Notes</a>.
+      version_ranges: &id016
+      - - v7.4.4
+        - ''
+      min: 0
+      max: 255
+      description: Protocols to filter in this traffic sniffer. Integer value for the protocol type as defined by IANA (0
+        - 255).
+      source_attribute: protocols
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id016
+        description: Protocols to filter in this traffic sniffer.
+        children: *id017
+        source_attribute: protocols
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          protocol:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 255
+        source_attribute: protocols
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Protocols to filter in this traffic sniffer. Integer value for the protocol type as defined by IANA (0
+          - 255).
+        min: 0
+        max: 255
+        source_attribute: protocols
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id018
+          element_type: integer
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id018
+  protocols.protocol:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id019
+      min: 0
+      max: 255
+      description: Integer value for the protocol type as defined by IANA (0 - 255). see <a href='#notes'>Notes</a>.
+      source_attribute: protocols.protocol
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id019
+        description: Integer value for the protocol type as defined by IANA (0 - 255). see <a href='#notes'>Notes</a>.
+        source_attribute: protocols.protocol
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: protocols.protocol
+    sources:
+    - ansible
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: hosts
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: ports
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: integer
+  classification: representation_or_real_conflict
+- attribute: protocols
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: integer
+  classification: representation_or_real_conflict

@@ -1,0 +1,607 @@
+id: system.evpn
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  adv_default_gw:
+    canonical:
+      type: string
+      source_attribute: adv_default_gw
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: adv_default_gw
+    sources:
+    - terraform
+  arp_suppression:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.4.0
+        - ''
+      choices: &id001
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable ARP suppression.
+      source_attribute: arp-suppression
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable ARP suppression.
+        source_attribute: arp_suppression
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: arp_suppression
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable ARP suppression.
+        default: disable
+        source_attribute: arp-suppression
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  distribute_local_route:
+    canonical:
+      type: string
+      source_attribute: distribute_local_route
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: distribute_local_route
+    sources:
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  export_rt:
+    canonical:
+      type: list
+      elements: dict
+      children: &id004
+        route_target:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id006
+          - - v7.4.0
+            - ''
+          description: 'Route target: AA:NN|A.B.C.D:NN.'
+      version_ranges: &id003
+      - - v7.4.0
+        - ''
+      max_length: 79
+      description: 'List of export route targets. Route target: AA:NN|A.B.C.D:NN.'
+      source_attribute: export-rt
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id003
+        description: List of export route targets.
+        children: *id004
+        source_attribute: export_rt
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          route_target:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: export_rt
+      cli_reference:
+        type: string
+        raw_type: string
+        description: 'List of export route targets. Route target: AA:NN|A.B.C.D:NN.'
+        max_length: 79
+        source_attribute: export-rt
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id005
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id005
+  export_rt.route_target:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id006
+      min_length: 0
+      max_length: 79
+      description: 'Route target: AA:NN|A.B.C.D:NN.'
+      source_attribute: export_rt.route_target
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id006
+        description: 'Route target: AA:NN|A.B.C.D:NN.'
+        source_attribute: export_rt.route_target
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: export_rt.route_target
+    sources:
+    - ansible
+    - terraform
+  fosid:
+    canonical:
+      type: integer
+      min: 1
+      max: 65535
+      source_attribute: fosid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        force_new: true
+        min: 1
+        max: 65535
+        source_attribute: fosid
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id007
+      - - v7.4.0
+        - ''
+      default: '0'
+      min: 1
+      max: 65535
+      description: ID.
+      source_attribute: id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id007
+        description: ID. see <a href='#notes'>Notes</a>.
+        source_attribute: id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: ID.
+        default: '0'
+        min: 1
+        max: 65535
+        source_attribute: id
+    sources:
+    - ansible
+    - cli_reference
+  import_rt:
+    canonical:
+      type: list
+      elements: dict
+      children: &id009
+        route_target:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id011
+          - - v7.4.0
+            - ''
+          description: 'Route target: AA:NN|A.B.C.D:NN.'
+      version_ranges: &id008
+      - - v7.4.0
+        - ''
+      max_length: 79
+      description: 'List of import route targets. Route target: AA:NN|A.B.C.D:NN.'
+      source_attribute: import-rt
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id008
+        description: List of import route targets.
+        children: *id009
+        source_attribute: import_rt
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          route_target:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: import_rt
+      cli_reference:
+        type: string
+        raw_type: string
+        description: 'List of import route targets. Route target: AA:NN|A.B.C.D:NN.'
+        max_length: 79
+        source_attribute: import-rt
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id010
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id010
+  import_rt.route_target:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id011
+      min_length: 0
+      max_length: 79
+      description: 'Route target: AA:NN|A.B.C.D:NN.'
+      source_attribute: import_rt.route_target
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id011
+        description: 'Route target: AA:NN|A.B.C.D:NN.'
+        source_attribute: import_rt.route_target
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: import_rt.route_target
+    sources:
+    - ansible
+    - terraform
+  interface:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 15
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - terraform
+  ip_local_learning:
+    canonical:
+      type: enum
+      version_ranges: &id013
+      - - v7.4.0
+        - ''
+      choices: &id012
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable IP address local learning.
+      source_attribute: ip-local-learning
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id012
+        version_ranges: *id013
+        description: Enable/disable IP address local learning.
+        source_attribute: ip_local_learning
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ip_local_learning
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable IP address local learning.
+        default: disable
+        source_attribute: ip-local-learning
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  l3_instance:
+    canonical:
+      type: integer
+      source_attribute: l3_instance
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: l3_instance
+    sources:
+    - terraform
+  rd:
+    canonical:
+      type: string
+      version_ranges: &id014
+      - - v7.4.0
+        - ''
+      min_length: 0
+      max_length: 79
+      description: 'Route Distinguisher: AA:NN|A.B.C.D:NN.'
+      source_attribute: rd
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: 'Route Distinguisher: AA:NN|A.B.C.D:NN.'
+        source_attribute: rd
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: rd
+      cli_reference:
+        type: string
+        raw_type: string
+        description: 'Route Distinguisher: AA:NN|A.B.C.D:NN.'
+        max_length: 79
+        source_attribute: rd
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  type:
+    canonical:
+      type: string
+      source_attribute: type
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: type
+    sources:
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  virtual_mac_vrid:
+    canonical:
+      type: integer
+      min: 1
+      max: 255
+      source_attribute: virtual_mac_vrid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 255
+        source_attribute: virtual_mac_vrid
+    sources:
+    - terraform
+conflicts:
+- attribute: export_rt
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: import_rt
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

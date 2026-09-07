@@ -1,0 +1,488 @@
+id: webfilter.content-header
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Optional comments.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Optional comments.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Optional comments.
+        max_length: 255
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  entries:
+    canonical:
+      type: list
+      elements: dict
+      children: &id003
+        pattern:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id008
+          - - v6.0.0
+            - ''
+          description: Content type (regular expression).
+        action:
+          type: enum
+          raw_type: string
+          choices: &id005
+          - block
+          - allow
+          - exempt
+          version_ranges: &id004
+          - - v6.0.0
+            - ''
+          description: Action to take for this content type.
+        category:
+          type: list
+          raw_type: list
+          multiple_values: true
+          elements: str
+          version_ranges: &id006
+          - - v6.0.0
+            - ''
+          description: Categories that this content type applies to.
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      description: Configure content types used by web filter.
+      source_attribute: entries
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id002
+        description: Configure content types used by web filter.
+        children: *id003
+        source_attribute: entries
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          pattern:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 31
+          action:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          category:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: entries
+    sources:
+    - ansible
+    - terraform
+  entries.action:
+    canonical:
+      type: enum
+      version_ranges: *id004
+      choices: *id005
+      description: Action to take for this content type.
+      source_attribute: entries.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id004
+        description: Action to take for this content type.
+        source_attribute: entries.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.action
+    sources:
+    - ansible
+    - terraform
+  entries.category:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: *id006
+      description: Categories that this content type applies to.
+      source_attribute: entries.category
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id006
+        description: Categories that this content type applies to.
+        source_attribute: entries.category
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.category
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id007
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id007
+  entries.pattern:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id008
+      min_length: 0
+      max_length: 31
+      description: Content type (regular expression).
+      source_attribute: entries.pattern
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id008
+        description: Content type (regular expression).
+        source_attribute: entries.pattern
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 31
+        source_attribute: entries.pattern
+    sources:
+    - ansible
+    - terraform
+  fabric_force_sync:
+    canonical:
+      type: string
+      source_attribute: fabric_force_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_force_sync
+    sources:
+    - terraform
+  fabric_object:
+    canonical:
+      type: string
+      source_attribute: fabric_object
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object
+    sources:
+    - terraform
+  fabric_object_source:
+    canonical:
+      type: string
+      source_attribute: fabric_object_source
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object_source
+    sources:
+    - terraform
+  fosid:
+    canonical:
+      type: integer
+      required: true
+      source_attribute: fosid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      required: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        required: true
+        force_new: true
+        source_attribute: fosid
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: ID.
+      source_attribute: id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id009
+        description: ID. see <a href='#notes'>Notes</a>.
+        source_attribute: id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: id
+    sources:
+    - ansible
+    - cli_reference
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id010
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Name of table.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id010
+        description: Name of table.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 63
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of table.
+        max_length: 63
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  uuid:
+    canonical:
+      type: string
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: entries.category
+  field: type
+  values:
+    ansible: list
+    terraform: string
+  classification: representation_or_real_conflict

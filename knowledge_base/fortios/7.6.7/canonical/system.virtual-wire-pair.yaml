@@ -1,0 +1,441 @@
+id: system.virtual-wire-pair
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  member:
+    canonical:
+      type: list
+      elements: dict
+      children: &id002
+        interface_name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id005
+          - - v6.0.0
+            - ''
+          description: Interface name. Source system.interface.name.
+          references: &id004
+          - system.interface.name
+      required: true
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Interfaces belong to the virtual-wire-pair. Interface name.
+      source_attribute: member
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      required: terraform
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id001
+        description: Interfaces belong to the virtual-wire-pair.
+        children: *id002
+        source_attribute: member
+      terraform:
+        type: list
+        raw_type: TypeSet
+        required: true
+        children:
+          interface_name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: member
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Interfaces belong to the virtual-wire-pair. Interface name.
+        max_length: 79
+        source_attribute: member
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id003
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id003
+  member.interface_name:
+    canonical:
+      type: string
+      references: *id004
+      required: true
+      version_ranges: *id005
+      min_length: 0
+      max_length: 79
+      description: Interface name. Source system.interface.name.
+      source_attribute: member.interface_name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id005
+        description: Interface name. Source system.interface.name.
+        references: *id004
+        source_attribute: member.interface_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: member.interface_name
+    sources:
+    - ansible
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 11
+      description: Virtual-wire-pair name. Must be a unique interface name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id006
+        description: Virtual-wire-pair name. Must be a unique interface name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 11
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Virtual-wire-pair name. Must be a unique interface name.
+        max_length: 11
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  outer_vlan_id:
+    canonical:
+      type: list
+      children: &id007
+        vlanid:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+          min: 1
+          max: 4094
+      min: 1
+      max: 4094
+      description: Outer VLAN ID. VLAN ID (1 - 4094).
+      source_attribute: outer-vlan-id
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id007
+        source_attribute: outer_vlan_id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Outer VLAN ID. VLAN ID (1 - 4094).
+        min: 1
+        max: 4094
+        source_attribute: outer-vlan-id
+    sources:
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id008
+          element_type: integer
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id008
+  outer_vlan_id.vlanid:
+    canonical:
+      type: integer
+      min: 1
+      max: 4094
+      source_attribute: outer_vlan_id.vlanid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 4094
+        source_attribute: outer_vlan_id.vlanid
+    sources:
+    - terraform
+  poweroff_bypass:
+    canonical:
+      type: enum
+      default: disable
+      description: Enable/disable interface bypass state when power off.
+      source_attribute: poweroff-bypass
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable interface bypass state when power off.
+        default: disable
+        source_attribute: poweroff-bypass
+    sources:
+    - cli_reference
+  poweron_bypass:
+    canonical:
+      type: enum
+      default: disable
+      description: Enable/disable interface bypass state when power on.
+      source_attribute: poweron-bypass
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable interface bypass state when power on.
+        default: disable
+        source_attribute: poweron-bypass
+    sources:
+    - cli_reference
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  vlan_filter:
+    canonical:
+      type: string
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      description: VLAN ranges to allow
+      source_attribute: vlan-filter
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id009
+        description: VLAN ranges to allow
+        source_attribute: vlan_filter
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: vlan_filter
+      cli_reference:
+        type: string
+        raw_type: user
+        description: VLAN ranges to allow
+        source_attribute: vlan-filter
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  wildcard_vlan:
+    canonical:
+      type: enum
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      choices: &id010
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable wildcard VLAN.
+      source_attribute: wildcard-vlan
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id011
+        description: Enable/disable wildcard VLAN.
+        source_attribute: wildcard_vlan
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: wildcard_vlan
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable wildcard VLAN.
+        default: disable
+        source_attribute: wildcard-vlan
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: member
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: outer_vlan_id
+  field: type
+  values:
+    terraform: list
+    cli_reference: integer
+  classification: representation_or_real_conflict

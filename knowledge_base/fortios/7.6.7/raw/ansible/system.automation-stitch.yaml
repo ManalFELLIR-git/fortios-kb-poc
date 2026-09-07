@@ -1,0 +1,133 @@
+id: system.automation-stitch
+version: 7.6.7
+source_object: fortios_system_automation_stitch
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_system_automation_stitch.py
+root_type: list
+attributes:
+  name:
+    type: string
+    raw_type: string
+    required: true
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Name.
+  description:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v7.0.0
+      - ''
+    description: Description.
+  status:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable this stitch.
+  trigger:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Trigger name. Source system.automation-trigger.name.
+    references:
+    - system.automation-trigger.name
+  condition:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v7.6.1
+      - ''
+    description: Automation conditions.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v7.6.1
+          - ''
+        description: Condition name. Source system.automation-condition.name.
+        references:
+        - system.automation-condition.name
+  condition_logic:
+    type: enum
+    raw_type: string
+    choices:
+    - and
+    - or
+    version_ranges:
+    - - v7.6.1
+      - ''
+    description: Apply AND/OR logic to the specified automation conditions.
+  actions:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v7.0.1
+      - ''
+    description: Configure stitch actions.
+    children:
+      id:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v7.0.1
+          - ''
+        description: Entry ID. see <a href='#notes'>Notes</a>.
+      action:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.0.1
+          - ''
+        description: Action name. Source system.automation-action.name.
+        references:
+        - system.automation-action.name
+      delay:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.0.1
+          - ''
+        description: Delay before execution (in seconds).
+      required:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v7.0.1
+          - ''
+        description: Required in action chain.
+  destination:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Serial number/HA group-name of destination devices.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Destination name. Source system.automation-destination.name.
+        references:
+        - system.automation-destination.name

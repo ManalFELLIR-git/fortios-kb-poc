@@ -1,0 +1,572 @@
+id: system.vne-interface
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  auto_asic_offload:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.6.0
+        - ''
+      choices: &id001
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable tunnel ASIC offloading.
+      source_attribute: auto-asic-offload
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable tunnel ASIC offloading.
+        source_attribute: auto_asic_offload
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auto_asic_offload
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable tunnel ASIC offloading.
+        default: enable
+        source_attribute: auto-asic-offload
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  bmr_hostname:
+    canonical:
+      type: password
+      version_ranges: &id003
+      - - v7.6.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: BMR hostname.
+      source_attribute: bmr-hostname
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: BMR hostname.
+        source_attribute: bmr_hostname
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: bmr_hostname
+      cli_reference:
+        type: password
+        raw_type: password
+        description: BMR hostname.
+        source_attribute: bmr-hostname
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id004
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id004
+  br:
+    canonical:
+      type: string
+      version_ranges: &id005
+      - - v7.6.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: IPv6 address or FQDN of the border relay.
+      source_attribute: br
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: IPv6 address or FQDN of the border relay.
+        source_attribute: br
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: br
+      cli_reference:
+        type: string
+        raw_type: string
+        description: IPv6 address or FQDN of the border relay.
+        max_length: 255
+        source_attribute: br
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  http_password:
+    canonical:
+      type: password
+      version_ranges: &id006
+      - - v7.6.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: HTTP authentication password.
+      source_attribute: http-password
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id006
+        description: HTTP authentication password.
+        source_attribute: http_password
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: http_password
+      cli_reference:
+        type: password
+        raw_type: password
+        description: HTTP authentication password.
+        source_attribute: http-password
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id007
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id007
+  http_username:
+    canonical:
+      type: string
+      version_ranges: &id008
+      - - v7.6.0
+        - ''
+      min_length: 0
+      max_length: 64
+      description: HTTP authentication user name.
+      source_attribute: http-username
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: HTTP authentication user name.
+        source_attribute: http_username
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 64
+        source_attribute: http_username
+      cli_reference:
+        type: string
+        raw_type: string
+        description: HTTP authentication user name.
+        max_length: 64
+        source_attribute: http-username
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface:
+    canonical:
+      type: string
+      references: &id010
+      - system.interface.name
+      version_ranges: &id009
+      - - v7.6.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Interface name.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id009
+        description: Interface name. Source system.interface.name.
+        references: *id010
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Interface name.
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ipv4_address:
+    canonical:
+      type: ipv4-classnet-host
+      version_ranges: &id011
+      - - v7.6.0
+        - ''
+      default: 0.0.0.0 0.0.0.0
+      description: Tunnel IPv4 address and netmask.
+      source_attribute: ipv4-address
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: Tunnel IPv4 address and netmask.
+        source_attribute: ipv4_address
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ipv4_address
+      cli_reference:
+        type: ipv4-classnet-host
+        raw_type: ipv4-classnet-host
+        description: Tunnel IPv4 address and netmask.
+        default: 0.0.0.0 0.0.0.0
+        source_attribute: ipv4-address
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id012
+          primitive: string
+          format: ipv4-classnet-host
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id012
+  mode:
+    canonical:
+      type: enum
+      version_ranges: &id014
+      - - v7.6.0
+        - ''
+      choices: &id013
+      - map-e
+      - fixed-ip
+      - ds-lite
+      default: map-e
+      description: VNE tunnel mode.
+      source_attribute: mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id014
+        description: VNE tunnel mode.
+        source_attribute: mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: VNE tunnel mode.
+        default: map-e
+        source_attribute: mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id015
+      - - v7.6.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: VNE tunnel name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id015
+        description: VNE tunnel name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 15
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: VNE tunnel name.
+        max_length: 15
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssl_certificate:
+    canonical:
+      type: string
+      references: &id017
+      - certificate.local.name
+      version_ranges: &id016
+      - - v7.6.0
+        - ''
+      default: Fortinet_Factory **
+      min_length: 0
+      max_length: 35
+      description: Name of local certificate for SSL connections.
+      source_attribute: ssl-certificate
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id016
+        description: Name of local certificate for SSL connections. Source certificate.local.name.
+        references: *id017
+        source_attribute: ssl_certificate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 35
+        source_attribute: ssl_certificate
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of local certificate for SSL connections.
+        default: Fortinet_Factory **
+        max_length: 35
+        source_attribute: ssl-certificate
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  update_url:
+    canonical:
+      type: string
+      version_ranges: &id018
+      - - v7.6.0
+        - ''
+      min_length: 0
+      max_length: 511
+      description: URL of provisioning server.
+      source_attribute: update-url
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id018
+        description: URL of provisioning server.
+        source_attribute: update_url
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 511
+        source_attribute: update_url
+      cli_reference:
+        type: string
+        raw_type: string
+        description: URL of provisioning server.
+        max_length: 511
+        source_attribute: update-url
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: bmr_hostname
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict
+- attribute: http_password
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict
+- attribute: ipv4_address
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-classnet-host
+  classification: representation_or_real_conflict

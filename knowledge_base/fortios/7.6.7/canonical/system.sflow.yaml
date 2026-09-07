@@ -1,0 +1,587 @@
+id: system.sflow
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  collector_ip:
+    canonical:
+      type: ipv4-address
+      required: true
+      default: 0.0.0.0
+      description: IP addresses of the sFlow collectors that sFlow agents added to interfaces in this VDOM send sFlow datagrams
+        to.
+      source_attribute: collector-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: collector_ip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: IP addresses of the sFlow collectors that sFlow agents added to interfaces in this VDOM send sFlow datagrams
+          to.
+        default: 0.0.0.0
+        source_attribute: collector-ip
+    sources:
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id001
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id001
+  collector_port:
+    canonical:
+      type: integer
+      default: '6343'
+      min: 0
+      max: 65535
+      description: UDP port number used for sending sFlow datagrams (configure only if required by your sFlow collector or
+        your network configuration) (0 - 65535, default = 6343).
+      source_attribute: collector-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: collector_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: UDP port number used for sending sFlow datagrams (configure only if required by your sFlow collector
+          or your network configuration) (0 - 65535, default = 6343).
+        default: '6343'
+        min: 0
+        max: 65535
+        source_attribute: collector-port
+    sources:
+    - cli_reference
+    - terraform
+  collectors:
+    canonical:
+      type: list
+      elements: dict
+      children: &id003
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id006
+          - - v7.4.2
+            - ''
+          description: ID. see <a href='#notes'>Notes</a>.
+        collector_ip:
+          type: string
+          raw_type: string
+          version_ranges: &id004
+          - - v7.4.2
+            - ''
+          description: IP addresses of the sFlow collectors that sFlow agents added to interfaces in this VDOM send sFlow
+            datagrams to.
+        collector_port:
+          type: integer
+          raw_type: integer
+          version_ranges: &id005
+          - - v7.4.2
+            - ''
+          description: UDP port number used for sending sFlow datagrams (configure only if required by your sFlow collector
+            or your network configuration) (0 - 65535).
+        source_ip:
+          type: string
+          raw_type: string
+          version_ranges: &id011
+          - - v7.4.2
+            - ''
+          description: Source IP address for sFlow agent.
+        interface_select_method:
+          type: enum
+          raw_type: string
+          choices: &id010
+          - auto
+          - sdwan
+          - specify
+          version_ranges: &id009
+          - - v7.4.2
+            - ''
+          description: Specify how to select outgoing interface to reach server.
+        interface:
+          type: string
+          raw_type: string
+          version_ranges: &id008
+          - - v7.4.2
+            - ''
+          description: Specify outgoing interface to reach server. Source system.interface.name.
+          references: &id007
+          - system.interface.name
+      version_ranges: &id002
+      - - v7.4.2
+        - ''
+      description: sFlow collectors.
+      source_attribute: collectors
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id002
+        description: sFlow collectors.
+        children: *id003
+        source_attribute: collectors
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          collector_ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          collector_port:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 65535
+          source_ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          interface_select_method:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+        source_attribute: collectors
+    sources:
+    - ansible
+    - terraform
+  collectors.collector_ip:
+    canonical:
+      type: string
+      version_ranges: *id004
+      description: IP addresses of the sFlow collectors that sFlow agents added to interfaces in this VDOM send sFlow datagrams
+        to.
+      source_attribute: collectors.collector_ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id004
+        description: IP addresses of the sFlow collectors that sFlow agents added to interfaces in this VDOM send sFlow datagrams
+          to.
+        source_attribute: collectors.collector_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: collectors.collector_ip
+    sources:
+    - ansible
+    - terraform
+  collectors.collector_port:
+    canonical:
+      type: integer
+      version_ranges: *id005
+      min: 0
+      max: 65535
+      description: UDP port number used for sending sFlow datagrams (configure only if required by your sFlow collector or
+        your network configuration) (0 - 65535).
+      source_attribute: collectors.collector_port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id005
+        description: UDP port number used for sending sFlow datagrams (configure only if required by your sFlow collector
+          or your network configuration) (0 - 65535).
+        source_attribute: collectors.collector_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: collectors.collector_port
+    sources:
+    - ansible
+    - terraform
+  collectors.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id006
+      description: ID. see <a href='#notes'>Notes</a>.
+      source_attribute: collectors.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id006
+        description: ID. see <a href='#notes'>Notes</a>.
+        source_attribute: collectors.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: collectors.id
+    sources:
+    - ansible
+    - terraform
+  collectors.interface:
+    canonical:
+      type: string
+      references: *id007
+      version_ranges: *id008
+      min_length: 0
+      max_length: 15
+      description: Specify outgoing interface to reach server. Source system.interface.name.
+      source_attribute: collectors.interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: Specify outgoing interface to reach server. Source system.interface.name.
+        references: *id007
+        source_attribute: collectors.interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: collectors.interface
+    sources:
+    - ansible
+    - terraform
+  collectors.interface_select_method:
+    canonical:
+      type: enum
+      version_ranges: *id009
+      choices: *id010
+      description: Specify how to select outgoing interface to reach server.
+      source_attribute: collectors.interface_select_method
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id009
+        description: Specify how to select outgoing interface to reach server.
+        source_attribute: collectors.interface_select_method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: collectors.interface_select_method
+    sources:
+    - ansible
+    - terraform
+  collectors.source_ip:
+    canonical:
+      type: string
+      version_ranges: *id011
+      description: Source IP address for sFlow agent.
+      source_attribute: collectors.source_ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: Source IP address for sFlow agent.
+        source_attribute: collectors.source_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: collectors.source_ip
+    sources:
+    - ansible
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  id:
+    canonical:
+      type: integer
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: ID.
+      source_attribute: id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: id
+    sources:
+    - cli_reference
+  interface:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 15
+      description: Specify outgoing interface to reach server.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Specify outgoing interface to reach server.
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - cli_reference
+    - terraform
+  interface_select_method:
+    canonical:
+      type: enum
+      default: auto
+      description: Specify how to select outgoing interface to reach server.
+      source_attribute: interface-select-method
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface_select_method
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Specify how to select outgoing interface to reach server.
+        default: auto
+        source_attribute: interface-select-method
+    sources:
+    - cli_reference
+    - terraform
+  source_ip:
+    canonical:
+      type: ipv4-address
+      default: 0.0.0.0
+      description: Source IP address for sFlow agent.
+      source_attribute: source-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_ip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Source IP address for sFlow agent.
+        default: 0.0.0.0
+        source_attribute: source-ip
+    sources:
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id012
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id012
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: collector_ip
+  field: type
+  values:
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: source_ip
+  field: type
+  values:
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict

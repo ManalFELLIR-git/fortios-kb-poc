@@ -1,0 +1,541 @@
+id: vpn.ipsec.manualkey
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  authentication:
+    canonical:
+      type: enum
+      required: true
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - 'null'
+      - md5
+      - sha1
+      - sha256
+      - sha384
+      - sha512
+      default: 'null'
+      description: Authentication algorithm. Must be the same for both ends of the tunnel.
+      source_attribute: authentication
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Authentication algorithm. Must be the same for both ends of the tunnel.
+        source_attribute: authentication
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: authentication
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Authentication algorithm. Must be the same for both ends of the tunnel.
+        default: 'null'
+        source_attribute: authentication
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  authkey:
+    canonical:
+      type: string
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      description: Hexadecimal authentication key in 16-digit (8-byte) segments separated by hyphens.
+      source_attribute: authkey
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Hexadecimal authentication key in 16-digit (8-byte) segments separated by hyphens.
+        source_attribute: authkey
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: authkey
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Hexadecimal authentication key in 16-digit (8-byte) segments separated by hyphens.
+        source_attribute: authkey
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  enckey:
+    canonical:
+      type: string
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      description: Hexadecimal encryption key in 16-digit (8-byte) segments separated by hyphens.
+      source_attribute: enckey
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id004
+        description: Hexadecimal encryption key in 16-digit (8-byte) segments separated by hyphens.
+        source_attribute: enckey
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: enckey
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Hexadecimal encryption key in 16-digit (8-byte) segments separated by hyphens.
+        source_attribute: enckey
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  encryption:
+    canonical:
+      type: enum
+      required: true
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      choices: &id005
+      - 'null'
+      - des
+      - 3des
+      - aes128
+      - aes192
+      - aes256
+      - aria128
+      - aria192
+      - aria256
+      - seed
+      default: 'null'
+      description: Encryption algorithm. Must be the same for both ends of the tunnel.
+      source_attribute: encryption
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Encryption algorithm. Must be the same for both ends of the tunnel.
+        source_attribute: encryption
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: encryption
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Encryption algorithm. Must be the same for both ends of the tunnel.
+        default: 'null'
+        source_attribute: encryption
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface:
+    canonical:
+      type: string
+      references: &id008
+      - system.interface.name
+      required: true
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Name of the physical, aggregate, or VLAN interface.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: Name of the physical, aggregate, or VLAN interface. Source system.interface.name.
+        references: *id008
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of the physical, aggregate, or VLAN interface.
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  local_gw:
+    canonical:
+      type: ipv4-address-any
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: Local gateway.
+      source_attribute: local-gw
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id009
+        description: Local gateway.
+        source_attribute: local_gw
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: local_gw
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: Local gateway.
+        default: 0.0.0.0
+        source_attribute: local-gw
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id010
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id010
+  localspi:
+    canonical:
+      type: string
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      description: Local SPI, a hexadecimal 8-digit (4-byte) tag. Discerns between two traffic streams with different encryption
+        rules.
+      source_attribute: localspi
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: Local SPI, a hexadecimal 8-digit (4-byte) tag. Discerns between two traffic streams with different encryption
+          rules.
+        source_attribute: localspi
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: localspi
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Local SPI, a hexadecimal 8-digit (4-byte) tag. Discerns between two traffic streams with different encryption
+          rules.
+        source_attribute: localspi
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id012
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: IPsec tunnel name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id012
+        description: IPsec tunnel name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: IPsec tunnel name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  npu_offload:
+    canonical:
+      type: enum
+      version_ranges: &id014
+      - - v6.0.0
+        - ''
+      choices: &id013
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable NPU offloading.
+      source_attribute: npu-offload
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id014
+        description: Enable/disable NPU offloading.
+        source_attribute: npu_offload
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: npu_offload
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable NPU offloading.
+        default: enable
+        source_attribute: npu-offload
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  remote_gw:
+    canonical:
+      type: ipv4-address
+      required: true
+      version_ranges: &id015
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: Peer gateway.
+      source_attribute: remote-gw
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id015
+        description: Peer gateway.
+        source_attribute: remote_gw
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: remote_gw
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Peer gateway.
+        default: 0.0.0.0
+        source_attribute: remote-gw
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id016
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id016
+  remotespi:
+    canonical:
+      type: string
+      version_ranges: &id017
+      - - v6.0.0
+        - ''
+      description: Remote SPI, a hexadecimal 8-digit (4-byte) tag. Discerns between two traffic streams with different encryption
+        rules.
+      source_attribute: remotespi
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id017
+        description: Remote SPI, a hexadecimal 8-digit (4-byte) tag. Discerns between two traffic streams with different encryption
+          rules.
+        source_attribute: remotespi
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: remotespi
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Remote SPI, a hexadecimal 8-digit (4-byte) tag. Discerns between two traffic streams with different encryption
+          rules.
+        source_attribute: remotespi
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: local_gw
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict
+- attribute: remote_gw
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict

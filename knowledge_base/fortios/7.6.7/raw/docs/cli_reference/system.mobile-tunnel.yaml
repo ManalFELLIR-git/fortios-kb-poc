@@ -1,0 +1,105 @@
+id: system.mobile-tunnel
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/283391146/config-system-mobile-tunnel
+attributes:
+  hash-algorithm:
+    type: enum
+    raw_type: option
+    description: Hash Algorithm (Keyed MD5).
+    default: hmac-md5
+  home-address:
+    type: ipv4-address
+    raw_type: ipv4-address
+    description: 'Home IP address (Format: xxx.xxx.xxx.xxx).'
+    default: 0.0.0.0
+  home-agent:
+    type: ipv4-address
+    raw_type: ipv4-address
+    description: 'IPv4 address of the NEMO HA (Format: xxx.xxx.xxx.xxx).'
+    default: 0.0.0.0
+  lifetime:
+    type: integer
+    raw_type: integer
+    description: NMMO HA registration request lifetime (180 - 65535 sec, default = 65535).
+    default: '65535'
+    min: 180
+    max: 65535
+  n-mhae-key:
+    type: password_aes256
+    raw_type: password_aes256
+    description: NEMO authentication key.
+  n-mhae-key-type:
+    type: enum
+    raw_type: option
+    description: NEMO authentication key type (ASCII or base64).
+    default: ascii
+  n-mhae-spi:
+    type: integer
+    raw_type: integer
+    description: 'NEMO authentication SPI (default: 256).'
+    default: '256'
+    min: 0
+    max: 4294967295
+  name:
+    type: string
+    raw_type: string
+    description: Tunnel name.
+    max_length: 15
+  reg-interval:
+    type: integer
+    raw_type: integer
+    description: NMMO HA registration interval (5 - 300, default = 5).
+    default: '5'
+    min: 5
+    max: 300
+  reg-retry:
+    type: integer
+    raw_type: integer
+    description: Maximum number of NMMO HA registration retries (1 to 30, default = 3).
+    default: '3'
+    min: 1
+    max: 30
+  renew-interval:
+    type: integer
+    raw_type: integer
+    description: Time before lifetime expiration to send NMMO HA re-registration (5 - 60, default = 60).
+    default: '60'
+    min: 5
+    max: 60
+  roaming-interface:
+    type: string
+    raw_type: string
+    description: Select the associated interface name from available options.
+    max_length: 15
+  status:
+    type: enum
+    raw_type: option
+    description: Enable/disable this mobile tunnel.
+    default: enable
+  tunnel-mode:
+    type: enum
+    raw_type: option
+    description: NEMO tunnel mode (GRE tunnel).
+    default: gre
+children:
+  network:
+    attributes:
+      id:
+        type: integer
+        raw_type: integer
+        description: Network entry ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      interface:
+        type: string
+        raw_type: string
+        description: Select the associated interface name from available options.
+        max_length: 15
+      prefix:
+        type: ipv4-classnet
+        raw_type: ipv4-classnet
+        description: Class IP and Netmask with correction (Format:xxx.xxx.xxx.xxx xxx.xxx.xxx.xxx or xxx.xxx.xxx.xxx/x).
+        default: 0.0.0.0 0.0.0.0

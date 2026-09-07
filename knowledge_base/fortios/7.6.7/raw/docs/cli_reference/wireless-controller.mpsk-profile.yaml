@@ -1,0 +1,112 @@
+id: wireless-controller.mpsk-profile
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/384547974/config-wireless-controller-mpsk-profile
+attributes:
+  mpsk-concurrent-clients:
+    type: integer
+    raw_type: integer
+    description: Maximum number of concurrent clients that connect using the same passphrase in multiple PSK authentication
+      (0 - 65535, default = 0, meaning no limitation).
+    default: '0'
+    min: 0
+    max: 65535
+  mpsk-external-server:
+    type: string
+    raw_type: string
+    description: RADIUS server to be used to authenticate MPSK users.
+    max_length: 35
+  mpsk-external-server-auth:
+    type: enum
+    raw_type: option
+    description: Enable/Disable MPSK external server authentication (default = disable).
+    default: disable
+  mpsk-type:
+    type: enum
+    raw_type: option
+    description: Select the security type of keys for this profile.
+    default: wpa2-personal
+  name:
+    type: string
+    raw_type: string
+    description: MPSK profile name.
+    max_length: 35
+children:
+  mpsk-group:
+    attributes:
+      name:
+        type: string
+        raw_type: string
+        description: MPSK group name.
+        max_length: 35
+      vlan-id:
+        type: integer
+        raw_type: integer
+        description: Optional VLAN ID.
+        default: '0'
+        min: 1
+        max: 4094
+      vlan-type:
+        type: enum
+        raw_type: option
+        description: MPSK group VLAN options.
+        default: no-vlan
+  mpsk-key:
+    attributes:
+      comment:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 255
+      concurrent-client-limit-type:
+        type: enum
+        raw_type: option
+        description: MPSK client limit type options.
+        default: default
+      concurrent-clients:
+        type: integer
+        raw_type: integer
+        description: Number of clients that can connect using this pre-shared key (1 - 65535, default is 256).
+        default: '256'
+        min: 1
+        max: 65535
+      key-type:
+        type: enum
+        raw_type: option
+        description: Select the type of the key.
+        default: wpa2-personal
+      mac:
+        type: mac-address
+        raw_type: mac-address
+        description: MAC address.
+        default: 00:00:00:00:00:00
+      mpsk-schedules:
+        type: string
+        raw_type: string
+        description: Firewall schedule for MPSK passphrase. The passphrase will be effective only when at least one schedule
+          is valid. Schedule name.
+        max_length: 35
+      name:
+        type: string
+        raw_type: string
+        description: Pre-shared key name.
+        max_length: 35
+      passphrase:
+        type: password
+        raw_type: password
+        description: WPA Pre-shared key.
+      sae-password:
+        type: password
+        raw_type: password
+        description: WPA3 SAE password.
+      sae-pk:
+        type: enum
+        raw_type: option
+        description: Enable/disable WPA3 SAE-PK (default = disable).
+        default: disable
+      sae-private-key:
+        type: string
+        raw_type: string
+        description: Private key used for WPA3 SAE-PK authentication.
+        max_length: 359

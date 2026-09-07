@@ -1,0 +1,190 @@
+id: system.snmp.rmon-stat
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  fosid:
+    canonical:
+      type: integer
+      source_attribute: fosid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: fosid
+    sources:
+    - terraform
+  id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id001
+      - - v7.6.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: RMON Ethernet statistics entry ID.
+      source_attribute: id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id001
+        description: RMON Ethernet statistics entry ID. see <a href='#notes'>Notes</a>.
+        source_attribute: id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: RMON Ethernet statistics entry ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: id
+    sources:
+    - ansible
+    - cli_reference
+  owner:
+    canonical:
+      type: string
+      version_ranges: &id002
+      - - v7.6.0
+        - ''
+      min_length: 0
+      max_length: 127
+      description: Owner of the Ethernet statistics entry.
+      source_attribute: owner
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id002
+        description: Owner of the Ethernet statistics entry.
+        source_attribute: owner
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: owner
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Owner of the Ethernet statistics entry.
+        max_length: 127
+        source_attribute: owner
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source:
+    canonical:
+      type: string
+      references: &id004
+      - system.interface.name
+      version_ranges: &id003
+      - - v7.6.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Data source of the Ethernet statistics entry.
+      source_attribute: source
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Data source of the Ethernet statistics entry. Source system.interface.name.
+        references: *id004
+        source_attribute: source
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: source
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Data source of the Ethernet statistics entry.
+        max_length: 15
+        source_attribute: source
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

@@ -1,0 +1,1486 @@
+id: switch-controller.global
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  allow_multiple_interfaces:
+    canonical:
+      type: string
+      source_attribute: allow_multiple_interfaces
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: allow_multiple_interfaces
+    sources:
+    - terraform
+  bounce_quarantined_link:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.2.0
+        - ''
+      choices: &id001
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable bouncing (administratively bring the link down, up) of a switch port where a quarantined
+        device was seen last. Helps to re-initiate the DHCP process for a device.
+      source_attribute: bounce-quarantined-link
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable bouncing (administratively bring the link down, up) of a switch port where a quarantined
+          device was seen last. Helps to re-initiate the DHCP process for a device.
+        source_attribute: bounce_quarantined_link
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: bounce_quarantined_link
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable bouncing (administratively bring the link down, up) of a switch port where a quarantined
+          device was seen last. Helps to re-initiate the DHCP process for a device.
+        default: disable
+        source_attribute: bounce-quarantined-link
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  custom_command:
+    canonical:
+      type: list
+      elements: dict
+      children: &id004
+        command_entry:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id005
+          - - v6.2.0
+            - ''
+          description: List of FortiSwitch commands.
+        command_name:
+          type: string
+          raw_type: string
+          version_ranges: &id007
+          - - v6.2.0
+            - ''
+          description: Name of custom command to push to all FortiSwitches in VDOM. Source switch-controller.custom-command.command-name.
+          references: &id006
+          - switch-controller.custom-command.command-name
+      version_ranges: &id003
+      - - v6.2.0
+        - ''
+      description: List of custom commands to be pushed to all FortiSwitches in the VDOM.
+      source_attribute: custom_command
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id003
+        description: List of custom commands to be pushed to all FortiSwitches in the VDOM.
+        children: *id004
+        source_attribute: custom_command
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          command_entry:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          command_name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+        source_attribute: custom_command
+    sources:
+    - ansible
+    - terraform
+  custom_command.command_entry:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id005
+      min_length: 0
+      max_length: 35
+      description: List of FortiSwitch commands.
+      source_attribute: custom_command.command_entry
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id005
+        description: List of FortiSwitch commands.
+        source_attribute: custom_command.command_entry
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: custom_command.command_entry
+    sources:
+    - ansible
+    - terraform
+  custom_command.command_name:
+    canonical:
+      type: string
+      references: *id006
+      version_ranges: *id007
+      min_length: 0
+      max_length: 35
+      description: Name of custom command to push to all FortiSwitches in VDOM. Source switch-controller.custom-command.command-name.
+      source_attribute: custom_command.command_name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: Name of custom command to push to all FortiSwitches in VDOM. Source switch-controller.custom-command.command-name.
+        references: *id006
+        source_attribute: custom_command.command_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: custom_command.command_name
+    sources:
+    - ansible
+    - terraform
+  default_virtual_switch_vlan:
+    canonical:
+      type: string
+      references: &id009
+      - system.interface.name
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Default VLAN for ports when added to the virtual-switch.
+      source_attribute: default-virtual-switch-vlan
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: Default VLAN for ports when added to the virtual-switch. Source system.interface.name.
+        references: *id009
+        source_attribute: default_virtual_switch_vlan
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: default_virtual_switch_vlan
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Default VLAN for ports when added to the virtual-switch.
+        max_length: 15
+        source_attribute: default-virtual-switch-vlan
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dhcp_option82_circuit_id:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id011
+      - - v7.4.0
+        - ''
+      choices: &id010
+      - intfname
+      - vlan
+      - hostname
+      - mode
+      - description
+      default: intfname vlan mode
+      description: List the parameters to be included to inform about client identification.
+      source_attribute: dhcp-option82-circuit-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id010
+        multiple_values: true
+        elements: str
+        version_ranges: *id011
+        description: List the parameters to be included to inform about client identification.
+        source_attribute: dhcp_option82_circuit_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dhcp_option82_circuit_id
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: List the parameters to be included to inform about client identification.
+        default: intfname vlan mode
+        source_attribute: dhcp-option82-circuit-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dhcp_option82_format:
+    canonical:
+      type: enum
+      version_ranges: &id013
+      - - v7.4.0
+        - ''
+      choices: &id012
+      - ascii
+      - legacy
+      default: ascii
+      description: DHCP option-82 format string.
+      source_attribute: dhcp-option82-format
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id012
+        version_ranges: *id013
+        description: DHCP option-82 format string.
+        source_attribute: dhcp_option82_format
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dhcp_option82_format
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: DHCP option-82 format string.
+        default: ascii
+        source_attribute: dhcp-option82-format
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dhcp_option82_remote_id:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id015
+      - - v7.4.0
+        - ''
+      choices: &id014
+      - mac
+      - hostname
+      - ip
+      default: mac
+      description: List the parameters to be included to inform about client identification.
+      source_attribute: dhcp-option82-remote-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id014
+        multiple_values: true
+        elements: str
+        version_ranges: *id015
+        description: List the parameters to be included to inform about client identification.
+        source_attribute: dhcp_option82_remote_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dhcp_option82_remote_id
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: List the parameters to be included to inform about client identification.
+        default: mac
+        source_attribute: dhcp-option82-remote-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dhcp_server_access_list:
+    canonical:
+      type: enum
+      version_ranges: &id017
+      - - v7.0.1
+        - ''
+      choices: &id016
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable DHCP snooping server access list.
+      source_attribute: dhcp-server-access-list
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id016
+        version_ranges: *id017
+        description: Enable/disable DHCP snooping server access list.
+        source_attribute: dhcp_server_access_list
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dhcp_server_access_list
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable DHCP snooping server access list.
+        default: disable
+        source_attribute: dhcp-server-access-list
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dhcp_snoop_client_db_exp:
+    canonical:
+      type: integer
+      version_ranges: &id018
+      - - v7.4.0
+        - ''
+      default: '86400'
+      min: 300
+      max: 259200
+      description: Expiry time for DHCP snooping server database entries (300 - 259200 sec, default = 86400 sec).
+      source_attribute: dhcp-snoop-client-db-exp
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id018
+        description: Expiry time for DHCP snooping server database entries (300 - 259200 sec).
+        source_attribute: dhcp_snoop_client_db_exp
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 300
+        max: 259200
+        source_attribute: dhcp_snoop_client_db_exp
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Expiry time for DHCP snooping server database entries (300 - 259200 sec, default = 86400 sec).
+        default: '86400'
+        min: 300
+        max: 259200
+        source_attribute: dhcp-snoop-client-db-exp
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dhcp_snoop_client_req:
+    canonical:
+      type: enum
+      version_ranges: &id020
+      - - v7.4.0
+        - ''
+      choices: &id019
+      - drop-untrusted
+      - forward-untrusted
+      default: drop-untrusted
+      description: Client DHCP packet broadcast mode.
+      source_attribute: dhcp-snoop-client-req
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id019
+        version_ranges: *id020
+        description: Client DHCP packet broadcast mode.
+        source_attribute: dhcp_snoop_client_req
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dhcp_snoop_client_req
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Client DHCP packet broadcast mode.
+        default: drop-untrusted
+        source_attribute: dhcp-snoop-client-req
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dhcp_snoop_db_per_port_learn_limit:
+    canonical:
+      type: integer
+      version_ranges: &id021
+      - - v7.4.0
+        - ''
+      default: '64'
+      min: 0
+      max: 2048
+      description: Per Interface dhcp-server entries learn limit (0 - 1024, default = 64).
+      source_attribute: dhcp-snoop-db-per-port-learn-limit
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id021
+        description: Per Interface dhcp-server entries learn limit (0 - 1024).
+        source_attribute: dhcp_snoop_db_per_port_learn_limit
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 2048
+        source_attribute: dhcp_snoop_db_per_port_learn_limit
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Per Interface dhcp-server entries learn limit (0 - 1024, default = 64).
+        default: '64'
+        min: 0
+        max: 2048
+        source_attribute: dhcp-snoop-db-per-port-learn-limit
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  disable_discovery:
+    canonical:
+      type: list
+      elements: dict
+      children: &id023
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id025
+          - - v6.0.0
+            - ''
+          description: FortiSwitch Serial-number.
+      version_ranges: &id022
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Prevent this FortiSwitch from discovering. FortiSwitch Serial-number.
+      source_attribute: disable-discovery
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id022
+        description: Prevent this FortiSwitch from discovering.
+        children: *id023
+        source_attribute: disable_discovery
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: disable_discovery
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Prevent this FortiSwitch from discovering. FortiSwitch Serial-number.
+        max_length: 79
+        source_attribute: disable-discovery
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id024
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id024
+  disable_discovery.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id025
+      min_length: 0
+      max_length: 79
+      description: FortiSwitch Serial-number.
+      source_attribute: disable_discovery.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id025
+        description: FortiSwitch Serial-number.
+        source_attribute: disable_discovery.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: disable_discovery.name
+    sources:
+    - ansible
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  fips_enforce:
+    canonical:
+      type: enum
+      version_ranges: &id027
+      - - v7.0.0
+        - ''
+      choices: &id026
+      - disable
+      - enable
+      default: enable
+      description: Enable/disable enforcement of FIPS on managed FortiSwitch devices.
+      source_attribute: fips-enforce
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id026
+        version_ranges: *id027
+        description: Enable/disable enforcement of FIPS on managed FortiSwitch devices.
+        source_attribute: fips_enforce
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fips_enforce
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable enforcement of FIPS on managed FortiSwitch devices.
+        default: enable
+        source_attribute: fips-enforce
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  firewall_auth_user_hold_period:
+    canonical:
+      type: integer
+      version_ranges: &id028
+      - - v7.6.4
+        - ''
+      default: '5'
+      min: 5
+      max: 1440
+      description: Time period in minutes to hold firewall authenticated MAC users (5 - 1440, default = 5, disable = 0).
+      source_attribute: firewall-auth-user-hold-period
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id028
+        description: Time period in minutes to hold firewall authenticated MAC users (5 - 1440).
+        source_attribute: firewall_auth_user_hold_period
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 5
+        max: 1440
+        source_attribute: firewall_auth_user_hold_period
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time period in minutes to hold firewall authenticated MAC users (5 - 1440, default = 5, disable = 0).
+        default: '5'
+        min: 5
+        max: 1440
+        source_attribute: firewall-auth-user-hold-period
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  firmware_provision_on_authorization:
+    canonical:
+      type: enum
+      version_ranges: &id030
+      - - v7.0.4
+        - ''
+      choices: &id029
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable automatic provisioning of latest firmware on authorization.
+      source_attribute: firmware-provision-on-authorization
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id029
+        version_ranges: *id030
+        description: Enable/disable automatic provisioning of latest firmware on authorization.
+        source_attribute: firmware_provision_on_authorization
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: firmware_provision_on_authorization
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable automatic provisioning of latest firmware on authorization.
+        default: disable
+        source_attribute: firmware-provision-on-authorization
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  https_image_push:
+    canonical:
+      type: enum
+      version_ranges: &id032
+      - - v6.0.0
+        - ''
+      choices: &id031
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable image push to FortiSwitch using HTTPS.
+      source_attribute: https-image-push
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id031
+        version_ranges: *id032
+        description: Enable/disable image push to FortiSwitch using HTTPS.
+        source_attribute: https_image_push
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: https_image_push
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable image push to FortiSwitch using HTTPS.
+        default: enable
+        source_attribute: https-image-push
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  log_mac_limit_violations:
+    canonical:
+      type: enum
+      version_ranges: &id034
+      - - v6.0.0
+        - ''
+      choices: &id033
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable logs for Learning Limit Violations.
+      source_attribute: log-mac-limit-violations
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id033
+        version_ranges: *id034
+        description: Enable/disable logs for Learning Limit Violations.
+        source_attribute: log_mac_limit_violations
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: log_mac_limit_violations
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logs for Learning Limit Violations.
+        default: disable
+        source_attribute: log-mac-limit-violations
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  mac_aging_interval:
+    canonical:
+      type: integer
+      version_ranges: &id035
+      - - v6.0.0
+        - ''
+      default: '300'
+      min: 10
+      max: 1000000
+      description: Time after which an inactive MAC is aged out (10 - 1000000 sec, default = 300, 0 = disable).
+      source_attribute: mac-aging-interval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id035
+        description: Time after which an inactive MAC is aged out (10 - 1000000 sec).
+        source_attribute: mac_aging_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 10
+        max: 1000000
+        source_attribute: mac_aging_interval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time after which an inactive MAC is aged out (10 - 1000000 sec, default = 300, 0 = disable).
+        default: '300'
+        min: 10
+        max: 1000000
+        source_attribute: mac-aging-interval
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  mac_event_logging:
+    canonical:
+      type: enum
+      version_ranges: &id037
+      - - v6.2.0
+        - ''
+      choices: &id036
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable MAC address event logging.
+      source_attribute: mac-event-logging
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id036
+        version_ranges: *id037
+        description: Enable/disable MAC address event logging.
+        source_attribute: mac_event_logging
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mac_event_logging
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable MAC address event logging.
+        default: disable
+        source_attribute: mac-event-logging
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  mac_retention_period:
+    canonical:
+      type: integer
+      version_ranges: &id038
+      - - v6.0.0
+        - ''
+      default: '24'
+      min: 0
+      max: 168
+      description: Time in hours after which an inactive MAC is removed from client DB (0 = aged out based on mac-aging-interval).
+      source_attribute: mac-retention-period
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id038
+        description: Time in hours after which an inactive MAC is removed from client DB (0 = aged out based on mac-aging-interval).
+        source_attribute: mac_retention_period
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 168
+        source_attribute: mac_retention_period
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time in hours after which an inactive MAC is removed from client DB (0 = aged out based on mac-aging-interval).
+        default: '24'
+        min: 0
+        max: 168
+        source_attribute: mac-retention-period
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  mac_violation_timer:
+    canonical:
+      type: integer
+      version_ranges: &id039
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Set timeout for Learning Limit Violations (0 = disabled).
+      source_attribute: mac-violation-timer
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id039
+        description: Set timeout for Learning Limit Violations (0 = disabled).
+        source_attribute: mac_violation_timer
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: mac_violation_timer
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Set timeout for Learning Limit Violations (0 = disabled).
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: mac-violation-timer
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  quarantine_mode:
+    canonical:
+      type: enum
+      version_ranges: &id041
+      - - v6.4.0
+        - ''
+      choices: &id040
+      - by-vlan
+      - by-redirect
+      default: by-vlan
+      description: Quarantine mode.
+      source_attribute: quarantine-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id040
+        version_ranges: *id041
+        description: Quarantine mode.
+        source_attribute: quarantine_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: quarantine_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Quarantine mode.
+        default: by-vlan
+        source_attribute: quarantine-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sn_dns_resolution:
+    canonical:
+      type: enum
+      version_ranges: &id043
+      - - v6.2.0
+        - ''
+      choices: &id042
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable DNS resolution of the FortiSwitch unit's IP address with switch name.
+      source_attribute: sn-dns-resolution
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id042
+        version_ranges: *id043
+        description: Enable/disable DNS resolution of the FortiSwitch unit"s IP address with switch name.
+        source_attribute: sn_dns_resolution
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sn_dns_resolution
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable DNS resolution of the FortiSwitch unit's IP address with switch name.
+        default: enable
+        source_attribute: sn-dns-resolution
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  switch_custom_cmd:
+    canonical:
+      type: string
+      source_attribute: switch_custom_cmd
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: switch_custom_cmd
+    sources:
+    - terraform
+  switch_on_deauth:
+    canonical:
+      type: enum
+      version_ranges: &id045
+      - - v7.6.1
+        - ''
+      choices: &id044
+      - no-op
+      - factory-reset
+      default: no-op
+      description: No-operation/Factory-reset the managed FortiSwitch on deauthorization.
+      source_attribute: switch-on-deauth
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id044
+        version_ranges: *id045
+        description: No-operation/Factory-reset the managed FortiSwitch on deauthorization.
+        source_attribute: switch_on_deauth
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: switch_on_deauth
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: No-operation/Factory-reset the managed FortiSwitch on deauthorization.
+        default: no-op
+        source_attribute: switch-on-deauth
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_user_device:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id047
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      choices: &id046
+      - mac-cache
+      - lldp
+      - dhcp-snooping
+      - l2-db
+      - l3-db
+      default: mac-cache lldp dhcp-snooping l2-db l3-db
+      description: Control which sources update the device user list.
+      source_attribute: update-user-device
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id046
+        multiple_values: true
+        elements: str
+        version_ranges: *id047
+        description: Control which sources update the device user list.
+        source_attribute: update_user_device
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: update_user_device
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Control which sources update the device user list.
+        default: mac-cache lldp dhcp-snooping l2-db l3-db
+        source_attribute: update-user-device
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  vlan_all_mode:
+    canonical:
+      type: enum
+      version_ranges: &id049
+      - - v6.2.0
+        - ''
+      choices: &id048
+      - all
+      - defined
+      default: defined
+      description: VLAN configuration mode, user-defined-vlans or all-possible-vlans.
+      source_attribute: vlan-all-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id048
+        version_ranges: *id049
+        description: VLAN configuration mode, user-defined-vlans or all-possible-vlans.
+        source_attribute: vlan_all_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: vlan_all_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: VLAN configuration mode, user-defined-vlans or all-possible-vlans.
+        default: defined
+        source_attribute: vlan-all-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vlan_identity:
+    canonical:
+      type: enum
+      version_ranges: &id051
+      - - v7.4.1
+        - ''
+      choices: &id050
+      - description
+      - name
+      default: name
+      description: Identity of the VLAN. Commonly used for RADIUS Tunnel-Private-Group-Id.
+      source_attribute: vlan-identity
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id050
+        version_ranges: *id051
+        description: Identity of the VLAN. Commonly used for RADIUS Tunnel-Private-Group-Id.
+        source_attribute: vlan_identity
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: vlan_identity
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Identity of the VLAN. Commonly used for RADIUS Tunnel-Private-Group-Id.
+        default: name
+        source_attribute: vlan-identity
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vlan_optimization:
+    canonical:
+      type: enum
+      version_ranges: &id053
+      - - v6.2.0
+        - ''
+      choices: &id052
+      - prune
+      - configured
+      - none
+      default: configured
+      description: FortiLink VLAN optimization.
+      source_attribute: vlan-optimization
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id052
+        version_ranges: *id053
+        description: FortiLink VLAN optimization.
+        source_attribute: vlan_optimization
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: vlan_optimization
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: FortiLink VLAN optimization.
+        default: configured
+        source_attribute: vlan-optimization
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: disable_discovery
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

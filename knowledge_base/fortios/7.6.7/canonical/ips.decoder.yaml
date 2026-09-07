@@ -1,0 +1,189 @@
+id: ips.decoder
+version: 7.6.7
+source_presence:
+  ansible: false
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 63
+      description: Decoder name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 63
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Decoder name.
+        max_length: 63
+        source_attribute: name
+    sources:
+    - cli_reference
+    - terraform
+  parameter:
+    canonical:
+      type: list
+      children: &id001
+        name:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 31
+        value:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 199
+      source_attribute: parameter
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id001
+        source_attribute: parameter
+    sources:
+    - terraform
+  parameter.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 31
+      source_attribute: parameter.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 31
+        source_attribute: parameter.name
+    sources:
+    - terraform
+  parameter.value:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 199
+      source_attribute: parameter.value
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 199
+        source_attribute: parameter.value
+    sources:
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

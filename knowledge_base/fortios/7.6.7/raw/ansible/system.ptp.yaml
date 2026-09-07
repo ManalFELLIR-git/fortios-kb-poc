@@ -1,0 +1,103 @@
+id: system.ptp
+version: 7.6.7
+source_object: fortios_system_ptp
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_system_ptp.py
+root_type: object
+attributes:
+  status:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: Enable/disable setting the FortiGate system time by synchronizing with an PTP Server.
+  mode:
+    type: enum
+    raw_type: string
+    choices:
+    - multicast
+    - hybrid
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: Multicast transmission or hybrid transmission.
+  delay_mechanism:
+    type: enum
+    raw_type: string
+    choices:
+    - E2E
+    - P2P
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: End to end delay detection or peer to peer delay detection.
+  request_interval:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: The delay request value is the logarithmic mean interval in seconds between the delay request messages sent
+      by the slave to the master.
+  interface:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: PTP client will reply through this interface. Source system.interface.name.
+    references:
+    - system.interface.name
+  server_mode:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v7.0.1
+      - ''
+    description: Enable/disable FortiGate PTP server mode. Your FortiGate becomes an PTP server for other devices on your
+      network.
+  server_interface:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v7.0.1
+      - ''
+    description: FortiGate interface(s) with PTP server mode enabled. Devices on your network can contact these interfaces
+      for PTP services.
+    children:
+      id:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v7.0.1
+          - ''
+        description: ID. see <a href='#notes'>Notes</a>.
+      server_interface_name:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.0.1
+          - ''
+        description: Interface name. Source system.interface.name.
+        references:
+        - system.interface.name
+      delay_mechanism:
+        type: enum
+        raw_type: string
+        choices:
+        - E2E
+        - P2P
+        version_ranges:
+        - - v7.0.1
+          - ''
+        description: End to end delay detection or peer to peer delay detection.

@@ -1,0 +1,1105 @@
+id: system.sdwan
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/838040159/config-system-sdwan
+attributes:
+  app-perf-log-period:
+    type: integer
+    raw_type: integer
+    description: Time interval in seconds that application performance logs are generated (0 - 3600, default = 0).
+    default: '0'
+    min: 0
+    max: 3600
+  duplication-max-discrepancy:
+    type: integer
+    raw_type: integer
+    description: Maximum discrepancy between two packets for deduplication in milliseconds (250 - 1000, default = 250).
+    default: '250'
+    min: 250
+    max: 1000
+  duplication-max-num:
+    type: integer
+    raw_type: integer
+    description: Maximum number of interface members a packet is duplicated in the SD-WAN zone (2 - 4, default = 2; if set
+      to 3, the original packet plus 2 more copies are created).
+    default: '2'
+    min: 2
+    max: 4
+  fail-alert-interfaces:
+    type: string
+    raw_type: string
+    description: Physical interfaces that will be alerted. Physical interface name.
+    max_length: 79
+  fail-detect:
+    type: enum
+    raw_type: option
+    description: Enable/disable SD-WAN Internet connection status checking (failure detection).
+    default: disable
+  load-balance-mode:
+    type: enum
+    raw_type: option
+    description: Algorithm or mode to use for load balancing Internet traffic to SD-WAN members.
+    default: source-ip-based
+  neighbor-hold-boot-time:
+    type: integer
+    raw_type: integer
+    description: Waiting period in seconds when switching from the primary neighbor to the secondary neighbor from the neighbor
+      start. (0 - 10000000, default = 0).
+    default: '0'
+    min: 0
+    max: 10000000
+  neighbor-hold-down:
+    type: enum
+    raw_type: option
+    description: Enable/disable hold switching from the secondary neighbor to the primary neighbor.
+    default: disable
+  neighbor-hold-down-time:
+    type: integer
+    raw_type: integer
+    description: Waiting period in seconds when switching from the secondary neighbor to the primary neighbor when hold-down
+      is disabled. (0 - 10000000, default = 0).
+    default: '0'
+    min: 0
+    max: 10000000
+  speedtest-bypass-routing:
+    type: enum
+    raw_type: option
+    description: Enable/disable bypass routing when speedtest on a SD-WAN member.
+    default: disable
+  status:
+    type: enum
+    raw_type: option
+    description: Enable/disable SD-WAN.
+    default: disable
+children:
+  duplication:
+    attributes:
+      dstaddr:
+        type: string
+        raw_type: string
+        description: Destination address or address group names. Address or address group name.
+        max_length: 79
+      dstaddr6:
+        type: string
+        raw_type: string
+        description: Destination address6 or address6 group names. Address6 or address6 group name.
+        max_length: 79
+      dstintf:
+        type: string
+        raw_type: string
+        description: Outgoing (egress) interfaces or zones. Interface, zone or SDWAN zone name.
+        max_length: 79
+      id:
+        type: integer
+        raw_type: integer
+        description: Duplication rule ID (1 - 255).
+        default: '0'
+        min: 1
+        max: 255
+      packet-de-duplication:
+        type: enum
+        raw_type: option
+        description: Enable/disable discarding of packets that have been duplicated.
+        default: disable
+      packet-duplication:
+        type: enum
+        raw_type: option
+        description: Configure packet duplication method.
+        default: disable
+      service:
+        type: string
+        raw_type: string
+        description: Service and service group name. Service and service group name.
+        max_length: 79
+      service-id:
+        type: integer
+        raw_type: integer
+        description: SD-WAN service rule ID list. SD-WAN service rule ID.
+        min: 0
+        max: 4294967295
+      sla-match-service:
+        type: enum
+        raw_type: option
+        description: Enable/disable packet duplication matching health-check SLAs in service rule.
+        default: disable
+      srcaddr:
+        type: string
+        raw_type: string
+        description: Source address or address group names. Address or address group name.
+        max_length: 79
+      srcaddr6:
+        type: string
+        raw_type: string
+        description: Source address6 or address6 group names. Address6 or address6 group name.
+        max_length: 79
+      srcintf:
+        type: string
+        raw_type: string
+        description: Incoming (ingress) interfaces or zones. Interface, zone or SDWAN zone name.
+        max_length: 79
+  health-check:
+    attributes:
+      addr-mode:
+        type: enum
+        raw_type: option
+        description: Address mode (IPv4 or IPv6).
+        default: ipv4
+      agent-probe-timeout:
+        type: integer
+        raw_type: integer
+        description: Time to wait before a probe packet is considered lost when detect-mode is agent (5000 - 3600*1000 msec,
+          default = 60000).
+        default: '60000'
+        min: 5000
+        max: 3600000
+      bandwidth-weight:
+        type: integer
+        raw_type: integer
+        description: Coefficient of reciprocal of available bidirectional bandwidth in the formula of custom-profile-1.
+        default: '0'
+        min: 0
+        max: 10000000
+      class-id:
+        type: integer
+        raw_type: integer
+        description: Traffic class ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      detect-mode:
+        type: enum
+        raw_type: option
+        description: The mode determining how to detect the server.
+        default: active
+      diffservcode:
+        type: string
+        raw_type: user
+        description: Differentiated services code point (DSCP) in the IP header of the probe packet.
+      dns-match-ip:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Response IP expected from DNS server if the protocol is DNS.
+        default: 0.0.0.0
+      dns-request-domain:
+        type: string
+        raw_type: string
+        description: Fully qualified domain name to resolve for the DNS probe.
+        default: www.example.com
+        max_length: 255
+      embed-measured-health:
+        type: enum
+        raw_type: option
+        description: Enable/disable embedding measured health information.
+        default: disable
+      failtime:
+        type: integer
+        raw_type: integer
+        description: Number of failures before server is considered lost (1 - 3600, default = 5).
+        default: '5'
+        min: 1
+        max: 3600
+      fortiguard:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of FortiGuard predefined server.
+        default: disable
+      fortiguard-name:
+        type: string
+        raw_type: string
+        description: Predefined health-check target name.
+        max_length: 35
+      ftp-file:
+        type: string
+        raw_type: string
+        description: Full path and file name on the FTP server to download for FTP health-check to probe.
+        max_length: 254
+      ftp-mode:
+        type: enum
+        raw_type: option
+        description: FTP mode.
+        default: passive
+      ha-priority:
+        type: integer
+        raw_type: integer
+        description: HA election priority (1 - 50).
+        default: '1'
+        min: 1
+        max: 50
+      http-agent:
+        type: string
+        raw_type: string
+        description: String in the http-agent field in the HTTP header.
+        default: Chrome/ Safari/
+        max_length: 1024
+      http-get:
+        type: string
+        raw_type: string
+        description: URL used to communicate with the server if the protocol if the protocol is HTTP.
+        default: /
+        max_length: 1024
+      http-match:
+        type: string
+        raw_type: string
+        description: Response string expected from the server if the protocol is HTTP.
+        max_length: 1024
+      interval:
+        type: integer
+        raw_type: integer
+        description: Status check interval in milliseconds, or the time between attempting to connect to the server (20 -
+          3600*1000 msec, default = 500).
+        default: '500'
+        min: 20
+        max: 3600000
+      jitter-weight:
+        type: integer
+        raw_type: integer
+        description: Coefficient of jitter in the formula of custom-profile-1.
+        default: '0'
+        min: 0
+        max: 10000000
+      latency-weight:
+        type: integer
+        raw_type: integer
+        description: Coefficient of latency in the formula of custom-profile-1.
+        default: '0'
+        min: 0
+        max: 10000000
+      members:
+        type: integer
+        raw_type: integer
+        description: Member sequence number list. Member sequence number.
+        min: 0
+        max: 4294967295
+      mos-codec:
+        type: enum
+        raw_type: option
+        description: Codec to use for MOS calculation (default = g711).
+        default: g711
+      name:
+        type: string
+        raw_type: string
+        description: Status check or health check name.
+        max_length: 35
+      packet-loss-weight:
+        type: integer
+        raw_type: integer
+        description: Coefficient of packet-loss in the formula of custom-profile-1.
+        default: '0'
+        min: 0
+        max: 10000000
+      packet-size:
+        type: integer
+        raw_type: integer
+        description: Packet size of a TWAMP test session. (124/158 - 1024)
+        default: '124'
+        min: 0
+        max: 65535
+      password:
+        type: password
+        raw_type: password
+        description: TWAMP controller password in authentication mode.
+      port:
+        type: integer
+        raw_type: integer
+        description: 'Port number used to communicate with the server over the selected protocol (0 - 65535, default = 0,
+          auto select. http, tcp-connect: 80, udp-echo, tcp-echo: 7, dns: 53, ftp: 21, twamp: 862).'
+        default: '0'
+        min: 0
+        max: 65535
+      probe-count:
+        type: integer
+        raw_type: integer
+        description: Number of most recent probes that should be used to calculate latency and jitter (5 - 30, default = 30).
+        default: '30'
+        min: 5
+        max: 30
+      probe-packets:
+        type: enum
+        raw_type: option
+        description: Enable/disable transmission of probe packets.
+        default: enable
+      probe-timeout:
+        type: integer
+        raw_type: integer
+        description: Time to wait before a probe packet is considered lost (20 - 3600*1000 msec, default = 500).
+        default: '500'
+        min: 20
+        max: 3600000
+      protocol:
+        type: enum
+        raw_type: option
+        description: Protocol used to determine if the FortiGate can communicate with the server.
+        default: ping
+      quality-measured-method:
+        type: enum
+        raw_type: option
+        description: Method to measure the quality of tcp-connect.
+        default: half-open
+      recoverytime:
+        type: integer
+        raw_type: integer
+        description: Number of successful responses received before server is considered recovered (1 - 3600, default = 5).
+        default: '5'
+        min: 1
+        max: 3600
+      remote-probe-timeout:
+        type: integer
+        raw_type: integer
+        description: Time to wait before a probe packet is considered lost when detect-mode is remote (20 - 3600*1000 msec,
+          default = 5000).
+        default: '5000'
+        min: 20
+        max: 3600000
+      security-mode:
+        type: enum
+        raw_type: option
+        description: Twamp controller security mode.
+        default: none
+      server:
+        type: string
+        raw_type: string
+        description: IP address or FQDN name of the server.
+        max_length: 79
+      sla-fail-log-period:
+        type: integer
+        raw_type: integer
+        description: Time interval in seconds that SLA fail log messages will be generated (0 - 3600, default = 0).
+        default: '0'
+        min: 0
+        max: 3600
+      sla-id-redistribute:
+        type: integer
+        raw_type: integer
+        description: Select the ID from the SLA sub-table. The selected SLA's priority value will be distributed into the
+          routing table (0 - 32, default = 0).
+        default: '0'
+        min: 0
+        max: 32
+      sla-pass-log-period:
+        type: integer
+        raw_type: integer
+        description: Time interval in seconds that SLA pass log messages will be generated (0 - 3600, default = 0).
+        default: '0'
+        min: 0
+        max: 3600
+      source:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Source IP address used in the health-check packet to the server.
+        default: 0.0.0.0
+      source6:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: Source IPv6 address used in the health-check packet to server.
+        default: '::'
+      system-dns:
+        type: enum
+        raw_type: option
+        description: Enable/disable system DNS as the probe server.
+        default: disable
+      threshold-alert-jitter:
+        type: integer
+        raw_type: integer
+        description: Alert threshold for jitter (ms, default = 0).
+        default: '0'
+        min: 0
+        max: 4294967295
+      threshold-alert-latency:
+        type: integer
+        raw_type: integer
+        description: Alert threshold for latency (ms, default = 0).
+        default: '0'
+        min: 0
+        max: 4294967295
+      threshold-alert-packetloss:
+        type: integer
+        raw_type: integer
+        description: Alert threshold for packet loss (percentage, default = 0).
+        default: '0'
+        min: 0
+        max: 100
+      threshold-warning-jitter:
+        type: integer
+        raw_type: integer
+        description: Warning threshold for jitter (ms, default = 0).
+        default: '0'
+        min: 0
+        max: 4294967295
+      threshold-warning-latency:
+        type: integer
+        raw_type: integer
+        description: Warning threshold for latency (ms, default = 0).
+        default: '0'
+        min: 0
+        max: 4294967295
+      threshold-warning-packetloss:
+        type: integer
+        raw_type: integer
+        description: Warning threshold for packet loss (percentage, default = 0).
+        default: '0'
+        min: 0
+        max: 100
+      update-bgp-route:
+        type: enum
+        raw_type: option
+        description: Enable/disable updating the BGP route.
+        default: disable
+      update-cascade-interface:
+        type: enum
+        raw_type: option
+        description: Enable/disable update cascade interface.
+        default: enable
+      update-static-route:
+        type: enum
+        raw_type: option
+        description: Enable/disable updating the static route.
+        default: enable
+      user:
+        type: string
+        raw_type: string
+        description: The user name to access probe server.
+        max_length: 64
+      vrf:
+        type: integer
+        raw_type: integer
+        description: Virtual Routing Forwarding ID.
+        default: '0'
+        min: 0
+        max: 511
+  sla:
+    attributes:
+      custom-profile-threshold:
+        type: integer
+        raw_type: integer
+        description: Custom profile threshold for SLA to be marked as pass(0 - 10000000, default = 0).
+        default: '0'
+        min: 0
+        max: 10000000
+      id:
+        type: integer
+        raw_type: integer
+        description: SLA ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      jitter-threshold:
+        type: integer
+        raw_type: integer
+        description: Jitter for SLA to make decision in milliseconds. (0 - 10000000, default = 5).
+        default: '5'
+        min: 0
+        max: 10000000
+      latency-threshold:
+        type: integer
+        raw_type: integer
+        description: Latency for SLA to make decision in milliseconds. (0 - 10000000, default = 5).
+        default: '5'
+        min: 0
+        max: 10000000
+      link-cost-factor:
+        type: enum
+        raw_type: option
+        description: Criteria on which to base link selection.
+        default: latency jitter packet-loss custom-profile-1
+      mos-threshold:
+        type: string
+        raw_type: string
+        description: Minimum mean opinion score for SLA to be marked as pass(1.0 - 5.0, default = 3.6).
+        default: '3.6'
+        max_length: 35
+      packetloss-threshold:
+        type: integer
+        raw_type: integer
+        description: Packet loss for SLA to make decision in percentage. (0 - 100, default = 0).
+        default: '0'
+        min: 0
+        max: 100
+      priority-in-sla:
+        type: integer
+        raw_type: integer
+        description: Value to be distributed into routing table when in-sla (0 - 65535, default = 0).
+        default: '0'
+        min: 0
+        max: 65535
+      priority-out-sla:
+        type: integer
+        raw_type: integer
+        description: Value to be distributed into routing table when out-sla (0 - 65535, default = 0).
+        default: '0'
+        min: 0
+        max: 65535
+      health-check:
+        type: string
+        raw_type: string
+        description: SD-WAN health-check.
+        max_length: 35
+  members:
+    attributes:
+      comment:
+        type: string
+        raw_type: var-string
+        description: Comments.
+        max_length: 255
+      cost:
+        type: integer
+        raw_type: integer
+        description: Cost of this interface for services in SLA mode (0 - 4294967295, default = 0).
+        default: '0'
+        min: 0
+        max: 4294967295
+      gateway:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: The default gateway for this interface. Usually the default gateway of the Internet service provider
+          that this interface is connected to.
+        default: 0.0.0.0
+      gateway6:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: IPv6 gateway.
+        default: '::'
+      ingress-spillover-threshold:
+        type: integer
+        raw_type: integer
+        description: Ingress spillover threshold for this interface (0 - 16776000 kbit/s). When this traffic volume threshold
+          is reached, new sessions spill over to other interfaces in the SD-WAN.
+        default: '0'
+        min: 0
+        max: 16776000
+      interface:
+        type: string
+        raw_type: string
+        description: Interface name.
+        max_length: 15
+      preferred-source:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Preferred source of route for this member.
+        default: 0.0.0.0
+      priority:
+        type: integer
+        raw_type: integer
+        description: Priority of the interface for IPv4 (1 - 65535, default = 1). Used for SD-WAN rules or priority rules.
+        default: '1'
+        min: 1
+        max: 65535
+      priority-in-sla:
+        type: integer
+        raw_type: integer
+        description: Preferred priority of routes to this member when this member is in-sla (0 - 65535, default = 0).
+        default: '0'
+        min: 0
+        max: 65535
+      priority-out-sla:
+        type: integer
+        raw_type: integer
+        description: Preferred priority of routes to this member when this member is out-of-sla (0 - 65535, default = 0).
+        default: '0'
+        min: 0
+        max: 65535
+      priority6:
+        type: integer
+        raw_type: integer
+        description: Priority of the interface for IPv6 (1 - 65535, default = 1024). Used for SD-WAN rules or priority rules.
+        default: '1024'
+        min: 1
+        max: 65535
+      seq-num:
+        type: integer
+        raw_type: integer
+        description: Sequence number(1-512).
+        default: '0'
+        min: 0
+        max: 512
+      source:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Source IP address used in the health-check packet to the server.
+        default: 0.0.0.0
+      source6:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: Source IPv6 address used in the health-check packet to the server.
+        default: '::'
+      spillover-threshold:
+        type: integer
+        raw_type: integer
+        description: Egress spillover threshold for this interface (0 - 16776000 kbit/s). When this traffic volume threshold
+          is reached, new sessions spill over to other interfaces in the SD-WAN.
+        default: '0'
+        min: 0
+        max: 16776000
+      status:
+        type: enum
+        raw_type: option
+        description: Enable/disable this interface in the SD-WAN.
+        default: enable
+      transport-group:
+        type: integer
+        raw_type: integer
+        description: Measured transport group (0 - 255).
+        default: '0'
+        min: 0
+        max: 255
+      volume-ratio:
+        type: integer
+        raw_type: integer
+        description: Measured volume ratio (this value / sum of all values = percentage of link volume, 1 - 255).
+        default: '1'
+        min: 1
+        max: 255
+      weight:
+        type: integer
+        raw_type: integer
+        description: Weight of this interface for weighted load balancing. (1 - 255) More traffic is directed to interfaces
+          with higher weights.
+        default: '1'
+        min: 1
+        max: 255
+      zone:
+        type: string
+        raw_type: string
+        description: Zone name.
+        default: virtual-wan-link
+        max_length: 35
+  neighbor:
+    attributes:
+      health-check:
+        type: string
+        raw_type: string
+        description: SD-WAN health-check name.
+        max_length: 35
+      ip:
+        type: string
+        raw_type: string
+        description: IP/IPv6 address of neighbor or neighbor-group name.
+        max_length: 45
+      member:
+        type: integer
+        raw_type: integer
+        description: Member sequence number list. Member sequence number.
+        min: 0
+        max: 4294967295
+      minimum-sla-meet-members:
+        type: integer
+        raw_type: integer
+        description: Minimum number of members which meet SLA when the neighbor is preferred.
+        default: '1'
+        min: 1
+        max: 255
+      mode:
+        type: enum
+        raw_type: option
+        description: What metric to select the neighbor.
+        default: sla
+      role:
+        type: enum
+        raw_type: option
+        description: Role of neighbor.
+        default: standalone
+      route-metric:
+        type: enum
+        raw_type: option
+        description: Route-metric of neighbor.
+        default: preferable
+      service-id:
+        type: integer
+        raw_type: integer
+        description: SD-WAN service ID to work with the neighbor.
+        default: '0'
+        min: 0
+        max: 4294967295
+      sla-id:
+        type: integer
+        raw_type: integer
+        description: SLA ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+  service:
+    attributes:
+      addr-mode:
+        type: enum
+        raw_type: option
+        description: Address mode (IPv4 or IPv6).
+        default: ipv4
+      agent-exclusive:
+        type: enum
+        raw_type: option
+        description: Set/unset the service as agent use exclusively.
+        default: disable
+      bandwidth-weight:
+        type: integer
+        raw_type: integer
+        description: Coefficient of reciprocal of available bidirectional bandwidth in the formula of custom-profile-1.
+        default: '0'
+        min: 0
+        max: 10000000
+      comment:
+        type: string
+        raw_type: var-string
+        description: Comments.
+        max_length: 255
+      default:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of SD-WAN as default service.
+        default: disable
+      dscp-forward:
+        type: enum
+        raw_type: option
+        description: Enable/disable forward traffic DSCP tag.
+        default: disable
+      dscp-forward-tag:
+        type: string
+        raw_type: user
+        description: Forward traffic DSCP tag.
+      dscp-reverse:
+        type: enum
+        raw_type: option
+        description: Enable/disable reverse traffic DSCP tag.
+        default: disable
+      dscp-reverse-tag:
+        type: string
+        raw_type: user
+        description: Reverse traffic DSCP tag.
+      dst:
+        type: string
+        raw_type: string
+        description: Destination address name. Address or address group name.
+        max_length: 79
+      dst-negate:
+        type: enum
+        raw_type: option
+        description: Enable/disable negation of destination address match.
+        default: disable
+      dst6:
+        type: string
+        raw_type: string
+        description: Destination address6 name. Address6 or address6 group name.
+        max_length: 79
+      end-port:
+        type: integer
+        raw_type: integer
+        description: End destination port number.
+        default: '65535'
+        min: 0
+        max: 65535
+      end-src-port:
+        type: integer
+        raw_type: integer
+        description: End source port number.
+        default: '65535'
+        min: 0
+        max: 65535
+      fib-best-match-force:
+        type: enum
+        raw_type: option
+        description: Enable/disable force using fib-best-match oif as outgoing interface.
+        default: disable
+      gateway:
+        type: enum
+        raw_type: option
+        description: Enable/disable SD-WAN service gateway.
+        default: disable
+      groups:
+        type: string
+        raw_type: string
+        description: User groups. Group name.
+        max_length: 79
+      hash-mode:
+        type: enum
+        raw_type: option
+        description: Hash algorithm for selected priority members for load balance mode.
+        default: round-robin
+      health-check:
+        type: string
+        raw_type: string
+        description: Health check list. Health check name.
+        max_length: 79
+      hold-down-time:
+        type: integer
+        raw_type: integer
+        description: Waiting period in seconds when switching from the back-up member to the primary member (0 - 10000000,
+          default = 0).
+        default: '0'
+        min: 0
+        max: 10000000
+      id:
+        type: integer
+        raw_type: integer
+        description: SD-WAN rule ID (1 - 4000).
+        default: '0'
+        min: 1
+        max: 4000
+      input-device:
+        type: string
+        raw_type: string
+        description: Source interface name. Interface name.
+        max_length: 79
+      input-device-negate:
+        type: enum
+        raw_type: option
+        description: Enable/disable negation of input device match.
+        default: disable
+      input-zone:
+        type: string
+        raw_type: string
+        description: Source input-zone name. Zone.
+        max_length: 79
+      internet-service:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of Internet service for application-based load balancing.
+        default: disable
+      internet-service-app-ctrl:
+        type: integer
+        raw_type: integer
+        description: Application control based Internet Service ID list. Application control based Internet Service ID.
+        min: 0
+        max: 4294967295
+      internet-service-app-ctrl-category:
+        type: integer
+        raw_type: integer
+        description: IDs of one or more application control categories. Application control category ID.
+        min: 0
+        max: 4294967295
+      internet-service-app-ctrl-group:
+        type: string
+        raw_type: string
+        description: Application control based Internet Service group list. Application control based Internet Service group
+          name.
+        max_length: 79
+      internet-service-custom:
+        type: string
+        raw_type: string
+        description: Custom Internet service name list. Custom Internet service name.
+        max_length: 79
+      internet-service-custom-group:
+        type: string
+        raw_type: string
+        description: Custom Internet Service group list. Custom Internet Service group name.
+        max_length: 79
+      internet-service-fortiguard:
+        type: string
+        raw_type: string
+        description: FortiGuard Internet service name list. FortiGuard Internet service name.
+        max_length: 79
+      internet-service-group:
+        type: string
+        raw_type: string
+        description: Internet Service group list. Internet Service group name.
+        max_length: 79
+      internet-service-name:
+        type: string
+        raw_type: string
+        description: Internet service name list. Internet service name.
+        max_length: 79
+      jitter-weight:
+        type: integer
+        raw_type: integer
+        description: Coefficient of jitter in the formula of custom-profile-1.
+        default: '0'
+        min: 0
+        max: 10000000
+      latency-weight:
+        type: integer
+        raw_type: integer
+        description: Coefficient of latency in the formula of custom-profile-1.
+        default: '0'
+        min: 0
+        max: 10000000
+      link-cost-factor:
+        type: enum
+        raw_type: option
+        description: Link cost factor.
+        default: latency
+      link-cost-threshold:
+        type: integer
+        raw_type: integer
+        description: Percentage threshold change of link cost values that will result in policy route regeneration (0 - 10000000,
+          default = 10).
+        default: '10'
+        min: 0
+        max: 10000000
+      load-balance:
+        type: enum
+        raw_type: option
+        description: Enable/disable load-balance.
+        default: disable
+      minimum-sla-meet-members:
+        type: integer
+        raw_type: integer
+        description: Minimum number of members which meet SLA.
+        default: '0'
+        min: 0
+        max: 255
+      mode:
+        type: enum
+        raw_type: option
+        description: Control how the SD-WAN rule sets the priority of interfaces in the SD-WAN.
+        default: manual
+      name:
+        type: string
+        raw_type: string
+        description: SD-WAN rule name.
+        max_length: 35
+      packet-loss-weight:
+        type: integer
+        raw_type: integer
+        description: Coefficient of packet-loss in the formula of custom-profile-1.
+        default: '0'
+        min: 0
+        max: 10000000
+      passive-measurement:
+        type: enum
+        raw_type: option
+        description: Enable/disable passive measurement based on the service criteria.
+        default: disable
+      priority-members:
+        type: integer
+        raw_type: integer
+        description: Member sequence number list. Member sequence number.
+        min: 0
+        max: 4294967295
+      priority-zone:
+        type: string
+        raw_type: string
+        description: Priority zone name list. Priority zone name.
+        max_length: 79
+      protocol:
+        type: integer
+        raw_type: integer
+        description: Protocol number.
+        default: '0'
+        min: 0
+        max: 255
+      quality-link:
+        type: integer
+        raw_type: integer
+        description: Quality grade.
+        default: '0'
+        min: 0
+        max: 255
+      role:
+        type: enum
+        raw_type: option
+        description: Service role to work with neighbor.
+        default: standalone
+      shortcut:
+        type: enum
+        raw_type: option
+        description: Enable/disable shortcut for this service.
+        default: enable
+      shortcut-priority:
+        type: enum
+        raw_type: option
+        description: High priority of ADVPN shortcut for this service.
+        default: auto
+      sla-compare-method:
+        type: enum
+        raw_type: option
+        description: Method to compare SLA value for SLA mode.
+        default: order
+      sla-stickiness:
+        type: enum
+        raw_type: option
+        description: Enable/disable SLA stickiness (default = disable).
+        default: disable
+      src:
+        type: string
+        raw_type: string
+        description: Source address name. Address or address group name.
+        max_length: 79
+      src-negate:
+        type: enum
+        raw_type: option
+        description: Enable/disable negation of source address match.
+        default: disable
+      src6:
+        type: string
+        raw_type: string
+        description: Source address6 name. Address6 or address6 group name.
+        max_length: 79
+      standalone-action:
+        type: enum
+        raw_type: option
+        description: Enable/disable service when selected neighbor role is standalone while service role is not standalone.
+        default: disable
+      start-port:
+        type: integer
+        raw_type: integer
+        description: Start destination port number.
+        default: '1'
+        min: 0
+        max: 65535
+      start-src-port:
+        type: integer
+        raw_type: integer
+        description: Start source port number.
+        default: '1'
+        min: 0
+        max: 65535
+      status:
+        type: enum
+        raw_type: option
+        description: Enable/disable SD-WAN service.
+        default: enable
+      tie-break:
+        type: enum
+        raw_type: option
+        description: Method of selecting member if more than one meets the SLA.
+        default: zone
+      tos:
+        type: string
+        raw_type: user
+        description: Type of service bit pattern.
+      tos-mask:
+        type: string
+        raw_type: user
+        description: Type of service evaluated bits.
+      use-shortcut-sla:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of ADVPN shortcut for quality comparison.
+        default: enable
+      users:
+        type: string
+        raw_type: string
+        description: User name. User name.
+        max_length: 79
+      zone-mode:
+        type: enum
+        raw_type: option
+        description: Enable/disable zone mode.
+        default: disable
+  zone:
+    attributes:
+      advpn-health-check:
+        type: string
+        raw_type: string
+        description: Health check for ADVPN local overlay link quality.
+        max_length: 35
+      advpn-select:
+        type: enum
+        raw_type: option
+        description: Enable/disable selection of ADVPN based on SDWAN information.
+        default: disable
+      minimum-sla-meet-members:
+        type: integer
+        raw_type: integer
+        description: Minimum number of members which meet SLA when the neighbor is preferred.
+        default: '1'
+        min: 1
+        max: 255
+      name:
+        type: string
+        raw_type: string
+        description: Zone name.
+        max_length: 35
+      service-sla-tie-break:
+        type: enum
+        raw_type: option
+        description: Method of selecting member if more than one meets the SLA.
+        default: cfg-order

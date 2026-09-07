@@ -1,0 +1,230 @@
+id: system.ntp
+version: 7.6.7
+source_object: fortios_system_ntp
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_system_ntp.py
+root_type: object
+attributes:
+  ntpsync:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable setting the FortiGate system time by synchronizing with an NTP Server.
+  type:
+    type: enum
+    raw_type: string
+    choices:
+    - fortiguard
+    - custom
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Use the FortiGuard NTP server or any other available NTP Server.
+  syncinterval:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: NTP synchronization interval (1 - 1440 min).
+  ntpserver:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Configure the FortiGate to connect to any available third-party NTP server.
+    children:
+      id:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: NTP server ID. see <a href='#notes'>Notes</a>.
+      server:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: IP address or hostname of the NTP Server.
+      ntpv3:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Enable to use NTPv3 instead of NTPv4.
+      authentication:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Enable/disable authentication.
+      key_type:
+        type: enum
+        raw_type: string
+        choices:
+        - MD5
+        - SHA1
+        - SHA256
+        version_ranges:
+        - - v7.4.4
+          - ''
+        description: Select NTP authentication type.
+      key:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Key for MD5(NTPv3)/SHA1(NTPv4)/SHA256(NTPv4) authentication.
+      key_id:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Key ID for authentication.
+      ip_type:
+        type: enum
+        raw_type: string
+        choices:
+        - IPv6
+        - IPv4
+        - Both
+        version_ranges:
+        - - v7.4.2
+          - ''
+        description: Choose to connect to IPv4 or/and IPv6 NTP server.
+      interface_select_method:
+        type: enum
+        raw_type: string
+        choices:
+        - auto
+        - sdwan
+        - specify
+        version_ranges:
+        - - v6.2.0
+          - v6.2.0
+        - - v6.2.5
+          - v6.4.0
+        - - v6.4.4
+          - ''
+        description: Specify how to select outgoing interface to reach server.
+      interface:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.2.0
+          - v6.2.0
+        - - v6.2.5
+          - v6.4.0
+        - - v6.4.4
+          - ''
+        description: Specify outgoing interface to reach server. Source system.interface.name.
+        references:
+        - system.interface.name
+      vrf_select:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.6.1
+          - ''
+        description: VRF ID used for connection to server.
+  source_ip:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Source IP address for communication to the NTP server.
+  source_ip6:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Source IPv6 address for communication to the NTP server.
+  server_mode:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable FortiGate NTP Server Mode. Your FortiGate becomes an NTP server for other devices on your
+      network. The FortiGate relays NTP requests to its configured NTP server.
+  authentication:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: Enable/disable authentication.
+  key_type:
+    type: enum
+    raw_type: string
+    choices:
+    - MD5
+    - SHA1
+    - SHA256
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: Key type for authentication (MD5, SHA1, SHA256).
+  key:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: Key for authentication.
+  key_id:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: Key ID for authentication.
+  interface:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: FortiGate interface(s) with NTP server mode enabled. Devices on your network can contact these interfaces
+      for NTP services.
+    children:
+      interface_name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Interface name. Source system.interface.name.
+        references:
+        - system.interface.name

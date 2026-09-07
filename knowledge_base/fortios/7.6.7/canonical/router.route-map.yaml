@@ -1,0 +1,2650 @@
+id: router.route-map
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  comments:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 127
+      description: Optional comments.
+      source_attribute: comments
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Optional comments.
+        source_attribute: comments
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: comments
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Optional comments.
+        max_length: 127
+        source_attribute: comments
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id002
+        description: Name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rule:
+    canonical:
+      type: list
+      elements: dict
+      children: &id004
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id007
+          - - v6.0.0
+            - ''
+          description: Rule ID. see <a href='#notes'>Notes</a>.
+        action:
+          type: enum
+          raw_type: string
+          choices: &id006
+          - permit
+          - deny
+          version_ranges: &id005
+          - - v6.0.0
+            - ''
+          description: Action.
+        match_as_path:
+          type: string
+          raw_type: string
+          version_ranges: &id009
+          - - v6.0.0
+            - ''
+          description: Match BGP AS path list. Source router.aspath-list.name.
+          references: &id008
+          - router.aspath-list.name
+        match_community:
+          type: string
+          raw_type: string
+          version_ranges: &id011
+          - - v6.0.0
+            - ''
+          description: Match BGP community list. Source router.community-list.name.
+          references: &id010
+          - router.community-list.name
+        match_extcommunity:
+          type: string
+          raw_type: string
+          version_ranges: &id015
+          - - v7.2.4
+            - ''
+          description: Match BGP extended community list. Source router.extcommunity-list.name.
+          references: &id014
+          - router.extcommunity-list.name
+        match_community_exact:
+          type: enum
+          raw_type: string
+          choices: &id013
+          - enable
+          - disable
+          version_ranges: &id012
+          - - v6.0.0
+            - ''
+          description: Enable/disable exact matching of communities.
+        match_extcommunity_exact:
+          type: enum
+          raw_type: string
+          choices: &id017
+          - enable
+          - disable
+          version_ranges: &id016
+          - - v7.2.4
+            - ''
+          description: Enable/disable exact matching of extended communities.
+        match_origin:
+          type: enum
+          raw_type: string
+          choices: &id030
+          - none
+          - egp
+          - igp
+          - incomplete
+          version_ranges: &id029
+          - - v6.0.0
+            - ''
+          description: Match BGP origin code.
+        match_interface:
+          type: string
+          raw_type: string
+          version_ranges: &id019
+          - - v6.0.0
+            - ''
+          description: Match interface configuration. Source system.interface.name.
+          references: &id018
+          - system.interface.name
+        match_ip_address:
+          type: string
+          raw_type: string
+          version_ranges: &id025
+          - - v6.0.0
+            - ''
+          description: Match IP address permitted by access-list or prefix-list. Source router.access-list.name router.prefix-list.name.
+          references: &id024
+          - router.access-list.name
+          - router.prefix-list.name
+        match_ip6_address:
+          type: string
+          raw_type: string
+          version_ranges: &id021
+          - - v6.0.0
+            - ''
+          description: Match IPv6 address permitted by access-list6 or prefix-list6. Source router.access-list6.name router.prefix-list6.name.
+          references: &id020
+          - router.access-list6.name
+          - router.prefix-list6.name
+        match_ip_nexthop:
+          type: string
+          raw_type: string
+          version_ranges: &id027
+          - - v6.0.0
+            - ''
+          description: Match next hop IP address passed by access-list or prefix-list. Source router.access-list.name router.prefix-list.name.
+          references: &id026
+          - router.access-list.name
+          - router.prefix-list.name
+        match_ip6_nexthop:
+          type: string
+          raw_type: string
+          version_ranges: &id023
+          - - v6.0.0
+            - ''
+          description: Match next hop IPv6 address passed by access-list6 or prefix-list6. Source router.access-list6.name
+            router.prefix-list6.name.
+          references: &id022
+          - router.access-list6.name
+          - router.prefix-list6.name
+        match_metric:
+          type: integer
+          raw_type: integer
+          version_ranges: &id028
+          - - v6.0.0
+            - ''
+          description: Match metric for redistribute routes.
+        match_route_type:
+          type: enum
+          raw_type: string
+          choices: &id032
+          - external-type1
+          - external-type2
+          - none
+          version_ranges: &id031
+          - - v6.0.0
+            - ''
+          description: Match route type.
+        match_tag:
+          type: integer
+          raw_type: integer
+          version_ranges: &id035
+          - - v6.0.0
+            - ''
+          description: Match tag.
+        match_vrf:
+          type: integer
+          raw_type: integer
+          version_ranges: &id036
+          - - v6.4.0
+            - ''
+          description: Match VRF ID.
+        match_suppress:
+          type: enum
+          raw_type: string
+          choices: &id034
+          - enable
+          - disable
+          version_ranges: &id033
+          - - v7.6.5
+            - ''
+          description: Enable/disable matching of suppressed original neighbor.
+        set_aggregator_as:
+          type: integer
+          raw_type: integer
+          version_ranges: &id037
+          - - v6.0.0
+            - ''
+          description: BGP aggregator AS.
+        set_aggregator_ip:
+          type: string
+          raw_type: string
+          version_ranges: &id038
+          - - v6.0.0
+            - ''
+          description: BGP aggregator IP.
+        set_aspath_action:
+          type: enum
+          raw_type: string
+          choices: &id044
+          - prepend
+          - replace
+          version_ranges: &id043
+          - - v6.0.0
+            - ''
+          description: Specify preferred action of set-aspath.
+        set_aspath:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id040
+          - - v6.0.0
+            - ''
+          description: Prepend BGP AS path attribute.
+          children: &id039
+            as:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id042
+              - - v6.0.0
+                - ''
+              description: AS number (0 - 4294967295).
+        set_atomic_aggregate:
+          type: enum
+          raw_type: string
+          choices: &id046
+          - enable
+          - disable
+          version_ranges: &id045
+          - - v6.0.0
+            - ''
+          description: Enable/disable BGP atomic aggregate attribute.
+        set_community_delete:
+          type: string
+          raw_type: string
+          version_ranges: &id054
+          - - v6.0.0
+            - ''
+          description: Delete communities matching community list. Source router.community-list.name.
+          references: &id053
+          - router.community-list.name
+        set_community:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id048
+          - - v6.0.0
+            - ''
+          description: BGP community attribute.
+          children: &id047
+            community:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id050
+              - - v6.0.0
+                - ''
+              description: 'Attribute: AA|AA:NN|internet|local-AS|no-advertise|no-export|gshut.(exact match required for well
+                known communities).'
+        set_community_additive:
+          type: enum
+          raw_type: string
+          choices: &id052
+          - enable
+          - disable
+          version_ranges: &id051
+          - - v6.0.0
+            - ''
+          description: Enable/disable adding set-community to existing community.
+        set_dampening_reachability_half_life:
+          type: integer
+          raw_type: integer
+          version_ranges: &id056
+          - - v6.0.0
+            - ''
+          description: Reachability half-life time for the penalty (1 - 45 min, 0 = unset).
+        set_dampening_reuse:
+          type: integer
+          raw_type: integer
+          version_ranges: &id057
+          - - v6.0.0
+            - ''
+          description: Value to start reusing a route (1 - 20000, 0 = unset).
+        set_dampening_suppress:
+          type: integer
+          raw_type: integer
+          version_ranges: &id058
+          - - v6.0.0
+            - ''
+          description: Value to start suppressing a route (1 - 20000, 0 = unset).
+        set_dampening_max_suppress:
+          type: integer
+          raw_type: integer
+          version_ranges: &id055
+          - - v6.0.0
+            - ''
+          description: Maximum duration to suppress a route (1 - 255 min, 0 = unset).
+        set_dampening_unreachability_half_life:
+          type: integer
+          raw_type: integer
+          version_ranges: &id059
+          - - v6.0.0
+            - ''
+          description: Unreachability Half-life time for the penalty (1 - 45 min, 0 = unset).
+        set_extcommunity_rt:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id061
+          - - v6.0.0
+            - ''
+          description: Route Target extended community.
+          children: &id060
+            community:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id063
+              - - v6.0.0
+                - ''
+              description: AA:NN.
+        set_extcommunity_soo:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id065
+          - - v6.0.0
+            - ''
+          description: Site-of-Origin extended community.
+          children: &id064
+            community:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id067
+              - - v6.0.0
+                - ''
+              description: Community (format = AA:NN).
+        set_ip_nexthop:
+          type: string
+          raw_type: string
+          version_ranges: &id070
+          - - v6.0.0
+            - ''
+          description: IP address of next hop.
+        set_ip_prefsrc:
+          type: string
+          raw_type: string
+          version_ranges: &id071
+          - - v7.4.0
+            - ''
+          description: IP address of preferred source.
+        set_vpnv4_nexthop:
+          type: string
+          raw_type: string
+          version_ranges: &id082
+          - - v7.4.1
+            - ''
+          description: IP address of VPNv4 next hop.
+        set_ip6_nexthop:
+          type: string
+          raw_type: string
+          version_ranges: &id068
+          - - v6.0.0
+            - ''
+          description: IPv6 global address of next hop.
+        set_ip6_nexthop_local:
+          type: string
+          raw_type: string
+          version_ranges: &id069
+          - - v6.0.0
+            - ''
+          description: IPv6 local address of next hop.
+        set_vpnv6_nexthop:
+          type: string
+          raw_type: string
+          version_ranges: &id083
+          - - v7.4.2
+            - ''
+          description: IPv6 global address of VPNv6 next hop.
+        set_vpnv6_nexthop_local:
+          type: string
+          raw_type: string
+          version_ranges: &id084
+          - - v7.4.2
+            - ''
+          description: IPv6 link-local address of VPNv6 next hop.
+        set_local_preference:
+          type: integer
+          raw_type: integer
+          version_ranges: &id072
+          - - v6.0.0
+            - ''
+          description: BGP local preference path attribute.
+        set_metric:
+          type: integer
+          raw_type: integer
+          version_ranges: &id073
+          - - v6.0.0
+            - ''
+          description: Metric value.
+        set_metric_type:
+          type: enum
+          raw_type: string
+          choices: &id075
+          - external-type1
+          - external-type2
+          - none
+          version_ranges: &id074
+          - - v6.0.0
+            - ''
+          description: Metric type.
+        set_originator_id:
+          type: string
+          raw_type: string
+          version_ranges: &id078
+          - - v6.0.0
+            - ''
+          description: BGP originator ID attribute.
+        set_origin:
+          type: enum
+          raw_type: string
+          choices: &id077
+          - none
+          - egp
+          - igp
+          - incomplete
+          version_ranges: &id076
+          - - v6.0.0
+            - ''
+          description: BGP origin code.
+        set_tag:
+          type: integer
+          raw_type: integer
+          version_ranges: &id081
+          - - v6.0.0
+            - ''
+          description: Tag value.
+        set_weight:
+          type: integer
+          raw_type: integer
+          version_ranges: &id085
+          - - v6.0.0
+            - ''
+          description: BGP weight for routing table.
+        set_route_tag:
+          type: integer
+          raw_type: integer
+          version_ranges: &id080
+          - - v6.0.0
+            - ''
+          description: Route tag for routing table.
+        set_priority:
+          type: integer
+          raw_type: integer
+          version_ranges: &id079
+          - - v7.2.0
+            - ''
+          description: Priority for routing table.
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      description: Rule.
+      source_attribute: rule
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id003
+        description: Rule.
+        children: *id004
+        source_attribute: rule
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          action:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          match_as_path:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          match_community:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          match_extcommunity:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          match_community_exact:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          match_extcommunity_exact:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          match_origin:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          match_interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          match_ip_address:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          match_ip6_address:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          match_ip_nexthop:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          match_ip6_nexthop:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          match_metric:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          match_route_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          match_tag:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          match_vrf:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 511
+          match_suppress:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          set_aggregator_as:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          set_aggregator_ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          set_aspath_action:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          set_aspath:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id041
+              as:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+          set_atomic_aggregate:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          set_community_delete:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          set_community:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id049
+              community:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+          set_community_additive:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          set_dampening_reachability_half_life:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 45
+          set_dampening_reuse:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 20000
+          set_dampening_suppress:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 20000
+          set_dampening_max_suppress:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 255
+          set_dampening_unreachability_half_life:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 45
+          set_extcommunity_rt:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id062
+              community:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+          set_extcommunity_soo:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id066
+              community:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+          set_ip_nexthop:
+            type: string
+            raw_type: TypeString
+            optional: true
+          set_ip_prefsrc:
+            type: string
+            raw_type: TypeString
+            optional: true
+          set_vpnv4_nexthop:
+            type: string
+            raw_type: TypeString
+            optional: true
+          set_ip6_nexthop:
+            type: string
+            raw_type: TypeString
+            optional: true
+          set_ip6_nexthop_local:
+            type: string
+            raw_type: TypeString
+            optional: true
+          set_vpnv6_nexthop:
+            type: string
+            raw_type: TypeString
+            optional: true
+          set_vpnv6_nexthop_local:
+            type: string
+            raw_type: TypeString
+            optional: true
+          set_local_preference:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          set_metric:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          set_metric_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          set_originator_id:
+            type: string
+            raw_type: TypeString
+            optional: true
+          set_origin:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          set_tag:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          set_weight:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          set_flags:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 65535
+          match_flags:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 65535
+          set_route_tag:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          set_priority:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 65535
+        source_attribute: rule
+    sources:
+    - ansible
+    - terraform
+  rule.action:
+    canonical:
+      type: enum
+      version_ranges: *id005
+      choices: *id006
+      description: Action.
+      source_attribute: rule.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id006
+        version_ranges: *id005
+        description: Action.
+        source_attribute: rule.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rule.action
+    sources:
+    - ansible
+    - terraform
+  rule.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id007
+      description: Rule ID. see <a href='#notes'>Notes</a>.
+      source_attribute: rule.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id007
+        description: Rule ID. see <a href='#notes'>Notes</a>.
+        source_attribute: rule.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: rule.id
+    sources:
+    - ansible
+    - terraform
+  rule.match_as_path:
+    canonical:
+      type: string
+      references: *id008
+      version_ranges: *id009
+      min_length: 0
+      max_length: 35
+      description: Match BGP AS path list. Source router.aspath-list.name.
+      source_attribute: rule.match_as_path
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id009
+        description: Match BGP AS path list. Source router.aspath-list.name.
+        references: *id008
+        source_attribute: rule.match_as_path
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: rule.match_as_path
+    sources:
+    - ansible
+    - terraform
+  rule.match_community:
+    canonical:
+      type: string
+      references: *id010
+      version_ranges: *id011
+      min_length: 0
+      max_length: 35
+      description: Match BGP community list. Source router.community-list.name.
+      source_attribute: rule.match_community
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: Match BGP community list. Source router.community-list.name.
+        references: *id010
+        source_attribute: rule.match_community
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: rule.match_community
+    sources:
+    - ansible
+    - terraform
+  rule.match_community_exact:
+    canonical:
+      type: enum
+      version_ranges: *id012
+      choices: *id013
+      description: Enable/disable exact matching of communities.
+      source_attribute: rule.match_community_exact
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id012
+        description: Enable/disable exact matching of communities.
+        source_attribute: rule.match_community_exact
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rule.match_community_exact
+    sources:
+    - ansible
+    - terraform
+  rule.match_extcommunity:
+    canonical:
+      type: string
+      references: *id014
+      version_ranges: *id015
+      min_length: 0
+      max_length: 35
+      description: Match BGP extended community list. Source router.extcommunity-list.name.
+      source_attribute: rule.match_extcommunity
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id015
+        description: Match BGP extended community list. Source router.extcommunity-list.name.
+        references: *id014
+        source_attribute: rule.match_extcommunity
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: rule.match_extcommunity
+    sources:
+    - ansible
+    - terraform
+  rule.match_extcommunity_exact:
+    canonical:
+      type: enum
+      version_ranges: *id016
+      choices: *id017
+      description: Enable/disable exact matching of extended communities.
+      source_attribute: rule.match_extcommunity_exact
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id017
+        version_ranges: *id016
+        description: Enable/disable exact matching of extended communities.
+        source_attribute: rule.match_extcommunity_exact
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rule.match_extcommunity_exact
+    sources:
+    - ansible
+    - terraform
+  rule.match_flags:
+    canonical:
+      type: integer
+      min: 0
+      max: 65535
+      source_attribute: rule.match_flags
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: rule.match_flags
+    sources:
+    - terraform
+  rule.match_interface:
+    canonical:
+      type: string
+      references: *id018
+      version_ranges: *id019
+      min_length: 0
+      max_length: 15
+      description: Match interface configuration. Source system.interface.name.
+      source_attribute: rule.match_interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id019
+        description: Match interface configuration. Source system.interface.name.
+        references: *id018
+        source_attribute: rule.match_interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: rule.match_interface
+    sources:
+    - ansible
+    - terraform
+  rule.match_ip6_address:
+    canonical:
+      type: string
+      references: *id020
+      version_ranges: *id021
+      min_length: 0
+      max_length: 35
+      description: Match IPv6 address permitted by access-list6 or prefix-list6. Source router.access-list6.name router.prefix-list6.name.
+      source_attribute: rule.match_ip6_address
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id021
+        description: Match IPv6 address permitted by access-list6 or prefix-list6. Source router.access-list6.name router.prefix-list6.name.
+        references: *id020
+        source_attribute: rule.match_ip6_address
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: rule.match_ip6_address
+    sources:
+    - ansible
+    - terraform
+  rule.match_ip6_nexthop:
+    canonical:
+      type: string
+      references: *id022
+      version_ranges: *id023
+      min_length: 0
+      max_length: 35
+      description: Match next hop IPv6 address passed by access-list6 or prefix-list6. Source router.access-list6.name router.prefix-list6.name.
+      source_attribute: rule.match_ip6_nexthop
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id023
+        description: Match next hop IPv6 address passed by access-list6 or prefix-list6. Source router.access-list6.name router.prefix-list6.name.
+        references: *id022
+        source_attribute: rule.match_ip6_nexthop
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: rule.match_ip6_nexthop
+    sources:
+    - ansible
+    - terraform
+  rule.match_ip_address:
+    canonical:
+      type: string
+      references: *id024
+      version_ranges: *id025
+      min_length: 0
+      max_length: 35
+      description: Match IP address permitted by access-list or prefix-list. Source router.access-list.name router.prefix-list.name.
+      source_attribute: rule.match_ip_address
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id025
+        description: Match IP address permitted by access-list or prefix-list. Source router.access-list.name router.prefix-list.name.
+        references: *id024
+        source_attribute: rule.match_ip_address
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: rule.match_ip_address
+    sources:
+    - ansible
+    - terraform
+  rule.match_ip_nexthop:
+    canonical:
+      type: string
+      references: *id026
+      version_ranges: *id027
+      min_length: 0
+      max_length: 35
+      description: Match next hop IP address passed by access-list or prefix-list. Source router.access-list.name router.prefix-list.name.
+      source_attribute: rule.match_ip_nexthop
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id027
+        description: Match next hop IP address passed by access-list or prefix-list. Source router.access-list.name router.prefix-list.name.
+        references: *id026
+        source_attribute: rule.match_ip_nexthop
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: rule.match_ip_nexthop
+    sources:
+    - ansible
+    - terraform
+  rule.match_metric:
+    canonical:
+      type: integer
+      version_ranges: *id028
+      description: Match metric for redistribute routes.
+      source_attribute: rule.match_metric
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id028
+        description: Match metric for redistribute routes.
+        source_attribute: rule.match_metric
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: rule.match_metric
+    sources:
+    - ansible
+    - terraform
+  rule.match_origin:
+    canonical:
+      type: enum
+      version_ranges: *id029
+      choices: *id030
+      description: Match BGP origin code.
+      source_attribute: rule.match_origin
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id030
+        version_ranges: *id029
+        description: Match BGP origin code.
+        source_attribute: rule.match_origin
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rule.match_origin
+    sources:
+    - ansible
+    - terraform
+  rule.match_route_type:
+    canonical:
+      type: enum
+      version_ranges: *id031
+      choices: *id032
+      description: Match route type.
+      source_attribute: rule.match_route_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id032
+        version_ranges: *id031
+        description: Match route type.
+        source_attribute: rule.match_route_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rule.match_route_type
+    sources:
+    - ansible
+    - terraform
+  rule.match_suppress:
+    canonical:
+      type: enum
+      version_ranges: *id033
+      choices: *id034
+      description: Enable/disable matching of suppressed original neighbor.
+      source_attribute: rule.match_suppress
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id034
+        version_ranges: *id033
+        description: Enable/disable matching of suppressed original neighbor.
+        source_attribute: rule.match_suppress
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rule.match_suppress
+    sources:
+    - ansible
+    - terraform
+  rule.match_tag:
+    canonical:
+      type: integer
+      version_ranges: *id035
+      description: Match tag.
+      source_attribute: rule.match_tag
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id035
+        description: Match tag.
+        source_attribute: rule.match_tag
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: rule.match_tag
+    sources:
+    - ansible
+    - terraform
+  rule.match_vrf:
+    canonical:
+      type: integer
+      version_ranges: *id036
+      min: 0
+      max: 511
+      description: Match VRF ID.
+      source_attribute: rule.match_vrf
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id036
+        description: Match VRF ID.
+        source_attribute: rule.match_vrf
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 511
+        source_attribute: rule.match_vrf
+    sources:
+    - ansible
+    - terraform
+  rule.set_aggregator_as:
+    canonical:
+      type: integer
+      version_ranges: *id037
+      description: BGP aggregator AS.
+      source_attribute: rule.set_aggregator_as
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id037
+        description: BGP aggregator AS.
+        source_attribute: rule.set_aggregator_as
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: rule.set_aggregator_as
+    sources:
+    - ansible
+    - terraform
+  rule.set_aggregator_ip:
+    canonical:
+      type: string
+      version_ranges: *id038
+      description: BGP aggregator IP.
+      source_attribute: rule.set_aggregator_ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id038
+        description: BGP aggregator IP.
+        source_attribute: rule.set_aggregator_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rule.set_aggregator_ip
+    sources:
+    - ansible
+    - terraform
+  rule.set_aspath:
+    canonical:
+      type: list
+      elements: dict
+      children: *id039
+      version_ranges: *id040
+      description: Prepend BGP AS path attribute.
+      source_attribute: rule.set_aspath
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id040
+        description: Prepend BGP AS path attribute.
+        children: *id039
+        source_attribute: rule.set_aspath
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id041
+        source_attribute: rule.set_aspath
+    sources:
+    - ansible
+    - terraform
+  rule.set_aspath.as:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id042
+      min_length: 0
+      max_length: 79
+      description: AS number (0 - 4294967295).
+      source_attribute: rule.set_aspath.as
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id042
+        description: AS number (0 - 4294967295).
+        source_attribute: rule.set_aspath.as
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: rule.set_aspath.as
+    sources:
+    - ansible
+    - terraform
+  rule.set_aspath_action:
+    canonical:
+      type: enum
+      version_ranges: *id043
+      choices: *id044
+      description: Specify preferred action of set-aspath.
+      source_attribute: rule.set_aspath_action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id044
+        version_ranges: *id043
+        description: Specify preferred action of set-aspath.
+        source_attribute: rule.set_aspath_action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rule.set_aspath_action
+    sources:
+    - ansible
+    - terraform
+  rule.set_atomic_aggregate:
+    canonical:
+      type: enum
+      version_ranges: *id045
+      choices: *id046
+      description: Enable/disable BGP atomic aggregate attribute.
+      source_attribute: rule.set_atomic_aggregate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id046
+        version_ranges: *id045
+        description: Enable/disable BGP atomic aggregate attribute.
+        source_attribute: rule.set_atomic_aggregate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rule.set_atomic_aggregate
+    sources:
+    - ansible
+    - terraform
+  rule.set_community:
+    canonical:
+      type: list
+      elements: dict
+      children: *id047
+      version_ranges: *id048
+      description: BGP community attribute.
+      source_attribute: rule.set_community
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id048
+        description: BGP community attribute.
+        children: *id047
+        source_attribute: rule.set_community
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id049
+        source_attribute: rule.set_community
+    sources:
+    - ansible
+    - terraform
+  rule.set_community.community:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id050
+      min_length: 0
+      max_length: 79
+      description: 'Attribute: AA|AA:NN|internet|local-AS|no-advertise|no-export|gshut.(exact match required for well known
+        communities).'
+      source_attribute: rule.set_community.community
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id050
+        description: 'Attribute: AA|AA:NN|internet|local-AS|no-advertise|no-export|gshut.(exact match required for well known
+          communities).'
+        source_attribute: rule.set_community.community
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: rule.set_community.community
+    sources:
+    - ansible
+    - terraform
+  rule.set_community_additive:
+    canonical:
+      type: enum
+      version_ranges: *id051
+      choices: *id052
+      description: Enable/disable adding set-community to existing community.
+      source_attribute: rule.set_community_additive
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id052
+        version_ranges: *id051
+        description: Enable/disable adding set-community to existing community.
+        source_attribute: rule.set_community_additive
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rule.set_community_additive
+    sources:
+    - ansible
+    - terraform
+  rule.set_community_delete:
+    canonical:
+      type: string
+      references: *id053
+      version_ranges: *id054
+      min_length: 0
+      max_length: 35
+      description: Delete communities matching community list. Source router.community-list.name.
+      source_attribute: rule.set_community_delete
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id054
+        description: Delete communities matching community list. Source router.community-list.name.
+        references: *id053
+        source_attribute: rule.set_community_delete
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: rule.set_community_delete
+    sources:
+    - ansible
+    - terraform
+  rule.set_dampening_max_suppress:
+    canonical:
+      type: integer
+      version_ranges: *id055
+      min: 0
+      max: 255
+      description: Maximum duration to suppress a route (1 - 255 min, 0 = unset).
+      source_attribute: rule.set_dampening_max_suppress
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id055
+        description: Maximum duration to suppress a route (1 - 255 min, 0 = unset).
+        source_attribute: rule.set_dampening_max_suppress
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: rule.set_dampening_max_suppress
+    sources:
+    - ansible
+    - terraform
+  rule.set_dampening_reachability_half_life:
+    canonical:
+      type: integer
+      version_ranges: *id056
+      min: 0
+      max: 45
+      description: Reachability half-life time for the penalty (1 - 45 min, 0 = unset).
+      source_attribute: rule.set_dampening_reachability_half_life
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id056
+        description: Reachability half-life time for the penalty (1 - 45 min, 0 = unset).
+        source_attribute: rule.set_dampening_reachability_half_life
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 45
+        source_attribute: rule.set_dampening_reachability_half_life
+    sources:
+    - ansible
+    - terraform
+  rule.set_dampening_reuse:
+    canonical:
+      type: integer
+      version_ranges: *id057
+      min: 0
+      max: 20000
+      description: Value to start reusing a route (1 - 20000, 0 = unset).
+      source_attribute: rule.set_dampening_reuse
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id057
+        description: Value to start reusing a route (1 - 20000, 0 = unset).
+        source_attribute: rule.set_dampening_reuse
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 20000
+        source_attribute: rule.set_dampening_reuse
+    sources:
+    - ansible
+    - terraform
+  rule.set_dampening_suppress:
+    canonical:
+      type: integer
+      version_ranges: *id058
+      min: 0
+      max: 20000
+      description: Value to start suppressing a route (1 - 20000, 0 = unset).
+      source_attribute: rule.set_dampening_suppress
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id058
+        description: Value to start suppressing a route (1 - 20000, 0 = unset).
+        source_attribute: rule.set_dampening_suppress
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 20000
+        source_attribute: rule.set_dampening_suppress
+    sources:
+    - ansible
+    - terraform
+  rule.set_dampening_unreachability_half_life:
+    canonical:
+      type: integer
+      version_ranges: *id059
+      min: 0
+      max: 45
+      description: Unreachability Half-life time for the penalty (1 - 45 min, 0 = unset).
+      source_attribute: rule.set_dampening_unreachability_half_life
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id059
+        description: Unreachability Half-life time for the penalty (1 - 45 min, 0 = unset).
+        source_attribute: rule.set_dampening_unreachability_half_life
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 45
+        source_attribute: rule.set_dampening_unreachability_half_life
+    sources:
+    - ansible
+    - terraform
+  rule.set_extcommunity_rt:
+    canonical:
+      type: list
+      elements: dict
+      children: *id060
+      version_ranges: *id061
+      description: Route Target extended community.
+      source_attribute: rule.set_extcommunity_rt
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id061
+        description: Route Target extended community.
+        children: *id060
+        source_attribute: rule.set_extcommunity_rt
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id062
+        source_attribute: rule.set_extcommunity_rt
+    sources:
+    - ansible
+    - terraform
+  rule.set_extcommunity_rt.community:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id063
+      min_length: 0
+      max_length: 79
+      description: AA:NN.
+      source_attribute: rule.set_extcommunity_rt.community
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id063
+        description: AA:NN.
+        source_attribute: rule.set_extcommunity_rt.community
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: rule.set_extcommunity_rt.community
+    sources:
+    - ansible
+    - terraform
+  rule.set_extcommunity_soo:
+    canonical:
+      type: list
+      elements: dict
+      children: *id064
+      version_ranges: *id065
+      description: Site-of-Origin extended community.
+      source_attribute: rule.set_extcommunity_soo
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id065
+        description: Site-of-Origin extended community.
+        children: *id064
+        source_attribute: rule.set_extcommunity_soo
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id066
+        source_attribute: rule.set_extcommunity_soo
+    sources:
+    - ansible
+    - terraform
+  rule.set_extcommunity_soo.community:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id067
+      min_length: 0
+      max_length: 79
+      description: Community (format = AA:NN).
+      source_attribute: rule.set_extcommunity_soo.community
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id067
+        description: Community (format = AA:NN).
+        source_attribute: rule.set_extcommunity_soo.community
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: rule.set_extcommunity_soo.community
+    sources:
+    - ansible
+    - terraform
+  rule.set_flags:
+    canonical:
+      type: integer
+      min: 0
+      max: 65535
+      source_attribute: rule.set_flags
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: rule.set_flags
+    sources:
+    - terraform
+  rule.set_ip6_nexthop:
+    canonical:
+      type: string
+      version_ranges: *id068
+      description: IPv6 global address of next hop.
+      source_attribute: rule.set_ip6_nexthop
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id068
+        description: IPv6 global address of next hop.
+        source_attribute: rule.set_ip6_nexthop
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: rule.set_ip6_nexthop
+    sources:
+    - ansible
+    - terraform
+  rule.set_ip6_nexthop_local:
+    canonical:
+      type: string
+      version_ranges: *id069
+      description: IPv6 local address of next hop.
+      source_attribute: rule.set_ip6_nexthop_local
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id069
+        description: IPv6 local address of next hop.
+        source_attribute: rule.set_ip6_nexthop_local
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: rule.set_ip6_nexthop_local
+    sources:
+    - ansible
+    - terraform
+  rule.set_ip_nexthop:
+    canonical:
+      type: string
+      version_ranges: *id070
+      description: IP address of next hop.
+      source_attribute: rule.set_ip_nexthop
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id070
+        description: IP address of next hop.
+        source_attribute: rule.set_ip_nexthop
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: rule.set_ip_nexthop
+    sources:
+    - ansible
+    - terraform
+  rule.set_ip_prefsrc:
+    canonical:
+      type: string
+      version_ranges: *id071
+      description: IP address of preferred source.
+      source_attribute: rule.set_ip_prefsrc
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id071
+        description: IP address of preferred source.
+        source_attribute: rule.set_ip_prefsrc
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: rule.set_ip_prefsrc
+    sources:
+    - ansible
+    - terraform
+  rule.set_local_preference:
+    canonical:
+      type: integer
+      version_ranges: *id072
+      description: BGP local preference path attribute.
+      source_attribute: rule.set_local_preference
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id072
+        description: BGP local preference path attribute.
+        source_attribute: rule.set_local_preference
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: rule.set_local_preference
+    sources:
+    - ansible
+    - terraform
+  rule.set_metric:
+    canonical:
+      type: integer
+      version_ranges: *id073
+      description: Metric value.
+      source_attribute: rule.set_metric
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id073
+        description: Metric value.
+        source_attribute: rule.set_metric
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: rule.set_metric
+    sources:
+    - ansible
+    - terraform
+  rule.set_metric_type:
+    canonical:
+      type: enum
+      version_ranges: *id074
+      choices: *id075
+      description: Metric type.
+      source_attribute: rule.set_metric_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id075
+        version_ranges: *id074
+        description: Metric type.
+        source_attribute: rule.set_metric_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rule.set_metric_type
+    sources:
+    - ansible
+    - terraform
+  rule.set_origin:
+    canonical:
+      type: enum
+      version_ranges: *id076
+      choices: *id077
+      description: BGP origin code.
+      source_attribute: rule.set_origin
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id077
+        version_ranges: *id076
+        description: BGP origin code.
+        source_attribute: rule.set_origin
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rule.set_origin
+    sources:
+    - ansible
+    - terraform
+  rule.set_originator_id:
+    canonical:
+      type: string
+      version_ranges: *id078
+      description: BGP originator ID attribute.
+      source_attribute: rule.set_originator_id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id078
+        description: BGP originator ID attribute.
+        source_attribute: rule.set_originator_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: rule.set_originator_id
+    sources:
+    - ansible
+    - terraform
+  rule.set_priority:
+    canonical:
+      type: integer
+      version_ranges: *id079
+      min: 1
+      max: 65535
+      description: Priority for routing table.
+      source_attribute: rule.set_priority
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id079
+        description: Priority for routing table.
+        source_attribute: rule.set_priority
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 65535
+        source_attribute: rule.set_priority
+    sources:
+    - ansible
+    - terraform
+  rule.set_route_tag:
+    canonical:
+      type: integer
+      version_ranges: *id080
+      description: Route tag for routing table.
+      source_attribute: rule.set_route_tag
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id080
+        description: Route tag for routing table.
+        source_attribute: rule.set_route_tag
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: rule.set_route_tag
+    sources:
+    - ansible
+    - terraform
+  rule.set_tag:
+    canonical:
+      type: integer
+      version_ranges: *id081
+      description: Tag value.
+      source_attribute: rule.set_tag
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id081
+        description: Tag value.
+        source_attribute: rule.set_tag
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: rule.set_tag
+    sources:
+    - ansible
+    - terraform
+  rule.set_vpnv4_nexthop:
+    canonical:
+      type: string
+      version_ranges: *id082
+      description: IP address of VPNv4 next hop.
+      source_attribute: rule.set_vpnv4_nexthop
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id082
+        description: IP address of VPNv4 next hop.
+        source_attribute: rule.set_vpnv4_nexthop
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: rule.set_vpnv4_nexthop
+    sources:
+    - ansible
+    - terraform
+  rule.set_vpnv6_nexthop:
+    canonical:
+      type: string
+      version_ranges: *id083
+      description: IPv6 global address of VPNv6 next hop.
+      source_attribute: rule.set_vpnv6_nexthop
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id083
+        description: IPv6 global address of VPNv6 next hop.
+        source_attribute: rule.set_vpnv6_nexthop
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: rule.set_vpnv6_nexthop
+    sources:
+    - ansible
+    - terraform
+  rule.set_vpnv6_nexthop_local:
+    canonical:
+      type: string
+      version_ranges: *id084
+      description: IPv6 link-local address of VPNv6 next hop.
+      source_attribute: rule.set_vpnv6_nexthop_local
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id084
+        description: IPv6 link-local address of VPNv6 next hop.
+        source_attribute: rule.set_vpnv6_nexthop_local
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: rule.set_vpnv6_nexthop_local
+    sources:
+    - ansible
+    - terraform
+  rule.set_weight:
+    canonical:
+      type: integer
+      version_ranges: *id085
+      description: BGP weight for routing table.
+      source_attribute: rule.set_weight
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id085
+        description: BGP weight for routing table.
+        source_attribute: rule.set_weight
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: rule.set_weight
+    sources:
+    - ansible
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

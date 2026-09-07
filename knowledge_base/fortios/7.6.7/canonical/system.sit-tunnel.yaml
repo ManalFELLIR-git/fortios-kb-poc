@@ -1,0 +1,390 @@
+id: system.sit-tunnel
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  auto_asic_offload:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable tunnel ASIC offloading.
+      source_attribute: auto-asic-offload
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable tunnel ASIC offloading.
+        source_attribute: auto_asic_offload
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auto_asic_offload
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable tunnel ASIC offloading.
+        default: enable
+        source_attribute: auto-asic-offload
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  destination:
+    canonical:
+      type: ipv4-address
+      required: true
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: Destination IP address of the tunnel.
+      source_attribute: destination
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Destination IP address of the tunnel.
+        source_attribute: destination
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: destination
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Destination IP address of the tunnel.
+        default: 0.0.0.0
+        source_attribute: destination
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id004
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id004
+  interface:
+    canonical:
+      type: string
+      references: &id006
+      - system.interface.name
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Interface name.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: Interface name. Source system.interface.name.
+        references: *id006
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Interface name.
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ip6:
+    canonical:
+      type: ipv6-prefix
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      default: ::/0
+      description: IPv6 address of the tunnel.
+      source_attribute: ip6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: IPv6 address of the tunnel.
+        source_attribute: ip6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ip6
+      cli_reference:
+        type: ipv6-prefix
+        raw_type: ipv6-prefix
+        description: IPv6 address of the tunnel.
+        default: ::/0
+        source_attribute: ip6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id008
+          primitive: string
+          format: ipv6-prefix
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id008
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Tunnel name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id009
+        description: Tunnel name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 15
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Tunnel name.
+        max_length: 15
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id010
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: Source IP address of the tunnel.
+      source_attribute: source
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id010
+        description: Source IP address of the tunnel.
+        source_attribute: source
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Source IP address of the tunnel.
+        default: 0.0.0.0
+        source_attribute: source
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id011
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id011
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  use_sdwan:
+    canonical:
+      type: enum
+      version_ranges: &id013
+      - - v7.0.0
+        - ''
+      choices: &id012
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable use of SD-WAN to reach remote gateway.
+      source_attribute: use-sdwan
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id012
+        version_ranges: *id013
+        description: Enable/disable use of SD-WAN to reach remote gateway.
+        source_attribute: use_sdwan
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: use_sdwan
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of SD-WAN to reach remote gateway.
+        default: disable
+        source_attribute: use-sdwan
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: destination
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: ip6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-prefix
+  classification: representation_or_real_conflict
+- attribute: source
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict

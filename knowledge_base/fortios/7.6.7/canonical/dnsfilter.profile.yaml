@@ -1,0 +1,1799 @@
+id: dnsfilter.profile
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  block_action:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - block
+      - redirect
+      - block-sevrfail
+      default: redirect
+      description: Action to take for blocked domains.
+      source_attribute: block-action
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Action to take for blocked domains.
+        source_attribute: block_action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: block_action
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Action to take for blocked domains.
+        default: redirect
+        source_attribute: block-action
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  block_botnet:
+    canonical:
+      type: enum
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      choices: &id003
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable blocking botnet C&C DNS lookups.
+      source_attribute: block-botnet
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: Enable/disable blocking botnet C&C DNS lookups.
+        source_attribute: block_botnet
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: block_botnet
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable blocking botnet C&C DNS lookups.
+        default: disable
+        source_attribute: block-botnet
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Comment.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: Comment.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 255
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dns_translation:
+    canonical:
+      type: list
+      elements: dict
+      children: &id007
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id012
+          - - v6.2.0
+            - ''
+          description: ID. see <a href='#notes'>Notes</a>.
+        addr_type:
+          type: enum
+          raw_type: string
+          choices: &id009
+          - ipv4
+          - ipv6
+          version_ranges: &id008
+          - - v6.2.0
+            - ''
+          description: DNS translation type (IPv4 or IPv6).
+        src:
+          type: string
+          raw_type: string
+          version_ranges: &id015
+          - - v6.2.0
+            - ''
+          description: IPv4 address or subnet on the internal network to compare with the resolved address in DNS query replies.
+            If the resolved address matches, the resolved address is substituted with dst.
+        dst:
+          type: string
+          raw_type: string
+          version_ranges: &id010
+          - - v6.2.0
+            - ''
+          description: IPv4 address or subnet on the external network to substitute for the resolved address in DNS query
+            replies. Can be single IP address or subnet on the external network, but number of addresses must equal number
+            of mapped IP addresses in src.
+        netmask:
+          type: string
+          raw_type: string
+          version_ranges: &id013
+          - - v6.2.0
+            - ''
+          description: If src and dst are subnets rather than single IP addresses, enter the netmask for both src and dst.
+        status:
+          type: enum
+          raw_type: string
+          choices: &id018
+          - enable
+          - disable
+          version_ranges: &id017
+          - - v6.2.0
+            - ''
+          description: Enable/disable this DNS translation entry.
+        src6:
+          type: string
+          raw_type: string
+          version_ranges: &id016
+          - - v6.2.0
+            - ''
+          description: IPv6 address or subnet on the internal network to compare with the resolved address in DNS query replies.
+            If the resolved address matches, the resolved address is substituted with dst6.
+        dst6:
+          type: string
+          raw_type: string
+          version_ranges: &id011
+          - - v6.2.0
+            - ''
+          description: IPv6 address or subnet on the external network to substitute for the resolved address in DNS query
+            replies. Can be single IP address or subnet on the external network, but number of addresses must equal number
+            of mapped IP addresses in src6.
+        prefix:
+          type: integer
+          raw_type: integer
+          version_ranges: &id014
+          - - v6.2.0
+            - ''
+          description: If src6 and dst6 are subnets rather than single IP addresses, enter the prefix for both src6 and dst6
+            (1 - 128).
+      version_ranges: &id006
+      - - v6.2.0
+        - ''
+      description: DNS translation settings.
+      source_attribute: dns_translation
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id006
+        description: DNS translation settings.
+        children: *id007
+        source_attribute: dns_translation
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          addr_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          src:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          dst:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          netmask:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          src6:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          dst6:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          prefix:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 128
+        source_attribute: dns_translation
+    sources:
+    - ansible
+    - terraform
+  dns_translation.addr_type:
+    canonical:
+      type: enum
+      version_ranges: *id008
+      choices: *id009
+      description: DNS translation type (IPv4 or IPv6).
+      source_attribute: dns_translation.addr_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id008
+        description: DNS translation type (IPv4 or IPv6).
+        source_attribute: dns_translation.addr_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dns_translation.addr_type
+    sources:
+    - ansible
+    - terraform
+  dns_translation.dst:
+    canonical:
+      type: string
+      version_ranges: *id010
+      description: IPv4 address or subnet on the external network to substitute for the resolved address in DNS query replies.
+        Can be single IP address or subnet on the external network, but number of addresses must equal number of mapped IP
+        addresses in src.
+      source_attribute: dns_translation.dst
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id010
+        description: IPv4 address or subnet on the external network to substitute for the resolved address in DNS query replies.
+          Can be single IP address or subnet on the external network, but number of addresses must equal number of mapped
+          IP addresses in src.
+        source_attribute: dns_translation.dst
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dns_translation.dst
+    sources:
+    - ansible
+    - terraform
+  dns_translation.dst6:
+    canonical:
+      type: string
+      version_ranges: *id011
+      description: IPv6 address or subnet on the external network to substitute for the resolved address in DNS query replies.
+        Can be single IP address or subnet on the external network, but number of addresses must equal number of mapped IP
+        addresses in src6.
+      source_attribute: dns_translation.dst6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: IPv6 address or subnet on the external network to substitute for the resolved address in DNS query replies.
+          Can be single IP address or subnet on the external network, but number of addresses must equal number of mapped
+          IP addresses in src6.
+        source_attribute: dns_translation.dst6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dns_translation.dst6
+    sources:
+    - ansible
+    - terraform
+  dns_translation.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id012
+      description: ID. see <a href='#notes'>Notes</a>.
+      source_attribute: dns_translation.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id012
+        description: ID. see <a href='#notes'>Notes</a>.
+        source_attribute: dns_translation.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: dns_translation.id
+    sources:
+    - ansible
+    - terraform
+  dns_translation.netmask:
+    canonical:
+      type: string
+      version_ranges: *id013
+      description: If src and dst are subnets rather than single IP addresses, enter the netmask for both src and dst.
+      source_attribute: dns_translation.netmask
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id013
+        description: If src and dst are subnets rather than single IP addresses, enter the netmask for both src and dst.
+        source_attribute: dns_translation.netmask
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dns_translation.netmask
+    sources:
+    - ansible
+    - terraform
+  dns_translation.prefix:
+    canonical:
+      type: integer
+      version_ranges: *id014
+      min: 1
+      max: 128
+      description: If src6 and dst6 are subnets rather than single IP addresses, enter the prefix for both src6 and dst6 (1
+        - 128).
+      source_attribute: dns_translation.prefix
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id014
+        description: If src6 and dst6 are subnets rather than single IP addresses, enter the prefix for both src6 and dst6
+          (1 - 128).
+        source_attribute: dns_translation.prefix
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 128
+        source_attribute: dns_translation.prefix
+    sources:
+    - ansible
+    - terraform
+  dns_translation.src:
+    canonical:
+      type: string
+      version_ranges: *id015
+      description: IPv4 address or subnet on the internal network to compare with the resolved address in DNS query replies.
+        If the resolved address matches, the resolved address is substituted with dst.
+      source_attribute: dns_translation.src
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id015
+        description: IPv4 address or subnet on the internal network to compare with the resolved address in DNS query replies.
+          If the resolved address matches, the resolved address is substituted with dst.
+        source_attribute: dns_translation.src
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dns_translation.src
+    sources:
+    - ansible
+    - terraform
+  dns_translation.src6:
+    canonical:
+      type: string
+      version_ranges: *id016
+      description: IPv6 address or subnet on the internal network to compare with the resolved address in DNS query replies.
+        If the resolved address matches, the resolved address is substituted with dst6.
+      source_attribute: dns_translation.src6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id016
+        description: IPv6 address or subnet on the internal network to compare with the resolved address in DNS query replies.
+          If the resolved address matches, the resolved address is substituted with dst6.
+        source_attribute: dns_translation.src6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dns_translation.src6
+    sources:
+    - ansible
+    - terraform
+  dns_translation.status:
+    canonical:
+      type: enum
+      version_ranges: *id017
+      choices: *id018
+      description: Enable/disable this DNS translation entry.
+      source_attribute: dns_translation.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id018
+        version_ranges: *id017
+        description: Enable/disable this DNS translation entry.
+        source_attribute: dns_translation.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dns_translation.status
+    sources:
+    - ansible
+    - terraform
+  domain_filter:
+    canonical:
+      type: list
+      children: &id020
+        domain_filter_table:
+          type: integer
+          raw_type: integer
+          version_ranges: &id023
+          - - v6.0.0
+            - ''
+          description: DNS domain filter table ID. Source dnsfilter.domain-filter.id.
+          references: &id022
+          - dnsfilter.domain-filter.id
+      version_ranges: &id019
+      - - v6.0.0
+        - ''
+      description: Domain filter settings.
+      source_attribute: domain_filter
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id019
+        description: Domain filter settings.
+        children: *id020
+        source_attribute: domain_filter
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          domain_filter_table:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+        source_attribute: domain_filter
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id021
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id021
+  domain_filter.domain_filter_table:
+    canonical:
+      type: integer
+      references: *id022
+      version_ranges: *id023
+      description: DNS domain filter table ID. Source dnsfilter.domain-filter.id.
+      source_attribute: domain_filter.domain_filter_table
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id023
+        description: DNS domain filter table ID. Source dnsfilter.domain-filter.id.
+        references: *id022
+        source_attribute: domain_filter.domain_filter_table
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: domain_filter.domain_filter_table
+    sources:
+    - ansible
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  external_ip_blocklist:
+    canonical:
+      type: list
+      elements: dict
+      children: &id025
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id028
+          - - v6.0.0
+            - ''
+          description: External domain block list name. Source system.external-resource.name.
+          references: &id027
+          - system.external-resource.name
+      version_ranges: &id024
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: One or more external IP block lists. External domain block list name.
+      source_attribute: external-ip-blocklist
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id024
+        description: One or more external IP block lists.
+        children: *id025
+        source_attribute: external_ip_blocklist
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: external_ip_blocklist
+      cli_reference:
+        type: string
+        raw_type: string
+        description: One or more external IP block lists. External domain block list name.
+        max_length: 79
+        source_attribute: external-ip-blocklist
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id026
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id026
+  external_ip_blocklist.name:
+    canonical:
+      type: string
+      references: *id027
+      required: true
+      version_ranges: *id028
+      min_length: 0
+      max_length: 79
+      description: External domain block list name. Source system.external-resource.name.
+      source_attribute: external_ip_blocklist.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id028
+        description: External domain block list name. Source system.external-resource.name.
+        references: *id027
+        source_attribute: external_ip_blocklist.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: external_ip_blocklist.name
+    sources:
+    - ansible
+    - terraform
+  fabric_force_sync:
+    canonical:
+      type: string
+      source_attribute: fabric_force_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_force_sync
+    sources:
+    - terraform
+  fabric_object:
+    canonical:
+      type: string
+      source_attribute: fabric_object
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object
+    sources:
+    - terraform
+  fabric_object_source:
+    canonical:
+      type: string
+      source_attribute: fabric_object_source
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object_source
+    sources:
+    - terraform
+  ftgd_dns:
+    canonical:
+      type: list
+      children: &id030
+        options:
+          type: enum
+          raw_type: list
+          choices: &id042
+          - error-allow
+          - ftgd-disable
+          multiple_values: true
+          elements: str
+          version_ranges: &id041
+          - - v6.0.0
+            - ''
+          description: FortiGuard DNS filter options.
+        filters:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id033
+          - - v6.0.0
+            - ''
+          description: FortiGuard DNS domain filters.
+          children: &id032
+            id:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id038
+              - - v6.0.0
+                - ''
+              description: ID number. see <a href='#notes'>Notes</a>.
+            category:
+              type: integer
+              raw_type: integer
+              version_ranges: &id037
+              - - v6.0.0
+                - ''
+              description: Category number.
+            action:
+              type: enum
+              raw_type: string
+              choices: &id036
+              - block
+              - monitor
+              version_ranges: &id035
+              - - v6.0.0
+                - ''
+              description: Action to take for DNS requests matching the category.
+            log:
+              type: enum
+              raw_type: string
+              choices: &id040
+              - enable
+              - disable
+              version_ranges: &id039
+              - - v6.0.0
+                - ''
+              description: Enable/disable DNS filter logging for this DNS profile.
+      version_ranges: &id029
+      - - v6.0.0
+        - ''
+      description: FortiGuard DNS Filter settings.
+      source_attribute: ftgd_dns
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id029
+        description: FortiGuard DNS Filter settings.
+        children: *id030
+        source_attribute: ftgd_dns
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          options:
+            type: string
+            raw_type: TypeString
+            optional: true
+          filters:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id034
+              id:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+                min: 0
+                max: 255
+              category:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                min: 0
+                max: 255
+              action:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              log:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+        source_attribute: ftgd_dns
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id031
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id031
+  ftgd_dns.filters:
+    canonical:
+      type: list
+      elements: dict
+      children: *id032
+      version_ranges: *id033
+      description: FortiGuard DNS domain filters.
+      source_attribute: ftgd_dns.filters
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id033
+        description: FortiGuard DNS domain filters.
+        children: *id032
+        source_attribute: ftgd_dns.filters
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id034
+        source_attribute: ftgd_dns.filters
+    sources:
+    - ansible
+    - terraform
+  ftgd_dns.filters.action:
+    canonical:
+      type: enum
+      version_ranges: *id035
+      choices: *id036
+      description: Action to take for DNS requests matching the category.
+      source_attribute: ftgd_dns.filters.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id036
+        version_ranges: *id035
+        description: Action to take for DNS requests matching the category.
+        source_attribute: ftgd_dns.filters.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftgd_dns.filters.action
+    sources:
+    - ansible
+    - terraform
+  ftgd_dns.filters.category:
+    canonical:
+      type: integer
+      version_ranges: *id037
+      min: 0
+      max: 255
+      description: Category number.
+      source_attribute: ftgd_dns.filters.category
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id037
+        description: Category number.
+        source_attribute: ftgd_dns.filters.category
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: ftgd_dns.filters.category
+    sources:
+    - ansible
+    - terraform
+  ftgd_dns.filters.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id038
+      min: 0
+      max: 255
+      description: ID number. see <a href='#notes'>Notes</a>.
+      source_attribute: ftgd_dns.filters.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id038
+        description: ID number. see <a href='#notes'>Notes</a>.
+        source_attribute: ftgd_dns.filters.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 255
+        source_attribute: ftgd_dns.filters.id
+    sources:
+    - ansible
+    - terraform
+  ftgd_dns.filters.log:
+    canonical:
+      type: enum
+      version_ranges: *id039
+      choices: *id040
+      description: Enable/disable DNS filter logging for this DNS profile.
+      source_attribute: ftgd_dns.filters.log
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id040
+        version_ranges: *id039
+        description: Enable/disable DNS filter logging for this DNS profile.
+        source_attribute: ftgd_dns.filters.log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftgd_dns.filters.log
+    sources:
+    - ansible
+    - terraform
+  ftgd_dns.options:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: *id041
+      choices: *id042
+      description: FortiGuard DNS filter options.
+      source_attribute: ftgd_dns.options
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id042
+        multiple_values: true
+        elements: str
+        version_ranges: *id041
+        description: FortiGuard DNS filter options.
+        source_attribute: ftgd_dns.options
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: ftgd_dns.options
+    sources:
+    - ansible
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  log_all_domain:
+    canonical:
+      type: enum
+      version_ranges: &id044
+      - - v6.0.0
+        - ''
+      choices: &id043
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable logging of all domains visited (detailed DNS logging).
+      source_attribute: log-all-domain
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id043
+        version_ranges: *id044
+        description: Enable/disable logging of all domains visited (detailed DNS logging).
+        source_attribute: log_all_domain
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: log_all_domain
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging of all domains visited (detailed DNS logging).
+        default: disable
+        source_attribute: log-all-domain
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id045
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 47
+      description: Profile name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id045
+        description: Profile name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        force_new: true
+        min_length: 0
+        max_length: 47
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Profile name.
+        max_length: 47
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  redirect_portal:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id046
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: IPv4 address of the SDNS redirect portal.
+      source_attribute: redirect-portal
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id046
+        description: IPv4 address of the SDNS redirect portal.
+        source_attribute: redirect_portal
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: redirect_portal
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: IPv4 address of the SDNS redirect portal.
+        default: 0.0.0.0
+        source_attribute: redirect-portal
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id047
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id047
+  redirect_portal6:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id048
+      - - v6.2.0
+        - ''
+      default: '::'
+      description: IPv6 address of the SDNS redirect portal.
+      source_attribute: redirect-portal6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id048
+        description: IPv6 address of the SDNS redirect portal.
+        source_attribute: redirect_portal6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: redirect_portal6
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: IPv6 address of the SDNS redirect portal.
+        default: '::'
+        source_attribute: redirect-portal6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id049
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id049
+  safe_search:
+    canonical:
+      type: enum
+      version_ranges: &id051
+      - - v6.0.0
+        - ''
+      choices: &id050
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable Google, Bing, YouTube, Qwant, DuckDuckGo safe search.
+      source_attribute: safe-search
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id050
+        version_ranges: *id051
+        description: Enable/disable Google, Bing, YouTube, Qwant, DuckDuckGo safe search.
+        source_attribute: safe_search
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: safe_search
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable Google, Bing, YouTube, Qwant, DuckDuckGo safe search.
+        default: disable
+        source_attribute: safe-search
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sdns_domain_log:
+    canonical:
+      type: enum
+      version_ranges: &id053
+      - - v6.0.0
+        - ''
+      choices: &id052
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable domain filtering and botnet domain logging.
+      source_attribute: sdns-domain-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id052
+        version_ranges: *id053
+        description: Enable/disable domain filtering and botnet domain logging.
+        source_attribute: sdns_domain_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sdns_domain_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable domain filtering and botnet domain logging.
+        default: enable
+        source_attribute: sdns-domain-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sdns_ftgd_err_log:
+    canonical:
+      type: enum
+      version_ranges: &id055
+      - - v6.0.0
+        - ''
+      choices: &id054
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable FortiGuard SDNS rating error logging.
+      source_attribute: sdns-ftgd-err-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id054
+        version_ranges: *id055
+        description: Enable/disable FortiGuard SDNS rating error logging.
+        source_attribute: sdns_ftgd_err_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sdns_ftgd_err_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable FortiGuard SDNS rating error logging.
+        default: enable
+        source_attribute: sdns-ftgd-err-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  strip_ech:
+    canonical:
+      type: enum
+      version_ranges: &id057
+      - - v7.4.4
+        - ''
+      choices: &id056
+      - disable
+      - enable
+      default: enable
+      description: Enable/disable removal of the encrypted client hello service parameter from supporting DNS RRs.
+      source_attribute: strip-ech
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id056
+        version_ranges: *id057
+        description: Enable/disable removal of the encrypted client hello service parameter from supporting DNS RRs.
+        source_attribute: strip_ech
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: strip_ech
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable removal of the encrypted client hello service parameter from supporting DNS RRs.
+        default: enable
+        source_attribute: strip-ech
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  transparent_dns_database:
+    canonical:
+      type: list
+      elements: dict
+      children: &id059
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id062
+          - - v7.4.1
+            - ''
+          description: DNS database zone name. Source system.dns-database.name.
+          references: &id061
+          - system.dns-database.name
+      version_ranges: &id058
+      - - v7.4.1
+        - ''
+      max_length: 79
+      description: Transparent DNS database zones. DNS database zone name.
+      source_attribute: transparent-dns-database
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id058
+        description: Transparent DNS database zones.
+        children: *id059
+        source_attribute: transparent_dns_database
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: transparent_dns_database
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Transparent DNS database zones. DNS database zone name.
+        max_length: 79
+        source_attribute: transparent-dns-database
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id060
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id060
+  transparent_dns_database.name:
+    canonical:
+      type: string
+      references: *id061
+      required: true
+      version_ranges: *id062
+      min_length: 0
+      max_length: 79
+      description: DNS database zone name. Source system.dns-database.name.
+      source_attribute: transparent_dns_database.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id062
+        description: DNS database zone name. Source system.dns-database.name.
+        references: *id061
+        source_attribute: transparent_dns_database.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: transparent_dns_database.name
+    sources:
+    - ansible
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  uuid:
+    canonical:
+      type: string
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  youtube_restrict:
+    canonical:
+      type: enum
+      version_ranges: &id064
+      - - v6.0.0
+        - ''
+      choices: &id063
+      - strict
+      - moderate
+      - none
+      default: strict
+      description: Set safe search for YouTube restriction level.
+      source_attribute: youtube-restrict
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id063
+        version_ranges: *id064
+        description: Set safe search for YouTube restriction level.
+        source_attribute: youtube_restrict
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: youtube_restrict
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Set safe search for YouTube restriction level.
+        default: strict
+        source_attribute: youtube-restrict
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: domain_filter
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: external_ip_blocklist
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: ftgd_dns
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: redirect_portal
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: redirect_portal6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict
+- attribute: transparent_dns_database
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

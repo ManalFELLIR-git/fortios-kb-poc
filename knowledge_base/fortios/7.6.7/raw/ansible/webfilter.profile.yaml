@@ -1,0 +1,1126 @@
+id: webfilter.profile
+version: 7.6.7
+source_object: fortios_webfilter_profile
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_webfilter_profile.py
+root_type: list
+attributes:
+  name:
+    type: string
+    raw_type: string
+    required: true
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Profile name.
+  comment:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Optional comments.
+  feature_set:
+    type: enum
+    raw_type: string
+    choices:
+    - flow
+    - proxy
+    version_ranges:
+    - - v6.4.0
+      - ''
+    description: Flow/proxy feature set.
+  replacemsg_group:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Replacement message group. Source system.replacemsg-group.name.
+    references:
+    - system.replacemsg-group.name
+  options:
+    type: enum
+    raw_type: list
+    choices:
+    - activexfilter
+    - cookiefilter
+    - javafilter
+    - block-invalid-url
+    - jscript
+    - js
+    - vbs
+    - unknown
+    - intrinsic
+    - wf-referer
+    - wf-cookie
+    - per-user-bal
+    multiple_values: true
+    elements: str
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Options.
+  https_replacemsg:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable replacement messages for HTTPS.
+  web_flow_log_encoding:
+    type: enum
+    raw_type: string
+    choices:
+    - utf-8
+    - punycode
+    version_ranges:
+    - - v7.4.2
+      - ''
+    description: Log encoding in flow mode.
+  ovrd_perm:
+    type: enum
+    raw_type: list
+    choices:
+    - bannedword-override
+    - urlfilter-override
+    - fortiguard-wf-override
+    - contenttype-check-override
+    multiple_values: true
+    elements: str
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Permitted override types.
+  post_action:
+    type: enum
+    raw_type: string
+    choices:
+    - normal
+    - block
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Action taken for HTTP POST traffic.
+  override:
+    type: object
+    raw_type: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Web Filter override settings.
+    children:
+      ovrd_cookie:
+        type: enum
+        raw_type: string
+        choices:
+        - allow
+        - deny
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Allow/deny browser-based (cookie) overrides.
+      ovrd_scope:
+        type: enum
+        raw_type: string
+        choices:
+        - user
+        - user-group
+        - ip
+        - browser
+        - ask
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Override scope.
+      profile_type:
+        type: enum
+        raw_type: string
+        choices:
+        - list
+        - radius
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Override profile type.
+      ovrd_dur_mode:
+        type: enum
+        raw_type: string
+        choices:
+        - constant
+        - ask
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Override duration mode.
+      ovrd_dur:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Override duration.
+      profile_attribute:
+        type: enum
+        raw_type: string
+        choices:
+        - User-Name
+        - NAS-IP-Address
+        - Framed-IP-Address
+        - Framed-IP-Netmask
+        - Filter-Id
+        - Login-IP-Host
+        - Reply-Message
+        - Callback-Number
+        - Callback-Id
+        - Framed-Route
+        - Framed-IPX-Network
+        - Class
+        - Called-Station-Id
+        - Calling-Station-Id
+        - NAS-Identifier
+        - Proxy-State
+        - Login-LAT-Service
+        - Login-LAT-Node
+        - Login-LAT-Group
+        - Framed-AppleTalk-Zone
+        - Acct-Session-Id
+        - Acct-Multi-Session-Id
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Profile attribute to retrieve from the RADIUS server.
+      ovrd_user_group:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: User groups with permission to use the override.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: User group name. Source user.group.name.
+            references:
+            - user.group.name
+      profile:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Web filter profile with permission to create overrides.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: Web profile. Source webfilter.profile.name.
+            references:
+            - webfilter.profile.name
+  web:
+    type: object
+    raw_type: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Web content filtering settings.
+    children:
+      bword_threshold:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Banned word score threshold.
+      bword_table:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Banned word table ID. Source webfilter.content.id.
+        references:
+        - webfilter.content.id
+      urlfilter_table:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: URL filter table ID. Source webfilter.urlfilter.id.
+        references:
+        - webfilter.urlfilter.id
+      content_header_list:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Content header list. Source webfilter.content-header.id.
+        references:
+        - webfilter.content-header.id
+      blocklist:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v7.0.0
+          - ''
+        description: Enable/disable automatic addition of URLs detected by FortiSandbox to blocklist.
+      allowlist:
+        type: enum
+        raw_type: list
+        choices:
+        - exempt-av
+        - exempt-webcontent
+        - exempt-activex-java-cookie
+        - exempt-dlp
+        - exempt-rangeblock
+        - extended-log-others
+        multiple_values: true
+        elements: str
+        version_ranges:
+        - - v7.0.0
+          - ''
+        description: FortiGuard allowlist settings.
+      safe_search:
+        type: enum
+        raw_type: list
+        choices:
+        - url
+        - header
+        multiple_values: true
+        elements: str
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Safe search type.
+      youtube_restrict:
+        type: enum
+        raw_type: string
+        choices:
+        - none
+        - strict
+        - moderate
+        version_ranges:
+        - - v6.0.0
+          - v6.4.4
+        - - v7.0.1
+          - ''
+        description: YouTube EDU filter level.
+      vimeo_restrict:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.0.1
+          - ''
+        description: Set Vimeo-restrict ("7" = don"t show mature content, "134" = don"t show unrated and mature content).
+          A value of cookie "content_rating".
+      log_search:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Enable/disable logging all search phrases.
+      keyword_match:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Search keywords to log when match is found.
+        children:
+          pattern:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: Pattern/keyword to search for.
+  ftgd_wf:
+    type: object
+    raw_type: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: FortiGuard Web Filter settings.
+    children:
+      options:
+        type: enum
+        raw_type: list
+        choices:
+        - error-allow
+        - rate-server-ip
+        - connect-request-bypass
+        - ftgd-disable
+        multiple_values: true
+        elements: str
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Options for FortiGuard Web Filter.
+      exempt_quota:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Do not stop quota for these categories.
+      ovrd:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Allow web filter profile overrides.
+      filters:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: FortiGuard filters.
+        children:
+          id:
+            type: integer
+            raw_type: integer
+            required: true
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: ID number. see <a href='#notes'>Notes</a>.
+          category:
+            type: integer
+            raw_type: integer
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: Categories and groups the filter examines.
+          action:
+            type: enum
+            raw_type: string
+            choices:
+            - block
+            - authenticate
+            - monitor
+            - warning
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: Action to take for matches.
+          warn_duration:
+            type: string
+            raw_type: string
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: Duration of warnings.
+          auth_usr_grp:
+            type: list
+            raw_type: list
+            elements: dict
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: Groups with permission to authenticate.
+            children:
+              name:
+                type: string
+                raw_type: string
+                required: true
+                version_ranges:
+                - - v6.0.0
+                  - ''
+                description: User group name. Source user.group.name.
+                references:
+                - user.group.name
+          log:
+            type: enum
+            raw_type: string
+            choices:
+            - enable
+            - disable
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: Enable/disable logging.
+          override_replacemsg:
+            type: string
+            raw_type: string
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: Override replacement message.
+          warning_prompt:
+            type: enum
+            raw_type: string
+            choices:
+            - per-domain
+            - per-category
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: Warning prompts in each category or each domain.
+          warning_duration_type:
+            type: enum
+            raw_type: string
+            choices:
+            - session
+            - timeout
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: Re-display warning after closing browser or after a timeout.
+      risk:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v7.6.1
+          - ''
+        description: FortiGuard risk level settings.
+        children:
+          id:
+            type: integer
+            raw_type: integer
+            required: true
+            version_ranges:
+            - - v7.6.1
+              - ''
+            description: ID number. see <a href='#notes'>Notes</a>.
+          risk_level:
+            type: string
+            raw_type: string
+            version_ranges:
+            - - v7.6.1
+              - ''
+            description: Risk level to be examined. Source webfilter.ftgd-risk-level.name.
+            references:
+            - webfilter.ftgd-risk-level.name
+          action:
+            type: enum
+            raw_type: string
+            choices:
+            - block
+            - monitor
+            version_ranges:
+            - - v7.6.1
+              - ''
+            description: Action to take for matches.
+          log:
+            type: enum
+            raw_type: string
+            choices:
+            - enable
+            - disable
+            version_ranges:
+            - - v7.6.1
+              - ''
+            description: Enable/disable logging.
+      quota:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: FortiGuard traffic quota settings.
+        children:
+          id:
+            type: integer
+            raw_type: integer
+            required: true
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: ID number. see <a href='#notes'>Notes</a>.
+          category:
+            type: list
+            raw_type: list
+            multiple_values: true
+            elements: str
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: FortiGuard categories to apply quota to (category action must be set to monitor).
+          type:
+            type: enum
+            raw_type: string
+            choices:
+            - time
+            - traffic
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: Quota type.
+          unit:
+            type: enum
+            raw_type: string
+            choices:
+            - B
+            - KB
+            - MB
+            - GB
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: Traffic quota unit of measurement.
+          value:
+            type: integer
+            raw_type: integer
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: Traffic quota value.
+          duration:
+            type: string
+            raw_type: string
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: Duration of quota.
+          override_replacemsg:
+            type: string
+            raw_type: string
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: Override replacement message.
+      max_quota_timeout:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Maximum FortiGuard quota used by single page view in seconds (excludes streams).
+      rate_javascript_urls:
+        type: enum
+        raw_type: string
+        choices:
+        - disable
+        - enable
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Enable/disable rating JavaScript by URL.
+      rate_css_urls:
+        type: enum
+        raw_type: string
+        choices:
+        - disable
+        - enable
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Enable/disable rating CSS by URL.
+      rate_crl_urls:
+        type: enum
+        raw_type: string
+        choices:
+        - disable
+        - enable
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Enable/disable rating CRL by URL.
+  antiphish:
+    type: object
+    raw_type: dict
+    version_ranges:
+    - - v6.4.0
+      - ''
+    description: AntiPhishing profile.
+    children:
+      status:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Toggle AntiPhishing functionality.
+      default_action:
+        type: enum
+        raw_type: string
+        choices:
+        - exempt
+        - log
+        - block
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Action to be taken when there is no matching rule.
+      check_uri:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Enable/disable checking of GET URI parameters for known credentials.
+      check_basic_auth:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Enable/disable checking of HTTP Basic Auth field for known credentials.
+      check_username_only:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.4.4
+          - ''
+        description: Enable/disable username only matching of credentials. Action will be taken for valid usernames regardless
+          of password validity.
+      max_body_len:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Maximum size of a POST body to check for credentials.
+      inspection_entries:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: AntiPhishing entries.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Inspection target name.
+          fortiguard_category:
+            type: list
+            raw_type: list
+            multiple_values: true
+            elements: str
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: FortiGuard category to match.
+          action:
+            type: enum
+            raw_type: string
+            choices:
+            - exempt
+            - log
+            - block
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Action to be taken upon an AntiPhishing match.
+      custom_patterns:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Custom username and password regex patterns.
+        children:
+          pattern:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Target pattern.
+          category:
+            type: enum
+            raw_type: string
+            choices:
+            - username
+            - password
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Category that the pattern matches.
+          type:
+            type: enum
+            raw_type: string
+            choices:
+            - regex
+            - literal
+            version_ranges:
+            - - v7.0.0
+              - ''
+            description: Pattern will be treated either as a regex pattern or literal string.
+      authentication:
+        type: enum
+        raw_type: string
+        choices:
+        - domain-controller
+        - ldap
+        version_ranges:
+        - - v7.0.0
+          - ''
+        description: Authentication methods.
+      domain_controller:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Domain for which to verify received credentials against. Source user.domain-controller.name credential-store.domain-controller
+          .server-name.
+        references:
+        - user.domain-controller.name
+      ldap:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.0.0
+          - ''
+        description: LDAP server for which to verify received credentials against. Source user.ldap.name.
+        references:
+        - user.ldap.name
+  wisp:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable web proxy WISP.
+  wisp_servers:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: WISP servers.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Server name. Source web-proxy.wisp.name.
+        references:
+        - web-proxy.wisp.name
+  wisp_algorithm:
+    type: enum
+    raw_type: string
+    choices:
+    - primary-secondary
+    - round-robin
+    - auto-learning
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: WISP server selection algorithm.
+  log_all_url:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable logging all URLs visited.
+  web_content_log:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable logging logging blocked web content.
+  web_filter_activex_log:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable logging ActiveX.
+  web_filter_command_block_log:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable logging blocked commands.
+  web_filter_cookie_log:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable logging cookie filtering.
+  web_filter_applet_log:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable logging Java applets.
+  web_filter_jscript_log:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable logging JScripts.
+  web_filter_js_log:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable logging Java scripts.
+  web_filter_vbs_log:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable logging VBS scripts.
+  web_filter_unknown_log:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable logging unknown scripts.
+  web_filter_referer_log:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable logging referrers.
+  web_filter_cookie_removal_log:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable logging blocked cookies.
+  web_url_log:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable logging URL filtering.
+  web_invalid_domain_log:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable logging invalid domain names.
+  web_ftgd_err_log:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable logging rating errors.
+  web_ftgd_quota_usage:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable logging daily quota usage.
+  extended_log:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable extended logging for web filtering.
+  web_extended_all_action_log:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable extended any filter action logging for web filtering.
+  web_antiphishing_log:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.4.0
+      - ''
+    description: Enable/disable logging of AntiPhishing checks.
+  url_extraction:
+    type: object
+    raw_type: dict
+    version_ranges:
+    - - v6.0.0
+      - v7.0.8
+    - - v7.2.0
+      - v7.2.4
+    - - v7.4.3
+      - v7.6.7
+    description: Configure URL Extraction
+    children:
+      status:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.0.0
+          - v7.0.8
+        - - v7.2.0
+          - v7.2.4
+        - - v7.4.3
+          - v7.6.7
+        description: Enable URL Extraction
+      server_fqdn:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - v7.0.8
+        - - v7.2.0
+          - v7.2.4
+        - - v7.4.3
+          - v7.6.7
+        description: URL extraction server FQDN (fully qualified domain name)
+      redirect_header:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - v7.0.8
+        - - v7.2.0
+          - v7.2.4
+        - - v7.4.3
+          - v7.6.7
+        description: HTTP header name to use for client redirect on blocked requests
+      redirect_url:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - v7.0.8
+        - - v7.2.0
+          - v7.2.4
+        - - v7.4.3
+          - v7.6.7
+        description: HTTP header value to use for client redirect on blocked requests
+      redirect_no_content:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.0.0
+          - v7.0.8
+        - - v7.2.0
+          - v7.2.4
+        - - v7.4.3
+          - v7.6.7
+        description: Enable / Disable empty message-body entity in HTTP response

@@ -1,0 +1,405 @@
+id: system.vdom-exception
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  fosid:
+    canonical:
+      type: integer
+      source_attribute: fosid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: fosid
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 1
+      max: 4096
+      description: Index (1 - 4096).
+      source_attribute: id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id001
+        description: Index (1 - 4096). see <a href='#notes'>Notes</a>.
+        source_attribute: id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Index (1 - 4096).
+        default: '0'
+        min: 1
+        max: 4096
+        source_attribute: id
+    sources:
+    - ansible
+    - cli_reference
+  object:
+    canonical:
+      type: enum
+      required: true
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      choices: &id002
+      - log.fortianalyzer.setting
+      - log.fortianalyzer.override-setting
+      - log.fortianalyzer2.setting
+      - log.fortianalyzer2.override-setting
+      - log.fortianalyzer3.setting
+      - log.fortianalyzer3.override-setting
+      - log.fortianalyzer-cloud.setting
+      - log.fortianalyzer-cloud.override-setting
+      - log.syslogd.setting
+      - log.syslogd.override-setting
+      - log.syslogd2.setting
+      - log.syslogd2.override-setting
+      - log.syslogd3.setting
+      - log.syslogd3.override-setting
+      - log.syslogd4.setting
+      - log.syslogd4.override-setting
+      - system.gre-tunnel
+      - system.central-management
+      - system.csf
+      - user.radius
+      - system.interface
+      - firewall.address
+      - system.snmp.sysinfo
+      - vpn.ipsec.phase1-interface
+      - vpn.ipsec.phase2-interface
+      - router.bgp
+      - router.route-map
+      - router.prefix-list
+      - firewall.ippool
+      - firewall.ippool6
+      - router.static
+      - router.static6
+      - firewall.vip
+      - firewall.vip6
+      - system.sdwan
+      - system.saml
+      - router.policy
+      - router.policy6
+      - firewall.vip46
+      - firewall.vip64
+      description: Name of the configuration object that can be configured independently for all VDOMs.
+      source_attribute: object
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id002
+        version_ranges: *id003
+        description: Name of the configuration object that can be configured independently for all VDOMs.
+        source_attribute: object
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: object
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Name of the configuration object that can be configured independently for all VDOMs.
+        source_attribute: object
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  oid:
+    canonical:
+      type: integer
+      min: 0
+      max: 65535
+      source_attribute: oid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: oid
+    sources:
+    - terraform
+  scope:
+    canonical:
+      type: enum
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      choices: &id004
+      - all
+      - inclusive
+      - exclusive
+      default: all
+      description: Determine whether the configuration object can be configured separately for all VDOMs or if some VDOMs
+        share the same configuration.
+      source_attribute: scope
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id004
+        version_ranges: *id005
+        description: Determine whether the configuration object can be configured separately for all VDOMs or if some VDOMs
+          share the same configuration.
+        source_attribute: scope
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: scope
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Determine whether the configuration object can be configured separately for all VDOMs or if some VDOMs
+          share the same configuration.
+        default: all
+        source_attribute: scope
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdom:
+    canonical:
+      type: list
+      elements: dict
+      children: &id007
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id010
+          - - v6.0.0
+            - ''
+          description: VDOM name. Source system.vdom.name.
+          references: &id009
+          - system.vdom.name
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Names of the VDOMs. VDOM name.
+      source_attribute: vdom
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id006
+        description: Names of the VDOMs.
+        children: *id007
+        source_attribute: vdom
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: vdom
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Names of the VDOMs. VDOM name.
+        max_length: 79
+        source_attribute: vdom
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id008
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id008
+  vdom.name:
+    canonical:
+      type: string
+      references: *id009
+      required: true
+      version_ranges: *id010
+      min_length: 0
+      max_length: 79
+      description: VDOM name. Source system.vdom.name.
+      source_attribute: vdom.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id010
+        description: VDOM name. Source system.vdom.name.
+        references: *id009
+        source_attribute: vdom.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: vdom.name
+    sources:
+    - ansible
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: vdom
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

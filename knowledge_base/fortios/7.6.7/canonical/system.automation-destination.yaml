@@ -1,0 +1,328 @@
+id: system.automation-destination
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  destination:
+    canonical:
+      type: list
+      elements: dict
+      children: &id002
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id004
+          - - v6.0.0
+            - ''
+          description: Destination.
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      max_length: 31
+      description: Destinations. Destination.
+      source_attribute: destination
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id001
+        description: Destinations.
+        children: *id002
+        source_attribute: destination
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 31
+        source_attribute: destination
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Destinations. Destination.
+        max_length: 31
+        source_attribute: destination
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id003
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id003
+  destination.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id004
+      min_length: 0
+      max_length: 31
+      description: Destination.
+      source_attribute: destination.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id004
+        description: Destination.
+        source_attribute: destination.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 31
+        source_attribute: destination.name
+    sources:
+    - ansible
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  ha_group_id:
+    canonical:
+      type: integer
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 255
+      description: Cluster group ID set for this destination (default = 0).
+      source_attribute: ha-group-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id005
+        description: Cluster group ID set for this destination .
+        source_attribute: ha_group_id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: ha_group_id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Cluster group ID set for this destination (default = 0).
+        default: '0'
+        min: 0
+        max: 255
+        source_attribute: ha-group-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id006
+        description: Name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  type:
+    canonical:
+      type: enum
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      choices: &id007
+      - fortigate
+      - ha-cluster
+      default: fortigate
+      description: Destination type.
+      source_attribute: type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id007
+        version_ranges: *id008
+        description: Destination type.
+        source_attribute: type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Destination type.
+        default: fortigate
+        source_attribute: type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: destination
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

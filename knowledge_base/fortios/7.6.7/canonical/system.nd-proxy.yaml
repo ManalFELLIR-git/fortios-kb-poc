@@ -1,0 +1,223 @@
+id: system.nd-proxy
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  member:
+    canonical:
+      type: list
+      elements: dict
+      children: &id002
+        interface_name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id005
+          - - v6.0.0
+            - ''
+          description: Interface name. Source system.interface.name.
+          references: &id004
+          - system.interface.name
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Interfaces using the neighbor discovery proxy. Interface name.
+      source_attribute: member
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id001
+        description: Interfaces using the neighbor discovery proxy.
+        children: *id002
+        source_attribute: member
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          interface_name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: member
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Interfaces using the neighbor discovery proxy. Interface name.
+        max_length: 79
+        source_attribute: member
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id003
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id003
+  member.interface_name:
+    canonical:
+      type: string
+      references: *id004
+      required: true
+      version_ranges: *id005
+      min_length: 0
+      max_length: 79
+      description: Interface name. Source system.interface.name.
+      source_attribute: member.interface_name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id005
+        description: Interface name. Source system.interface.name.
+        references: *id004
+        source_attribute: member.interface_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: member.interface_name
+    sources:
+    - ansible
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      choices: &id006
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable neighbor discovery proxy.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id006
+        version_ranges: *id007
+        description: Enable/disable neighbor discovery proxy.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable neighbor discovery proxy.
+        default: disable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: member
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

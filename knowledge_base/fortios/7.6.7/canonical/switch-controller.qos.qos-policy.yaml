@@ -1,0 +1,279 @@
+id: switch-controller.qos.qos-policy
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  default_cos:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 7
+      description: Default cos queue for untagged packets.
+      source_attribute: default-cos
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id001
+        description: Default cos queue for untagged packets.
+        source_attribute: default_cos
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        required: true
+        min: 0
+        max: 7
+        source_attribute: default_cos
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Default cos queue for untagged packets.
+        default: '0'
+        min: 0
+        max: 7
+        source_attribute: default-cos
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: QoS policy name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id002
+        description: QoS policy name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        force_new: true
+        min_length: 0
+        max_length: 63
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: QoS policy name.
+        max_length: 63
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  queue_policy:
+    canonical:
+      type: string
+      references: &id004
+      - switch-controller.qos.queue-policy.name
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      default: default
+      min_length: 0
+      max_length: 63
+      description: QoS egress queue policy.
+      source_attribute: queue-policy
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: QoS egress queue policy. Source switch-controller.qos.queue-policy.name.
+        references: *id004
+        source_attribute: queue_policy
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 63
+        source_attribute: queue_policy
+      cli_reference:
+        type: string
+        raw_type: string
+        description: QoS egress queue policy.
+        default: default
+        max_length: 63
+        source_attribute: queue-policy
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  trust_dot1p_map:
+    canonical:
+      type: string
+      references: &id006
+      - switch-controller.qos.dot1p-map.name
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: QoS trust 802.1p map.
+      source_attribute: trust-dot1p-map
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: QoS trust 802.1p map. Source switch-controller.qos.dot1p-map.name.
+        references: *id006
+        source_attribute: trust_dot1p_map
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: trust_dot1p_map
+      cli_reference:
+        type: string
+        raw_type: string
+        description: QoS trust 802.1p map.
+        max_length: 63
+        source_attribute: trust-dot1p-map
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  trust_ip_dscp_map:
+    canonical:
+      type: string
+      references: &id008
+      - switch-controller.qos.ip-dscp-map.name
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: QoS trust ip dscp map.
+      source_attribute: trust-ip-dscp-map
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: QoS trust ip dscp map. Source switch-controller.qos.ip-dscp-map.name.
+        references: *id008
+        source_attribute: trust_ip_dscp_map
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: trust_ip_dscp_map
+      cli_reference:
+        type: string
+        raw_type: string
+        description: QoS trust ip dscp map.
+        max_length: 63
+        source_attribute: trust-ip-dscp-map
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

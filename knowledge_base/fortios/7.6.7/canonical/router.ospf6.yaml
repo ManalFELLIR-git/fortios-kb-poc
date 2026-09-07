@@ -1,0 +1,4184 @@
+id: router.ospf6
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  abr_type:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - cisco
+      - ibm
+      - standard
+      default: standard
+      description: Area border router type.
+      source_attribute: abr-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Area border router type.
+        source_attribute: abr_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: abr_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Area border router type.
+        default: standard
+        source_attribute: abr-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  area:
+    canonical:
+      type: list
+      elements: dict
+      children: &id004
+        id:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id008
+          - - v6.0.0
+            - ''
+          description: Area entry IP address.
+        default_cost:
+          type: integer
+          raw_type: integer
+          version_ranges: &id007
+          - - v6.0.0
+            - ''
+          description: Summary default cost of stub or NSSA area.
+        nssa_translator_role:
+          type: enum
+          raw_type: string
+          choices: &id028
+          - candidate
+          - never
+          - always
+          version_ranges: &id027
+          - - v6.0.0
+            - ''
+          description: NSSA translator role type.
+        stub_type:
+          type: enum
+          raw_type: string
+          choices: &id037
+          - no-summary
+          - summary
+          version_ranges: &id036
+          - - v6.0.0
+            - ''
+          description: Stub summary setting.
+        type:
+          type: enum
+          raw_type: string
+          choices: &id039
+          - regular
+          - nssa
+          - stub
+          version_ranges: &id038
+          - - v6.0.0
+            - ''
+          description: Area type setting.
+        nssa_default_information_originate:
+          type: enum
+          raw_type: string
+          choices: &id021
+          - enable
+          - disable
+          version_ranges: &id020
+          - - v6.0.0
+            - ''
+          description: Enable/disable originate type 7 default into NSSA area.
+        nssa_default_information_originate_metric:
+          type: integer
+          raw_type: integer
+          version_ranges: &id022
+          - - v6.0.0
+            - ''
+          description: OSPFv3 default metric.
+        nssa_default_information_originate_metric_type:
+          type: enum
+          raw_type: string
+          choices: &id024
+          - '1'
+          - '2'
+          version_ranges: &id023
+          - - v6.0.0
+            - ''
+          description: OSPFv3 metric type for default routes.
+        nssa_redistribution:
+          type: enum
+          raw_type: string
+          choices: &id026
+          - enable
+          - disable
+          version_ranges: &id025
+          - - v6.0.0
+            - ''
+          description: Enable/disable redistribute into NSSA area.
+        authentication:
+          type: enum
+          raw_type: string
+          choices: &id006
+          - none
+          - ah
+          - esp
+          version_ranges: &id005
+          - - v6.2.0
+            - ''
+          description: Authentication mode.
+        key_rollover_interval:
+          type: integer
+          raw_type: integer
+          version_ranges: &id019
+          - - v6.2.0
+            - ''
+          description: Key roll-over interval.
+        ipsec_auth_alg:
+          type: enum
+          raw_type: string
+          choices: &id010
+          - md5
+          - sha1
+          - sha256
+          - sha384
+          - sha512
+          version_ranges: &id009
+          - - v6.2.0
+            - ''
+          description: Authentication algorithm.
+        ipsec_enc_alg:
+          type: enum
+          raw_type: string
+          choices: &id012
+          - 'null'
+          - des
+          - 3des
+          - aes128
+          - aes192
+          - aes256
+          version_ranges: &id011
+          - - v6.2.0
+            - ''
+          description: Encryption algorithm.
+        ipsec_keys:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id014
+          - - v6.2.0
+            - ''
+          description: IPsec authentication and encryption keys.
+          children: &id013
+            spi:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id018
+              - - v6.2.0
+                - ''
+              description: Security Parameters Index. see <a href='#notes'>Notes</a>.
+            auth_key:
+              type: string
+              raw_type: string
+              version_ranges: &id016
+              - - v6.2.0
+                - ''
+              description: Authentication key.
+            enc_key:
+              type: string
+              raw_type: string
+              version_ranges: &id017
+              - - v6.2.0
+                - ''
+              description: Encryption key.
+        range:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id030
+          - - v6.0.0
+            - ''
+          description: OSPF6 area range configuration.
+          children: &id029
+            id:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id034
+              - - v6.0.0
+                - ''
+              description: Range entry ID. see <a href='#notes'>Notes</a>.
+            prefix6:
+              type: string
+              raw_type: string
+              version_ranges: &id035
+              - - v6.0.0
+                - ''
+              description: IPv6 prefix.
+            advertise:
+              type: enum
+              raw_type: string
+              choices: &id033
+              - disable
+              - enable
+              version_ranges: &id032
+              - - v6.0.0
+                - ''
+              description: Enable/disable advertise status.
+        virtual_link:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id041
+          - - v6.0.0
+            - ''
+          description: OSPF6 virtual link configuration.
+          children: &id040
+            name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id058
+              - - v6.0.0
+                - ''
+              description: Virtual link entry name.
+            dead_interval:
+              type: integer
+              raw_type: integer
+              version_ranges: &id045
+              - - v6.0.0
+                - ''
+              description: Dead interval.
+            hello_interval:
+              type: integer
+              raw_type: integer
+              version_ranges: &id046
+              - - v6.0.0
+                - ''
+              description: Hello interval.
+            retransmit_interval:
+              type: integer
+              raw_type: integer
+              version_ranges: &id060
+              - - v6.0.0
+                - ''
+              description: Retransmit interval.
+            transmit_delay:
+              type: integer
+              raw_type: integer
+              version_ranges: &id061
+              - - v6.0.0
+                - ''
+              description: Transmit delay.
+            peer:
+              type: string
+              raw_type: string
+              version_ranges: &id059
+              - - v6.0.0
+                - ''
+              description: A.B.C.D, peer router ID.
+            authentication:
+              type: enum
+              raw_type: string
+              choices: &id044
+              - none
+              - ah
+              - esp
+              - area
+              version_ranges: &id043
+              - - v6.2.0
+                - ''
+              description: Authentication mode.
+            key_rollover_interval:
+              type: integer
+              raw_type: integer
+              version_ranges: &id057
+              - - v6.2.0
+                - ''
+              description: Key roll-over interval.
+            ipsec_auth_alg:
+              type: enum
+              raw_type: string
+              choices: &id048
+              - md5
+              - sha1
+              - sha256
+              - sha384
+              - sha512
+              version_ranges: &id047
+              - - v6.2.0
+                - ''
+              description: Authentication algorithm.
+            ipsec_enc_alg:
+              type: enum
+              raw_type: string
+              choices: &id050
+              - 'null'
+              - des
+              - 3des
+              - aes128
+              - aes192
+              - aes256
+              version_ranges: &id049
+              - - v6.2.0
+                - ''
+              description: Encryption algorithm.
+            ipsec_keys:
+              type: list
+              raw_type: list
+              elements: dict
+              version_ranges: &id052
+              - - v6.2.0
+                - ''
+              description: IPsec authentication and encryption keys.
+              children: &id051
+                spi:
+                  type: integer
+                  raw_type: integer
+                  required: true
+                  version_ranges: &id056
+                  - - v6.2.0
+                    - ''
+                  description: Security Parameters Index. see <a href='#notes'>Notes</a>.
+                auth_key:
+                  type: string
+                  raw_type: string
+                  version_ranges: &id054
+                  - - v6.2.0
+                    - ''
+                  description: Authentication key.
+                enc_key:
+                  type: string
+                  raw_type: string
+                  version_ranges: &id055
+                  - - v6.2.0
+                    - ''
+                  description: Encryption key.
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      description: OSPF6 area configuration.
+      source_attribute: area
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id003
+        description: OSPF6 area configuration.
+        children: *id004
+        source_attribute: area
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          default_cost:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 16777215
+          nssa_translator_role:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          stub_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          nssa_default_information_originate:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          nssa_default_information_originate_metric:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 16777214
+          nssa_default_information_originate_metric_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          nssa_redistribution:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          authentication:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          key_rollover_interval:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 300
+            max: 216000
+          ipsec_auth_alg:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ipsec_enc_alg:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ipsec_keys:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id015
+              spi:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+              auth_key:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 128
+              enc_key:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 128
+          range:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id031
+              id:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+              prefix6:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              advertise:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+          virtual_link:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id042
+              name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 35
+              dead_interval:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+                min: 1
+                max: 65535
+              hello_interval:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+                min: 1
+                max: 65535
+              retransmit_interval:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+                min: 1
+                max: 65535
+              transmit_delay:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+                min: 1
+                max: 65535
+              peer:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              authentication:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              key_rollover_interval:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+                min: 300
+                max: 216000
+              ipsec_auth_alg:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              ipsec_enc_alg:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              ipsec_keys:
+                type: list
+                raw_type: TypeList
+                optional: true
+                children: &id053
+                  spi:
+                    type: integer
+                    raw_type: TypeInt
+                    optional: true
+                  auth_key:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    min_length: 0
+                    max_length: 128
+                  enc_key:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    min_length: 0
+                    max_length: 128
+        source_attribute: area
+    sources:
+    - ansible
+    - terraform
+  area.authentication:
+    canonical:
+      type: enum
+      version_ranges: *id005
+      choices: *id006
+      description: Authentication mode.
+      source_attribute: area.authentication
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id006
+        version_ranges: *id005
+        description: Authentication mode.
+        source_attribute: area.authentication
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: area.authentication
+    sources:
+    - ansible
+    - terraform
+  area.default_cost:
+    canonical:
+      type: integer
+      version_ranges: *id007
+      min: 0
+      max: 16777215
+      description: Summary default cost of stub or NSSA area.
+      source_attribute: area.default_cost
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id007
+        description: Summary default cost of stub or NSSA area.
+        source_attribute: area.default_cost
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 16777215
+        source_attribute: area.default_cost
+    sources:
+    - ansible
+    - terraform
+  area.id:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id008
+      description: Area entry IP address.
+      source_attribute: area.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id008
+        description: Area entry IP address.
+        source_attribute: area.id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: area.id
+    sources:
+    - ansible
+    - terraform
+  area.ipsec_auth_alg:
+    canonical:
+      type: enum
+      version_ranges: *id009
+      choices: *id010
+      description: Authentication algorithm.
+      source_attribute: area.ipsec_auth_alg
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id009
+        description: Authentication algorithm.
+        source_attribute: area.ipsec_auth_alg
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: area.ipsec_auth_alg
+    sources:
+    - ansible
+    - terraform
+  area.ipsec_enc_alg:
+    canonical:
+      type: enum
+      version_ranges: *id011
+      choices: *id012
+      description: Encryption algorithm.
+      source_attribute: area.ipsec_enc_alg
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id012
+        version_ranges: *id011
+        description: Encryption algorithm.
+        source_attribute: area.ipsec_enc_alg
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: area.ipsec_enc_alg
+    sources:
+    - ansible
+    - terraform
+  area.ipsec_keys:
+    canonical:
+      type: list
+      elements: dict
+      children: *id013
+      version_ranges: *id014
+      description: IPsec authentication and encryption keys.
+      source_attribute: area.ipsec_keys
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id014
+        description: IPsec authentication and encryption keys.
+        children: *id013
+        source_attribute: area.ipsec_keys
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id015
+        source_attribute: area.ipsec_keys
+    sources:
+    - ansible
+    - terraform
+  area.ipsec_keys.auth_key:
+    canonical:
+      type: string
+      version_ranges: *id016
+      min_length: 0
+      max_length: 128
+      description: Authentication key.
+      source_attribute: area.ipsec_keys.auth_key
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id016
+        description: Authentication key.
+        source_attribute: area.ipsec_keys.auth_key
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: area.ipsec_keys.auth_key
+    sources:
+    - ansible
+    - terraform
+  area.ipsec_keys.enc_key:
+    canonical:
+      type: string
+      version_ranges: *id017
+      min_length: 0
+      max_length: 128
+      description: Encryption key.
+      source_attribute: area.ipsec_keys.enc_key
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id017
+        description: Encryption key.
+        source_attribute: area.ipsec_keys.enc_key
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: area.ipsec_keys.enc_key
+    sources:
+    - ansible
+    - terraform
+  area.ipsec_keys.spi:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id018
+      description: Security Parameters Index. see <a href='#notes'>Notes</a>.
+      source_attribute: area.ipsec_keys.spi
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id018
+        description: Security Parameters Index. see <a href='#notes'>Notes</a>.
+        source_attribute: area.ipsec_keys.spi
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: area.ipsec_keys.spi
+    sources:
+    - ansible
+    - terraform
+  area.key_rollover_interval:
+    canonical:
+      type: integer
+      version_ranges: *id019
+      min: 300
+      max: 216000
+      description: Key roll-over interval.
+      source_attribute: area.key_rollover_interval
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id019
+        description: Key roll-over interval.
+        source_attribute: area.key_rollover_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 300
+        max: 216000
+        source_attribute: area.key_rollover_interval
+    sources:
+    - ansible
+    - terraform
+  area.nssa_default_information_originate:
+    canonical:
+      type: enum
+      version_ranges: *id020
+      choices: *id021
+      description: Enable/disable originate type 7 default into NSSA area.
+      source_attribute: area.nssa_default_information_originate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id021
+        version_ranges: *id020
+        description: Enable/disable originate type 7 default into NSSA area.
+        source_attribute: area.nssa_default_information_originate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: area.nssa_default_information_originate
+    sources:
+    - ansible
+    - terraform
+  area.nssa_default_information_originate_metric:
+    canonical:
+      type: integer
+      version_ranges: *id022
+      min: 0
+      max: 16777214
+      description: OSPFv3 default metric.
+      source_attribute: area.nssa_default_information_originate_metric
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id022
+        description: OSPFv3 default metric.
+        source_attribute: area.nssa_default_information_originate_metric
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 16777214
+        source_attribute: area.nssa_default_information_originate_metric
+    sources:
+    - ansible
+    - terraform
+  area.nssa_default_information_originate_metric_type:
+    canonical:
+      type: enum
+      version_ranges: *id023
+      choices: *id024
+      description: OSPFv3 metric type for default routes.
+      source_attribute: area.nssa_default_information_originate_metric_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id024
+        version_ranges: *id023
+        description: OSPFv3 metric type for default routes.
+        source_attribute: area.nssa_default_information_originate_metric_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: area.nssa_default_information_originate_metric_type
+    sources:
+    - ansible
+    - terraform
+  area.nssa_redistribution:
+    canonical:
+      type: enum
+      version_ranges: *id025
+      choices: *id026
+      description: Enable/disable redistribute into NSSA area.
+      source_attribute: area.nssa_redistribution
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id026
+        version_ranges: *id025
+        description: Enable/disable redistribute into NSSA area.
+        source_attribute: area.nssa_redistribution
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: area.nssa_redistribution
+    sources:
+    - ansible
+    - terraform
+  area.nssa_translator_role:
+    canonical:
+      type: enum
+      version_ranges: *id027
+      choices: *id028
+      description: NSSA translator role type.
+      source_attribute: area.nssa_translator_role
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id028
+        version_ranges: *id027
+        description: NSSA translator role type.
+        source_attribute: area.nssa_translator_role
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: area.nssa_translator_role
+    sources:
+    - ansible
+    - terraform
+  area.range:
+    canonical:
+      type: list
+      elements: dict
+      children: *id029
+      version_ranges: *id030
+      description: OSPF6 area range configuration.
+      source_attribute: area.range
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id030
+        description: OSPF6 area range configuration.
+        children: *id029
+        source_attribute: area.range
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id031
+        source_attribute: area.range
+    sources:
+    - ansible
+    - terraform
+  area.range.advertise:
+    canonical:
+      type: enum
+      version_ranges: *id032
+      choices: *id033
+      description: Enable/disable advertise status.
+      source_attribute: area.range.advertise
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id033
+        version_ranges: *id032
+        description: Enable/disable advertise status.
+        source_attribute: area.range.advertise
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: area.range.advertise
+    sources:
+    - ansible
+    - terraform
+  area.range.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id034
+      description: Range entry ID. see <a href='#notes'>Notes</a>.
+      source_attribute: area.range.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id034
+        description: Range entry ID. see <a href='#notes'>Notes</a>.
+        source_attribute: area.range.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: area.range.id
+    sources:
+    - ansible
+    - terraform
+  area.range.prefix6:
+    canonical:
+      type: string
+      version_ranges: *id035
+      description: IPv6 prefix.
+      source_attribute: area.range.prefix6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id035
+        description: IPv6 prefix.
+        source_attribute: area.range.prefix6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: area.range.prefix6
+    sources:
+    - ansible
+    - terraform
+  area.stub_type:
+    canonical:
+      type: enum
+      version_ranges: *id036
+      choices: *id037
+      description: Stub summary setting.
+      source_attribute: area.stub_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id037
+        version_ranges: *id036
+        description: Stub summary setting.
+        source_attribute: area.stub_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: area.stub_type
+    sources:
+    - ansible
+    - terraform
+  area.type:
+    canonical:
+      type: enum
+      version_ranges: *id038
+      choices: *id039
+      description: Area type setting.
+      source_attribute: area.type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id039
+        version_ranges: *id038
+        description: Area type setting.
+        source_attribute: area.type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: area.type
+    sources:
+    - ansible
+    - terraform
+  area.virtual_link:
+    canonical:
+      type: list
+      elements: dict
+      children: *id040
+      version_ranges: *id041
+      description: OSPF6 virtual link configuration.
+      source_attribute: area.virtual_link
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id041
+        description: OSPF6 virtual link configuration.
+        children: *id040
+        source_attribute: area.virtual_link
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id042
+        source_attribute: area.virtual_link
+    sources:
+    - ansible
+    - terraform
+  area.virtual_link.authentication:
+    canonical:
+      type: enum
+      version_ranges: *id043
+      choices: *id044
+      description: Authentication mode.
+      source_attribute: area.virtual_link.authentication
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id044
+        version_ranges: *id043
+        description: Authentication mode.
+        source_attribute: area.virtual_link.authentication
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: area.virtual_link.authentication
+    sources:
+    - ansible
+    - terraform
+  area.virtual_link.dead_interval:
+    canonical:
+      type: integer
+      version_ranges: *id045
+      min: 1
+      max: 65535
+      description: Dead interval.
+      source_attribute: area.virtual_link.dead_interval
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id045
+        description: Dead interval.
+        source_attribute: area.virtual_link.dead_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: area.virtual_link.dead_interval
+    sources:
+    - ansible
+    - terraform
+  area.virtual_link.hello_interval:
+    canonical:
+      type: integer
+      version_ranges: *id046
+      min: 1
+      max: 65535
+      description: Hello interval.
+      source_attribute: area.virtual_link.hello_interval
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id046
+        description: Hello interval.
+        source_attribute: area.virtual_link.hello_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: area.virtual_link.hello_interval
+    sources:
+    - ansible
+    - terraform
+  area.virtual_link.ipsec_auth_alg:
+    canonical:
+      type: enum
+      version_ranges: *id047
+      choices: *id048
+      description: Authentication algorithm.
+      source_attribute: area.virtual_link.ipsec_auth_alg
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id048
+        version_ranges: *id047
+        description: Authentication algorithm.
+        source_attribute: area.virtual_link.ipsec_auth_alg
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: area.virtual_link.ipsec_auth_alg
+    sources:
+    - ansible
+    - terraform
+  area.virtual_link.ipsec_enc_alg:
+    canonical:
+      type: enum
+      version_ranges: *id049
+      choices: *id050
+      description: Encryption algorithm.
+      source_attribute: area.virtual_link.ipsec_enc_alg
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id050
+        version_ranges: *id049
+        description: Encryption algorithm.
+        source_attribute: area.virtual_link.ipsec_enc_alg
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: area.virtual_link.ipsec_enc_alg
+    sources:
+    - ansible
+    - terraform
+  area.virtual_link.ipsec_keys:
+    canonical:
+      type: list
+      elements: dict
+      children: *id051
+      version_ranges: *id052
+      description: IPsec authentication and encryption keys.
+      source_attribute: area.virtual_link.ipsec_keys
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id052
+        description: IPsec authentication and encryption keys.
+        children: *id051
+        source_attribute: area.virtual_link.ipsec_keys
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id053
+        source_attribute: area.virtual_link.ipsec_keys
+    sources:
+    - ansible
+    - terraform
+  area.virtual_link.ipsec_keys.auth_key:
+    canonical:
+      type: string
+      version_ranges: *id054
+      min_length: 0
+      max_length: 128
+      description: Authentication key.
+      source_attribute: area.virtual_link.ipsec_keys.auth_key
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id054
+        description: Authentication key.
+        source_attribute: area.virtual_link.ipsec_keys.auth_key
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: area.virtual_link.ipsec_keys.auth_key
+    sources:
+    - ansible
+    - terraform
+  area.virtual_link.ipsec_keys.enc_key:
+    canonical:
+      type: string
+      version_ranges: *id055
+      min_length: 0
+      max_length: 128
+      description: Encryption key.
+      source_attribute: area.virtual_link.ipsec_keys.enc_key
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id055
+        description: Encryption key.
+        source_attribute: area.virtual_link.ipsec_keys.enc_key
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: area.virtual_link.ipsec_keys.enc_key
+    sources:
+    - ansible
+    - terraform
+  area.virtual_link.ipsec_keys.spi:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id056
+      description: Security Parameters Index. see <a href='#notes'>Notes</a>.
+      source_attribute: area.virtual_link.ipsec_keys.spi
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id056
+        description: Security Parameters Index. see <a href='#notes'>Notes</a>.
+        source_attribute: area.virtual_link.ipsec_keys.spi
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: area.virtual_link.ipsec_keys.spi
+    sources:
+    - ansible
+    - terraform
+  area.virtual_link.key_rollover_interval:
+    canonical:
+      type: integer
+      version_ranges: *id057
+      min: 300
+      max: 216000
+      description: Key roll-over interval.
+      source_attribute: area.virtual_link.key_rollover_interval
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id057
+        description: Key roll-over interval.
+        source_attribute: area.virtual_link.key_rollover_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 300
+        max: 216000
+        source_attribute: area.virtual_link.key_rollover_interval
+    sources:
+    - ansible
+    - terraform
+  area.virtual_link.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id058
+      min_length: 0
+      max_length: 35
+      description: Virtual link entry name.
+      source_attribute: area.virtual_link.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id058
+        description: Virtual link entry name.
+        source_attribute: area.virtual_link.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: area.virtual_link.name
+    sources:
+    - ansible
+    - terraform
+  area.virtual_link.peer:
+    canonical:
+      type: string
+      version_ranges: *id059
+      description: A.B.C.D, peer router ID.
+      source_attribute: area.virtual_link.peer
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id059
+        description: A.B.C.D, peer router ID.
+        source_attribute: area.virtual_link.peer
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: area.virtual_link.peer
+    sources:
+    - ansible
+    - terraform
+  area.virtual_link.retransmit_interval:
+    canonical:
+      type: integer
+      version_ranges: *id060
+      min: 1
+      max: 65535
+      description: Retransmit interval.
+      source_attribute: area.virtual_link.retransmit_interval
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id060
+        description: Retransmit interval.
+        source_attribute: area.virtual_link.retransmit_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: area.virtual_link.retransmit_interval
+    sources:
+    - ansible
+    - terraform
+  area.virtual_link.transmit_delay:
+    canonical:
+      type: integer
+      version_ranges: *id061
+      min: 1
+      max: 65535
+      description: Transmit delay.
+      source_attribute: area.virtual_link.transmit_delay
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id061
+        description: Transmit delay.
+        source_attribute: area.virtual_link.transmit_delay
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: area.virtual_link.transmit_delay
+    sources:
+    - ansible
+    - terraform
+  auto_cost_ref_bandwidth:
+    canonical:
+      type: integer
+      version_ranges: &id062
+      - - v6.0.0
+        - ''
+      default: '1000'
+      min: 1
+      max: 1000000
+      description: Reference bandwidth in terms of megabits per second.
+      source_attribute: auto-cost-ref-bandwidth
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id062
+        description: Reference bandwidth in terms of megabits per second.
+        source_attribute: auto_cost_ref_bandwidth
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 1000000
+        source_attribute: auto_cost_ref_bandwidth
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Reference bandwidth in terms of megabits per second.
+        default: '1000'
+        min: 1
+        max: 1000000
+        source_attribute: auto-cost-ref-bandwidth
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  bfd:
+    canonical:
+      type: enum
+      version_ranges: &id064
+      - - v6.0.0
+        - ''
+      choices: &id063
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable Bidirectional Forwarding Detection (BFD).
+      source_attribute: bfd
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id063
+        version_ranges: *id064
+        description: Enable/disable Bidirectional Forwarding Detection (BFD).
+        source_attribute: bfd
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: bfd
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable Bidirectional Forwarding Detection (BFD).
+        default: disable
+        source_attribute: bfd
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  default_information_metric:
+    canonical:
+      type: integer
+      version_ranges: &id065
+      - - v6.0.0
+        - ''
+      default: '10'
+      min: 1
+      max: 16777214
+      description: Default information metric.
+      source_attribute: default-information-metric
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id065
+        description: Default information metric.
+        source_attribute: default_information_metric
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 16777214
+        source_attribute: default_information_metric
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Default information metric.
+        default: '10'
+        min: 1
+        max: 16777214
+        source_attribute: default-information-metric
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  default_information_metric_type:
+    canonical:
+      type: enum
+      version_ranges: &id067
+      - - v6.0.0
+        - ''
+      choices: &id066
+      - '1'
+      - '2'
+      default: '2'
+      description: Default information metric type.
+      source_attribute: default-information-metric-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id066
+        version_ranges: *id067
+        description: Default information metric type.
+        source_attribute: default_information_metric_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: default_information_metric_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Default information metric type.
+        default: '2'
+        source_attribute: default-information-metric-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  default_information_originate:
+    canonical:
+      type: enum
+      version_ranges: &id069
+      - - v6.0.0
+        - ''
+      choices: &id068
+      - enable
+      - always
+      - disable
+      default: disable
+      description: Enable/disable generation of default route.
+      source_attribute: default-information-originate
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id068
+        version_ranges: *id069
+        description: Enable/disable generation of default route.
+        source_attribute: default_information_originate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: default_information_originate
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable generation of default route.
+        default: disable
+        source_attribute: default-information-originate
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  default_information_route_map:
+    canonical:
+      type: string
+      references: &id071
+      - router.route-map.name
+      version_ranges: &id070
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Default information route map.
+      source_attribute: default-information-route-map
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id070
+        description: Default information route map. Source router.route-map.name.
+        references: *id071
+        source_attribute: default_information_route_map
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: default_information_route_map
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Default information route map.
+        max_length: 35
+        source_attribute: default-information-route-map
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  default_metric:
+    canonical:
+      type: integer
+      version_ranges: &id072
+      - - v6.0.0
+        - ''
+      default: '10'
+      min: 1
+      max: 16777214
+      description: Default metric of redistribute routes.
+      source_attribute: default-metric
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id072
+        description: Default metric of redistribute routes.
+        source_attribute: default_metric
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 16777214
+        source_attribute: default_metric
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Default metric of redistribute routes.
+        default: '10'
+        min: 1
+        max: 16777214
+        source_attribute: default-metric
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  log_neighbour_changes:
+    canonical:
+      type: enum
+      version_ranges: &id074
+      - - v6.0.0
+        - ''
+      choices: &id073
+      - enable
+      - disable
+      default: enable
+      description: Log OSPFv3 neighbor changes.
+      source_attribute: log-neighbour-changes
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id073
+        version_ranges: *id074
+        description: Log OSPFv3 neighbor changes.
+        source_attribute: log_neighbour_changes
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: log_neighbour_changes
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Log OSPFv3 neighbor changes.
+        default: enable
+        source_attribute: log-neighbour-changes
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ospf6_interface:
+    canonical:
+      type: list
+      elements: dict
+      children: &id076
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id101
+          - - v6.0.0
+            - ''
+          description: Interface entry name.
+        area_id:
+          type: string
+          raw_type: string
+          version_ranges: &id077
+          - - v6.0.0
+            - ''
+          description: A.B.C.D, in IPv4 address format.
+        interface:
+          type: string
+          raw_type: string
+          version_ranges: &id086
+          - - v6.0.0
+            - ''
+          description: Configuration interface name. Source system.interface.name.
+          references: &id085
+          - system.interface.name
+        retransmit_interval:
+          type: integer
+          raw_type: integer
+          version_ranges: &id112
+          - - v6.0.0
+            - ''
+          description: Retransmit interval.
+        transmit_delay:
+          type: integer
+          raw_type: integer
+          version_ranges: &id115
+          - - v6.0.0
+            - ''
+          description: Transmit delay.
+        cost:
+          type: integer
+          raw_type: integer
+          version_ranges: &id082
+          - - v6.0.0
+            - ''
+          description: Cost of the interface, value range from 0 to 65535, 0 means auto-cost.
+        priority:
+          type: integer
+          raw_type: integer
+          version_ranges: &id111
+          - - v6.0.0
+            - ''
+          description: Priority.
+        dead_interval:
+          type: integer
+          raw_type: integer
+          version_ranges: &id083
+          - - v6.0.0
+            - ''
+          description: Dead interval.
+        hello_interval:
+          type: integer
+          raw_type: integer
+          version_ranges: &id084
+          - - v6.0.0
+            - ''
+          description: Hello interval.
+        status:
+          type: enum
+          raw_type: string
+          choices: &id114
+          - disable
+          - enable
+          version_ranges: &id113
+          - - v6.0.0
+            - ''
+          description: Enable/disable OSPF6 routing on this interface.
+        network_type:
+          type: enum
+          raw_type: string
+          choices: &id110
+          - broadcast
+          - point-to-point
+          - non-broadcast
+          - point-to-multipoint
+          - point-to-multipoint-non-broadcast
+          version_ranges: &id109
+          - - v6.0.0
+            - ''
+          description: Network type.
+        bfd:
+          type: enum
+          raw_type: string
+          choices: &id081
+          - global
+          - enable
+          - disable
+          version_ranges: &id080
+          - - v6.0.0
+            - ''
+          description: Enable/disable Bidirectional Forwarding Detection (BFD).
+        mtu:
+          type: integer
+          raw_type: integer
+          version_ranges: &id098
+          - - v6.0.0
+            - ''
+          description: MTU for OSPFv3 packets.
+        mtu_ignore:
+          type: enum
+          raw_type: string
+          choices: &id100
+          - enable
+          - disable
+          version_ranges: &id099
+          - - v6.0.0
+            - ''
+          description: Enable/disable ignoring MTU field in DBD packets.
+        authentication:
+          type: enum
+          raw_type: string
+          choices: &id079
+          - none
+          - ah
+          - esp
+          - area
+          version_ranges: &id078
+          - - v6.2.0
+            - ''
+          description: Authentication mode.
+        key_rollover_interval:
+          type: integer
+          raw_type: integer
+          version_ranges: &id097
+          - - v6.2.0
+            - ''
+          description: Key roll-over interval.
+        ipsec_auth_alg:
+          type: enum
+          raw_type: string
+          choices: &id088
+          - md5
+          - sha1
+          - sha256
+          - sha384
+          - sha512
+          version_ranges: &id087
+          - - v6.2.0
+            - ''
+          description: Authentication algorithm.
+        ipsec_enc_alg:
+          type: enum
+          raw_type: string
+          choices: &id090
+          - 'null'
+          - des
+          - 3des
+          - aes128
+          - aes192
+          - aes256
+          version_ranges: &id089
+          - - v6.2.0
+            - ''
+          description: Encryption algorithm.
+        ipsec_keys:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id092
+          - - v6.2.0
+            - ''
+          description: IPsec authentication and encryption keys.
+          children: &id091
+            spi:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id096
+              - - v6.2.0
+                - ''
+              description: Security Parameters Index. see <a href='#notes'>Notes</a>.
+            auth_key:
+              type: string
+              raw_type: string
+              version_ranges: &id094
+              - - v6.2.0
+                - ''
+              description: Authentication key.
+            enc_key:
+              type: string
+              raw_type: string
+              version_ranges: &id095
+              - - v6.2.0
+                - ''
+              description: Encryption key.
+        neighbor:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id103
+          - - v6.0.0
+            - ''
+          description: OSPFv3 neighbors are used when OSPFv3 runs on non-broadcast media.
+          children: &id102
+            ip6:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id106
+              - - v6.0.0
+                - ''
+              description: IPv6 link local address of the neighbor.
+            poll_interval:
+              type: integer
+              raw_type: integer
+              version_ranges: &id107
+              - - v6.0.0
+                - ''
+              description: Poll interval time in seconds.
+            cost:
+              type: integer
+              raw_type: integer
+              version_ranges: &id105
+              - - v6.0.0
+                - ''
+              description: Cost of the interface, value range from 0 to 65535, 0 means auto-cost.
+            priority:
+              type: integer
+              raw_type: integer
+              version_ranges: &id108
+              - - v6.0.0
+                - ''
+              description: Priority.
+      version_ranges: &id075
+      - - v6.0.0
+        - ''
+      description: OSPF6 interface configuration.
+      source_attribute: ospf6_interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id075
+        description: OSPF6 interface configuration.
+        children: *id076
+        source_attribute: ospf6_interface
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          area_id:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          retransmit_interval:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 65535
+          transmit_delay:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 65535
+          cost:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 65535
+          priority:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 255
+          dead_interval:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 65535
+          hello_interval:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 65535
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          network_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          bfd:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          mtu:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 576
+            max: 65535
+          mtu_ignore:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          authentication:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          key_rollover_interval:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 300
+            max: 216000
+          ipsec_auth_alg:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ipsec_enc_alg:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ipsec_keys:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id093
+              spi:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+              auth_key:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 128
+              enc_key:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 128
+          neighbor:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id104
+              ip6:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              poll_interval:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+                min: 1
+                max: 65535
+              cost:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                min: 0
+                max: 65535
+              priority:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+                min: 0
+                max: 255
+        source_attribute: ospf6_interface
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.area_id:
+    canonical:
+      type: string
+      version_ranges: *id077
+      description: A.B.C.D, in IPv4 address format.
+      source_attribute: ospf6_interface.area_id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id077
+        description: A.B.C.D, in IPv4 address format.
+        source_attribute: ospf6_interface.area_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ospf6_interface.area_id
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.authentication:
+    canonical:
+      type: enum
+      version_ranges: *id078
+      choices: *id079
+      description: Authentication mode.
+      source_attribute: ospf6_interface.authentication
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id079
+        version_ranges: *id078
+        description: Authentication mode.
+        source_attribute: ospf6_interface.authentication
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ospf6_interface.authentication
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.bfd:
+    canonical:
+      type: enum
+      version_ranges: *id080
+      choices: *id081
+      description: Enable/disable Bidirectional Forwarding Detection (BFD).
+      source_attribute: ospf6_interface.bfd
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id081
+        version_ranges: *id080
+        description: Enable/disable Bidirectional Forwarding Detection (BFD).
+        source_attribute: ospf6_interface.bfd
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ospf6_interface.bfd
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.cost:
+    canonical:
+      type: integer
+      version_ranges: *id082
+      min: 0
+      max: 65535
+      description: Cost of the interface, value range from 0 to 65535, 0 means auto-cost.
+      source_attribute: ospf6_interface.cost
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id082
+        description: Cost of the interface, value range from 0 to 65535, 0 means auto-cost.
+        source_attribute: ospf6_interface.cost
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: ospf6_interface.cost
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.dead_interval:
+    canonical:
+      type: integer
+      version_ranges: *id083
+      min: 1
+      max: 65535
+      description: Dead interval.
+      source_attribute: ospf6_interface.dead_interval
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id083
+        description: Dead interval.
+        source_attribute: ospf6_interface.dead_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 65535
+        source_attribute: ospf6_interface.dead_interval
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.hello_interval:
+    canonical:
+      type: integer
+      version_ranges: *id084
+      min: 1
+      max: 65535
+      description: Hello interval.
+      source_attribute: ospf6_interface.hello_interval
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id084
+        description: Hello interval.
+        source_attribute: ospf6_interface.hello_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 65535
+        source_attribute: ospf6_interface.hello_interval
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.interface:
+    canonical:
+      type: string
+      references: *id085
+      version_ranges: *id086
+      min_length: 0
+      max_length: 15
+      description: Configuration interface name. Source system.interface.name.
+      source_attribute: ospf6_interface.interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id086
+        description: Configuration interface name. Source system.interface.name.
+        references: *id085
+        source_attribute: ospf6_interface.interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: ospf6_interface.interface
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.ipsec_auth_alg:
+    canonical:
+      type: enum
+      version_ranges: *id087
+      choices: *id088
+      description: Authentication algorithm.
+      source_attribute: ospf6_interface.ipsec_auth_alg
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id088
+        version_ranges: *id087
+        description: Authentication algorithm.
+        source_attribute: ospf6_interface.ipsec_auth_alg
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ospf6_interface.ipsec_auth_alg
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.ipsec_enc_alg:
+    canonical:
+      type: enum
+      version_ranges: *id089
+      choices: *id090
+      description: Encryption algorithm.
+      source_attribute: ospf6_interface.ipsec_enc_alg
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id090
+        version_ranges: *id089
+        description: Encryption algorithm.
+        source_attribute: ospf6_interface.ipsec_enc_alg
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ospf6_interface.ipsec_enc_alg
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.ipsec_keys:
+    canonical:
+      type: list
+      elements: dict
+      children: *id091
+      version_ranges: *id092
+      description: IPsec authentication and encryption keys.
+      source_attribute: ospf6_interface.ipsec_keys
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id092
+        description: IPsec authentication and encryption keys.
+        children: *id091
+        source_attribute: ospf6_interface.ipsec_keys
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id093
+        source_attribute: ospf6_interface.ipsec_keys
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.ipsec_keys.auth_key:
+    canonical:
+      type: string
+      version_ranges: *id094
+      min_length: 0
+      max_length: 128
+      description: Authentication key.
+      source_attribute: ospf6_interface.ipsec_keys.auth_key
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id094
+        description: Authentication key.
+        source_attribute: ospf6_interface.ipsec_keys.auth_key
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: ospf6_interface.ipsec_keys.auth_key
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.ipsec_keys.enc_key:
+    canonical:
+      type: string
+      version_ranges: *id095
+      min_length: 0
+      max_length: 128
+      description: Encryption key.
+      source_attribute: ospf6_interface.ipsec_keys.enc_key
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id095
+        description: Encryption key.
+        source_attribute: ospf6_interface.ipsec_keys.enc_key
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: ospf6_interface.ipsec_keys.enc_key
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.ipsec_keys.spi:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id096
+      description: Security Parameters Index. see <a href='#notes'>Notes</a>.
+      source_attribute: ospf6_interface.ipsec_keys.spi
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id096
+        description: Security Parameters Index. see <a href='#notes'>Notes</a>.
+        source_attribute: ospf6_interface.ipsec_keys.spi
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: ospf6_interface.ipsec_keys.spi
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.key_rollover_interval:
+    canonical:
+      type: integer
+      version_ranges: *id097
+      min: 300
+      max: 216000
+      description: Key roll-over interval.
+      source_attribute: ospf6_interface.key_rollover_interval
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id097
+        description: Key roll-over interval.
+        source_attribute: ospf6_interface.key_rollover_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 300
+        max: 216000
+        source_attribute: ospf6_interface.key_rollover_interval
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.mtu:
+    canonical:
+      type: integer
+      version_ranges: *id098
+      min: 576
+      max: 65535
+      description: MTU for OSPFv3 packets.
+      source_attribute: ospf6_interface.mtu
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id098
+        description: MTU for OSPFv3 packets.
+        source_attribute: ospf6_interface.mtu
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 576
+        max: 65535
+        source_attribute: ospf6_interface.mtu
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.mtu_ignore:
+    canonical:
+      type: enum
+      version_ranges: *id099
+      choices: *id100
+      description: Enable/disable ignoring MTU field in DBD packets.
+      source_attribute: ospf6_interface.mtu_ignore
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id100
+        version_ranges: *id099
+        description: Enable/disable ignoring MTU field in DBD packets.
+        source_attribute: ospf6_interface.mtu_ignore
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ospf6_interface.mtu_ignore
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id101
+      min_length: 0
+      max_length: 35
+      description: Interface entry name.
+      source_attribute: ospf6_interface.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id101
+        description: Interface entry name.
+        source_attribute: ospf6_interface.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: ospf6_interface.name
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.neighbor:
+    canonical:
+      type: list
+      elements: dict
+      children: *id102
+      version_ranges: *id103
+      description: OSPFv3 neighbors are used when OSPFv3 runs on non-broadcast media.
+      source_attribute: ospf6_interface.neighbor
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id103
+        description: OSPFv3 neighbors are used when OSPFv3 runs on non-broadcast media.
+        children: *id102
+        source_attribute: ospf6_interface.neighbor
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id104
+        source_attribute: ospf6_interface.neighbor
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.neighbor.cost:
+    canonical:
+      type: integer
+      version_ranges: *id105
+      min: 0
+      max: 65535
+      description: Cost of the interface, value range from 0 to 65535, 0 means auto-cost.
+      source_attribute: ospf6_interface.neighbor.cost
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id105
+        description: Cost of the interface, value range from 0 to 65535, 0 means auto-cost.
+        source_attribute: ospf6_interface.neighbor.cost
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: ospf6_interface.neighbor.cost
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.neighbor.ip6:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id106
+      description: IPv6 link local address of the neighbor.
+      source_attribute: ospf6_interface.neighbor.ip6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id106
+        description: IPv6 link local address of the neighbor.
+        source_attribute: ospf6_interface.neighbor.ip6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ospf6_interface.neighbor.ip6
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.neighbor.poll_interval:
+    canonical:
+      type: integer
+      version_ranges: *id107
+      min: 1
+      max: 65535
+      description: Poll interval time in seconds.
+      source_attribute: ospf6_interface.neighbor.poll_interval
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id107
+        description: Poll interval time in seconds.
+        source_attribute: ospf6_interface.neighbor.poll_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: ospf6_interface.neighbor.poll_interval
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.neighbor.priority:
+    canonical:
+      type: integer
+      version_ranges: *id108
+      min: 0
+      max: 255
+      description: Priority.
+      source_attribute: ospf6_interface.neighbor.priority
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id108
+        description: Priority.
+        source_attribute: ospf6_interface.neighbor.priority
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 255
+        source_attribute: ospf6_interface.neighbor.priority
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.network_type:
+    canonical:
+      type: enum
+      version_ranges: *id109
+      choices: *id110
+      description: Network type.
+      source_attribute: ospf6_interface.network_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id110
+        version_ranges: *id109
+        description: Network type.
+        source_attribute: ospf6_interface.network_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ospf6_interface.network_type
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.priority:
+    canonical:
+      type: integer
+      version_ranges: *id111
+      min: 0
+      max: 255
+      description: Priority.
+      source_attribute: ospf6_interface.priority
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id111
+        description: Priority.
+        source_attribute: ospf6_interface.priority
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 255
+        source_attribute: ospf6_interface.priority
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.retransmit_interval:
+    canonical:
+      type: integer
+      version_ranges: *id112
+      min: 1
+      max: 65535
+      description: Retransmit interval.
+      source_attribute: ospf6_interface.retransmit_interval
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id112
+        description: Retransmit interval.
+        source_attribute: ospf6_interface.retransmit_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: ospf6_interface.retransmit_interval
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.status:
+    canonical:
+      type: enum
+      version_ranges: *id113
+      choices: *id114
+      description: Enable/disable OSPF6 routing on this interface.
+      source_attribute: ospf6_interface.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id114
+        version_ranges: *id113
+        description: Enable/disable OSPF6 routing on this interface.
+        source_attribute: ospf6_interface.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ospf6_interface.status
+    sources:
+    - ansible
+    - terraform
+  ospf6_interface.transmit_delay:
+    canonical:
+      type: integer
+      version_ranges: *id115
+      min: 1
+      max: 65535
+      description: Transmit delay.
+      source_attribute: ospf6_interface.transmit_delay
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id115
+        description: Transmit delay.
+        source_attribute: ospf6_interface.transmit_delay
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: ospf6_interface.transmit_delay
+    sources:
+    - ansible
+    - terraform
+  passive_interface:
+    canonical:
+      type: list
+      elements: dict
+      children: &id117
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id120
+          - - v6.0.0
+            - ''
+          description: Passive interface name. Source system.interface.name.
+          references: &id119
+          - system.interface.name
+      version_ranges: &id116
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Passive interface configuration. Passive interface name.
+      source_attribute: passive-interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id116
+        description: Passive interface configuration.
+        children: *id117
+        source_attribute: passive_interface
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: passive_interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Passive interface configuration. Passive interface name.
+        max_length: 79
+        source_attribute: passive-interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id118
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id118
+  passive_interface.name:
+    canonical:
+      type: string
+      references: *id119
+      required: true
+      version_ranges: *id120
+      min_length: 0
+      max_length: 79
+      description: Passive interface name. Source system.interface.name.
+      source_attribute: passive_interface.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id120
+        description: Passive interface name. Source system.interface.name.
+        references: *id119
+        source_attribute: passive_interface.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: passive_interface.name
+    sources:
+    - ansible
+    - terraform
+  redistribute:
+    canonical:
+      type: list
+      children: &id121
+        name:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 35
+        status:
+          type: string
+          raw_type: TypeString
+          optional: true
+          computed: true
+        metric:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+          min: 0
+          max: 16777214
+        routemap:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 35
+        metric_type:
+          type: string
+          raw_type: TypeString
+          optional: true
+          computed: true
+      source_attribute: redistribute
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id121
+        source_attribute: redistribute
+    sources:
+    - terraform
+  redistribute.metric:
+    canonical:
+      type: integer
+      min: 0
+      max: 16777214
+      source_attribute: redistribute.metric
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 16777214
+        source_attribute: redistribute.metric
+    sources:
+    - terraform
+  redistribute.metric_type:
+    canonical:
+      type: string
+      source_attribute: redistribute.metric_type
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: redistribute.metric_type
+    sources:
+    - terraform
+  redistribute.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: redistribute.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: redistribute.name
+    sources:
+    - terraform
+  redistribute.routemap:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: redistribute.routemap
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: redistribute.routemap
+    sources:
+    - terraform
+  redistribute.status:
+    canonical:
+      type: string
+      source_attribute: redistribute.status
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: redistribute.status
+    sources:
+    - terraform
+  restart_mode:
+    canonical:
+      type: enum
+      version_ranges: &id123
+      - - v7.2.0
+        - ''
+      choices: &id122
+      - none
+      - graceful-restart
+      default: none
+      description: OSPFv3 restart mode (graceful or none).
+      source_attribute: restart-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id122
+        version_ranges: *id123
+        description: OSPFv3 restart mode (graceful or none).
+        source_attribute: restart_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: restart_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: OSPFv3 restart mode (graceful or none).
+        default: none
+        source_attribute: restart-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  restart_on_topology_change:
+    canonical:
+      type: enum
+      version_ranges: &id125
+      - - v7.2.0
+        - ''
+      choices: &id124
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable continuing graceful restart upon topology change.
+      source_attribute: restart-on-topology-change
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id124
+        version_ranges: *id125
+        description: Enable/disable continuing graceful restart upon topology change.
+        source_attribute: restart_on_topology_change
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: restart_on_topology_change
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable continuing graceful restart upon topology change.
+        default: disable
+        source_attribute: restart-on-topology-change
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  restart_period:
+    canonical:
+      type: integer
+      version_ranges: &id126
+      - - v7.2.0
+        - ''
+      default: '120'
+      min: 1
+      max: 3600
+      description: Graceful restart period in seconds.
+      source_attribute: restart-period
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id126
+        description: Graceful restart period in seconds.
+        source_attribute: restart_period
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 3600
+        source_attribute: restart_period
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Graceful restart period in seconds.
+        default: '120'
+        min: 1
+        max: 3600
+        source_attribute: restart-period
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  router_id:
+    canonical:
+      type: ipv4-address-any
+      required: true
+      version_ranges: &id127
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: A.B.C.D, in IPv4 address format.
+      source_attribute: router-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id127
+        description: A.B.C.D, in IPv4 address format.
+        source_attribute: router_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: router_id
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: A.B.C.D, in IPv4 address format.
+        default: 0.0.0.0
+        source_attribute: router-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id128
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id128
+  spf_timers:
+    canonical:
+      type: string
+      version_ranges: &id129
+      - - v6.0.0
+        - ''
+      description: SPF calculation frequency.
+      source_attribute: spf-timers
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id129
+        description: SPF calculation frequency.
+        source_attribute: spf_timers
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: spf_timers
+      cli_reference:
+        type: string
+        raw_type: user
+        description: SPF calculation frequency.
+        source_attribute: spf-timers
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  summary_address:
+    canonical:
+      type: list
+      elements: dict
+      children: &id131
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id134
+          - - v6.0.0
+            - ''
+          description: Summary address entry ID. see <a href='#notes'>Notes</a>.
+        prefix6:
+          type: string
+          raw_type: string
+          version_ranges: &id135
+          - - v6.0.0
+            - ''
+          description: IPv6 prefix.
+        advertise:
+          type: enum
+          raw_type: string
+          choices: &id133
+          - disable
+          - enable
+          version_ranges: &id132
+          - - v6.0.0
+            - ''
+          description: Enable/disable advertise status.
+        tag:
+          type: integer
+          raw_type: integer
+          version_ranges: &id136
+          - - v6.0.0
+            - ''
+          description: Tag value.
+      version_ranges: &id130
+      - - v6.0.0
+        - ''
+      description: IPv6 address summary configuration.
+      source_attribute: summary_address
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id130
+        description: IPv6 address summary configuration.
+        children: *id131
+        source_attribute: summary_address
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          prefix6:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          advertise:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          tag:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+        source_attribute: summary_address
+    sources:
+    - ansible
+    - terraform
+  summary_address.advertise:
+    canonical:
+      type: enum
+      version_ranges: *id132
+      choices: *id133
+      description: Enable/disable advertise status.
+      source_attribute: summary_address.advertise
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id133
+        version_ranges: *id132
+        description: Enable/disable advertise status.
+        source_attribute: summary_address.advertise
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: summary_address.advertise
+    sources:
+    - ansible
+    - terraform
+  summary_address.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id134
+      description: Summary address entry ID. see <a href='#notes'>Notes</a>.
+      source_attribute: summary_address.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id134
+        description: Summary address entry ID. see <a href='#notes'>Notes</a>.
+        source_attribute: summary_address.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: summary_address.id
+    sources:
+    - ansible
+    - terraform
+  summary_address.prefix6:
+    canonical:
+      type: string
+      version_ranges: *id135
+      description: IPv6 prefix.
+      source_attribute: summary_address.prefix6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id135
+        description: IPv6 prefix.
+        source_attribute: summary_address.prefix6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: summary_address.prefix6
+    sources:
+    - ansible
+    - terraform
+  summary_address.tag:
+    canonical:
+      type: integer
+      version_ranges: *id136
+      description: Tag value.
+      source_attribute: summary_address.tag
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id136
+        description: Tag value.
+        source_attribute: summary_address.tag
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: summary_address.tag
+    sources:
+    - ansible
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: passive_interface
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: router_id
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict

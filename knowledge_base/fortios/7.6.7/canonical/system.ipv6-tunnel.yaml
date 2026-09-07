@@ -1,0 +1,335 @@
+id: system.ipv6-tunnel
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  auto_asic_offload:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable tunnel ASIC offloading.
+      source_attribute: auto-asic-offload
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable tunnel ASIC offloading.
+        source_attribute: auto_asic_offload
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auto_asic_offload
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable tunnel ASIC offloading.
+        default: enable
+        source_attribute: auto-asic-offload
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  destination:
+    canonical:
+      type: ipv6-address
+      required: true
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      default: '::'
+      description: Remote IPv6 address of the tunnel.
+      source_attribute: destination
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Remote IPv6 address of the tunnel.
+        source_attribute: destination
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: destination
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: Remote IPv6 address of the tunnel.
+        default: '::'
+        source_attribute: destination
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id004
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id004
+  interface:
+    canonical:
+      type: string
+      references: &id006
+      - system.interface.name
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Interface name.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: Interface name. Source system.interface.name.
+        references: *id006
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Interface name.
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: IPv6 tunnel name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id007
+        description: IPv6 tunnel name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 15
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: IPv6 tunnel name.
+        max_length: 15
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      default: '::'
+      description: Local IPv6 address of the tunnel.
+      source_attribute: source
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: Local IPv6 address of the tunnel.
+        source_attribute: source
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: Local IPv6 address of the tunnel.
+        default: '::'
+        source_attribute: source
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id009
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id009
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  use_sdwan:
+    canonical:
+      type: enum
+      version_ranges: &id011
+      - - v7.0.0
+        - ''
+      choices: &id010
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable use of SD-WAN to reach remote gateway.
+      source_attribute: use-sdwan
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id011
+        description: Enable/disable use of SD-WAN to reach remote gateway.
+        source_attribute: use_sdwan
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: use_sdwan
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of SD-WAN to reach remote gateway.
+        default: disable
+        source_attribute: use-sdwan
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: destination
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict
+- attribute: source
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict

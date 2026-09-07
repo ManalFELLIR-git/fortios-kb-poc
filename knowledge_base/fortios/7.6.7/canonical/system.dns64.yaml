@@ -1,0 +1,169 @@
+id: system.dns64
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  always_synthesize_aaaa_record:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.0.1
+        - ''
+      choices: &id001
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable AAAA record synthesis (default = enable).
+      source_attribute: always-synthesize-aaaa-record
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable AAAA record synthesis .
+        source_attribute: always_synthesize_aaaa_record
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: always_synthesize_aaaa_record
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable AAAA record synthesis (default = enable).
+        default: enable
+        source_attribute: always-synthesize-aaaa-record
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dns64_prefix:
+    canonical:
+      type: ipv6-prefix
+      version_ranges: &id003
+      - - v7.0.1
+        - ''
+      default: 64:ff9b::/96
+      description: DNS64 prefix must be ::/96 (default = 64:ff9b::/96).
+      source_attribute: dns64-prefix
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: DNS64 prefix must be ::/96 .
+        source_attribute: dns64_prefix
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dns64_prefix
+      cli_reference:
+        type: ipv6-prefix
+        raw_type: ipv6-prefix
+        description: DNS64 prefix must be ::/96 (default = 64:ff9b::/96).
+        default: 64:ff9b::/96
+        source_attribute: dns64-prefix
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id004
+          primitive: string
+          format: ipv6-prefix
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id004
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id006
+      - - v7.0.1
+        - ''
+      choices: &id005
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable DNS64 (default = disable).
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Enable/disable DNS64 .
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable DNS64 (default = disable).
+        default: disable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: dns64_prefix
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-prefix
+  classification: representation_or_real_conflict

@@ -1,0 +1,204 @@
+id: system.mac-address-table
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  interface:
+    canonical:
+      type: string
+      references: &id002
+      - system.interface.name
+      required: true
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Interface name.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Interface name. Source system.interface.name.
+        references: *id002
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 35
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Interface name.
+        max_length: 35
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  mac:
+    canonical:
+      type: mac-address
+      required: true
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      default: 00:00:00:00:00:00
+      description: MAC address.
+      source_attribute: mac
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id003
+        description: MAC address.
+        source_attribute: mac
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        force_new: true
+        source_attribute: mac
+      cli_reference:
+        type: mac-address
+        raw_type: mac-address
+        description: MAC address.
+        default: 00:00:00:00:00:00
+        source_attribute: mac
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id004
+          primitive: string
+          format: mac-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id004
+  reply_substitute:
+    canonical:
+      type: mac-address
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      default: 00:00:00:00:00:00
+      description: New MAC for reply traffic.
+      source_attribute: reply-substitute
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: New MAC for reply traffic.
+        source_attribute: reply_substitute
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: reply_substitute
+      cli_reference:
+        type: mac-address
+        raw_type: mac-address
+        description: New MAC for reply traffic.
+        default: 00:00:00:00:00:00
+        source_attribute: reply-substitute
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id006
+          primitive: string
+          format: mac-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id006
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: mac
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: mac-address
+  classification: representation_or_real_conflict
+- attribute: reply_substitute
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: mac-address
+  classification: representation_or_real_conflict

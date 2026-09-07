@@ -1,0 +1,219 @@
+id: webfilter.ips-urlfilter-setting
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  device:
+    canonical:
+      type: string
+      references: &id002
+      - system.interface.name
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Interface for this route.
+      source_attribute: device
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Interface for this route. Source system.interface.name.
+        references: *id002
+        source_attribute: device
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: device
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Interface for this route.
+        max_length: 35
+        source_attribute: device
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  distance:
+    canonical:
+      type: integer
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      default: '1'
+      min: 1
+      max: 255
+      description: Administrative distance (1 - 255) for this route.
+      source_attribute: distance
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id003
+        description: Administrative distance (1 - 255) for this route.
+        source_attribute: distance
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 255
+        source_attribute: distance
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Administrative distance (1 - 255) for this route.
+        default: '1'
+        min: 1
+        max: 255
+        source_attribute: distance
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  gateway:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: Gateway IP address for this route.
+      source_attribute: gateway
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id004
+        description: Gateway IP address for this route.
+        source_attribute: gateway
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: gateway
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Gateway IP address for this route.
+        default: 0.0.0.0
+        source_attribute: gateway
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id005
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id005
+  geo_filter:
+    canonical:
+      type: string
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Filter based on geographical location. Route will NOT be installed if the resolved IP address belongs to
+        the country in the filter.
+      source_attribute: geo-filter
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id006
+        description: Filter based on geographical location. Route will NOT be installed if the resolved IP address belongs
+          to the country in the filter.
+        source_attribute: geo_filter
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: geo_filter
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Filter based on geographical location. Route will NOT be installed if the resolved IP address belongs
+          to the country in the filter.
+        max_length: 255
+        source_attribute: geo-filter
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: gateway
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict

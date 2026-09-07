@@ -1,0 +1,556 @@
+id: firewall.ippool6
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  add_nat46_route:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.0.1
+        - ''
+      choices: &id001
+      - disable
+      - enable
+      default: enable
+      description: Enable/disable adding NAT46 route.
+      source_attribute: add-nat46-route
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable adding NAT46 route.
+        source_attribute: add_nat46_route
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: add_nat46_route
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable adding NAT46 route.
+        default: enable
+        source_attribute: add-nat46-route
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  comments:
+    canonical:
+      type: string
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Comment.
+      source_attribute: comments
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Comment.
+        source_attribute: comments
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: comments
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 255
+        source_attribute: comments
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  endip:
+    canonical:
+      type: ipv6-address
+      required: true
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      default: '::'
+      description: Final IPv6 address (inclusive) in the range for the address pool (format = xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx,
+        default = ::).
+      source_attribute: endip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id004
+        description: Final IPv6 address (inclusive) in the range for the address pool (format = xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx).
+        source_attribute: endip
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: endip
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: Final IPv6 address (inclusive) in the range for the address pool (format = xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx,
+          default = ::).
+        default: '::'
+        source_attribute: endip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id005
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id005
+  external_prefix:
+    canonical:
+      type: ipv6-network
+      version_ranges: &id006
+      - - v7.6.0
+        - ''
+      default: ::/0
+      description: External NPTv6 prefix length (32 - 64).
+      source_attribute: external-prefix
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id006
+        description: External NPTv6 prefix length (32 - 64).
+        source_attribute: external_prefix
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: external_prefix
+      cli_reference:
+        type: ipv6-network
+        raw_type: ipv6-network
+        description: External NPTv6 prefix length (32 - 64).
+        default: ::/0
+        source_attribute: external-prefix
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id007
+          primitive: string
+          format: ipv6-network
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id007
+  fabric_force_sync:
+    canonical:
+      type: string
+      source_attribute: fabric_force_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_force_sync
+    sources:
+    - terraform
+  fabric_object:
+    canonical:
+      type: string
+      source_attribute: fabric_object
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object
+    sources:
+    - terraform
+  fabric_object_source:
+    canonical:
+      type: string
+      source_attribute: fabric_object_source
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object_source
+    sources:
+    - terraform
+  internal_prefix:
+    canonical:
+      type: ipv6-network
+      version_ranges: &id008
+      - - v7.6.0
+        - ''
+      default: ::/0
+      description: Internal NPTv6 prefix length (32 - 64).
+      source_attribute: internal-prefix
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: Internal NPTv6 prefix length (32 - 64).
+        source_attribute: internal_prefix
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: internal_prefix
+      cli_reference:
+        type: ipv6-network
+        raw_type: ipv6-network
+        description: Internal NPTv6 prefix length (32 - 64).
+        default: ::/0
+        source_attribute: internal-prefix
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id009
+          primitive: string
+          format: ipv6-network
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id009
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id010
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 79
+      description: IPv6 IP pool name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id010
+        description: IPv6 IP pool name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: IPv6 IP pool name.
+        max_length: 79
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  nat46:
+    canonical:
+      type: enum
+      version_ranges: &id012
+      - - v7.0.1
+        - ''
+      choices: &id011
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable NAT46.
+      source_attribute: nat46
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id011
+        version_ranges: *id012
+        description: Enable/disable NAT46.
+        source_attribute: nat46
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: nat46
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable NAT46.
+        default: disable
+        source_attribute: nat46
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  startip:
+    canonical:
+      type: ipv6-address
+      required: true
+      version_ranges: &id013
+      - - v6.0.0
+        - ''
+      default: '::'
+      description: First IPv6 address (inclusive) in the range for the address pool (format = xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx,
+        default = ::).
+      source_attribute: startip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id013
+        description: First IPv6 address (inclusive) in the range for the address pool (format = xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx).
+        source_attribute: startip
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: startip
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: First IPv6 address (inclusive) in the range for the address pool (format = xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx,
+          default = ::).
+        default: '::'
+        source_attribute: startip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id014
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id014
+  type:
+    canonical:
+      type: enum
+      version_ranges: &id016
+      - - v7.6.0
+        - ''
+      choices: &id015
+      - overload
+      - nptv6
+      default: overload
+      description: Configure IPv6 pool type (overload or NPTv6).
+      source_attribute: type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id015
+        version_ranges: *id016
+        description: Configure IPv6 pool type (overload or NPTv6).
+        source_attribute: type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Configure IPv6 pool type (overload or NPTv6).
+        default: overload
+        source_attribute: type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  uuid:
+    canonical:
+      type: string
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: endip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict
+- attribute: external_prefix
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-network
+  classification: representation_or_real_conflict
+- attribute: internal_prefix
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-network
+  classification: representation_or_real_conflict
+- attribute: startip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict

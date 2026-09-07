@@ -1,0 +1,947 @@
+id: system.vdom-dns
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  alt_primary:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id001
+      - - v7.0.1
+        - ''
+      default: 0.0.0.0
+      description: Alternate primary DNS server. This is not used as a failover DNS server.
+      source_attribute: alt-primary
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Alternate primary DNS server. This is not used as a failover DNS server.
+        source_attribute: alt_primary
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: alt_primary
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Alternate primary DNS server. This is not used as a failover DNS server.
+        default: 0.0.0.0
+        source_attribute: alt-primary
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id002
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id002
+  alt_secondary:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id003
+      - - v7.0.1
+        - ''
+      default: 0.0.0.0
+      description: Alternate secondary DNS server. This is not used as a failover DNS server.
+      source_attribute: alt-secondary
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Alternate secondary DNS server. This is not used as a failover DNS server.
+        source_attribute: alt_secondary
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: alt_secondary
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Alternate secondary DNS server. This is not used as a failover DNS server.
+        default: 0.0.0.0
+        source_attribute: alt-secondary
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id004
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id004
+  dns_over_tls:
+    canonical:
+      type: string
+      source_attribute: dns_over_tls
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dns_over_tls
+    sources:
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  interface:
+    canonical:
+      type: string
+      references: &id006
+      - system.interface.name
+      version_ranges: &id005
+      - - v6.2.0
+        - v6.2.0
+      - - v6.2.5
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Specify outgoing interface to reach server.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: Specify outgoing interface to reach server. Source system.interface.name.
+        references: *id006
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Specify outgoing interface to reach server.
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface_select_method:
+    canonical:
+      type: enum
+      version_ranges: &id008
+      - - v6.2.0
+        - v6.2.0
+      - - v6.2.5
+        - ''
+      choices: &id007
+      - auto
+      - sdwan
+      - specify
+      default: auto
+      description: Specify how to select outgoing interface to reach server.
+      source_attribute: interface-select-method
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id007
+        version_ranges: *id008
+        description: Specify how to select outgoing interface to reach server.
+        source_attribute: interface_select_method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface_select_method
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Specify how to select outgoing interface to reach server.
+        default: auto
+        source_attribute: interface-select-method
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ip6_primary:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      default: '::'
+      description: Primary IPv6 DNS server IP address for the VDOM.
+      source_attribute: ip6-primary
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id009
+        description: Primary IPv6 DNS server IP address for the VDOM.
+        source_attribute: ip6_primary
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ip6_primary
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: Primary IPv6 DNS server IP address for the VDOM.
+        default: '::'
+        source_attribute: ip6-primary
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id010
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id010
+  ip6_secondary:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      default: '::'
+      description: Secondary IPv6 DNS server IP address for the VDOM.
+      source_attribute: ip6-secondary
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: Secondary IPv6 DNS server IP address for the VDOM.
+        source_attribute: ip6_secondary
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ip6_secondary
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: Secondary IPv6 DNS server IP address for the VDOM.
+        default: '::'
+        source_attribute: ip6-secondary
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id012
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id012
+  primary:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id013
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: Primary DNS server IP address for the VDOM.
+      source_attribute: primary
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id013
+        description: Primary DNS server IP address for the VDOM.
+        source_attribute: primary
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: primary
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Primary DNS server IP address for the VDOM.
+        default: 0.0.0.0
+        source_attribute: primary
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id014
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id014
+  protocol:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id016
+      - - v7.0.0
+        - ''
+      choices: &id015
+      - cleartext
+      - dot
+      - doh
+      default: cleartext
+      description: DNS transport protocols.
+      source_attribute: protocol
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id015
+        multiple_values: true
+        elements: str
+        version_ranges: *id016
+        description: DNS transport protocols.
+        source_attribute: protocol
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: protocol
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: DNS transport protocols.
+        default: cleartext
+        source_attribute: protocol
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  secondary:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id017
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: Secondary DNS server IP address for the VDOM.
+      source_attribute: secondary
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id017
+        description: Secondary DNS server IP address for the VDOM.
+        source_attribute: secondary
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: secondary
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Secondary DNS server IP address for the VDOM.
+        default: 0.0.0.0
+        source_attribute: secondary
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id018
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id018
+  server_hostname:
+    canonical:
+      type: list
+      elements: dict
+      children: &id020
+        hostname:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id022
+          - - v6.2.0
+            - ''
+          description: DNS server host name list separated by space (maximum 4 domains).
+      version_ranges: &id019
+      - - v6.2.0
+        - ''
+      max_length: 127
+      description: DNS server host name list. DNS server host name list separated by space (maximum 4 domains).
+      source_attribute: server-hostname
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id019
+        description: DNS server host name list.
+        children: *id020
+        source_attribute: server_hostname
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          hostname:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 127
+        source_attribute: server_hostname
+      cli_reference:
+        type: string
+        raw_type: string
+        description: DNS server host name list. DNS server host name list separated by space (maximum 4 domains).
+        max_length: 127
+        source_attribute: server-hostname
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id021
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id021
+  server_hostname.hostname:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id022
+      min_length: 0
+      max_length: 127
+      description: DNS server host name list separated by space (maximum 4 domains).
+      source_attribute: server_hostname.hostname
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id022
+        description: DNS server host name list separated by space (maximum 4 domains).
+        source_attribute: server_hostname.hostname
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: server_hostname.hostname
+    sources:
+    - ansible
+    - terraform
+  server_select_method:
+    canonical:
+      type: enum
+      version_ranges: &id024
+      - - v7.0.1
+        - ''
+      choices: &id023
+      - least-rtt
+      - failover
+      default: least-rtt
+      description: Specify how configured servers are prioritized.
+      source_attribute: server-select-method
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id023
+        version_ranges: *id024
+        description: Specify how configured servers are prioritized.
+        source_attribute: server_select_method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: server_select_method
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Specify how configured servers are prioritized.
+        default: least-rtt
+        source_attribute: server-select-method
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source_ip:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id025
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: Source IP for communications with the DNS server.
+      source_attribute: source-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id025
+        description: Source IP for communications with the DNS server.
+        source_attribute: source_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_ip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Source IP for communications with the DNS server.
+        default: 0.0.0.0
+        source_attribute: source-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id026
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id026
+  source_ip_interface:
+    canonical:
+      type: string
+      references: &id028
+      - system.interface.name
+      version_ranges: &id027
+      - - v7.6.1
+        - ''
+      min_length: 0
+      max_length: 15
+      description: IP address of the specified interface as the source IP address.
+      source_attribute: source-ip-interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id027
+        description: IP address of the specified interface as the source IP address. Source system.interface.name.
+        references: *id028
+        source_attribute: source_ip_interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: source_ip_interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: IP address of the specified interface as the source IP address.
+        max_length: 15
+        source_attribute: source-ip-interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssl_certificate:
+    canonical:
+      type: string
+      references: &id030
+      - certificate.local.name
+      version_ranges: &id029
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Name of local certificate for SSL connections.
+      source_attribute: ssl-certificate
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id029
+        description: Name of local certificate for SSL connections. Source certificate.local.name.
+        references: *id030
+        source_attribute: ssl_certificate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 35
+        source_attribute: ssl_certificate
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of local certificate for SSL connections.
+        max_length: 35
+        source_attribute: ssl-certificate
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdom_dns:
+    canonical:
+      type: enum
+      version_ranges: &id032
+      - - v6.0.0
+        - ''
+      choices: &id031
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable configuring DNS servers for the current VDOM.
+      source_attribute: vdom-dns
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id031
+        version_ranges: *id032
+        description: Enable/disable configuring DNS servers for the current VDOM.
+        source_attribute: vdom_dns
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: vdom_dns
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable configuring DNS servers for the current VDOM.
+        default: disable
+        source_attribute: vdom-dns
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  vrf_select:
+    canonical:
+      type: integer
+      version_ranges: &id033
+      - - v7.6.1
+        - ''
+      default: '0'
+      min: 0
+      max: 511
+      description: VRF ID used for connection to server.
+      source_attribute: vrf-select
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id033
+        description: VRF ID used for connection to server.
+        source_attribute: vrf_select
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 511
+        source_attribute: vrf_select
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: VRF ID used for connection to server.
+        default: '0'
+        min: 0
+        max: 511
+        source_attribute: vrf-select
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: alt_primary
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: alt_secondary
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: ip6_primary
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict
+- attribute: ip6_secondary
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict
+- attribute: primary
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: secondary
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: server_hostname
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: source_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict

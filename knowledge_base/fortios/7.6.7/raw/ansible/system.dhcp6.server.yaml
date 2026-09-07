@@ -1,0 +1,338 @@
+id: system.dhcp6.server
+version: 7.6.7
+source_object: fortios_system_dhcp6_server
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_system_dhcp6_server.py
+root_type: list
+attributes:
+  id:
+    type: integer
+    raw_type: integer
+    required: true
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: ID. see <a href='#notes'>Notes</a>.
+  status:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable this DHCPv6 configuration.
+  rapid_commit:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable allow/disallow rapid commit.
+  lease_time:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Lease time in seconds, 0 means unlimited.
+  dns_service:
+    type: enum
+    raw_type: string
+    choices:
+    - delegated
+    - default
+    - specify
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Options for assigning DNS servers to DHCPv6 clients.
+  dns_search_list:
+    type: enum
+    raw_type: string
+    choices:
+    - delegated
+    - specify
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: DNS search list options.
+  dns_server1:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: DNS server 1.
+  dns_server2:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: DNS server 2.
+  dns_server3:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: DNS server 3.
+  dns_server4:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: DNS server 4.
+  domain:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Domain name suffix for the IP addresses that the DHCP server assigns to clients.
+  subnet:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Subnet or subnet-id if the IP mode is delegated.
+  interface:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: DHCP server can assign IP configurations to clients connected to this interface. Source system.interface.name.
+    references:
+    - system.interface.name
+  delegated_prefix_route:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v7.6.3
+      - ''
+    description: Enable/disable automatically adding of routing for delegated prefix.
+  options:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v7.6.0
+      - ''
+    description: DHCPv6 options.
+    children:
+      id:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v7.6.0
+          - ''
+        description: ID. see <a href='#notes'>Notes</a>.
+      code:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.6.0
+          - ''
+        description: DHCPv6 option code.
+      type:
+        type: enum
+        raw_type: string
+        choices:
+        - hex
+        - string
+        - ip6
+        - fqdn
+        version_ranges:
+        - - v7.6.0
+          - ''
+        description: DHCPv6 option type.
+      value:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.6.0
+          - ''
+        description: DHCPv6 option value (hexadecimal value must be even).
+      ip6:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges:
+        - - v7.6.0
+          - ''
+        description: DHCP option IP6s.
+      vci_match:
+        type: enum
+        raw_type: string
+        choices:
+        - disable
+        - enable
+        version_ranges:
+        - - v7.6.0
+          - ''
+        description: Enable/disable vendor class option matching. When enabled only DHCP requests with a matching VCI are
+          served with this option.
+      vci_string:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v7.6.0
+          - ''
+        description: One or more VCI strings in quotes separated by spaces.
+        children:
+          vci_string:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v7.6.0
+              - ''
+            description: VCI strings.
+  upstream_interface:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Interface name from where delegated information is provided. Source system.interface.name.
+    references:
+    - system.interface.name
+  delegated_prefix_iaid:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.0.2
+      - ''
+    description: IAID of obtained delegated-prefix from the upstream interface.
+  ip_mode:
+    type: enum
+    raw_type: string
+    choices:
+    - range
+    - delegated
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Method used to assign client IP.
+  prefix_mode:
+    type: enum
+    raw_type: string
+    choices:
+    - dhcp6
+    - ra
+    version_ranges:
+    - - v7.0.0
+      - ''
+    description: Assigning a prefix from a DHCPv6 client or RA.
+  prefix_range:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: DHCP prefix configuration.
+    children:
+      id:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: ID. see <a href='#notes'>Notes</a>.
+      start_prefix:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Start of prefix range.
+      end_prefix:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: End of prefix range.
+      prefix_length:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Prefix length.
+  ip_range:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: DHCP IP range configuration.
+    children:
+      id:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: ID. see <a href='#notes'>Notes</a>.
+      start_ip:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Start of IP range.
+      end_ip:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: End of IP range.
+      vci_match:
+        type: enum
+        raw_type: string
+        choices:
+        - disable
+        - enable
+        version_ranges:
+        - - v7.6.0
+          - ''
+        description: Enable/disable vendor class option matching. When enabled only DHCP requests with a matching VC are served
+          with this range.
+      vci_string:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v7.6.0
+          - ''
+        description: One or more VCI strings in quotes separated by spaces.
+        children:
+          vci_string:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v7.6.0
+              - ''
+            description: VCI strings.

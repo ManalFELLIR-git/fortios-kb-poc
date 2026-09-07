@@ -1,0 +1,2231 @@
+id: icap.profile
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  204_response:
+    canonical:
+      type: enum
+      default: disable
+      description: Enable/disable allowance of 204 response from ICAP server.
+      source_attribute: 204-response
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable allowance of 204 response from ICAP server.
+        default: disable
+        source_attribute: 204-response
+    sources:
+    - cli_reference
+  204_size_limit:
+    canonical:
+      type: integer
+      default: '1'
+      min: 1
+      max: 10
+      description: 204 response size limit to be saved by ICAP client in megabytes (1 - 10, default = 1 MB).
+      source_attribute: 204-size-limit
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: 204 response size limit to be saved by ICAP client in megabytes (1 - 10, default = 1 MB).
+        default: '1'
+        min: 1
+        max: 10
+        source_attribute: 204-size-limit
+    sources:
+    - cli_reference
+  chunk_encap:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.0.2
+        - ''
+      choices: &id001
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable chunked encapsulation (default = disable).
+      source_attribute: chunk-encap
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable chunked encapsulation .
+        source_attribute: chunk_encap
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: chunk_encap
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable chunked encapsulation (default = disable).
+        default: disable
+        source_attribute: chunk-encap
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id003
+      - - v7.2.4
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Comment.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Comment.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 255
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  extension_feature:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id005
+      - - v7.0.2
+        - ''
+      choices: &id004
+      - scan-progress
+      description: Enable/disable ICAP extension features.
+      source_attribute: extension-feature
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id004
+        multiple_values: true
+        elements: str
+        version_ranges: *id005
+        description: Enable/disable ICAP extension features.
+        source_attribute: extension_feature
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: extension_feature
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable ICAP extension features.
+        source_attribute: extension-feature
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fabric_force_sync:
+    canonical:
+      type: string
+      source_attribute: fabric_force_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_force_sync
+    sources:
+    - terraform
+  fabric_object:
+    canonical:
+      type: string
+      source_attribute: fabric_object
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object
+    sources:
+    - terraform
+  fabric_object_source:
+    canonical:
+      type: string
+      source_attribute: fabric_object_source
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object_source
+    sources:
+    - terraform
+  file_transfer:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id007
+      - - v7.2.0
+        - ''
+      choices: &id006
+      - ssh
+      - ftp
+      description: Configure the file transfer protocols to pass transferred files to an ICAP server as REQMOD.
+      source_attribute: file-transfer
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id006
+        multiple_values: true
+        elements: str
+        version_ranges: *id007
+        description: Configure the file transfer protocols to pass transferred files to an ICAP server as REQMOD.
+        source_attribute: file_transfer
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: file_transfer
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Configure the file transfer protocols to pass transferred files to an ICAP server as REQMOD.
+        source_attribute: file-transfer
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  file_transfer_failure:
+    canonical:
+      type: enum
+      version_ranges: &id009
+      - - v7.2.0
+        - ''
+      choices: &id008
+      - error
+      - bypass
+      default: error
+      description: Action to take if the ICAP server cannot be contacted when processing a file transfer.
+      source_attribute: file-transfer-failure
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id008
+        version_ranges: *id009
+        description: Action to take if the ICAP server cannot be contacted when processing a file transfer.
+        source_attribute: file_transfer_failure
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: file_transfer_failure
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Action to take if the ICAP server cannot be contacted when processing a file transfer.
+        default: error
+        source_attribute: file-transfer-failure
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  file_transfer_path:
+    canonical:
+      type: string
+      version_ranges: &id010
+      - - v7.2.0
+        - ''
+      min_length: 0
+      max_length: 127
+      description: Path component of the ICAP URI that identifies the file transfer processing service.
+      source_attribute: file-transfer-path
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id010
+        description: Path component of the ICAP URI that identifies the file transfer processing service.
+        source_attribute: file_transfer_path
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: file_transfer_path
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Path component of the ICAP URI that identifies the file transfer processing service.
+        max_length: 127
+        source_attribute: file-transfer-path
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  file_transfer_server:
+    canonical:
+      type: string
+      references: &id012
+      - icap.server-group.name
+      - icap.server.name
+      version_ranges: &id011
+      - - v7.2.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: ICAP server to use for a file transfer.
+      source_attribute: file-transfer-server
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: ICAP server to use for a file transfer. Source icap.server.name icap.server-group.name.
+        references: *id012
+        source_attribute: file_transfer_server
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: file_transfer_server
+      cli_reference:
+        type: string
+        raw_type: string
+        description: ICAP server to use for a file transfer.
+        max_length: 63
+        source_attribute: file-transfer-server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  icap_block_log:
+    canonical:
+      type: enum
+      version_ranges: &id014
+      - - v7.0.1
+        - ''
+      choices: &id013
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable UTM log when infection found (default = disable).
+      source_attribute: icap-block-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id014
+        description: Enable/disable UTM log when infection found .
+        source_attribute: icap_block_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: icap_block_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable UTM log when infection found (default = disable).
+        default: disable
+        source_attribute: icap-block-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  icap_headers:
+    canonical:
+      type: list
+      elements: dict
+      children: &id016
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id020
+          - - v6.2.0
+            - ''
+          description: HTTP forwarded header ID. see <a href='#notes'>Notes</a>.
+        name:
+          type: string
+          raw_type: string
+          version_ranges: &id021
+          - - v6.2.0
+            - ''
+          description: HTTP forwarded header name.
+        content:
+          type: string
+          raw_type: string
+          version_ranges: &id019
+          - - v6.2.0
+            - ''
+          description: HTTP header content.
+        base64_encoding:
+          type: enum
+          raw_type: string
+          choices: &id018
+          - disable
+          - enable
+          version_ranges: &id017
+          - - v6.2.0
+            - ''
+          description: Enable/disable use of base64 encoding of HTTP content.
+      version_ranges: &id015
+      - - v6.2.0
+        - ''
+      description: Configure ICAP forwarded request headers.
+      source_attribute: icap_headers
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id015
+        description: Configure ICAP forwarded request headers.
+        children: *id016
+        source_attribute: icap_headers
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+          content:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 255
+          base64_encoding:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: icap_headers
+    sources:
+    - ansible
+    - terraform
+  icap_headers.base64_encoding:
+    canonical:
+      type: enum
+      version_ranges: *id017
+      choices: *id018
+      description: Enable/disable use of base64 encoding of HTTP content.
+      source_attribute: icap_headers.base64_encoding
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id018
+        version_ranges: *id017
+        description: Enable/disable use of base64 encoding of HTTP content.
+        source_attribute: icap_headers.base64_encoding
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: icap_headers.base64_encoding
+    sources:
+    - ansible
+    - terraform
+  icap_headers.content:
+    canonical:
+      type: string
+      version_ranges: *id019
+      min_length: 0
+      max_length: 255
+      description: HTTP header content.
+      source_attribute: icap_headers.content
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id019
+        description: HTTP header content.
+        source_attribute: icap_headers.content
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: icap_headers.content
+    sources:
+    - ansible
+    - terraform
+  icap_headers.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id020
+      description: HTTP forwarded header ID. see <a href='#notes'>Notes</a>.
+      source_attribute: icap_headers.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id020
+        description: HTTP forwarded header ID. see <a href='#notes'>Notes</a>.
+        source_attribute: icap_headers.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: icap_headers.id
+    sources:
+    - ansible
+    - terraform
+  icap_headers.name:
+    canonical:
+      type: string
+      version_ranges: *id021
+      min_length: 0
+      max_length: 79
+      description: HTTP forwarded header name.
+      source_attribute: icap_headers.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id021
+        description: HTTP forwarded header name.
+        source_attribute: icap_headers.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: icap_headers.name
+    sources:
+    - ansible
+    - terraform
+  methods:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id023
+      - - v6.0.0
+        - ''
+      choices: &id022
+      - delete
+      - get
+      - head
+      - options
+      - post
+      - put
+      - trace
+      - connect
+      - other
+      default: delete get head options post put trace connect other
+      description: The allowed HTTP methods that will be sent to ICAP server for further processing.
+      source_attribute: methods
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id022
+        multiple_values: true
+        elements: str
+        version_ranges: *id023
+        description: The allowed HTTP methods that will be sent to ICAP server for further processing.
+        source_attribute: methods
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: methods
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: The allowed HTTP methods that will be sent to ICAP server for further processing.
+        default: delete get head options post put trace connect other
+        source_attribute: methods
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  n204_response:
+    canonical:
+      type: string
+      source_attribute: n204_response
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: n204_response
+    sources:
+    - terraform
+  n204_size_limit:
+    canonical:
+      type: integer
+      min: 1
+      max: 10
+      source_attribute: n204_size_limit
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 10
+        source_attribute: n204_size_limit
+    sources:
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id024
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 47
+      description: ICAP profile name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id024
+        description: ICAP profile name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 47
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: ICAP profile name.
+        max_length: 47
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ocr_only:
+    canonical:
+      type: enum
+      version_ranges: &id026
+      - - v7.6.1
+        - ''
+      choices: &id025
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable this FortiGate unit to submit only OCR interested content to the ICAP server.
+      source_attribute: ocr-only
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id025
+        version_ranges: *id026
+        description: Enable/disable this FortiGate unit to submit only OCR interested content to the ICAP server.
+        source_attribute: ocr_only
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ocr_only
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable this FortiGate unit to submit only OCR interested content to the ICAP server.
+        default: disable
+        source_attribute: ocr-only
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  preview:
+    canonical:
+      type: enum
+      version_ranges: &id028
+      - - v6.2.0
+        - ''
+      choices: &id027
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable preview of data to ICAP server.
+      source_attribute: preview
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id027
+        version_ranges: *id028
+        description: Enable/disable preview of data to ICAP server.
+        source_attribute: preview
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: preview
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable preview of data to ICAP server.
+        default: disable
+        source_attribute: preview
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  preview_data_length:
+    canonical:
+      type: integer
+      version_ranges: &id029
+      - - v6.2.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4096
+      description: Preview data length to be sent to ICAP server.
+      source_attribute: preview-data-length
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id029
+        description: Preview data length to be sent to ICAP server.
+        source_attribute: preview_data_length
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 4096
+        source_attribute: preview_data_length
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Preview data length to be sent to ICAP server.
+        default: '0'
+        min: 0
+        max: 4096
+        source_attribute: preview-data-length
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  replacemsg_group:
+    canonical:
+      type: string
+      references: &id031
+      - system.replacemsg-group.name
+      version_ranges: &id030
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Replacement message group.
+      source_attribute: replacemsg-group
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id030
+        description: Replacement message group. Source system.replacemsg-group.name.
+        references: *id031
+        source_attribute: replacemsg_group
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: replacemsg_group
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Replacement message group.
+        max_length: 35
+        source_attribute: replacemsg-group
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  request:
+    canonical:
+      type: enum
+      version_ranges: &id033
+      - - v6.0.0
+        - ''
+      choices: &id032
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable whether an HTTP request is passed to an ICAP server.
+      source_attribute: request
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id032
+        version_ranges: *id033
+        description: Enable/disable whether an HTTP request is passed to an ICAP server.
+        source_attribute: request
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: request
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable whether an HTTP request is passed to an ICAP server.
+        default: disable
+        source_attribute: request
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  request_failure:
+    canonical:
+      type: enum
+      version_ranges: &id035
+      - - v6.0.0
+        - ''
+      choices: &id034
+      - error
+      - bypass
+      default: error
+      description: Action to take if the ICAP server cannot be contacted when processing an HTTP request.
+      source_attribute: request-failure
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id034
+        version_ranges: *id035
+        description: Action to take if the ICAP server cannot be contacted when processing an HTTP request.
+        source_attribute: request_failure
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: request_failure
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Action to take if the ICAP server cannot be contacted when processing an HTTP request.
+        default: error
+        source_attribute: request-failure
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  request_path:
+    canonical:
+      type: string
+      version_ranges: &id036
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 127
+      description: Path component of the ICAP URI that identifies the HTTP request processing service.
+      source_attribute: request-path
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id036
+        description: Path component of the ICAP URI that identifies the HTTP request processing service.
+        source_attribute: request_path
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: request_path
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Path component of the ICAP URI that identifies the HTTP request processing service.
+        max_length: 127
+        source_attribute: request-path
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  request_server:
+    canonical:
+      type: string
+      references: &id038
+      - icap.server-group.name
+      - icap.server.name
+      version_ranges: &id037
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: ICAP server to use for an HTTP request.
+      source_attribute: request-server
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id037
+        description: ICAP server to use for an HTTP request. Source icap.server.name icap.server-group.name.
+        references: *id038
+        source_attribute: request_server
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: request_server
+      cli_reference:
+        type: string
+        raw_type: string
+        description: ICAP server to use for an HTTP request.
+        max_length: 63
+        source_attribute: request-server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  respmod_default_action:
+    canonical:
+      type: enum
+      version_ranges: &id040
+      - - v6.4.0
+        - ''
+      choices: &id039
+      - forward
+      - bypass
+      default: forward
+      description: Default action to ICAP response modification (respmod) processing.
+      source_attribute: respmod-default-action
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id039
+        version_ranges: *id040
+        description: Default action to ICAP response modification (respmod) processing.
+        source_attribute: respmod_default_action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: respmod_default_action
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Default action to ICAP response modification (respmod) processing.
+        default: forward
+        source_attribute: respmod-default-action
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  respmod_forward_rules:
+    canonical:
+      type: list
+      elements: dict
+      children: &id042
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id059
+          - - v6.4.0
+            - ''
+          description: Address name.
+        host:
+          type: string
+          raw_type: string
+          version_ranges: &id054
+          - - v6.4.0
+            - ''
+          description: Address object for the host. Source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name.
+          references: &id053
+          - firewall.address.name
+          - firewall.addrgrp.name
+          - firewall.proxy-address.name
+        header_group:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id046
+          - - v6.4.0
+            - ''
+          description: HTTP header group.
+          children: &id045
+            id:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id052
+              - - v6.4.0
+                - ''
+              description: ID. see <a href='#notes'>Notes</a>.
+            header_name:
+              type: string
+              raw_type: string
+              version_ranges: &id051
+              - - v6.4.0
+                - ''
+              description: HTTP header.
+            header:
+              type: string
+              raw_type: string
+              version_ranges: &id050
+              - - v6.4.0
+                - ''
+              description: HTTP header regular expression.
+            case_sensitivity:
+              type: enum
+              raw_type: string
+              choices: &id049
+              - disable
+              - enable
+              version_ranges: &id048
+              - - v6.4.0
+                - ''
+              description: Enable/disable case sensitivity when matching header.
+        action:
+          type: enum
+          raw_type: string
+          choices: &id044
+          - forward
+          - bypass
+          version_ranges: &id043
+          - - v6.4.0
+            - ''
+          description: Action to be taken for ICAP server.
+        http_resp_status_code:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id056
+          - - v6.4.0
+            - ''
+          description: HTTP response status code.
+          children: &id055
+            code:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id058
+              - - v6.4.0
+                - ''
+              description: HTTP response status code. see <a href='#notes'>Notes</a>.
+      version_ranges: &id041
+      - - v6.4.0
+        - ''
+      description: ICAP response mode forward rules.
+      source_attribute: respmod_forward_rules
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id041
+        description: ICAP response mode forward rules.
+        children: *id042
+        source_attribute: respmod_forward_rules
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          host:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+          header_group:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id047
+              id:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+              header_name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+              header:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 255
+              case_sensitivity:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+          action:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          http_resp_status_code:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id057
+              code:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                min: 100
+                max: 599
+        source_attribute: respmod_forward_rules
+    sources:
+    - ansible
+    - terraform
+  respmod_forward_rules.action:
+    canonical:
+      type: enum
+      version_ranges: *id043
+      choices: *id044
+      description: Action to be taken for ICAP server.
+      source_attribute: respmod_forward_rules.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id044
+        version_ranges: *id043
+        description: Action to be taken for ICAP server.
+        source_attribute: respmod_forward_rules.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: respmod_forward_rules.action
+    sources:
+    - ansible
+    - terraform
+  respmod_forward_rules.header_group:
+    canonical:
+      type: list
+      elements: dict
+      children: *id045
+      version_ranges: *id046
+      description: HTTP header group.
+      source_attribute: respmod_forward_rules.header_group
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id046
+        description: HTTP header group.
+        children: *id045
+        source_attribute: respmod_forward_rules.header_group
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id047
+        source_attribute: respmod_forward_rules.header_group
+    sources:
+    - ansible
+    - terraform
+  respmod_forward_rules.header_group.case_sensitivity:
+    canonical:
+      type: enum
+      version_ranges: *id048
+      choices: *id049
+      description: Enable/disable case sensitivity when matching header.
+      source_attribute: respmod_forward_rules.header_group.case_sensitivity
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id049
+        version_ranges: *id048
+        description: Enable/disable case sensitivity when matching header.
+        source_attribute: respmod_forward_rules.header_group.case_sensitivity
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: respmod_forward_rules.header_group.case_sensitivity
+    sources:
+    - ansible
+    - terraform
+  respmod_forward_rules.header_group.header:
+    canonical:
+      type: string
+      version_ranges: *id050
+      min_length: 0
+      max_length: 255
+      description: HTTP header regular expression.
+      source_attribute: respmod_forward_rules.header_group.header
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id050
+        description: HTTP header regular expression.
+        source_attribute: respmod_forward_rules.header_group.header
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: respmod_forward_rules.header_group.header
+    sources:
+    - ansible
+    - terraform
+  respmod_forward_rules.header_group.header_name:
+    canonical:
+      type: string
+      version_ranges: *id051
+      min_length: 0
+      max_length: 79
+      description: HTTP header.
+      source_attribute: respmod_forward_rules.header_group.header_name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id051
+        description: HTTP header.
+        source_attribute: respmod_forward_rules.header_group.header_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: respmod_forward_rules.header_group.header_name
+    sources:
+    - ansible
+    - terraform
+  respmod_forward_rules.header_group.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id052
+      description: ID. see <a href='#notes'>Notes</a>.
+      source_attribute: respmod_forward_rules.header_group.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id052
+        description: ID. see <a href='#notes'>Notes</a>.
+        source_attribute: respmod_forward_rules.header_group.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: respmod_forward_rules.header_group.id
+    sources:
+    - ansible
+    - terraform
+  respmod_forward_rules.host:
+    canonical:
+      type: string
+      references: *id053
+      version_ranges: *id054
+      min_length: 0
+      max_length: 79
+      description: Address object for the host. Source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name.
+      source_attribute: respmod_forward_rules.host
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id054
+        description: Address object for the host. Source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name.
+        references: *id053
+        source_attribute: respmod_forward_rules.host
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: respmod_forward_rules.host
+    sources:
+    - ansible
+    - terraform
+  respmod_forward_rules.http_resp_status_code:
+    canonical:
+      type: list
+      elements: dict
+      children: *id055
+      version_ranges: *id056
+      description: HTTP response status code.
+      source_attribute: respmod_forward_rules.http_resp_status_code
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id056
+        description: HTTP response status code.
+        children: *id055
+        source_attribute: respmod_forward_rules.http_resp_status_code
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id057
+        source_attribute: respmod_forward_rules.http_resp_status_code
+    sources:
+    - ansible
+    - terraform
+  respmod_forward_rules.http_resp_status_code.code:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id058
+      min: 100
+      max: 599
+      description: HTTP response status code. see <a href='#notes'>Notes</a>.
+      source_attribute: respmod_forward_rules.http_resp_status_code.code
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id058
+        description: HTTP response status code. see <a href='#notes'>Notes</a>.
+        source_attribute: respmod_forward_rules.http_resp_status_code.code
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 100
+        max: 599
+        source_attribute: respmod_forward_rules.http_resp_status_code.code
+    sources:
+    - ansible
+    - terraform
+  respmod_forward_rules.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id059
+      min_length: 0
+      max_length: 63
+      description: Address name.
+      source_attribute: respmod_forward_rules.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id059
+        description: Address name.
+        source_attribute: respmod_forward_rules.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: respmod_forward_rules.name
+    sources:
+    - ansible
+    - terraform
+  response:
+    canonical:
+      type: enum
+      version_ranges: &id061
+      - - v6.0.0
+        - ''
+      choices: &id060
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable whether an HTTP response is passed to an ICAP server.
+      source_attribute: response
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id060
+        version_ranges: *id061
+        description: Enable/disable whether an HTTP response is passed to an ICAP server.
+        source_attribute: response
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: response
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable whether an HTTP response is passed to an ICAP server.
+        default: disable
+        source_attribute: response
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  response_204:
+    canonical:
+      type: enum
+      version_ranges: &id063
+      - - v7.2.0
+        - ''
+      choices: &id062
+      - disable
+      - enable
+      description: Enable/disable allowance of 204 response from ICAP server.
+      source_attribute: response_204
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id062
+        version_ranges: *id063
+        description: Enable/disable allowance of 204 response from ICAP server.
+        source_attribute: response_204
+    sources:
+    - ansible
+  response_failure:
+    canonical:
+      type: enum
+      version_ranges: &id065
+      - - v6.0.0
+        - ''
+      choices: &id064
+      - error
+      - bypass
+      default: error
+      description: Action to take if the ICAP server cannot be contacted when processing an HTTP response.
+      source_attribute: response-failure
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id064
+        version_ranges: *id065
+        description: Action to take if the ICAP server cannot be contacted when processing an HTTP response.
+        source_attribute: response_failure
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: response_failure
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Action to take if the ICAP server cannot be contacted when processing an HTTP response.
+        default: error
+        source_attribute: response-failure
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  response_path:
+    canonical:
+      type: string
+      version_ranges: &id066
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 127
+      description: Path component of the ICAP URI that identifies the HTTP response processing service.
+      source_attribute: response-path
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id066
+        description: Path component of the ICAP URI that identifies the HTTP response processing service.
+        source_attribute: response_path
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: response_path
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Path component of the ICAP URI that identifies the HTTP response processing service.
+        max_length: 127
+        source_attribute: response-path
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  response_req_hdr:
+    canonical:
+      type: enum
+      version_ranges: &id068
+      - - v6.2.0
+        - ''
+      choices: &id067
+      - disable
+      - enable
+      default: enable
+      description: Enable/disable addition of req-hdr for ICAP response modification (respmod) processing.
+      source_attribute: response-req-hdr
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id067
+        version_ranges: *id068
+        description: Enable/disable addition of req-hdr for ICAP response modification (respmod) processing.
+        source_attribute: response_req_hdr
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: response_req_hdr
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable addition of req-hdr for ICAP response modification (respmod) processing.
+        default: enable
+        source_attribute: response-req-hdr
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  response_server:
+    canonical:
+      type: string
+      references: &id070
+      - icap.server-group.name
+      - icap.server.name
+      version_ranges: &id069
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: ICAP server to use for an HTTP response.
+      source_attribute: response-server
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id069
+        description: ICAP server to use for an HTTP response. Source icap.server.name icap.server-group.name.
+        references: *id070
+        source_attribute: response_server
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: response_server
+      cli_reference:
+        type: string
+        raw_type: string
+        description: ICAP server to use for an HTTP response.
+        max_length: 63
+        source_attribute: response-server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  scan_progress_interval:
+    canonical:
+      type: integer
+      version_ranges: &id071
+      - - v7.0.2
+        - ''
+      default: '10'
+      min: 5
+      max: 30
+      description: Scan progress interval value.
+      source_attribute: scan-progress-interval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id071
+        description: Scan progress interval value.
+        source_attribute: scan_progress_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 5
+        max: 30
+        source_attribute: scan_progress_interval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Scan progress interval value.
+        default: '10'
+        min: 5
+        max: 30
+        source_attribute: scan-progress-interval
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  size_limit_204:
+    canonical:
+      type: integer
+      version_ranges: &id072
+      - - v7.2.0
+        - ''
+      description: 204 response size limit to be saved by ICAP client in megabytes (1 - 10).
+      source_attribute: size_limit_204
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id072
+        description: 204 response size limit to be saved by ICAP client in megabytes (1 - 10).
+        source_attribute: size_limit_204
+    sources:
+    - ansible
+  streaming_content_bypass:
+    canonical:
+      type: enum
+      version_ranges: &id074
+      - - v6.0.0
+        - ''
+      choices: &id073
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable bypassing of ICAP server for streaming content.
+      source_attribute: streaming-content-bypass
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id073
+        version_ranges: *id074
+        description: Enable/disable bypassing of ICAP server for streaming content.
+        source_attribute: streaming_content_bypass
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: streaming_content_bypass
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable bypassing of ICAP server for streaming content.
+        default: disable
+        source_attribute: streaming-content-bypass
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  timeout:
+    canonical:
+      type: integer
+      version_ranges: &id075
+      - - v7.2.0
+        - ''
+      default: '30'
+      min: 30
+      max: 3600
+      description: Time (in seconds) that ICAP client waits for the response from ICAP server.
+      source_attribute: timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id075
+        description: Time (in seconds) that ICAP client waits for the response from ICAP server.
+        source_attribute: timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 30
+        max: 3600
+        source_attribute: timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time (in seconds) that ICAP client waits for the response from ICAP server.
+        default: '30'
+        min: 30
+        max: 3600
+        source_attribute: timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  uuid:
+    canonical:
+      type: string
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

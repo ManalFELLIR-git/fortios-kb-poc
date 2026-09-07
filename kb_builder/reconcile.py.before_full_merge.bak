@@ -1,0 +1,188 @@
+from __future__ import annotations
+from pathlib import Path
+from .utils import load_yaml, dump_yaml, flatten_attributes, canonical_type
+
+
+def load_sections(folder: Path):
+    out = {}
+    if not folder.exists(): return out
+    for p in folder.glob("*.yaml"):
+        try:
+            d = load_yaml(p)
+            if d and d.get("id"): out[d["id"]] = d
+        except Exception:
+            pass
+    return out
+
+
+
+def normalize_attr_path(path: str) -> str:
+    """
+    FortiOS CLI:
+        duplication-max-num
+
+    Ansible / Terraform:
+        duplication_max_num
+
+    Forme canonique interne:
+        duplication_max_num
+    """
+    return ".".join(
+        part.replace("-", "_")
+        for part in path.split(".")
+    )
+
+
+
+def attr_map(section):
+    if not section:
+        return {}
+
+    result = {}
+
+    for path, spec in flatten_attributes(section):
+
+        canonical_path = normalize_attr_path(
+            path
+        )
+
+        spec = dict(spec or {})
+
+        # Conserver le nom original.
+        spec.setdefault(
+            "source_attribute",
+            path
+        )
+
+        result[canonical_path] = spec
+
+    return result
+
+def sig(spec):
+    if not spec: return None
+    choices = spec.get("choices")
+    return {
+        "type": canonical_type(spec.get("type") or spec.get("raw_type"), choices),
+        "choices": tuple(choices or []),
+        "default": spec.get("default"),
+        "min": spec.get("min"), "max": spec.get("max"),
+        "min_length": spec.get("min_length"), "max_length": spec.get("max_length"),
+    }
+
+
+
+def reconcile_section(sid, a, t, c, version):
+    maps = {
+        "ansible": attr_map(a),
+        "terraform": attr_map(t),
+        "cli_reference": attr_map(c),
+    }
+
+    all_attrs = sorted(
+        set().union(
+            *(m.keys() for m in maps.values())
+        )
+    )
+
+    attrs = {}
+    conflicts = []
+
+    for ap in all_attrs:
+
+        per = {
+            src: m.get(ap)
+            for src, m in maps.items()
+            if m.get(ap) is not None
+        }
+
+        signatures = {
+            src: sig(value)
+            for src, value in per.items()
+        }
+
+        types = {
+            src: signature["type"]
+            for src, signature
+            in signatures.items()
+            if (
+                signature
+                and signature.get("type")
+            )
+        }
+
+        norm_types = set(
+            types.values()
+        )
+
+        # string vs enum n'est pas forcément
+        # un vrai conflit de type.
+        compatible = (
+            norm_types <= {
+                "string",
+                "enum"
+            }
+            or len(norm_types) <= 1
+        )
+
+        if not compatible:
+
+            conflicts.append({
+                "attribute": ap,
+                "field": "type",
+                "values": types,
+            })
+
+        # Ordre d'autorité.
+        if "cli_reference" in per:
+            canonical_source = (
+                "cli_reference"
+            )
+
+        elif "ansible" in per:
+            canonical_source = "ansible"
+
+        else:
+            canonical_source = (
+                "terraform"
+            )
+
+        pref = per[
+            canonical_source
+        ]
+
+        attrs[ap] = {
+            "canonical": pref,
+            "canonical_source":
+                canonical_source,
+            "evidence": per,
+            "sources": sorted(
+                per.keys()
+            ),
+        }
+
+    return {
+        "id": sid,
+        "version": version,
+
+        "source_presence": {
+            "ansible": bool(a),
+            "terraform": bool(t),
+            "cli_reference": bool(c),
+        },
+
+        "attributes_flat": attrs,
+
+        "conflicts": conflicts,
+    }
+
+def reconcile_all(root: Path, version: str):
+    a = load_sections(root/"raw"/"ansible")
+    t = load_sections(root/"raw"/"terraform")
+    c = load_sections(root/"raw"/"docs"/"cli_reference")
+    ids = sorted(set(a)|set(t)|set(c))
+    merged = []
+    for sid in ids:
+        item = reconcile_section(sid, a.get(sid), t.get(sid), c.get(sid), version)
+        dump_yaml(root/"canonical"/f"{sid}.yaml", item)
+        merged.append(item)
+    return merged

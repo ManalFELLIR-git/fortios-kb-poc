@@ -1,0 +1,557 @@
+id: switch-controller.acl.ingress
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  action:
+    canonical:
+      type: list
+      children: &id002
+        drop:
+          type: enum
+          raw_type: string
+          choices: &id007
+          - enable
+          - disable
+          version_ranges: &id006
+          - - v7.4.0
+            - ''
+          description: Enable/disable drop.
+        count:
+          type: enum
+          raw_type: string
+          choices: &id005
+          - enable
+          - disable
+          version_ranges: &id004
+          - - v7.4.0
+            - ''
+          description: Enable/disable count.
+      version_ranges: &id001
+      - - v7.4.0
+        - ''
+      description: ACL actions.
+      source_attribute: action
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id001
+        description: ACL actions.
+        children: *id002
+        source_attribute: action
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          drop:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          count:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: action
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id003
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id003
+  action.count:
+    canonical:
+      type: enum
+      version_ranges: *id004
+      choices: *id005
+      description: Enable/disable count.
+      source_attribute: action.count
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id004
+        description: Enable/disable count.
+        source_attribute: action.count
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: action.count
+    sources:
+    - ansible
+    - terraform
+  action.drop:
+    canonical:
+      type: enum
+      version_ranges: *id006
+      choices: *id007
+      description: Enable/disable drop.
+      source_attribute: action.drop
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id007
+        version_ranges: *id006
+        description: Enable/disable drop.
+        source_attribute: action.drop
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: action.drop
+    sources:
+    - ansible
+    - terraform
+  classifier:
+    canonical:
+      type: list
+      children: &id009
+        dst_ip_prefix:
+          type: string
+          raw_type: string
+          version_ranges: &id011
+          - - v7.4.0
+            - ''
+          description: Destination IP address to be matched.
+        dst_mac:
+          type: string
+          raw_type: string
+          version_ranges: &id012
+          - - v7.4.0
+            - ''
+          description: Destination MAC address to be matched.
+        src_ip_prefix:
+          type: string
+          raw_type: string
+          version_ranges: &id013
+          - - v7.4.0
+            - ''
+          description: Source IP address to be matched.
+        src_mac:
+          type: string
+          raw_type: string
+          version_ranges: &id014
+          - - v7.4.0
+            - ''
+          description: Source MAC address to be matched.
+        vlan:
+          type: integer
+          raw_type: integer
+          version_ranges: &id015
+          - - v7.4.0
+            - ''
+          description: VLAN ID to be matched.
+      version_ranges: &id008
+      - - v7.4.0
+        - ''
+      description: ACL classifiers.
+      source_attribute: classifier
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id008
+        description: ACL classifiers.
+        children: *id009
+        source_attribute: classifier
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          dst_ip_prefix:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          dst_mac:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          src_ip_prefix:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          src_mac:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          vlan:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 4094
+        source_attribute: classifier
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id010
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id010
+  classifier.dst_ip_prefix:
+    canonical:
+      type: string
+      version_ranges: *id011
+      description: Destination IP address to be matched.
+      source_attribute: classifier.dst_ip_prefix
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: Destination IP address to be matched.
+        source_attribute: classifier.dst_ip_prefix
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: classifier.dst_ip_prefix
+    sources:
+    - ansible
+    - terraform
+  classifier.dst_mac:
+    canonical:
+      type: string
+      version_ranges: *id012
+      description: Destination MAC address to be matched.
+      source_attribute: classifier.dst_mac
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id012
+        description: Destination MAC address to be matched.
+        source_attribute: classifier.dst_mac
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: classifier.dst_mac
+    sources:
+    - ansible
+    - terraform
+  classifier.src_ip_prefix:
+    canonical:
+      type: string
+      version_ranges: *id013
+      description: Source IP address to be matched.
+      source_attribute: classifier.src_ip_prefix
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id013
+        description: Source IP address to be matched.
+        source_attribute: classifier.src_ip_prefix
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: classifier.src_ip_prefix
+    sources:
+    - ansible
+    - terraform
+  classifier.src_mac:
+    canonical:
+      type: string
+      version_ranges: *id014
+      description: Source MAC address to be matched.
+      source_attribute: classifier.src_mac
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: Source MAC address to be matched.
+        source_attribute: classifier.src_mac
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: classifier.src_mac
+    sources:
+    - ansible
+    - terraform
+  classifier.vlan:
+    canonical:
+      type: integer
+      version_ranges: *id015
+      min: 1
+      max: 4094
+      description: VLAN ID to be matched.
+      source_attribute: classifier.vlan
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id015
+        description: VLAN ID to be matched.
+        source_attribute: classifier.vlan
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 4094
+        source_attribute: classifier.vlan
+    sources:
+    - ansible
+    - terraform
+  description:
+    canonical:
+      type: string
+      version_ranges: &id016
+      - - v7.4.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Description for the ACL policy.
+      source_attribute: description
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id016
+        description: Description for the ACL policy.
+        source_attribute: description
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: description
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Description for the ACL policy.
+        max_length: 63
+        source_attribute: description
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fosid:
+    canonical:
+      type: integer
+      source_attribute: fosid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: fosid
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id017
+      - - v7.4.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: ACL ID.
+      source_attribute: id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id017
+        description: ACL ID. see <a href='#notes'>Notes</a>.
+        source_attribute: id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: ACL ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: id
+    sources:
+    - ansible
+    - cli_reference
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: action
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: classifier
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict

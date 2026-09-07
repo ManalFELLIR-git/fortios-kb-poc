@@ -1,0 +1,351 @@
+id: vpn.certificate.ocsp-server
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  cert:
+    canonical:
+      type: string
+      references: &id002
+      - vpn.certificate.ca.name
+      - vpn.certificate.remote.name
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 127
+      description: OCSP server certificate.
+      source_attribute: cert
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: OCSP server certificate. Source vpn.certificate.remote.name vpn.certificate.ca.name.
+        references: *id002
+        source_attribute: cert
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: cert
+      cli_reference:
+        type: string
+        raw_type: string
+        description: OCSP server certificate.
+        max_length: 127
+        source_attribute: cert
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: OCSP server entry name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id003
+        description: OCSP server entry name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: OCSP server entry name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  secondary_cert:
+    canonical:
+      type: string
+      references: &id005
+      - vpn.certificate.ca.name
+      - vpn.certificate.remote.name
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 127
+      description: Secondary OCSP server certificate.
+      source_attribute: secondary-cert
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id004
+        description: Secondary OCSP server certificate. Source vpn.certificate.remote.name vpn.certificate.ca.name.
+        references: *id005
+        source_attribute: secondary_cert
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: secondary_cert
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Secondary OCSP server certificate.
+        max_length: 127
+        source_attribute: secondary-cert
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  secondary_url:
+    canonical:
+      type: string
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 127
+      description: Secondary OCSP server URL.
+      source_attribute: secondary-url
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id006
+        description: Secondary OCSP server URL.
+        source_attribute: secondary_url
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: secondary_url
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Secondary OCSP server URL.
+        max_length: 127
+        source_attribute: secondary-url
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source_ip:
+    canonical:
+      type: string
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      max_length: 63
+      description: Source IP address for dynamic AIA and OCSP queries.
+      source_attribute: source-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: Source IP address for dynamic AIA and OCSP queries.
+        source_attribute: source_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_ip
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Source IP address for dynamic AIA and OCSP queries.
+        max_length: 63
+        source_attribute: source-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  unavail_action:
+    canonical:
+      type: enum
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      choices: &id008
+      - revoke
+      - ignore
+      default: revoke
+      description: Action when server is unavailable (revoke the certificate or ignore the result of the check).
+      source_attribute: unavail-action
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id008
+        version_ranges: *id009
+        description: Action when server is unavailable (revoke the certificate or ignore the result of the check).
+        source_attribute: unavail_action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: unavail_action
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Action when server is unavailable (revoke the certificate or ignore the result of the check).
+        default: revoke
+        source_attribute: unavail-action
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  url:
+    canonical:
+      type: string
+      version_ranges: &id010
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 127
+      description: OCSP server URL.
+      source_attribute: url
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id010
+        description: OCSP server URL.
+        source_attribute: url
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: url
+      cli_reference:
+        type: string
+        raw_type: string
+        description: OCSP server URL.
+        max_length: 127
+        source_attribute: url
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

@@ -1,0 +1,176 @@
+id: dnsfilter.profile
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/111629848/config-dnsfilter-profile
+attributes:
+  block-action:
+    type: enum
+    raw_type: option
+    description: Action to take for blocked domains.
+    default: redirect
+  block-botnet:
+    type: enum
+    raw_type: option
+    description: Enable/disable blocking botnet C&C DNS lookups.
+    default: disable
+  comment:
+    type: string
+    raw_type: var-string
+    description: Comment.
+    max_length: 255
+  external-ip-blocklist:
+    type: string
+    raw_type: string
+    description: One or more external IP block lists. External domain block list name.
+    max_length: 79
+  log-all-domain:
+    type: enum
+    raw_type: option
+    description: Enable/disable logging of all domains visited (detailed DNS logging).
+    default: disable
+  name:
+    type: string
+    raw_type: string
+    description: Profile name.
+    max_length: 47
+  redirect-portal:
+    type: ipv4-address
+    raw_type: ipv4-address
+    description: IPv4 address of the SDNS redirect portal.
+    default: 0.0.0.0
+  redirect-portal6:
+    type: ipv6-address
+    raw_type: ipv6-address
+    description: IPv6 address of the SDNS redirect portal.
+    default: '::'
+  safe-search:
+    type: enum
+    raw_type: option
+    description: Enable/disable Google, Bing, YouTube, Qwant, DuckDuckGo safe search.
+    default: disable
+  sdns-domain-log:
+    type: enum
+    raw_type: option
+    description: Enable/disable domain filtering and botnet domain logging.
+    default: enable
+  sdns-ftgd-err-log:
+    type: enum
+    raw_type: option
+    description: Enable/disable FortiGuard SDNS rating error logging.
+    default: enable
+  strip-ech:
+    type: enum
+    raw_type: option
+    description: Enable/disable removal of the encrypted client hello service parameter from supporting DNS RRs.
+    default: enable
+  transparent-dns-database:
+    type: string
+    raw_type: string
+    description: Transparent DNS database zones. DNS database zone name.
+    max_length: 79
+  youtube-restrict:
+    type: enum
+    raw_type: option
+    description: Set safe search for YouTube restriction level.
+    default: strict
+children:
+  dns-translation:
+    attributes:
+      addr-type:
+        type: enum
+        raw_type: option
+        description: DNS translation type (IPv4 or IPv6).
+        default: ipv4
+      dst:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: IPv4 address or subnet on the external network to substitute for the resolved address in DNS query replies.
+          Can be single IP address or subnet on the external network, but number of addresses must equal number of mapped
+          IP addresses in src.
+        default: 0.0.0.0
+      dst6:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: IPv6 address or subnet on the external network to substitute for the resolved address in DNS query replies.
+          Can be single IP address or subnet on the external network, but number of addresses must equal number of mapped
+          IP addresses in src6.
+        default: '::'
+      id:
+        type: integer
+        raw_type: integer
+        description: ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      netmask:
+        type: ipv4-netmask
+        raw_type: ipv4-netmask
+        description: If src and dst are subnets rather than single IP addresses, enter the netmask for both src and dst.
+        default: 255.255.255.255
+      prefix:
+        type: integer
+        raw_type: integer
+        description: If src6 and dst6 are subnets rather than single IP addresses, enter the prefix for both src6 and dst6
+          (1 - 128, default = 128).
+        default: '128'
+        min: 1
+        max: 128
+      src:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: IPv4 address or subnet on the internal network to compare with the resolved address in DNS query replies.
+          If the resolved address matches, the resolved address is substituted with dst.
+        default: 0.0.0.0
+      src6:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: IPv6 address or subnet on the internal network to compare with the resolved address in DNS query replies.
+          If the resolved address matches, the resolved address is substituted with dst6.
+        default: '::'
+      status:
+        type: enum
+        raw_type: option
+        description: Enable/disable this DNS translation entry.
+        default: enable
+  domain-filter:
+    attributes:
+      domain-filter-table:
+        type: integer
+        raw_type: integer
+        description: DNS domain filter table ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+  ftgd-dns:
+    attributes:
+      options:
+        type: enum
+        raw_type: option
+        description: FortiGuard DNS filter options.
+  filters:
+    attributes:
+      action:
+        type: enum
+        raw_type: option
+        description: Action to take for DNS requests matching the category.
+        default: monitor
+      category:
+        type: integer
+        raw_type: integer
+        description: Category number.
+        default: '0'
+        min: 0
+        max: 255
+      id:
+        type: integer
+        raw_type: integer
+        description: ID number.
+        default: '0'
+        min: 0
+        max: 255
+      log:
+        type: enum
+        raw_type: option
+        description: Enable/disable DNS filter logging for this DNS profile.
+        default: enable

@@ -1,0 +1,1136 @@
+id: system.ddns
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  addr_type:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.0.0
+        - ''
+      choices: &id001
+      - ipv4
+      - ipv6
+      default: ipv4
+      description: Address type of interface address in DDNS update.
+      source_attribute: addr-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Address type of interface address in DDNS update.
+        source_attribute: addr_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: addr_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Address type of interface address in DDNS update.
+        default: ipv4
+        source_attribute: addr-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  bound_ip:
+    canonical:
+      type: string
+      max_length: 46
+      description: Bound IP address. Read-only.
+      source_attribute: bound-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: bound_ip
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Bound IP address. Read-only.
+        max_length: 46
+        source_attribute: bound-ip
+    sources:
+    - cli_reference
+    - terraform
+  clear_text:
+    canonical:
+      type: enum
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      choices: &id003
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable use of clear text connections.
+      source_attribute: clear-text
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: Enable/disable use of clear text connections.
+        source_attribute: clear_text
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: clear_text
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of clear text connections.
+        default: disable
+        source_attribute: clear-text
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ddns_auth:
+    canonical:
+      type: enum
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      choices: &id005
+      - disable
+      - tsig
+      default: disable
+      description: Enable/disable TSIG authentication for your DDNS server.
+      source_attribute: ddns-auth
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Enable/disable TSIG authentication for your DDNS server.
+        source_attribute: ddns_auth
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ddns_auth
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable TSIG authentication for your DDNS server.
+        default: disable
+        source_attribute: ddns-auth
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ddns_domain:
+    canonical:
+      type: string
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 64
+      description: Your fully qualified domain name. For example, yourname.ddns.com.
+      source_attribute: ddns-domain
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: Your fully qualified domain name. For example, yourname.ddns.com.
+        source_attribute: ddns_domain
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 64
+        source_attribute: ddns_domain
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Your fully qualified domain name. For example, yourname.ddns.com.
+        max_length: 64
+        source_attribute: ddns-domain
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ddns_key:
+    canonical:
+      type: password_aes256
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      description: DDNS update key (base 64 encoding).
+      source_attribute: ddns-key
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: DDNS update key (base 64 encoding).
+        source_attribute: ddns_key
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: ddns_key
+      cli_reference:
+        type: password_aes256
+        raw_type: password_aes256
+        description: DDNS update key (base 64 encoding).
+        source_attribute: ddns-key
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id009
+          primitive: string
+          format: password_aes256
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id009
+  ddns_keyname:
+    canonical:
+      type: string
+      version_ranges: &id010
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 64
+      description: DDNS update key name.
+      source_attribute: ddns-keyname
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id010
+        description: DDNS update key name.
+        source_attribute: ddns_keyname
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 64
+        source_attribute: ddns_keyname
+      cli_reference:
+        type: string
+        raw_type: string
+        description: DDNS update key name.
+        max_length: 64
+        source_attribute: ddns-keyname
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ddns_password:
+    canonical:
+      type: password
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: DDNS password.
+      source_attribute: ddns-password
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: DDNS password.
+        source_attribute: ddns_password
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: ddns_password
+      cli_reference:
+        type: password
+        raw_type: password
+        description: DDNS password.
+        source_attribute: ddns-password
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id012
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id012
+  ddns_server:
+    canonical:
+      type: enum
+      required: true
+      version_ranges: &id014
+      - - v6.0.0
+        - ''
+      choices: &id013
+      - dyndns.org
+      - dyns.net
+      - tzo.com
+      - vavic.com
+      - dipdns.net
+      - now.net.cn
+      - dhs.org
+      - easydns.com
+      - genericDDNS
+      - FortiGuardDDNS
+      - noip.com
+      description: Select a DDNS service provider.
+      source_attribute: ddns-server
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id014
+        description: Select a DDNS service provider.
+        source_attribute: ddns_server
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: ddns_server
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Select a DDNS service provider.
+        source_attribute: ddns-server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ddns_server_addr:
+    canonical:
+      type: list
+      elements: dict
+      children: &id016
+        addr:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id018
+          - - v7.0.0
+            - ''
+          description: IP address or FQDN of the server.
+      version_ranges: &id015
+      - - v7.0.0
+        - ''
+      max_length: 256
+      description: Generic DDNS server IP/FQDN list. IP address or FQDN of the server.
+      source_attribute: ddns-server-addr
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id015
+        description: Generic DDNS server IP/FQDN list.
+        children: *id016
+        source_attribute: ddns_server_addr
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          addr:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 256
+        source_attribute: ddns_server_addr
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Generic DDNS server IP/FQDN list. IP address or FQDN of the server.
+        max_length: 256
+        source_attribute: ddns-server-addr
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id017
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id017
+  ddns_server_addr.addr:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id018
+      min_length: 0
+      max_length: 256
+      description: IP address or FQDN of the server.
+      source_attribute: ddns_server_addr.addr
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id018
+        description: IP address or FQDN of the server.
+        source_attribute: ddns_server_addr.addr
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 256
+        source_attribute: ddns_server_addr.addr
+    sources:
+    - ansible
+    - terraform
+  ddns_server_ip:
+    canonical:
+      type: string
+      source_attribute: ddns_server_ip
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: ddns_server_ip
+    sources:
+    - terraform
+  ddns_sn:
+    canonical:
+      type: string
+      version_ranges: &id019
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 64
+      description: DDNS Serial Number.
+      source_attribute: ddns-sn
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id019
+        description: DDNS Serial Number.
+        source_attribute: ddns_sn
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 64
+        source_attribute: ddns_sn
+      cli_reference:
+        type: string
+        raw_type: string
+        description: DDNS Serial Number.
+        max_length: 64
+        source_attribute: ddns-sn
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ddns_ttl:
+    canonical:
+      type: integer
+      version_ranges: &id020
+      - - v6.0.0
+        - ''
+      default: '300'
+      min: 60
+      max: 86400
+      description: Time-to-live for DDNS packets.
+      source_attribute: ddns-ttl
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id020
+        description: Time-to-live for DDNS packets.
+        source_attribute: ddns_ttl
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 60
+        max: 86400
+        source_attribute: ddns_ttl
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time-to-live for DDNS packets.
+        default: '300'
+        min: 60
+        max: 86400
+        source_attribute: ddns-ttl
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ddns_username:
+    canonical:
+      type: string
+      version_ranges: &id021
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 64
+      description: DDNS user name.
+      source_attribute: ddns-username
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id021
+        description: DDNS user name.
+        source_attribute: ddns_username
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 64
+        source_attribute: ddns_username
+      cli_reference:
+        type: string
+        raw_type: string
+        description: DDNS user name.
+        max_length: 64
+        source_attribute: ddns-username
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ddns_zone:
+    canonical:
+      type: string
+      version_ranges: &id022
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 64
+      description: Zone of your domain name (for example, DDNS.com).
+      source_attribute: ddns-zone
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id022
+        description: Zone of your domain name (for example, DDNS.com).
+        source_attribute: ddns_zone
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 64
+        source_attribute: ddns_zone
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Zone of your domain name (for example, DDNS.com).
+        max_length: 64
+        source_attribute: ddns-zone
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ddnsid:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id023
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: DDNS ID.
+      source_attribute: ddnsid
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id023
+        description: DDNS ID. see <a href='#notes'>Notes</a>.
+        source_attribute: ddnsid
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: ddnsid
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: DDNS ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: ddnsid
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  monitor_interface:
+    canonical:
+      type: list
+      elements: dict
+      children: &id025
+        interface_name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id028
+          - - v6.0.0
+            - ''
+          description: Interface name. Source system.interface.name.
+          references: &id027
+          - system.interface.name
+      required: true
+      version_ranges: &id024
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Monitored interface. Interface name.
+      source_attribute: monitor-interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      required: terraform
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id024
+        description: Monitored interface.
+        children: *id025
+        source_attribute: monitor_interface
+      terraform:
+        type: list
+        raw_type: TypeSet
+        required: true
+        children:
+          interface_name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: monitor_interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Monitored interface. Interface name.
+        max_length: 79
+        source_attribute: monitor-interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id026
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id026
+  monitor_interface.interface_name:
+    canonical:
+      type: string
+      references: *id027
+      required: true
+      version_ranges: *id028
+      min_length: 0
+      max_length: 79
+      description: Interface name. Source system.interface.name.
+      source_attribute: monitor_interface.interface_name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id028
+        description: Interface name. Source system.interface.name.
+        references: *id027
+        source_attribute: monitor_interface.interface_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: monitor_interface.interface_name
+    sources:
+    - ansible
+    - terraform
+  server_type:
+    canonical:
+      type: enum
+      version_ranges: &id030
+      - - v7.0.0
+        - ''
+      choices: &id029
+      - ipv4
+      - ipv6
+      default: ipv4
+      description: Address type of the DDNS server.
+      source_attribute: server-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id029
+        version_ranges: *id030
+        description: Address type of the DDNS server.
+        source_attribute: server_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: server_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Address type of the DDNS server.
+        default: ipv4
+        source_attribute: server-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssl_certificate:
+    canonical:
+      type: string
+      references: &id032
+      - certificate.local.name
+      version_ranges: &id031
+      - - v6.0.0
+        - ''
+      default: Fortinet_Factory **
+      min_length: 0
+      max_length: 35
+      description: Name of local certificate for SSL connections.
+      source_attribute: ssl-certificate
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id031
+        description: Name of local certificate for SSL connections. Source certificate.local.name.
+        references: *id032
+        source_attribute: ssl_certificate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 35
+        source_attribute: ssl_certificate
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of local certificate for SSL connections.
+        default: Fortinet_Factory **
+        max_length: 35
+        source_attribute: ssl-certificate
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  update_interval:
+    canonical:
+      type: integer
+      version_ranges: &id033
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 60
+      max: 2592000
+      description: DDNS update interval (60 - 2592000 sec, 0 means default).
+      source_attribute: update-interval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id033
+        description: DDNS update interval (60 - 2592000 sec, 0 means default).
+        source_attribute: update_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 60
+        max: 2592000
+        source_attribute: update_interval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: DDNS update interval (60 - 2592000 sec, 0 means default).
+        default: '0'
+        min: 60
+        max: 2592000
+        source_attribute: update-interval
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  use_public_ip:
+    canonical:
+      type: enum
+      version_ranges: &id035
+      - - v6.0.0
+        - ''
+      choices: &id034
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable use of public IP address.
+      source_attribute: use-public-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id034
+        version_ranges: *id035
+        description: Enable/disable use of public IP address.
+        source_attribute: use_public_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: use_public_ip
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of public IP address.
+        default: disable
+        source_attribute: use-public-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: ddns_key
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password_aes256
+  classification: representation_or_real_conflict
+- attribute: ddns_password
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict
+- attribute: ddns_server_addr
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: monitor_interface
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

@@ -1,0 +1,968 @@
+id: ssh-filter.profile
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  block:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - x11
+      - shell
+      - exec
+      - port-forward
+      - tun-forward
+      - sftp
+      - scp
+      - unknown
+      description: SSH blocking options.
+      source_attribute: block
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id001
+        multiple_values: true
+        elements: str
+        version_ranges: *id002
+        description: SSH blocking options.
+        source_attribute: block
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: block
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: SSH blocking options.
+        source_attribute: block
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  default_command_log:
+    canonical:
+      type: enum
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      choices: &id003
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable logging unmatched shell commands.
+      source_attribute: default-command-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: Enable/disable logging unmatched shell commands.
+        source_attribute: default_command_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: default_command_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging unmatched shell commands.
+        default: disable
+        source_attribute: default-command-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  fabric_force_sync:
+    canonical:
+      type: string
+      source_attribute: fabric_force_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_force_sync
+    sources:
+    - terraform
+  fabric_object:
+    canonical:
+      type: string
+      source_attribute: fabric_object
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object
+    sources:
+    - terraform
+  fabric_object_source:
+    canonical:
+      type: string
+      source_attribute: fabric_object_source
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object_source
+    sources:
+    - terraform
+  file_filter:
+    canonical:
+      type: list
+      children: &id005
+        status:
+          type: string
+          raw_type: TypeString
+          optional: true
+        log:
+          type: string
+          raw_type: TypeString
+          optional: true
+        scan_archive_contents:
+          type: string
+          raw_type: TypeString
+          optional: true
+        entries:
+          type: list
+          raw_type: TypeList
+          optional: true
+          children: &id006
+            filter:
+              type: string
+              raw_type: TypeString
+              optional: true
+              min_length: 0
+              max_length: 35
+            comment:
+              type: string
+              raw_type: TypeString
+              optional: true
+              min_length: 0
+              max_length: 255
+            action:
+              type: string
+              raw_type: TypeString
+              optional: true
+            direction:
+              type: string
+              raw_type: TypeString
+              optional: true
+            password_protected:
+              type: string
+              raw_type: TypeString
+              optional: true
+            file_type:
+              type: list
+              raw_type: TypeSet
+              optional: true
+              children: &id007
+                name:
+                  type: string
+                  raw_type: TypeString
+                  optional: true
+                  min_length: 0
+                  max_length: 39
+      source_attribute: file_filter
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children: *id005
+        source_attribute: file_filter
+    sources:
+    - terraform
+  file_filter.entries:
+    canonical:
+      type: list
+      children: *id006
+      source_attribute: file_filter.entries
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id006
+        source_attribute: file_filter.entries
+    sources:
+    - terraform
+  file_filter.entries.action:
+    canonical:
+      type: string
+      source_attribute: file_filter.entries.action
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: file_filter.entries.action
+    sources:
+    - terraform
+  file_filter.entries.comment:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 255
+      source_attribute: file_filter.entries.comment
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: file_filter.entries.comment
+    sources:
+    - terraform
+  file_filter.entries.direction:
+    canonical:
+      type: string
+      source_attribute: file_filter.entries.direction
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: file_filter.entries.direction
+    sources:
+    - terraform
+  file_filter.entries.file_type:
+    canonical:
+      type: list
+      children: *id007
+      source_attribute: file_filter.entries.file_type
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id007
+        source_attribute: file_filter.entries.file_type
+    sources:
+    - terraform
+  file_filter.entries.file_type.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 39
+      source_attribute: file_filter.entries.file_type.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 39
+        source_attribute: file_filter.entries.file_type.name
+    sources:
+    - terraform
+  file_filter.entries.filter:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: file_filter.entries.filter
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: file_filter.entries.filter
+    sources:
+    - terraform
+  file_filter.entries.password_protected:
+    canonical:
+      type: string
+      source_attribute: file_filter.entries.password_protected
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: file_filter.entries.password_protected
+    sources:
+    - terraform
+  file_filter.log:
+    canonical:
+      type: string
+      source_attribute: file_filter.log
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: file_filter.log
+    sources:
+    - terraform
+  file_filter.scan_archive_contents:
+    canonical:
+      type: string
+      source_attribute: file_filter.scan_archive_contents
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: file_filter.scan_archive_contents
+    sources:
+    - terraform
+  file_filter.status:
+    canonical:
+      type: string
+      source_attribute: file_filter.status
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: file_filter.status
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  log:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      choices: &id008
+      - x11
+      - shell
+      - exec
+      - port-forward
+      - tun-forward
+      - sftp
+      - scp
+      - unknown
+      description: SSH logging options.
+      source_attribute: log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id008
+        multiple_values: true
+        elements: str
+        version_ranges: *id009
+        description: SSH logging options.
+        source_attribute: log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: SSH logging options.
+        source_attribute: log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id010
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 47
+      description: SSH filter profile name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id010
+        description: SSH filter profile name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 47
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: SSH filter profile name.
+        max_length: 47
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  shell_commands:
+    canonical:
+      type: list
+      elements: dict
+      children: &id012
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id017
+          - - v6.0.0
+            - ''
+          description: Id. see <a href='#notes'>Notes</a>.
+        type:
+          type: enum
+          raw_type: string
+          choices: &id024
+          - simple
+          - regex
+          version_ranges: &id023
+          - - v6.0.0
+            - ''
+          description: Matching type.
+        pattern:
+          type: string
+          raw_type: string
+          version_ranges: &id020
+          - - v6.0.0
+            - ''
+          description: SSH shell command pattern.
+        action:
+          type: enum
+          raw_type: string
+          choices: &id014
+          - block
+          - allow
+          version_ranges: &id013
+          - - v6.0.0
+            - ''
+          description: Action to take for SSH shell command matches.
+        log:
+          type: enum
+          raw_type: string
+          choices: &id019
+          - enable
+          - disable
+          version_ranges: &id018
+          - - v6.0.0
+            - ''
+          description: Enable/disable logging.
+        alert:
+          type: enum
+          raw_type: string
+          choices: &id016
+          - enable
+          - disable
+          version_ranges: &id015
+          - - v6.0.0
+            - ''
+          description: Enable/disable alert.
+        severity:
+          type: enum
+          raw_type: string
+          choices: &id022
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id021
+          - - v6.0.0
+            - ''
+          description: Log severity.
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      description: SSH command filter.
+      source_attribute: shell_commands
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id011
+        description: SSH command filter.
+        children: *id012
+        source_attribute: shell_commands
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          pattern:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 128
+          action:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          log:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          alert:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          severity:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: shell_commands
+    sources:
+    - ansible
+    - terraform
+  shell_commands.action:
+    canonical:
+      type: enum
+      version_ranges: *id013
+      choices: *id014
+      description: Action to take for SSH shell command matches.
+      source_attribute: shell_commands.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id014
+        version_ranges: *id013
+        description: Action to take for SSH shell command matches.
+        source_attribute: shell_commands.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: shell_commands.action
+    sources:
+    - ansible
+    - terraform
+  shell_commands.alert:
+    canonical:
+      type: enum
+      version_ranges: *id015
+      choices: *id016
+      description: Enable/disable alert.
+      source_attribute: shell_commands.alert
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id016
+        version_ranges: *id015
+        description: Enable/disable alert.
+        source_attribute: shell_commands.alert
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: shell_commands.alert
+    sources:
+    - ansible
+    - terraform
+  shell_commands.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id017
+      description: Id. see <a href='#notes'>Notes</a>.
+      source_attribute: shell_commands.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id017
+        description: Id. see <a href='#notes'>Notes</a>.
+        source_attribute: shell_commands.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: shell_commands.id
+    sources:
+    - ansible
+    - terraform
+  shell_commands.log:
+    canonical:
+      type: enum
+      version_ranges: *id018
+      choices: *id019
+      description: Enable/disable logging.
+      source_attribute: shell_commands.log
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id019
+        version_ranges: *id018
+        description: Enable/disable logging.
+        source_attribute: shell_commands.log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: shell_commands.log
+    sources:
+    - ansible
+    - terraform
+  shell_commands.pattern:
+    canonical:
+      type: string
+      version_ranges: *id020
+      min_length: 0
+      max_length: 128
+      description: SSH shell command pattern.
+      source_attribute: shell_commands.pattern
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id020
+        description: SSH shell command pattern.
+        source_attribute: shell_commands.pattern
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: shell_commands.pattern
+    sources:
+    - ansible
+    - terraform
+  shell_commands.severity:
+    canonical:
+      type: enum
+      version_ranges: *id021
+      choices: *id022
+      description: Log severity.
+      source_attribute: shell_commands.severity
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id022
+        version_ranges: *id021
+        description: Log severity.
+        source_attribute: shell_commands.severity
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: shell_commands.severity
+    sources:
+    - ansible
+    - terraform
+  shell_commands.type:
+    canonical:
+      type: enum
+      version_ranges: *id023
+      choices: *id024
+      description: Matching type.
+      source_attribute: shell_commands.type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id024
+        version_ranges: *id023
+        description: Matching type.
+        source_attribute: shell_commands.type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: shell_commands.type
+    sources:
+    - ansible
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  uuid:
+    canonical:
+      type: string
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

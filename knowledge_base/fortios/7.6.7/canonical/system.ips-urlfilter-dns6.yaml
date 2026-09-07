@@ -1,0 +1,146 @@
+id: system.ips-urlfilter-dns6
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  address6:
+    canonical:
+      type: ipv6-address
+      required: true
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      default: '::'
+      description: IPv6 address of DNS server.
+      source_attribute: address6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id001
+        description: IPv6 address of DNS server.
+        source_attribute: address6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: address6
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: IPv6 address of DNS server.
+        default: '::'
+        source_attribute: address6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id002
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id002
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      choices: &id003
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable this server for IPv6 DNS queries.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: Enable/disable this server for IPv6 DNS queries.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable this server for IPv6 DNS queries.
+        default: enable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: address6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict

@@ -1,0 +1,1060 @@
+id: casb.saas-application
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  casb_name:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v7.4.1
+        - ''
+      min_length: 0
+      max_length: 79
+      description: SaaS application signature name.
+      source_attribute: casb-name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: SaaS application signature name.
+        source_attribute: casb_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: casb_name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: SaaS application signature name.
+        max_length: 79
+        source_attribute: casb-name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  description:
+    canonical:
+      type: string
+      version_ranges: &id002
+      - - v7.4.1
+        - ''
+      min_length: 0
+      max_length: 63
+      description: SaaS application description.
+      source_attribute: description
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id002
+        description: SaaS application description.
+        source_attribute: description
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: description
+      cli_reference:
+        type: string
+        raw_type: string
+        description: SaaS application description.
+        max_length: 63
+        source_attribute: description
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  domains:
+    canonical:
+      type: list
+      elements: dict
+      children: &id004
+        domain:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id006
+          - - v7.4.1
+            - ''
+          description: Domain list separated by space.
+      version_ranges: &id003
+      - - v7.4.1
+        - ''
+      max_length: 127
+      description: SaaS application domain list. Domain list separated by space.
+      source_attribute: domains
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id003
+        description: SaaS application domain list.
+        children: *id004
+        source_attribute: domains
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          domain:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 127
+        source_attribute: domains
+      cli_reference:
+        type: string
+        raw_type: string
+        description: SaaS application domain list. Domain list separated by space.
+        max_length: 127
+        source_attribute: domains
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id005
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id005
+  domains.domain:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id006
+      min_length: 0
+      max_length: 127
+      description: Domain list separated by space.
+      source_attribute: domains.domain
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id006
+        description: Domain list separated by space.
+        source_attribute: domains.domain
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: domains.domain
+    sources:
+    - ansible
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  input_attributes:
+    canonical:
+      type: list
+      elements: dict
+      children: &id008
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id014
+          - - v7.6.1
+            - ''
+          description: CASB attribute name.
+        description:
+          type: string
+          raw_type: string
+          version_ranges: &id011
+          - - v7.6.1
+            - ''
+          description: CASB attribute description.
+        type:
+          type: enum
+          raw_type: string
+          choices: &id018
+          - string
+          version_ranges: &id017
+          - - v7.6.1
+            - ''
+          description: CASB attribute format type.
+        required:
+          type: enum
+          raw_type: string
+          choices: &id016
+          - enable
+          - disable
+          version_ranges: &id015
+          - - v7.6.1
+            - ''
+          description: CASB input attribute required.
+        default:
+          type: enum
+          raw_type: string
+          choices: &id010
+          - string
+          - string-list
+          version_ranges: &id009
+          - - v7.6.1
+            - ''
+          description: CASB attribute default value.
+        fallback_input:
+          type: enum
+          raw_type: string
+          choices: &id013
+          - enable
+          - disable
+          version_ranges: &id012
+          - - v7.6.1
+            - ''
+          description: CASB attribute legacy input.
+      version_ranges: &id007
+      - - v7.6.1
+        - ''
+      description: SaaS application input attributes.
+      source_attribute: input_attributes
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id007
+        description: SaaS application input attributes.
+        children: *id008
+        source_attribute: input_attributes
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+          attr_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          description:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          required:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          default:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          fallback_input:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: input_attributes
+    sources:
+    - ansible
+    - terraform
+  input_attributes.attr_type:
+    canonical:
+      type: string
+      source_attribute: input_attributes.attr_type
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: input_attributes.attr_type
+    sources:
+    - terraform
+  input_attributes.default:
+    canonical:
+      type: enum
+      version_ranges: *id009
+      choices: *id010
+      description: CASB attribute default value.
+      source_attribute: input_attributes.default
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id009
+        description: CASB attribute default value.
+        source_attribute: input_attributes.default
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: input_attributes.default
+    sources:
+    - ansible
+    - terraform
+  input_attributes.description:
+    canonical:
+      type: string
+      version_ranges: *id011
+      min_length: 0
+      max_length: 63
+      description: CASB attribute description.
+      source_attribute: input_attributes.description
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: CASB attribute description.
+        source_attribute: input_attributes.description
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: input_attributes.description
+    sources:
+    - ansible
+    - terraform
+  input_attributes.fallback_input:
+    canonical:
+      type: enum
+      version_ranges: *id012
+      choices: *id013
+      description: CASB attribute legacy input.
+      source_attribute: input_attributes.fallback_input
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id012
+        description: CASB attribute legacy input.
+        source_attribute: input_attributes.fallback_input
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: input_attributes.fallback_input
+    sources:
+    - ansible
+    - terraform
+  input_attributes.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id014
+      min_length: 0
+      max_length: 79
+      description: CASB attribute name.
+      source_attribute: input_attributes.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id014
+        description: CASB attribute name.
+        source_attribute: input_attributes.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: input_attributes.name
+    sources:
+    - ansible
+    - terraform
+  input_attributes.required:
+    canonical:
+      type: enum
+      version_ranges: *id015
+      choices: *id016
+      description: CASB input attribute required.
+      source_attribute: input_attributes.required
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id016
+        version_ranges: *id015
+        description: CASB input attribute required.
+        source_attribute: input_attributes.required
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: input_attributes.required
+    sources:
+    - ansible
+    - terraform
+  input_attributes.type:
+    canonical:
+      type: enum
+      version_ranges: *id017
+      choices: *id018
+      description: CASB attribute format type.
+      source_attribute: input_attributes.type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id018
+        version_ranges: *id017
+        description: CASB attribute format type.
+        source_attribute: input_attributes.type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: input_attributes.type
+    sources:
+    - ansible
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id019
+      - - v7.4.1
+        - ''
+      min_length: 0
+      max_length: 79
+      description: SaaS application name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id019
+        description: SaaS application name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 79
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: SaaS application name.
+        max_length: 79
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  output_attributes:
+    canonical:
+      type: list
+      elements: dict
+      children: &id021
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id023
+          - - v7.6.1
+            - ''
+          description: CASB attribute name.
+        description:
+          type: string
+          raw_type: string
+          version_ranges: &id022
+          - - v7.6.1
+            - ''
+          description: CASB attribute description.
+        type:
+          type: enum
+          raw_type: string
+          choices: &id027
+          - string
+          - string-list
+          - integer
+          - integer-list
+          - boolean
+          version_ranges: &id026
+          - - v7.6.1
+            - ''
+          description: CASB attribute format type.
+        optional:
+          type: enum
+          raw_type: string
+          choices: &id025
+          - enable
+          - disable
+          version_ranges: &id024
+          - - v7.6.3
+            - ''
+          description: CASB output attribute optional.
+      version_ranges: &id020
+      - - v7.6.1
+        - ''
+      description: SaaS application output attributes.
+      source_attribute: output_attributes
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id020
+        description: SaaS application output attributes.
+        children: *id021
+        source_attribute: output_attributes
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+          attr_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          description:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          optional:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          required:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: output_attributes
+    sources:
+    - ansible
+    - terraform
+  output_attributes.attr_type:
+    canonical:
+      type: string
+      source_attribute: output_attributes.attr_type
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: output_attributes.attr_type
+    sources:
+    - terraform
+  output_attributes.description:
+    canonical:
+      type: string
+      version_ranges: *id022
+      min_length: 0
+      max_length: 63
+      description: CASB attribute description.
+      source_attribute: output_attributes.description
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id022
+        description: CASB attribute description.
+        source_attribute: output_attributes.description
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: output_attributes.description
+    sources:
+    - ansible
+    - terraform
+  output_attributes.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id023
+      min_length: 0
+      max_length: 79
+      description: CASB attribute name.
+      source_attribute: output_attributes.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id023
+        description: CASB attribute name.
+        source_attribute: output_attributes.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: output_attributes.name
+    sources:
+    - ansible
+    - terraform
+  output_attributes.optional:
+    canonical:
+      type: enum
+      version_ranges: *id024
+      choices: *id025
+      description: CASB output attribute optional.
+      source_attribute: output_attributes.optional
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id025
+        version_ranges: *id024
+        description: CASB output attribute optional.
+        source_attribute: output_attributes.optional
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: output_attributes.optional
+    sources:
+    - ansible
+    - terraform
+  output_attributes.required:
+    canonical:
+      type: string
+      source_attribute: output_attributes.required
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: output_attributes.required
+    sources:
+    - terraform
+  output_attributes.type:
+    canonical:
+      type: enum
+      version_ranges: *id026
+      choices: *id027
+      description: CASB attribute format type.
+      source_attribute: output_attributes.type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id027
+        version_ranges: *id026
+        description: CASB attribute format type.
+        source_attribute: output_attributes.type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: output_attributes.type
+    sources:
+    - ansible
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id029
+      - - v7.4.2
+        - ''
+      choices: &id028
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable setting.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id028
+        version_ranges: *id029
+        description: Enable/disable setting.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable setting.
+        default: enable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  type:
+    canonical:
+      type: enum
+      version_ranges: &id031
+      - - v7.4.1
+        - ''
+      choices: &id030
+      - built-in
+      - customized
+      default: customized
+      description: SaaS application type.
+      source_attribute: type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id030
+        version_ranges: *id031
+        description: SaaS application type.
+        source_attribute: type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: SaaS application type.
+        default: customized
+        source_attribute: type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  uuid:
+    canonical:
+      type: string
+      version_ranges: &id032
+      - - v7.4.1
+        - ''
+      min_length: 0
+      max_length: 36
+      description: Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id032
+        description: Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+        source_attribute: uuid
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 36
+        source_attribute: uuid
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+        max_length: 36
+        source_attribute: uuid
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: domains
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

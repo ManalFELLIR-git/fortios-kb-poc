@@ -1,0 +1,701 @@
+id: emailfilter.bword
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Optional comments.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Optional comments.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Optional comments.
+        max_length: 255
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  entries:
+    canonical:
+      type: list
+      elements: dict
+      children: &id003
+        status:
+          type: enum
+          raw_type: string
+          choices: &id014
+          - enable
+          - disable
+          version_ranges: &id013
+          - - v6.2.0
+            - ''
+          description: Enable/disable status.
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id006
+          - - v6.2.0
+            - ''
+          description: Banned word entry ID. see <a href='#notes'>Notes</a>.
+        pattern:
+          type: string
+          raw_type: string
+          version_ranges: &id009
+          - - v6.2.0
+            - ''
+          description: Pattern for the banned word.
+        pattern_type:
+          type: enum
+          raw_type: string
+          choices: &id011
+          - wildcard
+          - regexp
+          version_ranges: &id010
+          - - v6.2.0
+            - ''
+          description: Wildcard pattern or regular expression.
+        action:
+          type: enum
+          raw_type: string
+          choices: &id005
+          - spam
+          - clear
+          version_ranges: &id004
+          - - v6.2.0
+            - ''
+          description: Mark spam or good.
+        where:
+          type: enum
+          raw_type: string
+          choices: &id016
+          - subject
+          - body
+          - all
+          version_ranges: &id015
+          - - v6.2.0
+            - ''
+          description: Component of the email to be scanned.
+        language:
+          type: enum
+          raw_type: string
+          choices: &id008
+          - western
+          - simch
+          - trach
+          - japanese
+          - korean
+          - french
+          - thai
+          - spanish
+          version_ranges: &id007
+          - - v6.2.0
+            - ''
+          description: Language for the banned word.
+        score:
+          type: integer
+          raw_type: integer
+          version_ranges: &id012
+          - - v6.2.0
+            - ''
+          description: Score value.
+      version_ranges: &id002
+      - - v6.2.0
+        - ''
+      description: Spam filter banned word.
+      source_attribute: entries
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id002
+        description: Spam filter banned word.
+        children: *id003
+        source_attribute: entries
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          pattern:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 127
+          pattern_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          action:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          where:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          language:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          score:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 99999
+        source_attribute: entries
+    sources:
+    - ansible
+    - terraform
+  entries.action:
+    canonical:
+      type: enum
+      version_ranges: *id004
+      choices: *id005
+      description: Mark spam or good.
+      source_attribute: entries.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id004
+        description: Mark spam or good.
+        source_attribute: entries.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.action
+    sources:
+    - ansible
+    - terraform
+  entries.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id006
+      description: Banned word entry ID. see <a href='#notes'>Notes</a>.
+      source_attribute: entries.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id006
+        description: Banned word entry ID. see <a href='#notes'>Notes</a>.
+        source_attribute: entries.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: entries.id
+    sources:
+    - ansible
+    - terraform
+  entries.language:
+    canonical:
+      type: enum
+      version_ranges: *id007
+      choices: *id008
+      description: Language for the banned word.
+      source_attribute: entries.language
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id008
+        version_ranges: *id007
+        description: Language for the banned word.
+        source_attribute: entries.language
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.language
+    sources:
+    - ansible
+    - terraform
+  entries.pattern:
+    canonical:
+      type: string
+      version_ranges: *id009
+      min_length: 0
+      max_length: 127
+      description: Pattern for the banned word.
+      source_attribute: entries.pattern
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id009
+        description: Pattern for the banned word.
+        source_attribute: entries.pattern
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: entries.pattern
+    sources:
+    - ansible
+    - terraform
+  entries.pattern_type:
+    canonical:
+      type: enum
+      version_ranges: *id010
+      choices: *id011
+      description: Wildcard pattern or regular expression.
+      source_attribute: entries.pattern_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id011
+        version_ranges: *id010
+        description: Wildcard pattern or regular expression.
+        source_attribute: entries.pattern_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.pattern_type
+    sources:
+    - ansible
+    - terraform
+  entries.score:
+    canonical:
+      type: integer
+      version_ranges: *id012
+      min: 1
+      max: 99999
+      description: Score value.
+      source_attribute: entries.score
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id012
+        description: Score value.
+        source_attribute: entries.score
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 99999
+        source_attribute: entries.score
+    sources:
+    - ansible
+    - terraform
+  entries.status:
+    canonical:
+      type: enum
+      version_ranges: *id013
+      choices: *id014
+      description: Enable/disable status.
+      source_attribute: entries.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id014
+        version_ranges: *id013
+        description: Enable/disable status.
+        source_attribute: entries.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.status
+    sources:
+    - ansible
+    - terraform
+  entries.where:
+    canonical:
+      type: enum
+      version_ranges: *id015
+      choices: *id016
+      description: Component of the email to be scanned.
+      source_attribute: entries.where
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id016
+        version_ranges: *id015
+        description: Component of the email to be scanned.
+        source_attribute: entries.where
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.where
+    sources:
+    - ansible
+    - terraform
+  fabric_force_sync:
+    canonical:
+      type: string
+      source_attribute: fabric_force_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_force_sync
+    sources:
+    - terraform
+  fabric_object:
+    canonical:
+      type: string
+      source_attribute: fabric_object
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object
+    sources:
+    - terraform
+  fabric_object_source:
+    canonical:
+      type: string
+      source_attribute: fabric_object_source
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object_source
+    sources:
+    - terraform
+  fosid:
+    canonical:
+      type: integer
+      source_attribute: fosid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: fosid
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id017
+      - - v6.2.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: ID.
+      source_attribute: id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id017
+        description: ID. see <a href='#notes'>Notes</a>.
+        source_attribute: id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: id
+    sources:
+    - ansible
+    - cli_reference
+  name:
+    canonical:
+      type: string
+      version_ranges: &id018
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Name of table.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id018
+        description: Name of table.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of table.
+        max_length: 63
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  uuid:
+    canonical:
+      type: string
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

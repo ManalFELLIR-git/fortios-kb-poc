@@ -1,0 +1,645 @@
+id: icap.server
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  addr_type:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.2.0
+        - ''
+      choices: &id001
+      - ip4
+      - ip6
+      - fqdn
+      default: ip4
+      description: 'Address type of the remote ICAP server: IPv4, IPv6 or FQDN.'
+      source_attribute: addr-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: 'Address type of the remote ICAP server: IPv4, IPv6 or FQDN.'
+        source_attribute: addr_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: addr_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: 'Address type of the remote ICAP server: IPv4, IPv6 or FQDN.'
+        default: ip4
+        source_attribute: addr-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fabric_force_sync:
+    canonical:
+      type: string
+      source_attribute: fabric_force_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_force_sync
+    sources:
+    - terraform
+  fabric_object:
+    canonical:
+      type: string
+      source_attribute: fabric_object
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object
+    sources:
+    - terraform
+  fabric_object_source:
+    canonical:
+      type: string
+      source_attribute: fabric_object_source
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object_source
+    sources:
+    - terraform
+  fqdn:
+    canonical:
+      type: string
+      version_ranges: &id003
+      - - v7.2.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: ICAP remote server Fully Qualified Domain Name (FQDN).
+      source_attribute: fqdn
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: ICAP remote server Fully Qualified Domain Name (FQDN).
+        source_attribute: fqdn
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: fqdn
+      cli_reference:
+        type: string
+        raw_type: string
+        description: ICAP remote server Fully Qualified Domain Name (FQDN).
+        max_length: 255
+        source_attribute: fqdn
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  healthcheck:
+    canonical:
+      type: enum
+      version_ranges: &id005
+      - - v7.2.0
+        - ''
+      choices: &id004
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable ICAP remote server health checking. Attempts to connect to the remote ICAP server to verify
+        that the server is operating normally.
+      source_attribute: healthcheck
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id004
+        version_ranges: *id005
+        description: Enable/disable ICAP remote server health checking. Attempts to connect to the remote ICAP server to verify
+          that the server is operating normally.
+        source_attribute: healthcheck
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: healthcheck
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable ICAP remote server health checking. Attempts to connect to the remote ICAP server to verify
+          that the server is operating normally.
+        default: disable
+        source_attribute: healthcheck
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  healthcheck_service:
+    canonical:
+      type: string
+      version_ranges: &id006
+      - - v7.2.0
+        - ''
+      min_length: 0
+      max_length: 127
+      description: ICAP Service name to use for health checks.
+      source_attribute: healthcheck-service
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id006
+        description: ICAP Service name to use for health checks.
+        source_attribute: healthcheck_service
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: healthcheck_service
+      cli_reference:
+        type: string
+        raw_type: string
+        description: ICAP Service name to use for health checks.
+        max_length: 127
+        source_attribute: healthcheck-service
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ip6_address:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      default: '::'
+      description: IPv6 address of the ICAP server.
+      source_attribute: ip6-address
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: IPv6 address of the ICAP server.
+        source_attribute: ip6_address
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ip6_address
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: IPv6 address of the ICAP server.
+        default: '::'
+        source_attribute: ip6-address
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id008
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id008
+  ip_address:
+    canonical:
+      type: ipv4-address-any
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: IPv4 address of the ICAP server.
+      source_attribute: ip-address
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id009
+        description: IPv4 address of the ICAP server.
+        source_attribute: ip_address
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ip_address
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: IPv4 address of the ICAP server.
+        default: 0.0.0.0
+        source_attribute: ip-address
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id010
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id010
+  ip_version:
+    canonical:
+      type: string
+      source_attribute: ip_version
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ip_version
+    sources:
+    - terraform
+  max_connections:
+    canonical:
+      type: integer
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      default: '100'
+      min: 0
+      max: 4294967295
+      description: Maximum number of concurrent connections to ICAP server (unlimited = 0, default = 100). Must not be less
+        than wad-worker-count.
+      source_attribute: max-connections
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id011
+        description: Maximum number of concurrent connections to ICAP server (unlimited = 0). Must not be less than wad-worker-count.
+        source_attribute: max_connections
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: max_connections
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum number of concurrent connections to ICAP server (unlimited = 0, default = 100). Must not be less
+          than wad-worker-count.
+        default: '100'
+        min: 0
+        max: 4294967295
+        source_attribute: max-connections
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id012
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Server name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id012
+        description: Server name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 63
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Server name.
+        max_length: 63
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  port:
+    canonical:
+      type: integer
+      version_ranges: &id013
+      - - v6.0.0
+        - ''
+      default: '1344'
+      min: 1
+      max: 65535
+      description: ICAP server port.
+      source_attribute: port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id013
+        description: ICAP server port.
+        source_attribute: port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: ICAP server port.
+        default: '1344'
+        min: 1
+        max: 65535
+        source_attribute: port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  secure:
+    canonical:
+      type: enum
+      version_ranges: &id015
+      - - v7.0.0
+        - ''
+      choices: &id014
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable secure connection to ICAP server.
+      source_attribute: secure
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id014
+        version_ranges: *id015
+        description: Enable/disable secure connection to ICAP server.
+        source_attribute: secure
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: secure
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable secure connection to ICAP server.
+        default: disable
+        source_attribute: secure
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssl_cert:
+    canonical:
+      type: string
+      references: &id017
+      - certificate.ca.name
+      version_ranges: &id016
+      - - v7.0.0
+        - ''
+      min_length: 0
+      max_length: 79
+      description: CA certificate name.
+      source_attribute: ssl-cert
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id016
+        description: CA certificate name. Source certificate.ca.name.
+        references: *id017
+        source_attribute: ssl_cert
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: ssl_cert
+      cli_reference:
+        type: string
+        raw_type: string
+        description: CA certificate name.
+        max_length: 79
+        source_attribute: ssl-cert
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  uuid:
+    canonical:
+      type: string
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: ip6_address
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict
+- attribute: ip_address
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict

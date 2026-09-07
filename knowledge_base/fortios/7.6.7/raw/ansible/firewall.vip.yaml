@@ -1,0 +1,1432 @@
+id: firewall.vip
+version: 7.6.7
+source_object: fortios_firewall_vip
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_firewall_vip.py
+root_type: list
+attributes:
+  name:
+    type: string
+    raw_type: string
+    required: true
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Virtual IP name.
+  id:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Custom defined ID.
+  uuid:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+  comment:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Comment.
+  type:
+    type: enum
+    raw_type: string
+    choices:
+    - static-nat
+    - load-balance
+    - server-load-balance
+    - dns-translation
+    - fqdn
+    - access-proxy
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Configure a static NAT, load balance, server load balance, access proxy, DNS translation, or FQDN VIP.
+  server_type:
+    type: enum
+    raw_type: string
+    choices:
+    - http
+    - https
+    - imaps
+    - pop3s
+    - smtps
+    - ssl
+    - tcp
+    - udp
+    - ip
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Protocol to be load balanced by the virtual server (also called the server load balance virtual IP).
+  dns_mapping_ttl:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: DNS mapping TTL (Set to zero to use TTL in DNS response).
+  ldb_method:
+    type: enum
+    raw_type: string
+    choices:
+    - static
+    - round-robin
+    - weighted
+    - least-session
+    - least-rtt
+    - first-alive
+    - http-host
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Method used to distribute sessions to real servers.
+  src_filter:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Source address filter. Each address must be either an IP/subnet (x.x.x.x/n) or a range (x.x.x.x-y.y.y.y).
+      Separate addresses with spaces.
+    references:
+    - x.x.x.x
+    - x.x.x.x-y.y.y.y
+    children:
+      range:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Source-filter range.
+  src_vip_filter:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v7.4.4
+      - ''
+    description: Enable/disable use of "src-filter" to match destinations for the reverse SNAT rule.
+  service:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Service name.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Service name. Source firewall.service.custom.name firewall.service.group.name.
+        references:
+        - firewall.service.custom.name
+        - firewall.service.group.name
+  extip:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: IP address or address range on the external interface that you want to map to an address or address range
+      on the destination network.
+  extaddr:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: External FQDN address name.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Address name. Source firewall.address.name firewall.addrgrp.name.
+        references:
+        - firewall.address.name
+        - firewall.addrgrp.name
+  h2_support:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v7.4.1
+      - ''
+    description: Enable/disable HTTP2 support .
+  h3_support:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v7.4.1
+      - ''
+    description: Enable/disable HTTP3/QUIC support .
+  quic:
+    type: object
+    raw_type: dict
+    version_ranges:
+    - - v7.4.1
+      - ''
+    description: QUIC setting.
+    children:
+      max_idle_timeout:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.4.1
+          - ''
+        description: Maximum idle timeout milliseconds (1 - 60000).
+      max_udp_payload_size:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.4.1
+          - ''
+        description: Maximum UDP payload size in bytes (1200 - 1500).
+      active_connection_id_limit:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.4.1
+          - ''
+        description: Active connection ID limit (1 - 8).
+      ack_delay_exponent:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.4.1
+          - ''
+        description: ACK delay exponent (1 - 20).
+      max_ack_delay:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.4.1
+          - ''
+        description: Maximum ACK delay in milliseconds (1 - 16383).
+      max_datagram_frame_size:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.4.1
+          - ''
+        description: Maximum datagram frame size in bytes (1 - 1500).
+      active_migration:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v7.4.1
+          - ''
+        description: Enable/disable active migration .
+      grease_quic_bit:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v7.4.1
+          - ''
+        description: Enable/disable grease QUIC bit .
+  nat44:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v7.0.1
+      - ''
+    description: Enable/disable NAT44.
+  nat46:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v7.0.1
+      - ''
+    description: Enable/disable NAT46.
+  add_nat46_route:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v7.0.1
+      - ''
+    description: Enable/disable adding NAT46 route.
+  mappedip:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: IP address or address range on the destination network to which the external IP address is mapped.
+    children:
+      range:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Mapped IP range.
+  mapped_addr:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Mapped FQDN address name. Source firewall.address.name.
+    references:
+    - firewall.address.name
+  extintf:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Interface connected to the source network that receives the packets that will be forwarded to the destination
+      network. Source system .interface.name.
+  arp_reply:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable to respond to ARP requests for this virtual IP address. Enabled by default.
+  http_redirect:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: Enable/disable redirection of HTTP to HTTPS.
+  persistence:
+    type: enum
+    raw_type: string
+    choices:
+    - none
+    - http-cookie
+    - ssl-session-id
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Configure how to make sure that clients connect to the same server every time they make a request that is
+      part of the same session.
+  nat_source_vip:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable forcing the source NAT mapped IP to the external IP for all traffic.
+  portforward:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable port forwarding.
+  status:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v7.0.0
+      - ''
+    description: Enable/disable VIP.
+  protocol:
+    type: enum
+    raw_type: string
+    choices:
+    - tcp
+    - udp
+    - sctp
+    - icmp
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Protocol to use when forwarding packets.
+  extport:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Incoming port number range that you want to map to a port number range on the destination network.
+  mappedport:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Port number range on the destination network to which the external port number range is mapped.
+  gratuitous_arp_interval:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable to have the VIP send gratuitous ARPs. 0=disabled. Set from 5 up to 8640000 seconds to enable.
+  srcintf_filter:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Interfaces to which the VIP applies. Separate the names with spaces.
+    children:
+      interface_name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Interface name. Source system.interface.name.
+        references:
+        - system.interface.name
+  portmapping_type:
+    type: enum
+    raw_type: string
+    choices:
+    - 1-to-1
+    - m-to-n
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Port mapping type.
+  empty_cert_action:
+    type: enum
+    raw_type: string
+    choices:
+    - accept
+    - block
+    - accept-unmanageable
+    version_ranges:
+    - - v7.6.1
+      - ''
+    description: Action for an empty client certificate.
+  user_agent_detect:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v7.6.1
+      - ''
+    description: Enable/disable detecting device type by HTTP user-agent if no client certificate is provided.
+  client_cert:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v7.6.1
+      - ''
+    description: Enable/disable requesting client certificate.
+  realservers:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Select the real servers that this server load balancing VIP will distribute traffic to.
+    children:
+      id:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Real server ID. see <a href='#notes'>Notes</a>.
+      type:
+        type: enum
+        raw_type: string
+        choices:
+        - ip
+        - address
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Type of address.
+      address:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Dynamic address of the real server. Source firewall.address.name.
+        references:
+        - firewall.address.name
+      ip:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: IP address of the real server.
+      port:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Port for communicating with the real server. Required if port forwarding is enabled.
+      status:
+        type: enum
+        raw_type: string
+        choices:
+        - active
+        - standby
+        - disable
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Set the status of the real server to active so that it can accept traffic, or on standby or disabled
+          so no traffic is sent.
+      weight:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Weight of the real server. If weighted load balancing is enabled, the server with the highest weight
+          gets more connections.
+      holddown_interval:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Time in seconds that the system waits before re-activating a previously down active server in the active-standby
+          mode. This is to prevent any flapping issues.
+      healthcheck:
+        type: enum
+        raw_type: string
+        choices:
+        - disable
+        - enable
+        - vip
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Enable to check the responsiveness of the real server before forwarding traffic.
+      http_host:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: HTTP server domain name in HTTP header.
+      translate_host:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v7.2.4
+          - ''
+        description: Enable/disable translation of hostname/IP from virtual server to real server.
+      max_connections:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Max number of active connections that can be directed to the real server. When reached, sessions are
+          sent to other real servers.
+      monitor:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Name of the health check monitor to use when polling to determine a virtual server"s connectivity status.
+          Source firewall .ldb-monitor.name.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Health monitor name. Source firewall.ldb-monitor.name.
+            references:
+            - firewall.ldb-monitor.name
+      client_ip:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Only clients in this IP range can connect to this real server.
+      verify_cert:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v7.6.3
+          - ''
+        description: Enable/disable certificate verification of the real server.
+  http_cookie_domain_from_host:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable use of HTTP cookie domain from host field in HTTP.
+  http_cookie_domain:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Domain that HTTP cookie persistence should apply to.
+  http_cookie_path:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Limit HTTP cookie persistence to the specified path.
+  http_cookie_generation:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Generation of HTTP cookie to be accepted. Changing invalidates all existing cookies.
+  http_cookie_age:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Time in minutes that client web browsers should keep a cookie. Default is 60 minutes. 0 = no time limit.
+  http_cookie_share:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - same-ip
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Control sharing of cookies across virtual servers. Use of same-ip means a cookie from one virtual server
+      can be used by another. Disable stops cookie sharing.
+  https_cookie_secure:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable verification that inserted HTTPS cookies are secure.
+  http_multiplex:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable HTTP multiplexing.
+  http_multiplex_ttl:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.2.4
+      - ''
+    description: Time-to-live for idle connections to servers.
+  http_multiplex_max_request:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.2.4
+      - ''
+    description: Maximum number of requests that a multiplex server can handle before disconnecting sessions .
+  http_multiplex_max_concurrent_request:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.4.1
+      - ''
+    description: Maximum number of concurrent requests that a multiplex server can handle .
+  http_ip_header:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: For HTTP multiplexing, enable to add the original client IP address in the X-Forwarded-For HTTP header.
+  http_ip_header_name:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: For HTTP multiplexing, enter a custom HTTPS header name. The original client IP address is added to this
+      header. If empty, X-Forwarded-For is used.
+  outlook_web_access:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable to add the Front-End-Https header for Microsoft Outlook Web Access.
+  weblogic_server:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable to add an HTTP header to indicate SSL offloading for a WebLogic server.
+  websphere_server:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable to add an HTTP header to indicate SSL offloading for a WebSphere server.
+  ssl_mode:
+    type: enum
+    raw_type: string
+    choices:
+    - half
+    - full
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Apply SSL offloading between the client and the FortiGate (half) or from the client to the FortiGate and
+      from the FortiGate to the server (full).
+  ssl_certificate_dict:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v7.4.2
+      - ''
+    description: Name of the certificate to use for SSL handshake.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v7.4.2
+          - ''
+        description: Certificate list. Source vpn.certificate.local.name.
+        references:
+        - vpn.certificate.local.name
+  ssl_dh_bits:
+    type: enum
+    raw_type: string
+    choices:
+    - '768'
+    - '1024'
+    - '1536'
+    - '2048'
+    - '3072'
+    - '4096'
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Number of bits to use in the Diffie-Hellman exchange for RSA encryption of SSL sessions.
+  ssl_algorithm:
+    type: enum
+    raw_type: string
+    choices:
+    - high
+    - medium
+    - low
+    - custom
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Permitted encryption algorithms for SSL sessions according to encryption strength.
+  ssl_cipher_suites:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: SSL/TLS cipher suites acceptable from a client, ordered by priority.
+    children:
+      priority:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: SSL/TLS cipher suites priority. see <a href='#notes'>Notes</a>.
+      cipher:
+        type: enum
+        raw_type: string
+        choices:
+        - TLS-AES-128-GCM-SHA256
+        - TLS-AES-256-GCM-SHA384
+        - TLS-CHACHA20-POLY1305-SHA256
+        - TLS-ECDHE-RSA-WITH-CHACHA20-POLY1305-SHA256
+        - TLS-ECDHE-ECDSA-WITH-CHACHA20-POLY1305-SHA256
+        - TLS-DHE-RSA-WITH-CHACHA20-POLY1305-SHA256
+        - TLS-DHE-RSA-WITH-AES-128-CBC-SHA
+        - TLS-DHE-RSA-WITH-AES-256-CBC-SHA
+        - TLS-DHE-RSA-WITH-AES-128-CBC-SHA256
+        - TLS-DHE-RSA-WITH-AES-128-GCM-SHA256
+        - TLS-DHE-RSA-WITH-AES-256-CBC-SHA256
+        - TLS-DHE-RSA-WITH-AES-256-GCM-SHA384
+        - TLS-DHE-DSS-WITH-AES-128-CBC-SHA
+        - TLS-DHE-DSS-WITH-AES-256-CBC-SHA
+        - TLS-DHE-DSS-WITH-AES-128-CBC-SHA256
+        - TLS-DHE-DSS-WITH-AES-128-GCM-SHA256
+        - TLS-DHE-DSS-WITH-AES-256-CBC-SHA256
+        - TLS-DHE-DSS-WITH-AES-256-GCM-SHA384
+        - TLS-ECDHE-RSA-WITH-AES-128-CBC-SHA
+        - TLS-ECDHE-RSA-WITH-AES-128-CBC-SHA256
+        - TLS-ECDHE-RSA-WITH-AES-128-GCM-SHA256
+        - TLS-ECDHE-RSA-WITH-AES-256-CBC-SHA
+        - TLS-ECDHE-RSA-WITH-AES-256-CBC-SHA384
+        - TLS-ECDHE-RSA-WITH-AES-256-GCM-SHA384
+        - TLS-ECDHE-ECDSA-WITH-AES-128-CBC-SHA
+        - TLS-ECDHE-ECDSA-WITH-AES-128-CBC-SHA256
+        - TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256
+        - TLS-ECDHE-ECDSA-WITH-AES-256-CBC-SHA
+        - TLS-ECDHE-ECDSA-WITH-AES-256-CBC-SHA384
+        - TLS-ECDHE-ECDSA-WITH-AES-256-GCM-SHA384
+        - TLS-RSA-WITH-AES-128-CBC-SHA
+        - TLS-RSA-WITH-AES-256-CBC-SHA
+        - TLS-RSA-WITH-AES-128-CBC-SHA256
+        - TLS-RSA-WITH-AES-128-GCM-SHA256
+        - TLS-RSA-WITH-AES-256-CBC-SHA256
+        - TLS-RSA-WITH-AES-256-GCM-SHA384
+        - TLS-RSA-WITH-CAMELLIA-128-CBC-SHA
+        - TLS-RSA-WITH-CAMELLIA-256-CBC-SHA
+        - TLS-RSA-WITH-CAMELLIA-128-CBC-SHA256
+        - TLS-RSA-WITH-CAMELLIA-256-CBC-SHA256
+        - TLS-DHE-RSA-WITH-3DES-EDE-CBC-SHA
+        - TLS-DHE-RSA-WITH-CAMELLIA-128-CBC-SHA
+        - TLS-DHE-DSS-WITH-CAMELLIA-128-CBC-SHA
+        - TLS-DHE-RSA-WITH-CAMELLIA-256-CBC-SHA
+        - TLS-DHE-DSS-WITH-CAMELLIA-256-CBC-SHA
+        - TLS-DHE-RSA-WITH-CAMELLIA-128-CBC-SHA256
+        - TLS-DHE-DSS-WITH-CAMELLIA-128-CBC-SHA256
+        - TLS-DHE-RSA-WITH-CAMELLIA-256-CBC-SHA256
+        - TLS-DHE-DSS-WITH-CAMELLIA-256-CBC-SHA256
+        - TLS-DHE-RSA-WITH-SEED-CBC-SHA
+        - TLS-DHE-DSS-WITH-SEED-CBC-SHA
+        - TLS-DHE-RSA-WITH-ARIA-128-CBC-SHA256
+        - TLS-DHE-RSA-WITH-ARIA-256-CBC-SHA384
+        - TLS-DHE-DSS-WITH-ARIA-128-CBC-SHA256
+        - TLS-DHE-DSS-WITH-ARIA-256-CBC-SHA384
+        - TLS-RSA-WITH-SEED-CBC-SHA
+        - TLS-RSA-WITH-ARIA-128-CBC-SHA256
+        - TLS-RSA-WITH-ARIA-256-CBC-SHA384
+        - TLS-ECDHE-RSA-WITH-ARIA-128-CBC-SHA256
+        - TLS-ECDHE-RSA-WITH-ARIA-256-CBC-SHA384
+        - TLS-ECDHE-ECDSA-WITH-ARIA-128-CBC-SHA256
+        - TLS-ECDHE-ECDSA-WITH-ARIA-256-CBC-SHA384
+        - TLS-ECDHE-RSA-WITH-RC4-128-SHA
+        - TLS-ECDHE-RSA-WITH-3DES-EDE-CBC-SHA
+        - TLS-DHE-DSS-WITH-3DES-EDE-CBC-SHA
+        - TLS-RSA-WITH-3DES-EDE-CBC-SHA
+        - TLS-RSA-WITH-RC4-128-MD5
+        - TLS-RSA-WITH-RC4-128-SHA
+        - TLS-DHE-RSA-WITH-DES-CBC-SHA
+        - TLS-DHE-DSS-WITH-DES-CBC-SHA
+        - TLS-RSA-WITH-DES-CBC-SHA
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Cipher suite name.
+      versions:
+        type: enum
+        raw_type: list
+        choices:
+        - ssl-3.0
+        - tls-1.0
+        - tls-1.1
+        - tls-1.2
+        - tls-1.3
+        multiple_values: true
+        elements: str
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: SSL/TLS versions that the cipher suite can be used with.
+  ssl_server_algorithm:
+    type: enum
+    raw_type: string
+    choices:
+    - high
+    - medium
+    - low
+    - custom
+    - client
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Permitted encryption algorithms for the server side of SSL sessions according to encryption strength.
+  ssl_server_cipher_suites:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: SSL/TLS cipher suites to offer to a server, ordered by priority.
+    children:
+      priority:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: SSL/TLS cipher suites priority. see <a href='#notes'>Notes</a>.
+      cipher:
+        type: enum
+        raw_type: string
+        choices:
+        - TLS-AES-128-GCM-SHA256
+        - TLS-AES-256-GCM-SHA384
+        - TLS-CHACHA20-POLY1305-SHA256
+        - TLS-ECDHE-RSA-WITH-CHACHA20-POLY1305-SHA256
+        - TLS-ECDHE-ECDSA-WITH-CHACHA20-POLY1305-SHA256
+        - TLS-DHE-RSA-WITH-CHACHA20-POLY1305-SHA256
+        - TLS-DHE-RSA-WITH-AES-128-CBC-SHA
+        - TLS-DHE-RSA-WITH-AES-256-CBC-SHA
+        - TLS-DHE-RSA-WITH-AES-128-CBC-SHA256
+        - TLS-DHE-RSA-WITH-AES-128-GCM-SHA256
+        - TLS-DHE-RSA-WITH-AES-256-CBC-SHA256
+        - TLS-DHE-RSA-WITH-AES-256-GCM-SHA384
+        - TLS-DHE-DSS-WITH-AES-128-CBC-SHA
+        - TLS-DHE-DSS-WITH-AES-256-CBC-SHA
+        - TLS-DHE-DSS-WITH-AES-128-CBC-SHA256
+        - TLS-DHE-DSS-WITH-AES-128-GCM-SHA256
+        - TLS-DHE-DSS-WITH-AES-256-CBC-SHA256
+        - TLS-DHE-DSS-WITH-AES-256-GCM-SHA384
+        - TLS-ECDHE-RSA-WITH-AES-128-CBC-SHA
+        - TLS-ECDHE-RSA-WITH-AES-128-CBC-SHA256
+        - TLS-ECDHE-RSA-WITH-AES-128-GCM-SHA256
+        - TLS-ECDHE-RSA-WITH-AES-256-CBC-SHA
+        - TLS-ECDHE-RSA-WITH-AES-256-CBC-SHA384
+        - TLS-ECDHE-RSA-WITH-AES-256-GCM-SHA384
+        - TLS-ECDHE-ECDSA-WITH-AES-128-CBC-SHA
+        - TLS-ECDHE-ECDSA-WITH-AES-128-CBC-SHA256
+        - TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256
+        - TLS-ECDHE-ECDSA-WITH-AES-256-CBC-SHA
+        - TLS-ECDHE-ECDSA-WITH-AES-256-CBC-SHA384
+        - TLS-ECDHE-ECDSA-WITH-AES-256-GCM-SHA384
+        - TLS-RSA-WITH-AES-128-CBC-SHA
+        - TLS-RSA-WITH-AES-256-CBC-SHA
+        - TLS-RSA-WITH-AES-128-CBC-SHA256
+        - TLS-RSA-WITH-AES-128-GCM-SHA256
+        - TLS-RSA-WITH-AES-256-CBC-SHA256
+        - TLS-RSA-WITH-AES-256-GCM-SHA384
+        - TLS-RSA-WITH-CAMELLIA-128-CBC-SHA
+        - TLS-RSA-WITH-CAMELLIA-256-CBC-SHA
+        - TLS-RSA-WITH-CAMELLIA-128-CBC-SHA256
+        - TLS-RSA-WITH-CAMELLIA-256-CBC-SHA256
+        - TLS-DHE-RSA-WITH-3DES-EDE-CBC-SHA
+        - TLS-DHE-RSA-WITH-CAMELLIA-128-CBC-SHA
+        - TLS-DHE-DSS-WITH-CAMELLIA-128-CBC-SHA
+        - TLS-DHE-RSA-WITH-CAMELLIA-256-CBC-SHA
+        - TLS-DHE-DSS-WITH-CAMELLIA-256-CBC-SHA
+        - TLS-DHE-RSA-WITH-CAMELLIA-128-CBC-SHA256
+        - TLS-DHE-DSS-WITH-CAMELLIA-128-CBC-SHA256
+        - TLS-DHE-RSA-WITH-CAMELLIA-256-CBC-SHA256
+        - TLS-DHE-DSS-WITH-CAMELLIA-256-CBC-SHA256
+        - TLS-DHE-RSA-WITH-SEED-CBC-SHA
+        - TLS-DHE-DSS-WITH-SEED-CBC-SHA
+        - TLS-DHE-RSA-WITH-ARIA-128-CBC-SHA256
+        - TLS-DHE-RSA-WITH-ARIA-256-CBC-SHA384
+        - TLS-DHE-DSS-WITH-ARIA-128-CBC-SHA256
+        - TLS-DHE-DSS-WITH-ARIA-256-CBC-SHA384
+        - TLS-RSA-WITH-SEED-CBC-SHA
+        - TLS-RSA-WITH-ARIA-128-CBC-SHA256
+        - TLS-RSA-WITH-ARIA-256-CBC-SHA384
+        - TLS-ECDHE-RSA-WITH-ARIA-128-CBC-SHA256
+        - TLS-ECDHE-RSA-WITH-ARIA-256-CBC-SHA384
+        - TLS-ECDHE-ECDSA-WITH-ARIA-128-CBC-SHA256
+        - TLS-ECDHE-ECDSA-WITH-ARIA-256-CBC-SHA384
+        - TLS-ECDHE-RSA-WITH-RC4-128-SHA
+        - TLS-ECDHE-RSA-WITH-3DES-EDE-CBC-SHA
+        - TLS-DHE-DSS-WITH-3DES-EDE-CBC-SHA
+        - TLS-RSA-WITH-3DES-EDE-CBC-SHA
+        - TLS-RSA-WITH-RC4-128-MD5
+        - TLS-RSA-WITH-RC4-128-SHA
+        - TLS-DHE-RSA-WITH-DES-CBC-SHA
+        - TLS-DHE-DSS-WITH-DES-CBC-SHA
+        - TLS-RSA-WITH-DES-CBC-SHA
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Cipher suite name.
+      versions:
+        type: enum
+        raw_type: list
+        choices:
+        - ssl-3.0
+        - tls-1.0
+        - tls-1.1
+        - tls-1.2
+        - tls-1.3
+        multiple_values: true
+        elements: str
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: SSL/TLS versions that the cipher suite can be used with.
+  ssl_pfs:
+    type: enum
+    raw_type: string
+    choices:
+    - require
+    - deny
+    - allow
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Select the cipher suites that can be used for SSL perfect forward secrecy (PFS). Applies to both client and
+      server sessions.
+  ssl_min_version:
+    type: enum
+    raw_type: string
+    choices:
+    - ssl-3.0
+    - tls-1.0
+    - tls-1.1
+    - tls-1.2
+    - tls-1.3
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Lowest SSL/TLS version acceptable from a client.
+  ssl_max_version:
+    type: enum
+    raw_type: string
+    choices:
+    - ssl-3.0
+    - tls-1.0
+    - tls-1.1
+    - tls-1.2
+    - tls-1.3
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Highest SSL/TLS version acceptable from a client.
+  ssl_server_min_version:
+    type: enum
+    raw_type: string
+    choices:
+    - ssl-3.0
+    - tls-1.0
+    - tls-1.1
+    - tls-1.2
+    - tls-1.3
+    - client
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Lowest SSL/TLS version acceptable from a server. Use the client setting by default.
+  ssl_server_max_version:
+    type: enum
+    raw_type: string
+    choices:
+    - ssl-3.0
+    - tls-1.0
+    - tls-1.1
+    - tls-1.2
+    - tls-1.3
+    - client
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Highest SSL/TLS version acceptable from a server. Use the client setting by default.
+  ssl_accept_ffdhe_groups:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v7.0.4
+      - ''
+    description: Enable/disable FFDHE cipher suite for SSL key exchange.
+  ssl_send_empty_frags:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable sending empty fragments to avoid CBC IV attacks (SSL 3.0 & TLS 1.0 only). May need to be disabled
+      for compatibility with older systems.
+  ssl_client_fallback:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable support for preventing Downgrade Attacks on client connections (RFC 7507).
+  ssl_client_renegotiation:
+    type: enum
+    raw_type: string
+    choices:
+    - allow
+    - deny
+    - secure
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Allow, deny, or require secure renegotiation of client sessions to comply with RFC 5746.
+  ssl_client_session_state_type:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - time
+    - count
+    - both
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: How to expire SSL sessions for the segment of the SSL connection between the client and the FortiGate.
+  ssl_client_session_state_timeout:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Number of minutes to keep client to FortiGate SSL session state.
+  ssl_client_session_state_max:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Maximum number of client to FortiGate SSL session states to keep.
+  ssl_client_rekey_count:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: Maximum length of data in MB before triggering a client rekey (0 = disable).
+  ssl_server_renegotiation:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v7.2.4
+      - ''
+    description: Enable/disable secure renegotiation to comply with RFC 5746.
+  ssl_server_session_state_type:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - time
+    - count
+    - both
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: How to expire SSL sessions for the segment of the SSL connection between the server and the FortiGate.
+  ssl_server_session_state_timeout:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Number of minutes to keep FortiGate to Server SSL session state.
+  ssl_server_session_state_max:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Maximum number of FortiGate to Server SSL session states to keep.
+  ssl_http_location_conversion:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable to convert HTTP/HTTPS in the reply"s Location HTTP header field.
+  ssl_http_match_host:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable HTTP host matching for location conversion.
+  ssl_hpkp:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    - report-only
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable including HPKP header in response.
+  ssl_hpkp_primary:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Certificate to generate primary HPKP pin from. Source vpn.certificate.local.name vpn.certificate.ca.name.
+    references:
+    - vpn.certificate.ca.name
+    - vpn.certificate.local.name
+  ssl_hpkp_backup:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Certificate to generate backup HPKP pin from. Source vpn.certificate.local.name vpn.certificate.ca.name.
+    references:
+    - vpn.certificate.ca.name
+    - vpn.certificate.local.name
+  ssl_hpkp_age:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Number of seconds the client should honor the HPKP setting.
+  ssl_hpkp_report_uri:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: URL to report HPKP violations to.
+  ssl_hpkp_include_subdomains:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Indicate that HPKP header applies to all subdomains.
+  ssl_hsts:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable including HSTS header in response.
+  ssl_hsts_age:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Number of seconds the client should honor the HSTS setting.
+  ssl_hsts_include_subdomains:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Indicate that HSTS header applies to all subdomains.
+  monitor:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Name of the health check monitor to use when polling to determine a virtual server"s connectivity status.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Health monitor name. Source firewall.ldb-monitor.name.
+        references:
+        - firewall.ldb-monitor.name
+  max_embryonic_connections:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Maximum number of incomplete connections.
+  color:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Color of icon on the GUI.
+  ipv6_mappedip:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v7.0.1
+      - ''
+    description: Range of mapped IPv6 addresses. Specify the start IPv6 address followed by a space and the end IPv6 address.
+  ipv6_mappedport:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v7.0.1
+      - ''
+    description: IPv6 port number range on the destination network to which the external port number range is mapped.
+  one_click_gslb_server:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v7.4.2
+      - ''
+    description: Enable/disable one click GSLB server integration with FortiGSLB.
+  gslb_hostname:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v7.4.2
+      - ''
+    description: Hostname to use within the configured FortiGSLB domain.
+  gslb_domain_name:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v7.4.2
+      - ''
+    description: Domain to use when integrating with FortiGSLB.
+  gslb_public_ips:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v7.4.2
+      - ''
+    description: Publicly accessible IP addresses for the FortiGSLB service.
+    children:
+      index:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v7.4.2
+          - ''
+        description: Index of this public IP setting. see <a href='#notes'>Notes</a>.
+      ip:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.4.2
+          - ''
+        description: The publicly accessible IP address.

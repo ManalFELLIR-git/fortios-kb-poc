@@ -1,0 +1,616 @@
+id: webfilter.fortiguard
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  cache_mem_percent:
+    canonical:
+      type: integer
+      min: 1
+      max: 15
+      source_attribute: cache_mem_percent
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 15
+        source_attribute: cache_mem_percent
+    sources:
+    - terraform
+  cache_mem_permille:
+    canonical:
+      type: integer
+      version_ranges: &id001
+      - - v7.4.0
+        - ''
+      default: '1'
+      min: 1
+      max: 150
+      description: Maximum permille of available memory allocated to caching (1 - 150).
+      source_attribute: cache-mem-permille
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id001
+        description: Maximum permille of available memory allocated to caching (1 - 150).
+        source_attribute: cache_mem_permille
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 150
+        source_attribute: cache_mem_permille
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum permille of available memory allocated to caching (1 - 150).
+        default: '1'
+        min: 1
+        max: 150
+        source_attribute: cache-mem-permille
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cache_mode:
+    canonical:
+      type: enum
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      choices: &id002
+      - ttl
+      - db-ver
+      default: ttl
+      description: Cache entry expiration mode.
+      source_attribute: cache-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id002
+        version_ranges: *id003
+        description: Cache entry expiration mode.
+        source_attribute: cache_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cache_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Cache entry expiration mode.
+        default: ttl
+        source_attribute: cache-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cache_prefix_match:
+    canonical:
+      type: enum
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      choices: &id004
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable prefix matching in the cache.
+      source_attribute: cache-prefix-match
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id004
+        version_ranges: *id005
+        description: Enable/disable prefix matching in the cache.
+        source_attribute: cache_prefix_match
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cache_prefix_match
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable prefix matching in the cache.
+        default: enable
+        source_attribute: cache-prefix-match
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  close_ports:
+    canonical:
+      type: enum
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      choices: &id006
+      - enable
+      - disable
+      default: disable
+      description: Close ports used for HTTP/HTTPS override authentication and disable user overrides.
+      source_attribute: close-ports
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id006
+        version_ranges: *id007
+        description: Close ports used for HTTP/HTTPS override authentication and disable user overrides.
+        source_attribute: close_ports
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: close_ports
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Close ports used for HTTP/HTTPS override authentication and disable user overrides.
+        default: disable
+        source_attribute: close-ports
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  embed_image:
+    canonical:
+      type: enum
+      version_ranges: &id009
+      - - v7.2.4
+        - ''
+      choices: &id008
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable embedding images into replacement messages (default = enable).
+      source_attribute: embed-image
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id008
+        version_ranges: *id009
+        description: Enable/disable embedding images into replacement messages .
+        source_attribute: embed_image
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: embed_image
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable embedding images into replacement messages (default = enable).
+        default: enable
+        source_attribute: embed-image
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ovrd_auth_https:
+    canonical:
+      type: enum
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      choices: &id010
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable use of HTTPS for override authentication.
+      source_attribute: ovrd-auth-https
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id011
+        description: Enable/disable use of HTTPS for override authentication.
+        source_attribute: ovrd_auth_https
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ovrd_auth_https
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of HTTPS for override authentication.
+        default: enable
+        source_attribute: ovrd-auth-https
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ovrd_auth_port:
+    canonical:
+      type: integer
+      min: 0
+      max: 65535
+      source_attribute: ovrd_auth_port
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: ovrd_auth_port
+    sources:
+    - terraform
+  ovrd_auth_port_http:
+    canonical:
+      type: integer
+      version_ranges: &id012
+      - - v6.0.0
+        - ''
+      default: '8008'
+      min: 0
+      max: 65535
+      description: Port to use for FortiGuard Web Filter HTTP override authentication.
+      source_attribute: ovrd-auth-port-http
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id012
+        description: Port to use for FortiGuard Web Filter HTTP override authentication.
+        source_attribute: ovrd_auth_port_http
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: ovrd_auth_port_http
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port to use for FortiGuard Web Filter HTTP override authentication.
+        default: '8008'
+        min: 0
+        max: 65535
+        source_attribute: ovrd-auth-port-http
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ovrd_auth_port_https:
+    canonical:
+      type: integer
+      version_ranges: &id013
+      - - v6.0.0
+        - ''
+      default: '8010'
+      min: 0
+      max: 65535
+      description: Port to use for FortiGuard Web Filter HTTPS override authentication in proxy mode.
+      source_attribute: ovrd-auth-port-https
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id013
+        description: Port to use for FortiGuard Web Filter HTTPS override authentication in proxy mode.
+        source_attribute: ovrd_auth_port_https
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: ovrd_auth_port_https
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port to use for FortiGuard Web Filter HTTPS override authentication in proxy mode.
+        default: '8010'
+        min: 0
+        max: 65535
+        source_attribute: ovrd-auth-port-https
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ovrd_auth_port_https_flow:
+    canonical:
+      type: integer
+      version_ranges: &id014
+      - - v6.2.0
+        - ''
+      default: '8015'
+      min: 0
+      max: 65535
+      description: Port to use for FortiGuard Web Filter HTTPS override authentication in flow mode.
+      source_attribute: ovrd-auth-port-https-flow
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id014
+        description: Port to use for FortiGuard Web Filter HTTPS override authentication in flow mode.
+        source_attribute: ovrd_auth_port_https_flow
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: ovrd_auth_port_https_flow
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port to use for FortiGuard Web Filter HTTPS override authentication in flow mode.
+        default: '8015'
+        min: 0
+        max: 65535
+        source_attribute: ovrd-auth-port-https-flow
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ovrd_auth_port_warning:
+    canonical:
+      type: integer
+      version_ranges: &id015
+      - - v6.0.0
+        - ''
+      default: '8020'
+      min: 0
+      max: 65535
+      description: Port to use for FortiGuard Web Filter Warning override authentication.
+      source_attribute: ovrd-auth-port-warning
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id015
+        description: Port to use for FortiGuard Web Filter Warning override authentication.
+        source_attribute: ovrd_auth_port_warning
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: ovrd_auth_port_warning
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port to use for FortiGuard Web Filter Warning override authentication.
+        default: '8020'
+        min: 0
+        max: 65535
+        source_attribute: ovrd-auth-port-warning
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  request_packet_size_limit:
+    canonical:
+      type: integer
+      version_ranges: &id016
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 576
+      max: 10000
+      description: Limit size of URL request packets sent to FortiGuard server (0 for default).
+      source_attribute: request-packet-size-limit
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id016
+        description: Limit size of URL request packets sent to FortiGuard server (0 for default).
+        source_attribute: request_packet_size_limit
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 576
+        max: 10000
+        source_attribute: request_packet_size_limit
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Limit size of URL request packets sent to FortiGuard server (0 for default).
+        default: '0'
+        min: 576
+        max: 10000
+        source_attribute: request-packet-size-limit
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  warn_auth_https:
+    canonical:
+      type: enum
+      version_ranges: &id018
+      - - v6.0.0
+        - ''
+      choices: &id017
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable use of HTTPS for warning and authentication.
+      source_attribute: warn-auth-https
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id017
+        version_ranges: *id018
+        description: Enable/disable use of HTTPS for warning and authentication.
+        source_attribute: warn_auth_https
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: warn_auth_https
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of HTTPS for warning and authentication.
+        default: enable
+        source_attribute: warn-auth-https
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts: []

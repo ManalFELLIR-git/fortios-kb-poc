@@ -1,0 +1,462 @@
+id: vpn.l2tp
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  compress:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.2.0
+        - v6.2.0
+      - - v6.2.5
+        - ''
+      choices: &id001
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable data compression.
+      source_attribute: compress
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable data compression.
+        source_attribute: compress
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: compress
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable data compression.
+        default: disable
+        source_attribute: compress
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  eip:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: End IP.
+      source_attribute: eip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: End IP.
+        source_attribute: eip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: eip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: End IP.
+        default: 0.0.0.0
+        source_attribute: eip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id004
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id004
+  enforce_ipsec:
+    canonical:
+      type: enum
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      choices: &id005
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable IPsec enforcement.
+      source_attribute: enforce-ipsec
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Enable/disable IPsec enforcement.
+        source_attribute: enforce_ipsec
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: enforce_ipsec
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable IPsec enforcement.
+        default: disable
+        source_attribute: enforce-ipsec
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  hello_interval:
+    canonical:
+      type: integer
+      version_ranges: &id007
+      - - v7.0.1
+        - ''
+      default: '60'
+      min: 0
+      max: 3600
+      description: L2TP hello message interval in seconds (0 - 3600 sec, default = 60).
+      source_attribute: hello-interval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id007
+        description: L2TP hello message interval in seconds (0 - 3600 sec).
+        source_attribute: hello_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 3600
+        source_attribute: hello_interval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: L2TP hello message interval in seconds (0 - 3600 sec, default = 60).
+        default: '60'
+        min: 0
+        max: 3600
+        source_attribute: hello-interval
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  lcp_echo_interval:
+    canonical:
+      type: integer
+      version_ranges: &id008
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      default: '5'
+      min: 0
+      max: 32767
+      description: Time in seconds between PPPoE Link Control Protocol (LCP) echo requests.
+      source_attribute: lcp-echo-interval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id008
+        description: Time in seconds between PPPoE Link Control Protocol (LCP) echo requests.
+        source_attribute: lcp_echo_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 32767
+        source_attribute: lcp_echo_interval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time in seconds between PPPoE Link Control Protocol (LCP) echo requests.
+        default: '5'
+        min: 0
+        max: 32767
+        source_attribute: lcp-echo-interval
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  lcp_max_echo_fails:
+    canonical:
+      type: integer
+      version_ranges: &id009
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      default: '3'
+      min: 0
+      max: 32767
+      description: Maximum number of missed LCP echo messages before disconnect.
+      source_attribute: lcp-max-echo-fails
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id009
+        description: Maximum number of missed LCP echo messages before disconnect.
+        source_attribute: lcp_max_echo_fails
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 32767
+        source_attribute: lcp_max_echo_fails
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum number of missed LCP echo messages before disconnect.
+        default: '3'
+        min: 0
+        max: 32767
+        source_attribute: lcp-max-echo-fails
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sip:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id010
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: Start IP.
+      source_attribute: sip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id010
+        description: Start IP.
+        source_attribute: sip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Start IP.
+        default: 0.0.0.0
+        source_attribute: sip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id011
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id011
+  status:
+    canonical:
+      type: enum
+      required: true
+      version_ranges: &id013
+      - - v6.0.0
+        - ''
+      choices: &id012
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable FortiGate as a L2TP gateway.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id012
+        version_ranges: *id013
+        description: Enable/disable FortiGate as a L2TP gateway.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable FortiGate as a L2TP gateway.
+        default: disable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  usrgrp:
+    canonical:
+      type: string
+      references: &id015
+      - user.group.name
+      version_ranges: &id014
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: User group.
+      source_attribute: usrgrp
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: User group. Source user.group.name.
+        references: *id015
+        source_attribute: usrgrp
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: usrgrp
+      cli_reference:
+        type: string
+        raw_type: string
+        description: User group.
+        max_length: 35
+        source_attribute: usrgrp
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: eip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: sip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict

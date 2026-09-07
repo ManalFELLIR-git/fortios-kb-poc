@@ -1,0 +1,1509 @@
+id: user.domain-controller
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  ad_mode:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.0.0
+        - ''
+      choices: &id001
+      - none
+      - ds
+      - lds
+      default: none
+      description: Set Active Directory mode.
+      source_attribute: ad-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Set Active Directory mode.
+        source_attribute: ad_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ad_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Set Active Directory mode.
+        default: none
+        source_attribute: ad-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  adlds_dn:
+    canonical:
+      type: string
+      version_ranges: &id003
+      - - v7.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: AD LDS distinguished name.
+      source_attribute: adlds-dn
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: AD LDS distinguished name.
+        source_attribute: adlds_dn
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: adlds_dn
+      cli_reference:
+        type: string
+        raw_type: string
+        description: AD LDS distinguished name.
+        max_length: 255
+        source_attribute: adlds-dn
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  adlds_ip6:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id004
+      - - v7.0.0
+        - ''
+      default: '::'
+      description: AD LDS IPv6 address.
+      source_attribute: adlds-ip6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id004
+        description: AD LDS IPv6 address.
+        source_attribute: adlds_ip6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: adlds_ip6
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: AD LDS IPv6 address.
+        default: '::'
+        source_attribute: adlds-ip6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id005
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id005
+  adlds_ip_address:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id006
+      - - v7.0.0
+        - ''
+      default: 0.0.0.0
+      description: AD LDS IPv4 address.
+      source_attribute: adlds-ip-address
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id006
+        description: AD LDS IPv4 address.
+        source_attribute: adlds_ip_address
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: adlds_ip_address
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: AD LDS IPv4 address.
+        default: 0.0.0.0
+        source_attribute: adlds-ip-address
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id007
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id007
+  adlds_port:
+    canonical:
+      type: integer
+      version_ranges: &id008
+      - - v7.0.0
+        - ''
+      default: '389'
+      min: 0
+      max: 65535
+      description: Port number of AD LDS service (default = 389).
+      source_attribute: adlds-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id008
+        description: Port number of AD LDS service .
+        source_attribute: adlds_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: adlds_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port number of AD LDS service (default = 389).
+        default: '389'
+        min: 0
+        max: 65535
+        source_attribute: adlds-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  change_detection:
+    canonical:
+      type: enum
+      version_ranges: &id010
+      - - v7.4.0
+        - ''
+      choices: &id009
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable detection of a configuration change in the Active Directory server.
+      source_attribute: change-detection
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id010
+        description: Enable/disable detection of a configuration change in the Active Directory server.
+        source_attribute: change_detection
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: change_detection
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable detection of a configuration change in the Active Directory server.
+        default: disable
+        source_attribute: change-detection
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  change_detection_period:
+    canonical:
+      type: integer
+      version_ranges: &id011
+      - - v7.4.0
+        - ''
+      default: '60'
+      min: 5
+      max: 10080
+      description: Minutes to detect a configuration change in the Active Directory server (5 - 10080 minutes (7 days), default
+        = 60).
+      source_attribute: change-detection-period
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id011
+        description: Minutes to detect a configuration change in the Active Directory server (5 - 10080 minutes (7 days)).
+        source_attribute: change_detection_period
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 5
+        max: 10080
+        source_attribute: change_detection_period
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Minutes to detect a configuration change in the Active Directory server (5 - 10080 minutes (7 days),
+          default = 60).
+        default: '60'
+        min: 5
+        max: 10080
+        source_attribute: change-detection-period
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dns_srv_lookup:
+    canonical:
+      type: enum
+      version_ranges: &id013
+      - - v7.0.0
+        - ''
+      choices: &id012
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable DNS service lookup.
+      source_attribute: dns-srv-lookup
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id012
+        version_ranges: *id013
+        description: Enable/disable DNS service lookup.
+        source_attribute: dns_srv_lookup
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dns_srv_lookup
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable DNS service lookup.
+        default: disable
+        source_attribute: dns-srv-lookup
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  domain_name:
+    canonical:
+      type: string
+      version_ranges: &id014
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Domain DNS name.
+      source_attribute: domain-name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: Domain DNS name.
+        source_attribute: domain_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: domain_name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Domain DNS name.
+        max_length: 255
+        source_attribute: domain-name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  extra_server:
+    canonical:
+      type: list
+      elements: dict
+      children: &id016
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id017
+          - - v6.2.0
+            - ''
+          description: Server ID. see <a href='#notes'>Notes</a>.
+        ip_address:
+          type: string
+          raw_type: string
+          version_ranges: &id018
+          - - v6.2.0
+            - ''
+          description: Domain controller IP address.
+        port:
+          type: integer
+          raw_type: integer
+          version_ranges: &id019
+          - - v6.2.0
+            - ''
+          description: Port to be used for communication with the domain controller .
+        source_ip_address:
+          type: string
+          raw_type: string
+          version_ranges: &id020
+          - - v7.0.0
+            - ''
+          description: FortiGate IPv4 address to be used for communication with the domain controller.
+        source_port:
+          type: integer
+          raw_type: integer
+          version_ranges: &id021
+          - - v7.0.0
+            - ''
+          description: Source port to be used for communication with the domain controller.
+      version_ranges: &id015
+      - - v6.2.0
+        - ''
+      description: Extra servers.
+      source_attribute: extra_server
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id015
+        description: Extra servers.
+        children: *id016
+        source_attribute: extra_server
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 100
+          ip_address:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          port:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 65535
+          source_ip_address:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          source_port:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 65535
+        source_attribute: extra_server
+    sources:
+    - ansible
+    - terraform
+  extra_server.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id017
+      min: 1
+      max: 100
+      description: Server ID. see <a href='#notes'>Notes</a>.
+      source_attribute: extra_server.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id017
+        description: Server ID. see <a href='#notes'>Notes</a>.
+        source_attribute: extra_server.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 100
+        source_attribute: extra_server.id
+    sources:
+    - ansible
+    - terraform
+  extra_server.ip_address:
+    canonical:
+      type: string
+      version_ranges: *id018
+      description: Domain controller IP address.
+      source_attribute: extra_server.ip_address
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id018
+        description: Domain controller IP address.
+        source_attribute: extra_server.ip_address
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: extra_server.ip_address
+    sources:
+    - ansible
+    - terraform
+  extra_server.port:
+    canonical:
+      type: integer
+      version_ranges: *id019
+      min: 0
+      max: 65535
+      description: Port to be used for communication with the domain controller .
+      source_attribute: extra_server.port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id019
+        description: Port to be used for communication with the domain controller .
+        source_attribute: extra_server.port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: extra_server.port
+    sources:
+    - ansible
+    - terraform
+  extra_server.source_ip_address:
+    canonical:
+      type: string
+      version_ranges: *id020
+      description: FortiGate IPv4 address to be used for communication with the domain controller.
+      source_attribute: extra_server.source_ip_address
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id020
+        description: FortiGate IPv4 address to be used for communication with the domain controller.
+        source_attribute: extra_server.source_ip_address
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: extra_server.source_ip_address
+    sources:
+    - ansible
+    - terraform
+  extra_server.source_port:
+    canonical:
+      type: integer
+      version_ranges: *id021
+      min: 0
+      max: 65535
+      description: Source port to be used for communication with the domain controller.
+      source_attribute: extra_server.source_port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id021
+        description: Source port to be used for communication with the domain controller.
+        source_attribute: extra_server.source_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: extra_server.source_port
+    sources:
+    - ansible
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  hostname:
+    canonical:
+      type: string
+      version_ranges: &id022
+      - - v7.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Hostname of the server to connect to.
+      source_attribute: hostname
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id022
+        description: Hostname of the server to connect to.
+        source_attribute: hostname
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: hostname
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Hostname of the server to connect to.
+        max_length: 255
+        source_attribute: hostname
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface:
+    canonical:
+      type: string
+      references: &id024
+      - system.interface.name
+      version_ranges: &id023
+      - - v7.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Specify outgoing interface to reach server.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id023
+        description: Specify outgoing interface to reach server. Source system.interface.name.
+        references: *id024
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Specify outgoing interface to reach server.
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface_select_method:
+    canonical:
+      type: enum
+      version_ranges: &id026
+      - - v7.0.0
+        - ''
+      choices: &id025
+      - auto
+      - sdwan
+      - specify
+      default: auto
+      description: Specify how to select outgoing interface to reach server.
+      source_attribute: interface-select-method
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id025
+        version_ranges: *id026
+        description: Specify how to select outgoing interface to reach server.
+        source_attribute: interface_select_method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface_select_method
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Specify how to select outgoing interface to reach server.
+        default: auto
+        source_attribute: interface-select-method
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ip6:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id027
+      - - v7.0.0
+        - ''
+      default: '::'
+      description: Domain controller IPv6 address.
+      source_attribute: ip6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id027
+        description: Domain controller IPv6 address.
+        source_attribute: ip6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ip6
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: Domain controller IPv6 address.
+        default: '::'
+        source_attribute: ip6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id028
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id028
+  ip_address:
+    canonical:
+      type: ipv4-address
+      required: true
+      version_ranges: &id029
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: Domain controller IPv4 address.
+      source_attribute: ip-address
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id029
+        description: Domain controller IPv4 address.
+        source_attribute: ip_address
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: ip_address
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Domain controller IPv4 address.
+        default: 0.0.0.0
+        source_attribute: ip-address
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id030
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id030
+  ldap_server:
+    canonical:
+      type: list
+      elements: dict
+      children: &id033
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id036
+          - - v6.4.4
+            - ''
+          description: LDAP server name. Source user.ldap.name.
+          references: &id035
+          - user.ldap.name
+      references: &id032
+      - user.ldap.name
+      required: true
+      version_ranges: &id031
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: LDAP server name(s). LDAP server name.
+      source_attribute: ldap-server
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      references: ansible
+      required: terraform
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id031
+        description: LDAP server name(s). Source user.ldap.name.
+        references: *id032
+        children: *id033
+        source_attribute: ldap_server
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: ldap_server
+      cli_reference:
+        type: string
+        raw_type: string
+        description: LDAP server name(s). LDAP server name.
+        max_length: 79
+        source_attribute: ldap-server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id034
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id034
+  ldap_server.name:
+    canonical:
+      type: string
+      references: *id035
+      required: true
+      version_ranges: *id036
+      description: LDAP server name. Source user.ldap.name.
+      source_attribute: ldap_server.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id036
+        description: LDAP server name. Source user.ldap.name.
+        references: *id035
+        source_attribute: ldap_server.name
+    sources:
+    - ansible
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id037
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Domain controller entry name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id037
+        description: Domain controller entry name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Domain controller entry name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  password:
+    canonical:
+      type: password
+      version_ranges: &id038
+      - - v7.0.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: Password for specified username.
+      source_attribute: password
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id038
+        description: Password for specified username.
+        source_attribute: password
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: password
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Password for specified username.
+        source_attribute: password
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id039
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id039
+  port:
+    canonical:
+      type: integer
+      version_ranges: &id040
+      - - v6.0.0
+        - ''
+      default: '445'
+      min: 0
+      max: 65535
+      description: Port to be used for communication with the domain controller (default = 445).
+      source_attribute: port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id040
+        description: Port to be used for communication with the domain controller .
+        source_attribute: port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port to be used for communication with the domain controller (default = 445).
+        default: '445'
+        min: 0
+        max: 65535
+        source_attribute: port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  replication_port:
+    canonical:
+      type: integer
+      version_ranges: &id041
+      - - v7.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 65535
+      description: Port to be used for communication with the domain controller for replication service. Port number 0 indicates
+        automatic discovery.
+      source_attribute: replication-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id041
+        description: Port to be used for communication with the domain controller for replication service. Port number 0 indicates
+          automatic discovery.
+        source_attribute: replication_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: replication_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port to be used for communication with the domain controller for replication service. Port number 0 indicates
+          automatic discovery.
+        default: '0'
+        min: 0
+        max: 65535
+        source_attribute: replication-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source_ip6:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id042
+      - - v7.0.0
+        - ''
+      default: '::'
+      description: FortiGate IPv6 address to be used for communication with the domain controller.
+      source_attribute: source-ip6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id042
+        description: FortiGate IPv6 address to be used for communication with the domain controller.
+        source_attribute: source_ip6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_ip6
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: FortiGate IPv6 address to be used for communication with the domain controller.
+        default: '::'
+        source_attribute: source-ip6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id043
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id043
+  source_ip_address:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id044
+      - - v7.0.0
+        - ''
+      default: 0.0.0.0
+      description: FortiGate IPv4 address to be used for communication with the domain controller.
+      source_attribute: source-ip-address
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id044
+        description: FortiGate IPv4 address to be used for communication with the domain controller.
+        source_attribute: source_ip_address
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_ip_address
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: FortiGate IPv4 address to be used for communication with the domain controller.
+        default: 0.0.0.0
+        source_attribute: source-ip-address
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id045
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id045
+  source_port:
+    canonical:
+      type: integer
+      version_ranges: &id046
+      - - v7.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 65535
+      description: Source port to be used for communication with the domain controller.
+      source_attribute: source-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id046
+        description: Source port to be used for communication with the domain controller.
+        source_attribute: source_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: source_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Source port to be used for communication with the domain controller.
+        default: '0'
+        min: 0
+        max: 65535
+        source_attribute: source-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  username:
+    canonical:
+      type: string
+      version_ranges: &id047
+      - - v7.0.0
+        - ''
+      min_length: 0
+      max_length: 64
+      description: User name to sign in with. Must have proper permissions for service.
+      source_attribute: username
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id047
+        description: User name to sign in with. Must have proper permissions for service.
+        source_attribute: username
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 64
+        source_attribute: username
+      cli_reference:
+        type: string
+        raw_type: string
+        description: User name to sign in with. Must have proper permissions for service.
+        max_length: 64
+        source_attribute: username
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: adlds_ip6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict
+- attribute: adlds_ip_address
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: ip6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict
+- attribute: ip_address
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: ldap_server
+  field: type
+  values:
+    ansible: list
+    terraform: string
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: password
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict
+- attribute: source_ip6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict
+- attribute: source_ip_address
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict

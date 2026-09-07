@@ -1,0 +1,775 @@
+id: wanopt.cache-service
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  acceptable_connections:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - any
+      - peers
+      default: any
+      description: Set strategy when accepting cache collaboration connection.
+      source_attribute: acceptable-connections
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Set strategy when accepting cache collaboration connection.
+        source_attribute: acceptable_connections
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: acceptable_connections
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Set strategy when accepting cache collaboration connection.
+        default: any
+        source_attribute: acceptable-connections
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  collaboration:
+    canonical:
+      type: enum
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      choices: &id003
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable cache-collaboration between cache-service clusters.
+      source_attribute: collaboration
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: Enable/disable cache-collaboration between cache-service clusters.
+        source_attribute: collaboration
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: collaboration
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable cache-collaboration between cache-service clusters.
+        default: disable
+        source_attribute: collaboration
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  device_id:
+    canonical:
+      type: string
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      default: default_dev_id
+      min_length: 0
+      max_length: 35
+      description: Set identifier for this cache device.
+      source_attribute: device-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: Set identifier for this cache device.
+        source_attribute: device_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 35
+        source_attribute: device_id
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Set identifier for this cache device.
+        default: default_dev_id
+        max_length: 35
+        source_attribute: device-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dst_peer:
+    canonical:
+      type: list
+      elements: dict
+      children: &id007
+        device_id:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id009
+          - - v6.0.0
+            - ''
+          description: Device ID of this peer.
+        auth_type:
+          type: integer
+          raw_type: integer
+          version_ranges: &id008
+          - - v6.0.0
+            - ''
+          description: Set authentication type for this peer.
+        encode_type:
+          type: integer
+          raw_type: integer
+          version_ranges: &id010
+          - - v6.0.0
+            - ''
+          description: Set encode type for this peer.
+        priority:
+          type: integer
+          raw_type: integer
+          version_ranges: &id012
+          - - v6.0.0
+            - ''
+          description: Set priority for this peer.
+        ip:
+          type: string
+          raw_type: string
+          version_ranges: &id011
+          - - v6.0.0
+            - ''
+          description: Set cluster IP address of this peer.
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      description: Modify cache-service destination peer list.
+      source_attribute: dst_peer
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id006
+        description: Modify cache-service destination peer list.
+        children: *id007
+        source_attribute: dst_peer
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          device_id:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          auth_type:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 255
+          encode_type:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 255
+          priority:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 255
+          ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: dst_peer
+    sources:
+    - ansible
+    - terraform
+  dst_peer.auth_type:
+    canonical:
+      type: integer
+      version_ranges: *id008
+      min: 0
+      max: 255
+      description: Set authentication type for this peer.
+      source_attribute: dst_peer.auth_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id008
+        description: Set authentication type for this peer.
+        source_attribute: dst_peer.auth_type
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: dst_peer.auth_type
+    sources:
+    - ansible
+    - terraform
+  dst_peer.device_id:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id009
+      min_length: 0
+      max_length: 35
+      description: Device ID of this peer.
+      source_attribute: dst_peer.device_id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id009
+        description: Device ID of this peer.
+        source_attribute: dst_peer.device_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: dst_peer.device_id
+    sources:
+    - ansible
+    - terraform
+  dst_peer.encode_type:
+    canonical:
+      type: integer
+      version_ranges: *id010
+      min: 0
+      max: 255
+      description: Set encode type for this peer.
+      source_attribute: dst_peer.encode_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id010
+        description: Set encode type for this peer.
+        source_attribute: dst_peer.encode_type
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: dst_peer.encode_type
+    sources:
+    - ansible
+    - terraform
+  dst_peer.ip:
+    canonical:
+      type: string
+      version_ranges: *id011
+      description: Set cluster IP address of this peer.
+      source_attribute: dst_peer.ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: Set cluster IP address of this peer.
+        source_attribute: dst_peer.ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dst_peer.ip
+    sources:
+    - ansible
+    - terraform
+  dst_peer.priority:
+    canonical:
+      type: integer
+      version_ranges: *id012
+      min: 0
+      max: 255
+      description: Set priority for this peer.
+      source_attribute: dst_peer.priority
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id012
+        description: Set priority for this peer.
+        source_attribute: dst_peer.priority
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 255
+        source_attribute: dst_peer.priority
+    sources:
+    - ansible
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  prefer_scenario:
+    canonical:
+      type: enum
+      version_ranges: &id014
+      - - v6.0.0
+        - ''
+      choices: &id013
+      - balance
+      - prefer-speed
+      - prefer-cache
+      default: balance
+      description: Set the preferred cache behavior towards the balance between latency and hit-ratio.
+      source_attribute: prefer-scenario
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id014
+        description: Set the preferred cache behavior towards the balance between latency and hit-ratio.
+        source_attribute: prefer_scenario
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: prefer_scenario
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Set the preferred cache behavior towards the balance between latency and hit-ratio.
+        default: balance
+        source_attribute: prefer-scenario
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  src_peer:
+    canonical:
+      type: list
+      elements: dict
+      children: &id016
+        device_id:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id018
+          - - v6.0.0
+            - ''
+          description: Device ID of this peer.
+        auth_type:
+          type: integer
+          raw_type: integer
+          version_ranges: &id017
+          - - v6.0.0
+            - ''
+          description: Set authentication type for this peer.
+        encode_type:
+          type: integer
+          raw_type: integer
+          version_ranges: &id019
+          - - v6.0.0
+            - ''
+          description: Set encode type for this peer.
+        priority:
+          type: integer
+          raw_type: integer
+          version_ranges: &id021
+          - - v6.0.0
+            - ''
+          description: Set priority for this peer.
+        ip:
+          type: string
+          raw_type: string
+          version_ranges: &id020
+          - - v6.0.0
+            - ''
+          description: Set cluster IP address of this peer.
+      version_ranges: &id015
+      - - v6.0.0
+        - ''
+      description: Modify cache-service source peer list.
+      source_attribute: src_peer
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id015
+        description: Modify cache-service source peer list.
+        children: *id016
+        source_attribute: src_peer
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          device_id:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          auth_type:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 255
+          encode_type:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 255
+          priority:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 255
+          ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: src_peer
+    sources:
+    - ansible
+    - terraform
+  src_peer.auth_type:
+    canonical:
+      type: integer
+      version_ranges: *id017
+      min: 0
+      max: 255
+      description: Set authentication type for this peer.
+      source_attribute: src_peer.auth_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id017
+        description: Set authentication type for this peer.
+        source_attribute: src_peer.auth_type
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: src_peer.auth_type
+    sources:
+    - ansible
+    - terraform
+  src_peer.device_id:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id018
+      min_length: 0
+      max_length: 35
+      description: Device ID of this peer.
+      source_attribute: src_peer.device_id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id018
+        description: Device ID of this peer.
+        source_attribute: src_peer.device_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: src_peer.device_id
+    sources:
+    - ansible
+    - terraform
+  src_peer.encode_type:
+    canonical:
+      type: integer
+      version_ranges: *id019
+      min: 0
+      max: 255
+      description: Set encode type for this peer.
+      source_attribute: src_peer.encode_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id019
+        description: Set encode type for this peer.
+        source_attribute: src_peer.encode_type
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: src_peer.encode_type
+    sources:
+    - ansible
+    - terraform
+  src_peer.ip:
+    canonical:
+      type: string
+      version_ranges: *id020
+      description: Set cluster IP address of this peer.
+      source_attribute: src_peer.ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id020
+        description: Set cluster IP address of this peer.
+        source_attribute: src_peer.ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: src_peer.ip
+    sources:
+    - ansible
+    - terraform
+  src_peer.priority:
+    canonical:
+      type: integer
+      version_ranges: *id021
+      min: 0
+      max: 255
+      description: Set priority for this peer.
+      source_attribute: src_peer.priority
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id021
+        description: Set priority for this peer.
+        source_attribute: src_peer.priority
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 255
+        source_attribute: src_peer.priority
+    sources:
+    - ansible
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

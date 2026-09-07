@@ -1,0 +1,1168 @@
+id: dlp.sensor
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Optional comments.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Optional comments.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Optional comments.
+        max_length: 255
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dlp_log:
+    canonical:
+      type: string
+      source_attribute: dlp_log
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dlp_log
+    sources:
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  entries:
+    canonical:
+      type: list
+      elements: dict
+      children: &id003
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id007
+          - - v7.2.0
+            - ''
+          description: ID. see <a href='#notes'>Notes</a>.
+        dictionary:
+          type: string
+          raw_type: string
+          version_ranges: &id006
+          - - v7.2.0
+            - ''
+          description: Select a DLP dictionary or exact-data-match. Source dlp.dictionary.name dlp.exact-data-match.name.
+          references: &id005
+          - dlp.dictionary.name
+          - dlp.exact-data-match.name
+        count:
+          type: integer
+          raw_type: integer
+          version_ranges: &id004
+          - - v7.2.0
+            - ''
+          description: Count of dictionary matches to trigger sensor entry match (Dictionary might not be able to trigger
+            more than once based on its "repeat" option, 1 - 255).
+        status:
+          type: enum
+          raw_type: string
+          choices: &id009
+          - enable
+          - disable
+          version_ranges: &id008
+          - - v7.2.0
+            - ''
+          description: Enable/disable this entry.
+      version_ranges: &id002
+      - - v7.2.0
+        - ''
+      description: DLP sensor entries.
+      source_attribute: entries
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id002
+        description: DLP sensor entries.
+        children: *id003
+        source_attribute: entries
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 32
+          dictionary:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          count:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 255
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: entries
+    sources:
+    - ansible
+    - terraform
+  entries.count:
+    canonical:
+      type: integer
+      version_ranges: *id004
+      min: 1
+      max: 255
+      description: Count of dictionary matches to trigger sensor entry match (Dictionary might not be able to trigger more
+        than once based on its "repeat" option, 1 - 255).
+      source_attribute: entries.count
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id004
+        description: Count of dictionary matches to trigger sensor entry match (Dictionary might not be able to trigger more
+          than once based on its "repeat" option, 1 - 255).
+        source_attribute: entries.count
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 255
+        source_attribute: entries.count
+    sources:
+    - ansible
+    - terraform
+  entries.dictionary:
+    canonical:
+      type: string
+      references: *id005
+      version_ranges: *id006
+      min_length: 0
+      max_length: 35
+      description: Select a DLP dictionary or exact-data-match. Source dlp.dictionary.name dlp.exact-data-match.name.
+      source_attribute: entries.dictionary
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id006
+        description: Select a DLP dictionary or exact-data-match. Source dlp.dictionary.name dlp.exact-data-match.name.
+        references: *id005
+        source_attribute: entries.dictionary
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: entries.dictionary
+    sources:
+    - ansible
+    - terraform
+  entries.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id007
+      min: 1
+      max: 32
+      description: ID. see <a href='#notes'>Notes</a>.
+      source_attribute: entries.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id007
+        description: ID. see <a href='#notes'>Notes</a>.
+        source_attribute: entries.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 32
+        source_attribute: entries.id
+    sources:
+    - ansible
+    - terraform
+  entries.status:
+    canonical:
+      type: enum
+      version_ranges: *id008
+      choices: *id009
+      description: Enable/disable this entry.
+      source_attribute: entries.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id008
+        description: Enable/disable this entry.
+        source_attribute: entries.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.status
+    sources:
+    - ansible
+    - terraform
+  eval:
+    canonical:
+      type: string
+      version_ranges: &id010
+      - - v7.2.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Expression to evaluate.
+      source_attribute: eval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id010
+        description: Expression to evaluate.
+        source_attribute: eval
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: eval
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Expression to evaluate.
+        max_length: 255
+        source_attribute: eval
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  extended_log:
+    canonical:
+      type: string
+      source_attribute: extended_log
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: extended_log
+    sources:
+    - terraform
+  fabric_force_sync:
+    canonical:
+      type: string
+      source_attribute: fabric_force_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_force_sync
+    sources:
+    - terraform
+  fabric_object:
+    canonical:
+      type: string
+      source_attribute: fabric_object
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object
+    sources:
+    - terraform
+  fabric_object_source:
+    canonical:
+      type: string
+      source_attribute: fabric_object_source
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object_source
+    sources:
+    - terraform
+  feature_set:
+    canonical:
+      type: string
+      source_attribute: feature_set
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: feature_set
+    sources:
+    - terraform
+  filter:
+    canonical:
+      type: list
+      children: &id011
+        id:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+          computed: true
+        name:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 35
+        severity:
+          type: string
+          raw_type: TypeString
+          optional: true
+          computed: true
+        type:
+          type: string
+          raw_type: TypeString
+          optional: true
+          computed: true
+        proto:
+          type: string
+          raw_type: TypeString
+          optional: true
+        filter_by:
+          type: string
+          raw_type: TypeString
+          optional: true
+          computed: true
+        file_size:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+          computed: true
+        company_identifier:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 35
+        sensitivity:
+          type: list
+          raw_type: TypeSet
+          optional: true
+          children: &id013
+            name:
+              type: string
+              raw_type: TypeString
+              optional: true
+              min_length: 0
+              max_length: 35
+        fp_sensitivity:
+          type: list
+          raw_type: TypeList
+          optional: true
+          children: &id012
+            name:
+              type: string
+              raw_type: TypeString
+              optional: true
+              min_length: 0
+              max_length: 35
+        match_percentage:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+          computed: true
+          min: 1
+          max: 100
+        file_type:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+        regexp:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 255
+        archive:
+          type: string
+          raw_type: TypeString
+          optional: true
+          computed: true
+        action:
+          type: string
+          raw_type: TypeString
+          optional: true
+          computed: true
+        expiry:
+          type: string
+          raw_type: TypeString
+          optional: true
+          computed: true
+      source_attribute: filter
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id011
+        source_attribute: filter
+    sources:
+    - terraform
+  filter.action:
+    canonical:
+      type: string
+      source_attribute: filter.action
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: filter.action
+    sources:
+    - terraform
+  filter.archive:
+    canonical:
+      type: string
+      source_attribute: filter.archive
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: filter.archive
+    sources:
+    - terraform
+  filter.company_identifier:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: filter.company_identifier
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: filter.company_identifier
+    sources:
+    - terraform
+  filter.expiry:
+    canonical:
+      type: string
+      source_attribute: filter.expiry
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: filter.expiry
+    sources:
+    - terraform
+  filter.file_size:
+    canonical:
+      type: integer
+      source_attribute: filter.file_size
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: filter.file_size
+    sources:
+    - terraform
+  filter.file_type:
+    canonical:
+      type: integer
+      source_attribute: filter.file_type
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: filter.file_type
+    sources:
+    - terraform
+  filter.filter_by:
+    canonical:
+      type: string
+      source_attribute: filter.filter_by
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: filter.filter_by
+    sources:
+    - terraform
+  filter.fp_sensitivity:
+    canonical:
+      type: list
+      children: *id012
+      source_attribute: filter.fp_sensitivity
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id012
+        source_attribute: filter.fp_sensitivity
+    sources:
+    - terraform
+  filter.fp_sensitivity.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: filter.fp_sensitivity.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: filter.fp_sensitivity.name
+    sources:
+    - terraform
+  filter.id:
+    canonical:
+      type: integer
+      source_attribute: filter.id
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: filter.id
+    sources:
+    - terraform
+  filter.match_percentage:
+    canonical:
+      type: integer
+      min: 1
+      max: 100
+      source_attribute: filter.match_percentage
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 100
+        source_attribute: filter.match_percentage
+    sources:
+    - terraform
+  filter.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: filter.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: filter.name
+    sources:
+    - terraform
+  filter.proto:
+    canonical:
+      type: string
+      source_attribute: filter.proto
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: filter.proto
+    sources:
+    - terraform
+  filter.regexp:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 255
+      source_attribute: filter.regexp
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: filter.regexp
+    sources:
+    - terraform
+  filter.sensitivity:
+    canonical:
+      type: list
+      children: *id013
+      source_attribute: filter.sensitivity
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id013
+        source_attribute: filter.sensitivity
+    sources:
+    - terraform
+  filter.sensitivity.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: filter.sensitivity.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: filter.sensitivity.name
+    sources:
+    - terraform
+  filter.severity:
+    canonical:
+      type: string
+      source_attribute: filter.severity
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: filter.severity
+    sources:
+    - terraform
+  filter.type:
+    canonical:
+      type: string
+      source_attribute: filter.type
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: filter.type
+    sources:
+    - terraform
+  flow_based:
+    canonical:
+      type: string
+      source_attribute: flow_based
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: flow_based
+    sources:
+    - terraform
+  full_archive_proto:
+    canonical:
+      type: string
+      source_attribute: full_archive_proto
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: full_archive_proto
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  match_type:
+    canonical:
+      type: enum
+      version_ranges: &id015
+      - - v7.2.0
+        - ''
+      choices: &id014
+      - match-all
+      - match-any
+      - match-eval
+      default: match-any
+      description: Logical relation between entries (default = match-any).
+      source_attribute: match-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id014
+        version_ranges: *id015
+        description: Logical relation between entries .
+        source_attribute: match_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: match_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Logical relation between entries (default = match-any).
+        default: match-any
+        source_attribute: match-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  nac_quar_log:
+    canonical:
+      type: string
+      source_attribute: nac_quar_log
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: nac_quar_log
+    sources:
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id016
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Name of table containing the sensor.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id016
+        description: Name of table containing the sensor.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of table containing the sensor.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  options:
+    canonical:
+      type: string
+      source_attribute: options
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: options
+    sources:
+    - terraform
+  replacemsg_group:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: replacemsg_group
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: replacemsg_group
+    sources:
+    - terraform
+  summary_proto:
+    canonical:
+      type: string
+      source_attribute: summary_proto
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: summary_proto
+    sources:
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  uuid:
+    canonical:
+      type: string
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

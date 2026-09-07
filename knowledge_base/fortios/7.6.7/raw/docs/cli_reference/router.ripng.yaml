@@ -1,0 +1,238 @@
+id: router.ripng
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/755030214/config-router-ripng
+attributes:
+  default-information-originate:
+    type: enum
+    raw_type: option
+    description: Enable/disable generation of default route.
+    default: disable
+  default-metric:
+    type: integer
+    raw_type: integer
+    description: Default metric.
+    default: '1'
+    min: 1
+    max: 16
+  garbage-timer:
+    type: integer
+    raw_type: integer
+    description: Garbage timer in seconds.
+    default: '120'
+    min: 5
+    max: 2147483647
+  max-out-metric:
+    type: integer
+    raw_type: integer
+    description: Maximum metric allowed to output(0 means 'not set').
+    default: '0'
+    min: 0
+    max: 15
+  passive-interface:
+    type: string
+    raw_type: string
+    description: Passive interface configuration. Passive interface name.
+    max_length: 79
+  timeout-timer:
+    type: integer
+    raw_type: integer
+    description: Timeout timer in seconds.
+    default: '180'
+    min: 5
+    max: 2147483647
+  update-timer:
+    type: integer
+    raw_type: integer
+    description: Update timer in seconds.
+    default: '30'
+    min: 5
+    max: 2147483647
+children:
+  aggregate-address:
+    attributes:
+      id:
+        type: integer
+        raw_type: integer
+        description: Aggregate address entry ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      prefix6:
+        type: ipv6-prefix
+        raw_type: ipv6-prefix
+        description: Aggregate address prefix.
+        default: ::/0
+  distance:
+    attributes:
+      access-list6:
+        type: string
+        raw_type: string
+        description: Access list for route destination.
+        max_length: 35
+      distance:
+        type: integer
+        raw_type: integer
+        description: Distance (1 - 255).
+        default: '0'
+        min: 1
+        max: 255
+      id:
+        type: integer
+        raw_type: integer
+        description: Distance ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      prefix6:
+        type: ipv6-prefix
+        raw_type: ipv6-prefix
+        description: Distance prefix6.
+        default: ::/0
+  distribute-list:
+    attributes:
+      direction:
+        type: enum
+        raw_type: option
+        description: Distribute list direction.
+        default: out
+      id:
+        type: integer
+        raw_type: integer
+        description: Distribute list ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      interface:
+        type: string
+        raw_type: string
+        description: Distribute list interface name.
+        max_length: 15
+      listname:
+        type: string
+        raw_type: string
+        description: Distribute access/prefix list name.
+        max_length: 35
+      status:
+        type: enum
+        raw_type: option
+        description: Status.
+        default: disable
+  interface:
+    attributes:
+      flags:
+        type: integer
+        raw_type: integer
+        description: Flags. Read-only.
+        default: '8'
+        min: 0
+        max: 255
+      name:
+        type: string
+        raw_type: string
+        description: Interface name.
+        max_length: 35
+      split-horizon:
+        type: enum
+        raw_type: option
+        description: Enable/disable split horizon.
+        default: poisoned
+      split-horizon-status:
+        type: enum
+        raw_type: option
+        description: Enable/disable split horizon.
+        default: enable
+  neighbor:
+    attributes:
+      id:
+        type: integer
+        raw_type: integer
+        description: Neighbor entry ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      interface:
+        type: string
+        raw_type: string
+        description: Interface name.
+        max_length: 15
+      ip6:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: IPv6 link-local address.
+        default: '::'
+  network:
+    attributes:
+      id:
+        type: integer
+        raw_type: integer
+        description: Network entry ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      prefix:
+        type: ipv6-prefix
+        raw_type: ipv6-prefix
+        description: Network IPv6 link-local prefix.
+        default: ::/0
+  offset-list:
+    attributes:
+      access-list6:
+        type: string
+        raw_type: string
+        description: IPv6 access list name.
+        max_length: 35
+      direction:
+        type: enum
+        raw_type: option
+        description: Offset list direction.
+        default: out
+      id:
+        type: integer
+        raw_type: integer
+        description: Offset-list ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      interface:
+        type: string
+        raw_type: string
+        description: Interface name.
+        max_length: 15
+      offset:
+        type: integer
+        raw_type: integer
+        description: Offset.
+        default: '0'
+        min: 1
+        max: 16
+      status:
+        type: enum
+        raw_type: option
+        description: Status.
+        default: enable
+  redistribute:
+    attributes:
+      metric:
+        type: integer
+        raw_type: integer
+        description: Redistribute metric setting.
+        default: '0'
+        min: 1
+        max: 16
+      name:
+        type: string
+        raw_type: string
+        description: Redistribute name.
+        max_length: 35
+      routemap:
+        type: string
+        raw_type: string
+        description: Route map name.
+        max_length: 35
+      status:
+        type: enum
+        raw_type: option
+        description: Status.
+        default: disable

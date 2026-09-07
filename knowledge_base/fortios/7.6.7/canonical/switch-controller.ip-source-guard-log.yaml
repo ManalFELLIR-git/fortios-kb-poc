@@ -1,0 +1,116 @@
+id: switch-controller.ip-source-guard-log
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  log_violations:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.6.4
+        - ''
+      choices: &id001
+      - enable
+      - disable
+      default: disable
+      description: Enable/Disable log violations for IP source guard logging.
+      source_attribute: log-violations
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/Disable log violations for IP source guard logging.
+        source_attribute: log_violations
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: log_violations
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/Disable log violations for IP source guard logging.
+        default: disable
+        source_attribute: log-violations
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  violation_timer:
+    canonical:
+      type: integer
+      version_ranges: &id003
+      - - v7.6.4
+        - ''
+      default: '0'
+      min: 0
+      max: 1500
+      description: IP source gurad log violation timer in seconds (0 - 1500, default = 0).
+      source_attribute: violation-timer
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id003
+        description: IP source gurad log violation timer in seconds (0 - 1500).
+        source_attribute: violation_timer
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 1500
+        source_attribute: violation_timer
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: IP source gurad log violation timer in seconds (0 - 1500, default = 0).
+        default: '0'
+        min: 0
+        max: 1500
+        source_attribute: violation-timer
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts: []

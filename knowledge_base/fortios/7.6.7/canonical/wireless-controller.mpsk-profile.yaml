@@ -1,0 +1,1140 @@
+id: wireless-controller.mpsk-profile
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  mpsk_concurrent_clients:
+    canonical:
+      type: integer
+      version_ranges: &id001
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      default: '0'
+      min: 0
+      max: 65535
+      description: Maximum number of concurrent clients that connect using the same passphrase in multiple PSK authentication
+        (0 - 65535, default = 0, meaning no limitation).
+      source_attribute: mpsk-concurrent-clients
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id001
+        description: Maximum number of concurrent clients that connect using the same passphrase in multiple PSK authentication
+          (0 - 65535).
+        source_attribute: mpsk_concurrent_clients
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: mpsk_concurrent_clients
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum number of concurrent clients that connect using the same passphrase in multiple PSK authentication
+          (0 - 65535, default = 0, meaning no limitation).
+        default: '0'
+        min: 0
+        max: 65535
+        source_attribute: mpsk-concurrent-clients
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  mpsk_external_server:
+    canonical:
+      type: string
+      references: &id003
+      - user.radius.name
+      version_ranges: &id002
+      - - v7.4.4
+        - ''
+      min_length: 0
+      max_length: 35
+      description: RADIUS server to be used to authenticate MPSK users.
+      source_attribute: mpsk-external-server
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id002
+        description: RADIUS server to be used to authenticate MPSK users. Source user.radius.name.
+        references: *id003
+        source_attribute: mpsk_external_server
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: mpsk_external_server
+      cli_reference:
+        type: string
+        raw_type: string
+        description: RADIUS server to be used to authenticate MPSK users.
+        max_length: 35
+        source_attribute: mpsk-external-server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  mpsk_external_server_auth:
+    canonical:
+      type: enum
+      version_ranges: &id005
+      - - v7.4.4
+        - ''
+      choices: &id004
+      - enable
+      - disable
+      default: disable
+      description: Enable/Disable MPSK external server authentication (default = disable).
+      source_attribute: mpsk-external-server-auth
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id004
+        version_ranges: *id005
+        description: Enable/Disable MPSK external server authentication .
+        source_attribute: mpsk_external_server_auth
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mpsk_external_server_auth
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/Disable MPSK external server authentication (default = disable).
+        default: disable
+        source_attribute: mpsk-external-server-auth
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  mpsk_group:
+    canonical:
+      type: list
+      elements: dict
+      children: &id007
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id029
+          - - v6.4.0
+            - v6.4.0
+          - - v6.4.4
+            - ''
+          description: MPSK group name.
+        vlan_type:
+          type: enum
+          raw_type: string
+          choices: &id032
+          - no-vlan
+          - fixed-vlan
+          version_ranges: &id031
+          - - v6.4.0
+            - v6.4.0
+          - - v6.4.4
+            - ''
+          description: MPSK group VLAN options.
+        vlan_id:
+          type: integer
+          raw_type: integer
+          version_ranges: &id030
+          - - v6.4.0
+            - v6.4.0
+          - - v6.4.4
+            - ''
+          description: Optional VLAN ID.
+        mpsk_key:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id009
+          - - v6.4.0
+            - v6.4.0
+          - - v6.4.4
+            - ''
+          description: List of multiple PSK entries.
+          children: &id008
+            name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id023
+              - - v6.4.0
+                - v6.4.0
+              - - v6.4.4
+                - ''
+              description: Pre-shared key name.
+            key_type:
+              type: enum
+              raw_type: string
+              choices: &id016
+              - wpa2-personal
+              - wpa3-sae
+              version_ranges: &id015
+              - - v7.4.4
+                - ''
+              description: Select the type of the key.
+            mac:
+              type: string
+              raw_type: string
+              version_ranges: &id017
+              - - v6.4.0
+                - v6.4.0
+              - - v6.4.4
+                - ''
+              description: MAC address.
+            passphrase:
+              type: string
+              raw_type: string
+              version_ranges: &id024
+              - - v6.4.0
+                - v6.4.0
+              - - v6.4.4
+                - ''
+              description: WPA Pre-shared key.
+            sae_password:
+              type: string
+              raw_type: string
+              version_ranges: &id025
+              - - v7.4.4
+                - ''
+              description: WPA3 SAE password.
+            sae_pk:
+              type: enum
+              raw_type: string
+              choices: &id027
+              - enable
+              - disable
+              version_ranges: &id026
+              - - v7.4.4
+                - ''
+              description: Enable/disable WPA3 SAE-PK .
+            sae_private_key:
+              type: string
+              raw_type: string
+              version_ranges: &id028
+              - - v7.4.4
+                - ''
+              description: Private key used for WPA3 SAE-PK authentication.
+            concurrent_client_limit_type:
+              type: enum
+              raw_type: string
+              choices: &id013
+              - default
+              - unlimited
+              - specified
+              version_ranges: &id012
+              - - v6.4.0
+                - v6.4.0
+              - - v6.4.4
+                - ''
+              description: MPSK client limit type options.
+            concurrent_clients:
+              type: integer
+              raw_type: integer
+              version_ranges: &id014
+              - - v6.4.0
+                - v6.4.0
+              - - v6.4.4
+                - ''
+              description: Number of clients that can connect using this pre-shared key (1 - 65535).
+            comment:
+              type: string
+              raw_type: string
+              version_ranges: &id011
+              - - v6.4.0
+                - v6.4.0
+              - - v6.4.4
+                - ''
+              description: Comment.
+            mpsk_schedules:
+              type: list
+              raw_type: list
+              elements: dict
+              version_ranges: &id019
+              - - v6.4.0
+                - v6.4.0
+              - - v6.4.4
+                - ''
+              description: Firewall schedule for MPSK passphrase. The passphrase will be effective only when at least one
+                schedule is valid.
+              children: &id018
+                name:
+                  type: string
+                  raw_type: string
+                  required: true
+                  version_ranges: &id022
+                  - - v6.4.0
+                    - v6.4.0
+                  - - v6.4.4
+                    - ''
+                  description: Schedule name. Source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime
+                    .name.
+                  references: &id021
+                  - firewall.schedule.group.name
+                  - firewall.schedule.onetime
+                  - firewall.schedule.recurring.name
+      version_ranges: &id006
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      description: List of multiple PSK groups.
+      source_attribute: mpsk_group
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id006
+        description: List of multiple PSK groups.
+        children: *id007
+        source_attribute: mpsk_group
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          vlan_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          vlan_id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 4094
+          mpsk_key:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id010
+              name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 35
+              key_type:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              mac:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              passphrase:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 128
+              sae_password:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 128
+              sae_pk:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              sae_private_key:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 359
+              concurrent_client_limit_type:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              concurrent_clients:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+                min: 1
+                max: 65535
+              comment:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 255
+              mpsk_schedules:
+                type: list
+                raw_type: TypeSet
+                optional: true
+                children: &id020
+                  name:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    min_length: 0
+                    max_length: 35
+        source_attribute: mpsk_group
+    sources:
+    - ansible
+    - terraform
+  mpsk_group.mpsk_key:
+    canonical:
+      type: list
+      elements: dict
+      children: *id008
+      version_ranges: *id009
+      description: List of multiple PSK entries.
+      source_attribute: mpsk_group.mpsk_key
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id009
+        description: List of multiple PSK entries.
+        children: *id008
+        source_attribute: mpsk_group.mpsk_key
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id010
+        source_attribute: mpsk_group.mpsk_key
+    sources:
+    - ansible
+    - terraform
+  mpsk_group.mpsk_key.comment:
+    canonical:
+      type: string
+      version_ranges: *id011
+      min_length: 0
+      max_length: 255
+      description: Comment.
+      source_attribute: mpsk_group.mpsk_key.comment
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: Comment.
+        source_attribute: mpsk_group.mpsk_key.comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: mpsk_group.mpsk_key.comment
+    sources:
+    - ansible
+    - terraform
+  mpsk_group.mpsk_key.concurrent_client_limit_type:
+    canonical:
+      type: enum
+      version_ranges: *id012
+      choices: *id013
+      description: MPSK client limit type options.
+      source_attribute: mpsk_group.mpsk_key.concurrent_client_limit_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id012
+        description: MPSK client limit type options.
+        source_attribute: mpsk_group.mpsk_key.concurrent_client_limit_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mpsk_group.mpsk_key.concurrent_client_limit_type
+    sources:
+    - ansible
+    - terraform
+  mpsk_group.mpsk_key.concurrent_clients:
+    canonical:
+      type: integer
+      version_ranges: *id014
+      min: 1
+      max: 65535
+      description: Number of clients that can connect using this pre-shared key (1 - 65535).
+      source_attribute: mpsk_group.mpsk_key.concurrent_clients
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id014
+        description: Number of clients that can connect using this pre-shared key (1 - 65535).
+        source_attribute: mpsk_group.mpsk_key.concurrent_clients
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: mpsk_group.mpsk_key.concurrent_clients
+    sources:
+    - ansible
+    - terraform
+  mpsk_group.mpsk_key.key_type:
+    canonical:
+      type: enum
+      version_ranges: *id015
+      choices: *id016
+      description: Select the type of the key.
+      source_attribute: mpsk_group.mpsk_key.key_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id016
+        version_ranges: *id015
+        description: Select the type of the key.
+        source_attribute: mpsk_group.mpsk_key.key_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mpsk_group.mpsk_key.key_type
+    sources:
+    - ansible
+    - terraform
+  mpsk_group.mpsk_key.mac:
+    canonical:
+      type: string
+      version_ranges: *id017
+      description: MAC address.
+      source_attribute: mpsk_group.mpsk_key.mac
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id017
+        description: MAC address.
+        source_attribute: mpsk_group.mpsk_key.mac
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mpsk_group.mpsk_key.mac
+    sources:
+    - ansible
+    - terraform
+  mpsk_group.mpsk_key.mpsk_schedules:
+    canonical:
+      type: list
+      elements: dict
+      children: *id018
+      version_ranges: *id019
+      description: Firewall schedule for MPSK passphrase. The passphrase will be effective only when at least one schedule
+        is valid.
+      source_attribute: mpsk_group.mpsk_key.mpsk_schedules
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id019
+        description: Firewall schedule for MPSK passphrase. The passphrase will be effective only when at least one schedule
+          is valid.
+        children: *id018
+        source_attribute: mpsk_group.mpsk_key.mpsk_schedules
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id020
+        source_attribute: mpsk_group.mpsk_key.mpsk_schedules
+    sources:
+    - ansible
+    - terraform
+  mpsk_group.mpsk_key.mpsk_schedules.name:
+    canonical:
+      type: string
+      references: *id021
+      required: true
+      version_ranges: *id022
+      min_length: 0
+      max_length: 35
+      description: Schedule name. Source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime
+        .name.
+      source_attribute: mpsk_group.mpsk_key.mpsk_schedules.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id022
+        description: Schedule name. Source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime
+          .name.
+        references: *id021
+        source_attribute: mpsk_group.mpsk_key.mpsk_schedules.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: mpsk_group.mpsk_key.mpsk_schedules.name
+    sources:
+    - ansible
+    - terraform
+  mpsk_group.mpsk_key.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id023
+      min_length: 0
+      max_length: 35
+      description: Pre-shared key name.
+      source_attribute: mpsk_group.mpsk_key.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id023
+        description: Pre-shared key name.
+        source_attribute: mpsk_group.mpsk_key.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: mpsk_group.mpsk_key.name
+    sources:
+    - ansible
+    - terraform
+  mpsk_group.mpsk_key.passphrase:
+    canonical:
+      type: string
+      version_ranges: *id024
+      min_length: 0
+      max_length: 128
+      description: WPA Pre-shared key.
+      source_attribute: mpsk_group.mpsk_key.passphrase
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id024
+        description: WPA Pre-shared key.
+        source_attribute: mpsk_group.mpsk_key.passphrase
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: mpsk_group.mpsk_key.passphrase
+    sources:
+    - ansible
+    - terraform
+  mpsk_group.mpsk_key.sae_password:
+    canonical:
+      type: string
+      version_ranges: *id025
+      min_length: 0
+      max_length: 128
+      description: WPA3 SAE password.
+      source_attribute: mpsk_group.mpsk_key.sae_password
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id025
+        description: WPA3 SAE password.
+        source_attribute: mpsk_group.mpsk_key.sae_password
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: mpsk_group.mpsk_key.sae_password
+    sources:
+    - ansible
+    - terraform
+  mpsk_group.mpsk_key.sae_pk:
+    canonical:
+      type: enum
+      version_ranges: *id026
+      choices: *id027
+      description: Enable/disable WPA3 SAE-PK .
+      source_attribute: mpsk_group.mpsk_key.sae_pk
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id027
+        version_ranges: *id026
+        description: Enable/disable WPA3 SAE-PK .
+        source_attribute: mpsk_group.mpsk_key.sae_pk
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mpsk_group.mpsk_key.sae_pk
+    sources:
+    - ansible
+    - terraform
+  mpsk_group.mpsk_key.sae_private_key:
+    canonical:
+      type: string
+      version_ranges: *id028
+      min_length: 0
+      max_length: 359
+      description: Private key used for WPA3 SAE-PK authentication.
+      source_attribute: mpsk_group.mpsk_key.sae_private_key
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id028
+        description: Private key used for WPA3 SAE-PK authentication.
+        source_attribute: mpsk_group.mpsk_key.sae_private_key
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 359
+        source_attribute: mpsk_group.mpsk_key.sae_private_key
+    sources:
+    - ansible
+    - terraform
+  mpsk_group.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id029
+      min_length: 0
+      max_length: 35
+      description: MPSK group name.
+      source_attribute: mpsk_group.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id029
+        description: MPSK group name.
+        source_attribute: mpsk_group.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: mpsk_group.name
+    sources:
+    - ansible
+    - terraform
+  mpsk_group.vlan_id:
+    canonical:
+      type: integer
+      version_ranges: *id030
+      min: 1
+      max: 4094
+      description: Optional VLAN ID.
+      source_attribute: mpsk_group.vlan_id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id030
+        description: Optional VLAN ID.
+        source_attribute: mpsk_group.vlan_id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 4094
+        source_attribute: mpsk_group.vlan_id
+    sources:
+    - ansible
+    - terraform
+  mpsk_group.vlan_type:
+    canonical:
+      type: enum
+      version_ranges: *id031
+      choices: *id032
+      description: MPSK group VLAN options.
+      source_attribute: mpsk_group.vlan_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id032
+        version_ranges: *id031
+        description: MPSK group VLAN options.
+        source_attribute: mpsk_group.vlan_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mpsk_group.vlan_type
+    sources:
+    - ansible
+    - terraform
+  mpsk_type:
+    canonical:
+      type: enum
+      version_ranges: &id034
+      - - v7.4.4
+        - ''
+      choices: &id033
+      - wpa2-personal
+      - wpa3-sae
+      - wpa3-sae-transition
+      default: wpa2-personal
+      description: Select the security type of keys for this profile.
+      source_attribute: mpsk-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id033
+        version_ranges: *id034
+        description: Select the security type of keys for this profile.
+        source_attribute: mpsk_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mpsk_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Select the security type of keys for this profile.
+        default: wpa2-personal
+        source_attribute: mpsk-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id035
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      min_length: 0
+      max_length: 35
+      description: MPSK profile name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id035
+        description: MPSK profile name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: MPSK profile name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

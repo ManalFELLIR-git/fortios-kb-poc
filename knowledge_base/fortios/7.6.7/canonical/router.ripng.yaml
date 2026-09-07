@@ -1,0 +1,2006 @@
+id: router.ripng
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  aggregate_address:
+    canonical:
+      type: list
+      elements: dict
+      children: &id002
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id003
+          - - v6.0.0
+            - ''
+          description: Aggregate address entry ID. see <a href='#notes'>Notes</a>.
+        prefix6:
+          type: string
+          raw_type: string
+          version_ranges: &id004
+          - - v6.0.0
+            - ''
+          description: Aggregate address prefix.
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      description: Aggregate address.
+      source_attribute: aggregate_address
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id001
+        description: Aggregate address.
+        children: *id002
+        source_attribute: aggregate_address
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          prefix6:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: aggregate_address
+    sources:
+    - ansible
+    - terraform
+  aggregate_address.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id003
+      description: Aggregate address entry ID. see <a href='#notes'>Notes</a>.
+      source_attribute: aggregate_address.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id003
+        description: Aggregate address entry ID. see <a href='#notes'>Notes</a>.
+        source_attribute: aggregate_address.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: aggregate_address.id
+    sources:
+    - ansible
+    - terraform
+  aggregate_address.prefix6:
+    canonical:
+      type: string
+      version_ranges: *id004
+      description: Aggregate address prefix.
+      source_attribute: aggregate_address.prefix6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id004
+        description: Aggregate address prefix.
+        source_attribute: aggregate_address.prefix6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: aggregate_address.prefix6
+    sources:
+    - ansible
+    - terraform
+  default_information_originate:
+    canonical:
+      type: enum
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      choices: &id005
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable generation of default route.
+      source_attribute: default-information-originate
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Enable/disable generation of default route.
+        source_attribute: default_information_originate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: default_information_originate
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable generation of default route.
+        default: disable
+        source_attribute: default-information-originate
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  default_metric:
+    canonical:
+      type: integer
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      default: '1'
+      min: 1
+      max: 16
+      description: Default metric.
+      source_attribute: default-metric
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id007
+        description: Default metric.
+        source_attribute: default_metric
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 16
+        source_attribute: default_metric
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Default metric.
+        default: '1'
+        min: 1
+        max: 16
+        source_attribute: default-metric
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  distance:
+    canonical:
+      type: list
+      elements: dict
+      children: &id009
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id013
+          - - v6.0.0
+            - ''
+          description: Distance ID. see <a href='#notes'>Notes</a>.
+        distance:
+          type: integer
+          raw_type: integer
+          version_ranges: &id012
+          - - v6.0.0
+            - ''
+          description: Distance (1 - 255).
+        prefix6:
+          type: string
+          raw_type: string
+          version_ranges: &id014
+          - - v6.0.0
+            - ''
+          description: Distance prefix6.
+        access_list6:
+          type: string
+          raw_type: string
+          version_ranges: &id011
+          - - v6.0.0
+            - ''
+          description: Access list for route destination. Source router.access-list6.name.
+          references: &id010
+          - router.access-list6.name
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      description: Distance.
+      source_attribute: distance
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id008
+        description: Distance.
+        children: *id009
+        source_attribute: distance
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          distance:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 255
+          prefix6:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          access_list6:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+        source_attribute: distance
+    sources:
+    - ansible
+    - terraform
+  distance.access_list6:
+    canonical:
+      type: string
+      references: *id010
+      version_ranges: *id011
+      min_length: 0
+      max_length: 35
+      description: Access list for route destination. Source router.access-list6.name.
+      source_attribute: distance.access_list6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: Access list for route destination. Source router.access-list6.name.
+        references: *id010
+        source_attribute: distance.access_list6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: distance.access_list6
+    sources:
+    - ansible
+    - terraform
+  distance.distance:
+    canonical:
+      type: integer
+      version_ranges: *id012
+      min: 1
+      max: 255
+      description: Distance (1 - 255).
+      source_attribute: distance.distance
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id012
+        description: Distance (1 - 255).
+        source_attribute: distance.distance
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 255
+        source_attribute: distance.distance
+    sources:
+    - ansible
+    - terraform
+  distance.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id013
+      description: Distance ID. see <a href='#notes'>Notes</a>.
+      source_attribute: distance.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id013
+        description: Distance ID. see <a href='#notes'>Notes</a>.
+        source_attribute: distance.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: distance.id
+    sources:
+    - ansible
+    - terraform
+  distance.prefix6:
+    canonical:
+      type: string
+      version_ranges: *id014
+      description: Distance prefix6.
+      source_attribute: distance.prefix6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: Distance prefix6.
+        source_attribute: distance.prefix6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: distance.prefix6
+    sources:
+    - ansible
+    - terraform
+  distribute_list:
+    canonical:
+      type: list
+      elements: dict
+      children: &id016
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id019
+          - - v6.0.0
+            - ''
+          description: Distribute list ID. see <a href='#notes'>Notes</a>.
+        status:
+          type: enum
+          raw_type: string
+          choices: &id025
+          - enable
+          - disable
+          version_ranges: &id024
+          - - v6.0.0
+            - ''
+          description: Status.
+        direction:
+          type: enum
+          raw_type: string
+          choices: &id018
+          - in
+          - out
+          version_ranges: &id017
+          - - v6.0.0
+            - ''
+          description: Distribute list direction.
+        listname:
+          type: string
+          raw_type: string
+          version_ranges: &id023
+          - - v6.0.0
+            - ''
+          description: Distribute access/prefix list name. Source router.access-list6.name router.prefix-list6.name.
+          references: &id022
+          - router.access-list6.name
+          - router.prefix-list6.name
+        interface:
+          type: string
+          raw_type: string
+          version_ranges: &id021
+          - - v6.0.0
+            - ''
+          description: Distribute list interface name. Source system.interface.name.
+          references: &id020
+          - system.interface.name
+      version_ranges: &id015
+      - - v6.0.0
+        - ''
+      description: Distribute list.
+      source_attribute: distribute_list
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id015
+        description: Distribute list.
+        children: *id016
+        source_attribute: distribute_list
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          direction:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          listname:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+        source_attribute: distribute_list
+    sources:
+    - ansible
+    - terraform
+  distribute_list.direction:
+    canonical:
+      type: enum
+      version_ranges: *id017
+      choices: *id018
+      description: Distribute list direction.
+      source_attribute: distribute_list.direction
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id018
+        version_ranges: *id017
+        description: Distribute list direction.
+        source_attribute: distribute_list.direction
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: distribute_list.direction
+    sources:
+    - ansible
+    - terraform
+  distribute_list.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id019
+      description: Distribute list ID. see <a href='#notes'>Notes</a>.
+      source_attribute: distribute_list.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id019
+        description: Distribute list ID. see <a href='#notes'>Notes</a>.
+        source_attribute: distribute_list.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: distribute_list.id
+    sources:
+    - ansible
+    - terraform
+  distribute_list.interface:
+    canonical:
+      type: string
+      references: *id020
+      version_ranges: *id021
+      min_length: 0
+      max_length: 15
+      description: Distribute list interface name. Source system.interface.name.
+      source_attribute: distribute_list.interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id021
+        description: Distribute list interface name. Source system.interface.name.
+        references: *id020
+        source_attribute: distribute_list.interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: distribute_list.interface
+    sources:
+    - ansible
+    - terraform
+  distribute_list.listname:
+    canonical:
+      type: string
+      references: *id022
+      version_ranges: *id023
+      min_length: 0
+      max_length: 35
+      description: Distribute access/prefix list name. Source router.access-list6.name router.prefix-list6.name.
+      source_attribute: distribute_list.listname
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id023
+        description: Distribute access/prefix list name. Source router.access-list6.name router.prefix-list6.name.
+        references: *id022
+        source_attribute: distribute_list.listname
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: distribute_list.listname
+    sources:
+    - ansible
+    - terraform
+  distribute_list.status:
+    canonical:
+      type: enum
+      version_ranges: *id024
+      choices: *id025
+      description: Status.
+      source_attribute: distribute_list.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id025
+        version_ranges: *id024
+        description: Status.
+        source_attribute: distribute_list.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: distribute_list.status
+    sources:
+    - ansible
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  garbage_timer:
+    canonical:
+      type: integer
+      version_ranges: &id026
+      - - v6.0.0
+        - ''
+      default: '120'
+      min: 5
+      max: 2147483647
+      description: Garbage timer in seconds.
+      source_attribute: garbage-timer
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id026
+        description: Garbage timer in seconds.
+        source_attribute: garbage_timer
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: garbage_timer
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Garbage timer in seconds.
+        default: '120'
+        min: 5
+        max: 2147483647
+        source_attribute: garbage-timer
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  interface:
+    canonical:
+      type: list
+      elements: dict
+      children: &id028
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id030
+          - - v6.0.0
+            - ''
+          description: Interface name. Source system.interface.name.
+          references: &id029
+          - system.interface.name
+        split_horizon_status:
+          type: enum
+          raw_type: string
+          choices: &id034
+          - enable
+          - disable
+          version_ranges: &id033
+          - - v6.0.0
+            - ''
+          description: Enable/disable split horizon.
+        split_horizon:
+          type: enum
+          raw_type: string
+          choices: &id032
+          - poisoned
+          - regular
+          version_ranges: &id031
+          - - v6.0.0
+            - ''
+          description: Enable/disable split horizon.
+      version_ranges: &id027
+      - - v6.0.0
+        - ''
+      description: RIPng interface configuration.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id027
+        description: RIPng interface configuration.
+        children: *id028
+        source_attribute: interface
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          split_horizon_status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          split_horizon:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          flags:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 255
+        source_attribute: interface
+    sources:
+    - ansible
+    - terraform
+  interface.flags:
+    canonical:
+      type: integer
+      min: 0
+      max: 255
+      source_attribute: interface.flags
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 255
+        source_attribute: interface.flags
+    sources:
+    - terraform
+  interface.name:
+    canonical:
+      type: string
+      references: *id029
+      required: true
+      version_ranges: *id030
+      min_length: 0
+      max_length: 35
+      description: Interface name. Source system.interface.name.
+      source_attribute: interface.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id030
+        description: Interface name. Source system.interface.name.
+        references: *id029
+        source_attribute: interface.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: interface.name
+    sources:
+    - ansible
+    - terraform
+  interface.split_horizon:
+    canonical:
+      type: enum
+      version_ranges: *id031
+      choices: *id032
+      description: Enable/disable split horizon.
+      source_attribute: interface.split_horizon
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id032
+        version_ranges: *id031
+        description: Enable/disable split horizon.
+        source_attribute: interface.split_horizon
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface.split_horizon
+    sources:
+    - ansible
+    - terraform
+  interface.split_horizon_status:
+    canonical:
+      type: enum
+      version_ranges: *id033
+      choices: *id034
+      description: Enable/disable split horizon.
+      source_attribute: interface.split_horizon_status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id034
+        version_ranges: *id033
+        description: Enable/disable split horizon.
+        source_attribute: interface.split_horizon_status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface.split_horizon_status
+    sources:
+    - ansible
+    - terraform
+  max_out_metric:
+    canonical:
+      type: integer
+      version_ranges: &id035
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 15
+      description: Maximum metric allowed to output(0 means 'not set').
+      source_attribute: max-out-metric
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id035
+        description: Maximum metric allowed to output(0 means "not set").
+        source_attribute: max_out_metric
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 15
+        source_attribute: max_out_metric
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum metric allowed to output(0 means 'not set').
+        default: '0'
+        min: 0
+        max: 15
+        source_attribute: max-out-metric
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  neighbor:
+    canonical:
+      type: list
+      elements: dict
+      children: &id037
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id038
+          - - v6.0.0
+            - ''
+          description: Neighbor entry ID. see <a href='#notes'>Notes</a>.
+        ip6:
+          type: string
+          raw_type: string
+          version_ranges: &id041
+          - - v6.0.0
+            - ''
+          description: IPv6 link-local address.
+        interface:
+          type: string
+          raw_type: string
+          version_ranges: &id040
+          - - v6.0.0
+            - ''
+          description: Interface name. Source system.interface.name.
+          references: &id039
+          - system.interface.name
+      version_ranges: &id036
+      - - v6.0.0
+        - ''
+      description: Neighbor.
+      source_attribute: neighbor
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id036
+        description: Neighbor.
+        children: *id037
+        source_attribute: neighbor
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          ip6:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+        source_attribute: neighbor
+    sources:
+    - ansible
+    - terraform
+  neighbor.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id038
+      description: Neighbor entry ID. see <a href='#notes'>Notes</a>.
+      source_attribute: neighbor.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id038
+        description: Neighbor entry ID. see <a href='#notes'>Notes</a>.
+        source_attribute: neighbor.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: neighbor.id
+    sources:
+    - ansible
+    - terraform
+  neighbor.interface:
+    canonical:
+      type: string
+      references: *id039
+      version_ranges: *id040
+      min_length: 0
+      max_length: 15
+      description: Interface name. Source system.interface.name.
+      source_attribute: neighbor.interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id040
+        description: Interface name. Source system.interface.name.
+        references: *id039
+        source_attribute: neighbor.interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: neighbor.interface
+    sources:
+    - ansible
+    - terraform
+  neighbor.ip6:
+    canonical:
+      type: string
+      version_ranges: *id041
+      description: IPv6 link-local address.
+      source_attribute: neighbor.ip6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id041
+        description: IPv6 link-local address.
+        source_attribute: neighbor.ip6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: neighbor.ip6
+    sources:
+    - ansible
+    - terraform
+  network:
+    canonical:
+      type: list
+      elements: dict
+      children: &id043
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id044
+          - - v6.0.0
+            - ''
+          description: Network entry ID. see <a href='#notes'>Notes</a>.
+        prefix:
+          type: string
+          raw_type: string
+          version_ranges: &id045
+          - - v6.0.0
+            - ''
+          description: Network IPv6 link-local prefix.
+      version_ranges: &id042
+      - - v6.0.0
+        - ''
+      description: Network.
+      source_attribute: network
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id042
+        description: Network.
+        children: *id043
+        source_attribute: network
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          prefix:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: network
+    sources:
+    - ansible
+    - terraform
+  network.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id044
+      description: Network entry ID. see <a href='#notes'>Notes</a>.
+      source_attribute: network.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id044
+        description: Network entry ID. see <a href='#notes'>Notes</a>.
+        source_attribute: network.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: network.id
+    sources:
+    - ansible
+    - terraform
+  network.prefix:
+    canonical:
+      type: string
+      version_ranges: *id045
+      description: Network IPv6 link-local prefix.
+      source_attribute: network.prefix
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id045
+        description: Network IPv6 link-local prefix.
+        source_attribute: network.prefix
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: network.prefix
+    sources:
+    - ansible
+    - terraform
+  offset_list:
+    canonical:
+      type: list
+      elements: dict
+      children: &id047
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id052
+          - - v6.0.0
+            - ''
+          description: Offset-list ID. see <a href='#notes'>Notes</a>.
+        status:
+          type: enum
+          raw_type: string
+          choices: &id057
+          - enable
+          - disable
+          version_ranges: &id056
+          - - v6.0.0
+            - ''
+          description: Status.
+        direction:
+          type: enum
+          raw_type: string
+          choices: &id051
+          - in
+          - out
+          version_ranges: &id050
+          - - v6.0.0
+            - ''
+          description: Offset list direction.
+        access_list6:
+          type: string
+          raw_type: string
+          version_ranges: &id049
+          - - v6.0.0
+            - ''
+          description: IPv6 access list name. Source router.access-list6.name.
+          references: &id048
+          - router.access-list6.name
+        offset:
+          type: integer
+          raw_type: integer
+          version_ranges: &id055
+          - - v6.0.0
+            - ''
+          description: Offset.
+        interface:
+          type: string
+          raw_type: string
+          version_ranges: &id054
+          - - v6.0.0
+            - ''
+          description: Interface name. Source system.interface.name.
+          references: &id053
+          - system.interface.name
+      version_ranges: &id046
+      - - v6.0.0
+        - ''
+      description: Offset list.
+      source_attribute: offset_list
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id046
+        description: Offset list.
+        children: *id047
+        source_attribute: offset_list
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          direction:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          access_list6:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          offset:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 16
+          interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+        source_attribute: offset_list
+    sources:
+    - ansible
+    - terraform
+  offset_list.access_list6:
+    canonical:
+      type: string
+      references: *id048
+      version_ranges: *id049
+      min_length: 0
+      max_length: 35
+      description: IPv6 access list name. Source router.access-list6.name.
+      source_attribute: offset_list.access_list6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id049
+        description: IPv6 access list name. Source router.access-list6.name.
+        references: *id048
+        source_attribute: offset_list.access_list6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: offset_list.access_list6
+    sources:
+    - ansible
+    - terraform
+  offset_list.direction:
+    canonical:
+      type: enum
+      version_ranges: *id050
+      choices: *id051
+      description: Offset list direction.
+      source_attribute: offset_list.direction
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id051
+        version_ranges: *id050
+        description: Offset list direction.
+        source_attribute: offset_list.direction
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: offset_list.direction
+    sources:
+    - ansible
+    - terraform
+  offset_list.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id052
+      description: Offset-list ID. see <a href='#notes'>Notes</a>.
+      source_attribute: offset_list.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id052
+        description: Offset-list ID. see <a href='#notes'>Notes</a>.
+        source_attribute: offset_list.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: offset_list.id
+    sources:
+    - ansible
+    - terraform
+  offset_list.interface:
+    canonical:
+      type: string
+      references: *id053
+      version_ranges: *id054
+      min_length: 0
+      max_length: 15
+      description: Interface name. Source system.interface.name.
+      source_attribute: offset_list.interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id054
+        description: Interface name. Source system.interface.name.
+        references: *id053
+        source_attribute: offset_list.interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: offset_list.interface
+    sources:
+    - ansible
+    - terraform
+  offset_list.offset:
+    canonical:
+      type: integer
+      version_ranges: *id055
+      min: 1
+      max: 16
+      description: Offset.
+      source_attribute: offset_list.offset
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id055
+        description: Offset.
+        source_attribute: offset_list.offset
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 16
+        source_attribute: offset_list.offset
+    sources:
+    - ansible
+    - terraform
+  offset_list.status:
+    canonical:
+      type: enum
+      version_ranges: *id056
+      choices: *id057
+      description: Status.
+      source_attribute: offset_list.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id057
+        version_ranges: *id056
+        description: Status.
+        source_attribute: offset_list.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: offset_list.status
+    sources:
+    - ansible
+    - terraform
+  passive_interface:
+    canonical:
+      type: list
+      elements: dict
+      children: &id059
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id062
+          - - v6.0.0
+            - ''
+          description: Passive interface name. Source system.interface.name.
+          references: &id061
+          - system.interface.name
+      version_ranges: &id058
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Passive interface configuration. Passive interface name.
+      source_attribute: passive-interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id058
+        description: Passive interface configuration.
+        children: *id059
+        source_attribute: passive_interface
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: passive_interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Passive interface configuration. Passive interface name.
+        max_length: 79
+        source_attribute: passive-interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id060
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id060
+  passive_interface.name:
+    canonical:
+      type: string
+      references: *id061
+      required: true
+      version_ranges: *id062
+      min_length: 0
+      max_length: 79
+      description: Passive interface name. Source system.interface.name.
+      source_attribute: passive_interface.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id062
+        description: Passive interface name. Source system.interface.name.
+        references: *id061
+        source_attribute: passive_interface.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: passive_interface.name
+    sources:
+    - ansible
+    - terraform
+  redistribute:
+    canonical:
+      type: list
+      children: &id063
+        name:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 35
+        status:
+          type: string
+          raw_type: TypeString
+          optional: true
+          computed: true
+        metric:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+          min: 1
+          max: 16
+        routemap:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 35
+      source_attribute: redistribute
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id063
+        source_attribute: redistribute
+    sources:
+    - terraform
+  redistribute.metric:
+    canonical:
+      type: integer
+      min: 1
+      max: 16
+      source_attribute: redistribute.metric
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 16
+        source_attribute: redistribute.metric
+    sources:
+    - terraform
+  redistribute.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: redistribute.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: redistribute.name
+    sources:
+    - terraform
+  redistribute.routemap:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: redistribute.routemap
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: redistribute.routemap
+    sources:
+    - terraform
+  redistribute.status:
+    canonical:
+      type: string
+      source_attribute: redistribute.status
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: redistribute.status
+    sources:
+    - terraform
+  timeout_timer:
+    canonical:
+      type: integer
+      version_ranges: &id064
+      - - v6.0.0
+        - ''
+      default: '180'
+      min: 5
+      max: 2147483647
+      description: Timeout timer in seconds.
+      source_attribute: timeout-timer
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id064
+        description: Timeout timer in seconds.
+        source_attribute: timeout_timer
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: timeout_timer
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Timeout timer in seconds.
+        default: '180'
+        min: 5
+        max: 2147483647
+        source_attribute: timeout-timer
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_timer:
+    canonical:
+      type: integer
+      version_ranges: &id065
+      - - v6.0.0
+        - ''
+      default: '30'
+      min: 5
+      max: 2147483647
+      description: Update timer in seconds.
+      source_attribute: update-timer
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id065
+        description: Update timer in seconds.
+        source_attribute: update_timer
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: update_timer
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Update timer in seconds.
+        default: '30'
+        min: 5
+        max: 2147483647
+        source_attribute: update-timer
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: passive_interface
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

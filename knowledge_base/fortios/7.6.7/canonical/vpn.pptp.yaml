@@ -1,0 +1,326 @@
+id: vpn.pptp
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  eip:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: End IP.
+      source_attribute: eip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: End IP.
+        source_attribute: eip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: eip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: End IP.
+        default: 0.0.0.0
+        source_attribute: eip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id002
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id002
+  ip_mode:
+    canonical:
+      type: enum
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      choices: &id003
+      - range
+      - usrgrp
+      default: range
+      description: IP assignment mode for PPTP client.
+      source_attribute: ip-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: IP assignment mode for PPTP client.
+        source_attribute: ip_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ip_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: IP assignment mode for PPTP client.
+        default: range
+        source_attribute: ip-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  local_ip:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: Local IP to be used for peer's remote IP.
+      source_attribute: local-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: Local IP to be used for peer"s remote IP.
+        source_attribute: local_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: local_ip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Local IP to be used for peer's remote IP.
+        default: 0.0.0.0
+        source_attribute: local-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id006
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id006
+  sip:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: Start IP.
+      source_attribute: sip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: Start IP.
+        source_attribute: sip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Start IP.
+        default: 0.0.0.0
+        source_attribute: sip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id008
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id008
+  status:
+    canonical:
+      type: enum
+      required: true
+      version_ranges: &id010
+      - - v6.0.0
+        - ''
+      choices: &id009
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable FortiGate as a PPTP gateway.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id010
+        description: Enable/disable FortiGate as a PPTP gateway.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable FortiGate as a PPTP gateway.
+        default: disable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  usrgrp:
+    canonical:
+      type: string
+      references: &id012
+      - user.group.name
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: User group.
+      source_attribute: usrgrp
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: User group. Source user.group.name.
+        references: *id012
+        source_attribute: usrgrp
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: usrgrp
+      cli_reference:
+        type: string
+        raw_type: string
+        description: User group.
+        max_length: 35
+        source_attribute: usrgrp
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: eip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: local_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: sip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict

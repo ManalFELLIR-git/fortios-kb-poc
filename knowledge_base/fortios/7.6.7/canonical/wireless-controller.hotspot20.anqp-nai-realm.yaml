@@ -1,0 +1,676 @@
+id: wireless-controller.hotspot20.anqp-nai-realm
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  nai_list:
+    canonical:
+      type: list
+      elements: dict
+      children: &id002
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id020
+          - - v6.0.0
+            - ''
+          description: NAI realm name.
+        encoding:
+          type: enum
+          raw_type: string
+          choices: &id018
+          - disable
+          - enable
+          version_ranges: &id017
+          - - v6.0.0
+            - ''
+          description: Enable/disable format in accordance with IETF RFC 4282.
+        nai_realm:
+          type: string
+          raw_type: string
+          version_ranges: &id019
+          - - v6.0.0
+            - ''
+          description: Configure NAI realms (delimited by a semi-colon character).
+        eap_method:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id004
+          - - v6.0.0
+            - ''
+          description: EAP Methods.
+          children: &id003
+            index:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id014
+              - - v6.0.0
+                - ''
+              description: EAP method index. see <a href='#notes'>Notes</a>.
+            method:
+              type: enum
+              raw_type: string
+              choices: &id016
+              - eap-identity
+              - eap-md5
+              - eap-tls
+              - eap-ttls
+              - eap-peap
+              - eap-sim
+              - eap-aka
+              - eap-aka-prime
+              version_ranges: &id015
+              - - v6.0.0
+                - ''
+              description: EAP method type.
+            auth_param:
+              type: list
+              raw_type: list
+              elements: dict
+              version_ranges: &id007
+              - - v6.0.0
+                - ''
+              description: EAP auth param.
+              children: &id006
+                index:
+                  type: integer
+                  raw_type: integer
+                  required: true
+                  version_ranges: &id011
+                  - - v6.0.0
+                    - ''
+                  description: Param index. see <a href='#notes'>Notes</a>.
+                id:
+                  type: enum
+                  raw_type: string
+                  choices: &id010
+                  - non-eap-inner-auth
+                  - inner-auth-eap
+                  - credential
+                  - tunneled-credential
+                  version_ranges: &id009
+                  - - v6.0.0
+                    - ''
+                  description: ID of authentication parameter.
+                val:
+                  type: enum
+                  raw_type: string
+                  choices: &id013
+                  - eap-identity
+                  - eap-md5
+                  - eap-tls
+                  - eap-ttls
+                  - eap-peap
+                  - eap-sim
+                  - eap-aka
+                  - eap-aka-prime
+                  - non-eap-pap
+                  - non-eap-chap
+                  - non-eap-mschap
+                  - non-eap-mschapv2
+                  - cred-sim
+                  - cred-usim
+                  - cred-nfc
+                  - cred-hardware-token
+                  - cred-softoken
+                  - cred-certificate
+                  - cred-user-pwd
+                  - cred-none
+                  - cred-vendor-specific
+                  - tun-cred-sim
+                  - tun-cred-usim
+                  - tun-cred-nfc
+                  - tun-cred-hardware-token
+                  - tun-cred-softoken
+                  - tun-cred-certificate
+                  - tun-cred-user-pwd
+                  - tun-cred-anonymous
+                  - tun-cred-vendor-specific
+                  version_ranges: &id012
+                  - - v6.0.0
+                    - ''
+                  description: Value of authentication parameter.
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      description: NAI list.
+      source_attribute: nai_list
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id001
+        description: NAI list.
+        children: *id002
+        source_attribute: nai_list
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          encoding:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          nai_realm:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 255
+          eap_method:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id005
+              index:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                min: 1
+                max: 5
+              method:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              auth_param:
+                type: list
+                raw_type: TypeList
+                optional: true
+                children: &id008
+                  index:
+                    type: integer
+                    raw_type: TypeInt
+                    optional: true
+                    min: 1
+                    max: 4
+                  id:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    computed: true
+                  val:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    computed: true
+        source_attribute: nai_list
+    sources:
+    - ansible
+    - terraform
+  nai_list.eap_method:
+    canonical:
+      type: list
+      elements: dict
+      children: *id003
+      version_ranges: *id004
+      description: EAP Methods.
+      source_attribute: nai_list.eap_method
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id004
+        description: EAP Methods.
+        children: *id003
+        source_attribute: nai_list.eap_method
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id005
+        source_attribute: nai_list.eap_method
+    sources:
+    - ansible
+    - terraform
+  nai_list.eap_method.auth_param:
+    canonical:
+      type: list
+      elements: dict
+      children: *id006
+      version_ranges: *id007
+      description: EAP auth param.
+      source_attribute: nai_list.eap_method.auth_param
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id007
+        description: EAP auth param.
+        children: *id006
+        source_attribute: nai_list.eap_method.auth_param
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id008
+        source_attribute: nai_list.eap_method.auth_param
+    sources:
+    - ansible
+    - terraform
+  nai_list.eap_method.auth_param.id:
+    canonical:
+      type: enum
+      version_ranges: *id009
+      choices: *id010
+      description: ID of authentication parameter.
+      source_attribute: nai_list.eap_method.auth_param.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id009
+        description: ID of authentication parameter.
+        source_attribute: nai_list.eap_method.auth_param.id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: nai_list.eap_method.auth_param.id
+    sources:
+    - ansible
+    - terraform
+  nai_list.eap_method.auth_param.index:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id011
+      min: 1
+      max: 4
+      description: Param index. see <a href='#notes'>Notes</a>.
+      source_attribute: nai_list.eap_method.auth_param.index
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id011
+        description: Param index. see <a href='#notes'>Notes</a>.
+        source_attribute: nai_list.eap_method.auth_param.index
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 4
+        source_attribute: nai_list.eap_method.auth_param.index
+    sources:
+    - ansible
+    - terraform
+  nai_list.eap_method.auth_param.val:
+    canonical:
+      type: enum
+      version_ranges: *id012
+      choices: *id013
+      description: Value of authentication parameter.
+      source_attribute: nai_list.eap_method.auth_param.val
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id012
+        description: Value of authentication parameter.
+        source_attribute: nai_list.eap_method.auth_param.val
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: nai_list.eap_method.auth_param.val
+    sources:
+    - ansible
+    - terraform
+  nai_list.eap_method.index:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id014
+      min: 1
+      max: 5
+      description: EAP method index. see <a href='#notes'>Notes</a>.
+      source_attribute: nai_list.eap_method.index
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id014
+        description: EAP method index. see <a href='#notes'>Notes</a>.
+        source_attribute: nai_list.eap_method.index
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 5
+        source_attribute: nai_list.eap_method.index
+    sources:
+    - ansible
+    - terraform
+  nai_list.eap_method.method:
+    canonical:
+      type: enum
+      version_ranges: *id015
+      choices: *id016
+      description: EAP method type.
+      source_attribute: nai_list.eap_method.method
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id016
+        version_ranges: *id015
+        description: EAP method type.
+        source_attribute: nai_list.eap_method.method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: nai_list.eap_method.method
+    sources:
+    - ansible
+    - terraform
+  nai_list.encoding:
+    canonical:
+      type: enum
+      version_ranges: *id017
+      choices: *id018
+      description: Enable/disable format in accordance with IETF RFC 4282.
+      source_attribute: nai_list.encoding
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id018
+        version_ranges: *id017
+        description: Enable/disable format in accordance with IETF RFC 4282.
+        source_attribute: nai_list.encoding
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: nai_list.encoding
+    sources:
+    - ansible
+    - terraform
+  nai_list.nai_realm:
+    canonical:
+      type: string
+      version_ranges: *id019
+      min_length: 0
+      max_length: 255
+      description: Configure NAI realms (delimited by a semi-colon character).
+      source_attribute: nai_list.nai_realm
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id019
+        description: Configure NAI realms (delimited by a semi-colon character).
+        source_attribute: nai_list.nai_realm
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: nai_list.nai_realm
+    sources:
+    - ansible
+    - terraform
+  nai_list.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id020
+      min_length: 0
+      max_length: 35
+      description: NAI realm name.
+      source_attribute: nai_list.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id020
+        description: NAI realm name.
+        source_attribute: nai_list.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: nai_list.name
+    sources:
+    - ansible
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id021
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: NAI realm list name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id021
+        description: NAI realm list name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: NAI realm list name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

@@ -1,0 +1,888 @@
+id: dlp.fp-doc-source
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  date:
+    canonical:
+      type: integer
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      default: '1'
+      min: 1
+      max: 31
+      description: Day of the month on which to scan the server (1 - 31).
+      source_attribute: date
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id001
+        description: Day of the month on which to scan the server (1 - 31).
+        source_attribute: date
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 31
+        source_attribute: date
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Day of the month on which to scan the server (1 - 31).
+        default: '1'
+        min: 1
+        max: 31
+        source_attribute: date
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  file_path:
+    canonical:
+      type: string
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 119
+      description: Path on the server to the fingerprint files (max 119 characters).
+      source_attribute: file-path
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id002
+        description: Path on the server to the fingerprint files (max 119 characters).
+        source_attribute: file_path
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 119
+        source_attribute: file_path
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Path on the server to the fingerprint files (max 119 characters).
+        max_length: 119
+        source_attribute: file-path
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  file_pattern:
+    canonical:
+      type: string
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      default: '*'
+      min_length: 0
+      max_length: 35
+      description: Files matching this pattern on the server are fingerprinted. Optionally use the * and ? wildcards.
+      source_attribute: file-pattern
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Files matching this pattern on the server are fingerprinted. Optionally use the * and ? wildcards.
+        source_attribute: file_pattern
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 35
+        source_attribute: file_pattern
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Files matching this pattern on the server are fingerprinted. Optionally use the * and ? wildcards.
+        default: '*'
+        max_length: 35
+        source_attribute: file-pattern
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  keep_modified:
+    canonical:
+      type: enum
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      choices: &id004
+      - enable
+      - disable
+      default: enable
+      description: Enable so that when a file is changed on the server the FortiGate keeps the old fingerprint and adds a
+        new fingerprint to the database.
+      source_attribute: keep-modified
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id004
+        version_ranges: *id005
+        description: Enable so that when a file is changed on the server the FortiGate keeps the old fingerprint and adds
+          a new fingerprint to the database.
+        source_attribute: keep_modified
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: keep_modified
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable so that when a file is changed on the server the FortiGate keeps the old fingerprint and adds
+          a new fingerprint to the database.
+        default: enable
+        source_attribute: keep-modified
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Name of the DLP fingerprint database.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id006
+        description: Name of the DLP fingerprint database.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of the DLP fingerprint database.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  password:
+    canonical:
+      type: password
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: Password required to log into the file server.
+      source_attribute: password
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: Password required to log into the file server.
+        source_attribute: password
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: password
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Password required to log into the file server.
+        source_attribute: password
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id008
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id008
+  period:
+    canonical:
+      type: enum
+      version_ranges: &id010
+      - - v6.0.0
+        - ''
+      choices: &id009
+      - none
+      - daily
+      - weekly
+      - monthly
+      default: none
+      description: Frequency for which the FortiGate checks the server for new or changed files.
+      source_attribute: period
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id010
+        description: Frequency for which the FortiGate checks the server for new or changed files.
+        source_attribute: period
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: period
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Frequency for which the FortiGate checks the server for new or changed files.
+        default: none
+        source_attribute: period
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  remove_deleted:
+    canonical:
+      type: enum
+      version_ranges: &id012
+      - - v6.0.0
+        - ''
+      choices: &id011
+      - enable
+      - disable
+      default: enable
+      description: Enable to keep the fingerprint database up to date when a file is deleted from the server.
+      source_attribute: remove-deleted
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id011
+        version_ranges: *id012
+        description: Enable to keep the fingerprint database up to date when a file is deleted from the server.
+        source_attribute: remove_deleted
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: remove_deleted
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable to keep the fingerprint database up to date when a file is deleted from the server.
+        default: enable
+        source_attribute: remove-deleted
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  scan_on_creation:
+    canonical:
+      type: enum
+      version_ranges: &id014
+      - - v6.0.0
+        - ''
+      choices: &id013
+      - enable
+      - disable
+      default: enable
+      description: Initiate an immediate update of the fingerprint database after creating this fp-doc-source entry.
+      source_attribute: scan-on-creation
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id014
+        description: Initiate an immediate update of the fingerprint database after creating this fp-doc-source entry.
+        source_attribute: scan_on_creation
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: scan_on_creation
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Initiate an immediate update of the fingerprint database after creating this fp-doc-source entry.
+        default: enable
+        source_attribute: scan-on-creation
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  scan_subdirectories:
+    canonical:
+      type: enum
+      version_ranges: &id016
+      - - v6.0.0
+        - ''
+      choices: &id015
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable scanning subdirectories to find files to create fingerprints from.
+      source_attribute: scan-subdirectories
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id015
+        version_ranges: *id016
+        description: Enable/disable scanning subdirectories to find files to create fingerprints from.
+        source_attribute: scan_subdirectories
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: scan_subdirectories
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable scanning subdirectories to find files to create fingerprints from.
+        default: enable
+        source_attribute: scan-subdirectories
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sensitivity:
+    canonical:
+      type: string
+      version_ranges: &id017
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Select a sensitivity or threat level for matches with this fingerprint database. Add sensitivities using
+        sensitivity.
+      source_attribute: sensitivity
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id017
+        description: Select a sensitivity or threat level for matches with this fingerprint database. Add sensitivities using
+          sensitivity. Source dlp .sensitivity.name.
+        source_attribute: sensitivity
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: sensitivity
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Select a sensitivity or threat level for matches with this fingerprint database. Add sensitivities using
+          sensitivity.
+        max_length: 35
+        source_attribute: sensitivity
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  server:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id018
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: IPv4 or IPv6 address of the server.
+      source_attribute: server
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id018
+        description: IPv4 or IPv6 address of the server.
+        source_attribute: server
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 63
+        source_attribute: server
+      cli_reference:
+        type: string
+        raw_type: string
+        description: IPv4 or IPv6 address of the server.
+        max_length: 35
+        source_attribute: server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  server_type:
+    canonical:
+      type: enum
+      required: true
+      version_ranges: &id020
+      - - v6.0.0
+        - ''
+      choices: &id019
+      - samba
+      default: samba
+      description: Protocol used to communicate with the file server. Currently only Samba (SMB) servers are supported.
+      source_attribute: server-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id019
+        version_ranges: *id020
+        description: Protocol used to communicate with the file server. Currently only Samba (SMB) servers are supported.
+        source_attribute: server_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: server_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Protocol used to communicate with the file server. Currently only Samba (SMB) servers are supported.
+        default: samba
+        source_attribute: server-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  tod_hour:
+    canonical:
+      type: integer
+      version_ranges: &id021
+      - - v6.0.0
+        - ''
+      default: '1'
+      min: 0
+      max: 23
+      description: Hour of the day on which to scan the server (0 - 23, default = 1).
+      source_attribute: tod-hour
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id021
+        description: Hour of the day on which to scan the server (0 - 23).
+        source_attribute: tod_hour
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 23
+        source_attribute: tod_hour
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Hour of the day on which to scan the server (0 - 23, default = 1).
+        default: '1'
+        min: 0
+        max: 23
+        source_attribute: tod-hour
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  tod_min:
+    canonical:
+      type: integer
+      version_ranges: &id022
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 59
+      description: Minute of the hour on which to scan the server (0 - 59).
+      source_attribute: tod-min
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id022
+        description: Minute of the hour on which to scan the server (0 - 59).
+        source_attribute: tod_min
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 59
+        source_attribute: tod_min
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Minute of the hour on which to scan the server (0 - 59).
+        default: '0'
+        min: 0
+        max: 59
+        source_attribute: tod-min
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  username:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id023
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: User name required to log into the file server.
+      source_attribute: username
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id023
+        description: User name required to log into the file server.
+        source_attribute: username
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 35
+        source_attribute: username
+      cli_reference:
+        type: string
+        raw_type: string
+        description: User name required to log into the file server.
+        max_length: 35
+        source_attribute: username
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  uuid:
+    canonical:
+      type: string
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+    sources:
+    - terraform
+  vdom:
+    canonical:
+      type: enum
+      version_ranges: &id025
+      - - v6.0.0
+        - ''
+      choices: &id024
+      - mgmt
+      - current
+      default: mgmt
+      description: Select the VDOM that can communicate with the file server.
+      source_attribute: vdom
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id024
+        version_ranges: *id025
+        description: Select the VDOM that can communicate with the file server.
+        source_attribute: vdom
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: vdom
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Select the VDOM that can communicate with the file server.
+        default: mgmt
+        source_attribute: vdom
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  weekday:
+    canonical:
+      type: enum
+      version_ranges: &id027
+      - - v6.0.0
+        - ''
+      choices: &id026
+      - sunday
+      - monday
+      - tuesday
+      - wednesday
+      - thursday
+      - friday
+      - saturday
+      default: sunday
+      description: Day of the week on which to scan the server.
+      source_attribute: weekday
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id026
+        version_ranges: *id027
+        description: Day of the week on which to scan the server.
+        source_attribute: weekday
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: weekday
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Day of the week on which to scan the server.
+        default: sunday
+        source_attribute: weekday
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: password
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict

@@ -1,0 +1,1273 @@
+id: switch-controller.dynamic-port-policy
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  description:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v7.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Description for the Dynamic port policy.
+      source_attribute: description
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Description for the Dynamic port policy.
+        source_attribute: description
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: description
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Description for the Dynamic port policy.
+        max_length: 63
+        source_attribute: description
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  fortilink:
+    canonical:
+      type: string
+      references: &id003
+      - system.interface.name
+      version_ranges: &id002
+      - - v7.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: FortiLink interface for which this Dynamic port policy belongs to.
+      source_attribute: fortilink
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id002
+        description: FortiLink interface for which this Dynamic port policy belongs to. Source system.interface.name.
+        references: *id003
+        source_attribute: fortilink
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 15
+        source_attribute: fortilink
+      cli_reference:
+        type: string
+        raw_type: string
+        description: FortiLink interface for which this Dynamic port policy belongs to.
+        max_length: 15
+        source_attribute: fortilink
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id004
+      - - v7.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Dynamic port policy name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id004
+        description: Dynamic port policy name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 63
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Dynamic port policy name.
+        max_length: 63
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  policy:
+    canonical:
+      type: list
+      elements: dict
+      children: &id006
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id029
+          - - v7.0.0
+            - ''
+          description: Policy name.
+        description:
+          type: string
+          raw_type: string
+          version_ranges: &id012
+          - - v7.0.0
+            - ''
+          description: Description for the policy.
+        status:
+          type: enum
+          raw_type: string
+          choices: &id037
+          - enable
+          - disable
+          version_ranges: &id036
+          - - v7.0.0
+            - ''
+          description: Enable/disable policy.
+        category:
+          type: enum
+          raw_type: string
+          choices: &id011
+          - device
+          - interface-tag
+          version_ranges: &id010
+          - - v7.0.0
+            - ''
+          description: Category of Dynamic port policy.
+        match_type:
+          type: enum
+          raw_type: string
+          choices: &id028
+          - dynamic
+          - override
+          version_ranges: &id027
+          - - v7.4.4
+            - ''
+          description: Match and retain the devices based on the type.
+        match_period:
+          type: integer
+          raw_type: integer
+          version_ranges: &id024
+          - - v7.4.4
+            - ''
+          description: Duration in hours to retain the matched devices (0 - 3072, 0 = always retain).
+        match_remove:
+          type: enum
+          raw_type: string
+          choices: &id026
+          - default
+          - link-down
+          version_ranges: &id025
+          - - v7.6.3
+            - ''
+          description: Options to remove the matched override devices.
+        interface_tags:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id017
+          - - v7.0.0
+            - ''
+          description: Match policy based on the FortiSwitch interface object tags.
+          children: &id016
+            tag_name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id020
+              - - v7.0.0
+                - ''
+              description: FortiSwitch port tag name. Source switch-controller.switch-interface-tag.name.
+              references: &id019
+              - switch-controller.switch-interface-tag.name
+        mac:
+          type: string
+          raw_type: string
+          version_ranges: &id023
+          - - v7.0.0
+            - ''
+          description: Match policy based on MAC address.
+        hw_vendor:
+          type: string
+          raw_type: string
+          version_ranges: &id015
+          - - v7.0.4
+            - ''
+          description: Match policy based on hardware vendor.
+        type:
+          type: string
+          raw_type: string
+          version_ranges: &id038
+          - - v7.0.0
+            - ''
+          description: Match policy based on type.
+        family:
+          type: string
+          raw_type: string
+          version_ranges: &id013
+          - - v7.0.0
+            - ''
+          description: Match policy based on family.
+        host:
+          type: string
+          raw_type: string
+          version_ranges: &id014
+          - - v7.0.0
+            - ''
+          description: Match policy based on host.
+        lldp_profile:
+          type: string
+          raw_type: string
+          version_ranges: &id022
+          - - v7.0.0
+            - ''
+          description: LLDP profile to be applied when using this policy. Source switch-controller.lldp-profile.name.
+          references: &id021
+          - switch-controller.lldp-profile.name
+        qos_policy:
+          type: string
+          raw_type: string
+          version_ranges: &id033
+          - - v7.0.0
+            - ''
+          description: QoS policy to be applied when using this policy. Source switch-controller.qos.qos-policy.name.
+          references: &id032
+          - switch-controller.qos.qos-policy.name
+        vlan_policy:
+          type: string
+          raw_type: string
+          version_ranges: &id040
+          - - v7.0.0
+            - ''
+          description: VLAN policy to be applied when using this policy. Source switch-controller.vlan-policy.name.
+          references: &id039
+          - switch-controller.vlan-policy.name
+        bounce_port_link:
+          type: enum
+          raw_type: string
+          choices: &id009
+          - disable
+          - enable
+          version_ranges: &id008
+          - - v7.0.0
+            - ''
+          description: Enable/disable bouncing (administratively bring the link down, up) of a switch port where this policy
+            is applied. Helps to clear and reassign VLAN from lldp-profile.
+        bounce_port_duration:
+          type: integer
+          raw_type: integer
+          version_ranges: &id007
+          - - v7.6.1
+            - ''
+          description: Bounce duration in seconds of a switch port where this policy is applied.
+        poe_reset:
+          type: enum
+          raw_type: string
+          choices: &id031
+          - disable
+          - enable
+          version_ranges: &id030
+          - - v7.6.1
+            - ''
+          description: Enable/disable POE reset of a switch port where this policy is applied.
+        set_802_1x:
+          type: string
+          raw_type: string
+          version_ranges: &id035
+          - - v7.0.0
+            - ''
+          description: 802.1x security policy to be applied when using this policy. Source switch-controller.security-policy.802-1X.name
+            switch-controller.security-policy.captive-portal.name.
+          references: &id034
+          - switch-controller.security-policy.802-1X.name
+          - switch-controller.security-policy.captive-portal.name
+      version_ranges: &id005
+      - - v7.0.0
+        - ''
+      description: Port policies with matching criteria and actions.
+      source_attribute: policy
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id005
+        description: Port policies with matching criteria and actions.
+        children: *id006
+        source_attribute: policy
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          description:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          category:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          match_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          match_period:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 3072
+          match_remove:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          interface_tags:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id018
+              tag_name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 63
+          mac:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 17
+          hw_vendor:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          family:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 31
+          host:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 64
+          lldp_profile:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          qos_policy:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          n802_1x:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 31
+          vlan_policy:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          bounce_port_link:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          bounce_port_duration:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 30
+          poe_reset:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: policy
+    sources:
+    - ansible
+    - terraform
+  policy.bounce_port_duration:
+    canonical:
+      type: integer
+      version_ranges: *id007
+      min: 1
+      max: 30
+      description: Bounce duration in seconds of a switch port where this policy is applied.
+      source_attribute: policy.bounce_port_duration
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id007
+        description: Bounce duration in seconds of a switch port where this policy is applied.
+        source_attribute: policy.bounce_port_duration
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 30
+        source_attribute: policy.bounce_port_duration
+    sources:
+    - ansible
+    - terraform
+  policy.bounce_port_link:
+    canonical:
+      type: enum
+      version_ranges: *id008
+      choices: *id009
+      description: Enable/disable bouncing (administratively bring the link down, up) of a switch port where this policy is
+        applied. Helps to clear and reassign VLAN from lldp-profile.
+      source_attribute: policy.bounce_port_link
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id008
+        description: Enable/disable bouncing (administratively bring the link down, up) of a switch port where this policy
+          is applied. Helps to clear and reassign VLAN from lldp-profile.
+        source_attribute: policy.bounce_port_link
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: policy.bounce_port_link
+    sources:
+    - ansible
+    - terraform
+  policy.category:
+    canonical:
+      type: enum
+      version_ranges: *id010
+      choices: *id011
+      description: Category of Dynamic port policy.
+      source_attribute: policy.category
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id011
+        version_ranges: *id010
+        description: Category of Dynamic port policy.
+        source_attribute: policy.category
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: policy.category
+    sources:
+    - ansible
+    - terraform
+  policy.description:
+    canonical:
+      type: string
+      version_ranges: *id012
+      min_length: 0
+      max_length: 63
+      description: Description for the policy.
+      source_attribute: policy.description
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id012
+        description: Description for the policy.
+        source_attribute: policy.description
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: policy.description
+    sources:
+    - ansible
+    - terraform
+  policy.family:
+    canonical:
+      type: string
+      version_ranges: *id013
+      min_length: 0
+      max_length: 31
+      description: Match policy based on family.
+      source_attribute: policy.family
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id013
+        description: Match policy based on family.
+        source_attribute: policy.family
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 31
+        source_attribute: policy.family
+    sources:
+    - ansible
+    - terraform
+  policy.host:
+    canonical:
+      type: string
+      version_ranges: *id014
+      min_length: 0
+      max_length: 64
+      description: Match policy based on host.
+      source_attribute: policy.host
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: Match policy based on host.
+        source_attribute: policy.host
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 64
+        source_attribute: policy.host
+    sources:
+    - ansible
+    - terraform
+  policy.hw_vendor:
+    canonical:
+      type: string
+      version_ranges: *id015
+      min_length: 0
+      max_length: 15
+      description: Match policy based on hardware vendor.
+      source_attribute: policy.hw_vendor
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id015
+        description: Match policy based on hardware vendor.
+        source_attribute: policy.hw_vendor
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: policy.hw_vendor
+    sources:
+    - ansible
+    - terraform
+  policy.interface_tags:
+    canonical:
+      type: list
+      elements: dict
+      children: *id016
+      version_ranges: *id017
+      description: Match policy based on the FortiSwitch interface object tags.
+      source_attribute: policy.interface_tags
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id017
+        description: Match policy based on the FortiSwitch interface object tags.
+        children: *id016
+        source_attribute: policy.interface_tags
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id018
+        source_attribute: policy.interface_tags
+    sources:
+    - ansible
+    - terraform
+  policy.interface_tags.tag_name:
+    canonical:
+      type: string
+      references: *id019
+      required: true
+      version_ranges: *id020
+      min_length: 0
+      max_length: 63
+      description: FortiSwitch port tag name. Source switch-controller.switch-interface-tag.name.
+      source_attribute: policy.interface_tags.tag_name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id020
+        description: FortiSwitch port tag name. Source switch-controller.switch-interface-tag.name.
+        references: *id019
+        source_attribute: policy.interface_tags.tag_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: policy.interface_tags.tag_name
+    sources:
+    - ansible
+    - terraform
+  policy.lldp_profile:
+    canonical:
+      type: string
+      references: *id021
+      version_ranges: *id022
+      min_length: 0
+      max_length: 63
+      description: LLDP profile to be applied when using this policy. Source switch-controller.lldp-profile.name.
+      source_attribute: policy.lldp_profile
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id022
+        description: LLDP profile to be applied when using this policy. Source switch-controller.lldp-profile.name.
+        references: *id021
+        source_attribute: policy.lldp_profile
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: policy.lldp_profile
+    sources:
+    - ansible
+    - terraform
+  policy.mac:
+    canonical:
+      type: string
+      version_ranges: *id023
+      min_length: 0
+      max_length: 17
+      description: Match policy based on MAC address.
+      source_attribute: policy.mac
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id023
+        description: Match policy based on MAC address.
+        source_attribute: policy.mac
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 17
+        source_attribute: policy.mac
+    sources:
+    - ansible
+    - terraform
+  policy.match_period:
+    canonical:
+      type: integer
+      version_ranges: *id024
+      min: 0
+      max: 3072
+      description: Duration in hours to retain the matched devices (0 - 3072, 0 = always retain).
+      source_attribute: policy.match_period
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id024
+        description: Duration in hours to retain the matched devices (0 - 3072, 0 = always retain).
+        source_attribute: policy.match_period
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 3072
+        source_attribute: policy.match_period
+    sources:
+    - ansible
+    - terraform
+  policy.match_remove:
+    canonical:
+      type: enum
+      version_ranges: *id025
+      choices: *id026
+      description: Options to remove the matched override devices.
+      source_attribute: policy.match_remove
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id026
+        version_ranges: *id025
+        description: Options to remove the matched override devices.
+        source_attribute: policy.match_remove
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: policy.match_remove
+    sources:
+    - ansible
+    - terraform
+  policy.match_type:
+    canonical:
+      type: enum
+      version_ranges: *id027
+      choices: *id028
+      description: Match and retain the devices based on the type.
+      source_attribute: policy.match_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id028
+        version_ranges: *id027
+        description: Match and retain the devices based on the type.
+        source_attribute: policy.match_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: policy.match_type
+    sources:
+    - ansible
+    - terraform
+  policy.n802_1x:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 31
+      source_attribute: policy.n802_1x
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 31
+        source_attribute: policy.n802_1x
+    sources:
+    - terraform
+  policy.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id029
+      min_length: 0
+      max_length: 63
+      description: Policy name.
+      source_attribute: policy.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id029
+        description: Policy name.
+        source_attribute: policy.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: policy.name
+    sources:
+    - ansible
+    - terraform
+  policy.poe_reset:
+    canonical:
+      type: enum
+      version_ranges: *id030
+      choices: *id031
+      description: Enable/disable POE reset of a switch port where this policy is applied.
+      source_attribute: policy.poe_reset
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id031
+        version_ranges: *id030
+        description: Enable/disable POE reset of a switch port where this policy is applied.
+        source_attribute: policy.poe_reset
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: policy.poe_reset
+    sources:
+    - ansible
+    - terraform
+  policy.qos_policy:
+    canonical:
+      type: string
+      references: *id032
+      version_ranges: *id033
+      min_length: 0
+      max_length: 63
+      description: QoS policy to be applied when using this policy. Source switch-controller.qos.qos-policy.name.
+      source_attribute: policy.qos_policy
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id033
+        description: QoS policy to be applied when using this policy. Source switch-controller.qos.qos-policy.name.
+        references: *id032
+        source_attribute: policy.qos_policy
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: policy.qos_policy
+    sources:
+    - ansible
+    - terraform
+  policy.set_802_1x:
+    canonical:
+      type: string
+      references: *id034
+      version_ranges: *id035
+      description: 802.1x security policy to be applied when using this policy. Source switch-controller.security-policy.802-1X.name
+        switch-controller.security-policy.captive-portal.name.
+      source_attribute: policy.set_802_1x
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id035
+        description: 802.1x security policy to be applied when using this policy. Source switch-controller.security-policy.802-1X.name
+          switch-controller.security-policy.captive-portal.name.
+        references: *id034
+        source_attribute: policy.set_802_1x
+    sources:
+    - ansible
+  policy.status:
+    canonical:
+      type: enum
+      version_ranges: *id036
+      choices: *id037
+      description: Enable/disable policy.
+      source_attribute: policy.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id037
+        version_ranges: *id036
+        description: Enable/disable policy.
+        source_attribute: policy.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: policy.status
+    sources:
+    - ansible
+    - terraform
+  policy.type:
+    canonical:
+      type: string
+      version_ranges: *id038
+      min_length: 0
+      max_length: 15
+      description: Match policy based on type.
+      source_attribute: policy.type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id038
+        description: Match policy based on type.
+        source_attribute: policy.type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: policy.type
+    sources:
+    - ansible
+    - terraform
+  policy.vlan_policy:
+    canonical:
+      type: string
+      references: *id039
+      version_ranges: *id040
+      min_length: 0
+      max_length: 63
+      description: VLAN policy to be applied when using this policy. Source switch-controller.vlan-policy.name.
+      source_attribute: policy.vlan_policy
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id040
+        description: VLAN policy to be applied when using this policy. Source switch-controller.vlan-policy.name.
+        references: *id039
+        source_attribute: policy.vlan_policy
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: policy.vlan_policy
+    sources:
+    - ansible
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

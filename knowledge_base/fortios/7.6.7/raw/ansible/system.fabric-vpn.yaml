@@ -1,0 +1,297 @@
+id: system.fabric-vpn
+version: 7.6.7
+source_object: fortios_system_fabric_vpn
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_system_fabric_vpn.py
+root_type: object
+attributes:
+  status:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v7.2.4
+      - ''
+    description: Enable/disable Fabric VPN.
+  sync_mode:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v7.2.4
+      - ''
+    description: Setting synchronized by fabric or manual.
+  branch_name:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v7.2.4
+      - ''
+    description: Branch name.
+  policy_rule:
+    type: enum
+    raw_type: string
+    choices:
+    - health-check
+    - manual
+    - auto
+    version_ranges:
+    - - v7.2.4
+      - ''
+    description: Policy creation rule.
+  vpn_role:
+    type: enum
+    raw_type: string
+    choices:
+    - hub
+    - spoke
+    version_ranges:
+    - - v7.2.4
+      - ''
+    description: Fabric VPN role.
+  overlays:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v7.2.4
+      - ''
+    description: Local overlay interfaces table.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v7.2.4
+          - ''
+        description: Overlay name.
+      ipsec_network_id:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.6.3
+          - ''
+        description: VPN gateway network ID.
+      overlay_tunnel_block:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.2.4
+          - ''
+        description: 'IPv4 address and subnet mask for the overlay tunnel , syntax: X.X.X.X/24.'
+      remote_gw:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.2.4
+          - ''
+        description: IP address of the hub gateway (Set by hub).
+      interface:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.2.4
+          - ''
+        description: Underlying interface name. Source system.interface.name.
+        references:
+        - system.interface.name
+      bgp_neighbor:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.2.4
+          - ''
+        description: Underlying BGP neighbor entry. Source router.bgp.neighbor.ip.
+        references:
+        - router.bgp.neighbor.ip
+      overlay_policy:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.2.4
+          - ''
+        description: The overlay policy to allow ADVPN thru traffic. Source firewall.policy.policyid.
+        references:
+        - firewall.policy.policyid
+      bgp_network:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.2.4
+          - ''
+        description: Underlying BGP network. Source router.bgp.network.id.
+        references:
+        - router.bgp.network.id
+      route_policy:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.2.4
+          - ''
+        description: Underlying router policy. Source router.policy.seq-num.
+        references:
+        - router.policy.seq-num
+      bgp_neighbor_group:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.2.4
+          - ''
+        description: Underlying BGP neighbor group entry. Source router.bgp.neighbor-group.name.
+        references:
+        - router.bgp.neighbor-group.name
+      bgp_neighbor_range:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.2.4
+          - ''
+        description: Underlying BGP neighbor range entry. Source router.bgp.neighbor-range.id.
+        references:
+        - router.bgp.neighbor-range.id
+      ipsec_phase1:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.2.4
+          - ''
+        description: IPsec interface. Source vpn.ipsec.phase1-interface.name.
+        references:
+        - vpn.ipsec.phase1-interface.name
+      sdwan_member:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.2.4
+          - ''
+        description: Reference to SD-WAN member entry. Source system.sdwan.members.seq-num.
+        references:
+        - system.sdwan.members.seq-num
+  advertised_subnets:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v7.2.4
+      - ''
+    description: Local advertised subnets.
+    children:
+      id:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v7.2.4
+          - ''
+        description: ID. see <a href='#notes'>Notes</a>.
+      prefix:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.2.4
+          - ''
+        description: Network prefix.
+      access:
+        type: enum
+        raw_type: string
+        choices:
+        - inbound
+        - bidirectional
+        version_ranges:
+        - - v7.2.4
+          - ''
+        description: Access policy direction.
+      bgp_network:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.2.4
+          - ''
+        description: Underlying BGP network. Source router.bgp.network.id.
+        references:
+        - router.bgp.network.id
+      firewall_address:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.2.4
+          - ''
+        description: Underlying firewall address. Source firewall.address.name.
+        references:
+        - firewall.address.name
+      policies:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: int
+        version_ranges:
+        - - v7.2.4
+          - ''
+        description: Underlying policies. Source firewall.policy.policyid.
+        references:
+        - firewall.policy.policyid
+  loopback_address_block:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v7.2.4
+      - ''
+    description: 'IPv4 address and subnet mask for hub"s loopback address, syntax: X.X.X.X/24.'
+  loopback_interface:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v7.2.4
+      - ''
+    description: Loopback interface. Source system.interface.name.
+    references:
+    - system.interface.name
+  loopback_advertised_subnet:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.2.4
+      - ''
+    description: Loopback advertised subnet reference. Source system.fabric-vpn.advertised-subnets.id.
+    references:
+    - system.fabric-vpn.advertised-subnets.id
+  psksecret:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v7.2.4
+      - ''
+    description: Pre-shared secret for ADVPN.
+  bgp_as:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v7.2.4
+      - ''
+    description: BGP Router AS number, asplain/asdot/asdot+ format.
+  sdwan_zone:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v7.2.4
+      - ''
+    description: Reference to created SD-WAN zone. Source system.sdwan.zone.name.
+    references:
+    - system.sdwan.zone.name
+  health_checks:
+    type: list
+    raw_type: list
+    multiple_values: true
+    elements: str
+    version_ranges:
+    - - v7.2.4
+      - ''
+    description: Underlying health checks. Source system.sdwan.health-check.name.
+    references:
+    - system.sdwan.health-check.name

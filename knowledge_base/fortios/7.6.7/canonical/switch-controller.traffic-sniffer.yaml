@@ -1,0 +1,749 @@
+id: switch-controller.traffic-sniffer
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  erspan_ip:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id001
+      - - v6.2.0
+        - ''
+      default: 0.0.0.0
+      description: Configure ERSPAN collector IP address.
+      source_attribute: erspan-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Configure ERSPAN collector IP address.
+        source_attribute: erspan_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: erspan_ip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Configure ERSPAN collector IP address.
+        default: 0.0.0.0
+        source_attribute: erspan-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id002
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id002
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  mode:
+    canonical:
+      type: enum
+      version_ranges: &id004
+      - - v6.2.0
+        - ''
+      choices: &id003
+      - erspan-auto
+      - rspan
+      - none
+      default: erspan-auto
+      description: Configure traffic sniffer mode.
+      source_attribute: mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: Configure traffic sniffer mode.
+        source_attribute: mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Configure traffic sniffer mode.
+        default: erspan-auto
+        source_attribute: mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  target_ip:
+    canonical:
+      type: list
+      elements: dict
+      children: &id006
+        ip:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id008
+          - - v6.2.0
+            - ''
+          description: Sniffer IP.
+        description:
+          type: string
+          raw_type: string
+          version_ranges: &id007
+          - - v6.2.0
+            - ''
+          description: Description for the sniffer IP.
+      version_ranges: &id005
+      - - v6.2.0
+        - ''
+      description: Sniffer IPs to filter.
+      source_attribute: target_ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id005
+        description: Sniffer IPs to filter.
+        children: *id006
+        source_attribute: target_ip
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          description:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+        source_attribute: target_ip
+    sources:
+    - ansible
+    - terraform
+  target_ip.description:
+    canonical:
+      type: string
+      version_ranges: *id007
+      min_length: 0
+      max_length: 63
+      description: Description for the sniffer IP.
+      source_attribute: target_ip.description
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: Description for the sniffer IP.
+        source_attribute: target_ip.description
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: target_ip.description
+    sources:
+    - ansible
+    - terraform
+  target_ip.ip:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id008
+      description: Sniffer IP.
+      source_attribute: target_ip.ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id008
+        description: Sniffer IP.
+        source_attribute: target_ip.ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: target_ip.ip
+    sources:
+    - ansible
+    - terraform
+  target_mac:
+    canonical:
+      type: list
+      elements: dict
+      children: &id010
+        mac:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id012
+          - - v6.2.0
+            - ''
+          description: Sniffer MAC.
+        description:
+          type: string
+          raw_type: string
+          version_ranges: &id011
+          - - v6.2.0
+            - ''
+          description: Description for the sniffer MAC.
+      version_ranges: &id009
+      - - v6.2.0
+        - ''
+      description: Sniffer MACs to filter.
+      source_attribute: target_mac
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id009
+        description: Sniffer MACs to filter.
+        children: *id010
+        source_attribute: target_mac
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          mac:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          description:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+        source_attribute: target_mac
+    sources:
+    - ansible
+    - terraform
+  target_mac.description:
+    canonical:
+      type: string
+      version_ranges: *id011
+      min_length: 0
+      max_length: 63
+      description: Description for the sniffer MAC.
+      source_attribute: target_mac.description
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: Description for the sniffer MAC.
+        source_attribute: target_mac.description
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: target_mac.description
+    sources:
+    - ansible
+    - terraform
+  target_mac.mac:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id012
+      description: Sniffer MAC.
+      source_attribute: target_mac.mac
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id012
+        description: Sniffer MAC.
+        source_attribute: target_mac.mac
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: target_mac.mac
+    sources:
+    - ansible
+    - terraform
+  target_port:
+    canonical:
+      type: list
+      elements: dict
+      children: &id014
+        switch_id:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id025
+          - - v6.2.0
+            - ''
+          description: Managed-switch ID. Source switch-controller.managed-switch.switch-id.
+          references: &id024
+          - switch-controller.managed-switch.switch-id
+        description:
+          type: string
+          raw_type: string
+          version_ranges: &id015
+          - - v6.2.0
+            - ''
+          description: Description for the sniffer port entry.
+        in_ports:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id017
+          - - v6.2.0
+            - ''
+          description: Configure source ingress port interfaces.
+          children: &id016
+            name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id019
+              - - v6.2.0
+                - ''
+              description: Interface name.
+        out_ports:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id021
+          - - v6.2.0
+            - ''
+          description: Configure source egress port interfaces.
+          children: &id020
+            name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id023
+              - - v6.2.0
+                - ''
+              description: Interface name.
+      version_ranges: &id013
+      - - v6.2.0
+        - ''
+      description: Sniffer ports to filter.
+      source_attribute: target_port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id013
+        description: Sniffer ports to filter.
+        children: *id014
+        source_attribute: target_port
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          switch_id:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          description:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          in_ports:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id018
+              name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+          out_ports:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id022
+              name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+        source_attribute: target_port
+    sources:
+    - ansible
+    - terraform
+  target_port.description:
+    canonical:
+      type: string
+      version_ranges: *id015
+      min_length: 0
+      max_length: 63
+      description: Description for the sniffer port entry.
+      source_attribute: target_port.description
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id015
+        description: Description for the sniffer port entry.
+        source_attribute: target_port.description
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: target_port.description
+    sources:
+    - ansible
+    - terraform
+  target_port.in_ports:
+    canonical:
+      type: list
+      elements: dict
+      children: *id016
+      version_ranges: *id017
+      description: Configure source ingress port interfaces.
+      source_attribute: target_port.in_ports
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id017
+        description: Configure source ingress port interfaces.
+        children: *id016
+        source_attribute: target_port.in_ports
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id018
+        source_attribute: target_port.in_ports
+    sources:
+    - ansible
+    - terraform
+  target_port.in_ports.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id019
+      min_length: 0
+      max_length: 79
+      description: Interface name.
+      source_attribute: target_port.in_ports.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id019
+        description: Interface name.
+        source_attribute: target_port.in_ports.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: target_port.in_ports.name
+    sources:
+    - ansible
+    - terraform
+  target_port.out_ports:
+    canonical:
+      type: list
+      elements: dict
+      children: *id020
+      version_ranges: *id021
+      description: Configure source egress port interfaces.
+      source_attribute: target_port.out_ports
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id021
+        description: Configure source egress port interfaces.
+        children: *id020
+        source_attribute: target_port.out_ports
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id022
+        source_attribute: target_port.out_ports
+    sources:
+    - ansible
+    - terraform
+  target_port.out_ports.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id023
+      min_length: 0
+      max_length: 79
+      description: Interface name.
+      source_attribute: target_port.out_ports.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id023
+        description: Interface name.
+        source_attribute: target_port.out_ports.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: target_port.out_ports.name
+    sources:
+    - ansible
+    - terraform
+  target_port.switch_id:
+    canonical:
+      type: string
+      references: *id024
+      required: true
+      version_ranges: *id025
+      min_length: 0
+      max_length: 35
+      description: Managed-switch ID. Source switch-controller.managed-switch.switch-id.
+      source_attribute: target_port.switch_id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id025
+        description: Managed-switch ID. Source switch-controller.managed-switch.switch-id.
+        references: *id024
+        source_attribute: target_port.switch_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: target_port.switch_id
+    sources:
+    - ansible
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: erspan_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict

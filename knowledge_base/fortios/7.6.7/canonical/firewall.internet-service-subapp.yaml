@@ -1,0 +1,192 @@
+id: firewall.internet-service-subapp
+version: 7.6.7
+source_presence:
+  ansible: false
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  fosid:
+    canonical:
+      type: integer
+      source_attribute: fosid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: fosid
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  id:
+    canonical:
+      type: integer
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Internet Service main ID.
+      source_attribute: id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Internet Service main ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: id
+    sources:
+    - cli_reference
+  sub_app:
+    canonical:
+      type: list
+      children: &id001
+        id:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+      min: 0
+      max: 4294967295
+      description: Subapp number list. Subapp ID.
+      source_attribute: sub-app
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id001
+        source_attribute: sub_app
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Subapp number list. Subapp ID.
+        min: 0
+        max: 4294967295
+        source_attribute: sub-app
+    sources:
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id002
+          element_type: integer
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id002
+  sub_app.id:
+    canonical:
+      type: integer
+      source_attribute: sub_app.id
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: sub_app.id
+    sources:
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: sub_app
+  field: type
+  values:
+    terraform: list
+    cli_reference: integer
+  classification: representation_or_real_conflict

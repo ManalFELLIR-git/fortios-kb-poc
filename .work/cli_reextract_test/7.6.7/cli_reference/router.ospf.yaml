@@ -1,0 +1,615 @@
+id: router.ospf
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/103419153/config-router-ospf
+attributes:
+  abr-type:
+    type: enum
+    raw_type: option
+    description: Area border router type.
+    default: standard
+  auto-cost-ref-bandwidth:
+    type: integer
+    raw_type: integer
+    description: Reference bandwidth in terms of megabits per second.
+    default: '1000'
+    min: 1
+    max: 1000000
+  bfd:
+    type: enum
+    raw_type: option
+    description: Bidirectional Forwarding Detection (BFD).
+    default: disable
+  database-overflow:
+    type: enum
+    raw_type: option
+    description: Enable/disable database overflow.
+    default: disable
+  database-overflow-max-lsas:
+    type: integer
+    raw_type: integer
+    description: Database overflow maximum LSAs.
+    default: '10000'
+    min: 0
+    max: 4294967295
+  database-overflow-time-to-recover:
+    type: integer
+    raw_type: integer
+    description: Database overflow time to recover (sec).
+    default: '300'
+    min: 0
+    max: 65535
+  default-information-metric:
+    type: integer
+    raw_type: integer
+    description: Default information metric.
+    default: '10'
+    min: 1
+    max: 16777214
+  default-information-metric-type:
+    type: enum
+    raw_type: option
+    description: Default information metric type.
+    default: '2'
+  default-information-originate:
+    type: enum
+    raw_type: option
+    description: Enable/disable generation of default route.
+    default: disable
+  default-information-route-map:
+    type: string
+    raw_type: string
+    description: Default information route map.
+    max_length: 35
+  default-metric:
+    type: integer
+    raw_type: integer
+    description: Default metric of redistribute routes.
+    default: '10'
+    min: 1
+    max: 16777214
+  distance:
+    type: integer
+    raw_type: integer
+    description: Distance of the route.
+    default: '110'
+    min: 1
+    max: 255
+  distance-external:
+    type: integer
+    raw_type: integer
+    description: Administrative external distance.
+    default: '110'
+    min: 1
+    max: 255
+  distance-inter-area:
+    type: integer
+    raw_type: integer
+    description: Administrative inter-area distance.
+    default: '110'
+    min: 1
+    max: 255
+  distance-intra-area:
+    type: integer
+    raw_type: integer
+    description: Administrative intra-area distance.
+    default: '110'
+    min: 1
+    max: 255
+  distribute-list-in:
+    type: string
+    raw_type: string
+    description: Filter incoming routes.
+    max_length: 35
+  distribute-route-map-in:
+    type: string
+    raw_type: string
+    description: Filter incoming external routes by route-map.
+    max_length: 35
+  log-neighbour-changes:
+    type: enum
+    raw_type: option
+    description: Log of OSPF neighbor changes.
+    default: enable
+  lsa-refresh-interval:
+    type: integer
+    raw_type: integer
+    description: The minimal OSPF LSA update time interval
+    default: '5'
+    min: 0
+    max: 5
+  passive-interface:
+    type: string
+    raw_type: string
+    description: Passive interface configuration. Passive interface name.
+    max_length: 79
+  restart-mode:
+    type: enum
+    raw_type: option
+    description: OSPF restart mode (graceful or LLS).
+    default: none
+  restart-on-topology-change:
+    type: enum
+    raw_type: option
+    description: Enable/disable continuing graceful restart upon topology change.
+    default: disable
+  restart-period:
+    type: integer
+    raw_type: integer
+    description: Graceful restart period.
+    default: '120'
+    min: 1
+    max: 3600
+  rfc1583-compatible:
+    type: enum
+    raw_type: option
+    description: Enable/disable RFC1583 compatibility.
+    default: disable
+  router-id:
+    type: ipv4-address-any
+    raw_type: ipv4-address-any
+    description: Router ID.
+    default: 0.0.0.0
+  spf-timers:
+    type: string
+    raw_type: user
+    description: SPF calculation frequency.
+children:
+  area:
+    attributes:
+      authentication:
+        type: enum
+        raw_type: option
+        description: Authentication type.
+        default: none
+      comments:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 255
+      default-cost:
+        type: integer
+        raw_type: integer
+        description: Summary default cost of stub or NSSA area.
+        default: '10'
+        min: 0
+        max: 4294967295
+      id:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: Area entry IP address.
+        default: 0.0.0.0
+      nssa-default-information-originate:
+        type: enum
+        raw_type: option
+        description: Redistribute, advertise, or do not originate Type-7 default route into NSSA area.
+        default: disable
+      nssa-default-information-originate-metric:
+        type: integer
+        raw_type: integer
+        description: OSPF default metric.
+        default: '10'
+        min: 0
+        max: 16777214
+      nssa-default-information-originate-metric-type:
+        type: enum
+        raw_type: option
+        description: OSPF metric type for default routes.
+        default: '2'
+      nssa-redistribution:
+        type: enum
+        raw_type: option
+        description: Enable/disable redistribute into NSSA area.
+        default: enable
+      nssa-translator-role:
+        type: enum
+        raw_type: option
+        description: NSSA translator role type.
+        default: candidate
+      shortcut:
+        type: enum
+        raw_type: option
+        description: Enable/disable shortcut option.
+        default: disable
+      stub-type:
+        type: enum
+        raw_type: option
+        description: Stub summary setting.
+        default: summary
+      type:
+        type: enum
+        raw_type: option
+        description: Area type setting.
+        default: regular
+  filter-list:
+    attributes:
+      direction:
+        type: enum
+        raw_type: option
+        description: Direction.
+        default: out
+      id:
+        type: integer
+        raw_type: integer
+        description: Filter list entry ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      list:
+        type: string
+        raw_type: string
+        description: Access-list or prefix-list name.
+        max_length: 35
+  range:
+    attributes:
+      advertise:
+        type: enum
+        raw_type: option
+        description: Enable/disable advertise status.
+        default: enable
+      id:
+        type: integer
+        raw_type: integer
+        description: Range entry ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      prefix:
+        type: ipv4-classnet-any
+        raw_type: ipv4-classnet-any
+        description: Prefix.
+        default: 0.0.0.0 0.0.0.0
+      substitute:
+        type: ipv4-classnet-any
+        raw_type: ipv4-classnet-any
+        description: Substitute prefix.
+        default: 0.0.0.0 0.0.0.0
+      substitute-status:
+        type: enum
+        raw_type: option
+        description: Enable/disable substitute status.
+        default: disable
+  virtual-link:
+    attributes:
+      authentication:
+        type: enum
+        raw_type: option
+        description: Authentication type.
+        default: none
+      authentication-key:
+        type: password
+        raw_type: password
+        description: Authentication key.
+      dead-interval:
+        type: integer
+        raw_type: integer
+        description: Dead interval.
+        default: '40'
+        min: 1
+        max: 65535
+      hello-interval:
+        type: integer
+        raw_type: integer
+        description: Hello interval.
+        default: '10'
+        min: 1
+        max: 65535
+      keychain:
+        type: string
+        raw_type: string
+        description: Message-digest key-chain name.
+        max_length: 35
+      name:
+        type: string
+        raw_type: string
+        description: Virtual link entry name.
+        max_length: 35
+      peer:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: Peer IP.
+        default: 0.0.0.0
+      retransmit-interval:
+        type: integer
+        raw_type: integer
+        description: Retransmit interval.
+        default: '5'
+        min: 1
+        max: 65535
+      transmit-delay:
+        type: integer
+        raw_type: integer
+        description: Transmit delay.
+        default: '1'
+        min: 1
+        max: 65535
+  distribute-list:
+    attributes:
+      access-list:
+        type: string
+        raw_type: string
+        description: Access list name.
+        max_length: 35
+      id:
+        type: integer
+        raw_type: integer
+        description: Distribute list entry ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      protocol:
+        type: enum
+        raw_type: option
+        description: Protocol type.
+        default: connected
+  neighbor:
+    attributes:
+      cost:
+        type: integer
+        raw_type: integer
+        description: Cost of the interface, value range from 0 to 65535, 0 means auto-cost.
+        default: '0'
+        min: 0
+        max: 65535
+      id:
+        type: integer
+        raw_type: integer
+        description: Neighbor entry ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      ip:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Interface IP address of the neighbor.
+        default: 0.0.0.0
+      poll-interval:
+        type: integer
+        raw_type: integer
+        description: Poll interval time in seconds.
+        default: '10'
+        min: 1
+        max: 65535
+      priority:
+        type: integer
+        raw_type: integer
+        description: Priority.
+        default: '1'
+        min: 0
+        max: 255
+  network:
+    attributes:
+      area:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: Attach the network to area.
+        default: 0.0.0.0
+      comments:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 255
+      id:
+        type: integer
+        raw_type: integer
+        description: Network entry ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      prefix:
+        type: ipv4-classnet
+        raw_type: ipv4-classnet
+        description: Prefix.
+        default: 0.0.0.0 0.0.0.0
+  ospf-interface:
+    attributes:
+      authentication:
+        type: enum
+        raw_type: option
+        description: Authentication type.
+        default: none
+      authentication-key:
+        type: password
+        raw_type: password
+        description: Authentication key.
+      bfd:
+        type: enum
+        raw_type: option
+        description: Bidirectional Forwarding Detection (BFD).
+        default: global
+      comments:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 255
+      cost:
+        type: integer
+        raw_type: integer
+        description: Cost of the interface, value range from 0 to 65535, 0 means auto-cost.
+        default: '0'
+        min: 0
+        max: 65535
+      database-filter-out:
+        type: enum
+        raw_type: option
+        description: Enable/disable control of flooding out LSAs.
+        default: disable
+      dead-interval:
+        type: integer
+        raw_type: integer
+        description: Dead interval.
+        default: '0'
+        min: 0
+        max: 65535
+      hello-interval:
+        type: integer
+        raw_type: integer
+        description: Hello interval.
+        default: '0'
+        min: 0
+        max: 65535
+      hello-multiplier:
+        type: integer
+        raw_type: integer
+        description: Number of hello packets within dead interval.
+        default: '0'
+        min: 3
+        max: 10
+      interface:
+        type: string
+        raw_type: string
+        description: Configuration interface name.
+        max_length: 15
+      ip:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: IP address.
+        default: 0.0.0.0
+      keychain:
+        type: string
+        raw_type: string
+        description: Message-digest key-chain name.
+        max_length: 35
+      linkdown-fast-failover:
+        type: enum
+        raw_type: option
+        description: Enable/disable fast link failover.
+        default: disable
+      mtu:
+        type: integer
+        raw_type: integer
+        description: MTU for database description packets.
+        default: '0'
+        min: 576
+        max: 65535
+      mtu-ignore:
+        type: enum
+        raw_type: option
+        description: Enable/disable ignore MTU.
+        default: disable
+      name:
+        type: string
+        raw_type: string
+        description: Interface entry name.
+        max_length: 35
+      network-type:
+        type: enum
+        raw_type: option
+        description: Network type.
+        default: broadcast
+      prefix-length:
+        type: integer
+        raw_type: integer
+        description: Prefix length.
+        default: '0'
+        min: 0
+        max: 32
+      priority:
+        type: integer
+        raw_type: integer
+        description: Priority.
+        default: '1'
+        min: 0
+        max: 255
+      resync-timeout:
+        type: integer
+        raw_type: integer
+        description: Graceful restart neighbor resynchronization timeout.
+        default: '40'
+        min: 1
+        max: 3600
+      retransmit-interval:
+        type: integer
+        raw_type: integer
+        description: Retransmit interval.
+        default: '5'
+        min: 1
+        max: 65535
+      status:
+        type: enum
+        raw_type: option
+        description: Enable/disable status.
+        default: enable
+      transmit-delay:
+        type: integer
+        raw_type: integer
+        description: Transmit delay.
+        default: '1'
+        min: 1
+        max: 65535
+  md5-keys:
+    attributes:
+      id:
+        type: integer
+        raw_type: integer
+        description: Key ID (1 - 255).
+        default: '0'
+        min: 1
+        max: 255
+      key-string:
+        type: password
+        raw_type: password
+        description: Password for the key.
+  redistribute:
+    attributes:
+      metric:
+        type: integer
+        raw_type: integer
+        description: Redistribute metric setting.
+        default: '0'
+        min: 0
+        max: 16777214
+      metric-type:
+        type: enum
+        raw_type: option
+        description: Metric type.
+        default: '2'
+      name:
+        type: string
+        raw_type: string
+        description: Redistribute name.
+        max_length: 35
+      routemap:
+        type: string
+        raw_type: string
+        description: Route map name.
+        max_length: 35
+      status:
+        type: enum
+        raw_type: option
+        description: Status.
+        default: disable
+      tag:
+        type: integer
+        raw_type: integer
+        description: Tag value.
+        default: '0'
+        min: 0
+        max: 4294967295
+  summary-address:
+    attributes:
+      advertise:
+        type: enum
+        raw_type: option
+        description: Enable/disable advertise status.
+        default: enable
+      id:
+        type: integer
+        raw_type: integer
+        description: Summary address entry ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      prefix:
+        type: ipv4-classnet
+        raw_type: ipv4-classnet
+        description: Prefix.
+        default: 0.0.0.0 0.0.0.0
+      tag:
+        type: integer
+        raw_type: integer
+        description: Tag value.
+        default: '0'
+        min: 0
+        max: 4294967295

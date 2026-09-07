@@ -1,0 +1,505 @@
+id: wireless-controller.bonjour-profile
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Comment.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Comment.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Comment.
+        max_length: 63
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  micro_location:
+    canonical:
+      type: enum
+      version_ranges: &id003
+      - - v7.6.0
+        - ''
+      choices: &id002
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable Micro location for Bonjour profile (default = disable).
+      source_attribute: micro-location
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id002
+        version_ranges: *id003
+        description: Enable/disable Micro location for Bonjour profile .
+        source_attribute: micro_location
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: micro_location
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable Micro location for Bonjour profile (default = disable).
+        default: disable
+        source_attribute: micro-location
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Bonjour profile name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id004
+        description: Bonjour profile name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Bonjour profile name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  policy_list:
+    canonical:
+      type: list
+      elements: dict
+      children: &id006
+        policy_id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id009
+          - - v6.0.0
+            - ''
+          description: Policy ID. see <a href='#notes'>Notes</a>.
+        description:
+          type: string
+          raw_type: string
+          version_ranges: &id007
+          - - v6.0.0
+            - ''
+          description: Description.
+        from_vlan:
+          type: string
+          raw_type: string
+          version_ranges: &id008
+          - - v6.0.0
+            - ''
+          description: VLAN ID from which the Bonjour service is advertised (0 - 4094).
+        to_vlan:
+          type: string
+          raw_type: string
+          version_ranges: &id012
+          - - v6.0.0
+            - ''
+          description: VLAN ID to which the Bonjour service is made available (0 - 4094).
+        services:
+          type: enum
+          raw_type: list
+          choices: &id011
+          - all
+          - airplay
+          - afp
+          - bit-torrent
+          - ftp
+          - ichat
+          - itunes
+          - printers
+          - samba
+          - scanners
+          - ssh
+          - chromecast
+          - miracast
+          multiple_values: true
+          elements: str
+          version_ranges: &id010
+          - - v6.0.0
+            - ''
+          description: Bonjour services for the VLAN connecting to the Bonjour network.
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      description: Bonjour policy list.
+      source_attribute: policy_list
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id005
+        description: Bonjour policy list.
+        children: *id006
+        source_attribute: policy_list
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          policy_id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 65535
+          description:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          from_vlan:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+            min_length: 0
+            max_length: 63
+          to_vlan:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+            min_length: 0
+            max_length: 63
+          services:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: policy_list
+    sources:
+    - ansible
+    - terraform
+  policy_list.description:
+    canonical:
+      type: string
+      version_ranges: *id007
+      min_length: 0
+      max_length: 63
+      description: Description.
+      source_attribute: policy_list.description
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: Description.
+        source_attribute: policy_list.description
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: policy_list.description
+    sources:
+    - ansible
+    - terraform
+  policy_list.from_vlan:
+    canonical:
+      type: string
+      version_ranges: *id008
+      min_length: 0
+      max_length: 63
+      description: VLAN ID from which the Bonjour service is advertised (0 - 4094).
+      source_attribute: policy_list.from_vlan
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: VLAN ID from which the Bonjour service is advertised (0 - 4094).
+        source_attribute: policy_list.from_vlan
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 63
+        source_attribute: policy_list.from_vlan
+    sources:
+    - ansible
+    - terraform
+  policy_list.policy_id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id009
+      min: 1
+      max: 65535
+      description: Policy ID. see <a href='#notes'>Notes</a>.
+      source_attribute: policy_list.policy_id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id009
+        description: Policy ID. see <a href='#notes'>Notes</a>.
+        source_attribute: policy_list.policy_id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 65535
+        source_attribute: policy_list.policy_id
+    sources:
+    - ansible
+    - terraform
+  policy_list.services:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: *id010
+      choices: *id011
+      description: Bonjour services for the VLAN connecting to the Bonjour network.
+      source_attribute: policy_list.services
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id011
+        multiple_values: true
+        elements: str
+        version_ranges: *id010
+        description: Bonjour services for the VLAN connecting to the Bonjour network.
+        source_attribute: policy_list.services
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: policy_list.services
+    sources:
+    - ansible
+    - terraform
+  policy_list.to_vlan:
+    canonical:
+      type: string
+      version_ranges: *id012
+      min_length: 0
+      max_length: 63
+      description: VLAN ID to which the Bonjour service is made available (0 - 4094).
+      source_attribute: policy_list.to_vlan
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id012
+        description: VLAN ID to which the Bonjour service is made available (0 - 4094).
+        source_attribute: policy_list.to_vlan
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 63
+        source_attribute: policy_list.to_vlan
+    sources:
+    - ansible
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

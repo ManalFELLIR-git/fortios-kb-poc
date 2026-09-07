@@ -1,0 +1,323 @@
+id: user.krb-keytab
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  keytab:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 8191
+      description: Base64 coded keytab file containing a pre-shared key.
+      source_attribute: keytab
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Base64 coded keytab file containing a pre-shared key.
+        source_attribute: keytab
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 8191
+        source_attribute: keytab
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Base64 coded keytab file containing a pre-shared key.
+        source_attribute: keytab
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ldap_server:
+    canonical:
+      type: list
+      elements: dict
+      children: &id004
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id007
+          - - v6.4.4
+            - ''
+          description: LDAP server name. Source user.ldap.name.
+          references: &id006
+          - user.ldap.name
+      references: &id003
+      - user.ldap.name
+      required: true
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: LDAP server name(s). LDAP server name.
+      source_attribute: ldap-server
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      references: ansible
+      required: terraform
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id002
+        description: LDAP server name(s). Source user.ldap.name.
+        references: *id003
+        children: *id004
+        source_attribute: ldap_server
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: ldap_server
+      cli_reference:
+        type: string
+        raw_type: string
+        description: LDAP server name(s). LDAP server name.
+        max_length: 79
+        source_attribute: ldap-server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id005
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id005
+  ldap_server.name:
+    canonical:
+      type: string
+      references: *id006
+      required: true
+      version_ranges: *id007
+      description: LDAP server name. Source user.ldap.name.
+      source_attribute: ldap_server.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id007
+        description: LDAP server name. Source user.ldap.name.
+        references: *id006
+        source_attribute: ldap_server.name
+    sources:
+    - ansible
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Kerberos keytab entry name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id008
+        description: Kerberos keytab entry name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Kerberos keytab entry name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  pac_data:
+    canonical:
+      type: enum
+      version_ranges: &id010
+      - - v6.2.0
+        - ''
+      choices: &id009
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable parsing PAC data in the ticket.
+      source_attribute: pac-data
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id010
+        description: Enable/disable parsing PAC data in the ticket.
+        source_attribute: pac_data
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pac_data
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable parsing PAC data in the ticket.
+        default: enable
+        source_attribute: pac-data
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  principal:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 511
+      description: Kerberos service principal. For example, HTTP/myfgt.example.com@example.com.
+      source_attribute: principal
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: Kerberos service principal. For example, HTTP/myfgt.example.com@example.com.
+        source_attribute: principal
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 511
+        source_attribute: principal
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Kerberos service principal. For example, HTTP/myfgt.example.com@example.com.
+        max_length: 511
+        source_attribute: principal
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: ldap_server
+  field: type
+  values:
+    ansible: list
+    terraform: string
+    cli_reference: string
+  classification: representation_or_real_conflict

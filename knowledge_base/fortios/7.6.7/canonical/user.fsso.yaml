@@ -1,0 +1,1692 @@
+id: user.fsso
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  fabric_force_sync:
+    canonical:
+      type: string
+      source_attribute: fabric_force_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_force_sync
+    sources:
+    - terraform
+  fabric_object:
+    canonical:
+      type: string
+      source_attribute: fabric_object
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object
+    sources:
+    - terraform
+  fabric_object_source:
+    canonical:
+      type: string
+      source_attribute: fabric_object_source
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object_source
+    sources:
+    - terraform
+  group_poll_interval:
+    canonical:
+      type: integer
+      version_ranges: &id001
+      - - v6.2.0
+        - ''
+      default: '0'
+      min: 1
+      max: 2880
+      description: Interval in minutes within to fetch groups from FSSO server, or unset to disable.
+      source_attribute: group-poll-interval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id001
+        description: Interval in minutes within to fetch groups from FSSO server, or unset to disable.
+        source_attribute: group_poll_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 2880
+        source_attribute: group_poll_interval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Interval in minutes within to fetch groups from FSSO server, or unset to disable.
+        default: '0'
+        min: 1
+        max: 2880
+        source_attribute: group-poll-interval
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface:
+    canonical:
+      type: string
+      references: &id003
+      - system.interface.name
+      version_ranges: &id002
+      - - v6.2.0
+        - v6.2.0
+      - - v6.2.5
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Specify outgoing interface to reach server.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id002
+        description: Specify outgoing interface to reach server. Source system.interface.name.
+        references: *id003
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Specify outgoing interface to reach server.
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface_select_method:
+    canonical:
+      type: enum
+      version_ranges: &id005
+      - - v6.2.0
+        - v6.2.0
+      - - v6.2.5
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      choices: &id004
+      - auto
+      - sdwan
+      - specify
+      default: auto
+      description: Specify how to select outgoing interface to reach server.
+      source_attribute: interface-select-method
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id004
+        version_ranges: *id005
+        description: Specify how to select outgoing interface to reach server.
+        source_attribute: interface_select_method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface_select_method
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Specify how to select outgoing interface to reach server.
+        default: auto
+        source_attribute: interface-select-method
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ldap_poll:
+    canonical:
+      type: enum
+      version_ranges: &id007
+      - - v6.2.0
+        - ''
+      choices: &id006
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable automatic fetching of groups from LDAP server.
+      source_attribute: ldap-poll
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id006
+        version_ranges: *id007
+        description: Enable/disable automatic fetching of groups from LDAP server.
+        source_attribute: ldap_poll
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ldap_poll
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable automatic fetching of groups from LDAP server.
+        default: disable
+        source_attribute: ldap-poll
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ldap_poll_filter:
+    canonical:
+      type: string
+      version_ranges: &id008
+      - - v6.2.0
+        - ''
+      default: (objectCategory=group)
+      min_length: 0
+      max_length: 2047
+      description: Filter used to fetch groups.
+      source_attribute: ldap-poll-filter
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: Filter used to fetch groups.
+        source_attribute: ldap_poll_filter
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 2047
+        source_attribute: ldap_poll_filter
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Filter used to fetch groups.
+        default: (objectCategory=group)
+        max_length: 2047
+        source_attribute: ldap-poll-filter
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ldap_poll_interval:
+    canonical:
+      type: integer
+      version_ranges: &id009
+      - - v6.2.0
+        - ''
+      default: '180'
+      min: 1
+      max: 2880
+      description: Interval in minutes within to fetch groups from LDAP server.
+      source_attribute: ldap-poll-interval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id009
+        description: Interval in minutes within to fetch groups from LDAP server.
+        source_attribute: ldap_poll_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 2880
+        source_attribute: ldap_poll_interval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Interval in minutes within to fetch groups from LDAP server.
+        default: '180'
+        min: 1
+        max: 2880
+        source_attribute: ldap-poll-interval
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ldap_server:
+    canonical:
+      type: string
+      references: &id011
+      - user.ldap.name
+      version_ranges: &id010
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: LDAP server to get group information.
+      source_attribute: ldap-server
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id010
+        description: LDAP server to get group information. Source user.ldap.name.
+        references: *id011
+        source_attribute: ldap_server
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: ldap_server
+      cli_reference:
+        type: string
+        raw_type: string
+        description: LDAP server to get group information.
+        max_length: 35
+        source_attribute: ldap-server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  logon_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id012
+      - - v7.0.1
+        - ''
+      default: '5'
+      min: 1
+      max: 2880
+      description: Interval in minutes to keep logons after FSSO server down.
+      source_attribute: logon-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id012
+        description: Interval in minutes to keep logons after FSSO server down.
+        source_attribute: logon_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 2880
+        source_attribute: logon_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Interval in minutes to keep logons after FSSO server down.
+        default: '5'
+        min: 1
+        max: 2880
+        source_attribute: logon-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id013
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id013
+        description: Name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  password:
+    canonical:
+      type: password
+      version_ranges: &id014
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: Password of the first FSSO collector agent.
+      source_attribute: password
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: Password of the first FSSO collector agent.
+        source_attribute: password
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: password
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Password of the first FSSO collector agent.
+        source_attribute: password
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id015
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id015
+  password2:
+    canonical:
+      type: password
+      version_ranges: &id016
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: Password of the second FSSO collector agent.
+      source_attribute: password2
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id016
+        description: Password of the second FSSO collector agent.
+        source_attribute: password2
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: password2
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Password of the second FSSO collector agent.
+        source_attribute: password2
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id017
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id017
+  password3:
+    canonical:
+      type: password
+      version_ranges: &id018
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: Password of the third FSSO collector agent.
+      source_attribute: password3
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id018
+        description: Password of the third FSSO collector agent.
+        source_attribute: password3
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: password3
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Password of the third FSSO collector agent.
+        source_attribute: password3
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id019
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id019
+  password4:
+    canonical:
+      type: password
+      version_ranges: &id020
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: Password of the fourth FSSO collector agent.
+      source_attribute: password4
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id020
+        description: Password of the fourth FSSO collector agent.
+        source_attribute: password4
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: password4
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Password of the fourth FSSO collector agent.
+        source_attribute: password4
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id021
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id021
+  password5:
+    canonical:
+      type: password
+      version_ranges: &id022
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: Password of the fifth FSSO collector agent.
+      source_attribute: password5
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id022
+        description: Password of the fifth FSSO collector agent.
+        source_attribute: password5
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: password5
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Password of the fifth FSSO collector agent.
+        source_attribute: password5
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id023
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id023
+  port:
+    canonical:
+      type: integer
+      version_ranges: &id024
+      - - v6.0.0
+        - ''
+      default: '8000'
+      min: 1
+      max: 65535
+      description: Port of the first FSSO collector agent.
+      source_attribute: port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id024
+        description: Port of the first FSSO collector agent.
+        source_attribute: port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port of the first FSSO collector agent.
+        default: '8000'
+        min: 1
+        max: 65535
+        source_attribute: port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  port2:
+    canonical:
+      type: integer
+      version_ranges: &id025
+      - - v6.0.0
+        - ''
+      default: '8000'
+      min: 1
+      max: 65535
+      description: Port of the second FSSO collector agent.
+      source_attribute: port2
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id025
+        description: Port of the second FSSO collector agent.
+        source_attribute: port2
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: port2
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port of the second FSSO collector agent.
+        default: '8000'
+        min: 1
+        max: 65535
+        source_attribute: port2
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  port3:
+    canonical:
+      type: integer
+      version_ranges: &id026
+      - - v6.0.0
+        - ''
+      default: '8000'
+      min: 1
+      max: 65535
+      description: Port of the third FSSO collector agent.
+      source_attribute: port3
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id026
+        description: Port of the third FSSO collector agent.
+        source_attribute: port3
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: port3
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port of the third FSSO collector agent.
+        default: '8000'
+        min: 1
+        max: 65535
+        source_attribute: port3
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  port4:
+    canonical:
+      type: integer
+      version_ranges: &id027
+      - - v6.0.0
+        - ''
+      default: '8000'
+      min: 1
+      max: 65535
+      description: Port of the fourth FSSO collector agent.
+      source_attribute: port4
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id027
+        description: Port of the fourth FSSO collector agent.
+        source_attribute: port4
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: port4
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port of the fourth FSSO collector agent.
+        default: '8000'
+        min: 1
+        max: 65535
+        source_attribute: port4
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  port5:
+    canonical:
+      type: integer
+      version_ranges: &id028
+      - - v6.0.0
+        - ''
+      default: '8000'
+      min: 1
+      max: 65535
+      description: Port of the fifth FSSO collector agent.
+      source_attribute: port5
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id028
+        description: Port of the fifth FSSO collector agent.
+        source_attribute: port5
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: port5
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port of the fifth FSSO collector agent.
+        default: '8000'
+        min: 1
+        max: 65535
+        source_attribute: port5
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  server:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id029
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Domain name or IP address of the first FSSO collector agent.
+      source_attribute: server
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id029
+        description: Domain name or IP address of the first FSSO collector agent.
+        source_attribute: server
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 63
+        source_attribute: server
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Domain name or IP address of the first FSSO collector agent.
+        max_length: 63
+        source_attribute: server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  server2:
+    canonical:
+      type: string
+      version_ranges: &id030
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Domain name or IP address of the second FSSO collector agent.
+      source_attribute: server2
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id030
+        description: Domain name or IP address of the second FSSO collector agent.
+        source_attribute: server2
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: server2
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Domain name or IP address of the second FSSO collector agent.
+        max_length: 63
+        source_attribute: server2
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  server3:
+    canonical:
+      type: string
+      version_ranges: &id031
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Domain name or IP address of the third FSSO collector agent.
+      source_attribute: server3
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id031
+        description: Domain name or IP address of the third FSSO collector agent.
+        source_attribute: server3
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: server3
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Domain name or IP address of the third FSSO collector agent.
+        max_length: 63
+        source_attribute: server3
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  server4:
+    canonical:
+      type: string
+      version_ranges: &id032
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Domain name or IP address of the fourth FSSO collector agent.
+      source_attribute: server4
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id032
+        description: Domain name or IP address of the fourth FSSO collector agent.
+        source_attribute: server4
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: server4
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Domain name or IP address of the fourth FSSO collector agent.
+        max_length: 63
+        source_attribute: server4
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  server5:
+    canonical:
+      type: string
+      version_ranges: &id033
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Domain name or IP address of the fifth FSSO collector agent.
+      source_attribute: server5
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id033
+        description: Domain name or IP address of the fifth FSSO collector agent.
+        source_attribute: server5
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: server5
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Domain name or IP address of the fifth FSSO collector agent.
+        max_length: 63
+        source_attribute: server5
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sni:
+    canonical:
+      type: string
+      version_ranges: &id034
+      - - v7.2.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Server Name Indication.
+      source_attribute: sni
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id034
+        description: Server Name Indication.
+        source_attribute: sni
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: sni
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Server Name Indication.
+        max_length: 255
+        source_attribute: sni
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source_ip:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id035
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: Source IP for communications to FSSO agent.
+      source_attribute: source-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id035
+        description: Source IP for communications to FSSO agent.
+        source_attribute: source_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_ip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Source IP for communications to FSSO agent.
+        default: 0.0.0.0
+        source_attribute: source-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id036
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id036
+  source_ip6:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id037
+      - - v6.0.0
+        - ''
+      default: '::'
+      description: IPv6 source for communications to FSSO agent.
+      source_attribute: source-ip6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id037
+        description: IPv6 source for communications to FSSO agent.
+        source_attribute: source_ip6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_ip6
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: IPv6 source for communications to FSSO agent.
+        default: '::'
+        source_attribute: source-ip6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id038
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id038
+  ssl:
+    canonical:
+      type: enum
+      version_ranges: &id040
+      - - v6.2.0
+        - ''
+      choices: &id039
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable use of SSL.
+      source_attribute: ssl
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id039
+        version_ranges: *id040
+        description: Enable/disable use of SSL.
+        source_attribute: ssl
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssl
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of SSL.
+        default: disable
+        source_attribute: ssl
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssl_server_host_ip_check:
+    canonical:
+      type: enum
+      version_ranges: &id042
+      - - v7.0.2
+        - ''
+      choices: &id041
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable server host/IP verification.
+      source_attribute: ssl-server-host-ip-check
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id041
+        version_ranges: *id042
+        description: Enable/disable server host/IP verification.
+        source_attribute: ssl_server_host_ip_check
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssl_server_host_ip_check
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable server host/IP verification.
+        default: disable
+        source_attribute: ssl-server-host-ip-check
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssl_trusted_cert:
+    canonical:
+      type: string
+      references: &id044
+      - vpn.certificate.ca.name
+      - vpn.certificate.remote.name
+      version_ranges: &id043
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 79
+      description: Trusted server certificate or CA certificate.
+      source_attribute: ssl-trusted-cert
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id043
+        description: Trusted server certificate or CA certificate. Source vpn.certificate.remote.name vpn.certificate.ca.name.
+        references: *id044
+        source_attribute: ssl_trusted_cert
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: ssl_trusted_cert
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Trusted server certificate or CA certificate.
+        max_length: 79
+        source_attribute: ssl-trusted-cert
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  type:
+    canonical:
+      type: enum
+      version_ranges: &id046
+      - - v6.2.0
+        - ''
+      choices: &id045
+      - default
+      - fortinac
+      default: default
+      description: Server type.
+      source_attribute: type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id045
+        version_ranges: *id046
+        description: Server type.
+        source_attribute: type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Server type.
+        default: default
+        source_attribute: type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  user_info_server:
+    canonical:
+      type: string
+      references: &id048
+      - user.ldap.name
+      version_ranges: &id047
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: LDAP server to get user information.
+      source_attribute: user-info-server
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id047
+        description: LDAP server to get user information. Source user.ldap.name.
+        references: *id048
+        source_attribute: user_info_server
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: user_info_server
+      cli_reference:
+        type: string
+        raw_type: string
+        description: LDAP server to get user information.
+        max_length: 35
+        source_attribute: user-info-server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  uuid:
+    canonical:
+      type: string
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  vrf_select:
+    canonical:
+      type: integer
+      version_ranges: &id049
+      - - v7.6.1
+        - ''
+      default: '0'
+      min: 0
+      max: 511
+      description: VRF ID used for connection to server.
+      source_attribute: vrf-select
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id049
+        description: VRF ID used for connection to server.
+        source_attribute: vrf_select
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 511
+        source_attribute: vrf_select
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: VRF ID used for connection to server.
+        default: '0'
+        min: 0
+        max: 511
+        source_attribute: vrf-select
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: password
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict
+- attribute: password2
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict
+- attribute: password3
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict
+- attribute: password4
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict
+- attribute: password5
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict
+- attribute: source_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: source_ip6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict

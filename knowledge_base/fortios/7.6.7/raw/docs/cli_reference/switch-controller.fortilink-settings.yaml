@@ -1,0 +1,69 @@
+id: switch-controller.fortilink-settings
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/334325055/config-switch-controller-fortilink-settings
+attributes:
+  access-vlan-mode:
+    type: enum
+    raw_type: option
+    description: Intra VLAN traffic behavior with loss of connection to the FortiGate.
+    default: legacy
+  fortilink:
+    type: string
+    raw_type: string
+    description: FortiLink interface to which this fortilink-setting belongs.
+    max_length: 15
+  inactive-timer:
+    type: integer
+    raw_type: integer
+    description: Time interval(minutes) to be included in the inactive devices expiry calculation (mac age-out + inactive-time
+      + periodic scan interval).
+    default: '15'
+    min: 1
+    max: 1440
+  link-down-flush:
+    type: enum
+    raw_type: option
+    description: Clear NAC and dynamic devices on switch ports on link down event.
+    default: enable
+  name:
+    type: string
+    raw_type: string
+    description: FortiLink settings name.
+    max_length: 35
+children:
+  nac-ports:
+    attributes:
+      lan-segment:
+        type: enum
+        raw_type: option
+        description: Enable/disable LAN segment feature on the FortiLink interface.
+        default: disabled
+      member-change:
+        type: integer
+        raw_type: integer
+        description: Member change flag. Read-only.
+        default: '0'
+        min: 0
+        max: 255
+      nac-lan-interface:
+        type: string
+        raw_type: string
+        description: Configure NAC LAN interface.
+        max_length: 15
+      nac-segment-vlans:
+        type: string
+        raw_type: string
+        description: Configure NAC segment VLANs. VLAN interface name.
+        max_length: 79
+      onboarding-vlan:
+        type: string
+        raw_type: string
+        description: Default NAC Onboarding VLAN when NAC devices are discovered.
+        max_length: 15
+      parent-key:
+        type: string
+        raw_type: string
+        description: Parent key name. Read-only.
+        max_length: 35

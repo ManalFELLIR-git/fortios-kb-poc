@@ -1,0 +1,192 @@
+id: system.npu-post
+version: 7.6.7
+source_presence:
+  ansible: false
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  npu_group_effective_scope:
+    canonical:
+      type: integer
+      default: '255'
+      min: 0
+      max: 255
+      description: npu-group-effective-scope defines under which npu-group cmds such as list/purge will be excecuted. Default
+        scope is for all four HS-ok groups. (0-3, default = 255).
+      source_attribute: npu-group-effective-scope
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: npu-group-effective-scope defines under which npu-group cmds such as list/purge will be excecuted. Default
+          scope is for all four HS-ok groups. (0-3, default = 255).
+        default: '255'
+        min: 0
+        max: 255
+        source_attribute: npu-group-effective-scope
+    sources:
+    - cli_reference
+  port_npu_map:
+    canonical:
+      type: list
+      children: &id001
+        interface:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 15
+        npu_group:
+          type: list
+          raw_type: TypeSet
+          optional: true
+          children: &id002
+            group_name:
+              type: string
+              raw_type: TypeString
+              optional: true
+              min_length: 0
+              max_length: 15
+      source_attribute: port_npu_map
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id001
+        source_attribute: port_npu_map
+    sources:
+    - terraform
+  port_npu_map.interface:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 15
+      source_attribute: port_npu_map.interface
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: port_npu_map.interface
+    sources:
+    - terraform
+  port_npu_map.npu_group:
+    canonical:
+      type: list
+      children: *id002
+      source_attribute: port_npu_map.npu_group
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id002
+        source_attribute: port_npu_map.npu_group
+    sources:
+    - terraform
+  port_npu_map.npu_group.group_name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 15
+      source_attribute: port_npu_map.npu_group.group_name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: port_npu_map.npu_group.group_name
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

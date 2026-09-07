@@ -1,0 +1,371 @@
+id: system.virtual-switch
+version: 7.6.7
+source_presence:
+  ansible: false
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 15
+      description: Name of the virtual switch.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 15
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of the virtual switch.
+        max_length: 15
+        source_attribute: name
+    sources:
+    - cli_reference
+    - terraform
+  physical_switch:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 15
+      description: Physical switch parent.
+      source_attribute: physical-switch
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: physical_switch
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Physical switch parent.
+        max_length: 15
+        source_attribute: physical-switch
+    sources:
+    - cli_reference
+    - terraform
+  port:
+    canonical:
+      type: list
+      children: &id001
+        name:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 15
+        alias:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 25
+      source_attribute: port
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id001
+        source_attribute: port
+    sources:
+    - terraform
+  port.alias:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 25
+      source_attribute: port.alias
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 25
+        source_attribute: port.alias
+    sources:
+    - terraform
+  port.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 15
+      source_attribute: port.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: port.name
+    sources:
+    - terraform
+  span:
+    canonical:
+      type: enum
+      default: disable
+      description: Enable/disable SPAN.
+      source_attribute: span
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: span
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable SPAN.
+        default: disable
+        source_attribute: span
+    sources:
+    - cli_reference
+    - terraform
+  span_dest_port:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 15
+      description: SPAN destination port.
+      source_attribute: span-dest-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: span_dest_port
+      cli_reference:
+        type: string
+        raw_type: string
+        description: SPAN destination port.
+        max_length: 15
+        source_attribute: span-dest-port
+    sources:
+    - cli_reference
+    - terraform
+  span_direction:
+    canonical:
+      type: enum
+      default: both
+      description: SPAN direction.
+      source_attribute: span-direction
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: span_direction
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: SPAN direction.
+        default: both
+        source_attribute: span-direction
+    sources:
+    - cli_reference
+    - terraform
+  span_source_port:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 15
+      description: SPAN source port.
+      source_attribute: span-source-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: span_source_port
+      cli_reference:
+        type: string
+        raw_type: string
+        description: SPAN source port.
+        max_length: 15
+        source_attribute: span-source-port
+    sources:
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  vlan:
+    canonical:
+      type: integer
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: VLAN.
+      source_attribute: vlan
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: vlan
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: VLAN.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: vlan
+    sources:
+    - cli_reference
+    - terraform
+conflicts: []

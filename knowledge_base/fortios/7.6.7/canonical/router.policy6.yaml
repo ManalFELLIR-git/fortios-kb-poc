@@ -1,0 +1,1885 @@
+id: router.policy6
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  action:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.2.1
+        - ''
+      choices: &id001
+      - deny
+      - permit
+      default: permit
+      description: Action of the policy route.
+      source_attribute: action
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Action of the policy route.
+        source_attribute: action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: action
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Action of the policy route.
+        default: permit
+        source_attribute: action
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  comments:
+    canonical:
+      type: string
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Optional comments.
+      source_attribute: comments
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Optional comments.
+        source_attribute: comments
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: comments
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Optional comments.
+        max_length: 255
+        source_attribute: comments
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dst:
+    canonical:
+      type: list
+      elements: dict
+      children: &id005
+        addr6:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id007
+          - - v7.2.1
+            - ''
+          description: IPv6 address prefix.
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Destination IPv6 prefix. IPv6 address prefix.
+      source_attribute: dst
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id004
+        description: Destination IPv6 prefix.
+        children: *id005
+        source_attribute: dst
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dst
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Destination IPv6 prefix. IPv6 address prefix.
+        max_length: 79
+        source_attribute: dst
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id006
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id006
+  dst.addr6:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id007
+      description: IPv6 address prefix.
+      source_attribute: dst.addr6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id007
+        description: IPv6 address prefix.
+        source_attribute: dst.addr6
+    sources:
+    - ansible
+  dst_negate:
+    canonical:
+      type: enum
+      version_ranges: &id009
+      - - v7.2.1
+        - ''
+      choices: &id008
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable negating destination address match.
+      source_attribute: dst-negate
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id008
+        version_ranges: *id009
+        description: Enable/disable negating destination address match.
+        source_attribute: dst_negate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dst_negate
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable negating destination address match.
+        default: disable
+        source_attribute: dst-negate
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dstaddr:
+    canonical:
+      type: list
+      elements: dict
+      children: &id011
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id014
+          - - v7.2.1
+            - ''
+          description: Address/group name. Source firewall.address6.name firewall.addrgrp6.name.
+          references: &id013
+          - firewall.address6.name
+          - firewall.addrgrp6.name
+      version_ranges: &id010
+      - - v7.2.1
+        - ''
+      max_length: 79
+      description: Destination address name. Address/group name.
+      source_attribute: dstaddr
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id010
+        description: Destination address name.
+        children: *id011
+        source_attribute: dstaddr
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: dstaddr
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Destination address name. Address/group name.
+        max_length: 79
+        source_attribute: dstaddr
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id012
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id012
+  dstaddr.name:
+    canonical:
+      type: string
+      references: *id013
+      required: true
+      version_ranges: *id014
+      min_length: 0
+      max_length: 79
+      description: Address/group name. Source firewall.address6.name firewall.addrgrp6.name.
+      source_attribute: dstaddr.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id014
+        description: Address/group name. Source firewall.address6.name firewall.addrgrp6.name.
+        references: *id013
+        source_attribute: dstaddr.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: dstaddr.name
+    sources:
+    - ansible
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  end_port:
+    canonical:
+      type: integer
+      version_ranges: &id015
+      - - v6.0.0
+        - ''
+      default: '65535'
+      min: 1
+      max: 65535
+      description: End destination port number (1 - 65535).
+      source_attribute: end-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id015
+        description: End destination port number (1 - 65535).
+        source_attribute: end_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: end_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: End destination port number (1 - 65535).
+        default: '65535'
+        min: 1
+        max: 65535
+        source_attribute: end-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  end_source_port:
+    canonical:
+      type: integer
+      version_ranges: &id016
+      - - v7.4.1
+        - ''
+      default: '65535'
+      min: 1
+      max: 65535
+      description: End source port number (1 - 65535).
+      source_attribute: end-source-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id016
+        description: End source port number (1 - 65535).
+        source_attribute: end_source_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: end_source_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: End source port number (1 - 65535).
+        default: '65535'
+        min: 1
+        max: 65535
+        source_attribute: end-source-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  gateway:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id017
+      - - v6.0.0
+        - ''
+      default: '::'
+      description: IPv6 address of the gateway.
+      source_attribute: gateway
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id017
+        description: IPv6 address of the gateway.
+        source_attribute: gateway
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: gateway
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: IPv6 address of the gateway.
+        default: '::'
+        source_attribute: gateway
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id018
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id018
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  groups:
+    canonical:
+      type: list
+      elements: dict
+      children: &id020
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id023
+          - - v7.6.3
+            - ''
+          description: Group name. Source user.group.name.
+          references: &id022
+          - user.group.name
+      version_ranges: &id019
+      - - v7.6.3
+        - ''
+      max_length: 79
+      description: List of user groups. Group name.
+      source_attribute: groups
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id019
+        description: List of user groups.
+        children: *id020
+        source_attribute: groups
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: groups
+      cli_reference:
+        type: string
+        raw_type: string
+        description: List of user groups. Group name.
+        max_length: 79
+        source_attribute: groups
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id021
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id021
+  groups.name:
+    canonical:
+      type: string
+      references: *id022
+      required: true
+      version_ranges: *id023
+      min_length: 0
+      max_length: 79
+      description: Group name. Source user.group.name.
+      source_attribute: groups.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id023
+        description: Group name. Source user.group.name.
+        references: *id022
+        source_attribute: groups.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: groups.name
+    sources:
+    - ansible
+    - terraform
+  input_device:
+    canonical:
+      type: list
+      elements: dict
+      children: &id026
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id029
+          - - v6.2.0
+            - ''
+          description: Interface name. Source system.interface.name.
+          references: &id028
+          - system.interface.name
+      references: &id025
+      - system.interface.name
+      required: true
+      version_ranges: &id024
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Incoming interface name. Interface name.
+      source_attribute: input-device
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      references: ansible
+      required: terraform
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id024
+        description: Incoming interface name. Source system.interface.name.
+        references: *id025
+        children: *id026
+        source_attribute: input_device
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: input_device
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Incoming interface name. Interface name.
+        max_length: 79
+        source_attribute: input-device
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id027
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id027
+  input_device.name:
+    canonical:
+      type: string
+      references: *id028
+      required: true
+      version_ranges: *id029
+      description: Interface name. Source system.interface.name.
+      source_attribute: input_device.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id029
+        description: Interface name. Source system.interface.name.
+        references: *id028
+        source_attribute: input_device.name
+    sources:
+    - ansible
+  input_device_negate:
+    canonical:
+      type: enum
+      version_ranges: &id031
+      - - v7.2.1
+        - ''
+      choices: &id030
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable negation of input device match.
+      source_attribute: input-device-negate
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id030
+        version_ranges: *id031
+        description: Enable/disable negation of input device match.
+        source_attribute: input_device_negate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: input_device_negate
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable negation of input device match.
+        default: disable
+        source_attribute: input-device-negate
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  internet_service_custom:
+    canonical:
+      type: list
+      elements: dict
+      children: &id033
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id036
+          - - v7.2.1
+            - ''
+          description: Custom Destination Internet Service name. Source firewall.internet-service-custom.name.
+          references: &id035
+          - firewall.internet-service-custom.name
+      version_ranges: &id032
+      - - v7.2.1
+        - ''
+      max_length: 79
+      description: Custom Destination Internet Service name. Custom Destination Internet Service name.
+      source_attribute: internet-service-custom
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id032
+        description: Custom Destination Internet Service name.
+        children: *id033
+        source_attribute: internet_service_custom
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: internet_service_custom
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Custom Destination Internet Service name. Custom Destination Internet Service name.
+        max_length: 79
+        source_attribute: internet-service-custom
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id034
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id034
+  internet_service_custom.name:
+    canonical:
+      type: string
+      references: *id035
+      required: true
+      version_ranges: *id036
+      min_length: 0
+      max_length: 79
+      description: Custom Destination Internet Service name. Source firewall.internet-service-custom.name.
+      source_attribute: internet_service_custom.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id036
+        description: Custom Destination Internet Service name. Source firewall.internet-service-custom.name.
+        references: *id035
+        source_attribute: internet_service_custom.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: internet_service_custom.name
+    sources:
+    - ansible
+    - terraform
+  internet_service_fortiguard:
+    canonical:
+      type: list
+      elements: dict
+      children: &id038
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id041
+          - - v7.6.4
+            - ''
+          description: FortiGuard Destination Internet Service name. Source firewall.internet-service-fortiguard.name.
+          references: &id040
+          - firewall.internet-service-fortiguard.name
+      version_ranges: &id037
+      - - v7.6.4
+        - ''
+      max_length: 79
+      description: FortiGuard Destination Internet Service name. FortiGuard Destination Internet Service name.
+      source_attribute: internet-service-fortiguard
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id037
+        description: FortiGuard Destination Internet Service name.
+        children: *id038
+        source_attribute: internet_service_fortiguard
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: internet_service_fortiguard
+      cli_reference:
+        type: string
+        raw_type: string
+        description: FortiGuard Destination Internet Service name. FortiGuard Destination Internet Service name.
+        max_length: 79
+        source_attribute: internet-service-fortiguard
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id039
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id039
+  internet_service_fortiguard.name:
+    canonical:
+      type: string
+      references: *id040
+      required: true
+      version_ranges: *id041
+      min_length: 0
+      max_length: 79
+      description: FortiGuard Destination Internet Service name. Source firewall.internet-service-fortiguard.name.
+      source_attribute: internet_service_fortiguard.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id041
+        description: FortiGuard Destination Internet Service name. Source firewall.internet-service-fortiguard.name.
+        references: *id040
+        source_attribute: internet_service_fortiguard.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: internet_service_fortiguard.name
+    sources:
+    - ansible
+    - terraform
+  internet_service_id:
+    canonical:
+      type: list
+      elements: dict
+      children: &id043
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id046
+          - - v7.2.1
+            - ''
+          description: Destination Internet Service ID. see <a href='#notes'>Notes</a>. Source firewall.internet-service.id.
+          references: &id045
+          - firewall.internet-service.id
+      version_ranges: &id042
+      - - v7.2.1
+        - ''
+      min: 0
+      max: 4294967295
+      description: Destination Internet Service ID. Destination Internet Service ID.
+      source_attribute: internet-service-id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id042
+        description: Destination Internet Service ID.
+        children: *id043
+        source_attribute: internet_service_id
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+        source_attribute: internet_service_id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Destination Internet Service ID. Destination Internet Service ID.
+        min: 0
+        max: 4294967295
+        source_attribute: internet-service-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id044
+          element_type: integer
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id044
+  internet_service_id.id:
+    canonical:
+      type: integer
+      references: *id045
+      required: true
+      version_ranges: *id046
+      description: Destination Internet Service ID. see <a href='#notes'>Notes</a>. Source firewall.internet-service.id.
+      source_attribute: internet_service_id.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id046
+        description: Destination Internet Service ID. see <a href='#notes'>Notes</a>. Source firewall.internet-service.id.
+        references: *id045
+        source_attribute: internet_service_id.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: internet_service_id.id
+    sources:
+    - ansible
+    - terraform
+  output_device:
+    canonical:
+      type: string
+      references: &id048
+      - system.interface.name
+      version_ranges: &id047
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Outgoing interface name.
+      source_attribute: output-device
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id047
+        description: Outgoing interface name. Source system.interface.name system.interface.name.
+        references: *id048
+        source_attribute: output_device
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: output_device
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Outgoing interface name.
+        max_length: 35
+        source_attribute: output-device
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  protocol:
+    canonical:
+      type: integer
+      version_ranges: &id049
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 255
+      description: Protocol number (0 - 255).
+      source_attribute: protocol
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id049
+        description: Protocol number (0 - 255).
+        source_attribute: protocol
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: protocol
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Protocol number (0 - 255).
+        default: '0'
+        min: 0
+        max: 255
+        source_attribute: protocol
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  seq_num:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id050
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 1
+      max: 65535
+      description: Sequence number(1-65535).
+      source_attribute: seq-num
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id050
+        description: Sequence number(1-65535). see <a href='#notes'>Notes</a>.
+        source_attribute: seq_num
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: seq_num
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Sequence number(1-65535).
+        default: '0'
+        min: 1
+        max: 65535
+        source_attribute: seq-num
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  src:
+    canonical:
+      type: list
+      elements: dict
+      children: &id052
+        addr6:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id054
+          - - v7.2.1
+            - ''
+          description: IPv6 address prefix.
+      version_ranges: &id051
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Source IPv6 prefix. IPv6 address prefix.
+      source_attribute: src
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id051
+        description: Source IPv6 prefix.
+        children: *id052
+        source_attribute: src
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: src
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Source IPv6 prefix. IPv6 address prefix.
+        max_length: 79
+        source_attribute: src
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id053
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id053
+  src.addr6:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id054
+      description: IPv6 address prefix.
+      source_attribute: src.addr6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id054
+        description: IPv6 address prefix.
+        source_attribute: src.addr6
+    sources:
+    - ansible
+  src_negate:
+    canonical:
+      type: enum
+      version_ranges: &id056
+      - - v7.2.1
+        - ''
+      choices: &id055
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable negating source address match.
+      source_attribute: src-negate
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id055
+        version_ranges: *id056
+        description: Enable/disable negating source address match.
+        source_attribute: src_negate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: src_negate
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable negating source address match.
+        default: disable
+        source_attribute: src-negate
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  srcaddr:
+    canonical:
+      type: list
+      elements: dict
+      children: &id058
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id061
+          - - v7.2.1
+            - ''
+          description: Address/group name. Source firewall.address6.name firewall.addrgrp6.name.
+          references: &id060
+          - firewall.address6.name
+          - firewall.addrgrp6.name
+      version_ranges: &id057
+      - - v7.2.1
+        - ''
+      max_length: 79
+      description: Source address name. Address/group name.
+      source_attribute: srcaddr
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id057
+        description: Source address name.
+        children: *id058
+        source_attribute: srcaddr
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: srcaddr
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Source address name. Address/group name.
+        max_length: 79
+        source_attribute: srcaddr
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id059
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id059
+  srcaddr.name:
+    canonical:
+      type: string
+      references: *id060
+      required: true
+      version_ranges: *id061
+      min_length: 0
+      max_length: 79
+      description: Address/group name. Source firewall.address6.name firewall.addrgrp6.name.
+      source_attribute: srcaddr.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id061
+        description: Address/group name. Source firewall.address6.name firewall.addrgrp6.name.
+        references: *id060
+        source_attribute: srcaddr.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: srcaddr.name
+    sources:
+    - ansible
+    - terraform
+  start_port:
+    canonical:
+      type: integer
+      version_ranges: &id062
+      - - v6.0.0
+        - ''
+      default: '1'
+      min: 1
+      max: 65535
+      description: Start destination port number (1 - 65535).
+      source_attribute: start-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id062
+        description: Start destination port number (1 - 65535).
+        source_attribute: start_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: start_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Start destination port number (1 - 65535).
+        default: '1'
+        min: 1
+        max: 65535
+        source_attribute: start-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  start_source_port:
+    canonical:
+      type: integer
+      version_ranges: &id063
+      - - v7.4.1
+        - ''
+      default: '1'
+      min: 1
+      max: 65535
+      description: Start source port number (1 - 65535).
+      source_attribute: start-source-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id063
+        description: Start source port number (1 - 65535).
+        source_attribute: start_source_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: start_source_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Start source port number (1 - 65535).
+        default: '1'
+        min: 1
+        max: 65535
+        source_attribute: start-source-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id065
+      - - v6.0.0
+        - ''
+      choices: &id064
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable this policy route.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id064
+        version_ranges: *id065
+        description: Enable/disable this policy route.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable this policy route.
+        default: enable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  tos:
+    canonical:
+      type: string
+      version_ranges: &id066
+      - - v6.0.0
+        - ''
+      description: Type of service bit pattern.
+      source_attribute: tos
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id066
+        description: Type of service bit pattern.
+        source_attribute: tos
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: tos
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Type of service bit pattern.
+        source_attribute: tos
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  tos_mask:
+    canonical:
+      type: string
+      version_ranges: &id067
+      - - v6.0.0
+        - ''
+      description: Type of service evaluated bits.
+      source_attribute: tos-mask
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id067
+        description: Type of service evaluated bits.
+        source_attribute: tos_mask
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: tos_mask
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Type of service evaluated bits.
+        source_attribute: tos-mask
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  users:
+    canonical:
+      type: list
+      elements: dict
+      children: &id069
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id072
+          - - v7.6.3
+            - ''
+          description: User name. Source user.local.name.
+          references: &id071
+          - user.local.name
+      version_ranges: &id068
+      - - v7.6.3
+        - ''
+      max_length: 79
+      description: List of users. User name.
+      source_attribute: users
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id068
+        description: List of users.
+        children: *id069
+        source_attribute: users
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: users
+      cli_reference:
+        type: string
+        raw_type: string
+        description: List of users. User name.
+        max_length: 79
+        source_attribute: users
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id070
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id070
+  users.name:
+    canonical:
+      type: string
+      references: *id071
+      required: true
+      version_ranges: *id072
+      min_length: 0
+      max_length: 79
+      description: User name. Source user.local.name.
+      source_attribute: users.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id072
+        description: User name. Source user.local.name.
+        references: *id071
+        source_attribute: users.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: users.name
+    sources:
+    - ansible
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: dst
+  field: type
+  values:
+    ansible: list
+    terraform: string
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: dstaddr
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: gateway
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict
+- attribute: groups
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: input_device
+  field: type
+  values:
+    ansible: list
+    terraform: string
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: internet_service_custom
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: internet_service_fortiguard
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: internet_service_id
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: integer
+  classification: representation_or_real_conflict
+- attribute: src
+  field: type
+  values:
+    ansible: list
+    terraform: string
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: srcaddr
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: users
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

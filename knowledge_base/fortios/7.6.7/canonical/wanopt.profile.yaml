@@ -1,0 +1,2244 @@
+id: wanopt.profile
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  auth_group:
+    canonical:
+      type: string
+      references: &id002
+      - wanopt.auth-group.name
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Optionally add an authentication group to restrict access to the WAN Optimization tunnel to peers in the
+        authentication group.
+      source_attribute: auth-group
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Optionally add an authentication group to restrict access to the WAN Optimization tunnel to peers in
+          the authentication group. Source wanopt.auth-group.name.
+        references: *id002
+        source_attribute: auth_group
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: auth_group
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Optionally add an authentication group to restrict access to the WAN Optimization tunnel to peers in
+          the authentication group.
+        max_length: 35
+        source_attribute: auth-group
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cifs:
+    canonical:
+      type: list
+      children: &id004
+        status:
+          type: enum
+          raw_type: string
+          choices: &id015
+          - enable
+          - disable
+          version_ranges: &id014
+          - - v6.0.0
+            - ''
+          description: Enable/disable WAN Optimization.
+        secure_tunnel:
+          type: enum
+          raw_type: string
+          choices: &id013
+          - enable
+          - disable
+          version_ranges: &id012
+          - - v6.0.0
+            - ''
+          description: Enable/disable securing the WAN Opt tunnel using SSL. Secure and non-secure tunnels use the same TCP
+            port (7810).
+        byte_caching:
+          type: enum
+          raw_type: string
+          choices: &id007
+          - enable
+          - disable
+          version_ranges: &id006
+          - - v6.0.0
+            - ''
+          description: Enable/disable byte-caching. Byte caching reduces the amount of traffic by caching file data sent across
+            the WAN and in future serving if from the cache.
+        prefer_chunking:
+          type: enum
+          raw_type: string
+          choices: &id009
+          - dynamic
+          - fix
+          version_ranges: &id008
+          - - v6.0.0
+            - ''
+          description: Select dynamic or fixed-size data chunking for WAN Optimization.
+        protocol_opt:
+          type: enum
+          raw_type: string
+          choices: &id011
+          - protocol
+          - tcp
+          version_ranges: &id010
+          - - v6.4.0
+            - ''
+          description: Select protocol specific optimization or generic TCP optimization.
+        tunnel_sharing:
+          type: enum
+          raw_type: string
+          choices: &id017
+          - shared
+          - express-shared
+          - private
+          version_ranges: &id016
+          - - v6.0.0
+            - ''
+          description: Tunnel sharing mode for aggressive/non-aggressive and/or interactive/non-interactive protocols.
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      description: Enable/disable CIFS (Windows sharing) WAN Optimization and configure CIFS WAN Optimization features.
+      source_attribute: cifs
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id003
+        description: Enable/disable CIFS (Windows sharing) WAN Optimization and configure CIFS WAN Optimization features.
+        children: *id004
+        source_attribute: cifs
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          secure_tunnel:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          byte_caching:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          prefer_chunking:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          protocol_opt:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          tunnel_sharing:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          log_traffic:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          port:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 65535
+        source_attribute: cifs
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id005
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id005
+  cifs.byte_caching:
+    canonical:
+      type: enum
+      version_ranges: *id006
+      choices: *id007
+      description: Enable/disable byte-caching. Byte caching reduces the amount of traffic by caching file data sent across
+        the WAN and in future serving if from the cache.
+      source_attribute: cifs.byte_caching
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id007
+        version_ranges: *id006
+        description: Enable/disable byte-caching. Byte caching reduces the amount of traffic by caching file data sent across
+          the WAN and in future serving if from the cache.
+        source_attribute: cifs.byte_caching
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cifs.byte_caching
+    sources:
+    - ansible
+    - terraform
+  cifs.log_traffic:
+    canonical:
+      type: string
+      source_attribute: cifs.log_traffic
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cifs.log_traffic
+    sources:
+    - terraform
+  cifs.port:
+    canonical:
+      type: integer
+      min: 1
+      max: 65535
+      source_attribute: cifs.port
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 65535
+        source_attribute: cifs.port
+    sources:
+    - terraform
+  cifs.prefer_chunking:
+    canonical:
+      type: enum
+      version_ranges: *id008
+      choices: *id009
+      description: Select dynamic or fixed-size data chunking for WAN Optimization.
+      source_attribute: cifs.prefer_chunking
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id008
+        description: Select dynamic or fixed-size data chunking for WAN Optimization.
+        source_attribute: cifs.prefer_chunking
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cifs.prefer_chunking
+    sources:
+    - ansible
+    - terraform
+  cifs.protocol_opt:
+    canonical:
+      type: enum
+      version_ranges: *id010
+      choices: *id011
+      description: Select protocol specific optimization or generic TCP optimization.
+      source_attribute: cifs.protocol_opt
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id011
+        version_ranges: *id010
+        description: Select protocol specific optimization or generic TCP optimization.
+        source_attribute: cifs.protocol_opt
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cifs.protocol_opt
+    sources:
+    - ansible
+    - terraform
+  cifs.secure_tunnel:
+    canonical:
+      type: enum
+      version_ranges: *id012
+      choices: *id013
+      description: Enable/disable securing the WAN Opt tunnel using SSL. Secure and non-secure tunnels use the same TCP port
+        (7810).
+      source_attribute: cifs.secure_tunnel
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id012
+        description: Enable/disable securing the WAN Opt tunnel using SSL. Secure and non-secure tunnels use the same TCP
+          port (7810).
+        source_attribute: cifs.secure_tunnel
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cifs.secure_tunnel
+    sources:
+    - ansible
+    - terraform
+  cifs.status:
+    canonical:
+      type: enum
+      version_ranges: *id014
+      choices: *id015
+      description: Enable/disable WAN Optimization.
+      source_attribute: cifs.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id015
+        version_ranges: *id014
+        description: Enable/disable WAN Optimization.
+        source_attribute: cifs.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cifs.status
+    sources:
+    - ansible
+    - terraform
+  cifs.tunnel_sharing:
+    canonical:
+      type: enum
+      version_ranges: *id016
+      choices: *id017
+      description: Tunnel sharing mode for aggressive/non-aggressive and/or interactive/non-interactive protocols.
+      source_attribute: cifs.tunnel_sharing
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id017
+        version_ranges: *id016
+        description: Tunnel sharing mode for aggressive/non-aggressive and/or interactive/non-interactive protocols.
+        source_attribute: cifs.tunnel_sharing
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cifs.tunnel_sharing
+    sources:
+    - ansible
+    - terraform
+  comments:
+    canonical:
+      type: string
+      version_ranges: &id018
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Comment.
+      source_attribute: comments
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id018
+        description: Comment.
+        source_attribute: comments
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: comments
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 255
+        source_attribute: comments
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ftp:
+    canonical:
+      type: list
+      children: &id020
+        status:
+          type: enum
+          raw_type: string
+          choices: &id031
+          - enable
+          - disable
+          version_ranges: &id030
+          - - v6.0.0
+            - ''
+          description: Enable/disable WAN Optimization.
+        secure_tunnel:
+          type: enum
+          raw_type: string
+          choices: &id029
+          - enable
+          - disable
+          version_ranges: &id028
+          - - v6.0.0
+            - ''
+          description: Enable/disable securing the WAN Opt tunnel using SSL. Secure and non-secure tunnels use the same TCP
+            port (7810).
+        byte_caching:
+          type: enum
+          raw_type: string
+          choices: &id023
+          - enable
+          - disable
+          version_ranges: &id022
+          - - v6.0.0
+            - ''
+          description: Enable/disable byte-caching. Byte caching reduces the amount of traffic by caching file data sent across
+            the WAN and in future serving if from the cache.
+        prefer_chunking:
+          type: enum
+          raw_type: string
+          choices: &id025
+          - dynamic
+          - fix
+          version_ranges: &id024
+          - - v6.0.0
+            - ''
+          description: Select dynamic or fixed-size data chunking for WAN Optimization.
+        protocol_opt:
+          type: enum
+          raw_type: string
+          choices: &id027
+          - protocol
+          - tcp
+          version_ranges: &id026
+          - - v6.4.0
+            - ''
+          description: Select protocol specific optimization or generic TCP optimization.
+        tunnel_sharing:
+          type: enum
+          raw_type: string
+          choices: &id033
+          - shared
+          - express-shared
+          - private
+          version_ranges: &id032
+          - - v6.0.0
+            - ''
+          description: Tunnel sharing mode for aggressive/non-aggressive and/or interactive/non-interactive protocols.
+      version_ranges: &id019
+      - - v6.0.0
+        - ''
+      description: Enable/disable FTP WAN Optimization and configure FTP WAN Optimization features.
+      source_attribute: ftp
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id019
+        description: Enable/disable FTP WAN Optimization and configure FTP WAN Optimization features.
+        children: *id020
+        source_attribute: ftp
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          secure_tunnel:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          byte_caching:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ssl:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          prefer_chunking:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          protocol_opt:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          tunnel_sharing:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          log_traffic:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          port:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 65535
+        source_attribute: ftp
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id021
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id021
+  ftp.byte_caching:
+    canonical:
+      type: enum
+      version_ranges: *id022
+      choices: *id023
+      description: Enable/disable byte-caching. Byte caching reduces the amount of traffic by caching file data sent across
+        the WAN and in future serving if from the cache.
+      source_attribute: ftp.byte_caching
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id023
+        version_ranges: *id022
+        description: Enable/disable byte-caching. Byte caching reduces the amount of traffic by caching file data sent across
+          the WAN and in future serving if from the cache.
+        source_attribute: ftp.byte_caching
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftp.byte_caching
+    sources:
+    - ansible
+    - terraform
+  ftp.log_traffic:
+    canonical:
+      type: string
+      source_attribute: ftp.log_traffic
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftp.log_traffic
+    sources:
+    - terraform
+  ftp.port:
+    canonical:
+      type: integer
+      min: 1
+      max: 65535
+      source_attribute: ftp.port
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 65535
+        source_attribute: ftp.port
+    sources:
+    - terraform
+  ftp.prefer_chunking:
+    canonical:
+      type: enum
+      version_ranges: *id024
+      choices: *id025
+      description: Select dynamic or fixed-size data chunking for WAN Optimization.
+      source_attribute: ftp.prefer_chunking
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id025
+        version_ranges: *id024
+        description: Select dynamic or fixed-size data chunking for WAN Optimization.
+        source_attribute: ftp.prefer_chunking
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftp.prefer_chunking
+    sources:
+    - ansible
+    - terraform
+  ftp.protocol_opt:
+    canonical:
+      type: enum
+      version_ranges: *id026
+      choices: *id027
+      description: Select protocol specific optimization or generic TCP optimization.
+      source_attribute: ftp.protocol_opt
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id027
+        version_ranges: *id026
+        description: Select protocol specific optimization or generic TCP optimization.
+        source_attribute: ftp.protocol_opt
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftp.protocol_opt
+    sources:
+    - ansible
+    - terraform
+  ftp.secure_tunnel:
+    canonical:
+      type: enum
+      version_ranges: *id028
+      choices: *id029
+      description: Enable/disable securing the WAN Opt tunnel using SSL. Secure and non-secure tunnels use the same TCP port
+        (7810).
+      source_attribute: ftp.secure_tunnel
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id029
+        version_ranges: *id028
+        description: Enable/disable securing the WAN Opt tunnel using SSL. Secure and non-secure tunnels use the same TCP
+          port (7810).
+        source_attribute: ftp.secure_tunnel
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftp.secure_tunnel
+    sources:
+    - ansible
+    - terraform
+  ftp.ssl:
+    canonical:
+      type: string
+      source_attribute: ftp.ssl
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftp.ssl
+    sources:
+    - terraform
+  ftp.status:
+    canonical:
+      type: enum
+      version_ranges: *id030
+      choices: *id031
+      description: Enable/disable WAN Optimization.
+      source_attribute: ftp.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id031
+        version_ranges: *id030
+        description: Enable/disable WAN Optimization.
+        source_attribute: ftp.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftp.status
+    sources:
+    - ansible
+    - terraform
+  ftp.tunnel_sharing:
+    canonical:
+      type: enum
+      version_ranges: *id032
+      choices: *id033
+      description: Tunnel sharing mode for aggressive/non-aggressive and/or interactive/non-interactive protocols.
+      source_attribute: ftp.tunnel_sharing
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id033
+        version_ranges: *id032
+        description: Tunnel sharing mode for aggressive/non-aggressive and/or interactive/non-interactive protocols.
+        source_attribute: ftp.tunnel_sharing
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftp.tunnel_sharing
+    sources:
+    - ansible
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  http:
+    canonical:
+      type: list
+      children: &id035
+        status:
+          type: enum
+          raw_type: string
+          choices: &id048
+          - enable
+          - disable
+          version_ranges: &id047
+          - - v6.0.0
+            - ''
+          description: Enable/disable WAN Optimization.
+        secure_tunnel:
+          type: enum
+          raw_type: string
+          choices: &id044
+          - enable
+          - disable
+          version_ranges: &id043
+          - - v6.0.0
+            - ''
+          description: Enable/disable securing the WAN Opt tunnel using SSL. Secure and non-secure tunnels use the same TCP
+            port (7810).
+        byte_caching:
+          type: enum
+          raw_type: string
+          choices: &id038
+          - enable
+          - disable
+          version_ranges: &id037
+          - - v6.0.0
+            - ''
+          description: Enable/disable byte-caching. Byte caching reduces the amount of traffic by caching file data sent across
+            the WAN and in future serving if from the cache.
+        ssl:
+          type: enum
+          raw_type: string
+          choices: &id046
+          - enable
+          - disable
+          version_ranges: &id045
+          - - v6.0.0
+            - ''
+          description: Enable/disable SSL/TLS offloading (hardware acceleration) for traffic in this tunnel.
+        prefer_chunking:
+          type: enum
+          raw_type: string
+          choices: &id040
+          - dynamic
+          - fix
+          version_ranges: &id039
+          - - v6.0.0
+            - ''
+          description: Select dynamic or fixed-size data chunking for WAN Optimization.
+        protocol_opt:
+          type: enum
+          raw_type: string
+          choices: &id042
+          - protocol
+          - tcp
+          version_ranges: &id041
+          - - v6.4.0
+            - ''
+          description: Select protocol specific optimization or generic TCP optimization.
+        tunnel_sharing:
+          type: enum
+          raw_type: string
+          choices: &id050
+          - shared
+          - express-shared
+          - private
+          version_ranges: &id049
+          - - v6.0.0
+            - ''
+          description: Tunnel sharing mode for aggressive/non-aggressive and/or interactive/non-interactive protocols.
+      version_ranges: &id034
+      - - v6.0.0
+        - ''
+      description: Enable/disable HTTP WAN Optimization and configure HTTP WAN Optimization features.
+      source_attribute: http
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id034
+        description: Enable/disable HTTP WAN Optimization and configure HTTP WAN Optimization features.
+        children: *id035
+        source_attribute: http
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          secure_tunnel:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          byte_caching:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          prefer_chunking:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          protocol_opt:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          tunnel_sharing:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          log_traffic:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          port:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 65535
+          ssl:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ssl_port:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 65535
+          unknown_http_version:
+            type: string
+            raw_type: TypeString
+            optional: true
+          tunnel_non_http:
+            type: string
+            raw_type: TypeString
+            optional: true
+        source_attribute: http
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id036
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id036
+  http.byte_caching:
+    canonical:
+      type: enum
+      version_ranges: *id037
+      choices: *id038
+      description: Enable/disable byte-caching. Byte caching reduces the amount of traffic by caching file data sent across
+        the WAN and in future serving if from the cache.
+      source_attribute: http.byte_caching
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id038
+        version_ranges: *id037
+        description: Enable/disable byte-caching. Byte caching reduces the amount of traffic by caching file data sent across
+          the WAN and in future serving if from the cache.
+        source_attribute: http.byte_caching
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: http.byte_caching
+    sources:
+    - ansible
+    - terraform
+  http.log_traffic:
+    canonical:
+      type: string
+      source_attribute: http.log_traffic
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: http.log_traffic
+    sources:
+    - terraform
+  http.port:
+    canonical:
+      type: integer
+      min: 1
+      max: 65535
+      source_attribute: http.port
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 65535
+        source_attribute: http.port
+    sources:
+    - terraform
+  http.prefer_chunking:
+    canonical:
+      type: enum
+      version_ranges: *id039
+      choices: *id040
+      description: Select dynamic or fixed-size data chunking for WAN Optimization.
+      source_attribute: http.prefer_chunking
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id040
+        version_ranges: *id039
+        description: Select dynamic or fixed-size data chunking for WAN Optimization.
+        source_attribute: http.prefer_chunking
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: http.prefer_chunking
+    sources:
+    - ansible
+    - terraform
+  http.protocol_opt:
+    canonical:
+      type: enum
+      version_ranges: *id041
+      choices: *id042
+      description: Select protocol specific optimization or generic TCP optimization.
+      source_attribute: http.protocol_opt
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id042
+        version_ranges: *id041
+        description: Select protocol specific optimization or generic TCP optimization.
+        source_attribute: http.protocol_opt
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: http.protocol_opt
+    sources:
+    - ansible
+    - terraform
+  http.secure_tunnel:
+    canonical:
+      type: enum
+      version_ranges: *id043
+      choices: *id044
+      description: Enable/disable securing the WAN Opt tunnel using SSL. Secure and non-secure tunnels use the same TCP port
+        (7810).
+      source_attribute: http.secure_tunnel
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id044
+        version_ranges: *id043
+        description: Enable/disable securing the WAN Opt tunnel using SSL. Secure and non-secure tunnels use the same TCP
+          port (7810).
+        source_attribute: http.secure_tunnel
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: http.secure_tunnel
+    sources:
+    - ansible
+    - terraform
+  http.ssl:
+    canonical:
+      type: enum
+      version_ranges: *id045
+      choices: *id046
+      description: Enable/disable SSL/TLS offloading (hardware acceleration) for traffic in this tunnel.
+      source_attribute: http.ssl
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id046
+        version_ranges: *id045
+        description: Enable/disable SSL/TLS offloading (hardware acceleration) for traffic in this tunnel.
+        source_attribute: http.ssl
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: http.ssl
+    sources:
+    - ansible
+    - terraform
+  http.ssl_port:
+    canonical:
+      type: integer
+      min: 1
+      max: 65535
+      source_attribute: http.ssl_port
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 65535
+        source_attribute: http.ssl_port
+    sources:
+    - terraform
+  http.status:
+    canonical:
+      type: enum
+      version_ranges: *id047
+      choices: *id048
+      description: Enable/disable WAN Optimization.
+      source_attribute: http.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id048
+        version_ranges: *id047
+        description: Enable/disable WAN Optimization.
+        source_attribute: http.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: http.status
+    sources:
+    - ansible
+    - terraform
+  http.tunnel_non_http:
+    canonical:
+      type: string
+      source_attribute: http.tunnel_non_http
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: http.tunnel_non_http
+    sources:
+    - terraform
+  http.tunnel_sharing:
+    canonical:
+      type: enum
+      version_ranges: *id049
+      choices: *id050
+      description: Tunnel sharing mode for aggressive/non-aggressive and/or interactive/non-interactive protocols.
+      source_attribute: http.tunnel_sharing
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id050
+        version_ranges: *id049
+        description: Tunnel sharing mode for aggressive/non-aggressive and/or interactive/non-interactive protocols.
+        source_attribute: http.tunnel_sharing
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: http.tunnel_sharing
+    sources:
+    - ansible
+    - terraform
+  http.unknown_http_version:
+    canonical:
+      type: string
+      source_attribute: http.unknown_http_version
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: http.unknown_http_version
+    sources:
+    - terraform
+  mapi:
+    canonical:
+      type: list
+      children: &id052
+        status:
+          type: enum
+          raw_type: string
+          choices: &id059
+          - enable
+          - disable
+          version_ranges: &id058
+          - - v6.0.0
+            - ''
+          description: Enable/disable WAN Optimization.
+        secure_tunnel:
+          type: enum
+          raw_type: string
+          choices: &id057
+          - enable
+          - disable
+          version_ranges: &id056
+          - - v6.0.0
+            - ''
+          description: Enable/disable securing the WAN Opt tunnel using SSL. Secure and non-secure tunnels use the same TCP
+            port (7810).
+        byte_caching:
+          type: enum
+          raw_type: string
+          choices: &id055
+          - enable
+          - disable
+          version_ranges: &id054
+          - - v6.0.0
+            - ''
+          description: Enable/disable byte-caching. Byte caching reduces the amount of traffic by caching file data sent across
+            the WAN and in future serving if from the cache.
+        tunnel_sharing:
+          type: enum
+          raw_type: string
+          choices: &id061
+          - shared
+          - express-shared
+          - private
+          version_ranges: &id060
+          - - v6.0.0
+            - ''
+          description: Tunnel sharing mode for aggressive/non-aggressive and/or interactive/non-interactive protocols.
+      version_ranges: &id051
+      - - v6.0.0
+        - ''
+      description: Enable/disable MAPI email WAN Optimization and configure MAPI WAN Optimization features.
+      source_attribute: mapi
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id051
+        description: Enable/disable MAPI email WAN Optimization and configure MAPI WAN Optimization features.
+        children: *id052
+        source_attribute: mapi
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          secure_tunnel:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          byte_caching:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          tunnel_sharing:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          log_traffic:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          port:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 65535
+        source_attribute: mapi
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id053
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id053
+  mapi.byte_caching:
+    canonical:
+      type: enum
+      version_ranges: *id054
+      choices: *id055
+      description: Enable/disable byte-caching. Byte caching reduces the amount of traffic by caching file data sent across
+        the WAN and in future serving if from the cache.
+      source_attribute: mapi.byte_caching
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id055
+        version_ranges: *id054
+        description: Enable/disable byte-caching. Byte caching reduces the amount of traffic by caching file data sent across
+          the WAN and in future serving if from the cache.
+        source_attribute: mapi.byte_caching
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mapi.byte_caching
+    sources:
+    - ansible
+    - terraform
+  mapi.log_traffic:
+    canonical:
+      type: string
+      source_attribute: mapi.log_traffic
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mapi.log_traffic
+    sources:
+    - terraform
+  mapi.port:
+    canonical:
+      type: integer
+      min: 1
+      max: 65535
+      source_attribute: mapi.port
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 65535
+        source_attribute: mapi.port
+    sources:
+    - terraform
+  mapi.secure_tunnel:
+    canonical:
+      type: enum
+      version_ranges: *id056
+      choices: *id057
+      description: Enable/disable securing the WAN Opt tunnel using SSL. Secure and non-secure tunnels use the same TCP port
+        (7810).
+      source_attribute: mapi.secure_tunnel
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id057
+        version_ranges: *id056
+        description: Enable/disable securing the WAN Opt tunnel using SSL. Secure and non-secure tunnels use the same TCP
+          port (7810).
+        source_attribute: mapi.secure_tunnel
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mapi.secure_tunnel
+    sources:
+    - ansible
+    - terraform
+  mapi.status:
+    canonical:
+      type: enum
+      version_ranges: *id058
+      choices: *id059
+      description: Enable/disable WAN Optimization.
+      source_attribute: mapi.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id059
+        version_ranges: *id058
+        description: Enable/disable WAN Optimization.
+        source_attribute: mapi.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mapi.status
+    sources:
+    - ansible
+    - terraform
+  mapi.tunnel_sharing:
+    canonical:
+      type: enum
+      version_ranges: *id060
+      choices: *id061
+      description: Tunnel sharing mode for aggressive/non-aggressive and/or interactive/non-interactive protocols.
+      source_attribute: mapi.tunnel_sharing
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id061
+        version_ranges: *id060
+        description: Tunnel sharing mode for aggressive/non-aggressive and/or interactive/non-interactive protocols.
+        source_attribute: mapi.tunnel_sharing
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mapi.tunnel_sharing
+    sources:
+    - ansible
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id062
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Profile name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id062
+        description: Profile name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Profile name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  tcp:
+    canonical:
+      type: list
+      children: &id064
+        status:
+          type: enum
+          raw_type: string
+          choices: &id077
+          - enable
+          - disable
+          version_ranges: &id076
+          - - v6.0.0
+            - ''
+          description: Enable/disable WAN Optimization.
+        secure_tunnel:
+          type: enum
+          raw_type: string
+          choices: &id072
+          - enable
+          - disable
+          version_ranges: &id071
+          - - v6.0.0
+            - ''
+          description: Enable/disable securing the WAN Opt tunnel using SSL. Secure and non-secure tunnels use the same TCP
+            port (7810).
+        byte_caching:
+          type: enum
+          raw_type: string
+          choices: &id067
+          - enable
+          - disable
+          version_ranges: &id066
+          - - v6.0.0
+            - ''
+          description: Enable/disable byte-caching. Byte caching reduces the amount of traffic by caching file data sent across
+            the WAN and in future serving if from the cache.
+        byte_caching_opt:
+          type: enum
+          raw_type: string
+          choices: &id069
+          - mem-only
+          - mem-disk
+          version_ranges: &id068
+          - - v6.0.0
+            - ''
+          description: Select whether TCP byte-caching uses system memory only or both memory and disk space.
+        tunnel_sharing:
+          type: enum
+          raw_type: string
+          choices: &id079
+          - shared
+          - express-shared
+          - private
+          version_ranges: &id078
+          - - v6.0.0
+            - ''
+          description: Tunnel sharing mode for aggressive/non-aggressive and/or interactive/non-interactive protocols.
+        port:
+          type: string
+          raw_type: string
+          version_ranges: &id070
+          - - v6.0.0
+            - ''
+          description: Port numbers or port number ranges for TCP. Only packets with a destination port number that matches
+            this port number or range are accepted by this profile.
+        ssl:
+          type: enum
+          raw_type: string
+          choices: &id074
+          - enable
+          - disable
+          version_ranges: &id073
+          - - v6.0.0
+            - ''
+          description: Enable/disable SSL/TLS offloading (hardware acceleration) for traffic in this tunnel.
+        ssl_port:
+          type: string
+          raw_type: string
+          version_ranges: &id075
+          - - v6.0.0
+            - ''
+          description: Port numbers or port number ranges on which to expect HTTPS traffic for SSL/TLS offloading.
+      version_ranges: &id063
+      - - v6.0.0
+        - ''
+      description: Enable/disable TCP WAN Optimization and configure TCP WAN Optimization features.
+      source_attribute: tcp
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id063
+        description: Enable/disable TCP WAN Optimization and configure TCP WAN Optimization features.
+        children: *id064
+        source_attribute: tcp
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          secure_tunnel:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          byte_caching:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          byte_caching_opt:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          tunnel_sharing:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          log_traffic:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          port:
+            type: string
+            raw_type: TypeString
+            optional: true
+          ssl:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ssl_port:
+            type: string
+            raw_type: TypeString
+            optional: true
+        source_attribute: tcp
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id065
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id065
+  tcp.byte_caching:
+    canonical:
+      type: enum
+      version_ranges: *id066
+      choices: *id067
+      description: Enable/disable byte-caching. Byte caching reduces the amount of traffic by caching file data sent across
+        the WAN and in future serving if from the cache.
+      source_attribute: tcp.byte_caching
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id067
+        version_ranges: *id066
+        description: Enable/disable byte-caching. Byte caching reduces the amount of traffic by caching file data sent across
+          the WAN and in future serving if from the cache.
+        source_attribute: tcp.byte_caching
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: tcp.byte_caching
+    sources:
+    - ansible
+    - terraform
+  tcp.byte_caching_opt:
+    canonical:
+      type: enum
+      version_ranges: *id068
+      choices: *id069
+      description: Select whether TCP byte-caching uses system memory only or both memory and disk space.
+      source_attribute: tcp.byte_caching_opt
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id069
+        version_ranges: *id068
+        description: Select whether TCP byte-caching uses system memory only or both memory and disk space.
+        source_attribute: tcp.byte_caching_opt
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: tcp.byte_caching_opt
+    sources:
+    - ansible
+    - terraform
+  tcp.log_traffic:
+    canonical:
+      type: string
+      source_attribute: tcp.log_traffic
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: tcp.log_traffic
+    sources:
+    - terraform
+  tcp.port:
+    canonical:
+      type: string
+      version_ranges: *id070
+      description: Port numbers or port number ranges for TCP. Only packets with a destination port number that matches this
+        port number or range are accepted by this profile.
+      source_attribute: tcp.port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id070
+        description: Port numbers or port number ranges for TCP. Only packets with a destination port number that matches
+          this port number or range are accepted by this profile.
+        source_attribute: tcp.port
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: tcp.port
+    sources:
+    - ansible
+    - terraform
+  tcp.secure_tunnel:
+    canonical:
+      type: enum
+      version_ranges: *id071
+      choices: *id072
+      description: Enable/disable securing the WAN Opt tunnel using SSL. Secure and non-secure tunnels use the same TCP port
+        (7810).
+      source_attribute: tcp.secure_tunnel
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id072
+        version_ranges: *id071
+        description: Enable/disable securing the WAN Opt tunnel using SSL. Secure and non-secure tunnels use the same TCP
+          port (7810).
+        source_attribute: tcp.secure_tunnel
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: tcp.secure_tunnel
+    sources:
+    - ansible
+    - terraform
+  tcp.ssl:
+    canonical:
+      type: enum
+      version_ranges: *id073
+      choices: *id074
+      description: Enable/disable SSL/TLS offloading (hardware acceleration) for traffic in this tunnel.
+      source_attribute: tcp.ssl
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id074
+        version_ranges: *id073
+        description: Enable/disable SSL/TLS offloading (hardware acceleration) for traffic in this tunnel.
+        source_attribute: tcp.ssl
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: tcp.ssl
+    sources:
+    - ansible
+    - terraform
+  tcp.ssl_port:
+    canonical:
+      type: string
+      version_ranges: *id075
+      description: Port numbers or port number ranges on which to expect HTTPS traffic for SSL/TLS offloading.
+      source_attribute: tcp.ssl_port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id075
+        description: Port numbers or port number ranges on which to expect HTTPS traffic for SSL/TLS offloading.
+        source_attribute: tcp.ssl_port
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: tcp.ssl_port
+    sources:
+    - ansible
+    - terraform
+  tcp.status:
+    canonical:
+      type: enum
+      version_ranges: *id076
+      choices: *id077
+      description: Enable/disable WAN Optimization.
+      source_attribute: tcp.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id077
+        version_ranges: *id076
+        description: Enable/disable WAN Optimization.
+        source_attribute: tcp.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: tcp.status
+    sources:
+    - ansible
+    - terraform
+  tcp.tunnel_sharing:
+    canonical:
+      type: enum
+      version_ranges: *id078
+      choices: *id079
+      description: Tunnel sharing mode for aggressive/non-aggressive and/or interactive/non-interactive protocols.
+      source_attribute: tcp.tunnel_sharing
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id079
+        version_ranges: *id078
+        description: Tunnel sharing mode for aggressive/non-aggressive and/or interactive/non-interactive protocols.
+        source_attribute: tcp.tunnel_sharing
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: tcp.tunnel_sharing
+    sources:
+    - ansible
+    - terraform
+  transparent:
+    canonical:
+      type: enum
+      version_ranges: &id081
+      - - v6.0.0
+        - ''
+      choices: &id080
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable transparent mode.
+      source_attribute: transparent
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id080
+        version_ranges: *id081
+        description: Enable/disable transparent mode.
+        source_attribute: transparent
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: transparent
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable transparent mode.
+        default: enable
+        source_attribute: transparent
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: cifs
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: ftp
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: http
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: mapi
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: tcp
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict

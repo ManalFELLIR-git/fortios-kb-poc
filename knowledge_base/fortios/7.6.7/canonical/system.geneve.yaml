@@ -1,0 +1,433 @@
+id: system.geneve
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dstport:
+    canonical:
+      type: integer
+      version_ranges: &id001
+      - - v6.2.0
+        - ''
+      default: '6081'
+      min: 1
+      max: 65535
+      description: GENEVE destination port (1 - 65535, default = 6081).
+      source_attribute: dstport
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id001
+        description: GENEVE destination port (1 - 65535).
+        source_attribute: dstport
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: dstport
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: GENEVE destination port (1 - 65535, default = 6081).
+        default: '6081'
+        min: 1
+        max: 65535
+        source_attribute: dstport
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface:
+    canonical:
+      type: string
+      references: &id003
+      - system.interface.name
+      required: true
+      version_ranges: &id002
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Outgoing interface for GENEVE encapsulated traffic.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id002
+        description: Outgoing interface for GENEVE encapsulated traffic. Source system.interface.name.
+        references: *id003
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Outgoing interface for GENEVE encapsulated traffic.
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ip_version:
+    canonical:
+      type: enum
+      required: true
+      version_ranges: &id005
+      - - v6.2.0
+        - ''
+      choices: &id004
+      - ipv4-unicast
+      - ipv6-unicast
+      default: ipv4-unicast
+      description: IP version to use for the GENEVE interface and so for communication over the GENEVE. IPv4 or IPv6 unicast.
+      source_attribute: ip-version
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id004
+        version_ranges: *id005
+        description: IP version to use for the GENEVE interface and so for communication over the GENEVE. IPv4 or IPv6 unicast.
+        source_attribute: ip_version
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: ip_version
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: IP version to use for the GENEVE interface and so for communication over the GENEVE. IPv4 or IPv6 unicast.
+        default: ipv4-unicast
+        source_attribute: ip-version
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id006
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: GENEVE device or interface name. Must be an unique interface name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id006
+        description: GENEVE device or interface name. Must be an unique interface name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 15
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: GENEVE device or interface name. Must be an unique interface name.
+        max_length: 15
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  remote_ip:
+    canonical:
+      type: ipv4-address
+      required: true
+      version_ranges: &id007
+      - - v6.2.0
+        - ''
+      default: 0.0.0.0
+      description: IPv4 address of the GENEVE interface on the device at the remote end of the GENEVE.
+      source_attribute: remote-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: IPv4 address of the GENEVE interface on the device at the remote end of the GENEVE.
+        source_attribute: remote_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: remote_ip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: IPv4 address of the GENEVE interface on the device at the remote end of the GENEVE.
+        default: 0.0.0.0
+        source_attribute: remote-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id008
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id008
+  remote_ip6:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id009
+      - - v6.2.0
+        - ''
+      default: '::'
+      description: IPv6 IP address of the GENEVE interface on the device at the remote end of the GENEVE.
+      source_attribute: remote-ip6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id009
+        description: IPv6 IP address of the GENEVE interface on the device at the remote end of the GENEVE.
+        source_attribute: remote_ip6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: remote_ip6
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: IPv6 IP address of the GENEVE interface on the device at the remote end of the GENEVE.
+        default: '::'
+        source_attribute: remote-ip6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id010
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id010
+  type:
+    canonical:
+      type: enum
+      version_ranges: &id012
+      - - v6.4.4
+        - ''
+      choices: &id011
+      - ethernet
+      - ppp
+      default: ethernet
+      description: GENEVE type.
+      source_attribute: type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id011
+        version_ranges: *id012
+        description: GENEVE type.
+        source_attribute: type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: GENEVE type.
+        default: ethernet
+        source_attribute: type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  vni:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id013
+      - - v6.2.0
+        - ''
+      default: '0'
+      min: 0
+      max: 16777215
+      description: GENEVE network ID.
+      source_attribute: vni
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id013
+        description: GENEVE network ID.
+        source_attribute: vni
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        required: true
+        min: 0
+        max: 16777215
+        source_attribute: vni
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: GENEVE network ID.
+        default: '0'
+        min: 0
+        max: 16777215
+        source_attribute: vni
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: remote_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: remote_ip6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict

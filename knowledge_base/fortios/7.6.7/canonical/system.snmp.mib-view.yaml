@@ -1,0 +1,212 @@
+id: system.snmp.mib-view
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  exclude:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: &id001
+      - - v7.2.0
+        - ''
+      min_length: 0
+      max_length: 79
+      description: OID subtrees to be excluded in the view. Maximum 64 allowed.
+      source_attribute: exclude
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id001
+        description: OID subtrees to be excluded in the view. Maximum 64 allowed.
+        source_attribute: exclude
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: exclude
+      cli_reference:
+        type: string
+        raw_type: string
+        description: OID subtrees to be excluded in the view. Maximum 64 allowed.
+        max_length: 79
+        source_attribute: exclude
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id002
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id002
+  include:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: &id003
+      - - v7.2.0
+        - ''
+      min_length: 0
+      max_length: 79
+      description: OID subtrees to be included in the view. Maximum 16 allowed.
+      source_attribute: include
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id003
+        description: OID subtrees to be included in the view. Maximum 16 allowed.
+        source_attribute: include
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: include
+      cli_reference:
+        type: string
+        raw_type: string
+        description: OID subtrees to be included in the view. Maximum 16 allowed.
+        max_length: 79
+        source_attribute: include
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id004
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id004
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id005
+      - - v7.2.0
+        - ''
+      min_length: 0
+      max_length: 32
+      description: MIB view name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id005
+        description: MIB view name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 32
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: MIB view name.
+        max_length: 32
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: exclude
+  field: type
+  values:
+    ansible: list
+    terraform: string
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: include
+  field: type
+  values:
+    ansible: list
+    terraform: string
+    cli_reference: string
+  classification: representation_or_real_conflict

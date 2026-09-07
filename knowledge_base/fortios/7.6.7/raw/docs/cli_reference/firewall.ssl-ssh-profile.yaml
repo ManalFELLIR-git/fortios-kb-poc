@@ -1,0 +1,743 @@
+id: firewall.ssl-ssh-profile
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/116695140/config-firewall-ssl-ssh-profile
+attributes:
+  allowlist:
+    type: enum
+    raw_type: option
+    description: Enable/disable exempting servers by FortiGuard allowlist.
+    default: disable
+  block-blocklisted-certificates:
+    type: enum
+    raw_type: option
+    description: Enable/disable blocking SSL-based botnet communication by FortiGuard certificate blocklist.
+    default: enable
+  caname:
+    type: string
+    raw_type: string
+    description: CA certificate used by SSL Inspection.
+    default: Fortinet_CA_SSL
+    max_length: 35
+  comment:
+    type: string
+    raw_type: var-string
+    description: Optional comments.
+    max_length: 255
+  mapi-over-https:
+    type: enum
+    raw_type: option
+    description: Enable/disable inspection of MAPI over HTTPS.
+    default: disable
+  name:
+    type: string
+    raw_type: string
+    description: Name.
+    max_length: 47
+  rpc-over-https:
+    type: enum
+    raw_type: option
+    description: Enable/disable inspection of RPC over HTTPS.
+    default: disable
+  server-cert:
+    type: string
+    raw_type: string
+    description: Certificate used by SSL Inspection to replace server certificate. Certificate list.
+    max_length: 79
+  server-cert-mode:
+    type: enum
+    raw_type: option
+    description: Re-sign or replace the server's certificate.
+    default: re-sign
+  ssl-anomaly-log:
+    type: enum
+    raw_type: option
+    description: Enable/disable logging of SSL anomalies.
+    default: enable
+  ssl-exemption-ip-rating:
+    type: enum
+    raw_type: option
+    description: Enable/disable IP based URL rating.
+    default: enable
+  ssl-exemption-log:
+    type: enum
+    raw_type: option
+    description: Enable/disable logging of SSL exemptions.
+    default: disable
+  ssl-handshake-log:
+    type: enum
+    raw_type: option
+    description: Enable/disable logging of TLS handshakes.
+    default: disable
+  ssl-negotiation-log:
+    type: enum
+    raw_type: option
+    description: Enable/disable logging of SSL negotiation events.
+    default: enable
+  ssl-server-cert-log:
+    type: enum
+    raw_type: option
+    description: Enable/disable logging of server certificate information.
+    default: disable
+  supported-alpn:
+    type: enum
+    raw_type: option
+    description: Configure ALPN option.
+    default: all
+  untrusted-caname:
+    type: string
+    raw_type: string
+    description: Untrusted CA certificate used by SSL Inspection.
+    default: Fortinet_CA_Untrusted
+    max_length: 35
+  use-ssl-server:
+    type: enum
+    raw_type: option
+    description: Enable/disable the use of SSL server table for SSL offloading.
+    default: disable
+children:
+  dot:
+    attributes:
+      cert-validation-failure:
+        type: enum
+        raw_type: option
+        description: Action based on certificate validation failure.
+        default: block
+      cert-validation-timeout:
+        type: enum
+        raw_type: option
+        description: Action based on certificate validation timeout.
+        default: allow
+      client-certificate:
+        type: enum
+        raw_type: option
+        description: Action based on received client certificate.
+        default: bypass
+      expired-server-cert:
+        type: enum
+        raw_type: option
+        description: Action based on server certificate is expired.
+        default: block
+      proxy-after-tcp-handshake:
+        type: enum
+        raw_type: option
+        description: Proxy traffic after the TCP 3-way handshake has been established (not before).
+        default: disable
+      quic:
+        type: enum
+        raw_type: option
+        description: QUIC inspection status (default = inspect).
+        default: inspect
+      revoked-server-cert:
+        type: enum
+        raw_type: option
+        description: Action based on server certificate is revoked.
+        default: block
+      sni-server-cert-check:
+        type: enum
+        raw_type: option
+        description: Check the SNI in the client hello message with the CN or SAN fields in the returned server certificate.
+        default: enable
+      status:
+        type: enum
+        raw_type: option
+        description: Configure protocol inspection status.
+        default: disable
+      udp-not-quic:
+        type: enum
+        raw_type: option
+        description: Action to be taken when matched UDP packet is not QUIC.
+        default: allow
+      unsupported-ssl-cipher:
+        type: enum
+        raw_type: option
+        description: Action based on the SSL cipher used being unsupported.
+        default: allow
+      unsupported-ssl-negotiation:
+        type: enum
+        raw_type: option
+        description: Action based on the SSL negotiation used being unsupported.
+        default: allow
+      unsupported-ssl-version:
+        type: enum
+        raw_type: option
+        description: Action based on the SSL version used being unsupported.
+        default: block
+      untrusted-server-cert:
+        type: enum
+        raw_type: option
+        description: Action based on server certificate is not issued by a trusted CA.
+        default: allow
+  ech-outer-sni:
+    attributes:
+      name:
+        type: string
+        raw_type: string
+        description: ClientHelloOuter SNI name.
+        max_length: 79
+      sni:
+        type: string
+        raw_type: string
+        description: ClientHelloOuter SNI to be blocked.
+        max_length: 255
+  ftps:
+    attributes:
+      cert-validation-failure:
+        type: enum
+        raw_type: option
+        description: Action based on certificate validation failure.
+        default: block
+      cert-validation-timeout:
+        type: enum
+        raw_type: option
+        description: Action based on certificate validation timeout.
+        default: allow
+      client-certificate:
+        type: enum
+        raw_type: option
+        description: Action based on received client certificate.
+        default: bypass
+      expired-server-cert:
+        type: enum
+        raw_type: option
+        description: Action based on server certificate is expired.
+        default: block
+      min-allowed-ssl-version:
+        type: enum
+        raw_type: option
+        description: Minimum SSL version to be allowed. Flow-based inspection does not support SSL version control.
+        default: tls-1.1
+      ports:
+        type: integer
+        raw_type: integer
+        description: Ports to use for scanning (1 - 65535, default = 443).
+        min: 1
+        max: 65535
+      revoked-server-cert:
+        type: enum
+        raw_type: option
+        description: Action based on server certificate is revoked.
+        default: block
+      sni-server-cert-check:
+        type: enum
+        raw_type: option
+        description: Check the SNI in the client hello message with the CN or SAN fields in the returned server certificate.
+        default: enable
+      status:
+        type: enum
+        raw_type: option
+        description: Configure protocol inspection status.
+        default: deep-inspection
+      unsupported-ssl-cipher:
+        type: enum
+        raw_type: option
+        description: Action based on the SSL cipher used being unsupported.
+        default: allow
+      unsupported-ssl-negotiation:
+        type: enum
+        raw_type: option
+        description: Action based on the SSL negotiation used being unsupported.
+        default: allow
+      unsupported-ssl-version:
+        type: enum
+        raw_type: option
+        description: Action based on the SSL version used being unsupported.
+        default: block
+      untrusted-server-cert:
+        type: enum
+        raw_type: option
+        description: Action based on server certificate is not issued by a trusted CA.
+        default: allow
+  https:
+    attributes:
+      cert-probe-failure:
+        type: enum
+        raw_type: option
+        description: Action based on certificate probe failure.
+        default: allow
+      cert-validation-failure:
+        type: enum
+        raw_type: option
+        description: Action based on certificate validation failure.
+        default: block
+      cert-validation-timeout:
+        type: enum
+        raw_type: option
+        description: Action based on certificate validation timeout.
+        default: allow
+      client-certificate:
+        type: enum
+        raw_type: option
+        description: Action based on received client certificate.
+        default: bypass
+      encrypted-client-hello:
+        type: enum
+        raw_type: option
+        description: Block/allow session based on existence of encrypted-client-hello.
+        default: block
+      expired-server-cert:
+        type: enum
+        raw_type: option
+        description: Action based on server certificate is expired.
+        default: block
+      min-allowed-ssl-version:
+        type: enum
+        raw_type: option
+        description: Minimum SSL version to be allowed. Flow-based inspection does not support SSL version control.
+        default: tls-1.1
+      ports:
+        type: integer
+        raw_type: integer
+        description: Ports to use for scanning (1 - 65535, default = 443).
+        min: 1
+        max: 65535
+      proxy-after-tcp-handshake:
+        type: enum
+        raw_type: option
+        description: Proxy traffic after the TCP 3-way handshake has been established (not before).
+        default: disable
+      quic:
+        type: enum
+        raw_type: option
+        description: QUIC inspection status (default = inspect).
+        default: inspect
+      revoked-server-cert:
+        type: enum
+        raw_type: option
+        description: Action based on server certificate is revoked.
+        default: block
+      sni-server-cert-check:
+        type: enum
+        raw_type: option
+        description: Check the SNI in the client hello message with the CN or SAN fields in the returned server certificate.
+        default: enable
+      status:
+        type: enum
+        raw_type: option
+        description: Configure protocol inspection status.
+        default: deep-inspection
+      udp-not-quic:
+        type: enum
+        raw_type: option
+        description: Action to be taken when matched UDP packet is not QUIC.
+        default: allow
+      unsupported-ssl-cipher:
+        type: enum
+        raw_type: option
+        description: Action based on the SSL cipher used being unsupported.
+        default: allow
+      unsupported-ssl-negotiation:
+        type: enum
+        raw_type: option
+        description: Action based on the SSL negotiation used being unsupported.
+        default: allow
+      unsupported-ssl-version:
+        type: enum
+        raw_type: option
+        description: Action based on the SSL version used being unsupported.
+        default: block
+      untrusted-server-cert:
+        type: enum
+        raw_type: option
+        description: Action based on server certificate is not issued by a trusted CA.
+        default: allow
+  imaps:
+    attributes:
+      cert-validation-failure:
+        type: enum
+        raw_type: option
+        description: Action based on certificate validation failure.
+        default: block
+      cert-validation-timeout:
+        type: enum
+        raw_type: option
+        description: Action based on certificate validation timeout.
+        default: allow
+      client-certificate:
+        type: enum
+        raw_type: option
+        description: Action based on received client certificate.
+        default: inspect
+      expired-server-cert:
+        type: enum
+        raw_type: option
+        description: Action based on server certificate is expired.
+        default: block
+      ports:
+        type: integer
+        raw_type: integer
+        description: Ports to use for scanning (1 - 65535, default = 443).
+        min: 1
+        max: 65535
+      proxy-after-tcp-handshake:
+        type: enum
+        raw_type: option
+        description: Proxy traffic after the TCP 3-way handshake has been established (not before).
+        default: disable
+      revoked-server-cert:
+        type: enum
+        raw_type: option
+        description: Action based on server certificate is revoked.
+        default: block
+      sni-server-cert-check:
+        type: enum
+        raw_type: option
+        description: Check the SNI in the client hello message with the CN or SAN fields in the returned server certificate.
+        default: enable
+      status:
+        type: enum
+        raw_type: option
+        description: Configure protocol inspection status.
+        default: deep-inspection
+      unsupported-ssl-cipher:
+        type: enum
+        raw_type: option
+        description: Action based on the SSL cipher used being unsupported.
+        default: allow
+      unsupported-ssl-negotiation:
+        type: enum
+        raw_type: option
+        description: Action based on the SSL negotiation used being unsupported.
+        default: allow
+      unsupported-ssl-version:
+        type: enum
+        raw_type: option
+        description: Action based on the SSL version used being unsupported.
+        default: block
+      untrusted-server-cert:
+        type: enum
+        raw_type: option
+        description: Action based on server certificate is not issued by a trusted CA.
+        default: allow
+  pop3s:
+    attributes:
+      cert-validation-failure:
+        type: enum
+        raw_type: option
+        description: Action based on certificate validation failure.
+        default: block
+      cert-validation-timeout:
+        type: enum
+        raw_type: option
+        description: Action based on certificate validation timeout.
+        default: allow
+      client-certificate:
+        type: enum
+        raw_type: option
+        description: Action based on received client certificate.
+        default: inspect
+      expired-server-cert:
+        type: enum
+        raw_type: option
+        description: Action based on server certificate is expired.
+        default: block
+      ports:
+        type: integer
+        raw_type: integer
+        description: Ports to use for scanning (1 - 65535, default = 443).
+        min: 1
+        max: 65535
+      proxy-after-tcp-handshake:
+        type: enum
+        raw_type: option
+        description: Proxy traffic after the TCP 3-way handshake has been established (not before).
+        default: disable
+      revoked-server-cert:
+        type: enum
+        raw_type: option
+        description: Action based on server certificate is revoked.
+        default: block
+      sni-server-cert-check:
+        type: enum
+        raw_type: option
+        description: Check the SNI in the client hello message with the CN or SAN fields in the returned server certificate.
+        default: enable
+      status:
+        type: enum
+        raw_type: option
+        description: Configure protocol inspection status.
+        default: deep-inspection
+      unsupported-ssl-cipher:
+        type: enum
+        raw_type: option
+        description: Action based on the SSL cipher used being unsupported.
+        default: allow
+      unsupported-ssl-negotiation:
+        type: enum
+        raw_type: option
+        description: Action based on the SSL negotiation used being unsupported.
+        default: allow
+      unsupported-ssl-version:
+        type: enum
+        raw_type: option
+        description: Action based on the SSL version used being unsupported.
+        default: block
+      untrusted-server-cert:
+        type: enum
+        raw_type: option
+        description: Action based on server certificate is not issued by a trusted CA.
+        default: allow
+  smtps:
+    attributes:
+      cert-validation-failure:
+        type: enum
+        raw_type: option
+        description: Action based on certificate validation failure.
+        default: block
+      cert-validation-timeout:
+        type: enum
+        raw_type: option
+        description: Action based on certificate validation timeout.
+        default: allow
+      client-certificate:
+        type: enum
+        raw_type: option
+        description: Action based on received client certificate.
+        default: inspect
+      expired-server-cert:
+        type: enum
+        raw_type: option
+        description: Action based on server certificate is expired.
+        default: block
+      ports:
+        type: integer
+        raw_type: integer
+        description: Ports to use for scanning (1 - 65535, default = 443).
+        min: 1
+        max: 65535
+      proxy-after-tcp-handshake:
+        type: enum
+        raw_type: option
+        description: Proxy traffic after the TCP 3-way handshake has been established (not before).
+        default: disable
+      revoked-server-cert:
+        type: enum
+        raw_type: option
+        description: Action based on server certificate is revoked.
+        default: block
+      sni-server-cert-check:
+        type: enum
+        raw_type: option
+        description: Check the SNI in the client hello message with the CN or SAN fields in the returned server certificate.
+        default: enable
+      status:
+        type: enum
+        raw_type: option
+        description: Configure protocol inspection status.
+        default: deep-inspection
+      unsupported-ssl-cipher:
+        type: enum
+        raw_type: option
+        description: Action based on the SSL cipher used being unsupported.
+        default: allow
+      unsupported-ssl-negotiation:
+        type: enum
+        raw_type: option
+        description: Action based on the SSL negotiation used being unsupported.
+        default: allow
+      unsupported-ssl-version:
+        type: enum
+        raw_type: option
+        description: Action based on the SSL version used being unsupported.
+        default: block
+      untrusted-server-cert:
+        type: enum
+        raw_type: option
+        description: Action based on server certificate is not issued by a trusted CA.
+        default: allow
+  ssh:
+    attributes:
+      inspect-all:
+        type: enum
+        raw_type: option
+        description: Level of SSL inspection.
+        default: disable
+      ports:
+        type: integer
+        raw_type: integer
+        description: Ports to use for scanning (1 - 65535, default = 443).
+        min: 1
+        max: 65535
+      proxy-after-tcp-handshake:
+        type: enum
+        raw_type: option
+        description: Proxy traffic after the TCP 3-way handshake has been established (not before).
+        default: disable
+      ssh-algorithm:
+        type: enum
+        raw_type: option
+        description: Relative strength of encryption algorithms accepted during negotiation.
+        default: compatible
+      ssh-tun-policy-check:
+        type: enum
+        raw_type: option
+        description: Enable/disable SSH tunnel policy check.
+        default: disable
+      status:
+        type: enum
+        raw_type: option
+        description: Configure protocol inspection status.
+        default: disable
+      unsupported-version:
+        type: enum
+        raw_type: option
+        description: Action based on SSH version being unsupported.
+        default: bypass
+  ssl:
+    attributes:
+      cert-probe-failure:
+        type: enum
+        raw_type: option
+        description: Action based on certificate probe failure.
+        default: allow
+      cert-validation-failure:
+        type: enum
+        raw_type: option
+        description: Action based on certificate validation failure.
+        default: block
+      cert-validation-timeout:
+        type: enum
+        raw_type: option
+        description: Action based on certificate validation timeout.
+        default: allow
+      client-certificate:
+        type: enum
+        raw_type: option
+        description: Action based on received client certificate.
+        default: bypass
+      encrypted-client-hello:
+        type: enum
+        raw_type: option
+        description: Block/allow session based on existence of encrypted-client-hello.
+        default: block
+      expired-server-cert:
+        type: enum
+        raw_type: option
+        description: Action based on server certificate is expired.
+        default: block
+      inspect-all:
+        type: enum
+        raw_type: option
+        description: Level of SSL inspection.
+        default: disable
+      min-allowed-ssl-version:
+        type: enum
+        raw_type: option
+        description: Minimum SSL version to be allowed. Flow-based inspection does not support SSL version control.
+        default: tls-1.1
+      revoked-server-cert:
+        type: enum
+        raw_type: option
+        description: Action based on server certificate is revoked.
+        default: block
+      sni-server-cert-check:
+        type: enum
+        raw_type: option
+        description: Check the SNI in the client hello message with the CN or SAN fields in the returned server certificate.
+        default: enable
+      unsupported-ssl-cipher:
+        type: enum
+        raw_type: option
+        description: Action based on the SSL cipher used being unsupported.
+        default: allow
+      unsupported-ssl-negotiation:
+        type: enum
+        raw_type: option
+        description: Action based on the SSL negotiation used being unsupported.
+        default: allow
+      unsupported-ssl-version:
+        type: enum
+        raw_type: option
+        description: Action based on the SSL version used being unsupported.
+        default: block
+      untrusted-server-cert:
+        type: enum
+        raw_type: option
+        description: Action based on server certificate is not issued by a trusted CA.
+        default: allow
+  ssl-exempt:
+    attributes:
+      address:
+        type: string
+        raw_type: string
+        description: IPv4 address object.
+        max_length: 79
+      address6:
+        type: string
+        raw_type: string
+        description: IPv6 address object.
+        max_length: 79
+      fortiguard-category:
+        type: integer
+        raw_type: integer
+        description: FortiGuard category ID.
+        default: '0'
+        min: 0
+        max: 255
+      id:
+        type: integer
+        raw_type: integer
+        description: ID number.
+        default: '0'
+        min: 0
+        max: 512
+      regex:
+        type: string
+        raw_type: string
+        description: Exempt servers by regular expression.
+        max_length: 255
+      type:
+        type: enum
+        raw_type: option
+        description: Type of address object (IPv4 or IPv6) or FortiGuard category.
+        default: fortiguard-category
+      wildcard-fqdn:
+        type: string
+        raw_type: string
+        description: Exempt servers by wildcard FQDN.
+        max_length: 79
+  ssl-server:
+    attributes:
+      ftps-client-certificate:
+        type: enum
+        raw_type: option
+        description: Action based on received client certificate during the FTPS handshake.
+        default: bypass
+      https-client-certificate:
+        type: enum
+        raw_type: option
+        description: Action based on received client certificate during the HTTPS handshake.
+        default: bypass
+      id:
+        type: integer
+        raw_type: integer
+        description: SSL server ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      imaps-client-certificate:
+        type: enum
+        raw_type: option
+        description: Action based on received client certificate during the IMAPS handshake.
+        default: bypass
+      ip:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: IPv4 address of the SSL server.
+        default: 0.0.0.0
+      pop3s-client-certificate:
+        type: enum
+        raw_type: option
+        description: Action based on received client certificate during the POP3S handshake.
+        default: bypass
+      smtps-client-certificate:
+        type: enum
+        raw_type: option
+        description: Action based on received client certificate during the SMTPS handshake.
+        default: bypass
+      ssl-other-client-certificate:
+        type: enum
+        raw_type: option
+        description: Action based on received client certificate during an SSL protocol handshake.
+        default: bypass

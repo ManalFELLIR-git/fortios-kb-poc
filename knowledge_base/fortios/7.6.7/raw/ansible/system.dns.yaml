@@ -1,0 +1,256 @@
+id: system.dns
+version: 7.6.7
+source_object: fortios_system_dns
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_system_dns.py
+root_type: object
+attributes:
+  primary:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Primary DNS server IP address.
+  secondary:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Secondary DNS server IP address.
+  protocol:
+    type: enum
+    raw_type: list
+    choices:
+    - cleartext
+    - dot
+    - doh
+    multiple_values: true
+    elements: str
+    version_ranges:
+    - - v7.0.0
+      - ''
+    description: DNS transport protocols.
+  ssl_certificate:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: Name of local certificate for SSL connections. Source certificate.local.name.
+    references:
+    - certificate.local.name
+  server_hostname:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: DNS server host name list.
+    children:
+      hostname:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: DNS server host name list separated by space (maximum 4 domains).
+  domain:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Search suffix list for hostname lookup.
+    children:
+      domain:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: DNS search domain list separated by space (maximum 8 domains).
+  ip6_primary:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Primary DNS server IPv6 address.
+  ip6_secondary:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Secondary DNS server IPv6 address.
+  timeout:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: DNS query timeout interval in seconds (1 - 10).
+  retry:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Number of times to retry (0 - 5).
+  dns_cache_limit:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Maximum number of records in the DNS cache.
+  dns_cache_ttl:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Duration in seconds that the DNS cache retains information.
+  cache_notfound_responses:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable response from the DNS server when a record is not in cache.
+  source_ip:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: IP address used by the DNS server as its source IP.
+  source_ip_interface:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v7.6.1
+      - ''
+    description: IP address of the specified interface as the source IP address. Source system.interface.name.
+    references:
+    - system.interface.name
+  root_servers:
+    type: list
+    raw_type: list
+    multiple_values: true
+    elements: str
+    version_ranges:
+    - - v7.6.0
+      - ''
+    description: Configure up to two preferred servers that serve the DNS root zone .
+  interface_select_method:
+    type: enum
+    raw_type: string
+    choices:
+    - auto
+    - sdwan
+    - specify
+    version_ranges:
+    - - v6.2.0
+      - v6.2.0
+    - - v6.2.5
+      - ''
+    description: Specify how to select outgoing interface to reach server.
+  interface:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.2.0
+      - v6.2.0
+    - - v6.2.5
+      - ''
+    description: Specify outgoing interface to reach server. Source system.interface.name.
+    references:
+    - system.interface.name
+  vrf_select:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.6.1
+      - ''
+    description: VRF ID used for connection to server.
+  server_select_method:
+    type: enum
+    raw_type: string
+    choices:
+    - least-rtt
+    - failover
+    version_ranges:
+    - - v7.0.1
+      - ''
+    description: Specify how configured servers are prioritized.
+  alt_primary:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v7.0.1
+      - ''
+    description: Alternate primary DNS server. This is not used as a failover DNS server.
+  alt_secondary:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v7.0.1
+      - ''
+    description: Alternate secondary DNS server. This is not used as a failover DNS server.
+  log:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - error
+    - all
+    version_ranges:
+    - - v7.0.1
+      - ''
+    description: Local DNS log setting.
+  fqdn_cache_ttl:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.2.1
+      - ''
+    description: FQDN cache time to live in seconds (0 - 86400).
+  fqdn_max_refresh:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.4.0
+      - ''
+    description: FQDN cache maximum refresh time in seconds (3600 - 86400).
+  fqdn_min_refresh:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.2.1
+      - ''
+    description: FQDN cache minimum refresh time in seconds (10 - 3600).
+  hostname_ttl:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.6.0
+      - ''
+    description: TTL of hostname table entries (60 - 86400).
+  hostname_limit:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.6.0
+      - ''
+    description: Limit of the number of hostname table entries (0 - 50000).

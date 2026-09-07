@@ -1,0 +1,994 @@
+id: videofilter.profile
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v7.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Comment.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Comment.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 255
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dailymotion:
+    canonical:
+      type: enum
+      version_ranges: &id003
+      - - v7.0.0
+        - v7.6.7
+      choices: &id002
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable Dailymotion video source.
+      source_attribute: dailymotion
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id002
+        version_ranges: *id003
+        description: Enable/disable Dailymotion video source.
+        source_attribute: dailymotion
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dailymotion
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable Dailymotion video source.
+        default: enable
+        source_attribute: dailymotion
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  default_action:
+    canonical:
+      type: string
+      source_attribute: default_action
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: default_action
+    sources:
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  fabric_force_sync:
+    canonical:
+      type: string
+      source_attribute: fabric_force_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_force_sync
+    sources:
+    - terraform
+  fabric_object:
+    canonical:
+      type: string
+      source_attribute: fabric_object
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object
+    sources:
+    - terraform
+  fabric_object_source:
+    canonical:
+      type: string
+      source_attribute: fabric_object_source
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object_source
+    sources:
+    - terraform
+  filters:
+    canonical:
+      type: list
+      elements: dict
+      children: &id005
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id011
+          - - v7.4.2
+            - ''
+          description: ID. see <a href='#notes'>Notes</a>.
+        comment:
+          type: string
+          raw_type: string
+          version_ranges: &id010
+          - - v7.4.2
+            - ''
+          description: Comment.
+        type:
+          type: enum
+          raw_type: string
+          choices: &id017
+          - category
+          - channel
+          - title
+          - description
+          version_ranges: &id016
+          - - v7.4.2
+            - ''
+          description: Filter type.
+        keyword:
+          type: integer
+          raw_type: integer
+          version_ranges: &id013
+          - - v7.4.2
+            - ''
+          description: Video filter keyword ID. Source videofilter.keyword.id.
+          references: &id012
+          - videofilter.keyword.id
+        category:
+          type: string
+          raw_type: string
+          version_ranges: &id008
+          - - v7.4.2
+            - ''
+          description: FortiGuard category ID.
+        channel:
+          type: string
+          raw_type: string
+          version_ranges: &id009
+          - - v7.4.2
+            - ''
+          description: Channel ID.
+        action:
+          type: enum
+          raw_type: string
+          choices: &id007
+          - allow
+          - monitor
+          - block
+          version_ranges: &id006
+          - - v7.4.2
+            - ''
+          description: Video filter action.
+        log:
+          type: enum
+          raw_type: string
+          choices: &id015
+          - enable
+          - disable
+          version_ranges: &id014
+          - - v7.4.2
+            - ''
+          description: Enable/disable logging.
+      version_ranges: &id004
+      - - v7.4.2
+        - ''
+      description: YouTube filter entries.
+      source_attribute: filters
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id004
+        description: YouTube filter entries.
+        children: *id005
+        source_attribute: filters
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          comment:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 255
+          type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          keyword:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          category:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 7
+          channel:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 255
+          action:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          log:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: filters
+    sources:
+    - ansible
+    - terraform
+  filters.action:
+    canonical:
+      type: enum
+      version_ranges: *id006
+      choices: *id007
+      description: Video filter action.
+      source_attribute: filters.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id007
+        version_ranges: *id006
+        description: Video filter action.
+        source_attribute: filters.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: filters.action
+    sources:
+    - ansible
+    - terraform
+  filters.category:
+    canonical:
+      type: string
+      version_ranges: *id008
+      min_length: 0
+      max_length: 7
+      description: FortiGuard category ID.
+      source_attribute: filters.category
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: FortiGuard category ID.
+        source_attribute: filters.category
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 7
+        source_attribute: filters.category
+    sources:
+    - ansible
+    - terraform
+  filters.channel:
+    canonical:
+      type: string
+      version_ranges: *id009
+      min_length: 0
+      max_length: 255
+      description: Channel ID.
+      source_attribute: filters.channel
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id009
+        description: Channel ID.
+        source_attribute: filters.channel
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: filters.channel
+    sources:
+    - ansible
+    - terraform
+  filters.comment:
+    canonical:
+      type: string
+      version_ranges: *id010
+      min_length: 0
+      max_length: 255
+      description: Comment.
+      source_attribute: filters.comment
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id010
+        description: Comment.
+        source_attribute: filters.comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: filters.comment
+    sources:
+    - ansible
+    - terraform
+  filters.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id011
+      description: ID. see <a href='#notes'>Notes</a>.
+      source_attribute: filters.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id011
+        description: ID. see <a href='#notes'>Notes</a>.
+        source_attribute: filters.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: filters.id
+    sources:
+    - ansible
+    - terraform
+  filters.keyword:
+    canonical:
+      type: integer
+      references: *id012
+      version_ranges: *id013
+      description: Video filter keyword ID. Source videofilter.keyword.id.
+      source_attribute: filters.keyword
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id013
+        description: Video filter keyword ID. Source videofilter.keyword.id.
+        references: *id012
+        source_attribute: filters.keyword
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: filters.keyword
+    sources:
+    - ansible
+    - terraform
+  filters.log:
+    canonical:
+      type: enum
+      version_ranges: *id014
+      choices: *id015
+      description: Enable/disable logging.
+      source_attribute: filters.log
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id015
+        version_ranges: *id014
+        description: Enable/disable logging.
+        source_attribute: filters.log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: filters.log
+    sources:
+    - ansible
+    - terraform
+  filters.type:
+    canonical:
+      type: enum
+      version_ranges: *id016
+      choices: *id017
+      description: Filter type.
+      source_attribute: filters.type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id017
+        version_ranges: *id016
+        description: Filter type.
+        source_attribute: filters.type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: filters.type
+    sources:
+    - ansible
+    - terraform
+  fortiguard_category:
+    canonical:
+      type: list
+      children: &id018
+        filters:
+          type: list
+          raw_type: TypeList
+          optional: true
+          children: &id019
+            id:
+              type: integer
+              raw_type: TypeInt
+              optional: true
+            action:
+              type: string
+              raw_type: TypeString
+              optional: true
+              computed: true
+            category_id:
+              type: integer
+              raw_type: TypeInt
+              optional: true
+            log:
+              type: string
+              raw_type: TypeString
+              optional: true
+              computed: true
+      source_attribute: fortiguard_category
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children: *id018
+        source_attribute: fortiguard_category
+    sources:
+    - terraform
+  fortiguard_category.filters:
+    canonical:
+      type: list
+      children: *id019
+      source_attribute: fortiguard_category.filters
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id019
+        source_attribute: fortiguard_category.filters
+    sources:
+    - terraform
+  fortiguard_category.filters.action:
+    canonical:
+      type: string
+      source_attribute: fortiguard_category.filters.action
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fortiguard_category.filters.action
+    sources:
+    - terraform
+  fortiguard_category.filters.category_id:
+    canonical:
+      type: integer
+      source_attribute: fortiguard_category.filters.category_id
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: fortiguard_category.filters.category_id
+    sources:
+    - terraform
+  fortiguard_category.filters.id:
+    canonical:
+      type: integer
+      source_attribute: fortiguard_category.filters.id
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: fortiguard_category.filters.id
+    sources:
+    - terraform
+  fortiguard_category.filters.log:
+    canonical:
+      type: string
+      source_attribute: fortiguard_category.filters.log
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fortiguard_category.filters.log
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  log:
+    canonical:
+      type: string
+      source_attribute: log
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: log
+    sources:
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id020
+      - - v7.0.0
+        - ''
+      min_length: 0
+      max_length: 47
+      description: Name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id020
+        description: Name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 47
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name.
+        max_length: 47
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  replacemsg_group:
+    canonical:
+      type: string
+      references: &id022
+      - system.replacemsg-group.name
+      version_ranges: &id021
+      - - v7.0.1
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Replacement message group.
+      source_attribute: replacemsg-group
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id021
+        description: Replacement message group. Source system.replacemsg-group.name.
+        references: *id022
+        source_attribute: replacemsg_group
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: replacemsg_group
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Replacement message group.
+        max_length: 35
+        source_attribute: replacemsg-group
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  uuid:
+    canonical:
+      type: string
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  vimeo:
+    canonical:
+      type: enum
+      version_ranges: &id024
+      - - v7.0.0
+        - v7.6.7
+      choices: &id023
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable Vimeo video source.
+      source_attribute: vimeo
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id023
+        version_ranges: *id024
+        description: Enable/disable Vimeo video source.
+        source_attribute: vimeo
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: vimeo
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable Vimeo video source.
+        default: enable
+        source_attribute: vimeo
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  youtube:
+    canonical:
+      type: enum
+      version_ranges: &id026
+      - - v7.0.0
+        - v7.6.7
+      choices: &id025
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable YouTube video source.
+      source_attribute: youtube
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id025
+        version_ranges: *id026
+        description: Enable/disable YouTube video source.
+        source_attribute: youtube
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: youtube
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable YouTube video source.
+        default: enable
+        source_attribute: youtube
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  youtube_channel_filter:
+    canonical:
+      type: integer
+      source_attribute: youtube_channel_filter
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: youtube_channel_filter
+    sources:
+    - terraform
+conflicts: []

@@ -1,0 +1,2832 @@
+id: application.list
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  app_replacemsg:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - disable
+      - enable
+      default: enable
+      description: Enable/disable replacement messages for blocked applications.
+      source_attribute: app-replacemsg
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable replacement messages for blocked applications.
+        source_attribute: app_replacemsg
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: app_replacemsg
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable replacement messages for blocked applications.
+        default: enable
+        source_attribute: app-replacemsg
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Comments.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Comments.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Comments.
+        max_length: 255
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  control_default_network_services:
+    canonical:
+      type: enum
+      version_ranges: &id005
+      - - v6.2.0
+        - ''
+      choices: &id004
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable enforcement of protocols over selected ports.
+      source_attribute: control-default-network-services
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id004
+        version_ranges: *id005
+        description: Enable/disable enforcement of protocols over selected ports.
+        source_attribute: control_default_network_services
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: control_default_network_services
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable enforcement of protocols over selected ports.
+        default: disable
+        source_attribute: control-default-network-services
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  deep_app_inspection:
+    canonical:
+      type: enum
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      choices: &id006
+      - disable
+      - enable
+      default: enable
+      description: Enable/disable deep application inspection.
+      source_attribute: deep-app-inspection
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id006
+        version_ranges: *id007
+        description: Enable/disable deep application inspection.
+        source_attribute: deep_app_inspection
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: deep_app_inspection
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable deep application inspection.
+        default: enable
+        source_attribute: deep-app-inspection
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  default_network_services:
+    canonical:
+      type: list
+      elements: dict
+      children: &id009
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id010
+          - - v6.2.0
+            - ''
+          description: Entry ID. see <a href='#notes'>Notes</a>.
+        port:
+          type: integer
+          raw_type: integer
+          version_ranges: &id011
+          - - v6.2.0
+            - ''
+          description: Port number.
+        services:
+          type: enum
+          raw_type: list
+          choices: &id013
+          - http
+          - ssh
+          - telnet
+          - ftp
+          - dns
+          - smtp
+          - pop3
+          - imap
+          - snmp
+          - nntp
+          - https
+          multiple_values: true
+          elements: str
+          version_ranges: &id012
+          - - v6.2.0
+            - ''
+          description: Network protocols.
+        violation_action:
+          type: enum
+          raw_type: string
+          choices: &id015
+          - pass
+          - monitor
+          - block
+          version_ranges: &id014
+          - - v6.2.0
+            - ''
+          description: Action for protocols not in the allowlist for selected port.
+      version_ranges: &id008
+      - - v6.2.0
+        - ''
+      description: Default network service entries.
+      source_attribute: default_network_services
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id008
+        description: Default network service entries.
+        children: *id009
+        source_attribute: default_network_services
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          port:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 65535
+          services:
+            type: string
+            raw_type: TypeString
+            optional: true
+          violation_action:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: default_network_services
+    sources:
+    - ansible
+    - terraform
+  default_network_services.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id010
+      description: Entry ID. see <a href='#notes'>Notes</a>.
+      source_attribute: default_network_services.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id010
+        description: Entry ID. see <a href='#notes'>Notes</a>.
+        source_attribute: default_network_services.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: default_network_services.id
+    sources:
+    - ansible
+    - terraform
+  default_network_services.port:
+    canonical:
+      type: integer
+      version_ranges: *id011
+      min: 0
+      max: 65535
+      description: Port number.
+      source_attribute: default_network_services.port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id011
+        description: Port number.
+        source_attribute: default_network_services.port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: default_network_services.port
+    sources:
+    - ansible
+    - terraform
+  default_network_services.services:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: *id012
+      choices: *id013
+      description: Network protocols.
+      source_attribute: default_network_services.services
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id013
+        multiple_values: true
+        elements: str
+        version_ranges: *id012
+        description: Network protocols.
+        source_attribute: default_network_services.services
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: default_network_services.services
+    sources:
+    - ansible
+    - terraform
+  default_network_services.violation_action:
+    canonical:
+      type: enum
+      version_ranges: *id014
+      choices: *id015
+      description: Action for protocols not in the allowlist for selected port.
+      source_attribute: default_network_services.violation_action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id015
+        version_ranges: *id014
+        description: Action for protocols not in the allowlist for selected port.
+        source_attribute: default_network_services.violation_action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: default_network_services.violation_action
+    sources:
+    - ansible
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  enforce_default_app_port:
+    canonical:
+      type: enum
+      version_ranges: &id017
+      - - v6.2.0
+        - ''
+      choices: &id016
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable default application port enforcement for allowed applications.
+      source_attribute: enforce-default-app-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id016
+        version_ranges: *id017
+        description: Enable/disable default application port enforcement for allowed applications.
+        source_attribute: enforce_default_app_port
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: enforce_default_app_port
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable default application port enforcement for allowed applications.
+        default: disable
+        source_attribute: enforce-default-app-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  entries:
+    canonical:
+      type: list
+      elements: dict
+      children: &id019
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id036
+          - - v6.0.0
+            - ''
+          description: Entry ID. see <a href='#notes'>Notes</a>.
+        risk:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id069
+          - - v6.0.0
+            - ''
+          description: Risk, or impact, of allowing traffic from this application to occur (1 - 5; Low, Elevated, Medium,
+            High, and Critical).
+          children: &id068
+            level:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id071
+              - - v6.0.0
+                - ''
+              description: Risk, or impact, of allowing traffic from this application to occur (1 - 5; Low, Elevated, Medium,
+                High, and Critical). see <a href='#notes'>Notes</a>.
+        category:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id029
+          - - v6.0.0
+            - ''
+          description: Category ID list.
+          children: &id028
+            id:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id031
+              - - v6.0.0
+                - ''
+              description: Application category ID. see <a href='#notes'>Notes</a>.
+        application:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id023
+          - - v6.0.0
+            - ''
+          description: ID of allowed applications.
+          children: &id022
+            id:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id025
+              - - v6.0.0
+                - ''
+              description: Application IDs. see <a href='#notes'>Notes</a>.
+        protocols:
+          type: list
+          raw_type: list
+          multiple_values: true
+          elements: str
+          version_ranges: &id055
+          - - v6.0.0
+            - ''
+          description: Application protocol filter.
+        vendor:
+          type: list
+          raw_type: list
+          multiple_values: true
+          elements: str
+          version_ranges: &id080
+          - - v6.0.0
+            - ''
+          description: Application vendor filter.
+        technology:
+          type: list
+          raw_type: list
+          multiple_values: true
+          elements: str
+          version_ranges: &id078
+          - - v6.0.0
+            - ''
+          description: Application technology filter.
+        behavior:
+          type: list
+          raw_type: list
+          multiple_values: true
+          elements: str
+          version_ranges: &id026
+          - - v6.0.0
+            - ''
+          description: Application behavior filter.
+        popularity:
+          type: enum
+          raw_type: list
+          choices: &id054
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+          - '5'
+          multiple_values: true
+          elements: str
+          version_ranges: &id053
+          - - v6.0.0
+            - ''
+          description: Application popularity filter (1 - 5, from least to most popular).
+        exclusion:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id033
+          - - v6.2.7
+            - v6.2.7
+          - - v6.4.4
+            - ''
+          description: ID of excluded applications.
+          children: &id032
+            id:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id035
+              - - v6.2.7
+                - v6.2.7
+              - - v6.4.4
+                - ''
+              description: Excluded application IDs. see <a href='#notes'>Notes</a>.
+        parameters:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id042
+          - - v6.0.0
+            - ''
+          description: Application parameters.
+          children: &id041
+            id:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id044
+              - - v6.0.0
+                - ''
+              description: Parameter tuple ID. see <a href='#notes'>Notes</a>.
+            members:
+              type: list
+              raw_type: list
+              elements: dict
+              version_ranges: &id046
+              - - v6.4.0
+                - ''
+              description: Parameter tuple members.
+              children: &id045
+                id:
+                  type: integer
+                  raw_type: integer
+                  required: true
+                  version_ranges: &id048
+                  - - v6.4.0
+                    - ''
+                  description: Parameter. see <a href='#notes'>Notes</a>.
+                name:
+                  type: string
+                  raw_type: string
+                  version_ranges: &id049
+                  - - v6.4.0
+                    - ''
+                  description: Parameter name.
+                value:
+                  type: string
+                  raw_type: string
+                  version_ranges: &id050
+                  - - v6.4.0
+                    - ''
+                  description: Parameter value.
+        action:
+          type: enum
+          raw_type: string
+          choices: &id021
+          - pass
+          - block
+          - reset
+          version_ranges: &id020
+          - - v6.0.0
+            - ''
+          description: Pass or block traffic, or reset connection for traffic from this application.
+        log:
+          type: enum
+          raw_type: string
+          choices: &id038
+          - disable
+          - enable
+          version_ranges: &id037
+          - - v6.0.0
+            - ''
+          description: Enable/disable logging for this application list.
+        log_packet:
+          type: enum
+          raw_type: string
+          choices: &id040
+          - disable
+          - enable
+          version_ranges: &id039
+          - - v6.0.0
+            - ''
+          description: Enable/disable packet logging.
+        rate_count:
+          type: integer
+          raw_type: integer
+          version_ranges: &id062
+          - - v6.0.0
+            - ''
+          description: Count of the rate.
+        rate_duration:
+          type: integer
+          raw_type: integer
+          version_ranges: &id063
+          - - v6.0.0
+            - ''
+          description: Duration (sec) of the rate.
+        rate_mode:
+          type: enum
+          raw_type: string
+          choices: &id065
+          - periodical
+          - continuous
+          version_ranges: &id064
+          - - v6.0.0
+            - ''
+          description: Rate limit mode.
+        rate_track:
+          type: enum
+          raw_type: string
+          choices: &id067
+          - none
+          - src-ip
+          - dest-ip
+          - dhcp-client-mac
+          - dns-domain
+          version_ranges: &id066
+          - - v6.0.0
+            - ''
+          description: Track the packet protocol field.
+        session_ttl:
+          type: integer
+          raw_type: integer
+          version_ranges: &id072
+          - - v6.0.0
+            - ''
+          description: Session TTL (0 = default).
+        shaper:
+          type: string
+          raw_type: string
+          version_ranges: &id074
+          - - v6.0.0
+            - ''
+          description: Traffic shaper. Source firewall.shaper.traffic-shaper.name.
+          references: &id073
+          - firewall.shaper.traffic-shaper.name
+        shaper_reverse:
+          type: string
+          raw_type: string
+          version_ranges: &id076
+          - - v6.0.0
+            - ''
+          description: Reverse traffic shaper. Source firewall.shaper.traffic-shaper.name.
+          references: &id075
+          - firewall.shaper.traffic-shaper.name
+        per_ip_shaper:
+          type: string
+          raw_type: string
+          version_ranges: &id052
+          - - v6.0.0
+            - ''
+          description: Per-IP traffic shaper. Source firewall.shaper.per-ip-shaper.name.
+          references: &id051
+          - firewall.shaper.per-ip-shaper.name
+        quarantine:
+          type: enum
+          raw_type: string
+          choices: &id058
+          - none
+          - attacker
+          version_ranges: &id057
+          - - v6.0.0
+            - ''
+          description: Quarantine method.
+        quarantine_expiry:
+          type: string
+          raw_type: string
+          version_ranges: &id059
+          - - v6.0.0
+            - ''
+          description: Duration of quarantine. (Format
+        quarantine_log:
+          type: enum
+          raw_type: string
+          choices: &id061
+          - disable
+          - enable
+          version_ranges: &id060
+          - - v6.0.0
+            - ''
+          description: Enable/disable quarantine logging.
+      version_ranges: &id018
+      - - v6.0.0
+        - ''
+      description: Application list entries.
+      source_attribute: entries
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id018
+        description: Application list entries.
+        children: *id019
+        source_attribute: entries
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          risk:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id070
+              level:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+          category:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id030
+              id:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+          sub_category:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id077
+              id:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+          application:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id024
+              id:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+          protocols:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          vendor:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          technology:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          behavior:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          popularity:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          classification:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          exclusion:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id034
+              id:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+          parameters:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id043
+              id:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+              members:
+                type: list
+                raw_type: TypeList
+                optional: true
+                children: &id047
+                  id:
+                    type: integer
+                    raw_type: TypeInt
+                    optional: true
+                    computed: true
+                  name:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    min_length: 0
+                    max_length: 31
+                  value:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    min_length: 0
+                    max_length: 199
+              value:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 63
+          action:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          log:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          log_packet:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          rate_count:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 65535
+          rate_duration:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 65535
+          rate_mode:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          rate_track:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          session_ttl:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          shaper:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          shaper_reverse:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          per_ip_shaper:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          quarantine:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          quarantine_expiry:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          quarantine_log:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: entries
+    sources:
+    - ansible
+    - terraform
+  entries.action:
+    canonical:
+      type: enum
+      version_ranges: *id020
+      choices: *id021
+      description: Pass or block traffic, or reset connection for traffic from this application.
+      source_attribute: entries.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id021
+        version_ranges: *id020
+        description: Pass or block traffic, or reset connection for traffic from this application.
+        source_attribute: entries.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.action
+    sources:
+    - ansible
+    - terraform
+  entries.application:
+    canonical:
+      type: list
+      elements: dict
+      children: *id022
+      version_ranges: *id023
+      description: ID of allowed applications.
+      source_attribute: entries.application
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id023
+        description: ID of allowed applications.
+        children: *id022
+        source_attribute: entries.application
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id024
+        source_attribute: entries.application
+    sources:
+    - ansible
+    - terraform
+  entries.application.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id025
+      description: Application IDs. see <a href='#notes'>Notes</a>.
+      source_attribute: entries.application.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id025
+        description: Application IDs. see <a href='#notes'>Notes</a>.
+        source_attribute: entries.application.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: entries.application.id
+    sources:
+    - ansible
+    - terraform
+  entries.behavior:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: *id026
+      description: Application behavior filter.
+      source_attribute: entries.behavior
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id026
+        description: Application behavior filter.
+        source_attribute: entries.behavior
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.behavior
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id027
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id027
+  entries.category:
+    canonical:
+      type: list
+      elements: dict
+      children: *id028
+      version_ranges: *id029
+      description: Category ID list.
+      source_attribute: entries.category
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id029
+        description: Category ID list.
+        children: *id028
+        source_attribute: entries.category
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id030
+        source_attribute: entries.category
+    sources:
+    - ansible
+    - terraform
+  entries.category.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id031
+      description: Application category ID. see <a href='#notes'>Notes</a>.
+      source_attribute: entries.category.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id031
+        description: Application category ID. see <a href='#notes'>Notes</a>.
+        source_attribute: entries.category.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: entries.category.id
+    sources:
+    - ansible
+    - terraform
+  entries.classification:
+    canonical:
+      type: string
+      source_attribute: entries.classification
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.classification
+    sources:
+    - terraform
+  entries.exclusion:
+    canonical:
+      type: list
+      elements: dict
+      children: *id032
+      version_ranges: *id033
+      description: ID of excluded applications.
+      source_attribute: entries.exclusion
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id033
+        description: ID of excluded applications.
+        children: *id032
+        source_attribute: entries.exclusion
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id034
+        source_attribute: entries.exclusion
+    sources:
+    - ansible
+    - terraform
+  entries.exclusion.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id035
+      description: Excluded application IDs. see <a href='#notes'>Notes</a>.
+      source_attribute: entries.exclusion.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id035
+        description: Excluded application IDs. see <a href='#notes'>Notes</a>.
+        source_attribute: entries.exclusion.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: entries.exclusion.id
+    sources:
+    - ansible
+    - terraform
+  entries.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id036
+      description: Entry ID. see <a href='#notes'>Notes</a>.
+      source_attribute: entries.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id036
+        description: Entry ID. see <a href='#notes'>Notes</a>.
+        source_attribute: entries.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: entries.id
+    sources:
+    - ansible
+    - terraform
+  entries.log:
+    canonical:
+      type: enum
+      version_ranges: *id037
+      choices: *id038
+      description: Enable/disable logging for this application list.
+      source_attribute: entries.log
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id038
+        version_ranges: *id037
+        description: Enable/disable logging for this application list.
+        source_attribute: entries.log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.log
+    sources:
+    - ansible
+    - terraform
+  entries.log_packet:
+    canonical:
+      type: enum
+      version_ranges: *id039
+      choices: *id040
+      description: Enable/disable packet logging.
+      source_attribute: entries.log_packet
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id040
+        version_ranges: *id039
+        description: Enable/disable packet logging.
+        source_attribute: entries.log_packet
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.log_packet
+    sources:
+    - ansible
+    - terraform
+  entries.parameters:
+    canonical:
+      type: list
+      elements: dict
+      children: *id041
+      version_ranges: *id042
+      description: Application parameters.
+      source_attribute: entries.parameters
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id042
+        description: Application parameters.
+        children: *id041
+        source_attribute: entries.parameters
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id043
+        source_attribute: entries.parameters
+    sources:
+    - ansible
+    - terraform
+  entries.parameters.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id044
+      description: Parameter tuple ID. see <a href='#notes'>Notes</a>.
+      source_attribute: entries.parameters.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id044
+        description: Parameter tuple ID. see <a href='#notes'>Notes</a>.
+        source_attribute: entries.parameters.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: entries.parameters.id
+    sources:
+    - ansible
+    - terraform
+  entries.parameters.members:
+    canonical:
+      type: list
+      elements: dict
+      children: *id045
+      version_ranges: *id046
+      description: Parameter tuple members.
+      source_attribute: entries.parameters.members
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id046
+        description: Parameter tuple members.
+        children: *id045
+        source_attribute: entries.parameters.members
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id047
+        source_attribute: entries.parameters.members
+    sources:
+    - ansible
+    - terraform
+  entries.parameters.members.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id048
+      description: Parameter. see <a href='#notes'>Notes</a>.
+      source_attribute: entries.parameters.members.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id048
+        description: Parameter. see <a href='#notes'>Notes</a>.
+        source_attribute: entries.parameters.members.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: entries.parameters.members.id
+    sources:
+    - ansible
+    - terraform
+  entries.parameters.members.name:
+    canonical:
+      type: string
+      version_ranges: *id049
+      min_length: 0
+      max_length: 31
+      description: Parameter name.
+      source_attribute: entries.parameters.members.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id049
+        description: Parameter name.
+        source_attribute: entries.parameters.members.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 31
+        source_attribute: entries.parameters.members.name
+    sources:
+    - ansible
+    - terraform
+  entries.parameters.members.value:
+    canonical:
+      type: string
+      version_ranges: *id050
+      min_length: 0
+      max_length: 199
+      description: Parameter value.
+      source_attribute: entries.parameters.members.value
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id050
+        description: Parameter value.
+        source_attribute: entries.parameters.members.value
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 199
+        source_attribute: entries.parameters.members.value
+    sources:
+    - ansible
+    - terraform
+  entries.parameters.value:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 63
+      source_attribute: entries.parameters.value
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: entries.parameters.value
+    sources:
+    - terraform
+  entries.per_ip_shaper:
+    canonical:
+      type: string
+      references: *id051
+      version_ranges: *id052
+      min_length: 0
+      max_length: 35
+      description: Per-IP traffic shaper. Source firewall.shaper.per-ip-shaper.name.
+      source_attribute: entries.per_ip_shaper
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id052
+        description: Per-IP traffic shaper. Source firewall.shaper.per-ip-shaper.name.
+        references: *id051
+        source_attribute: entries.per_ip_shaper
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: entries.per_ip_shaper
+    sources:
+    - ansible
+    - terraform
+  entries.popularity:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: *id053
+      choices: *id054
+      description: Application popularity filter (1 - 5, from least to most popular).
+      source_attribute: entries.popularity
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id054
+        multiple_values: true
+        elements: str
+        version_ranges: *id053
+        description: Application popularity filter (1 - 5, from least to most popular).
+        source_attribute: entries.popularity
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.popularity
+    sources:
+    - ansible
+    - terraform
+  entries.protocols:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: *id055
+      description: Application protocol filter.
+      source_attribute: entries.protocols
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id055
+        description: Application protocol filter.
+        source_attribute: entries.protocols
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.protocols
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id056
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id056
+  entries.quarantine:
+    canonical:
+      type: enum
+      version_ranges: *id057
+      choices: *id058
+      description: Quarantine method.
+      source_attribute: entries.quarantine
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id058
+        version_ranges: *id057
+        description: Quarantine method.
+        source_attribute: entries.quarantine
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.quarantine
+    sources:
+    - ansible
+    - terraform
+  entries.quarantine_expiry:
+    canonical:
+      type: string
+      version_ranges: *id059
+      description: Duration of quarantine. (Format
+      source_attribute: entries.quarantine_expiry
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id059
+        description: Duration of quarantine. (Format
+        source_attribute: entries.quarantine_expiry
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.quarantine_expiry
+    sources:
+    - ansible
+    - terraform
+  entries.quarantine_log:
+    canonical:
+      type: enum
+      version_ranges: *id060
+      choices: *id061
+      description: Enable/disable quarantine logging.
+      source_attribute: entries.quarantine_log
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id061
+        version_ranges: *id060
+        description: Enable/disable quarantine logging.
+        source_attribute: entries.quarantine_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.quarantine_log
+    sources:
+    - ansible
+    - terraform
+  entries.rate_count:
+    canonical:
+      type: integer
+      version_ranges: *id062
+      min: 0
+      max: 65535
+      description: Count of the rate.
+      source_attribute: entries.rate_count
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id062
+        description: Count of the rate.
+        source_attribute: entries.rate_count
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: entries.rate_count
+    sources:
+    - ansible
+    - terraform
+  entries.rate_duration:
+    canonical:
+      type: integer
+      version_ranges: *id063
+      min: 1
+      max: 65535
+      description: Duration (sec) of the rate.
+      source_attribute: entries.rate_duration
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id063
+        description: Duration (sec) of the rate.
+        source_attribute: entries.rate_duration
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: entries.rate_duration
+    sources:
+    - ansible
+    - terraform
+  entries.rate_mode:
+    canonical:
+      type: enum
+      version_ranges: *id064
+      choices: *id065
+      description: Rate limit mode.
+      source_attribute: entries.rate_mode
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id065
+        version_ranges: *id064
+        description: Rate limit mode.
+        source_attribute: entries.rate_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.rate_mode
+    sources:
+    - ansible
+    - terraform
+  entries.rate_track:
+    canonical:
+      type: enum
+      version_ranges: *id066
+      choices: *id067
+      description: Track the packet protocol field.
+      source_attribute: entries.rate_track
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id067
+        version_ranges: *id066
+        description: Track the packet protocol field.
+        source_attribute: entries.rate_track
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.rate_track
+    sources:
+    - ansible
+    - terraform
+  entries.risk:
+    canonical:
+      type: list
+      elements: dict
+      children: *id068
+      version_ranges: *id069
+      description: Risk, or impact, of allowing traffic from this application to occur (1 - 5; Low, Elevated, Medium, High,
+        and Critical).
+      source_attribute: entries.risk
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id069
+        description: Risk, or impact, of allowing traffic from this application to occur (1 - 5; Low, Elevated, Medium, High,
+          and Critical).
+        children: *id068
+        source_attribute: entries.risk
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id070
+        source_attribute: entries.risk
+    sources:
+    - ansible
+    - terraform
+  entries.risk.level:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id071
+      description: Risk, or impact, of allowing traffic from this application to occur (1 - 5; Low, Elevated, Medium, High,
+        and Critical). see <a href='#notes'>Notes</a>.
+      source_attribute: entries.risk.level
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id071
+        description: Risk, or impact, of allowing traffic from this application to occur (1 - 5; Low, Elevated, Medium, High,
+          and Critical). see <a href='#notes'>Notes</a>.
+        source_attribute: entries.risk.level
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: entries.risk.level
+    sources:
+    - ansible
+    - terraform
+  entries.session_ttl:
+    canonical:
+      type: integer
+      version_ranges: *id072
+      description: Session TTL (0 = default).
+      source_attribute: entries.session_ttl
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id072
+        description: Session TTL (0 = default).
+        source_attribute: entries.session_ttl
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: entries.session_ttl
+    sources:
+    - ansible
+    - terraform
+  entries.shaper:
+    canonical:
+      type: string
+      references: *id073
+      version_ranges: *id074
+      min_length: 0
+      max_length: 35
+      description: Traffic shaper. Source firewall.shaper.traffic-shaper.name.
+      source_attribute: entries.shaper
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id074
+        description: Traffic shaper. Source firewall.shaper.traffic-shaper.name.
+        references: *id073
+        source_attribute: entries.shaper
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: entries.shaper
+    sources:
+    - ansible
+    - terraform
+  entries.shaper_reverse:
+    canonical:
+      type: string
+      references: *id075
+      version_ranges: *id076
+      min_length: 0
+      max_length: 35
+      description: Reverse traffic shaper. Source firewall.shaper.traffic-shaper.name.
+      source_attribute: entries.shaper_reverse
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id076
+        description: Reverse traffic shaper. Source firewall.shaper.traffic-shaper.name.
+        references: *id075
+        source_attribute: entries.shaper_reverse
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: entries.shaper_reverse
+    sources:
+    - ansible
+    - terraform
+  entries.sub_category:
+    canonical:
+      type: list
+      children: *id077
+      source_attribute: entries.sub_category
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id077
+        source_attribute: entries.sub_category
+    sources:
+    - terraform
+  entries.sub_category.id:
+    canonical:
+      type: integer
+      source_attribute: entries.sub_category.id
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: entries.sub_category.id
+    sources:
+    - terraform
+  entries.technology:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: *id078
+      description: Application technology filter.
+      source_attribute: entries.technology
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id078
+        description: Application technology filter.
+        source_attribute: entries.technology
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.technology
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id079
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id079
+  entries.vendor:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: *id080
+      description: Application vendor filter.
+      source_attribute: entries.vendor
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id080
+        description: Application vendor filter.
+        source_attribute: entries.vendor
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.vendor
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id081
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id081
+  extended_log:
+    canonical:
+      type: enum
+      version_ranges: &id083
+      - - v6.0.0
+        - ''
+      choices: &id082
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable extended logging.
+      source_attribute: extended-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id082
+        version_ranges: *id083
+        description: Enable/disable extended logging.
+        source_attribute: extended_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: extended_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable extended logging.
+        default: disable
+        source_attribute: extended-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fabric_force_sync:
+    canonical:
+      type: string
+      source_attribute: fabric_force_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_force_sync
+    sources:
+    - terraform
+  fabric_object:
+    canonical:
+      type: string
+      source_attribute: fabric_object
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object
+    sources:
+    - terraform
+  fabric_object_source:
+    canonical:
+      type: string
+      source_attribute: fabric_object_source
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object_source
+    sources:
+    - terraform
+  force_inclusion_ssl_di_sigs:
+    canonical:
+      type: enum
+      version_ranges: &id085
+      - - v6.2.0
+        - v6.2.0
+      - - v6.2.5
+        - ''
+      choices: &id084
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable forced inclusion of SSL deep inspection signatures.
+      source_attribute: force-inclusion-ssl-di-sigs
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id084
+        version_ranges: *id085
+        description: Enable/disable forced inclusion of SSL deep inspection signatures.
+        source_attribute: force_inclusion_ssl_di_sigs
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: force_inclusion_ssl_di_sigs
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable forced inclusion of SSL deep inspection signatures.
+        default: disable
+        source_attribute: force-inclusion-ssl-di-sigs
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id086
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 47
+      description: List name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id086
+        description: List name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        force_new: true
+        min_length: 0
+        max_length: 47
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: List name.
+        max_length: 47
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  options:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id088
+      - - v6.0.0
+        - ''
+      choices: &id087
+      - allow-dns
+      - allow-icmp
+      - allow-http
+      - allow-ssl
+      default: allow-dns
+      description: Basic application protocol signatures allowed by default.
+      source_attribute: options
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id087
+        multiple_values: true
+        elements: str
+        version_ranges: *id088
+        description: Basic application protocol signatures allowed by default.
+        source_attribute: options
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: options
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Basic application protocol signatures allowed by default.
+        default: allow-dns
+        source_attribute: options
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  other_application_action:
+    canonical:
+      type: enum
+      version_ranges: &id090
+      - - v6.0.0
+        - ''
+      choices: &id089
+      - pass
+      - block
+      default: pass
+      description: Action for other applications.
+      source_attribute: other-application-action
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id089
+        version_ranges: *id090
+        description: Action for other applications.
+        source_attribute: other_application_action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: other_application_action
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Action for other applications.
+        default: pass
+        source_attribute: other-application-action
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  other_application_log:
+    canonical:
+      type: enum
+      version_ranges: &id092
+      - - v6.0.0
+        - ''
+      choices: &id091
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable logging for other applications.
+      source_attribute: other-application-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id091
+        version_ranges: *id092
+        description: Enable/disable logging for other applications.
+        source_attribute: other_application_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: other_application_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging for other applications.
+        default: disable
+        source_attribute: other-application-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  p2p_black_list:
+    canonical:
+      type: string
+      source_attribute: p2p_black_list
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: p2p_black_list
+    sources:
+    - terraform
+  p2p_block_list:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id094
+      - - v7.0.0
+        - ''
+      choices: &id093
+      - edonkey
+      - bittorrent
+      - skype
+      description: P2P applications to be block listed.
+      source_attribute: p2p-block-list
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id093
+        multiple_values: true
+        elements: str
+        version_ranges: *id094
+        description: P2P applications to be block listed.
+        source_attribute: p2p_block_list
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: p2p_block_list
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: P2P applications to be block listed.
+        source_attribute: p2p-block-list
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  replacemsg_group:
+    canonical:
+      type: string
+      references: &id096
+      - system.replacemsg-group.name
+      version_ranges: &id095
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Replacement message group.
+      source_attribute: replacemsg-group
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id095
+        description: Replacement message group. Source system.replacemsg-group.name.
+        references: *id096
+        source_attribute: replacemsg_group
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: replacemsg_group
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Replacement message group.
+        max_length: 35
+        source_attribute: replacemsg-group
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  unknown_application_action:
+    canonical:
+      type: enum
+      version_ranges: &id098
+      - - v6.0.0
+        - ''
+      choices: &id097
+      - pass
+      - block
+      default: pass
+      description: Pass or block traffic from unknown applications.
+      source_attribute: unknown-application-action
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id097
+        version_ranges: *id098
+        description: Pass or block traffic from unknown applications.
+        source_attribute: unknown_application_action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: unknown_application_action
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Pass or block traffic from unknown applications.
+        default: pass
+        source_attribute: unknown-application-action
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  unknown_application_log:
+    canonical:
+      type: enum
+      version_ranges: &id100
+      - - v6.0.0
+        - ''
+      choices: &id099
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable logging for unknown applications.
+      source_attribute: unknown-application-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id099
+        version_ranges: *id100
+        description: Enable/disable logging for unknown applications.
+        source_attribute: unknown_application_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: unknown_application_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging for unknown applications.
+        default: disable
+        source_attribute: unknown-application-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  uuid:
+    canonical:
+      type: string
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: entries.behavior
+  field: type
+  values:
+    ansible: list
+    terraform: string
+  classification: representation_or_real_conflict
+- attribute: entries.protocols
+  field: type
+  values:
+    ansible: list
+    terraform: string
+  classification: representation_or_real_conflict
+- attribute: entries.technology
+  field: type
+  values:
+    ansible: list
+    terraform: string
+  classification: representation_or_real_conflict
+- attribute: entries.vendor
+  field: type
+  values:
+    ansible: list
+    terraform: string
+  classification: representation_or_real_conflict

@@ -1,0 +1,287 @@
+id: antivirus.settings
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  cache_clean_result:
+    canonical:
+      type: string
+      source_attribute: cache_clean_result
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cache_clean_result
+    sources:
+    - terraform
+  cache_infected_result:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.0.2
+        - ''
+      choices: &id001
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable cache of infected scan results (default = enable).
+      source_attribute: cache-infected-result
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable cache of infected scan results .
+        source_attribute: cache_infected_result
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cache_infected_result
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable cache of infected scan results (default = enable).
+        default: enable
+        source_attribute: cache-infected-result
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  default_db:
+    canonical:
+      type: string
+      source_attribute: default_db
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: default_db
+    sources:
+    - terraform
+  grayware:
+    canonical:
+      type: enum
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      choices: &id003
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable grayware detection when an AntiVirus profile is applied to traffic. This option is disabled
+        when unset, but enabled after a factory reset.
+      source_attribute: grayware
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: Enable/disable grayware detection when an AntiVirus profile is applied to traffic.
+        source_attribute: grayware
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: grayware
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable grayware detection when an AntiVirus profile is applied to traffic. This option is disabled
+          when unset, but enabled after a factory reset.
+        default: disable
+        source_attribute: grayware
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  machine_learning_detection:
+    canonical:
+      type: enum
+      version_ranges: &id006
+      - - v7.0.0
+        - ''
+      choices: &id005
+      - enable
+      - monitor
+      - disable
+      default: enable
+      description: Use machine learning based malware detection.
+      source_attribute: machine-learning-detection
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Use machine learning based malware detection.
+        source_attribute: machine_learning_detection
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: machine_learning_detection
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Use machine learning based malware detection.
+        default: enable
+        source_attribute: machine-learning-detection
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  override_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 30
+      max: 3600
+      description: Override the large file scan timeout value in seconds (30 - 3600). Zero is the default value and is used
+        to disable this command. When disabled, the daemon adjusts the large file scan timeout based on the file size.
+      source_attribute: override-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id007
+        description: Override the large file scan timeout value in seconds (30 - 3600). Zero is the default value and is used
+          to disable this command. When disabled, the daemon adjusts the large file scan timeout based on the file size.
+        source_attribute: override_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 30
+        max: 3600
+        source_attribute: override_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Override the large file scan timeout value in seconds (30 - 3600). Zero is the default value and is used
+          to disable this command. When disabled, the daemon adjusts the large file scan timeout based on the file size.
+        default: '0'
+        min: 30
+        max: 3600
+        source_attribute: override-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  use_extreme_db:
+    canonical:
+      type: enum
+      version_ranges: &id009
+      - - v6.4.0
+        - ''
+      choices: &id008
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable the use of Extreme AVDB.
+      source_attribute: use-extreme-db
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id008
+        version_ranges: *id009
+        description: Enable/disable the use of Extreme AVDB.
+        source_attribute: use_extreme_db
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: use_extreme_db
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable the use of Extreme AVDB.
+        default: disable
+        source_attribute: use-extreme-db
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

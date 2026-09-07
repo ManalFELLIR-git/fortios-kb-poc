@@ -1,0 +1,310 @@
+id: dlp.profile
+version: 7.6.7
+source_object: fortios_dlp_profile
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_dlp_profile.py
+root_type: list
+attributes:
+  name:
+    type: string
+    raw_type: string
+    required: true
+    version_ranges:
+    - - v7.2.0
+      - ''
+    description: Name of the DLP profile.
+  comment:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v7.2.0
+      - ''
+    description: Comment.
+  feature_set:
+    type: enum
+    raw_type: string
+    choices:
+    - flow
+    - proxy
+    version_ranges:
+    - - v7.2.0
+      - ''
+    description: Flow/proxy feature set.
+  replacemsg_group:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v7.2.0
+      - ''
+    description: Replacement message group used by this DLP profile. Source system.replacemsg-group.name.
+    references:
+    - system.replacemsg-group.name
+  rule:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v7.2.0
+      - ''
+    description: Set up DLP rules for this profile.
+    children:
+      id:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: ID. see <a href='#notes'>Notes</a>.
+      name:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Filter name.
+      severity:
+        type: enum
+        raw_type: string
+        choices:
+        - info
+        - low
+        - medium
+        - high
+        - critical
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Select the severity or threat level that matches this filter.
+      type:
+        type: enum
+        raw_type: string
+        choices:
+        - file
+        - fos_message
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Select whether to check the content of messages (an email message) or files (downloaded files or email
+          attachments).
+      proto:
+        type: enum
+        raw_type: list
+        choices:
+        - smtp
+        - pop3
+        - imap
+        - http-get
+        - http-post
+        - ftp
+        - nntp
+        - mapi
+        - ssh
+        - cifs
+        - websocket
+        multiple_values: true
+        elements: str
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Check messages or files over one or more of these protocols.
+      filter_by:
+        type: enum
+        raw_type: string
+        choices:
+        - sensor
+        - label
+        - fingerprint
+        - encrypted
+        - none
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Select the type of content to match.
+      file_size:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Match files greater than or equal to this size (KB).
+      sensitivity:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v7.2.0
+          - v7.4.1
+        - - v7.4.3
+          - ''
+        description: Select a DLP file pattern sensitivity to match.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v7.2.0
+              - ''
+            description: Select a DLP sensitivity. Source dlp.sensitivity.name.
+            references:
+            - dlp.sensitivity.name
+      match_percentage:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.2.0
+          - v7.4.1
+        - - v7.4.3
+          - ''
+        description: Percentage of fingerprints in the fingerprint databases designated with the selected sensitivity to match.
+      file_type:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Select the number of a DLP file pattern table to match. Source dlp.filepattern.id.
+        references:
+        - dlp.filepattern.id
+      sensor:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Select DLP sensors.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v7.2.0
+              - ''
+            description: Sensor name. Source dlp.sensor.name.
+            references:
+            - dlp.sensor.name
+      label:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Select DLP label. Source dlp.label.name.
+        references:
+        - dlp.label.name
+      archive:
+        type: enum
+        raw_type: string
+        choices:
+        - disable
+        - enable
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Enable/disable DLP archiving.
+      action:
+        type: enum
+        raw_type: string
+        choices:
+        - allow
+        - log-only
+        - block
+        - quarantine-ip
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Action to take with content that this DLP profile matches.
+      expiry:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Quarantine duration in days, hours, minutes (format = dddhhmm).
+  dlp_log:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v7.2.0
+      - ''
+    description: Enable/disable DLP logging.
+  extended_log:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v7.2.0
+      - ''
+    description: Enable/disable extended logging for data loss prevention.
+  nac_quar_log:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v7.2.0
+      - ''
+    description: Enable/disable NAC quarantine logging.
+  full_archive_proto:
+    type: enum
+    raw_type: list
+    choices:
+    - smtp
+    - pop3
+    - imap
+    - http-get
+    - http-post
+    - ftp
+    - nntp
+    - mapi
+    - ssh
+    - cifs
+    - websocket
+    multiple_values: true
+    elements: str
+    version_ranges:
+    - - v7.2.0
+      - ''
+    description: Protocols to always content archive.
+  summary_proto:
+    type: enum
+    raw_type: list
+    choices:
+    - smtp
+    - pop3
+    - imap
+    - http-get
+    - http-post
+    - ftp
+    - nntp
+    - mapi
+    - ssh
+    - cifs
+    - websocket
+    multiple_values: true
+    elements: str
+    version_ranges:
+    - - v7.2.0
+      - ''
+    description: Protocols to always log summary.
+  fortidata_error_action:
+    type: enum
+    raw_type: string
+    choices:
+    - log-only
+    - block
+    - ignore
+    version_ranges:
+    - - v7.6.4
+      - ''
+    description: Action to take if FortiData query fails.

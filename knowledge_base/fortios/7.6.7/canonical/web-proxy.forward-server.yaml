@@ -1,0 +1,863 @@
+id: web-proxy.forward-server
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  addr_type:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - ip
+      - ipv6
+      - fqdn
+      default: ip
+      description: 'Address type of the forwarding proxy server: IP or FQDN.'
+      source_attribute: addr-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: 'Address type of the forwarding proxy server: IP or FQDN.'
+        source_attribute: addr_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: addr_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: 'Address type of the forwarding proxy server: IP or FQDN.'
+        default: ip
+        source_attribute: addr-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Comment.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Comment.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Comment.
+        max_length: 63
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fabric_force_sync:
+    canonical:
+      type: string
+      source_attribute: fabric_force_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_force_sync
+    sources:
+    - terraform
+  fabric_object:
+    canonical:
+      type: string
+      source_attribute: fabric_object
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object
+    sources:
+    - terraform
+  fabric_object_source:
+    canonical:
+      type: string
+      source_attribute: fabric_object_source
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object_source
+    sources:
+    - terraform
+  fqdn:
+    canonical:
+      type: string
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Forward server Fully Qualified Domain Name (FQDN).
+      source_attribute: fqdn
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id004
+        description: Forward server Fully Qualified Domain Name (FQDN).
+        source_attribute: fqdn
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: fqdn
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Forward server Fully Qualified Domain Name (FQDN).
+        max_length: 255
+        source_attribute: fqdn
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  healthcheck:
+    canonical:
+      type: enum
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      choices: &id005
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable forward server health checking. Attempts to connect through the remote forwarding server
+        to a destination to verify that the forwarding server is operating normally.
+      source_attribute: healthcheck
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Enable/disable forward server health checking. Attempts to connect through the remote forwarding server
+          to a destination to verify that the forwarding server is operating normally.
+        source_attribute: healthcheck
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: healthcheck
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable forward server health checking. Attempts to connect through the remote forwarding server
+          to a destination to verify that the forwarding server is operating normally.
+        default: disable
+        source_attribute: healthcheck
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface:
+    canonical:
+      type: string
+      references: &id008
+      - system.interface.name
+      version_ranges: &id007
+      - - v7.6.1
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Specify outgoing interface to reach server.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: Specify outgoing interface to reach server. Source system.interface.name.
+        references: *id008
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Specify outgoing interface to reach server.
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface_select_method:
+    canonical:
+      type: enum
+      version_ranges: &id010
+      - - v7.6.1
+        - ''
+      choices: &id009
+      - sdwan
+      - specify
+      default: sdwan
+      description: Specify how to select outgoing interface to reach server.
+      source_attribute: interface-select-method
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id010
+        description: Specify how to select outgoing interface to reach server.
+        source_attribute: interface_select_method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface_select_method
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Specify how to select outgoing interface to reach server.
+        default: sdwan
+        source_attribute: interface-select-method
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ip:
+    canonical:
+      type: ipv4-address-any
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: Forward proxy server IP address.
+      source_attribute: ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: Forward proxy server IP address.
+        source_attribute: ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ip
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: Forward proxy server IP address.
+        default: 0.0.0.0
+        source_attribute: ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id012
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id012
+  ipv6:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id013
+      - - v7.4.1
+        - ''
+      default: '::'
+      description: Forward proxy server IPv6 address.
+      source_attribute: ipv6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id013
+        description: Forward proxy server IPv6 address.
+        source_attribute: ipv6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ipv6
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: Forward proxy server IPv6 address.
+        default: '::'
+        source_attribute: ipv6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id014
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id014
+  masquerade:
+    canonical:
+      type: enum
+      version_ranges: &id016
+      - - v7.4.2
+        - ''
+      choices: &id015
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable use of the IP address of the outgoing interface as the client IP address (default = enable)
+      source_attribute: masquerade
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id015
+        version_ranges: *id016
+        description: Enable/disable use of the IP address of the outgoing interface as the client IP address
+        source_attribute: masquerade
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: masquerade
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of the IP address of the outgoing interface as the client IP address (default = enable)
+        default: enable
+        source_attribute: masquerade
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  monitor:
+    canonical:
+      type: string
+      version_ranges: &id017
+      - - v6.0.0
+        - ''
+      default: www.google.com
+      min_length: 0
+      max_length: 255
+      description: URL for forward server health check monitoring (default = www.google.com).
+      source_attribute: monitor
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id017
+        description: URL for forward server health check monitoring .
+        source_attribute: monitor
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 255
+        source_attribute: monitor
+      cli_reference:
+        type: string
+        raw_type: string
+        description: URL for forward server health check monitoring (default = www.google.com).
+        default: www.google.com
+        max_length: 255
+        source_attribute: monitor
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id018
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Server name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id018
+        description: Server name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 63
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Server name.
+        max_length: 63
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  password:
+    canonical:
+      type: password
+      version_ranges: &id019
+      - - v6.4.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: HTTP authentication password.
+      source_attribute: password
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id019
+        description: HTTP authentication password.
+        source_attribute: password
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: password
+      cli_reference:
+        type: password
+        raw_type: password
+        description: HTTP authentication password.
+        source_attribute: password
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id020
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id020
+  port:
+    canonical:
+      type: integer
+      version_ranges: &id021
+      - - v6.0.0
+        - ''
+      default: '3128'
+      min: 1
+      max: 65535
+      description: Port number that the forwarding server expects to receive HTTP sessions on (1 - 65535, default = 3128).
+      source_attribute: port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id021
+        description: Port number that the forwarding server expects to receive HTTP sessions on (1 - 65535).
+        source_attribute: port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port number that the forwarding server expects to receive HTTP sessions on (1 - 65535, default = 3128).
+        default: '3128'
+        min: 1
+        max: 65535
+        source_attribute: port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  server_down_option:
+    canonical:
+      type: enum
+      version_ranges: &id023
+      - - v6.0.0
+        - ''
+      choices: &id022
+      - block
+      - pass
+      default: block
+      description: 'Action to take when the forward server is found to be down: block sessions until the server is back up
+        or pass sessions to their destination.'
+      source_attribute: server-down-option
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id022
+        version_ranges: *id023
+        description: 'Action to take when the forward server is found to be down: block sessions until the server is back
+          up or pass sessions to their destination.'
+        source_attribute: server_down_option
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: server_down_option
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: 'Action to take when the forward server is found to be down: block sessions until the server is back
+          up or pass sessions to their destination.'
+        default: block
+        source_attribute: server-down-option
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  username:
+    canonical:
+      type: string
+      version_ranges: &id024
+      - - v6.4.0
+        - ''
+      min_length: 0
+      max_length: 64
+      description: HTTP authentication user name.
+      source_attribute: username
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id024
+        description: HTTP authentication user name.
+        source_attribute: username
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 64
+        source_attribute: username
+      cli_reference:
+        type: string
+        raw_type: string
+        description: HTTP authentication user name.
+        max_length: 64
+        source_attribute: username
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  uuid:
+    canonical:
+      type: string
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  vrf_select:
+    canonical:
+      type: integer
+      version_ranges: &id025
+      - - v7.6.1
+        - ''
+      default: '-1'
+      min: 0
+      max: 511
+      description: VRF ID used for connection to server.
+      source_attribute: vrf-select
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id025
+        description: VRF ID used for connection to server.
+        source_attribute: vrf_select
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: vrf_select
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: VRF ID used for connection to server.
+        default: '-1'
+        min: 0
+        max: 511
+        source_attribute: vrf-select
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict
+- attribute: ipv6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict
+- attribute: password
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict

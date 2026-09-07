@@ -1,0 +1,558 @@
+id: user.scim
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  auth_method:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.6.1
+        - ''
+      choices: &id001
+      - token
+      - base
+      default: token
+      description: TLS client authentication methods (default = bearer token).
+      source_attribute: auth-method
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: TLS client authentication methods .
+        source_attribute: auth_method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auth_method
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: TLS client authentication methods (default = bearer token).
+        default: token
+        source_attribute: auth-method
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  base_url:
+    canonical:
+      type: string
+      version_ranges: &id003
+      - - v7.6.0
+        - ''
+      min_length: 0
+      max_length: 127
+      description: Server URL to receive SCIM create, read, update, delete (CRUD) requests.
+      source_attribute: base-url
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Server URL to receive SCIM create, read, update, delete (CRUD) requests.
+        source_attribute: base_url
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: base_url
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Server URL to receive SCIM create, read, update, delete (CRUD) requests.
+        max_length: 127
+        source_attribute: base-url
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cascade:
+    canonical:
+      type: enum
+      version_ranges: &id005
+      - - v7.6.4
+        - ''
+      choices: &id004
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable to follow SCIM users/groups changes in IDP.
+      source_attribute: cascade
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id004
+        version_ranges: *id005
+        description: Enable/disable to follow SCIM users/groups changes in IDP.
+        source_attribute: cascade
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cascade
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable to follow SCIM users/groups changes in IDP.
+        default: disable
+        source_attribute: cascade
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  certificate:
+    canonical:
+      type: string
+      references: &id007
+      - certificate.ca.name
+      - certificate.remote.name
+      - vpn.certificate.ca.name
+      - vpn.certificate.remote.name
+      version_ranges: &id006
+      - - v7.6.0
+        - ''
+      min_length: 0
+      max_length: 79
+      description: Certificate for client verification during TLS handshake.
+      source_attribute: certificate
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id006
+        description: Certificate for client verification during TLS handshake. Source vpn.certificate.ca.name vpn.certificate.remote.name
+          certificate.ca.name certificate.remote.name.
+        references: *id007
+        source_attribute: certificate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: certificate
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Certificate for client verification during TLS handshake.
+        max_length: 79
+        source_attribute: certificate
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  client_authentication_method:
+    canonical:
+      type: string
+      source_attribute: client_authentication_method
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: client_authentication_method
+    sources:
+    - terraform
+  client_identity_check:
+    canonical:
+      type: enum
+      version_ranges: &id009
+      - - v7.6.0
+        - ''
+      choices: &id008
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable client identity check.
+      source_attribute: client-identity-check
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id008
+        version_ranges: *id009
+        description: Enable/disable client identity check.
+        source_attribute: client_identity_check
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: client_identity_check
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable client identity check.
+        default: enable
+        source_attribute: client-identity-check
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  client_secret_token:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 63
+      source_attribute: client_secret_token
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 63
+        source_attribute: client_secret_token
+    sources:
+    - terraform
+  fosid:
+    canonical:
+      type: integer
+      source_attribute: fosid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: fosid
+    sources:
+    - terraform
+  id:
+    canonical:
+      type: integer
+      version_ranges: &id010
+      - - v7.6.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: SCIM client ID.
+      source_attribute: id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id010
+        description: SCIM client ID.
+        source_attribute: id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: SCIM client ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: id
+    sources:
+    - ansible
+    - cli_reference
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id011
+      - - v7.6.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: SCIM client name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id011
+        description: SCIM client name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: SCIM client name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  secret:
+    canonical:
+      type: password
+      version_ranges: &id012
+      - - v7.6.1
+        - ''
+      min_length: 0
+      max_length: 128
+      description: Secret for token verification or base authentication.
+      source_attribute: secret
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id012
+        description: Secret for token verification or base authentication.
+        source_attribute: secret
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: secret
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Secret for token verification or base authentication.
+        source_attribute: secret
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id013
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id013
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id015
+      - - v7.6.0
+        - ''
+      choices: &id014
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable System for Cross-domain Identity Management (SCIM).
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id014
+        version_ranges: *id015
+        description: Enable/disable System for Cross-domain Identity Management (SCIM).
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable System for Cross-domain Identity Management (SCIM).
+        default: disable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  token_certificate:
+    canonical:
+      type: string
+      references: &id017
+      - vpn.certificate.local.name
+      - vpn.certificate.remote.name
+      version_ranges: &id016
+      - - v7.6.1
+        - ''
+      min_length: 0
+      max_length: 79
+      description: Certificate for token verification.
+      source_attribute: token-certificate
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id016
+        description: Certificate for token verification. Source vpn.certificate.remote.name vpn.certificate.local.name.
+        references: *id017
+        source_attribute: token_certificate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: token_certificate
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Certificate for token verification.
+        max_length: 79
+        source_attribute: token-certificate
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: secret
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict

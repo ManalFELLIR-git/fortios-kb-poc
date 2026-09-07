@@ -1,0 +1,106 @@
+id: firewall.ttl-policy
+version: 7.6.7
+source_object: fortios_firewall_ttl_policy
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_firewall_ttl_policy.py
+root_type: list
+attributes:
+  id:
+    type: integer
+    raw_type: integer
+    required: true
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: ID. see <a href='#notes'>Notes</a>.
+  status:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable this TTL policy.
+  action:
+    type: enum
+    raw_type: string
+    choices:
+    - accept
+    - deny
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Action to be performed on traffic matching this policy .
+  srcintf:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Source interface name from available interfaces. Source system.zone.name system.sdwan.zone.name system.interface.name.
+    references:
+    - system.interface.name
+    - system.sdwan.zone.name
+    - system.zone.name
+  srcaddr:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Source address object(s) from available options. Separate multiple names with a space.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Address name. Source firewall.address.name firewall.addrgrp.name.
+        references:
+        - firewall.address.name
+        - firewall.addrgrp.name
+  service:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Service object(s) from available options. Separate multiple names with a space.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Service name. Source firewall.service.custom.name firewall.service.group.name.
+        references:
+        - firewall.service.custom.name
+        - firewall.service.group.name
+  schedule:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Schedule object from available options. Source firewall.schedule.onetime.name firewall.schedule.recurring.name
+      firewall.schedule.group .name.
+    references:
+    - firewall.schedule.group
+    - firewall.schedule.onetime.name
+    - firewall.schedule.recurring.name
+  ttl:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: 'Value/range to match against the packet"s Time to Live value (format: ttl[ - ttl_high], 1 - 255).'

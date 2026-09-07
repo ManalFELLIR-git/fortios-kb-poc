@@ -1,0 +1,438 @@
+id: switch-controller.snmp-user
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  auth_proto:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.2.0
+        - ''
+      choices: &id001
+      - md5
+      - sha1
+      - sha224
+      - sha256
+      - sha384
+      - sha512
+      default: sha256
+      description: Authentication protocol.
+      source_attribute: auth-proto
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Authentication protocol.
+        source_attribute: auth_proto
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auth_proto
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Authentication protocol.
+        default: sha256
+        source_attribute: auth-proto
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  auth_pwd:
+    canonical:
+      type: password
+      version_ranges: &id003
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: Password for authentication protocol.
+      source_attribute: auth-pwd
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Password for authentication protocol.
+        source_attribute: auth_pwd
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: auth_pwd
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Password for authentication protocol.
+        source_attribute: auth-pwd
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id004
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id004
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id005
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 32
+      description: SNMP user name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id005
+        description: SNMP user name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 32
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: SNMP user name.
+        max_length: 32
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  priv_proto:
+    canonical:
+      type: enum
+      version_ranges: &id007
+      - - v6.2.0
+        - ''
+      choices: &id006
+      - aes128
+      - aes192
+      - aes192c
+      - aes256
+      - aes256c
+      - des
+      default: aes128
+      description: Privacy (encryption) protocol.
+      source_attribute: priv-proto
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id006
+        version_ranges: *id007
+        description: Privacy (encryption) protocol.
+        source_attribute: priv_proto
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: priv_proto
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Privacy (encryption) protocol.
+        default: aes128
+        source_attribute: priv-proto
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  priv_pwd:
+    canonical:
+      type: password
+      version_ranges: &id008
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: Password for privacy (encryption) protocol.
+      source_attribute: priv-pwd
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: Password for privacy (encryption) protocol.
+        source_attribute: priv_pwd
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: priv_pwd
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Password for privacy (encryption) protocol.
+        source_attribute: priv-pwd
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id009
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id009
+  queries:
+    canonical:
+      type: enum
+      version_ranges: &id011
+      - - v6.2.0
+        - ''
+      choices: &id010
+      - disable
+      - enable
+      default: enable
+      description: Enable/disable SNMP queries for this user.
+      source_attribute: queries
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id011
+        description: Enable/disable SNMP queries for this user.
+        source_attribute: queries
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: queries
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable SNMP queries for this user.
+        default: enable
+        source_attribute: queries
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  query_port:
+    canonical:
+      type: integer
+      version_ranges: &id012
+      - - v6.2.0
+        - ''
+      default: '161'
+      min: 0
+      max: 65535
+      description: SNMPv3 query port (default = 161).
+      source_attribute: query-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id012
+        description: SNMPv3 query port .
+        source_attribute: query_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: query_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: SNMPv3 query port (default = 161).
+        default: '161'
+        min: 0
+        max: 65535
+        source_attribute: query-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  security_level:
+    canonical:
+      type: enum
+      version_ranges: &id014
+      - - v6.2.0
+        - ''
+      choices: &id013
+      - no-auth-no-priv
+      - auth-no-priv
+      - auth-priv
+      default: no-auth-no-priv
+      description: Security level for message authentication and encryption.
+      source_attribute: security-level
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id014
+        description: Security level for message authentication and encryption.
+        source_attribute: security_level
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: security_level
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Security level for message authentication and encryption.
+        default: no-auth-no-priv
+        source_attribute: security-level
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: auth_pwd
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict
+- attribute: priv_pwd
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict

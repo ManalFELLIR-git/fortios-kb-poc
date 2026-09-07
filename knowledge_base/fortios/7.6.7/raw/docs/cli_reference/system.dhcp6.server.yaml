@@ -1,0 +1,200 @@
+id: system.dhcp6.server
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/204620936/config-system-dhcp6-server
+attributes:
+  delegated-prefix-iaid:
+    type: integer
+    raw_type: integer
+    description: IAID of obtained delegated-prefix from the upstream interface.
+    default: '0'
+    min: 0
+    max: 4294967295
+  delegated-prefix-route:
+    type: enum
+    raw_type: option
+    description: Enable/disable automatically adding of routing for delegated prefix.
+    default: disable
+  dns-search-list:
+    type: enum
+    raw_type: option
+    description: DNS search list options.
+    default: specify
+  dns-server1:
+    type: ipv6-address
+    raw_type: ipv6-address
+    description: DNS server 1.
+    default: '::'
+  dns-server2:
+    type: ipv6-address
+    raw_type: ipv6-address
+    description: DNS server 2.
+    default: '::'
+  dns-server3:
+    type: ipv6-address
+    raw_type: ipv6-address
+    description: DNS server 3.
+    default: '::'
+  dns-server4:
+    type: ipv6-address
+    raw_type: ipv6-address
+    description: DNS server 4.
+    default: '::'
+  dns-service:
+    type: enum
+    raw_type: option
+    description: Options for assigning DNS servers to DHCPv6 clients.
+    default: specify
+  domain:
+    type: string
+    raw_type: string
+    description: Domain name suffix for the IP addresses that the DHCP server assigns to clients.
+    max_length: 35
+  id:
+    type: integer
+    raw_type: integer
+    description: ID.
+    default: '0'
+    min: 0
+    max: 4294967295
+  interface:
+    type: string
+    raw_type: string
+    description: DHCP server can assign IP configurations to clients connected to this interface.
+    max_length: 15
+  ip-mode:
+    type: enum
+    raw_type: option
+    description: Method used to assign client IP.
+    default: range
+  lease-time:
+    type: integer
+    raw_type: integer
+    description: Lease time in seconds, 0 means unlimited.
+    default: '604800'
+    min: 300
+    max: 8640000
+  prefix-mode:
+    type: enum
+    raw_type: option
+    description: Assigning a prefix from a DHCPv6 client or RA.
+    default: dhcp6
+  rapid-commit:
+    type: enum
+    raw_type: option
+    description: Enable/disable allow/disallow rapid commit.
+    default: disable
+  status:
+    type: enum
+    raw_type: option
+    description: Enable/disable this DHCPv6 configuration.
+    default: enable
+  subnet:
+    type: ipv6-prefix
+    raw_type: ipv6-prefix
+    description: Subnet or subnet-id if the IP mode is delegated.
+    default: ::/0
+  upstream-interface:
+    type: string
+    raw_type: string
+    description: Interface name from where delegated information is provided.
+    max_length: 15
+children:
+  ip-range:
+    attributes:
+      end-ip:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: End of IP range.
+        default: '::'
+      id:
+        type: integer
+        raw_type: integer
+        description: ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      start-ip:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: Start of IP range.
+        default: '::'
+      vci-match:
+        type: enum
+        raw_type: option
+        description: Enable/disable vendor class option matching. When enabled only DHCP requests with a matching VC are served
+          with this range.
+        default: disable
+      vci-string:
+        type: string
+        raw_type: string
+        description: One or more VCI strings in quotes separated by spaces. VCI strings.
+        max_length: 255
+  options:
+    attributes:
+      code:
+        type: integer
+        raw_type: integer
+        description: DHCPv6 option code.
+        default: '0'
+        min: 0
+        max: 255
+      id:
+        type: integer
+        raw_type: integer
+        description: ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      ip6:
+        type: string
+        raw_type: user
+        description: DHCP option IP6s.
+      type:
+        type: enum
+        raw_type: option
+        description: DHCPv6 option type.
+        default: hex
+      value:
+        type: string
+        raw_type: string
+        description: DHCPv6 option value (hexadecimal value must be even).
+        max_length: 312
+      vci-match:
+        type: enum
+        raw_type: option
+        description: Enable/disable vendor class option matching. When enabled only DHCP requests with a matching VCI are
+          served with this option.
+        default: disable
+      vci-string:
+        type: string
+        raw_type: string
+        description: One or more VCI strings in quotes separated by spaces. VCI strings.
+        max_length: 255
+  prefix-range:
+    attributes:
+      end-prefix:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: End of prefix range.
+        default: '::'
+      id:
+        type: integer
+        raw_type: integer
+        description: ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      prefix-length:
+        type: integer
+        raw_type: integer
+        description: Prefix length.
+        default: '0'
+        min: 1
+        max: 128
+      start-prefix:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: Start of prefix range.
+        default: '::'

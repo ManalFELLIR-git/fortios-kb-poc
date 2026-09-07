@@ -1,0 +1,3556 @@
+id: user.radius
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  account_key_cert_field:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.4.1
+        - ''
+      choices: &id001
+      - othername
+      - rfc822name
+      - dnsname
+      - cn
+      default: othername
+      description: Define subject identity field in certificate for user access right checking.
+      source_attribute: account-key-cert-field
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Define subject identity field in certificate for user access right checking.
+        source_attribute: account_key_cert_field
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: account_key_cert_field
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Define subject identity field in certificate for user access right checking.
+        default: othername
+        source_attribute: account-key-cert-field
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  account_key_processing:
+    canonical:
+      type: enum
+      version_ranges: &id004
+      - - v7.4.1
+        - ''
+      choices: &id003
+      - same
+      - strip
+      default: same
+      description: Account key processing operation. The FortiGate will keep either the whole domain or strip the domain from
+        the subject identity.
+      source_attribute: account-key-processing
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: Account key processing operation. The FortiGate will keep either the whole domain or strip the domain
+          from the subject identity.
+        source_attribute: account_key_processing
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: account_key_processing
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Account key processing operation. The FortiGate will keep either the whole domain or strip the domain
+          from the subject identity.
+        default: same
+        source_attribute: account-key-processing
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  accounting_server:
+    canonical:
+      type: list
+      elements: dict
+      children: &id006
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id007
+          - - v6.0.0
+            - ''
+          description: ID (0 - 4294967295). see <a href='#notes'>Notes</a>.
+        status:
+          type: enum
+          raw_type: string
+          choices: &id017
+          - enable
+          - disable
+          version_ranges: &id016
+          - - v6.0.0
+            - ''
+          description: Status.
+        server:
+          type: string
+          raw_type: string
+          version_ranges: &id014
+          - - v6.0.0
+            - ''
+          description: Server CN domain name or IP address.
+        secret:
+          type: string
+          raw_type: string
+          version_ranges: &id013
+          - - v6.0.0
+            - ''
+          description: Secret key.
+        port:
+          type: integer
+          raw_type: integer
+          version_ranges: &id012
+          - - v6.0.0
+            - ''
+          description: RADIUS accounting port number.
+        source_ip:
+          type: string
+          raw_type: string
+          version_ranges: &id015
+          - - v6.0.0
+            - ''
+          description: Source IP address for communications to the RADIUS server.
+        interface_select_method:
+          type: enum
+          raw_type: string
+          choices: &id011
+          - auto
+          - sdwan
+          - specify
+          version_ranges: &id010
+          - - v6.2.0
+            - v6.2.0
+          - - v6.2.5
+            - ''
+          description: Specify how to select outgoing interface to reach server.
+        interface:
+          type: string
+          raw_type: string
+          version_ranges: &id009
+          - - v6.2.0
+            - v6.2.0
+          - - v6.2.5
+            - ''
+          description: Specify outgoing interface to reach server. Source system.interface.name.
+          references: &id008
+          - system.interface.name
+        vrf_select:
+          type: integer
+          raw_type: integer
+          version_ranges: &id018
+          - - v7.6.1
+            - ''
+          description: VRF ID used for connection to server.
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      description: Additional accounting servers.
+      source_attribute: accounting_server
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id005
+        description: Additional accounting servers.
+        children: *id006
+        source_attribute: accounting_server
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          server:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          secret:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 128
+          port:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 65535
+          source_ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          interface_select_method:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          vrf_select:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 511
+        source_attribute: accounting_server
+    sources:
+    - ansible
+    - terraform
+  accounting_server.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id007
+      description: ID (0 - 4294967295). see <a href='#notes'>Notes</a>.
+      source_attribute: accounting_server.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id007
+        description: ID (0 - 4294967295). see <a href='#notes'>Notes</a>.
+        source_attribute: accounting_server.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: accounting_server.id
+    sources:
+    - ansible
+    - terraform
+  accounting_server.interface:
+    canonical:
+      type: string
+      references: *id008
+      version_ranges: *id009
+      min_length: 0
+      max_length: 15
+      description: Specify outgoing interface to reach server. Source system.interface.name.
+      source_attribute: accounting_server.interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id009
+        description: Specify outgoing interface to reach server. Source system.interface.name.
+        references: *id008
+        source_attribute: accounting_server.interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: accounting_server.interface
+    sources:
+    - ansible
+    - terraform
+  accounting_server.interface_select_method:
+    canonical:
+      type: enum
+      version_ranges: *id010
+      choices: *id011
+      description: Specify how to select outgoing interface to reach server.
+      source_attribute: accounting_server.interface_select_method
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id011
+        version_ranges: *id010
+        description: Specify how to select outgoing interface to reach server.
+        source_attribute: accounting_server.interface_select_method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: accounting_server.interface_select_method
+    sources:
+    - ansible
+    - terraform
+  accounting_server.port:
+    canonical:
+      type: integer
+      version_ranges: *id012
+      min: 0
+      max: 65535
+      description: RADIUS accounting port number.
+      source_attribute: accounting_server.port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id012
+        description: RADIUS accounting port number.
+        source_attribute: accounting_server.port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: accounting_server.port
+    sources:
+    - ansible
+    - terraform
+  accounting_server.secret:
+    canonical:
+      type: string
+      version_ranges: *id013
+      min_length: 0
+      max_length: 128
+      description: Secret key.
+      source_attribute: accounting_server.secret
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id013
+        description: Secret key.
+        source_attribute: accounting_server.secret
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: accounting_server.secret
+    sources:
+    - ansible
+    - terraform
+  accounting_server.server:
+    canonical:
+      type: string
+      version_ranges: *id014
+      min_length: 0
+      max_length: 63
+      description: Server CN domain name or IP address.
+      source_attribute: accounting_server.server
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: Server CN domain name or IP address.
+        source_attribute: accounting_server.server
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: accounting_server.server
+    sources:
+    - ansible
+    - terraform
+  accounting_server.source_ip:
+    canonical:
+      type: string
+      version_ranges: *id015
+      min_length: 0
+      max_length: 63
+      description: Source IP address for communications to the RADIUS server.
+      source_attribute: accounting_server.source_ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id015
+        description: Source IP address for communications to the RADIUS server.
+        source_attribute: accounting_server.source_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: accounting_server.source_ip
+    sources:
+    - ansible
+    - terraform
+  accounting_server.status:
+    canonical:
+      type: enum
+      version_ranges: *id016
+      choices: *id017
+      description: Status.
+      source_attribute: accounting_server.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id017
+        version_ranges: *id016
+        description: Status.
+        source_attribute: accounting_server.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: accounting_server.status
+    sources:
+    - ansible
+    - terraform
+  accounting_server.vrf_select:
+    canonical:
+      type: integer
+      version_ranges: *id018
+      min: 0
+      max: 511
+      description: VRF ID used for connection to server.
+      source_attribute: accounting_server.vrf_select
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id018
+        description: VRF ID used for connection to server.
+        source_attribute: accounting_server.vrf_select
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 511
+        source_attribute: accounting_server.vrf_select
+    sources:
+    - ansible
+    - terraform
+  acct_all_servers:
+    canonical:
+      type: enum
+      version_ranges: &id020
+      - - v6.0.0
+        - ''
+      choices: &id019
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable sending of accounting messages to all configured servers (default = disable).
+      source_attribute: acct-all-servers
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id019
+        version_ranges: *id020
+        description: Enable/disable sending of accounting messages to all configured servers .
+        source_attribute: acct_all_servers
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: acct_all_servers
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable sending of accounting messages to all configured servers (default = disable).
+        default: disable
+        source_attribute: acct-all-servers
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  acct_interim_interval:
+    canonical:
+      type: integer
+      version_ranges: &id021
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 60
+      max: 86400
+      description: Time in seconds between each accounting interim update message.
+      source_attribute: acct-interim-interval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id021
+        description: Time in seconds between each accounting interim update message.
+        source_attribute: acct_interim_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 60
+        max: 86400
+        source_attribute: acct_interim_interval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time in seconds between each accounting interim update message.
+        default: '0'
+        min: 60
+        max: 86400
+        source_attribute: acct-interim-interval
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  all_usergroup:
+    canonical:
+      type: enum
+      version_ranges: &id023
+      - - v6.0.0
+        - ''
+      choices: &id022
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable automatically including this RADIUS server in all user groups.
+      source_attribute: all-usergroup
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id022
+        version_ranges: *id023
+        description: Enable/disable automatically including this RADIUS server in all user groups.
+        source_attribute: all_usergroup
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: all_usergroup
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable automatically including this RADIUS server in all user groups.
+        default: disable
+        source_attribute: all-usergroup
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  auth_type:
+    canonical:
+      type: enum
+      version_ranges: &id025
+      - - v6.0.0
+        - ''
+      choices: &id024
+      - auto
+      - ms_chap_v2
+      - ms_chap
+      - chap
+      - pap
+      default: auto
+      description: Authentication methods/protocols permitted for this RADIUS server.
+      source_attribute: auth-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id024
+        version_ranges: *id025
+        description: Authentication methods/protocols permitted for this RADIUS server.
+        source_attribute: auth_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auth_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Authentication methods/protocols permitted for this RADIUS server.
+        default: auto
+        source_attribute: auth-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ca_cert:
+    canonical:
+      type: string
+      references: &id027
+      - vpn.certificate.ca.name
+      version_ranges: &id026
+      - - v7.4.0
+        - ''
+      min_length: 0
+      max_length: 79
+      description: CA of server to trust under TLS.
+      source_attribute: ca-cert
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id026
+        description: CA of server to trust under TLS. Source vpn.certificate.ca.name.
+        references: *id027
+        source_attribute: ca_cert
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: ca_cert
+      cli_reference:
+        type: string
+        raw_type: string
+        description: CA of server to trust under TLS.
+        max_length: 79
+        source_attribute: ca-cert
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  call_station_id_type:
+    canonical:
+      type: enum
+      version_ranges: &id029
+      - - v7.4.1
+        - ''
+      choices: &id028
+      - legacy
+      - IP
+      - MAC
+      default: legacy
+      description: Calling & Called station identifier type configuration (default = legacy), this option is not available
+        for 802.1x authentication.
+      source_attribute: call-station-id-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id028
+        version_ranges: *id029
+        description: Calling & Called station identifier type configuration , this option is not available for 802.1x authentication.
+        source_attribute: call_station_id_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: call_station_id_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Calling & Called station identifier type configuration (default = legacy), this option is not available
+          for 802.1x authentication.
+        default: legacy
+        source_attribute: call-station-id-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  class:
+    canonical:
+      type: list
+      elements: dict
+      children: &id031
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id033
+          - - v6.0.0
+            - ''
+          description: Class name.
+      version_ranges: &id030
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Class attribute name(s). Class name.
+      source_attribute: class
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id030
+        description: Class attribute name(s).
+        children: *id031
+        source_attribute: class
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: class
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Class attribute name(s). Class name.
+        max_length: 79
+        source_attribute: class
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id032
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id032
+  class.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id033
+      min_length: 0
+      max_length: 79
+      description: Class name.
+      source_attribute: class.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id033
+        description: Class name.
+        source_attribute: class.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: class.name
+    sources:
+    - ansible
+    - terraform
+  client_cert:
+    canonical:
+      type: string
+      references: &id035
+      - vpn.certificate.local.name
+      version_ranges: &id034
+      - - v7.4.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Client certificate to use under TLS.
+      source_attribute: client-cert
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id034
+        description: Client certificate to use under TLS. Source vpn.certificate.local.name.
+        references: *id035
+        source_attribute: client_cert
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: client_cert
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Client certificate to use under TLS.
+        max_length: 35
+        source_attribute: client-cert
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  delimiter:
+    canonical:
+      type: enum
+      version_ranges: &id037
+      - - v7.2.0
+        - ''
+      choices: &id036
+      - plus
+      - comma
+      default: plus
+      description: Configure delimiter to be used for separating profile group names in the SSO attribute (default = plus
+        character "+").
+      source_attribute: delimiter
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id036
+        version_ranges: *id037
+        description: Configure delimiter to be used for separating profile group names in the SSO attribute .
+        source_attribute: delimiter
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: delimiter
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Configure delimiter to be used for separating profile group names in the SSO attribute (default = plus
+          character "+").
+        default: plus
+        source_attribute: delimiter
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  fabric_force_sync:
+    canonical:
+      type: string
+      source_attribute: fabric_force_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_force_sync
+    sources:
+    - terraform
+  fabric_object:
+    canonical:
+      type: string
+      source_attribute: fabric_object
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object
+    sources:
+    - terraform
+  fabric_object_source:
+    canonical:
+      type: string
+      source_attribute: fabric_object_source
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object_source
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  group_override_attr_type:
+    canonical:
+      type: enum
+      version_ranges: &id039
+      - - v6.4.0
+        - ''
+      choices: &id038
+      - filter-Id
+      - class
+      description: RADIUS attribute type to override user group information.
+      source_attribute: group-override-attr-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id038
+        version_ranges: *id039
+        description: RADIUS attribute type to override user group information.
+        source_attribute: group_override_attr_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: group_override_attr_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: RADIUS attribute type to override user group information.
+        source_attribute: group-override-attr-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  h3c_compatibility:
+    canonical:
+      type: enum
+      version_ranges: &id041
+      - - v6.0.0
+        - ''
+      choices: &id040
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable compatibility with the H3C, a mechanism that performs security checking for authentication.
+      source_attribute: h3c-compatibility
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id040
+        version_ranges: *id041
+        description: Enable/disable compatibility with the H3C, a mechanism that performs security checking for authentication.
+        source_attribute: h3c_compatibility
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: h3c_compatibility
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable compatibility with the H3C, a mechanism that performs security checking for authentication.
+        default: disable
+        source_attribute: h3c-compatibility
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface:
+    canonical:
+      type: string
+      references: &id043
+      - system.interface.name
+      version_ranges: &id042
+      - - v6.2.0
+        - v6.2.0
+      - - v6.2.5
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Specify outgoing interface to reach server.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id042
+        description: Specify outgoing interface to reach server. Source system.interface.name.
+        references: *id043
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Specify outgoing interface to reach server.
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface_select_method:
+    canonical:
+      type: enum
+      version_ranges: &id045
+      - - v6.2.0
+        - v6.2.0
+      - - v6.2.5
+        - ''
+      choices: &id044
+      - auto
+      - sdwan
+      - specify
+      default: auto
+      description: Specify how to select outgoing interface to reach server.
+      source_attribute: interface-select-method
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id044
+        version_ranges: *id045
+        description: Specify how to select outgoing interface to reach server.
+        source_attribute: interface_select_method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface_select_method
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Specify how to select outgoing interface to reach server.
+        default: auto
+        source_attribute: interface-select-method
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  mac_case:
+    canonical:
+      type: enum
+      version_ranges: &id047
+      - - v7.2.1
+        - ''
+      choices: &id046
+      - uppercase
+      - lowercase
+      default: lowercase
+      description: MAC authentication case (default = lowercase).
+      source_attribute: mac-case
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id046
+        version_ranges: *id047
+        description: MAC authentication case .
+        source_attribute: mac_case
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mac_case
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: MAC authentication case (default = lowercase).
+        default: lowercase
+        source_attribute: mac-case
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  mac_password_delimiter:
+    canonical:
+      type: enum
+      version_ranges: &id049
+      - - v7.2.1
+        - ''
+      choices: &id048
+      - hyphen
+      - single-hyphen
+      - colon
+      - none
+      default: hyphen
+      description: MAC authentication password delimiter (default = hyphen).
+      source_attribute: mac-password-delimiter
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id048
+        version_ranges: *id049
+        description: MAC authentication password delimiter .
+        source_attribute: mac_password_delimiter
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mac_password_delimiter
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: MAC authentication password delimiter (default = hyphen).
+        default: hyphen
+        source_attribute: mac-password-delimiter
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  mac_username_delimiter:
+    canonical:
+      type: enum
+      version_ranges: &id051
+      - - v7.2.1
+        - ''
+      choices: &id050
+      - hyphen
+      - single-hyphen
+      - colon
+      - none
+      default: hyphen
+      description: MAC authentication username delimiter (default = hyphen).
+      source_attribute: mac-username-delimiter
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id050
+        version_ranges: *id051
+        description: MAC authentication username delimiter .
+        source_attribute: mac_username_delimiter
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mac_username_delimiter
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: MAC authentication username delimiter (default = hyphen).
+        default: hyphen
+        source_attribute: mac-username-delimiter
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id052
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: RADIUS server entry name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id052
+        description: RADIUS server entry name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: RADIUS server entry name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  nas_id:
+    canonical:
+      type: string
+      version_ranges: &id053
+      - - v7.2.4
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Custom NAS identifier.
+      source_attribute: nas-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id053
+        description: Custom NAS identifier.
+        source_attribute: nas_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: nas_id
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Custom NAS identifier.
+        max_length: 255
+        source_attribute: nas-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  nas_id_type:
+    canonical:
+      type: enum
+      version_ranges: &id055
+      - - v7.2.4
+        - ''
+      choices: &id054
+      - legacy
+      - custom
+      - hostname
+      default: legacy
+      description: NAS identifier type configuration (default = legacy).
+      source_attribute: nas-id-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id054
+        version_ranges: *id055
+        description: NAS identifier type configuration .
+        source_attribute: nas_id_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: nas_id_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: NAS identifier type configuration (default = legacy).
+        default: legacy
+        source_attribute: nas-id-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  nas_ip:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id056
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: IP address used to communicate with the RADIUS server and used as NAS-IP-Address and Called-Station-ID
+        attributes.
+      source_attribute: nas-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id056
+        description: IP address used to communicate with the RADIUS server and used as NAS-IP-Address and Called-Station-ID
+          attributes.
+        source_attribute: nas_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: nas_ip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: IP address used to communicate with the RADIUS server and used as NAS-IP-Address and Called-Station-ID
+          attributes.
+        default: 0.0.0.0
+        source_attribute: nas-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id057
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id057
+  password_encoding:
+    canonical:
+      type: enum
+      version_ranges: &id059
+      - - v6.0.0
+        - ''
+      choices: &id058
+      - auto
+      - ISO-8859-1
+      default: auto
+      description: Password encoding.
+      source_attribute: password-encoding
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id058
+        version_ranges: *id059
+        description: Password encoding.
+        source_attribute: password_encoding
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: password_encoding
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Password encoding.
+        default: auto
+        source_attribute: password-encoding
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  password_renewal:
+    canonical:
+      type: enum
+      version_ranges: &id061
+      - - v6.0.0
+        - ''
+      choices: &id060
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable password renewal.
+      source_attribute: password-renewal
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id060
+        version_ranges: *id061
+        description: Enable/disable password renewal.
+        source_attribute: password_renewal
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: password_renewal
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable password renewal.
+        default: enable
+        source_attribute: password-renewal
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  radius_coa:
+    canonical:
+      type: enum
+      version_ranges: &id063
+      - - v6.0.0
+        - ''
+      choices: &id062
+      - enable
+      - disable
+      default: disable
+      description: Enable to allow a mechanism to change the attributes of an authentication, authorization, and accounting
+        session after it is authenticated.
+      source_attribute: radius-coa
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id062
+        version_ranges: *id063
+        description: Enable to allow a mechanism to change the attributes of an authentication, authorization, and accounting
+          session after it is authenticated.
+        source_attribute: radius_coa
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: radius_coa
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable to allow a mechanism to change the attributes of an authentication, authorization, and accounting
+          session after it is authenticated.
+        default: disable
+        source_attribute: radius-coa
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  radius_port:
+    canonical:
+      type: integer
+      version_ranges: &id064
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 65535
+      description: RADIUS service port number.
+      source_attribute: radius-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id064
+        description: RADIUS service port number.
+        source_attribute: radius_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: radius_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: RADIUS service port number.
+        default: '0'
+        min: 0
+        max: 65535
+        source_attribute: radius-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  require_message_authenticator:
+    canonical:
+      type: enum
+      version_ranges: &id066
+      - - v7.6.1
+        - ''
+      choices: &id065
+      - enable
+      - disable
+      default: enable
+      description: Require message authenticator in authentication response.
+      source_attribute: require-message-authenticator
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id065
+        version_ranges: *id066
+        description: Require message authenticator in authentication response.
+        source_attribute: require_message_authenticator
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: require_message_authenticator
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Require message authenticator in authentication response.
+        default: enable
+        source_attribute: require-message-authenticator
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rsso:
+    canonical:
+      type: enum
+      version_ranges: &id068
+      - - v6.0.0
+        - ''
+      choices: &id067
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable RADIUS based single sign on feature.
+      source_attribute: rsso
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id067
+        version_ranges: *id068
+        description: Enable/disable RADIUS based single sign on feature.
+        source_attribute: rsso
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rsso
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable RADIUS based single sign on feature.
+        default: disable
+        source_attribute: rsso
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rsso_context_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id069
+      - - v6.0.0
+        - ''
+      default: '28800'
+      min: 0
+      max: 4294967295
+      description: Time in seconds before the logged out user is removed from the "user context list" of logged on users.
+      source_attribute: rsso-context-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id069
+        description: Time in seconds before the logged out user is removed from the "user context list" of logged on users.
+        source_attribute: rsso_context_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: rsso_context_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time in seconds before the logged out user is removed from the "user context list" of logged on users.
+        default: '28800'
+        min: 0
+        max: 4294967295
+        source_attribute: rsso-context-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rsso_endpoint_attribute:
+    canonical:
+      type: enum
+      version_ranges: &id071
+      - - v6.0.0
+        - ''
+      choices: &id070
+      - User-Name
+      - NAS-IP-Address
+      - Framed-IP-Address
+      - Framed-IP-Netmask
+      - Filter-Id
+      - Login-IP-Host
+      - Reply-Message
+      - Callback-Number
+      - Callback-Id
+      - Framed-Route
+      - Framed-IPX-Network
+      - Class
+      - Called-Station-Id
+      - Calling-Station-Id
+      - NAS-Identifier
+      - Proxy-State
+      - Login-LAT-Service
+      - Login-LAT-Node
+      - Login-LAT-Group
+      - Framed-AppleTalk-Zone
+      - Acct-Session-Id
+      - Acct-Multi-Session-Id
+      default: Calling-Station-Id
+      description: RADIUS attributes used to extract the user end point identifier from the RADIUS Start record.
+      source_attribute: rsso-endpoint-attribute
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id070
+        version_ranges: *id071
+        description: RADIUS attributes used to extract the user end point identifier from the RADIUS Start record.
+        source_attribute: rsso_endpoint_attribute
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rsso_endpoint_attribute
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: RADIUS attributes used to extract the user end point identifier from the RADIUS Start record.
+        default: Calling-Station-Id
+        source_attribute: rsso-endpoint-attribute
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rsso_endpoint_block_attribute:
+    canonical:
+      type: enum
+      version_ranges: &id073
+      - - v6.0.0
+        - ''
+      choices: &id072
+      - User-Name
+      - NAS-IP-Address
+      - Framed-IP-Address
+      - Framed-IP-Netmask
+      - Filter-Id
+      - Login-IP-Host
+      - Reply-Message
+      - Callback-Number
+      - Callback-Id
+      - Framed-Route
+      - Framed-IPX-Network
+      - Class
+      - Called-Station-Id
+      - Calling-Station-Id
+      - NAS-Identifier
+      - Proxy-State
+      - Login-LAT-Service
+      - Login-LAT-Node
+      - Login-LAT-Group
+      - Framed-AppleTalk-Zone
+      - Acct-Session-Id
+      - Acct-Multi-Session-Id
+      description: RADIUS attributes used to block a user.
+      source_attribute: rsso-endpoint-block-attribute
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id072
+        version_ranges: *id073
+        description: RADIUS attributes used to block a user.
+        source_attribute: rsso_endpoint_block_attribute
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: rsso_endpoint_block_attribute
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: RADIUS attributes used to block a user.
+        source_attribute: rsso-endpoint-block-attribute
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rsso_ep_one_ip_only:
+    canonical:
+      type: enum
+      version_ranges: &id075
+      - - v6.0.0
+        - ''
+      choices: &id074
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable the replacement of old IP addresses with new ones for the same endpoint on RADIUS accounting
+        Start messages.
+      source_attribute: rsso-ep-one-ip-only
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id074
+        version_ranges: *id075
+        description: Enable/disable the replacement of old IP addresses with new ones for the same endpoint on RADIUS accounting
+          Start messages.
+        source_attribute: rsso_ep_one_ip_only
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rsso_ep_one_ip_only
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable the replacement of old IP addresses with new ones for the same endpoint on RADIUS accounting
+          Start messages.
+        default: disable
+        source_attribute: rsso-ep-one-ip-only
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rsso_flush_ip_session:
+    canonical:
+      type: enum
+      version_ranges: &id077
+      - - v6.0.0
+        - ''
+      choices: &id076
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable flushing user IP sessions on RADIUS accounting Stop messages.
+      source_attribute: rsso-flush-ip-session
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id076
+        version_ranges: *id077
+        description: Enable/disable flushing user IP sessions on RADIUS accounting Stop messages.
+        source_attribute: rsso_flush_ip_session
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rsso_flush_ip_session
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable flushing user IP sessions on RADIUS accounting Stop messages.
+        default: disable
+        source_attribute: rsso-flush-ip-session
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rsso_log_flags:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id079
+      - - v6.0.0
+        - ''
+      choices: &id078
+      - protocol-error
+      - profile-missing
+      - accounting-stop-missed
+      - accounting-event
+      - endpoint-block
+      - radiusd-other
+      - none
+      default: protocol-error profile-missing accounting-stop-missed accounting-event endpoint-block radiusd-other
+      description: Events to log.
+      source_attribute: rsso-log-flags
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id078
+        multiple_values: true
+        elements: str
+        version_ranges: *id079
+        description: Events to log.
+        source_attribute: rsso_log_flags
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rsso_log_flags
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Events to log.
+        default: protocol-error profile-missing accounting-stop-missed accounting-event endpoint-block radiusd-other
+        source_attribute: rsso-log-flags
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rsso_log_period:
+    canonical:
+      type: integer
+      version_ranges: &id080
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Time interval in seconds that group event log messages will be generated for dynamic profile events.
+      source_attribute: rsso-log-period
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id080
+        description: Time interval in seconds that group event log messages will be generated for dynamic profile events.
+        source_attribute: rsso_log_period
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: rsso_log_period
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time interval in seconds that group event log messages will be generated for dynamic profile events.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: rsso-log-period
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rsso_radius_response:
+    canonical:
+      type: enum
+      version_ranges: &id082
+      - - v6.0.0
+        - ''
+      choices: &id081
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable sending RADIUS response packets after receiving Start and Stop records.
+      source_attribute: rsso-radius-response
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id081
+        version_ranges: *id082
+        description: Enable/disable sending RADIUS response packets after receiving Start and Stop records.
+        source_attribute: rsso_radius_response
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rsso_radius_response
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable sending RADIUS response packets after receiving Start and Stop records.
+        default: disable
+        source_attribute: rsso-radius-response
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rsso_radius_server_port:
+    canonical:
+      type: integer
+      version_ranges: &id083
+      - - v6.0.0
+        - ''
+      default: '1813'
+      min: 0
+      max: 65535
+      description: UDP port to listen on for RADIUS Start and Stop records.
+      source_attribute: rsso-radius-server-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id083
+        description: UDP port to listen on for RADIUS Start and Stop records.
+        source_attribute: rsso_radius_server_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: rsso_radius_server_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: UDP port to listen on for RADIUS Start and Stop records.
+        default: '1813'
+        min: 0
+        max: 65535
+        source_attribute: rsso-radius-server-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rsso_secret:
+    canonical:
+      type: password
+      version_ranges: &id084
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 31
+      description: RADIUS secret used by the RADIUS accounting server.
+      source_attribute: rsso-secret
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id084
+        description: RADIUS secret used by the RADIUS accounting server.
+        source_attribute: rsso_secret
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 31
+        source_attribute: rsso_secret
+      cli_reference:
+        type: password
+        raw_type: password
+        description: RADIUS secret used by the RADIUS accounting server.
+        source_attribute: rsso-secret
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id085
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id085
+  rsso_validate_request_secret:
+    canonical:
+      type: enum
+      version_ranges: &id087
+      - - v6.0.0
+        - ''
+      choices: &id086
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable validating the RADIUS request shared secret in the Start or End record.
+      source_attribute: rsso-validate-request-secret
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id086
+        version_ranges: *id087
+        description: Enable/disable validating the RADIUS request shared secret in the Start or End record.
+        source_attribute: rsso_validate_request_secret
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rsso_validate_request_secret
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable validating the RADIUS request shared secret in the Start or End record.
+        default: disable
+        source_attribute: rsso-validate-request-secret
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  secondary_secret:
+    canonical:
+      type: password
+      version_ranges: &id088
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: Secret key to access the secondary server.
+      source_attribute: secondary-secret
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id088
+        description: Secret key to access the secondary server.
+        source_attribute: secondary_secret
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: secondary_secret
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Secret key to access the secondary server.
+        source_attribute: secondary-secret
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id089
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id089
+  secondary_server:
+    canonical:
+      type: string
+      version_ranges: &id090
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Secondary RADIUS CN domain name or IP address.
+      source_attribute: secondary-server
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id090
+        description: Secondary RADIUS CN domain name or IP address.
+        source_attribute: secondary_server
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: secondary_server
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Secondary RADIUS CN domain name or IP address.
+        max_length: 63
+        source_attribute: secondary-server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  secret:
+    canonical:
+      type: password
+      version_ranges: &id091
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: Pre-shared secret key used to access the primary RADIUS server.
+      source_attribute: secret
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id091
+        description: Pre-shared secret key used to access the primary RADIUS server.
+        source_attribute: secret
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: secret
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Pre-shared secret key used to access the primary RADIUS server.
+        source_attribute: secret
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id092
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id092
+  server:
+    canonical:
+      type: string
+      version_ranges: &id093
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Primary RADIUS server CN domain name or IP address.
+      source_attribute: server
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id093
+        description: Primary RADIUS server CN domain name or IP address.
+        source_attribute: server
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: server
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Primary RADIUS server CN domain name or IP address.
+        max_length: 63
+        source_attribute: server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  server_identity_check:
+    canonical:
+      type: enum
+      version_ranges: &id095
+      - - v7.4.0
+        - ''
+      choices: &id094
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable RADIUS server identity check (verify server domain name/IP address against the server certificate).
+      source_attribute: server-identity-check
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id094
+        version_ranges: *id095
+        description: Enable/disable RADIUS server identity check (verify server domain name/IP address against the server
+          certificate).
+        source_attribute: server_identity_check
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: server_identity_check
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable RADIUS server identity check (verify server domain name/IP address against the server
+          certificate).
+        default: enable
+        source_attribute: server-identity-check
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source_ip:
+    canonical:
+      type: string
+      version_ranges: &id096
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Source IP address for communications to the RADIUS server.
+      source_attribute: source-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id096
+        description: Source IP address for communications to the RADIUS server.
+        source_attribute: source_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: source_ip
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Source IP address for communications to the RADIUS server.
+        max_length: 63
+        source_attribute: source-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source_ip_interface:
+    canonical:
+      type: string
+      references: &id098
+      - system.interface.name
+      version_ranges: &id097
+      - - v7.6.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Source interface for communication with the RADIUS server.
+      source_attribute: source-ip-interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id097
+        description: Source interface for communication with the RADIUS server. Source system.interface.name.
+        references: *id098
+        source_attribute: source_ip_interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: source_ip_interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Source interface for communication with the RADIUS server.
+        max_length: 15
+        source_attribute: source-ip-interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sso_attribute:
+    canonical:
+      type: enum
+      version_ranges: &id100
+      - - v6.0.0
+        - ''
+      choices: &id099
+      - User-Name
+      - NAS-IP-Address
+      - Framed-IP-Address
+      - Framed-IP-Netmask
+      - Filter-Id
+      - Login-IP-Host
+      - Reply-Message
+      - Callback-Number
+      - Callback-Id
+      - Framed-Route
+      - Framed-IPX-Network
+      - Class
+      - Called-Station-Id
+      - Calling-Station-Id
+      - NAS-Identifier
+      - Proxy-State
+      - Login-LAT-Service
+      - Login-LAT-Node
+      - Login-LAT-Group
+      - Framed-AppleTalk-Zone
+      - Acct-Session-Id
+      - Acct-Multi-Session-Id
+      default: Class
+      description: RADIUS attribute that contains the profile group name to be extracted from the RADIUS Start record.
+      source_attribute: sso-attribute
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id099
+        version_ranges: *id100
+        description: RADIUS attribute that contains the profile group name to be extracted from the RADIUS Start record.
+        source_attribute: sso_attribute
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sso_attribute
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: RADIUS attribute that contains the profile group name to be extracted from the RADIUS Start record.
+        default: Class
+        source_attribute: sso-attribute
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sso_attribute_key:
+    canonical:
+      type: string
+      version_ranges: &id101
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Key prefix for SSO group value in the SSO attribute.
+      source_attribute: sso-attribute-key
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id101
+        description: Key prefix for SSO group value in the SSO attribute.
+        source_attribute: sso_attribute_key
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: sso_attribute_key
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Key prefix for SSO group value in the SSO attribute.
+        max_length: 35
+        source_attribute: sso-attribute-key
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sso_attribute_value_override:
+    canonical:
+      type: enum
+      version_ranges: &id103
+      - - v6.0.0
+        - ''
+      choices: &id102
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable override old attribute value with new value for the same endpoint.
+      source_attribute: sso-attribute-value-override
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id102
+        version_ranges: *id103
+        description: Enable/disable override old attribute value with new value for the same endpoint.
+        source_attribute: sso_attribute_value_override
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sso_attribute_value_override
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable override old attribute value with new value for the same endpoint.
+        default: enable
+        source_attribute: sso-attribute-value-override
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status_ttl:
+    canonical:
+      type: integer
+      version_ranges: &id104
+      - - v7.4.0
+        - ''
+      default: '300'
+      min: 0
+      max: 600
+      description: Time for which server reachability is cached so that when a server is unreachable, it will not be retried
+        for at least this period of time (0 = cache disabled, default = 300).
+      source_attribute: status-ttl
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id104
+        description: Time for which server reachability is cached so that when a server is unreachable, it will not be retried
+          for at least this period of time (0 = cache disabled).
+        source_attribute: status_ttl
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 600
+        source_attribute: status_ttl
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time for which server reachability is cached so that when a server is unreachable, it will not be retried
+          for at least this period of time (0 = cache disabled, default = 300).
+        default: '300'
+        min: 0
+        max: 600
+        source_attribute: status-ttl
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  switch_controller_acct_fast_framedip_detect:
+    canonical:
+      type: integer
+      version_ranges: &id105
+      - - v6.4.0
+        - ''
+      default: '2'
+      min: 2
+      max: 600
+      description: Switch controller accounting message Framed-IP detection from DHCP snooping (seconds, default=2).
+      source_attribute: switch-controller-acct-fast-framedip-detect
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id105
+        description: Switch controller accounting message Framed-IP detection from DHCP snooping (seconds).
+        source_attribute: switch_controller_acct_fast_framedip_detect
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 2
+        max: 600
+        source_attribute: switch_controller_acct_fast_framedip_detect
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Switch controller accounting message Framed-IP detection from DHCP snooping (seconds, default=2).
+        default: '2'
+        min: 2
+        max: 600
+        source_attribute: switch-controller-acct-fast-framedip-detect
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  switch_controller_nas_ip_dynamic:
+    canonical:
+      type: enum
+      version_ranges: &id107
+      - - v7.4.2
+        - ''
+      choices: &id106
+      - enable
+      - disable
+      default: disable
+      description: Enable/Disable switch-controller nas-ip dynamic to dynamically set nas-ip.
+      source_attribute: switch-controller-nas-ip-dynamic
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id106
+        version_ranges: *id107
+        description: Enable/Disable switch-controller nas-ip dynamic to dynamically set nas-ip.
+        source_attribute: switch_controller_nas_ip_dynamic
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: switch_controller_nas_ip_dynamic
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/Disable switch-controller nas-ip dynamic to dynamically set nas-ip.
+        default: disable
+        source_attribute: switch-controller-nas-ip-dynamic
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  switch_controller_service_type:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id109
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      choices: &id108
+      - login
+      - framed
+      - callback-login
+      - callback-framed
+      - outbound
+      - administrative
+      - nas-prompt
+      - authenticate-only
+      - callback-nas-prompt
+      - call-check
+      - callback-administrative
+      description: RADIUS service type.
+      source_attribute: switch-controller-service-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id108
+        multiple_values: true
+        elements: str
+        version_ranges: *id109
+        description: RADIUS service type.
+        source_attribute: switch_controller_service_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: switch_controller_service_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: RADIUS service type.
+        source_attribute: switch-controller-service-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  tertiary_secret:
+    canonical:
+      type: password
+      version_ranges: &id110
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: Secret key to access the tertiary server.
+      source_attribute: tertiary-secret
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id110
+        description: Secret key to access the tertiary server.
+        source_attribute: tertiary_secret
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: tertiary_secret
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Secret key to access the tertiary server.
+        source_attribute: tertiary-secret
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id111
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id111
+  tertiary_server:
+    canonical:
+      type: string
+      version_ranges: &id112
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Tertiary RADIUS CN domain name or IP address.
+      source_attribute: tertiary-server
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id112
+        description: Tertiary RADIUS CN domain name or IP address.
+        source_attribute: tertiary_server
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: tertiary_server
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Tertiary RADIUS CN domain name or IP address.
+        max_length: 63
+        source_attribute: tertiary-server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  timeout:
+    canonical:
+      type: integer
+      version_ranges: &id113
+      - - v6.0.0
+        - ''
+      default: '5'
+      min: 1
+      max: 300
+      description: Time in seconds to retry connecting server.
+      source_attribute: timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id113
+        description: Time in seconds to retry connecting server.
+        source_attribute: timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 300
+        source_attribute: timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time in seconds to retry connecting server.
+        default: '5'
+        min: 1
+        max: 300
+        source_attribute: timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  tls_min_proto_version:
+    canonical:
+      type: enum
+      version_ranges: &id115
+      - - v7.4.0
+        - ''
+      choices: &id114
+      - default
+      - SSLv3
+      - TLSv1
+      - TLSv1-1
+      - TLSv1-2
+      - TLSv1-3
+      default: default
+      description: Minimum supported protocol version for TLS connections (default is to follow system global setting).
+      source_attribute: tls-min-proto-version
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id114
+        version_ranges: *id115
+        description: Minimum supported protocol version for TLS connections .
+        source_attribute: tls_min_proto_version
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: tls_min_proto_version
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Minimum supported protocol version for TLS connections (default is to follow system global setting).
+        default: default
+        source_attribute: tls-min-proto-version
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  transport_protocol:
+    canonical:
+      type: enum
+      version_ranges: &id117
+      - - v7.4.0
+        - ''
+      choices: &id116
+      - udp
+      - tcp
+      - tls
+      default: udp
+      description: Transport protocol to be used (default = udp).
+      source_attribute: transport-protocol
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id116
+        version_ranges: *id117
+        description: Transport protocol to be used .
+        source_attribute: transport_protocol
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: transport_protocol
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Transport protocol to be used (default = udp).
+        default: udp
+        source_attribute: transport-protocol
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  use_management_vdom:
+    canonical:
+      type: enum
+      version_ranges: &id119
+      - - v6.0.0
+        - ''
+      choices: &id118
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable using management VDOM to send requests.
+      source_attribute: use-management-vdom
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id118
+        version_ranges: *id119
+        description: Enable/disable using management VDOM to send requests.
+        source_attribute: use_management_vdom
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: use_management_vdom
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable using management VDOM to send requests.
+        default: disable
+        source_attribute: use-management-vdom
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  username_case_sensitive:
+    canonical:
+      type: enum
+      version_ranges: &id121
+      - - v6.0.0
+        - ''
+      choices: &id120
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable case sensitive user names.
+      source_attribute: username-case-sensitive
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id120
+        version_ranges: *id121
+        description: Enable/disable case sensitive user names.
+        source_attribute: username_case_sensitive
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: username_case_sensitive
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable case sensitive user names.
+        default: disable
+        source_attribute: username-case-sensitive
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  uuid:
+    canonical:
+      type: string
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  vrf_select:
+    canonical:
+      type: integer
+      version_ranges: &id122
+      - - v7.6.1
+        - ''
+      default: '0'
+      min: 0
+      max: 511
+      description: VRF ID used for connection to server.
+      source_attribute: vrf-select
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id122
+        description: VRF ID used for connection to server.
+        source_attribute: vrf_select
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 511
+        source_attribute: vrf_select
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: VRF ID used for connection to server.
+        default: '0'
+        min: 0
+        max: 511
+        source_attribute: vrf-select
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: class
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: nas_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: rsso_secret
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict
+- attribute: secondary_secret
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict
+- attribute: secret
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict
+- attribute: tertiary_secret
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict

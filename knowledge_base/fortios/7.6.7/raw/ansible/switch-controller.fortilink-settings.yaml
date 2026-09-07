@@ -1,0 +1,109 @@
+id: switch-controller.fortilink-settings
+version: 7.6.7
+source_object: fortios_switch_controller_fortilink_settings
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_switch_controller_fortilink_settings.py
+root_type: list
+attributes:
+  name:
+    type: string
+    raw_type: string
+    required: true
+    version_ranges:
+    - - v7.0.0
+      - ''
+    description: FortiLink settings name.
+  fortilink:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v7.0.2
+      - ''
+    description: FortiLink interface to which this fortilink-setting belongs. Source system.interface.name.
+    references:
+    - system.interface.name
+  inactive_timer:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.0.0
+      - ''
+    description: Time interval(minutes) to be included in the inactive devices expiry calculation (mac age-out + inactive-time
+      + periodic scan interval).
+  link_down_flush:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v7.0.0
+      - ''
+    description: Clear NAC and dynamic devices on switch ports on link down event.
+  access_vlan_mode:
+    type: enum
+    raw_type: string
+    choices:
+    - legacy
+    - fail-open
+    - fail-close
+    version_ranges:
+    - - v7.4.1
+      - ''
+    description: Intra VLAN traffic behavior with loss of connection to the FortiGate.
+  nac_ports:
+    type: object
+    raw_type: dict
+    version_ranges:
+    - - v7.0.0
+      - ''
+    description: NAC specific configuration.
+    children:
+      onboarding_vlan:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.0.0
+          - ''
+        description: Default NAC Onboarding VLAN when NAC devices are discovered. Source system.interface.name.
+        references:
+        - system.interface.name
+      lan_segment:
+        type: enum
+        raw_type: string
+        choices:
+        - enabled
+        - disabled
+        version_ranges:
+        - - v7.0.1
+          - ''
+        description: Enable/disable LAN segment feature on the FortiLink interface.
+      nac_lan_interface:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.0.1
+          - ''
+        description: Configure NAC LAN interface. Source system.interface.name.
+        references:
+        - system.interface.name
+      nac_segment_vlans:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v7.0.1
+          - ''
+        description: Configure NAC segment VLANs.
+        children:
+          vlan_name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v7.0.1
+              - ''
+            description: VLAN interface name. Source system.interface.name.
+            references:
+            - system.interface.name

@@ -1,0 +1,518 @@
+id: system.ptp
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  delay_mechanism:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.2.0
+        - ''
+      choices: &id001
+      - E2E
+      - P2P
+      default: E2E
+      description: End to end delay detection or peer to peer delay detection.
+      source_attribute: delay-mechanism
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: End to end delay detection or peer to peer delay detection.
+        source_attribute: delay_mechanism
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: delay_mechanism
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: End to end delay detection or peer to peer delay detection.
+        default: E2E
+        source_attribute: delay-mechanism
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  interface:
+    canonical:
+      type: string
+      references: &id004
+      - system.interface.name
+      required: true
+      version_ranges: &id003
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: PTP client will reply through this interface.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: PTP client will reply through this interface. Source system.interface.name.
+        references: *id004
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: PTP client will reply through this interface.
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  mode:
+    canonical:
+      type: enum
+      version_ranges: &id006
+      - - v6.2.0
+        - ''
+      choices: &id005
+      - multicast
+      - hybrid
+      default: multicast
+      description: Multicast transmission or hybrid transmission.
+      source_attribute: mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Multicast transmission or hybrid transmission.
+        source_attribute: mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Multicast transmission or hybrid transmission.
+        default: multicast
+        source_attribute: mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  request_interval:
+    canonical:
+      type: integer
+      version_ranges: &id007
+      - - v6.2.0
+        - ''
+      default: '1'
+      min: 1
+      max: 6
+      description: The delay request value is the logarithmic mean interval in seconds between the delay request messages
+        sent by the slave to the master.
+      source_attribute: request-interval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id007
+        description: The delay request value is the logarithmic mean interval in seconds between the delay request messages
+          sent by the slave to the master.
+        source_attribute: request_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 6
+        source_attribute: request_interval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The delay request value is the logarithmic mean interval in seconds between the delay request messages
+          sent by the slave to the master.
+        default: '1'
+        min: 1
+        max: 6
+        source_attribute: request-interval
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  server_interface:
+    canonical:
+      type: list
+      elements: dict
+      children: &id009
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id012
+          - - v7.0.1
+            - ''
+          description: ID. see <a href='#notes'>Notes</a>.
+        server_interface_name:
+          type: string
+          raw_type: string
+          version_ranges: &id014
+          - - v7.0.1
+            - ''
+          description: Interface name. Source system.interface.name.
+          references: &id013
+          - system.interface.name
+        delay_mechanism:
+          type: enum
+          raw_type: string
+          choices: &id011
+          - E2E
+          - P2P
+          version_ranges: &id010
+          - - v7.0.1
+            - ''
+          description: End to end delay detection or peer to peer delay detection.
+      version_ranges: &id008
+      - - v7.0.1
+        - ''
+      description: FortiGate interface(s) with PTP server mode enabled. Devices on your network can contact these interfaces
+        for PTP services.
+      source_attribute: server_interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id008
+        description: FortiGate interface(s) with PTP server mode enabled. Devices on your network can contact these interfaces
+          for PTP services.
+        children: *id009
+        source_attribute: server_interface
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          server_interface_name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          delay_mechanism:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: server_interface
+    sources:
+    - ansible
+    - terraform
+  server_interface.delay_mechanism:
+    canonical:
+      type: enum
+      version_ranges: *id010
+      choices: *id011
+      description: End to end delay detection or peer to peer delay detection.
+      source_attribute: server_interface.delay_mechanism
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id011
+        version_ranges: *id010
+        description: End to end delay detection or peer to peer delay detection.
+        source_attribute: server_interface.delay_mechanism
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: server_interface.delay_mechanism
+    sources:
+    - ansible
+    - terraform
+  server_interface.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id012
+      description: ID. see <a href='#notes'>Notes</a>.
+      source_attribute: server_interface.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id012
+        description: ID. see <a href='#notes'>Notes</a>.
+        source_attribute: server_interface.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: server_interface.id
+    sources:
+    - ansible
+    - terraform
+  server_interface.server_interface_name:
+    canonical:
+      type: string
+      references: *id013
+      version_ranges: *id014
+      min_length: 0
+      max_length: 15
+      description: Interface name. Source system.interface.name.
+      source_attribute: server_interface.server_interface_name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: Interface name. Source system.interface.name.
+        references: *id013
+        source_attribute: server_interface.server_interface_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: server_interface.server_interface_name
+    sources:
+    - ansible
+    - terraform
+  server_mode:
+    canonical:
+      type: enum
+      version_ranges: &id016
+      - - v7.0.1
+        - ''
+      choices: &id015
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable FortiGate PTP server mode. Your FortiGate becomes an PTP server for other devices on your
+        network.
+      source_attribute: server-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id015
+        version_ranges: *id016
+        description: Enable/disable FortiGate PTP server mode. Your FortiGate becomes an PTP server for other devices on your
+          network.
+        source_attribute: server_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: server_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable FortiGate PTP server mode. Your FortiGate becomes an PTP server for other devices on your
+          network.
+        default: disable
+        source_attribute: server-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id018
+      - - v6.2.0
+        - ''
+      choices: &id017
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable setting the FortiGate system time by synchronizing with an PTP Server.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id017
+        version_ranges: *id018
+        description: Enable/disable setting the FortiGate system time by synchronizing with an PTP Server.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable setting the FortiGate system time by synchronizing with an PTP Server.
+        default: disable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

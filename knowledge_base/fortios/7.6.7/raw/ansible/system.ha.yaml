@@ -1,0 +1,852 @@
+id: system.ha
+version: 7.6.7
+source_object: fortios_system_ha
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_system_ha.py
+root_type: object
+attributes:
+  group_id:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: HA group ID  (0 - 1023;  or 0 - 7 when there are more than 2 vclusters). Must be the same for all members.
+  group_name:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Cluster group name. Must be the same for all members.
+  mode:
+    type: enum
+    raw_type: string
+    choices:
+    - standalone
+    - a-a
+    - a-p
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: HA mode. Must be the same for all members.
+  sync_packet_balance:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable HA packet distribution to multiple CPUs.
+  password:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Cluster password. It is mandatory and must be the same for all members
+  key:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Key.
+  hbdev:
+    type: list
+    raw_type: list
+    multiple_values: true
+    elements: str
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Heartbeat interfaces. Must be the same for all members.
+  auto_virtual_mac_interface:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v7.6.0
+      - ''
+    description: The physical interface that will be assigned an auto-generated virtual MAC address.
+    children:
+      interface_name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v7.6.0
+          - ''
+        description: Interface name. Source system.interface.name.
+        references:
+        - system.interface.name
+  backup_hbdev:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v7.6.0
+      - ''
+    description: Backup heartbeat interfaces. Must be the same for all members.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v7.6.0
+          - ''
+        description: Interface name. Source system.interface.name.
+        references:
+        - system.interface.name
+  session_sync_dev:
+    type: list
+    raw_type: list
+    multiple_values: true
+    elements: str
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Offload session-sync process to kernel and sync sessions using connected interface(s) directly. Source system.interface.name.
+    references:
+    - system.interface.name
+  route_ttl:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: TTL for primary unit routes (5 - 3600 sec). Increase to maintain active routes during failover.
+  route_wait:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Time to wait before sending new routes to the cluster (0 - 3600 sec).
+  route_hold:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Time to wait between routing table updates to the cluster (0 - 3600 sec).
+  multicast_ttl:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: HA multicast TTL on primary (5 - 3600 sec).
+  evpn_ttl:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.4.0
+      - ''
+    description: HA EVPN FDB TTL on primary box (5 - 3600 sec).
+  load_balance_all:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable to load balance TCP sessions. Disable to load balance proxy sessions only.
+  sync_config:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable configuration synchronization.
+  encryption:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable heartbeat message encryption.
+  authentication:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable heartbeat message authentication.
+  hb_interval:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Time between sending heartbeat packets (1 - 20). Increase to reduce false positives.
+  hb_interval_in_milliseconds:
+    type: enum
+    raw_type: string
+    choices:
+    - 100ms
+    - 10ms
+    version_ranges:
+    - - v7.0.0
+      - ''
+    description: Units of heartbeat interval time between sending heartbeat packets. Default is 100ms.
+  hb_lost_threshold:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Number of lost heartbeats to signal a failure (1 - 60). Increase to reduce false positives.
+  hello_holddown:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Time to wait before changing from hello to work state (5 - 300 sec).
+  gratuitous_arps:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable gratuitous ARPs. Recommended to disable if link-failed-signal is enabled.
+  arps:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Number of gratuitous ARPs (1 - 60). Lower to reduce traffic. Higher to reduce failover time.
+  arps_interval:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Time between gratuitous ARPs  (1 - 20 sec). Lower to reduce failover time. Higher to reduce traffic.
+  session_pickup:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable session pickup. Enabling it can reduce session down time when fail over happens.
+  session_pickup_connectionless:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable UDP and ICMP session sync.
+  session_pickup_expectation:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable session helper expectation session sync for FGSP.
+  session_pickup_nat:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable NAT session sync for FGSP.
+  session_pickup_delay:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable to sync sessions longer than 30 sec. Only longer lived sessions need to be synced.
+  link_failed_signal:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable to shut down all interfaces for 1 sec after a failover. Use if gratuitous ARPs do not update network.
+  upgrade_mode:
+    type: enum
+    raw_type: string
+    choices:
+    - simultaneous
+    - uninterruptible
+    - local-only
+    - secondary-only
+    version_ranges:
+    - - v7.4.1
+      - ''
+    description: The mode to upgrade a cluster.
+  uninterruptible_primary_wait:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.0.2
+      - ''
+    description: Number of minutes the primary HA unit waits before the secondary HA unit is considered upgraded and the system
+      is started before starting its own upgrade (15 - 300).
+  standalone_mgmt_vdom:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable standalone management VDOM.
+  ha_mgmt_status:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable to reserve interfaces to manage individual cluster units.
+  ha_mgmt_interfaces:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Reserve interfaces to manage individual cluster units.
+    children:
+      id:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Table ID. see <a href='#notes'>Notes</a>.
+      interface:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Interface to reserve for HA management. Source system.interface.name.
+        references:
+        - system.interface.name
+      dst:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Default route destination for reserved HA management interface.
+      gateway:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Default route gateway for reserved HA management interface.
+      dst6:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.6.3
+          - ''
+        description: Default IPv6 destination for reserved HA management interface.
+      gateway6:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Default IPv6 gateway for reserved HA management interface.
+  ha_eth_type:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: HA heartbeat packet Ethertype (4-digit hex).
+  hc_eth_type:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Transparent mode HA heartbeat packet Ethertype (4-digit hex).
+  l2ep_eth_type:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Telnet session HA heartbeat packet Ethertype (4-digit hex).
+  ha_uptime_diff_margin:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Normally you would only reduce this value for failover testing.
+  standalone_config_sync:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable FGSP configuration synchronization.
+  schedule:
+    type: enum
+    raw_type: string
+    choices:
+    - none
+    - leastconnection
+    - round-robin
+    - weight-round-robin
+    - random
+    - ip
+    - ipport
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Type of A-A load balancing. Use none if you have external load balancers.
+  weight:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Weight-round-robin weight for each cluster unit. Syntax <priority> <weight>.
+  cpu_threshold:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Dynamic weighted load balancing CPU usage weight and high and low thresholds.
+  memory_threshold:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Dynamic weighted load balancing memory usage weight and high and low thresholds.
+  http_proxy_threshold:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Dynamic weighted load balancing weight and high and low number of HTTP proxy sessions.
+  ftp_proxy_threshold:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Dynamic weighted load balancing weight and high and low number of FTP proxy sessions.
+  imap_proxy_threshold:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Dynamic weighted load balancing weight and high and low number of IMAP proxy sessions.
+  nntp_proxy_threshold:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Dynamic weighted load balancing weight and high and low number of NNTP proxy sessions.
+  pop3_proxy_threshold:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Dynamic weighted load balancing weight and high and low number of POP3 proxy sessions.
+  smtp_proxy_threshold:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Dynamic weighted load balancing weight and high and low number of SMTP proxy sessions.
+  override:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable and increase the priority of the unit that should always be primary (master).
+  priority:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Increase the priority to select the primary unit (0 - 255).
+  override_wait_time:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Delay negotiating if override is enabled (0 - 3600 sec). Reduces how often the cluster negotiates.
+  monitor:
+    type: list
+    raw_type: list
+    multiple_values: true
+    elements: str
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Interfaces to check for port monitoring (or link failure). Source system.interface.name.
+    references:
+    - system.interface.name
+  pingserver_monitor_interface:
+    type: list
+    raw_type: list
+    multiple_values: true
+    elements: str
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Interfaces to check for remote IP monitoring. Source system.interface.name.
+    references:
+    - system.interface.name
+  pingserver_failover_threshold:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Remote IP monitoring failover threshold (0 - 50).
+  pingserver_secondary_force_reset:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.4.4
+      - v7.0.12
+    - - v7.2.1
+      - ''
+    description: Enable to force the cluster to negotiate after a remote IP monitoring failover.
+  pingserver_flip_timeout:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Time to wait in minutes before renegotiating after a remote IP monitoring failover.
+  vcluster_status:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v7.2.0
+      - ''
+    description: Enable/disable virtual cluster for virtual clustering.
+  vcluster:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v7.2.0
+      - ''
+    description: Virtual cluster table.
+    children:
+      vcluster_id:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: ID. see <a href='#notes'>Notes</a>.
+      override:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Enable and increase the priority of the unit that should always be primary (master).
+      priority:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Increase the priority to select the primary unit (0 - 255).
+      override_wait_time:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Delay negotiating if override is enabled (0 - 3600 sec). Reduces how often the cluster negotiates.
+      monitor:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Interfaces to check for port monitoring (or link failure). Source system.interface.name.
+        references:
+        - system.interface.name
+      pingserver_monitor_interface:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Interfaces to check for remote IP monitoring. Source system.interface.name.
+        references:
+        - system.interface.name
+      pingserver_failover_threshold:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Remote IP monitoring failover threshold (0 - 50).
+      pingserver_secondary_force_reset:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v7.2.1
+          - ''
+        description: Enable to force the cluster to negotiate after a remote IP monitoring failover.
+      pingserver_flip_timeout:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.4.2
+          - ''
+        description: Time to wait in minutes before renegotiating after a remote IP monitoring failover.
+      vdom:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Virtual domain(s) in the virtual cluster.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v7.2.0
+              - ''
+            description: Virtual domain name. Source system.vdom.name.
+            references:
+            - system.vdom.name
+  ha_direct:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable using ha-mgmt interface for syslog, remote authentication (RADIUS), FortiAnalyzer, FortiSandbox,
+      sFlow, and Netflow.
+  ssd_failover:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.2.0
+      - v7.4.1
+    - - v7.4.3
+      - ''
+    description: Enable/disable automatic HA failover on SSD disk failure.
+  memory_compatible_mode:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable memory compatible mode.
+  memory_based_failover:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v7.0.0
+      - ''
+    description: Enable/disable memory based failover.
+  memory_failover_threshold:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.0.0
+      - ''
+    description: Memory usage threshold to trigger memory based failover (0 means using conserve mode threshold in system.global).
+  memory_failover_monitor_period:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.0.0
+      - ''
+    description: Duration of high memory usage before memory based failover is triggered in seconds (1 - 300).
+  memory_failover_sample_rate:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.0.0
+      - ''
+    description: Rate at which memory usage is sampled in order to measure memory usage in seconds (1 - 60).
+  memory_failover_flip_timeout:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.0.0
+      - ''
+    description: Time to wait between subsequent memory based failovers in minutes (6 - 2147483647).
+  failover_hold_time:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.0.0
+      - ''
+    description: Time to wait before failover (0 - 300 sec), to avoid flip.
+  check_secondary_dev_health:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v7.6.0
+      - ''
+    description: Enable/disable secondary dev health check for session load-balance in HA A-A mode.
+  ipsec_phase2_proposal:
+    type: enum
+    raw_type: list
+    choices:
+    - aes128-sha1
+    - aes128-sha256
+    - aes128-sha384
+    - aes128-sha512
+    - aes192-sha1
+    - aes192-sha256
+    - aes192-sha384
+    - aes192-sha512
+    - aes256-sha1
+    - aes256-sha256
+    - aes256-sha384
+    - aes256-sha512
+    - aes128gcm
+    - aes256gcm
+    - chacha20poly1305
+    multiple_values: true
+    elements: str
+    version_ranges:
+    - - v7.4.2
+      - ''
+    description: IPsec phase2 proposal.
+  bounce_intf_upon_failover:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v7.6.4
+      - ''
+    description: Enable/disable notification of kernel to bring down and up all monitored interfaces. The setting is used
+      during failovers if gratuitous ARPs do not update the network.
+  unicast_hb:
+    type: string
+    raw_type: string
+    description: Enable/disable unicast heartbeat.
+  unicast_hb_peerip:
+    type: string
+    raw_type: string
+    description: Unicast heartbeat peer IP.
+  unicast_hb_netmask:
+    type: string
+    raw_type: string
+    description: Unicast heartbeat netmask.
+  unicast_status:
+    type: string
+    raw_type: string
+    description: Enable/disable unicast connection.
+  unicast_gateway:
+    type: string
+    raw_type: string
+    description: Default route gateway for unicast interface.
+  unicast_peers:
+    type: list
+    raw_type: list
+    elements: dict
+    description: Number of unicast peers.

@@ -1,0 +1,713 @@
+id: system.email-server
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  authenticate:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable authentication.
+      source_attribute: authenticate
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable authentication.
+        source_attribute: authenticate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: authenticate
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable authentication.
+        default: disable
+        source_attribute: authenticate
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface:
+    canonical:
+      type: string
+      references: &id004
+      - system.interface.name
+      version_ranges: &id003
+      - - v7.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Specify outgoing interface to reach server.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Specify outgoing interface to reach server. Source system.interface.name.
+        references: *id004
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Specify outgoing interface to reach server.
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface_select_method:
+    canonical:
+      type: enum
+      version_ranges: &id006
+      - - v7.0.0
+        - ''
+      choices: &id005
+      - auto
+      - sdwan
+      - specify
+      default: auto
+      description: Specify how to select outgoing interface to reach server.
+      source_attribute: interface-select-method
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Specify how to select outgoing interface to reach server.
+        source_attribute: interface_select_method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface_select_method
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Specify how to select outgoing interface to reach server.
+        default: auto
+        source_attribute: interface-select-method
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  password:
+    canonical:
+      type: password
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: SMTP server user password for authentication.
+      source_attribute: password
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: SMTP server user password for authentication.
+        source_attribute: password
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: password
+      cli_reference:
+        type: password
+        raw_type: password
+        description: SMTP server user password for authentication.
+        source_attribute: password
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id008
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id008
+  port:
+    canonical:
+      type: integer
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      default: '25'
+      min: 1
+      max: 65535
+      description: SMTP server port. This option is 25 when unset, but 465 after a factory reset.
+      source_attribute: port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id009
+        description: SMTP server port.
+        source_attribute: port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: SMTP server port. This option is 25 when unset, but 465 after a factory reset.
+        default: '25'
+        min: 1
+        max: 65535
+        source_attribute: port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  reply_to:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 63
+      source_attribute: reply_to
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 63
+        source_attribute: reply_to
+    sources:
+    - terraform
+  security:
+    canonical:
+      type: enum
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      choices: &id010
+      - none
+      - starttls
+      - smtps
+      default: none
+      description: Connection security used by the email server. This option is none when unset, but smtps after a factory
+        reset.
+      source_attribute: security
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id011
+        description: Connection security used by the email server.
+        source_attribute: security
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: security
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Connection security used by the email server. This option is none when unset, but smtps after a factory
+          reset.
+        default: none
+        source_attribute: security
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  server:
+    canonical:
+      type: string
+      version_ranges: &id012
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: SMTP server IP address or hostname. This option is blank when unset, but fortinet-notifications.com after
+        a factory reset.
+      source_attribute: server
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id012
+        description: SMTP server IP address or hostname.
+        source_attribute: server
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: server
+      cli_reference:
+        type: string
+        raw_type: string
+        description: SMTP server IP address or hostname. This option is blank when unset, but fortinet-notifications.com after
+          a factory reset.
+        max_length: 63
+        source_attribute: server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source_ip:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id013
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: SMTP server IPv4 source IP.
+      source_attribute: source-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id013
+        description: SMTP server IPv4 source IP.
+        source_attribute: source_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_ip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: SMTP server IPv4 source IP.
+        default: 0.0.0.0
+        source_attribute: source-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id014
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id014
+  source_ip6:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id015
+      - - v6.0.0
+        - ''
+      default: '::'
+      description: SMTP server IPv6 source IP.
+      source_attribute: source-ip6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id015
+        description: SMTP server IPv6 source IP.
+        source_attribute: source_ip6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_ip6
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: SMTP server IPv6 source IP.
+        default: '::'
+        source_attribute: source-ip6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id016
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id016
+  ssl_min_proto_version:
+    canonical:
+      type: enum
+      version_ranges: &id018
+      - - v6.0.0
+        - ''
+      choices: &id017
+      - default
+      - SSLv3
+      - TLSv1
+      - TLSv1-1
+      - TLSv1-2
+      - TLSv1-3
+      default: default
+      description: Minimum supported protocol version for SSL/TLS connections (default is to follow system global setting).
+      source_attribute: ssl-min-proto-version
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id017
+        version_ranges: *id018
+        description: Minimum supported protocol version for SSL/TLS connections .
+        source_attribute: ssl_min_proto_version
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssl_min_proto_version
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Minimum supported protocol version for SSL/TLS connections (default is to follow system global setting).
+        default: default
+        source_attribute: ssl-min-proto-version
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  type:
+    canonical:
+      type: enum
+      version_ranges: &id020
+      - - v6.0.0
+        - ''
+      choices: &id019
+      - custom
+      default: custom
+      description: Use FortiGuard Message service or custom email server.
+      source_attribute: type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id019
+        version_ranges: *id020
+        description: Use FortiGuard Message service or custom email server.
+        source_attribute: type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Use FortiGuard Message service or custom email server.
+        default: custom
+        source_attribute: type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  username:
+    canonical:
+      type: string
+      version_ranges: &id021
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: SMTP server user name for authentication.
+      source_attribute: username
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id021
+        description: SMTP server user name for authentication.
+        source_attribute: username
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: username
+      cli_reference:
+        type: string
+        raw_type: string
+        description: SMTP server user name for authentication.
+        max_length: 255
+        source_attribute: username
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  validate_server:
+    canonical:
+      type: enum
+      version_ranges: &id023
+      - - v6.0.0
+        - ''
+      choices: &id022
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable validation of server certificate.
+      source_attribute: validate-server
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id022
+        version_ranges: *id023
+        description: Enable/disable validation of server certificate.
+        source_attribute: validate_server
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: validate_server
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable validation of server certificate.
+        default: disable
+        source_attribute: validate-server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  vrf_select:
+    canonical:
+      type: integer
+      version_ranges: &id024
+      - - v7.6.1
+        - ''
+      default: '0'
+      min: 0
+      max: 511
+      description: VRF ID used for connection to server.
+      source_attribute: vrf-select
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id024
+        description: VRF ID used for connection to server.
+        source_attribute: vrf_select
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 511
+        source_attribute: vrf_select
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: VRF ID used for connection to server.
+        default: '0'
+        min: 0
+        max: 511
+        source_attribute: vrf-select
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: password
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict
+- attribute: source_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: source_ip6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict

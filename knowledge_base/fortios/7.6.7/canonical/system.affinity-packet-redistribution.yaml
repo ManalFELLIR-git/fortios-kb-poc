@@ -1,0 +1,316 @@
+id: system.affinity-packet-redistribution
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  affinity_cpumask:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id001
+      - - v7.0.0
+        - v7.0.12
+      - - v7.2.1
+        - v7.2.2
+      - - v7.4.0
+        - v7.6.1
+      - - v7.6.5
+        - ''
+      min_length: 0
+      max_length: 127
+      description: Hexadecimal cpumask, empty value means all CPUs.
+      source_attribute: affinity-cpumask
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Hexadecimal cpumask, empty value means all CPUs.
+        source_attribute: affinity_cpumask
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 127
+        source_attribute: affinity_cpumask
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Hexadecimal cpumask, empty value means all CPUs.
+        max_length: 127
+        source_attribute: affinity-cpumask
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fosid:
+    canonical:
+      type: integer
+      required: true
+      source_attribute: fosid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      required: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        required: true
+        force_new: true
+        source_attribute: fosid
+    sources:
+    - terraform
+  id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id002
+      - - v7.0.0
+        - v7.0.12
+      - - v7.2.1
+        - v7.2.2
+      - - v7.4.0
+        - v7.6.1
+      - - v7.6.5
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: ID of the packet redistribution setting.
+      source_attribute: id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id002
+        description: ID of the packet redistribution setting. see <a href='#notes'>Notes</a>.
+        source_attribute: id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: ID of the packet redistribution setting.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: id
+    sources:
+    - ansible
+    - cli_reference
+  interface:
+    canonical:
+      type: string
+      references: &id004
+      - system.interface.name
+      required: true
+      version_ranges: &id003
+      - - v7.0.0
+        - v7.0.12
+      - - v7.2.1
+        - v7.2.2
+      - - v7.4.0
+        - v7.6.1
+      - - v7.6.5
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Physical interface name on which to perform packet redistribution.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Physical interface name on which to perform packet redistribution. Source system.interface.name.
+        references: *id004
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 127
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Physical interface name on which to perform packet redistribution.
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  round_robin:
+    canonical:
+      type: enum
+      version_ranges: &id006
+      - - v7.4.0
+        - v7.6.1
+      - - v7.6.5
+        - ''
+      choices: &id005
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable round-robin redistribution to multiple CPUs.
+      source_attribute: round-robin
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Enable/disable round-robin redistribution to multiple CPUs.
+        source_attribute: round_robin
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: round_robin
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable round-robin redistribution to multiple CPUs.
+        default: enable
+        source_attribute: round-robin
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rxqid:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id007
+      - - v7.0.0
+        - v7.0.12
+      - - v7.2.1
+        - v7.2.2
+      - - v7.4.0
+        - v7.6.1
+      - - v7.6.5
+        - ''
+      default: '255'
+      min: 0
+      max: 255
+      description: ID of the receive queue (when the interface has multiple queues) on which to perform packet redistribution
+        (255 = all queues).
+      source_attribute: rxqid
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id007
+        description: ID of the receive queue (when the interface has multiple queues) on which to perform packet redistribution
+          (255 = all queues).
+        source_attribute: rxqid
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        required: true
+        min: 0
+        max: 255
+        source_attribute: rxqid
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: ID of the receive queue (when the interface has multiple queues) on which to perform packet redistribution
+          (255 = all queues).
+        default: '255'
+        min: 0
+        max: 255
+        source_attribute: rxqid
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

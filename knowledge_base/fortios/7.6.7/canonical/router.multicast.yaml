@@ -1,0 +1,3854 @@
+id: router.multicast
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  interface:
+    canonical:
+      type: list
+      elements: dict
+      children: &id002
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id034
+          - - v6.0.0
+            - ''
+          description: Interface name. Source system.interface.name.
+          references: &id033
+          - system.interface.name
+        ttl_threshold:
+          type: integer
+          raw_type: integer
+          version_ranges: &id055
+          - - v6.0.0
+            - ''
+          description: Minimum TTL of multicast packets that will be forwarded (applied only to new multicast routes) (1 -
+            255).
+        pim_mode:
+          type: enum
+          raw_type: string
+          choices: &id040
+          - sparse-mode
+          - dense-mode
+          version_ranges: &id039
+          - - v6.0.0
+            - ''
+          description: PIM operation mode.
+        passive:
+          type: enum
+          raw_type: string
+          choices: &id038
+          - enable
+          - disable
+          version_ranges: &id037
+          - - v6.0.0
+            - ''
+          description: Enable/disable listening to IGMP but not participating in PIM.
+        bfd:
+          type: enum
+          raw_type: string
+          choices: &id004
+          - enable
+          - disable
+          version_ranges: &id003
+          - - v6.0.0
+            - ''
+          description: Enable/disable Protocol Independent Multicast (PIM) Bidirectional Forwarding Detection (BFD).
+        neighbour_filter:
+          type: string
+          raw_type: string
+          version_ranges: &id036
+          - - v6.0.0
+            - ''
+          description: Routers acknowledged as neighbor routers. Source router.access-list.name.
+          references: &id035
+          - router.access-list.name
+        hello_interval:
+          type: integer
+          raw_type: integer
+          version_ranges: &id009
+          - - v6.0.0
+            - ''
+          description: Interval between sending PIM hello messages (0 - 65535 sec).
+        hello_holdtime:
+          type: integer
+          raw_type: integer
+          version_ranges: &id008
+          - - v6.0.0
+            - ''
+          description: Time before old neighbor information expires (0 - 65535 sec).
+        cisco_exclude_genid:
+          type: enum
+          raw_type: string
+          choices: &id006
+          - enable
+          - disable
+          version_ranges: &id005
+          - - v6.0.0
+            - ''
+          description: Exclude GenID from hello packets (compatibility with old Cisco IOS).
+        dr_priority:
+          type: integer
+          raw_type: integer
+          version_ranges: &id007
+          - - v6.0.0
+            - ''
+          description: DR election priority.
+        propagation_delay:
+          type: integer
+          raw_type: integer
+          version_ranges: &id041
+          - - v6.0.0
+            - ''
+          description: Delay flooding packets on this interface (100 - 5000 msec).
+        state_refresh_interval:
+          type: integer
+          raw_type: integer
+          version_ranges: &id052
+          - - v6.0.0
+            - ''
+          description: Interval between sending state-refresh packets (1 - 100 sec).
+        rp_candidate:
+          type: enum
+          raw_type: string
+          choices: &id043
+          - enable
+          - disable
+          version_ranges: &id042
+          - - v6.0.0
+            - ''
+          description: Enable/disable compete to become RP in elections.
+        rp_candidate_group:
+          type: string
+          raw_type: string
+          version_ranges: &id045
+          - - v6.0.0
+            - ''
+          description: Multicast groups managed by this RP. Source router.access-list.name.
+          references: &id044
+          - router.access-list.name
+        rp_candidate_priority:
+          type: integer
+          raw_type: integer
+          version_ranges: &id047
+          - - v6.0.0
+            - ''
+          description: Router"s priority as RP.
+        rp_candidate_interval:
+          type: integer
+          raw_type: integer
+          version_ranges: &id046
+          - - v6.0.0
+            - ''
+          description: RP candidate advertisement interval (1 - 16383 sec).
+        multicast_flow:
+          type: string
+          raw_type: string
+          version_ranges: &id032
+          - - v6.0.0
+            - ''
+          description: Acceptable source for multicast group. Source router.multicast-flow.name.
+          references: &id031
+          - router.multicast-flow.name
+        static_group:
+          type: string
+          raw_type: string
+          version_ranges: &id054
+          - - v6.0.0
+            - ''
+          description: Statically set multicast groups to forward out. Source router.multicast-flow.name.
+          references: &id053
+          - router.multicast-flow.name
+        rpf_nbr_fail_back:
+          type: enum
+          raw_type: string
+          choices: &id049
+          - enable
+          - disable
+          version_ranges: &id048
+          - - v6.2.0
+            - ''
+          description: Enable/disable fail back for RPF neighbor query.
+        rpf_nbr_fail_back_filter:
+          type: string
+          raw_type: string
+          version_ranges: &id051
+          - - v6.2.0
+            - ''
+          description: Filter for fail back RPF neighbors. Source router.access-list.name.
+          references: &id050
+          - router.access-list.name
+        join_group:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id028
+          - - v6.0.0
+            - ''
+          description: Join multicast groups.
+          children: &id027
+            address:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id030
+              - - v6.0.0
+                - ''
+              description: Multicast group IP address.
+        igmp:
+          type: object
+          raw_type: dict
+          version_ranges: &id011
+          - - v6.0.0
+            - ''
+          description: IGMP configuration options.
+          children: &id010
+            access_group:
+              type: string
+              raw_type: string
+              version_ranges: &id015
+              - - v6.0.0
+                - ''
+              description: Groups IGMP hosts are allowed to join. Source router.access-list.name.
+              references: &id014
+              - router.access-list.name
+            version:
+              type: enum
+              raw_type: string
+              choices: &id026
+              - '3'
+              - '2'
+              - '1'
+              version_ranges: &id025
+              - - v6.0.0
+                - ''
+              description: Maximum version of IGMP to support.
+            immediate_leave_group:
+              type: string
+              raw_type: string
+              version_ranges: &id017
+              - - v6.0.0
+                - ''
+              description: Groups to drop membership for immediately after receiving IGMPv2 leave. Source router.access-list.name.
+              references: &id016
+              - router.access-list.name
+            last_member_query_interval:
+              type: integer
+              raw_type: integer
+              version_ranges: &id019
+              - - v6.0.0
+                - ''
+              description: Timeout between IGMPv2 leave and removing group (1 - 65535 msec).
+            last_member_query_count:
+              type: integer
+              raw_type: integer
+              version_ranges: &id018
+              - - v6.0.0
+                - ''
+              description: Number of group specific queries before removing group (2 - 7).
+            query_max_response_time:
+              type: integer
+              raw_type: integer
+              version_ranges: &id021
+              - - v6.0.0
+                - ''
+              description: Maximum time to wait for a IGMP query response (1 - 25 sec).
+            query_interval:
+              type: integer
+              raw_type: integer
+              version_ranges: &id020
+              - - v6.0.0
+                - ''
+              description: Interval between queries to IGMP hosts (1 - 65535 sec).
+            query_timeout:
+              type: integer
+              raw_type: integer
+              version_ranges: &id022
+              - - v6.0.0
+                - ''
+              description: Timeout between queries before becoming querying unit for network (60 - 900).
+            router_alert_check:
+              type: enum
+              raw_type: string
+              choices: &id024
+              - enable
+              - disable
+              version_ranges: &id023
+              - - v6.0.0
+                - ''
+              description: Enable/disable require IGMP packets contain router alert option.
+        update_source:
+          type: string
+          raw_type: string
+          version_ranges: &id057
+          - - v7.6.7
+            - v7.6.7
+          description: Interface to use as source IP. Source system.interface.name.
+          references: &id056
+          - system.interface.name
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      description: PIM interfaces.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id001
+        description: PIM interfaces.
+        children: *id002
+        source_attribute: interface
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          ttl_threshold:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 255
+          pim_mode:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          passive:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          bfd:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          neighbour_filter:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          hello_interval:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 65535
+          hello_holdtime:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 65535
+          cisco_exclude_genid:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          dr_priority:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          propagation_delay:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 100
+            max: 5000
+          state_refresh_interval:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 100
+          rp_candidate:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          rp_candidate_group:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          rp_candidate_priority:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 255
+          rp_candidate_interval:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 16383
+          multicast_flow:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          static_group:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          rpf_nbr_fail_back:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          rpf_nbr_fail_back_filter:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          update_source:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          join_group:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id029
+              address:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+          igmp:
+            type: list
+            raw_type: TypeList
+            optional: true
+            computed: true
+            children: &id012
+              access_group:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 35
+              version:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              immediate_leave_group:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 35
+              last_member_query_interval:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+                min: 1
+                max: 65535
+              last_member_query_count:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+                min: 2
+                max: 7
+              query_max_response_time:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+                min: 1
+                max: 25
+              query_interval:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+                min: 1
+                max: 65535
+              query_timeout:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+                min: 60
+                max: 900
+              router_alert_check:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+        source_attribute: interface
+    sources:
+    - ansible
+    - terraform
+  interface.bfd:
+    canonical:
+      type: enum
+      version_ranges: *id003
+      choices: *id004
+      description: Enable/disable Protocol Independent Multicast (PIM) Bidirectional Forwarding Detection (BFD).
+      source_attribute: interface.bfd
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id004
+        version_ranges: *id003
+        description: Enable/disable Protocol Independent Multicast (PIM) Bidirectional Forwarding Detection (BFD).
+        source_attribute: interface.bfd
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface.bfd
+    sources:
+    - ansible
+    - terraform
+  interface.cisco_exclude_genid:
+    canonical:
+      type: enum
+      version_ranges: *id005
+      choices: *id006
+      description: Exclude GenID from hello packets (compatibility with old Cisco IOS).
+      source_attribute: interface.cisco_exclude_genid
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id006
+        version_ranges: *id005
+        description: Exclude GenID from hello packets (compatibility with old Cisco IOS).
+        source_attribute: interface.cisco_exclude_genid
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface.cisco_exclude_genid
+    sources:
+    - ansible
+    - terraform
+  interface.dr_priority:
+    canonical:
+      type: integer
+      version_ranges: *id007
+      description: DR election priority.
+      source_attribute: interface.dr_priority
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id007
+        description: DR election priority.
+        source_attribute: interface.dr_priority
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: interface.dr_priority
+    sources:
+    - ansible
+    - terraform
+  interface.hello_holdtime:
+    canonical:
+      type: integer
+      version_ranges: *id008
+      min: 1
+      max: 65535
+      description: Time before old neighbor information expires (0 - 65535 sec).
+      source_attribute: interface.hello_holdtime
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id008
+        description: Time before old neighbor information expires (0 - 65535 sec).
+        source_attribute: interface.hello_holdtime
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: interface.hello_holdtime
+    sources:
+    - ansible
+    - terraform
+  interface.hello_interval:
+    canonical:
+      type: integer
+      version_ranges: *id009
+      min: 1
+      max: 65535
+      description: Interval between sending PIM hello messages (0 - 65535 sec).
+      source_attribute: interface.hello_interval
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id009
+        description: Interval between sending PIM hello messages (0 - 65535 sec).
+        source_attribute: interface.hello_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: interface.hello_interval
+    sources:
+    - ansible
+    - terraform
+  interface.igmp:
+    canonical:
+      type: list
+      children: *id010
+      version_ranges: *id011
+      description: IGMP configuration options.
+      source_attribute: interface.igmp
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id011
+        description: IGMP configuration options.
+        children: *id010
+        source_attribute: interface.igmp
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children: *id012
+        source_attribute: interface.igmp
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id013
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id013
+  interface.igmp.access_group:
+    canonical:
+      type: string
+      references: *id014
+      version_ranges: *id015
+      min_length: 0
+      max_length: 35
+      description: Groups IGMP hosts are allowed to join. Source router.access-list.name.
+      source_attribute: interface.igmp.access_group
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id015
+        description: Groups IGMP hosts are allowed to join. Source router.access-list.name.
+        references: *id014
+        source_attribute: interface.igmp.access_group
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: interface.igmp.access_group
+    sources:
+    - ansible
+    - terraform
+  interface.igmp.immediate_leave_group:
+    canonical:
+      type: string
+      references: *id016
+      version_ranges: *id017
+      min_length: 0
+      max_length: 35
+      description: Groups to drop membership for immediately after receiving IGMPv2 leave. Source router.access-list.name.
+      source_attribute: interface.igmp.immediate_leave_group
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id017
+        description: Groups to drop membership for immediately after receiving IGMPv2 leave. Source router.access-list.name.
+        references: *id016
+        source_attribute: interface.igmp.immediate_leave_group
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: interface.igmp.immediate_leave_group
+    sources:
+    - ansible
+    - terraform
+  interface.igmp.last_member_query_count:
+    canonical:
+      type: integer
+      version_ranges: *id018
+      min: 2
+      max: 7
+      description: Number of group specific queries before removing group (2 - 7).
+      source_attribute: interface.igmp.last_member_query_count
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id018
+        description: Number of group specific queries before removing group (2 - 7).
+        source_attribute: interface.igmp.last_member_query_count
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 2
+        max: 7
+        source_attribute: interface.igmp.last_member_query_count
+    sources:
+    - ansible
+    - terraform
+  interface.igmp.last_member_query_interval:
+    canonical:
+      type: integer
+      version_ranges: *id019
+      min: 1
+      max: 65535
+      description: Timeout between IGMPv2 leave and removing group (1 - 65535 msec).
+      source_attribute: interface.igmp.last_member_query_interval
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id019
+        description: Timeout between IGMPv2 leave and removing group (1 - 65535 msec).
+        source_attribute: interface.igmp.last_member_query_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: interface.igmp.last_member_query_interval
+    sources:
+    - ansible
+    - terraform
+  interface.igmp.query_interval:
+    canonical:
+      type: integer
+      version_ranges: *id020
+      min: 1
+      max: 65535
+      description: Interval between queries to IGMP hosts (1 - 65535 sec).
+      source_attribute: interface.igmp.query_interval
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id020
+        description: Interval between queries to IGMP hosts (1 - 65535 sec).
+        source_attribute: interface.igmp.query_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: interface.igmp.query_interval
+    sources:
+    - ansible
+    - terraform
+  interface.igmp.query_max_response_time:
+    canonical:
+      type: integer
+      version_ranges: *id021
+      min: 1
+      max: 25
+      description: Maximum time to wait for a IGMP query response (1 - 25 sec).
+      source_attribute: interface.igmp.query_max_response_time
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id021
+        description: Maximum time to wait for a IGMP query response (1 - 25 sec).
+        source_attribute: interface.igmp.query_max_response_time
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 25
+        source_attribute: interface.igmp.query_max_response_time
+    sources:
+    - ansible
+    - terraform
+  interface.igmp.query_timeout:
+    canonical:
+      type: integer
+      version_ranges: *id022
+      min: 60
+      max: 900
+      description: Timeout between queries before becoming querying unit for network (60 - 900).
+      source_attribute: interface.igmp.query_timeout
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id022
+        description: Timeout between queries before becoming querying unit for network (60 - 900).
+        source_attribute: interface.igmp.query_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 60
+        max: 900
+        source_attribute: interface.igmp.query_timeout
+    sources:
+    - ansible
+    - terraform
+  interface.igmp.router_alert_check:
+    canonical:
+      type: enum
+      version_ranges: *id023
+      choices: *id024
+      description: Enable/disable require IGMP packets contain router alert option.
+      source_attribute: interface.igmp.router_alert_check
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id024
+        version_ranges: *id023
+        description: Enable/disable require IGMP packets contain router alert option.
+        source_attribute: interface.igmp.router_alert_check
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface.igmp.router_alert_check
+    sources:
+    - ansible
+    - terraform
+  interface.igmp.version:
+    canonical:
+      type: enum
+      version_ranges: *id025
+      choices: *id026
+      description: Maximum version of IGMP to support.
+      source_attribute: interface.igmp.version
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id026
+        version_ranges: *id025
+        description: Maximum version of IGMP to support.
+        source_attribute: interface.igmp.version
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface.igmp.version
+    sources:
+    - ansible
+    - terraform
+  interface.join_group:
+    canonical:
+      type: list
+      elements: dict
+      children: *id027
+      version_ranges: *id028
+      description: Join multicast groups.
+      source_attribute: interface.join_group
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id028
+        description: Join multicast groups.
+        children: *id027
+        source_attribute: interface.join_group
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id029
+        source_attribute: interface.join_group
+    sources:
+    - ansible
+    - terraform
+  interface.join_group.address:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id030
+      description: Multicast group IP address.
+      source_attribute: interface.join_group.address
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id030
+        description: Multicast group IP address.
+        source_attribute: interface.join_group.address
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface.join_group.address
+    sources:
+    - ansible
+    - terraform
+  interface.multicast_flow:
+    canonical:
+      type: string
+      references: *id031
+      version_ranges: *id032
+      min_length: 0
+      max_length: 35
+      description: Acceptable source for multicast group. Source router.multicast-flow.name.
+      source_attribute: interface.multicast_flow
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id032
+        description: Acceptable source for multicast group. Source router.multicast-flow.name.
+        references: *id031
+        source_attribute: interface.multicast_flow
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: interface.multicast_flow
+    sources:
+    - ansible
+    - terraform
+  interface.name:
+    canonical:
+      type: string
+      references: *id033
+      required: true
+      version_ranges: *id034
+      min_length: 0
+      max_length: 15
+      description: Interface name. Source system.interface.name.
+      source_attribute: interface.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id034
+        description: Interface name. Source system.interface.name.
+        references: *id033
+        source_attribute: interface.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface.name
+    sources:
+    - ansible
+    - terraform
+  interface.neighbour_filter:
+    canonical:
+      type: string
+      references: *id035
+      version_ranges: *id036
+      min_length: 0
+      max_length: 35
+      description: Routers acknowledged as neighbor routers. Source router.access-list.name.
+      source_attribute: interface.neighbour_filter
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id036
+        description: Routers acknowledged as neighbor routers. Source router.access-list.name.
+        references: *id035
+        source_attribute: interface.neighbour_filter
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: interface.neighbour_filter
+    sources:
+    - ansible
+    - terraform
+  interface.passive:
+    canonical:
+      type: enum
+      version_ranges: *id037
+      choices: *id038
+      description: Enable/disable listening to IGMP but not participating in PIM.
+      source_attribute: interface.passive
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id038
+        version_ranges: *id037
+        description: Enable/disable listening to IGMP but not participating in PIM.
+        source_attribute: interface.passive
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface.passive
+    sources:
+    - ansible
+    - terraform
+  interface.pim_mode:
+    canonical:
+      type: enum
+      version_ranges: *id039
+      choices: *id040
+      description: PIM operation mode.
+      source_attribute: interface.pim_mode
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id040
+        version_ranges: *id039
+        description: PIM operation mode.
+        source_attribute: interface.pim_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface.pim_mode
+    sources:
+    - ansible
+    - terraform
+  interface.propagation_delay:
+    canonical:
+      type: integer
+      version_ranges: *id041
+      min: 100
+      max: 5000
+      description: Delay flooding packets on this interface (100 - 5000 msec).
+      source_attribute: interface.propagation_delay
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id041
+        description: Delay flooding packets on this interface (100 - 5000 msec).
+        source_attribute: interface.propagation_delay
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 100
+        max: 5000
+        source_attribute: interface.propagation_delay
+    sources:
+    - ansible
+    - terraform
+  interface.rp_candidate:
+    canonical:
+      type: enum
+      version_ranges: *id042
+      choices: *id043
+      description: Enable/disable compete to become RP in elections.
+      source_attribute: interface.rp_candidate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id043
+        version_ranges: *id042
+        description: Enable/disable compete to become RP in elections.
+        source_attribute: interface.rp_candidate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface.rp_candidate
+    sources:
+    - ansible
+    - terraform
+  interface.rp_candidate_group:
+    canonical:
+      type: string
+      references: *id044
+      version_ranges: *id045
+      min_length: 0
+      max_length: 35
+      description: Multicast groups managed by this RP. Source router.access-list.name.
+      source_attribute: interface.rp_candidate_group
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id045
+        description: Multicast groups managed by this RP. Source router.access-list.name.
+        references: *id044
+        source_attribute: interface.rp_candidate_group
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: interface.rp_candidate_group
+    sources:
+    - ansible
+    - terraform
+  interface.rp_candidate_interval:
+    canonical:
+      type: integer
+      version_ranges: *id046
+      min: 1
+      max: 16383
+      description: RP candidate advertisement interval (1 - 16383 sec).
+      source_attribute: interface.rp_candidate_interval
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id046
+        description: RP candidate advertisement interval (1 - 16383 sec).
+        source_attribute: interface.rp_candidate_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 16383
+        source_attribute: interface.rp_candidate_interval
+    sources:
+    - ansible
+    - terraform
+  interface.rp_candidate_priority:
+    canonical:
+      type: integer
+      version_ranges: *id047
+      min: 0
+      max: 255
+      description: Router"s priority as RP.
+      source_attribute: interface.rp_candidate_priority
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id047
+        description: Router"s priority as RP.
+        source_attribute: interface.rp_candidate_priority
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 255
+        source_attribute: interface.rp_candidate_priority
+    sources:
+    - ansible
+    - terraform
+  interface.rpf_nbr_fail_back:
+    canonical:
+      type: enum
+      version_ranges: *id048
+      choices: *id049
+      description: Enable/disable fail back for RPF neighbor query.
+      source_attribute: interface.rpf_nbr_fail_back
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id049
+        version_ranges: *id048
+        description: Enable/disable fail back for RPF neighbor query.
+        source_attribute: interface.rpf_nbr_fail_back
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface.rpf_nbr_fail_back
+    sources:
+    - ansible
+    - terraform
+  interface.rpf_nbr_fail_back_filter:
+    canonical:
+      type: string
+      references: *id050
+      version_ranges: *id051
+      min_length: 0
+      max_length: 35
+      description: Filter for fail back RPF neighbors. Source router.access-list.name.
+      source_attribute: interface.rpf_nbr_fail_back_filter
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id051
+        description: Filter for fail back RPF neighbors. Source router.access-list.name.
+        references: *id050
+        source_attribute: interface.rpf_nbr_fail_back_filter
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: interface.rpf_nbr_fail_back_filter
+    sources:
+    - ansible
+    - terraform
+  interface.state_refresh_interval:
+    canonical:
+      type: integer
+      version_ranges: *id052
+      min: 1
+      max: 100
+      description: Interval between sending state-refresh packets (1 - 100 sec).
+      source_attribute: interface.state_refresh_interval
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id052
+        description: Interval between sending state-refresh packets (1 - 100 sec).
+        source_attribute: interface.state_refresh_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 100
+        source_attribute: interface.state_refresh_interval
+    sources:
+    - ansible
+    - terraform
+  interface.static_group:
+    canonical:
+      type: string
+      references: *id053
+      version_ranges: *id054
+      min_length: 0
+      max_length: 35
+      description: Statically set multicast groups to forward out. Source router.multicast-flow.name.
+      source_attribute: interface.static_group
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id054
+        description: Statically set multicast groups to forward out. Source router.multicast-flow.name.
+        references: *id053
+        source_attribute: interface.static_group
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: interface.static_group
+    sources:
+    - ansible
+    - terraform
+  interface.ttl_threshold:
+    canonical:
+      type: integer
+      version_ranges: *id055
+      min: 1
+      max: 255
+      description: Minimum TTL of multicast packets that will be forwarded (applied only to new multicast routes) (1 - 255).
+      source_attribute: interface.ttl_threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id055
+        description: Minimum TTL of multicast packets that will be forwarded (applied only to new multicast routes) (1 - 255).
+        source_attribute: interface.ttl_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 255
+        source_attribute: interface.ttl_threshold
+    sources:
+    - ansible
+    - terraform
+  interface.update_source:
+    canonical:
+      type: string
+      references: *id056
+      version_ranges: *id057
+      min_length: 0
+      max_length: 15
+      description: Interface to use as source IP. Source system.interface.name.
+      source_attribute: interface.update_source
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id057
+        description: Interface to use as source IP. Source system.interface.name.
+        references: *id056
+        source_attribute: interface.update_source
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface.update_source
+    sources:
+    - ansible
+    - terraform
+  multicast_routing:
+    canonical:
+      type: enum
+      version_ranges: &id059
+      - - v6.0.0
+        - ''
+      choices: &id058
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable IP multicast routing.
+      source_attribute: multicast-routing
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id058
+        version_ranges: *id059
+        description: Enable/disable IP multicast routing.
+        source_attribute: multicast_routing
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: multicast_routing
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable IP multicast routing.
+        default: disable
+        source_attribute: multicast-routing
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  pim_sm_global:
+    canonical:
+      type: list
+      children: &id061
+        message_interval:
+          type: integer
+          raw_type: integer
+          version_ranges: &id084
+          - - v6.0.0
+            - ''
+          description: Period of time between sending periodic PIM join/prune messages in seconds (1 - 65535).
+        join_prune_holdtime:
+          type: integer
+          raw_type: integer
+          version_ranges: &id083
+          - - v6.0.0
+            - ''
+          description: Join/prune holdtime (1 - 65535).
+        accept_register_list:
+          type: string
+          raw_type: string
+          version_ranges: &id064
+          - - v6.0.0
+            - ''
+          description: Sources allowed to register packets with this Rendezvous Point (RP). Source router.access-list.name.
+          references: &id063
+          - router.access-list.name
+        accept_source_list:
+          type: string
+          raw_type: string
+          version_ranges: &id066
+          - - v6.0.0
+            - ''
+          description: Sources allowed to send multicast traffic. Source router.access-list.name.
+          references: &id065
+          - router.access-list.name
+        bsr_candidate:
+          type: enum
+          raw_type: string
+          choices: &id070
+          - enable
+          - disable
+          version_ranges: &id069
+          - - v6.0.0
+            - ''
+          description: Enable/disable allowing this router to become a bootstrap router (BSR).
+        bsr_interface:
+          type: string
+          raw_type: string
+          version_ranges: &id073
+          - - v6.0.0
+            - ''
+          description: Interface to advertise as candidate BSR. Source system.interface.name.
+          references: &id072
+          - system.interface.name
+        bsr_priority:
+          type: integer
+          raw_type: integer
+          version_ranges: &id074
+          - - v6.0.0
+            - ''
+          description: BSR priority (0 - 255).
+        bsr_hash:
+          type: integer
+          raw_type: integer
+          version_ranges: &id071
+          - - v6.0.0
+            - ''
+          description: BSR hash length (0 - 32).
+        bsr_allow_quick_refresh:
+          type: enum
+          raw_type: string
+          choices: &id068
+          - enable
+          - disable
+          version_ranges: &id067
+          - - v6.0.0
+            - ''
+          description: Enable/disable accept BSR quick refresh packets from neighbors.
+        cisco_crp_prefix:
+          type: enum
+          raw_type: string
+          choices: &id076
+          - enable
+          - disable
+          version_ranges: &id075
+          - - v6.0.0
+            - ''
+          description: Enable/disable making candidate RP compatible with old Cisco IOS.
+        cisco_register_checksum:
+          type: enum
+          raw_type: string
+          choices: &id080
+          - enable
+          - disable
+          version_ranges: &id079
+          - - v6.0.0
+            - ''
+          description: Checksum entire register packet(for old Cisco IOS compatibility).
+        cisco_register_checksum_group:
+          type: string
+          raw_type: string
+          version_ranges: &id082
+          - - v6.0.0
+            - ''
+          description: Cisco register checksum only these groups. Source router.access-list.name.
+          references: &id081
+          - router.access-list.name
+        cisco_ignore_rp_set_priority:
+          type: enum
+          raw_type: string
+          choices: &id078
+          - enable
+          - disable
+          version_ranges: &id077
+          - - v6.0.0
+            - ''
+          description: Use only hash for RP selection (compatibility with old Cisco IOS).
+        register_rp_reachability:
+          type: enum
+          raw_type: string
+          choices: &id090
+          - enable
+          - disable
+          version_ranges: &id089
+          - - v6.0.0
+            - ''
+          description: Enable/disable check RP is reachable before registering packets.
+        register_source:
+          type: enum
+          raw_type: string
+          choices: &id092
+          - disable
+          - interface
+          - ip-address
+          version_ranges: &id091
+          - - v6.0.0
+            - ''
+          description: Override source address in register packets.
+        register_source_interface:
+          type: string
+          raw_type: string
+          version_ranges: &id094
+          - - v6.0.0
+            - ''
+          description: Override with primary interface address. Source system.interface.name.
+          references: &id093
+          - system.interface.name
+        register_source_ip:
+          type: string
+          raw_type: string
+          version_ranges: &id095
+          - - v6.0.0
+            - ''
+          description: Override with local IP address.
+        register_supression:
+          type: integer
+          raw_type: integer
+          version_ranges: &id096
+          - - v6.0.0
+            - ''
+          description: Period of time to honor register-stop message (1 - 65535 sec).
+        null_register_retries:
+          type: integer
+          raw_type: integer
+          version_ranges: &id085
+          - - v6.0.0
+            - ''
+          description: Maximum retries of null register (1 - 20).
+        rp_register_keepalive:
+          type: integer
+          raw_type: integer
+          version_ranges: &id104
+          - - v6.0.0
+            - ''
+          description: Timeout for RP receiving data on (S,G) tree (1 - 65535 sec).
+        spt_threshold:
+          type: enum
+          raw_type: string
+          choices: &id106
+          - enable
+          - disable
+          version_ranges: &id105
+          - - v6.0.0
+            - ''
+          description: Enable/disable switching to source specific trees.
+        spt_threshold_group:
+          type: string
+          raw_type: string
+          version_ranges: &id108
+          - - v6.0.0
+            - ''
+          description: Groups allowed to switch to source tree. Source router.access-list.name.
+          references: &id107
+          - router.access-list.name
+        ssm:
+          type: enum
+          raw_type: string
+          choices: &id110
+          - enable
+          - disable
+          version_ranges: &id109
+          - - v6.0.0
+            - ''
+          description: Enable/disable source specific multicast.
+        ssm_range:
+          type: string
+          raw_type: string
+          version_ranges: &id112
+          - - v6.0.0
+            - ''
+          description: Groups allowed to source specific multicast. Source router.access-list.name.
+          references: &id111
+          - router.access-list.name
+        register_rate_limit:
+          type: integer
+          raw_type: integer
+          version_ranges: &id088
+          - - v6.0.0
+            - ''
+          description: Limit of packets/sec per source registered through this RP (0 - 65535).
+        pim_use_sdwan:
+          type: enum
+          raw_type: string
+          choices: &id087
+          - enable
+          - disable
+          version_ranges: &id086
+          - - v7.4.0
+            - ''
+          description: Enable/disable use of SDWAN when checking RPF neighbor and sending of REG packet.
+        rp_address:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id098
+          - - v6.0.0
+            - ''
+          description: Statically configure RP addresses.
+          children: &id097
+            id:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id102
+              - - v6.0.0
+                - ''
+              description: ID. see <a href='#notes'>Notes</a>.
+            ip_address:
+              type: string
+              raw_type: string
+              version_ranges: &id103
+              - - v6.0.0
+                - ''
+              description: RP router address.
+            group:
+              type: string
+              raw_type: string
+              version_ranges: &id101
+              - - v6.0.0
+                - ''
+              description: Groups to use this RP. Source router.access-list.name.
+              references: &id100
+              - router.access-list.name
+      version_ranges: &id060
+      - - v6.0.0
+        - ''
+      description: PIM sparse-mode global settings.
+      source_attribute: pim_sm_global
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id060
+        description: PIM sparse-mode global settings.
+        children: *id061
+        source_attribute: pim_sm_global
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          message_interval:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 65535
+          join_prune_holdtime:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 65535
+          accept_register_list:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          accept_source_list:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          bsr_candidate:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          bsr_interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          bsr_priority:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 255
+          bsr_hash:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 32
+          bsr_allow_quick_refresh:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          cisco_register_checksum:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          cisco_register_checksum_group:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          cisco_crp_prefix:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          cisco_ignore_rp_set_priority:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          register_rp_reachability:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          register_source:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          register_source_interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          register_source_ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          register_supression:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 65535
+          null_register_retries:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 20
+          rp_register_keepalive:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 65535
+          spt_threshold:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          spt_threshold_group:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          ssm:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ssm_range:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          register_rate_limit:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 65535
+          pim_use_sdwan:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          rp_address:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id099
+              id:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+              ip_address:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              group:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 35
+        source_attribute: pim_sm_global
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id062
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id062
+  pim_sm_global.accept_register_list:
+    canonical:
+      type: string
+      references: *id063
+      version_ranges: *id064
+      min_length: 0
+      max_length: 35
+      description: Sources allowed to register packets with this Rendezvous Point (RP). Source router.access-list.name.
+      source_attribute: pim_sm_global.accept_register_list
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id064
+        description: Sources allowed to register packets with this Rendezvous Point (RP). Source router.access-list.name.
+        references: *id063
+        source_attribute: pim_sm_global.accept_register_list
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: pim_sm_global.accept_register_list
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.accept_source_list:
+    canonical:
+      type: string
+      references: *id065
+      version_ranges: *id066
+      min_length: 0
+      max_length: 35
+      description: Sources allowed to send multicast traffic. Source router.access-list.name.
+      source_attribute: pim_sm_global.accept_source_list
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id066
+        description: Sources allowed to send multicast traffic. Source router.access-list.name.
+        references: *id065
+        source_attribute: pim_sm_global.accept_source_list
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: pim_sm_global.accept_source_list
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.bsr_allow_quick_refresh:
+    canonical:
+      type: enum
+      version_ranges: *id067
+      choices: *id068
+      description: Enable/disable accept BSR quick refresh packets from neighbors.
+      source_attribute: pim_sm_global.bsr_allow_quick_refresh
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id068
+        version_ranges: *id067
+        description: Enable/disable accept BSR quick refresh packets from neighbors.
+        source_attribute: pim_sm_global.bsr_allow_quick_refresh
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global.bsr_allow_quick_refresh
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.bsr_candidate:
+    canonical:
+      type: enum
+      version_ranges: *id069
+      choices: *id070
+      description: Enable/disable allowing this router to become a bootstrap router (BSR).
+      source_attribute: pim_sm_global.bsr_candidate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id070
+        version_ranges: *id069
+        description: Enable/disable allowing this router to become a bootstrap router (BSR).
+        source_attribute: pim_sm_global.bsr_candidate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global.bsr_candidate
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.bsr_hash:
+    canonical:
+      type: integer
+      version_ranges: *id071
+      min: 0
+      max: 32
+      description: BSR hash length (0 - 32).
+      source_attribute: pim_sm_global.bsr_hash
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id071
+        description: BSR hash length (0 - 32).
+        source_attribute: pim_sm_global.bsr_hash
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 32
+        source_attribute: pim_sm_global.bsr_hash
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.bsr_interface:
+    canonical:
+      type: string
+      references: *id072
+      version_ranges: *id073
+      min_length: 0
+      max_length: 15
+      description: Interface to advertise as candidate BSR. Source system.interface.name.
+      source_attribute: pim_sm_global.bsr_interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id073
+        description: Interface to advertise as candidate BSR. Source system.interface.name.
+        references: *id072
+        source_attribute: pim_sm_global.bsr_interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: pim_sm_global.bsr_interface
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.bsr_priority:
+    canonical:
+      type: integer
+      version_ranges: *id074
+      min: 0
+      max: 255
+      description: BSR priority (0 - 255).
+      source_attribute: pim_sm_global.bsr_priority
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id074
+        description: BSR priority (0 - 255).
+        source_attribute: pim_sm_global.bsr_priority
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: pim_sm_global.bsr_priority
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.cisco_crp_prefix:
+    canonical:
+      type: enum
+      version_ranges: *id075
+      choices: *id076
+      description: Enable/disable making candidate RP compatible with old Cisco IOS.
+      source_attribute: pim_sm_global.cisco_crp_prefix
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id076
+        version_ranges: *id075
+        description: Enable/disable making candidate RP compatible with old Cisco IOS.
+        source_attribute: pim_sm_global.cisco_crp_prefix
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global.cisco_crp_prefix
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.cisco_ignore_rp_set_priority:
+    canonical:
+      type: enum
+      version_ranges: *id077
+      choices: *id078
+      description: Use only hash for RP selection (compatibility with old Cisco IOS).
+      source_attribute: pim_sm_global.cisco_ignore_rp_set_priority
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id078
+        version_ranges: *id077
+        description: Use only hash for RP selection (compatibility with old Cisco IOS).
+        source_attribute: pim_sm_global.cisco_ignore_rp_set_priority
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global.cisco_ignore_rp_set_priority
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.cisco_register_checksum:
+    canonical:
+      type: enum
+      version_ranges: *id079
+      choices: *id080
+      description: Checksum entire register packet(for old Cisco IOS compatibility).
+      source_attribute: pim_sm_global.cisco_register_checksum
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id080
+        version_ranges: *id079
+        description: Checksum entire register packet(for old Cisco IOS compatibility).
+        source_attribute: pim_sm_global.cisco_register_checksum
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global.cisco_register_checksum
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.cisco_register_checksum_group:
+    canonical:
+      type: string
+      references: *id081
+      version_ranges: *id082
+      min_length: 0
+      max_length: 35
+      description: Cisco register checksum only these groups. Source router.access-list.name.
+      source_attribute: pim_sm_global.cisco_register_checksum_group
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id082
+        description: Cisco register checksum only these groups. Source router.access-list.name.
+        references: *id081
+        source_attribute: pim_sm_global.cisco_register_checksum_group
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: pim_sm_global.cisco_register_checksum_group
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.join_prune_holdtime:
+    canonical:
+      type: integer
+      version_ranges: *id083
+      min: 1
+      max: 65535
+      description: Join/prune holdtime (1 - 65535).
+      source_attribute: pim_sm_global.join_prune_holdtime
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id083
+        description: Join/prune holdtime (1 - 65535).
+        source_attribute: pim_sm_global.join_prune_holdtime
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: pim_sm_global.join_prune_holdtime
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.message_interval:
+    canonical:
+      type: integer
+      version_ranges: *id084
+      min: 1
+      max: 65535
+      description: Period of time between sending periodic PIM join/prune messages in seconds (1 - 65535).
+      source_attribute: pim_sm_global.message_interval
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id084
+        description: Period of time between sending periodic PIM join/prune messages in seconds (1 - 65535).
+        source_attribute: pim_sm_global.message_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: pim_sm_global.message_interval
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.null_register_retries:
+    canonical:
+      type: integer
+      version_ranges: *id085
+      min: 1
+      max: 20
+      description: Maximum retries of null register (1 - 20).
+      source_attribute: pim_sm_global.null_register_retries
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id085
+        description: Maximum retries of null register (1 - 20).
+        source_attribute: pim_sm_global.null_register_retries
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 20
+        source_attribute: pim_sm_global.null_register_retries
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.pim_use_sdwan:
+    canonical:
+      type: enum
+      version_ranges: *id086
+      choices: *id087
+      description: Enable/disable use of SDWAN when checking RPF neighbor and sending of REG packet.
+      source_attribute: pim_sm_global.pim_use_sdwan
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id087
+        version_ranges: *id086
+        description: Enable/disable use of SDWAN when checking RPF neighbor and sending of REG packet.
+        source_attribute: pim_sm_global.pim_use_sdwan
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global.pim_use_sdwan
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.register_rate_limit:
+    canonical:
+      type: integer
+      version_ranges: *id088
+      min: 0
+      max: 65535
+      description: Limit of packets/sec per source registered through this RP (0 - 65535).
+      source_attribute: pim_sm_global.register_rate_limit
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id088
+        description: Limit of packets/sec per source registered through this RP (0 - 65535).
+        source_attribute: pim_sm_global.register_rate_limit
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: pim_sm_global.register_rate_limit
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.register_rp_reachability:
+    canonical:
+      type: enum
+      version_ranges: *id089
+      choices: *id090
+      description: Enable/disable check RP is reachable before registering packets.
+      source_attribute: pim_sm_global.register_rp_reachability
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id090
+        version_ranges: *id089
+        description: Enable/disable check RP is reachable before registering packets.
+        source_attribute: pim_sm_global.register_rp_reachability
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global.register_rp_reachability
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.register_source:
+    canonical:
+      type: enum
+      version_ranges: *id091
+      choices: *id092
+      description: Override source address in register packets.
+      source_attribute: pim_sm_global.register_source
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id092
+        version_ranges: *id091
+        description: Override source address in register packets.
+        source_attribute: pim_sm_global.register_source
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global.register_source
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.register_source_interface:
+    canonical:
+      type: string
+      references: *id093
+      version_ranges: *id094
+      min_length: 0
+      max_length: 15
+      description: Override with primary interface address. Source system.interface.name.
+      source_attribute: pim_sm_global.register_source_interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id094
+        description: Override with primary interface address. Source system.interface.name.
+        references: *id093
+        source_attribute: pim_sm_global.register_source_interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: pim_sm_global.register_source_interface
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.register_source_ip:
+    canonical:
+      type: string
+      version_ranges: *id095
+      description: Override with local IP address.
+      source_attribute: pim_sm_global.register_source_ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id095
+        description: Override with local IP address.
+        source_attribute: pim_sm_global.register_source_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global.register_source_ip
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.register_supression:
+    canonical:
+      type: integer
+      version_ranges: *id096
+      min: 1
+      max: 65535
+      description: Period of time to honor register-stop message (1 - 65535 sec).
+      source_attribute: pim_sm_global.register_supression
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id096
+        description: Period of time to honor register-stop message (1 - 65535 sec).
+        source_attribute: pim_sm_global.register_supression
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: pim_sm_global.register_supression
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.rp_address:
+    canonical:
+      type: list
+      elements: dict
+      children: *id097
+      version_ranges: *id098
+      description: Statically configure RP addresses.
+      source_attribute: pim_sm_global.rp_address
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id098
+        description: Statically configure RP addresses.
+        children: *id097
+        source_attribute: pim_sm_global.rp_address
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id099
+        source_attribute: pim_sm_global.rp_address
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.rp_address.group:
+    canonical:
+      type: string
+      references: *id100
+      version_ranges: *id101
+      min_length: 0
+      max_length: 35
+      description: Groups to use this RP. Source router.access-list.name.
+      source_attribute: pim_sm_global.rp_address.group
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id101
+        description: Groups to use this RP. Source router.access-list.name.
+        references: *id100
+        source_attribute: pim_sm_global.rp_address.group
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: pim_sm_global.rp_address.group
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.rp_address.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id102
+      description: ID. see <a href='#notes'>Notes</a>.
+      source_attribute: pim_sm_global.rp_address.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id102
+        description: ID. see <a href='#notes'>Notes</a>.
+        source_attribute: pim_sm_global.rp_address.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global.rp_address.id
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.rp_address.ip_address:
+    canonical:
+      type: string
+      version_ranges: *id103
+      description: RP router address.
+      source_attribute: pim_sm_global.rp_address.ip_address
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id103
+        description: RP router address.
+        source_attribute: pim_sm_global.rp_address.ip_address
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global.rp_address.ip_address
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.rp_register_keepalive:
+    canonical:
+      type: integer
+      version_ranges: *id104
+      min: 1
+      max: 65535
+      description: Timeout for RP receiving data on (S,G) tree (1 - 65535 sec).
+      source_attribute: pim_sm_global.rp_register_keepalive
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id104
+        description: Timeout for RP receiving data on (S,G) tree (1 - 65535 sec).
+        source_attribute: pim_sm_global.rp_register_keepalive
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: pim_sm_global.rp_register_keepalive
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.spt_threshold:
+    canonical:
+      type: enum
+      version_ranges: *id105
+      choices: *id106
+      description: Enable/disable switching to source specific trees.
+      source_attribute: pim_sm_global.spt_threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id106
+        version_ranges: *id105
+        description: Enable/disable switching to source specific trees.
+        source_attribute: pim_sm_global.spt_threshold
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global.spt_threshold
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.spt_threshold_group:
+    canonical:
+      type: string
+      references: *id107
+      version_ranges: *id108
+      min_length: 0
+      max_length: 35
+      description: Groups allowed to switch to source tree. Source router.access-list.name.
+      source_attribute: pim_sm_global.spt_threshold_group
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id108
+        description: Groups allowed to switch to source tree. Source router.access-list.name.
+        references: *id107
+        source_attribute: pim_sm_global.spt_threshold_group
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: pim_sm_global.spt_threshold_group
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.ssm:
+    canonical:
+      type: enum
+      version_ranges: *id109
+      choices: *id110
+      description: Enable/disable source specific multicast.
+      source_attribute: pim_sm_global.ssm
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id110
+        version_ranges: *id109
+        description: Enable/disable source specific multicast.
+        source_attribute: pim_sm_global.ssm
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global.ssm
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.ssm_range:
+    canonical:
+      type: string
+      references: *id111
+      version_ranges: *id112
+      min_length: 0
+      max_length: 35
+      description: Groups allowed to source specific multicast. Source router.access-list.name.
+      source_attribute: pim_sm_global.ssm_range
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id112
+        description: Groups allowed to source specific multicast. Source router.access-list.name.
+        references: *id111
+        source_attribute: pim_sm_global.ssm_range
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: pim_sm_global.ssm_range
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global_vrf:
+    canonical:
+      type: list
+      elements: dict
+      children: &id114
+        vrf:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id132
+          - - v7.6.1
+            - ''
+          description: VRF ID. see <a href='#notes'>Notes</a>.
+        bsr_candidate:
+          type: enum
+          raw_type: string
+          choices: &id118
+          - enable
+          - disable
+          version_ranges: &id117
+          - - v7.6.1
+            - ''
+          description: Enable/disable allowing this router to become a bootstrap router (BSR).
+        bsr_interface:
+          type: string
+          raw_type: string
+          version_ranges: &id121
+          - - v7.6.1
+            - ''
+          description: Interface to advertise as candidate BSR. Source system.interface.name.
+          references: &id120
+          - system.interface.name
+        bsr_priority:
+          type: integer
+          raw_type: integer
+          version_ranges: &id122
+          - - v7.6.1
+            - ''
+          description: BSR priority (0 - 255).
+        bsr_hash:
+          type: integer
+          raw_type: integer
+          version_ranges: &id119
+          - - v7.6.1
+            - ''
+          description: BSR hash length (0 - 32).
+        bsr_allow_quick_refresh:
+          type: enum
+          raw_type: string
+          choices: &id116
+          - enable
+          - disable
+          version_ranges: &id115
+          - - v7.6.1
+            - ''
+          description: Enable/disable accept BSR quick refresh packets from neighbors.
+        cisco_crp_prefix:
+          type: enum
+          raw_type: string
+          choices: &id124
+          - enable
+          - disable
+          version_ranges: &id123
+          - - v7.6.1
+            - ''
+          description: Enable/disable making candidate RP compatible with old Cisco IOS.
+        rp_address:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id126
+          - - v7.6.1
+            - ''
+          description: Statically configure RP addresses.
+          children: &id125
+            id:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id130
+              - - v7.6.1
+                - ''
+              description: ID. see <a href='#notes'>Notes</a>.
+            ip_address:
+              type: string
+              raw_type: string
+              version_ranges: &id131
+              - - v7.6.1
+                - ''
+              description: RP router address.
+            group:
+              type: string
+              raw_type: string
+              version_ranges: &id129
+              - - v7.6.1
+                - ''
+              description: Groups to use this RP. Source router.access-list.name.
+              references: &id128
+              - router.access-list.name
+      version_ranges: &id113
+      - - v7.6.1
+        - ''
+      description: per-VRF PIM sparse-mode global settings.
+      source_attribute: pim_sm_global_vrf
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id113
+        description: per-VRF PIM sparse-mode global settings.
+        children: *id114
+        source_attribute: pim_sm_global_vrf
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          vrf:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 511
+          bsr_candidate:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          bsr_interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          bsr_priority:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 255
+          bsr_hash:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 32
+          bsr_allow_quick_refresh:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          cisco_crp_prefix:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          rp_address:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id127
+              id:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+              ip_address:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              group:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 35
+        source_attribute: pim_sm_global_vrf
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global_vrf.bsr_allow_quick_refresh:
+    canonical:
+      type: enum
+      version_ranges: *id115
+      choices: *id116
+      description: Enable/disable accept BSR quick refresh packets from neighbors.
+      source_attribute: pim_sm_global_vrf.bsr_allow_quick_refresh
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id116
+        version_ranges: *id115
+        description: Enable/disable accept BSR quick refresh packets from neighbors.
+        source_attribute: pim_sm_global_vrf.bsr_allow_quick_refresh
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global_vrf.bsr_allow_quick_refresh
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global_vrf.bsr_candidate:
+    canonical:
+      type: enum
+      version_ranges: *id117
+      choices: *id118
+      description: Enable/disable allowing this router to become a bootstrap router (BSR).
+      source_attribute: pim_sm_global_vrf.bsr_candidate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id118
+        version_ranges: *id117
+        description: Enable/disable allowing this router to become a bootstrap router (BSR).
+        source_attribute: pim_sm_global_vrf.bsr_candidate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global_vrf.bsr_candidate
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global_vrf.bsr_hash:
+    canonical:
+      type: integer
+      version_ranges: *id119
+      min: 0
+      max: 32
+      description: BSR hash length (0 - 32).
+      source_attribute: pim_sm_global_vrf.bsr_hash
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id119
+        description: BSR hash length (0 - 32).
+        source_attribute: pim_sm_global_vrf.bsr_hash
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 32
+        source_attribute: pim_sm_global_vrf.bsr_hash
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global_vrf.bsr_interface:
+    canonical:
+      type: string
+      references: *id120
+      version_ranges: *id121
+      min_length: 0
+      max_length: 15
+      description: Interface to advertise as candidate BSR. Source system.interface.name.
+      source_attribute: pim_sm_global_vrf.bsr_interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id121
+        description: Interface to advertise as candidate BSR. Source system.interface.name.
+        references: *id120
+        source_attribute: pim_sm_global_vrf.bsr_interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: pim_sm_global_vrf.bsr_interface
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global_vrf.bsr_priority:
+    canonical:
+      type: integer
+      version_ranges: *id122
+      min: 0
+      max: 255
+      description: BSR priority (0 - 255).
+      source_attribute: pim_sm_global_vrf.bsr_priority
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id122
+        description: BSR priority (0 - 255).
+        source_attribute: pim_sm_global_vrf.bsr_priority
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: pim_sm_global_vrf.bsr_priority
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global_vrf.cisco_crp_prefix:
+    canonical:
+      type: enum
+      version_ranges: *id123
+      choices: *id124
+      description: Enable/disable making candidate RP compatible with old Cisco IOS.
+      source_attribute: pim_sm_global_vrf.cisco_crp_prefix
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id124
+        version_ranges: *id123
+        description: Enable/disable making candidate RP compatible with old Cisco IOS.
+        source_attribute: pim_sm_global_vrf.cisco_crp_prefix
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global_vrf.cisco_crp_prefix
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global_vrf.rp_address:
+    canonical:
+      type: list
+      elements: dict
+      children: *id125
+      version_ranges: *id126
+      description: Statically configure RP addresses.
+      source_attribute: pim_sm_global_vrf.rp_address
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id126
+        description: Statically configure RP addresses.
+        children: *id125
+        source_attribute: pim_sm_global_vrf.rp_address
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id127
+        source_attribute: pim_sm_global_vrf.rp_address
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global_vrf.rp_address.group:
+    canonical:
+      type: string
+      references: *id128
+      version_ranges: *id129
+      min_length: 0
+      max_length: 35
+      description: Groups to use this RP. Source router.access-list.name.
+      source_attribute: pim_sm_global_vrf.rp_address.group
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id129
+        description: Groups to use this RP. Source router.access-list.name.
+        references: *id128
+        source_attribute: pim_sm_global_vrf.rp_address.group
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: pim_sm_global_vrf.rp_address.group
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global_vrf.rp_address.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id130
+      description: ID. see <a href='#notes'>Notes</a>.
+      source_attribute: pim_sm_global_vrf.rp_address.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id130
+        description: ID. see <a href='#notes'>Notes</a>.
+        source_attribute: pim_sm_global_vrf.rp_address.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global_vrf.rp_address.id
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global_vrf.rp_address.ip_address:
+    canonical:
+      type: string
+      version_ranges: *id131
+      description: RP router address.
+      source_attribute: pim_sm_global_vrf.rp_address.ip_address
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id131
+        description: RP router address.
+        source_attribute: pim_sm_global_vrf.rp_address.ip_address
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global_vrf.rp_address.ip_address
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global_vrf.vrf:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id132
+      min: 1
+      max: 511
+      description: VRF ID. see <a href='#notes'>Notes</a>.
+      source_attribute: pim_sm_global_vrf.vrf
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id132
+        description: VRF ID. see <a href='#notes'>Notes</a>.
+        source_attribute: pim_sm_global_vrf.vrf
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 511
+        source_attribute: pim_sm_global_vrf.vrf
+    sources:
+    - ansible
+    - terraform
+  route_limit:
+    canonical:
+      type: integer
+      version_ranges: &id133
+      - - v6.0.0
+        - ''
+      default: '2147483647'
+      min: 1
+      max: 2147483647
+      description: Maximum number of multicast routes.
+      source_attribute: route-limit
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id133
+        description: Maximum number of multicast routes.
+        source_attribute: route_limit
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: route_limit
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum number of multicast routes.
+        default: '2147483647'
+        min: 1
+        max: 2147483647
+        source_attribute: route-limit
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  route_threshold:
+    canonical:
+      type: integer
+      version_ranges: &id134
+      - - v6.0.0
+        - ''
+      min: 1
+      max: 2147483647
+      description: Generate warnings when the number of multicast routes exceeds this number, must not be greater than route-limit.
+      source_attribute: route-threshold
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id134
+        description: Generate warnings when the number of multicast routes exceeds this number, must not be greater than route-limit.
+        source_attribute: route_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: route_threshold
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Generate warnings when the number of multicast routes exceeds this number, must not be greater than route-limit.
+        min: 1
+        max: 2147483647
+        source_attribute: route-threshold
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: interface.igmp
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: pim_sm_global
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict

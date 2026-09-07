@@ -1,0 +1,167 @@
+id: firewall.internet-service-append
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  addr_mode:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.2.1
+        - ''
+      choices: &id001
+      - ipv4
+      - ipv6
+      - both
+      default: ipv4
+      description: Address mode (IPv4 or IPv6).
+      source_attribute: addr-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Address mode (IPv4 or IPv6).
+        source_attribute: addr_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: addr_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Address mode (IPv4 or IPv6).
+        default: ipv4
+        source_attribute: addr-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  append_port:
+    canonical:
+      type: integer
+      version_ranges: &id003
+      - - v6.2.0
+        - v6.2.0
+      - - v6.2.5
+        - ''
+      default: '0'
+      min: 0
+      max: 65535
+      description: Appending TCP/UDP/SCTP destination port (1 to 65535).
+      source_attribute: append-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id003
+        description: Appending TCP/UDP/SCTP destination port (1 to 65535).
+        source_attribute: append_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: append_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Appending TCP/UDP/SCTP destination port (1 to 65535).
+        default: '0'
+        min: 0
+        max: 65535
+        source_attribute: append-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  match_port:
+    canonical:
+      type: integer
+      version_ranges: &id004
+      - - v6.2.0
+        - v6.2.0
+      - - v6.2.5
+        - ''
+      default: '0'
+      min: 0
+      max: 65535
+      description: Matching TCP/UDP/SCTP destination port (0 to 65535, 0 means any port).
+      source_attribute: match-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id004
+        description: Matching TCP/UDP/SCTP destination port (0 to 65535, 0 means any port).
+        source_attribute: match_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: match_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Matching TCP/UDP/SCTP destination port (0 to 65535, 0 means any port).
+        default: '0'
+        min: 0
+        max: 65535
+        source_attribute: match-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

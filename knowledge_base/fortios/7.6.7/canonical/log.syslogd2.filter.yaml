@@ -1,0 +1,936 @@
+id: log.syslogd2.filter
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  anomaly:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable anomaly logging.
+      source_attribute: anomaly
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable anomaly logging.
+        source_attribute: anomaly
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: anomaly
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable anomaly logging.
+        default: enable
+        source_attribute: anomaly
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  debug:
+    canonical:
+      type: enum
+      version_ranges: &id004
+      - - v7.6.3
+        - ''
+      choices: &id003
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable debug logging.
+      source_attribute: debug
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: Enable/disable debug logging.
+        source_attribute: debug
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: debug
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable debug logging.
+        default: disable
+        source_attribute: debug
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dns:
+    canonical:
+      type: string
+      source_attribute: dns
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: dns
+    sources:
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  filter:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 1023
+      source_attribute: filter
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 1023
+        source_attribute: filter
+    sources:
+    - terraform
+  filter_type:
+    canonical:
+      type: string
+      source_attribute: filter_type
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: filter_type
+    sources:
+    - terraform
+  forti_switch:
+    canonical:
+      type: enum
+      version_ranges: &id006
+      - - v7.4.2
+        - ''
+      choices: &id005
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable Forti-Switch logging.
+      source_attribute: forti-switch
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Enable/disable Forti-Switch logging.
+        source_attribute: forti_switch
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: forti_switch
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable Forti-Switch logging.
+        default: enable
+        source_attribute: forti-switch
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  forward_traffic:
+    canonical:
+      type: enum
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      choices: &id007
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable forward traffic logging.
+      source_attribute: forward-traffic
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id007
+        version_ranges: *id008
+        description: Enable/disable forward traffic logging.
+        source_attribute: forward_traffic
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: forward_traffic
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable forward traffic logging.
+        default: enable
+        source_attribute: forward-traffic
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  free_style:
+    canonical:
+      type: list
+      elements: dict
+      children: &id010
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id016
+          - - v7.0.0
+            - ''
+          description: Entry ID. see <a href='#notes'>Notes</a>.
+        category:
+          type: enum
+          raw_type: string
+          choices: &id012
+          - traffic
+          - event
+          - virus
+          - webfilter
+          - attack
+          - spam
+          - anomaly
+          - voip
+          - dlp
+          - app-ctrl
+          - waf
+          - dns
+          - ssh
+          - ssl
+          - file-filter
+          - icap
+          - virtual-patch
+          - debug
+          - gtp
+          version_ranges: &id011
+          - - v7.0.0
+            - ''
+          description: Log category.
+        filter:
+          type: string
+          raw_type: string
+          version_ranges: &id013
+          - - v7.0.0
+            - ''
+          description: Free style filter string.
+        filter_type:
+          type: enum
+          raw_type: string
+          choices: &id015
+          - include
+          - exclude
+          version_ranges: &id014
+          - - v7.0.0
+            - ''
+          description: Include/exclude logs that match the filter.
+      version_ranges: &id009
+      - - v7.0.0
+        - ''
+      description: Free style filters.
+      source_attribute: free_style
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id009
+        description: Free style filters.
+        children: *id010
+        source_attribute: free_style
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          category:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          filter:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 1023
+          filter_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: free_style
+    sources:
+    - ansible
+    - terraform
+  free_style.category:
+    canonical:
+      type: enum
+      version_ranges: *id011
+      choices: *id012
+      description: Log category.
+      source_attribute: free_style.category
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id012
+        version_ranges: *id011
+        description: Log category.
+        source_attribute: free_style.category
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: free_style.category
+    sources:
+    - ansible
+    - terraform
+  free_style.filter:
+    canonical:
+      type: string
+      version_ranges: *id013
+      min_length: 0
+      max_length: 1023
+      description: Free style filter string.
+      source_attribute: free_style.filter
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id013
+        description: Free style filter string.
+        source_attribute: free_style.filter
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 1023
+        source_attribute: free_style.filter
+    sources:
+    - ansible
+    - terraform
+  free_style.filter_type:
+    canonical:
+      type: enum
+      version_ranges: *id014
+      choices: *id015
+      description: Include/exclude logs that match the filter.
+      source_attribute: free_style.filter_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id015
+        version_ranges: *id014
+        description: Include/exclude logs that match the filter.
+        source_attribute: free_style.filter_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: free_style.filter_type
+    sources:
+    - ansible
+    - terraform
+  free_style.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id016
+      description: Entry ID. see <a href='#notes'>Notes</a>.
+      source_attribute: free_style.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id016
+        description: Entry ID. see <a href='#notes'>Notes</a>.
+        source_attribute: free_style.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: free_style.id
+    sources:
+    - ansible
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  gtp:
+    canonical:
+      type: enum
+      version_ranges: &id018
+      - - v6.0.0
+        - v7.6.7
+      choices: &id017
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable GTP messages logging.
+      source_attribute: gtp
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id017
+        version_ranges: *id018
+        description: Enable/disable GTP messages logging.
+        source_attribute: gtp
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: gtp
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable GTP messages logging.
+        default: enable
+        source_attribute: gtp
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  http_transaction:
+    canonical:
+      type: enum
+      version_ranges: &id020
+      - - v7.6.0
+        - ''
+      choices: &id019
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable log HTTP transaction messages.
+      source_attribute: http-transaction
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id019
+        version_ranges: *id020
+        description: Enable/disable log HTTP transaction messages.
+        source_attribute: http_transaction
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: http_transaction
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable log HTTP transaction messages.
+        default: enable
+        source_attribute: http-transaction
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  local_traffic:
+    canonical:
+      type: enum
+      version_ranges: &id022
+      - - v6.0.0
+        - ''
+      choices: &id021
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable local in or out traffic logging.
+      source_attribute: local-traffic
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id021
+        version_ranges: *id022
+        description: Enable/disable local in or out traffic logging.
+        source_attribute: local_traffic
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: local_traffic
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable local in or out traffic logging.
+        default: enable
+        source_attribute: local-traffic
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  multicast_traffic:
+    canonical:
+      type: enum
+      version_ranges: &id024
+      - - v6.0.0
+        - ''
+      choices: &id023
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable multicast traffic logging.
+      source_attribute: multicast-traffic
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id023
+        version_ranges: *id024
+        description: Enable/disable multicast traffic logging.
+        source_attribute: multicast_traffic
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: multicast_traffic
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable multicast traffic logging.
+        default: enable
+        source_attribute: multicast-traffic
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  netscan_discovery:
+    canonical:
+      type: string
+      source_attribute: netscan_discovery
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: netscan_discovery
+    sources:
+    - terraform
+  netscan_vulnerability:
+    canonical:
+      type: string
+      source_attribute: netscan_vulnerability
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: netscan_vulnerability
+    sources:
+    - terraform
+  severity:
+    canonical:
+      type: enum
+      version_ranges: &id026
+      - - v6.0.0
+        - ''
+      choices: &id025
+      - emergency
+      - alert
+      - critical
+      - error
+      - warning
+      - notification
+      - information
+      - debug
+      default: information
+      description: Lowest severity level to log.
+      source_attribute: severity
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id025
+        version_ranges: *id026
+        description: Lowest severity level to log.
+        source_attribute: severity
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: severity
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Lowest severity level to log.
+        default: information
+        source_attribute: severity
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sniffer_traffic:
+    canonical:
+      type: enum
+      version_ranges: &id028
+      - - v6.0.0
+        - ''
+      choices: &id027
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable sniffer traffic logging.
+      source_attribute: sniffer-traffic
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id027
+        version_ranges: *id028
+        description: Enable/disable sniffer traffic logging.
+        source_attribute: sniffer_traffic
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sniffer_traffic
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable sniffer traffic logging.
+        default: enable
+        source_attribute: sniffer-traffic
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssh:
+    canonical:
+      type: string
+      source_attribute: ssh
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: ssh
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  voip:
+    canonical:
+      type: enum
+      version_ranges: &id030
+      - - v6.0.0
+        - ''
+      choices: &id029
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable VoIP logging.
+      source_attribute: voip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id029
+        version_ranges: *id030
+        description: Enable/disable VoIP logging.
+        source_attribute: voip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: voip
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable VoIP logging.
+        default: enable
+        source_attribute: voip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ztna_traffic:
+    canonical:
+      type: enum
+      version_ranges: &id032
+      - - v7.0.4
+        - ''
+      choices: &id031
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable ztna traffic logging.
+      source_attribute: ztna-traffic
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id031
+        version_ranges: *id032
+        description: Enable/disable ztna traffic logging.
+        source_attribute: ztna_traffic
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ztna_traffic
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable ztna traffic logging.
+        default: enable
+        source_attribute: ztna-traffic
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts: []

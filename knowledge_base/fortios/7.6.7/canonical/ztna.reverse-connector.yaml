@@ -1,0 +1,545 @@
+id: ztna.reverse-connector
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  address:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v7.6.1
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Connector service edge adress(IP or FQDN).
+      source_attribute: address
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Connector service edge adress(IP or FQDN).
+        source_attribute: address
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: address
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Connector service edge adress(IP or FQDN).
+        max_length: 255
+        source_attribute: address
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  certificate:
+    canonical:
+      type: string
+      references: &id003
+      - vpn.certificate.local.name
+      version_ranges: &id002
+      - - v7.6.1
+        - ''
+      min_length: 0
+      max_length: 35
+      description: The name of the certificate to use for SSL handshake.
+      source_attribute: certificate
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id002
+        description: The name of the certificate to use for SSL handshake. Source vpn.certificate.local.name.
+        references: *id003
+        source_attribute: certificate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: certificate
+      cli_reference:
+        type: string
+        raw_type: string
+        description: The name of the certificate to use for SSL handshake.
+        max_length: 35
+        source_attribute: certificate
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  default_incoming_vip:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 79
+      source_attribute: default_incoming_vip
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: default_incoming_vip
+    sources:
+    - terraform
+  health_check_interval:
+    canonical:
+      type: integer
+      version_ranges: &id004
+      - - v7.6.1
+        - ''
+      default: '60'
+      min: 0
+      max: 600
+      description: Health check interval in seconds (0 - 600, default = 60, 0 = disable).
+      source_attribute: health-check-interval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id004
+        description: Health check interval in seconds (0 - 600).
+        source_attribute: health_check_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 600
+        source_attribute: health_check_interval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Health check interval in seconds (0 - 600, default = 60, 0 = disable).
+        default: '60'
+        min: 0
+        max: 600
+        source_attribute: health-check-interval
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 15
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - terraform
+  interface_select_method:
+    canonical:
+      type: string
+      source_attribute: interface_select_method
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface_select_method
+    sources:
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id005
+      - - v7.6.1
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Reverse-Connector name
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id005
+        description: Reverse-Connector name
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Reverse-Connector name
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  port:
+    canonical:
+      type: integer
+      version_ranges: &id006
+      - - v7.6.1
+        - ''
+      default: '0'
+      min: 0
+      max: 65535
+      description: Port number that traffic uses to connect to connector service edge(0 - 65535;).
+      source_attribute: port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id006
+        description: Port number that traffic uses to connect to connector service edge(1 - 65535;).
+        source_attribute: port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port number that traffic uses to connect to connector service edge(0 - 65535;).
+        default: '0'
+        min: 0
+        max: 65535
+        source_attribute: port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source_ip:
+    canonical:
+      type: string
+      source_attribute: source_ip
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_ip
+    sources:
+    - terraform
+  source_ip_interface:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 15
+      source_attribute: source_ip_interface
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: source_ip_interface
+    sources:
+    - terraform
+  ssl_max_version:
+    canonical:
+      type: enum
+      version_ranges: &id008
+      - - v7.6.1
+        - ''
+      choices: &id007
+      - tls-1.1
+      - tls-1.2
+      - tls-1.3
+      default: tls-1.3
+      description: Highest TLS version acceptable from a server.
+      source_attribute: ssl-max-version
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id007
+        version_ranges: *id008
+        description: Highest TLS version acceptable from a server.
+        source_attribute: ssl_max_version
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssl_max_version
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Highest TLS version acceptable from a server.
+        default: tls-1.3
+        source_attribute: ssl-max-version
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssl_min_version:
+    canonical:
+      type: string
+      source_attribute: ssl_min_version
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssl_min_version
+    sources:
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id010
+      - - v7.6.1
+        - ''
+      choices: &id009
+      - enable
+      - disable
+      default: enable
+      description: Reverse-Connector status.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id010
+        description: Reverse-Connector status.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Reverse-Connector status.
+        default: enable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  trusted_server_ca:
+    canonical:
+      type: string
+      references: &id012
+      - vpn.certificate.ca.name
+      version_ranges: &id011
+      - - v7.6.1
+        - ''
+      min_length: 0
+      max_length: 79
+      description: Trusted Server CA certificate used by SSL connection.
+      source_attribute: trusted-server-ca
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: Trusted Server CA certificate used by SSL connection. Source vpn.certificate.ca.name.
+        references: *id012
+        source_attribute: trusted_server_ca
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: trusted_server_ca
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Trusted Server CA certificate used by SSL connection.
+        max_length: 79
+        source_attribute: trusted-server-ca
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  vrf_select:
+    canonical:
+      type: integer
+      min: 0
+      max: 511
+      source_attribute: vrf_select
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 511
+        source_attribute: vrf_select
+    sources:
+    - terraform
+conflicts: []

@@ -1,0 +1,762 @@
+id: vpn.ipsec.fec
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  mappings:
+    canonical:
+      type: list
+      elements: dict
+      children: &id002
+        seqno:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id010
+          - - v7.0.2
+            - ''
+          description: Sequence number (1 - 64). see <a href='#notes'>Notes</a>.
+        base:
+          type: integer
+          raw_type: integer
+          version_ranges: &id006
+          - - v7.0.2
+            - ''
+          description: Number of base FEC packets (1 - 40).
+        redundant:
+          type: integer
+          raw_type: integer
+          version_ranges: &id009
+          - - v7.0.2
+            - ''
+          description: Number of redundant FEC packets (0 - 20).
+        packet_loss_threshold:
+          type: integer
+          raw_type: integer
+          version_ranges: &id008
+          - - v7.0.2
+            - ''
+          description: Apply FEC parameters when packet loss is >= threshold (0 - 100, 0 means no threshold).
+        latency_threshold:
+          type: integer
+          raw_type: integer
+          version_ranges: &id007
+          - - v7.0.2
+            - ''
+          description: Apply FEC parameters when latency is <= threshold (0 means no threshold).
+        bandwidth_up_threshold:
+          type: integer
+          raw_type: integer
+          version_ranges: &id005
+          - - v7.0.2
+            - ''
+          description: Apply FEC parameters when available up bandwidth is >= threshold (kbps, 0 means no threshold).
+        bandwidth_down_threshold:
+          type: integer
+          raw_type: integer
+          version_ranges: &id004
+          - - v7.0.2
+            - ''
+          description: Apply FEC parameters when available down bandwidth is >= threshold (kbps, 0 means no threshold).
+        bandwidth_bi_threshold:
+          type: integer
+          raw_type: integer
+          version_ranges: &id003
+          - - v7.0.2
+            - ''
+          description: Apply FEC parameters when available bi-bandwidth is >= threshold (kbps, 0 means no threshold).
+      version_ranges: &id001
+      - - v7.0.2
+        - ''
+      description: FEC redundancy mapping table.
+      source_attribute: mappings
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id001
+        description: FEC redundancy mapping table.
+        children: *id002
+        source_attribute: mappings
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          seqno:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 64
+          base:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 40
+          redundant:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 20
+          packet_loss_threshold:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 100
+          packet_loss_threshold_negate:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          latency_threshold:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          latency_threshold_negate:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          bandwidth_up_threshold:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          bandwidth_up_threshold_negate:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          bandwidth_down_threshold:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          bandwidth_down_threshold_negate:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          bandwidth_bi_threshold:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          bandwidth_bi_threshold_negate:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          tos:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id011
+              seqno:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                min: 1
+                max: 8
+              tos:
+                type: string
+                raw_type: TypeString
+                optional: true
+              tos_mask:
+                type: string
+                raw_type: TypeString
+                optional: true
+              base:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                min: 1
+                max: 40
+              redundant:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                min: 0
+                max: 20
+        source_attribute: mappings
+    sources:
+    - ansible
+    - terraform
+  mappings.bandwidth_bi_threshold:
+    canonical:
+      type: integer
+      version_ranges: *id003
+      description: Apply FEC parameters when available bi-bandwidth is >= threshold (kbps, 0 means no threshold).
+      source_attribute: mappings.bandwidth_bi_threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id003
+        description: Apply FEC parameters when available bi-bandwidth is >= threshold (kbps, 0 means no threshold).
+        source_attribute: mappings.bandwidth_bi_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: mappings.bandwidth_bi_threshold
+    sources:
+    - ansible
+    - terraform
+  mappings.bandwidth_bi_threshold_negate:
+    canonical:
+      type: string
+      source_attribute: mappings.bandwidth_bi_threshold_negate
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mappings.bandwidth_bi_threshold_negate
+    sources:
+    - terraform
+  mappings.bandwidth_down_threshold:
+    canonical:
+      type: integer
+      version_ranges: *id004
+      description: Apply FEC parameters when available down bandwidth is >= threshold (kbps, 0 means no threshold).
+      source_attribute: mappings.bandwidth_down_threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id004
+        description: Apply FEC parameters when available down bandwidth is >= threshold (kbps, 0 means no threshold).
+        source_attribute: mappings.bandwidth_down_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: mappings.bandwidth_down_threshold
+    sources:
+    - ansible
+    - terraform
+  mappings.bandwidth_down_threshold_negate:
+    canonical:
+      type: string
+      source_attribute: mappings.bandwidth_down_threshold_negate
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mappings.bandwidth_down_threshold_negate
+    sources:
+    - terraform
+  mappings.bandwidth_up_threshold:
+    canonical:
+      type: integer
+      version_ranges: *id005
+      description: Apply FEC parameters when available up bandwidth is >= threshold (kbps, 0 means no threshold).
+      source_attribute: mappings.bandwidth_up_threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id005
+        description: Apply FEC parameters when available up bandwidth is >= threshold (kbps, 0 means no threshold).
+        source_attribute: mappings.bandwidth_up_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: mappings.bandwidth_up_threshold
+    sources:
+    - ansible
+    - terraform
+  mappings.bandwidth_up_threshold_negate:
+    canonical:
+      type: string
+      source_attribute: mappings.bandwidth_up_threshold_negate
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mappings.bandwidth_up_threshold_negate
+    sources:
+    - terraform
+  mappings.base:
+    canonical:
+      type: integer
+      version_ranges: *id006
+      min: 1
+      max: 40
+      description: Number of base FEC packets (1 - 40).
+      source_attribute: mappings.base
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id006
+        description: Number of base FEC packets (1 - 40).
+        source_attribute: mappings.base
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 40
+        source_attribute: mappings.base
+    sources:
+    - ansible
+    - terraform
+  mappings.latency_threshold:
+    canonical:
+      type: integer
+      version_ranges: *id007
+      description: Apply FEC parameters when latency is <= threshold (0 means no threshold).
+      source_attribute: mappings.latency_threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id007
+        description: Apply FEC parameters when latency is <= threshold (0 means no threshold).
+        source_attribute: mappings.latency_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: mappings.latency_threshold
+    sources:
+    - ansible
+    - terraform
+  mappings.latency_threshold_negate:
+    canonical:
+      type: string
+      source_attribute: mappings.latency_threshold_negate
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mappings.latency_threshold_negate
+    sources:
+    - terraform
+  mappings.packet_loss_threshold:
+    canonical:
+      type: integer
+      version_ranges: *id008
+      min: 0
+      max: 100
+      description: Apply FEC parameters when packet loss is >= threshold (0 - 100, 0 means no threshold).
+      source_attribute: mappings.packet_loss_threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id008
+        description: Apply FEC parameters when packet loss is >= threshold (0 - 100, 0 means no threshold).
+        source_attribute: mappings.packet_loss_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 100
+        source_attribute: mappings.packet_loss_threshold
+    sources:
+    - ansible
+    - terraform
+  mappings.packet_loss_threshold_negate:
+    canonical:
+      type: string
+      source_attribute: mappings.packet_loss_threshold_negate
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mappings.packet_loss_threshold_negate
+    sources:
+    - terraform
+  mappings.redundant:
+    canonical:
+      type: integer
+      version_ranges: *id009
+      min: 0
+      max: 20
+      description: Number of redundant FEC packets (0 - 20).
+      source_attribute: mappings.redundant
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id009
+        description: Number of redundant FEC packets (0 - 20).
+        source_attribute: mappings.redundant
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 20
+        source_attribute: mappings.redundant
+    sources:
+    - ansible
+    - terraform
+  mappings.seqno:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id010
+      min: 0
+      max: 64
+      description: Sequence number (1 - 64). see <a href='#notes'>Notes</a>.
+      source_attribute: mappings.seqno
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id010
+        description: Sequence number (1 - 64). see <a href='#notes'>Notes</a>.
+        source_attribute: mappings.seqno
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 64
+        source_attribute: mappings.seqno
+    sources:
+    - ansible
+    - terraform
+  mappings.tos:
+    canonical:
+      type: list
+      children: *id011
+      source_attribute: mappings.tos
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id011
+        source_attribute: mappings.tos
+    sources:
+    - terraform
+  mappings.tos.base:
+    canonical:
+      type: integer
+      min: 1
+      max: 40
+      source_attribute: mappings.tos.base
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 40
+        source_attribute: mappings.tos.base
+    sources:
+    - terraform
+  mappings.tos.redundant:
+    canonical:
+      type: integer
+      min: 0
+      max: 20
+      source_attribute: mappings.tos.redundant
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 20
+        source_attribute: mappings.tos.redundant
+    sources:
+    - terraform
+  mappings.tos.seqno:
+    canonical:
+      type: integer
+      min: 1
+      max: 8
+      source_attribute: mappings.tos.seqno
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 8
+        source_attribute: mappings.tos.seqno
+    sources:
+    - terraform
+  mappings.tos.tos:
+    canonical:
+      type: string
+      source_attribute: mappings.tos.tos
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: mappings.tos.tos
+    sources:
+    - terraform
+  mappings.tos.tos_mask:
+    canonical:
+      type: string
+      source_attribute: mappings.tos.tos_mask
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: mappings.tos.tos_mask
+    sources:
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id012
+      - - v7.0.2
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Profile name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id012
+        description: Profile name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Profile name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

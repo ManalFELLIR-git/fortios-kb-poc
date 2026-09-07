@@ -1,0 +1,2021 @@
+id: user.ldap
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  account_key_cert_field:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.4.1
+        - ''
+      choices: &id001
+      - othername
+      - rfc822name
+      - dnsname
+      - cn
+      default: othername
+      description: Define subject identity field in certificate for user access right checking.
+      source_attribute: account-key-cert-field
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Define subject identity field in certificate for user access right checking.
+        source_attribute: account_key_cert_field
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: account_key_cert_field
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Define subject identity field in certificate for user access right checking.
+        default: othername
+        source_attribute: account-key-cert-field
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  account_key_filter:
+    canonical:
+      type: string
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      default: (&(userPrincipalName=%s)(!(UserAccountControl:1.2.840.113556.1.4.803:=2)))
+      min_length: 0
+      max_length: 2047
+      description: Account key filter, using the UPN as the search filter.
+      source_attribute: account-key-filter
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Account key filter, using the UPN as the search filter.
+        source_attribute: account_key_filter
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 2047
+        source_attribute: account_key_filter
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Account key filter, using the UPN as the search filter.
+        default: (&(userPrincipalName=%s)(!(UserAccountControl:1.2.840.113556.1.4.803:=2)))
+        max_length: 2047
+        source_attribute: account-key-filter
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  account_key_processing:
+    canonical:
+      type: enum
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      choices: &id004
+      - same
+      - strip
+      default: same
+      description: Account key processing operation. The FortiGate will keep either the whole domain or strip the domain from
+        the subject identity.
+      source_attribute: account-key-processing
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id004
+        version_ranges: *id005
+        description: Account key processing operation. The FortiGate will keep either the whole domain or strip the domain
+          from the subject identity.
+        source_attribute: account_key_processing
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: account_key_processing
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Account key processing operation. The FortiGate will keep either the whole domain or strip the domain
+          from the subject identity.
+        default: same
+        source_attribute: account-key-processing
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  account_key_upn_san:
+    canonical:
+      type: string
+      source_attribute: account_key_upn_san
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: account_key_upn_san
+    sources:
+    - terraform
+  antiphish:
+    canonical:
+      type: enum
+      version_ranges: &id007
+      - - v7.0.0
+        - ''
+      choices: &id006
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable AntiPhishing credential backend.
+      source_attribute: antiphish
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id006
+        version_ranges: *id007
+        description: Enable/disable AntiPhishing credential backend.
+        source_attribute: antiphish
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: antiphish
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable AntiPhishing credential backend.
+        default: disable
+        source_attribute: antiphish
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ca_cert:
+    canonical:
+      type: string
+      references: &id009
+      - vpn.certificate.ca.name
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 79
+      description: CA certificate name.
+      source_attribute: ca-cert
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: CA certificate name. Source vpn.certificate.ca.name.
+        references: *id009
+        source_attribute: ca_cert
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: ca_cert
+      cli_reference:
+        type: string
+        raw_type: string
+        description: CA certificate name.
+        max_length: 79
+        source_attribute: ca-cert
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  client_cert:
+    canonical:
+      type: string
+      references: &id011
+      - vpn.certificate.local.name
+      version_ranges: &id010
+      - - v7.2.0
+        - ''
+      min_length: 0
+      max_length: 79
+      description: Client certificate name.
+      source_attribute: client-cert
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id010
+        description: Client certificate name. Source vpn.certificate.local.name.
+        references: *id011
+        source_attribute: client_cert
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: client_cert
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Client certificate name.
+        max_length: 79
+        source_attribute: client-cert
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  client_cert_auth:
+    canonical:
+      type: enum
+      version_ranges: &id013
+      - - v7.2.0
+        - ''
+      choices: &id012
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable using client certificate for TLS authentication.
+      source_attribute: client-cert-auth
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id012
+        version_ranges: *id013
+        description: Enable/disable using client certificate for TLS authentication.
+        source_attribute: client_cert_auth
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: client_cert_auth
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable using client certificate for TLS authentication.
+        default: disable
+        source_attribute: client-cert-auth
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cnid:
+    canonical:
+      type: string
+      version_ranges: &id014
+      - - v6.0.0
+        - ''
+      default: cn
+      min_length: 0
+      max_length: 20
+      description: Common name identifier for the LDAP server. The common name identifier for most LDAP servers is "cn".
+      source_attribute: cnid
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: Common name identifier for the LDAP server. The common name identifier for most LDAP servers is "cn".
+        source_attribute: cnid
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 20
+        source_attribute: cnid
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Common name identifier for the LDAP server. The common name identifier for most LDAP servers is "cn".
+        default: cn
+        max_length: 20
+        source_attribute: cnid
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dn:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id015
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 511
+      description: Distinguished name used to look up entries on the LDAP server.
+      source_attribute: dn
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id015
+        description: Distinguished name used to look up entries on the LDAP server.
+        source_attribute: dn
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 511
+        source_attribute: dn
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Distinguished name used to look up entries on the LDAP server.
+        max_length: 511
+        source_attribute: dn
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fabric_force_sync:
+    canonical:
+      type: string
+      source_attribute: fabric_force_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_force_sync
+    sources:
+    - terraform
+  fabric_object:
+    canonical:
+      type: string
+      source_attribute: fabric_object
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object
+    sources:
+    - terraform
+  fabric_object_source:
+    canonical:
+      type: string
+      source_attribute: fabric_object_source
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object_source
+    sources:
+    - terraform
+  group_filter:
+    canonical:
+      type: string
+      version_ranges: &id016
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 2047
+      description: Filter used for group matching.
+      source_attribute: group-filter
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id016
+        description: Filter used for group matching.
+        source_attribute: group_filter
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 2047
+        source_attribute: group_filter
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Filter used for group matching.
+        max_length: 2047
+        source_attribute: group-filter
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  group_member_check:
+    canonical:
+      type: enum
+      version_ranges: &id018
+      - - v6.0.0
+        - ''
+      choices: &id017
+      - user-attr
+      - group-object
+      - posix-group-object
+      default: user-attr
+      description: Group member checking methods.
+      source_attribute: group-member-check
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id017
+        version_ranges: *id018
+        description: Group member checking methods.
+        source_attribute: group_member_check
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: group_member_check
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Group member checking methods.
+        default: user-attr
+        source_attribute: group-member-check
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  group_object_filter:
+    canonical:
+      type: string
+      version_ranges: &id019
+      - - v6.0.0
+        - ''
+      default: (&(objectcategory=group)(member=*))
+      min_length: 0
+      max_length: 2047
+      description: Filter used for group searching.
+      source_attribute: group-object-filter
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id019
+        description: Filter used for group searching.
+        source_attribute: group_object_filter
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 2047
+        source_attribute: group_object_filter
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Filter used for group searching.
+        default: (&(objectcategory=group)(member=*))
+        max_length: 2047
+        source_attribute: group-object-filter
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  group_search_base:
+    canonical:
+      type: string
+      version_ranges: &id020
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 511
+      description: Search base used for group searching.
+      source_attribute: group-search-base
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id020
+        description: Search base used for group searching.
+        source_attribute: group_search_base
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 511
+        source_attribute: group_search_base
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Search base used for group searching.
+        max_length: 511
+        source_attribute: group-search-base
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface:
+    canonical:
+      type: string
+      references: &id022
+      - system.interface.name
+      version_ranges: &id021
+      - - v6.2.0
+        - v6.2.0
+      - - v6.2.5
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Specify outgoing interface to reach server.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id021
+        description: Specify outgoing interface to reach server. Source system.interface.name.
+        references: *id022
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Specify outgoing interface to reach server.
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface_select_method:
+    canonical:
+      type: enum
+      version_ranges: &id024
+      - - v6.2.0
+        - v6.2.0
+      - - v6.2.5
+        - ''
+      choices: &id023
+      - auto
+      - sdwan
+      - specify
+      default: auto
+      description: Specify how to select outgoing interface to reach server.
+      source_attribute: interface-select-method
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id023
+        version_ranges: *id024
+        description: Specify how to select outgoing interface to reach server.
+        source_attribute: interface_select_method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface_select_method
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Specify how to select outgoing interface to reach server.
+        default: auto
+        source_attribute: interface-select-method
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  member_attr:
+    canonical:
+      type: string
+      version_ranges: &id025
+      - - v6.0.0
+        - ''
+      default: memberOf
+      min_length: 0
+      max_length: 63
+      description: Name of attribute from which to get group membership.
+      source_attribute: member-attr
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id025
+        description: Name of attribute from which to get group membership.
+        source_attribute: member_attr
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 63
+        source_attribute: member_attr
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of attribute from which to get group membership.
+        default: memberOf
+        max_length: 63
+        source_attribute: member-attr
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id026
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: LDAP server entry name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id026
+        description: LDAP server entry name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: LDAP server entry name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  obtain_user_info:
+    canonical:
+      type: enum
+      version_ranges: &id028
+      - - v6.2.0
+        - ''
+      choices: &id027
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable obtaining of user information.
+      source_attribute: obtain-user-info
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id027
+        version_ranges: *id028
+        description: Enable/disable obtaining of user information.
+        source_attribute: obtain_user_info
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: obtain_user_info
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable obtaining of user information.
+        default: enable
+        source_attribute: obtain-user-info
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  password:
+    canonical:
+      type: password
+      version_ranges: &id029
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: Password for initial binding.
+      source_attribute: password
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id029
+        description: Password for initial binding.
+        source_attribute: password
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: password
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Password for initial binding.
+        source_attribute: password
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id030
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id030
+  password_attr:
+    canonical:
+      type: string
+      version_ranges: &id031
+      - - v7.0.0
+        - ''
+      default: userPassword
+      min_length: 0
+      max_length: 35
+      description: Name of attribute to get password hash.
+      source_attribute: password-attr
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id031
+        description: Name of attribute to get password hash.
+        source_attribute: password_attr
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 35
+        source_attribute: password_attr
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of attribute to get password hash.
+        default: userPassword
+        max_length: 35
+        source_attribute: password-attr
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  password_expiry_warning:
+    canonical:
+      type: enum
+      version_ranges: &id033
+      - - v6.0.0
+        - ''
+      choices: &id032
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable password expiry warnings.
+      source_attribute: password-expiry-warning
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id032
+        version_ranges: *id033
+        description: Enable/disable password expiry warnings.
+        source_attribute: password_expiry_warning
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: password_expiry_warning
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable password expiry warnings.
+        default: disable
+        source_attribute: password-expiry-warning
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  password_renewal:
+    canonical:
+      type: enum
+      version_ranges: &id035
+      - - v6.0.0
+        - ''
+      choices: &id034
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable online password renewal.
+      source_attribute: password-renewal
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id034
+        version_ranges: *id035
+        description: Enable/disable online password renewal.
+        source_attribute: password_renewal
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: password_renewal
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable online password renewal.
+        default: disable
+        source_attribute: password-renewal
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  port:
+    canonical:
+      type: integer
+      version_ranges: &id036
+      - - v6.0.0
+        - ''
+      default: '389'
+      min: 1
+      max: 65535
+      description: Port to be used for communication with the LDAP server (default = 389).
+      source_attribute: port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id036
+        description: Port to be used for communication with the LDAP server .
+        source_attribute: port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port to be used for communication with the LDAP server (default = 389).
+        default: '389'
+        min: 1
+        max: 65535
+        source_attribute: port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  search_type:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id038
+      - - v6.2.0
+        - ''
+      choices: &id037
+      - recursive
+      description: Search type.
+      source_attribute: search-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id037
+        multiple_values: true
+        elements: str
+        version_ranges: *id038
+        description: Search type.
+        source_attribute: search_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: search_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Search type.
+        source_attribute: search-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  secondary_server:
+    canonical:
+      type: string
+      version_ranges: &id039
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Secondary LDAP server CN domain name or IP.
+      source_attribute: secondary-server
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id039
+        description: Secondary LDAP server CN domain name or IP.
+        source_attribute: secondary_server
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: secondary_server
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Secondary LDAP server CN domain name or IP.
+        max_length: 63
+        source_attribute: secondary-server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  secure:
+    canonical:
+      type: enum
+      version_ranges: &id041
+      - - v6.0.0
+        - ''
+      choices: &id040
+      - disable
+      - starttls
+      - ldaps
+      default: disable
+      description: Port to be used for authentication.
+      source_attribute: secure
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id040
+        version_ranges: *id041
+        description: Port to be used for authentication.
+        source_attribute: secure
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: secure
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Port to be used for authentication.
+        default: disable
+        source_attribute: secure
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  server:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id042
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: LDAP server CN domain name or IP.
+      source_attribute: server
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id042
+        description: LDAP server CN domain name or IP.
+        source_attribute: server
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 63
+        source_attribute: server
+      cli_reference:
+        type: string
+        raw_type: string
+        description: LDAP server CN domain name or IP.
+        max_length: 63
+        source_attribute: server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  server_identity_check:
+    canonical:
+      type: enum
+      version_ranges: &id044
+      - - v6.0.0
+        - ''
+      choices: &id043
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable LDAP server identity check (verify server domain name/IP address against the server certificate).
+      source_attribute: server-identity-check
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id043
+        version_ranges: *id044
+        description: Enable/disable LDAP server identity check (verify server domain name/IP address against the server certificate).
+        source_attribute: server_identity_check
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: server_identity_check
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable LDAP server identity check (verify server domain name/IP address against the server certificate).
+        default: enable
+        source_attribute: server-identity-check
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source_ip:
+    canonical:
+      type: string
+      version_ranges: &id045
+      - - v6.0.0
+        - ''
+      max_length: 63
+      description: FortiGate IP address to be used for communication with the LDAP server.
+      source_attribute: source-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id045
+        description: FortiGate IP address to be used for communication with the LDAP server.
+        source_attribute: source_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_ip
+      cli_reference:
+        type: string
+        raw_type: string
+        description: FortiGate IP address to be used for communication with the LDAP server.
+        max_length: 63
+        source_attribute: source-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source_ip_interface:
+    canonical:
+      type: string
+      references: &id047
+      - system.interface.name
+      version_ranges: &id046
+      - - v7.6.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Source interface for communication with the LDAP server.
+      source_attribute: source-ip-interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id046
+        description: Source interface for communication with the LDAP server. Source system.interface.name.
+        references: *id047
+        source_attribute: source_ip_interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: source_ip_interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Source interface for communication with the LDAP server.
+        max_length: 15
+        source_attribute: source-ip-interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source_port:
+    canonical:
+      type: integer
+      version_ranges: &id048
+      - - v7.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 65535
+      description: Source port to be used for communication with the LDAP server.
+      source_attribute: source-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id048
+        description: Source port to be used for communication with the LDAP server.
+        source_attribute: source_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: source_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Source port to be used for communication with the LDAP server.
+        default: '0'
+        min: 0
+        max: 65535
+        source_attribute: source-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssl_min_proto_version:
+    canonical:
+      type: enum
+      version_ranges: &id050
+      - - v6.0.0
+        - ''
+      choices: &id049
+      - default
+      - SSLv3
+      - TLSv1
+      - TLSv1-1
+      - TLSv1-2
+      - TLSv1-3
+      default: default
+      description: Minimum supported protocol version for SSL/TLS connections (default is to follow system global setting).
+      source_attribute: ssl-min-proto-version
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id049
+        version_ranges: *id050
+        description: Minimum supported protocol version for SSL/TLS connections .
+        source_attribute: ssl_min_proto_version
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssl_min_proto_version
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Minimum supported protocol version for SSL/TLS connections (default is to follow system global setting).
+        default: default
+        source_attribute: ssl-min-proto-version
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status_ttl:
+    canonical:
+      type: integer
+      version_ranges: &id051
+      - - v7.4.4
+        - ''
+      default: '300'
+      min: 0
+      max: 600
+      description: Time for which server reachability is cached so that when a server is unreachable, it will not be retried
+        for at least this period of time (0 = cache disabled, default = 300).
+      source_attribute: status-ttl
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id051
+        description: Time for which server reachability is cached so that when a server is unreachable, it will not be retried
+          for at least this period of time (0 = cache disabled).
+        source_attribute: status_ttl
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 600
+        source_attribute: status_ttl
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time for which server reachability is cached so that when a server is unreachable, it will not be retried
+          for at least this period of time (0 = cache disabled, default = 300).
+        default: '300'
+        min: 0
+        max: 600
+        source_attribute: status-ttl
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  tertiary_server:
+    canonical:
+      type: string
+      version_ranges: &id052
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Tertiary LDAP server CN domain name or IP.
+      source_attribute: tertiary-server
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id052
+        description: Tertiary LDAP server CN domain name or IP.
+        source_attribute: tertiary_server
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: tertiary_server
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Tertiary LDAP server CN domain name or IP.
+        max_length: 63
+        source_attribute: tertiary-server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  two_factor:
+    canonical:
+      type: enum
+      version_ranges: &id054
+      - - v6.2.0
+        - ''
+      choices: &id053
+      - disable
+      - fortitoken-cloud
+      default: disable
+      description: Enable/disable two-factor authentication.
+      source_attribute: two-factor
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id053
+        version_ranges: *id054
+        description: Enable/disable two-factor authentication.
+        source_attribute: two_factor
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: two_factor
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable two-factor authentication.
+        default: disable
+        source_attribute: two-factor
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  two_factor_authentication:
+    canonical:
+      type: enum
+      version_ranges: &id056
+      - - v6.2.0
+        - v6.2.0
+      - - v6.2.5
+        - ''
+      choices: &id055
+      - fortitoken
+      - email
+      - sms
+      description: Authentication method by FortiToken Cloud.
+      source_attribute: two-factor-authentication
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id055
+        version_ranges: *id056
+        description: Authentication method by FortiToken Cloud.
+        source_attribute: two_factor_authentication
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: two_factor_authentication
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Authentication method by FortiToken Cloud.
+        source_attribute: two-factor-authentication
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  two_factor_filter:
+    canonical:
+      type: string
+      version_ranges: &id057
+      - - v7.2.1
+        - ''
+      min_length: 0
+      max_length: 2047
+      description: Filter used to synchronize users to FortiToken Cloud.
+      source_attribute: two-factor-filter
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id057
+        description: Filter used to synchronize users to FortiToken Cloud.
+        source_attribute: two_factor_filter
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 2047
+        source_attribute: two_factor_filter
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Filter used to synchronize users to FortiToken Cloud.
+        max_length: 2047
+        source_attribute: two-factor-filter
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  two_factor_notification:
+    canonical:
+      type: enum
+      version_ranges: &id059
+      - - v6.2.0
+        - v6.2.0
+      - - v6.2.5
+        - ''
+      choices: &id058
+      - email
+      - sms
+      description: Notification method for user activation by FortiToken Cloud.
+      source_attribute: two-factor-notification
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id058
+        version_ranges: *id059
+        description: Notification method for user activation by FortiToken Cloud.
+        source_attribute: two_factor_notification
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: two_factor_notification
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Notification method for user activation by FortiToken Cloud.
+        source_attribute: two-factor-notification
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  type:
+    canonical:
+      type: enum
+      version_ranges: &id061
+      - - v6.0.0
+        - ''
+      choices: &id060
+      - simple
+      - anonymous
+      - regular
+      default: simple
+      description: Authentication type for LDAP searches.
+      source_attribute: type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id060
+        version_ranges: *id061
+        description: Authentication type for LDAP searches.
+        source_attribute: type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Authentication type for LDAP searches.
+        default: simple
+        source_attribute: type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  user_info_exchange_server:
+    canonical:
+      type: string
+      references: &id063
+      - user.exchange.name
+      version_ranges: &id062
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: MS Exchange server from which to fetch user information.
+      source_attribute: user-info-exchange-server
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id062
+        description: MS Exchange server from which to fetch user information. Source user.exchange.name.
+        references: *id063
+        source_attribute: user_info_exchange_server
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: user_info_exchange_server
+      cli_reference:
+        type: string
+        raw_type: string
+        description: MS Exchange server from which to fetch user information.
+        max_length: 35
+        source_attribute: user-info-exchange-server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  username:
+    canonical:
+      type: string
+      version_ranges: &id064
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 511
+      description: Username (full DN) for initial binding.
+      source_attribute: username
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id064
+        description: Username (full DN) for initial binding.
+        source_attribute: username
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 511
+        source_attribute: username
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Username (full DN) for initial binding.
+        max_length: 511
+        source_attribute: username
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  uuid:
+    canonical:
+      type: string
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  vrf_select:
+    canonical:
+      type: integer
+      version_ranges: &id065
+      - - v7.6.1
+        - ''
+      default: '0'
+      min: 0
+      max: 511
+      description: VRF ID used for connection to server.
+      source_attribute: vrf-select
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id065
+        description: VRF ID used for connection to server.
+        source_attribute: vrf_select
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 511
+        source_attribute: vrf_select
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: VRF ID used for connection to server.
+        default: '0'
+        min: 0
+        max: 511
+        source_attribute: vrf-select
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: password
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict

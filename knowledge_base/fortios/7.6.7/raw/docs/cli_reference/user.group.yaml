@@ -1,0 +1,219 @@
+id: user.group
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/328136827/config-user-group
+attributes:
+  auth-concurrent-override:
+    type: enum
+    raw_type: option
+    description: Enable/disable overriding the global number of concurrent authentication sessions for this user group.
+    default: disable
+  auth-concurrent-value:
+    type: integer
+    raw_type: integer
+    description: Maximum number of concurrent authenticated connections per user (0 - 100).
+    default: '0'
+    min: 0
+    max: 100
+  authtimeout:
+    type: integer
+    raw_type: integer
+    description: Authentication timeout in minutes for this user group. 0 to use the global user setting auth-timeout.
+    default: '0'
+    min: 0
+    max: 43200
+  company:
+    type: enum
+    raw_type: option
+    description: Set the action for the company guest user field.
+    default: optional
+  email:
+    type: enum
+    raw_type: option
+    description: Enable/disable the guest user email address field.
+    default: enable
+  expire:
+    type: integer
+    raw_type: integer
+    description: Time in seconds before guest user accounts expire (1 - 31536000).
+    default: '14400'
+    min: 1
+    max: 31536000
+  expire-type:
+    type: enum
+    raw_type: option
+    description: Determine when the expiration countdown begins.
+    default: immediately
+  group-type:
+    type: enum
+    raw_type: option
+    description: Set the group to be for firewall authentication, FSSO, RSSO, SCIM, or guest users.
+    default: firewall
+  http-digest-realm:
+    type: string
+    raw_type: string
+    description: Realm attribute for MD5-digest authentication.
+    max_length: 35
+  id:
+    type: integer
+    raw_type: integer
+    description: Group ID. Read-only.
+    default: '0'
+    min: 0
+    max: 4294967295
+  max-accounts:
+    type: integer
+    raw_type: integer
+    description: Maximum number of guest accounts that can be created for this group (0 means unlimited).
+    default: '0'
+    min: 0
+    max: 1024
+  member:
+    type: string
+    raw_type: string
+    description: Names of users, peers, LDAP severs, RADIUS servers, SCIM client or external idp servers to add to the user
+      group. Group member name.
+    max_length: 511
+  mobile-phone:
+    type: enum
+    raw_type: option
+    description: Enable/disable the guest user mobile phone number field.
+    default: disable
+  multiple-guest-add:
+    type: enum
+    raw_type: option
+    description: Enable/disable addition of multiple guests.
+    default: disable
+  name:
+    type: string
+    raw_type: string
+    description: Group name.
+    max_length: 35
+  password:
+    type: enum
+    raw_type: option
+    description: Guest user password type.
+    default: auto-generate
+  scim-group-attr-type:
+    type: enum
+    raw_type: option
+    description: Group attribute type used to match SCIM groups (default = display-name).
+    default: display-name
+  scim-groups:
+    type: string
+    raw_type: string
+    description: Names of SCIM groups. Names of SCIM groups.
+    max_length: 79
+  scim-user-attr-type:
+    type: enum
+    raw_type: option
+    description: User attribute type used to match SCIM users (default = user-name).
+    default: user-name
+  scim-users:
+    type: string
+    raw_type: string
+    description: Names of SCIM users. Names of SCIM users.
+    max_length: 79
+  sms-custom-server:
+    type: string
+    raw_type: string
+    description: SMS server.
+    max_length: 35
+  sms-server:
+    type: enum
+    raw_type: option
+    description: Send SMS through FortiGuard or other external server.
+    default: fortiguard
+  sponsor:
+    type: enum
+    raw_type: option
+    description: Set the action for the sponsor guest user field.
+    default: optional
+  sso-attribute-value:
+    type: string
+    raw_type: string
+    description: RADIUS attribute value.
+    max_length: 511
+  user-id:
+    type: enum
+    raw_type: option
+    description: Guest user ID type.
+    default: email
+  user-name:
+    type: enum
+    raw_type: option
+    description: Enable/disable the guest user name entry.
+    default: disable
+children:
+  guest:
+    attributes:
+      comment:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 255
+      company:
+        type: string
+        raw_type: string
+        description: Set the action for the company guest user field.
+        max_length: 35
+      email:
+        type: string
+        raw_type: string
+        description: Email.
+        max_length: 64
+      expiration:
+        type: string
+        raw_type: user
+        description: Expire time.
+      id:
+        type: integer
+        raw_type: integer
+        description: Guest ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      mobile-phone:
+        type: string
+        raw_type: string
+        description: Mobile phone.
+        max_length: 35
+      name:
+        type: string
+        raw_type: string
+        description: Guest name.
+        max_length: 64
+      password:
+        type: password
+        raw_type: password
+        description: Guest password.
+      sponsor:
+        type: string
+        raw_type: string
+        description: Set the action for the sponsor guest user field.
+        max_length: 35
+      user-id:
+        type: string
+        raw_type: string
+        description: Guest ID.
+        max_length: 64
+  match:
+    attributes:
+      group-name:
+        type: string
+        raw_type: string
+        description: Name of matching user or group on remote authentication server or SCIM.
+        max_length: 511
+      id:
+        type: integer
+        raw_type: integer
+        description: ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      server-name:
+        type: string
+        raw_type: string
+        description: Name of remote auth server.
+        max_length: 35

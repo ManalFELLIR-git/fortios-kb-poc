@@ -1,0 +1,1669 @@
+id: system.fabric-vpn
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  advertised_subnets:
+    canonical:
+      type: list
+      elements: dict
+      children: &id002
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id009
+          - - v7.2.4
+            - ''
+          description: ID. see <a href='#notes'>Notes</a>.
+        prefix:
+          type: string
+          raw_type: string
+          version_ranges: &id013
+          - - v7.2.4
+            - ''
+          description: Network prefix.
+        access:
+          type: enum
+          raw_type: string
+          choices: &id004
+          - inbound
+          - bidirectional
+          version_ranges: &id003
+          - - v7.2.4
+            - ''
+          description: Access policy direction.
+        bgp_network:
+          type: integer
+          raw_type: integer
+          version_ranges: &id006
+          - - v7.2.4
+            - ''
+          description: Underlying BGP network. Source router.bgp.network.id.
+          references: &id005
+          - router.bgp.network.id
+        firewall_address:
+          type: string
+          raw_type: string
+          version_ranges: &id008
+          - - v7.2.4
+            - ''
+          description: Underlying firewall address. Source firewall.address.name.
+          references: &id007
+          - firewall.address.name
+        policies:
+          type: list
+          raw_type: list
+          multiple_values: true
+          elements: int
+          version_ranges: &id011
+          - - v7.2.4
+            - ''
+          description: Underlying policies. Source firewall.policy.policyid.
+          references: &id010
+          - firewall.policy.policyid
+      version_ranges: &id001
+      - - v7.2.4
+        - ''
+      description: Local advertised subnets.
+      source_attribute: advertised_subnets
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id001
+        description: Local advertised subnets.
+        children: *id002
+        source_attribute: advertised_subnets
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          prefix:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          access:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          bgp_network:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          firewall_address:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+          policies:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+        source_attribute: advertised_subnets
+    sources:
+    - ansible
+    - terraform
+  advertised_subnets.access:
+    canonical:
+      type: enum
+      version_ranges: *id003
+      choices: *id004
+      description: Access policy direction.
+      source_attribute: advertised_subnets.access
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id004
+        version_ranges: *id003
+        description: Access policy direction.
+        source_attribute: advertised_subnets.access
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: advertised_subnets.access
+    sources:
+    - ansible
+    - terraform
+  advertised_subnets.bgp_network:
+    canonical:
+      type: integer
+      references: *id005
+      version_ranges: *id006
+      description: Underlying BGP network. Source router.bgp.network.id.
+      source_attribute: advertised_subnets.bgp_network
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id006
+        description: Underlying BGP network. Source router.bgp.network.id.
+        references: *id005
+        source_attribute: advertised_subnets.bgp_network
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: advertised_subnets.bgp_network
+    sources:
+    - ansible
+    - terraform
+  advertised_subnets.firewall_address:
+    canonical:
+      type: string
+      references: *id007
+      version_ranges: *id008
+      min_length: 0
+      max_length: 79
+      description: Underlying firewall address. Source firewall.address.name.
+      source_attribute: advertised_subnets.firewall_address
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: Underlying firewall address. Source firewall.address.name.
+        references: *id007
+        source_attribute: advertised_subnets.firewall_address
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: advertised_subnets.firewall_address
+    sources:
+    - ansible
+    - terraform
+  advertised_subnets.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id009
+      description: ID. see <a href='#notes'>Notes</a>.
+      source_attribute: advertised_subnets.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id009
+        description: ID. see <a href='#notes'>Notes</a>.
+        source_attribute: advertised_subnets.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: advertised_subnets.id
+    sources:
+    - ansible
+    - terraform
+  advertised_subnets.policies:
+    canonical:
+      type: list
+      elements: int
+      references: *id010
+      version_ranges: *id011
+      description: Underlying policies. Source firewall.policy.policyid.
+      source_attribute: advertised_subnets.policies
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      references: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: int
+        version_ranges: *id011
+        description: Underlying policies. Source firewall.policy.policyid.
+        references: *id010
+        source_attribute: advertised_subnets.policies
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: advertised_subnets.policies
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id012
+          element_type: integer
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id012
+  advertised_subnets.prefix:
+    canonical:
+      type: string
+      version_ranges: *id013
+      description: Network prefix.
+      source_attribute: advertised_subnets.prefix
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id013
+        description: Network prefix.
+        source_attribute: advertised_subnets.prefix
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: advertised_subnets.prefix
+    sources:
+    - ansible
+    - terraform
+  bgp_as:
+    canonical:
+      type: string
+      version_ranges: &id014
+      - - v7.2.4
+        - ''
+      description: BGP Router AS number, asplain/asdot/asdot+ format.
+      source_attribute: bgp-as
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: BGP Router AS number, asplain/asdot/asdot+ format.
+        source_attribute: bgp_as
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: bgp_as
+      cli_reference:
+        type: string
+        raw_type: user
+        description: BGP Router AS number, asplain/asdot/asdot+ format.
+        source_attribute: bgp-as
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: terraform_dual_representation
+        confidence: high
+        terraform_variants:
+        - terraform_section: system.fabricvpn
+          base_attribute: bgp_as
+          string_companion: bgp_as_string
+          file: knowledge_base\fortios\7.6.7\raw\terraform\system.fabricvpn.yaml
+  bgp_as_string:
+    canonical:
+      type: string
+      source_attribute: bgp_as_string
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: bgp_as_string
+    sources:
+    - terraform
+  branch_name:
+    canonical:
+      type: string
+      version_ranges: &id015
+      - - v7.2.4
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Branch name.
+      source_attribute: branch-name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id015
+        description: Branch name.
+        source_attribute: branch_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: branch_name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Branch name.
+        max_length: 35
+        source_attribute: branch-name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  health_checks:
+    canonical:
+      type: list
+      elements: str
+      references: &id017
+      - system.sdwan.health-check.name
+      version_ranges: &id016
+      - - v7.2.4
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Underlying health checks.
+      source_attribute: health-checks
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id016
+        description: Underlying health checks. Source system.sdwan.health-check.name.
+        references: *id017
+        source_attribute: health_checks
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: health_checks
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Underlying health checks.
+        max_length: 35
+        source_attribute: health-checks
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id018
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id018
+  loopback_address_block:
+    canonical:
+      type: ipv4-classnet-host
+      version_ranges: &id019
+      - - v7.2.4
+        - ''
+      default: 0.0.0.0 0.0.0.0
+      description: 'IPv4 address and subnet mask for hub''s loopback address, syntax: X.X.X.X/24.'
+      source_attribute: loopback-address-block
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id019
+        description: 'IPv4 address and subnet mask for hub"s loopback address, syntax: X.X.X.X/24.'
+        source_attribute: loopback_address_block
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: loopback_address_block
+      cli_reference:
+        type: ipv4-classnet-host
+        raw_type: ipv4-classnet-host
+        description: 'IPv4 address and subnet mask for hub''s loopback address, syntax: X.X.X.X/24.'
+        default: 0.0.0.0 0.0.0.0
+        source_attribute: loopback-address-block
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id020
+          primitive: string
+          format: ipv4-classnet-host
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id020
+  loopback_address_block_ipam:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 79
+      source_attribute: loopback_address_block_ipam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 79
+        source_attribute: loopback_address_block_ipam
+    sources:
+    - terraform
+  loopback_advertised_subnet:
+    canonical:
+      type: integer
+      references: &id022
+      - system.fabric-vpn.advertised-subnets.id
+      version_ranges: &id021
+      - - v7.2.4
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Loopback advertised subnet reference.
+      source_attribute: loopback-advertised-subnet
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id021
+        description: Loopback advertised subnet reference. Source system.fabric-vpn.advertised-subnets.id.
+        references: *id022
+        source_attribute: loopback_advertised_subnet
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: loopback_advertised_subnet
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Loopback advertised subnet reference.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: loopback-advertised-subnet
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  loopback_interface:
+    canonical:
+      type: string
+      references: &id024
+      - system.interface.name
+      version_ranges: &id023
+      - - v7.2.4
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Loopback interface.
+      source_attribute: loopback-interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id023
+        description: Loopback interface. Source system.interface.name.
+        references: *id024
+        source_attribute: loopback_interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: loopback_interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Loopback interface.
+        max_length: 15
+        source_attribute: loopback-interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  overlays:
+    canonical:
+      type: list
+      elements: dict
+      children: &id026
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id040
+          - - v7.2.4
+            - ''
+          description: Overlay name.
+        ipsec_network_id:
+          type: integer
+          raw_type: integer
+          version_ranges: &id037
+          - - v7.6.3
+            - ''
+          description: VPN gateway network ID.
+        overlay_tunnel_block:
+          type: string
+          raw_type: string
+          version_ranges: &id043
+          - - v7.2.4
+            - ''
+          description: 'IPv4 address and subnet mask for the overlay tunnel , syntax: X.X.X.X/24.'
+        remote_gw:
+          type: string
+          raw_type: string
+          version_ranges: &id044
+          - - v7.2.4
+            - ''
+          description: IP address of the hub gateway (Set by hub).
+        interface:
+          type: string
+          raw_type: string
+          version_ranges: &id036
+          - - v7.2.4
+            - ''
+          description: Underlying interface name. Source system.interface.name.
+          references: &id035
+          - system.interface.name
+        bgp_neighbor:
+          type: string
+          raw_type: string
+          version_ranges: &id028
+          - - v7.2.4
+            - ''
+          description: Underlying BGP neighbor entry. Source router.bgp.neighbor.ip.
+          references: &id027
+          - router.bgp.neighbor.ip
+        overlay_policy:
+          type: integer
+          raw_type: integer
+          version_ranges: &id042
+          - - v7.2.4
+            - ''
+          description: The overlay policy to allow ADVPN thru traffic. Source firewall.policy.policyid.
+          references: &id041
+          - firewall.policy.policyid
+        bgp_network:
+          type: integer
+          raw_type: integer
+          version_ranges: &id034
+          - - v7.2.4
+            - ''
+          description: Underlying BGP network. Source router.bgp.network.id.
+          references: &id033
+          - router.bgp.network.id
+        route_policy:
+          type: integer
+          raw_type: integer
+          version_ranges: &id046
+          - - v7.2.4
+            - ''
+          description: Underlying router policy. Source router.policy.seq-num.
+          references: &id045
+          - router.policy.seq-num
+        bgp_neighbor_group:
+          type: string
+          raw_type: string
+          version_ranges: &id030
+          - - v7.2.4
+            - ''
+          description: Underlying BGP neighbor group entry. Source router.bgp.neighbor-group.name.
+          references: &id029
+          - router.bgp.neighbor-group.name
+        bgp_neighbor_range:
+          type: integer
+          raw_type: integer
+          version_ranges: &id032
+          - - v7.2.4
+            - ''
+          description: Underlying BGP neighbor range entry. Source router.bgp.neighbor-range.id.
+          references: &id031
+          - router.bgp.neighbor-range.id
+        ipsec_phase1:
+          type: string
+          raw_type: string
+          version_ranges: &id039
+          - - v7.2.4
+            - ''
+          description: IPsec interface. Source vpn.ipsec.phase1-interface.name.
+          references: &id038
+          - vpn.ipsec.phase1-interface.name
+        sdwan_member:
+          type: integer
+          raw_type: integer
+          version_ranges: &id048
+          - - v7.2.4
+            - ''
+          description: Reference to SD-WAN member entry. Source system.sdwan.members.seq-num.
+          references: &id047
+          - system.sdwan.members.seq-num
+      version_ranges: &id025
+      - - v7.2.4
+        - ''
+      description: Local overlay interfaces table.
+      source_attribute: overlays
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id025
+        description: Local overlay interfaces table.
+        children: *id026
+        source_attribute: overlays
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+          ipsec_network_id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 255
+          overlay_tunnel_block:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          overlay_tunnel_block_ipam:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+            min_length: 0
+            max_length: 79
+          remote_gw:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          bgp_neighbor:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 45
+          overlay_policy:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          bgp_network:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          route_policy:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          bgp_neighbor_group:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 45
+          bgp_neighbor_range:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          ipsec_phase1:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          sdwan_member:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+        source_attribute: overlays
+    sources:
+    - ansible
+    - terraform
+  overlays.bgp_neighbor:
+    canonical:
+      type: string
+      references: *id027
+      version_ranges: *id028
+      min_length: 0
+      max_length: 45
+      description: Underlying BGP neighbor entry. Source router.bgp.neighbor.ip.
+      source_attribute: overlays.bgp_neighbor
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id028
+        description: Underlying BGP neighbor entry. Source router.bgp.neighbor.ip.
+        references: *id027
+        source_attribute: overlays.bgp_neighbor
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 45
+        source_attribute: overlays.bgp_neighbor
+    sources:
+    - ansible
+    - terraform
+  overlays.bgp_neighbor_group:
+    canonical:
+      type: string
+      references: *id029
+      version_ranges: *id030
+      min_length: 0
+      max_length: 45
+      description: Underlying BGP neighbor group entry. Source router.bgp.neighbor-group.name.
+      source_attribute: overlays.bgp_neighbor_group
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id030
+        description: Underlying BGP neighbor group entry. Source router.bgp.neighbor-group.name.
+        references: *id029
+        source_attribute: overlays.bgp_neighbor_group
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 45
+        source_attribute: overlays.bgp_neighbor_group
+    sources:
+    - ansible
+    - terraform
+  overlays.bgp_neighbor_range:
+    canonical:
+      type: integer
+      references: *id031
+      version_ranges: *id032
+      description: Underlying BGP neighbor range entry. Source router.bgp.neighbor-range.id.
+      source_attribute: overlays.bgp_neighbor_range
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id032
+        description: Underlying BGP neighbor range entry. Source router.bgp.neighbor-range.id.
+        references: *id031
+        source_attribute: overlays.bgp_neighbor_range
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: overlays.bgp_neighbor_range
+    sources:
+    - ansible
+    - terraform
+  overlays.bgp_network:
+    canonical:
+      type: integer
+      references: *id033
+      version_ranges: *id034
+      description: Underlying BGP network. Source router.bgp.network.id.
+      source_attribute: overlays.bgp_network
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id034
+        description: Underlying BGP network. Source router.bgp.network.id.
+        references: *id033
+        source_attribute: overlays.bgp_network
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: overlays.bgp_network
+    sources:
+    - ansible
+    - terraform
+  overlays.interface:
+    canonical:
+      type: string
+      references: *id035
+      version_ranges: *id036
+      min_length: 0
+      max_length: 15
+      description: Underlying interface name. Source system.interface.name.
+      source_attribute: overlays.interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id036
+        description: Underlying interface name. Source system.interface.name.
+        references: *id035
+        source_attribute: overlays.interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: overlays.interface
+    sources:
+    - ansible
+    - terraform
+  overlays.ipsec_network_id:
+    canonical:
+      type: integer
+      version_ranges: *id037
+      min: 0
+      max: 255
+      description: VPN gateway network ID.
+      source_attribute: overlays.ipsec_network_id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id037
+        description: VPN gateway network ID.
+        source_attribute: overlays.ipsec_network_id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: overlays.ipsec_network_id
+    sources:
+    - ansible
+    - terraform
+  overlays.ipsec_phase1:
+    canonical:
+      type: string
+      references: *id038
+      version_ranges: *id039
+      min_length: 0
+      max_length: 35
+      description: IPsec interface. Source vpn.ipsec.phase1-interface.name.
+      source_attribute: overlays.ipsec_phase1
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id039
+        description: IPsec interface. Source vpn.ipsec.phase1-interface.name.
+        references: *id038
+        source_attribute: overlays.ipsec_phase1
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: overlays.ipsec_phase1
+    sources:
+    - ansible
+    - terraform
+  overlays.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id040
+      min_length: 0
+      max_length: 79
+      description: Overlay name.
+      source_attribute: overlays.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id040
+        description: Overlay name.
+        source_attribute: overlays.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: overlays.name
+    sources:
+    - ansible
+    - terraform
+  overlays.overlay_policy:
+    canonical:
+      type: integer
+      references: *id041
+      version_ranges: *id042
+      description: The overlay policy to allow ADVPN thru traffic. Source firewall.policy.policyid.
+      source_attribute: overlays.overlay_policy
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id042
+        description: The overlay policy to allow ADVPN thru traffic. Source firewall.policy.policyid.
+        references: *id041
+        source_attribute: overlays.overlay_policy
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: overlays.overlay_policy
+    sources:
+    - ansible
+    - terraform
+  overlays.overlay_tunnel_block:
+    canonical:
+      type: string
+      version_ranges: *id043
+      description: 'IPv4 address and subnet mask for the overlay tunnel , syntax: X.X.X.X/24.'
+      source_attribute: overlays.overlay_tunnel_block
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id043
+        description: 'IPv4 address and subnet mask for the overlay tunnel , syntax: X.X.X.X/24.'
+        source_attribute: overlays.overlay_tunnel_block
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: overlays.overlay_tunnel_block
+    sources:
+    - ansible
+    - terraform
+  overlays.overlay_tunnel_block_ipam:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 79
+      source_attribute: overlays.overlay_tunnel_block_ipam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 79
+        source_attribute: overlays.overlay_tunnel_block_ipam
+    sources:
+    - terraform
+  overlays.remote_gw:
+    canonical:
+      type: string
+      version_ranges: *id044
+      description: IP address of the hub gateway (Set by hub).
+      source_attribute: overlays.remote_gw
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id044
+        description: IP address of the hub gateway (Set by hub).
+        source_attribute: overlays.remote_gw
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: overlays.remote_gw
+    sources:
+    - ansible
+    - terraform
+  overlays.route_policy:
+    canonical:
+      type: integer
+      references: *id045
+      version_ranges: *id046
+      description: Underlying router policy. Source router.policy.seq-num.
+      source_attribute: overlays.route_policy
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id046
+        description: Underlying router policy. Source router.policy.seq-num.
+        references: *id045
+        source_attribute: overlays.route_policy
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: overlays.route_policy
+    sources:
+    - ansible
+    - terraform
+  overlays.sdwan_member:
+    canonical:
+      type: integer
+      references: *id047
+      version_ranges: *id048
+      description: Reference to SD-WAN member entry. Source system.sdwan.members.seq-num.
+      source_attribute: overlays.sdwan_member
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id048
+        description: Reference to SD-WAN member entry. Source system.sdwan.members.seq-num.
+        references: *id047
+        source_attribute: overlays.sdwan_member
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: overlays.sdwan_member
+    sources:
+    - ansible
+    - terraform
+  policy_rule:
+    canonical:
+      type: enum
+      version_ranges: &id050
+      - - v7.2.4
+        - ''
+      choices: &id049
+      - health-check
+      - manual
+      - auto
+      default: health-check
+      description: Policy creation rule.
+      source_attribute: policy-rule
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id049
+        version_ranges: *id050
+        description: Policy creation rule.
+        source_attribute: policy_rule
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: policy_rule
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Policy creation rule.
+        default: health-check
+        source_attribute: policy-rule
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  psksecret:
+    canonical:
+      type: password-3
+      version_ranges: &id051
+      - - v7.2.4
+        - ''
+      description: Pre-shared secret for ADVPN.
+      source_attribute: psksecret
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id051
+        description: Pre-shared secret for ADVPN.
+        source_attribute: psksecret
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: psksecret
+      cli_reference:
+        type: password-3
+        raw_type: password-3
+        description: Pre-shared secret for ADVPN.
+        source_attribute: psksecret
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id052
+          primitive: string
+          format: password-3
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id052
+  sdwan_zone:
+    canonical:
+      type: string
+      references: &id054
+      - system.sdwan.zone.name
+      version_ranges: &id053
+      - - v7.2.4
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Reference to created SD-WAN zone.
+      source_attribute: sdwan-zone
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id053
+        description: Reference to created SD-WAN zone. Source system.sdwan.zone.name.
+        references: *id054
+        source_attribute: sdwan_zone
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: sdwan_zone
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Reference to created SD-WAN zone.
+        max_length: 35
+        source_attribute: sdwan-zone
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id056
+      - - v7.2.4
+        - ''
+      choices: &id055
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable Fabric VPN.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id055
+        version_ranges: *id056
+        description: Enable/disable Fabric VPN.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable Fabric VPN.
+        default: disable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sync_mode:
+    canonical:
+      type: enum
+      version_ranges: &id058
+      - - v7.2.4
+        - ''
+      choices: &id057
+      - enable
+      - disable
+      default: enable
+      description: Setting synchronized by fabric or manual.
+      source_attribute: sync-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id057
+        version_ranges: *id058
+        description: Setting synchronized by fabric or manual.
+        source_attribute: sync_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sync_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Setting synchronized by fabric or manual.
+        default: enable
+        source_attribute: sync-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  vpn_role:
+    canonical:
+      type: enum
+      version_ranges: &id060
+      - - v7.2.4
+        - ''
+      choices: &id059
+      - hub
+      - spoke
+      default: hub
+      description: Fabric VPN role.
+      source_attribute: vpn-role
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id059
+        version_ranges: *id060
+        description: Fabric VPN role.
+        source_attribute: vpn_role
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: vpn_role
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Fabric VPN role.
+        default: hub
+        source_attribute: vpn-role
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: advertised_subnets.policies
+  field: type
+  values:
+    ansible: list
+    terraform: integer
+  classification: representation_or_real_conflict
+- attribute: bgp_as
+  field: type
+  values:
+    ansible: string
+    terraform: integer
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: health_checks
+  field: type
+  values:
+    ansible: list
+    terraform: string
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: loopback_address_block
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-classnet-host
+  classification: representation_or_real_conflict
+- attribute: psksecret
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password-3
+  classification: representation_or_real_conflict

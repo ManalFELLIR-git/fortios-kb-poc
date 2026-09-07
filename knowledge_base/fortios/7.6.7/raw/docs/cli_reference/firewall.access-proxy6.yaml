@@ -1,0 +1,530 @@
+id: firewall.access-proxy6
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/145153878/config-firewall-access-proxy6
+attributes:
+  add-vhost-domain-to-dnsdb:
+    type: enum
+    raw_type: option
+    description: Enable/disable adding vhost/domain to dnsdb for ztna dox tunnel.
+    default: disable
+  auth-portal:
+    type: enum
+    raw_type: option
+    description: Enable/disable authentication portal.
+    default: disable
+  auth-virtual-host:
+    type: string
+    raw_type: string
+    description: Virtual host for authentication portal.
+    max_length: 79
+  decrypted-traffic-mirror:
+    type: string
+    raw_type: string
+    description: Decrypted traffic mirror.
+    max_length: 35
+  log-blocked-traffic:
+    type: enum
+    raw_type: option
+    description: Enable/disable logging of blocked traffic.
+    default: enable
+  name:
+    type: string
+    raw_type: string
+    description: Access Proxy name.
+    max_length: 79
+  svr-pool-multiplex:
+    type: enum
+    raw_type: option
+    description: Enable/disable server pool multiplexing (default = disable). Share connected server in HTTP, HTTPS, and web-portal
+      api-gateway.
+    default: disable
+  svr-pool-server-max-concurrent-request:
+    type: integer
+    raw_type: integer
+    description: Maximum number of concurrent requests that servers in server pool could handle (default = unlimited).
+    default: '0'
+    min: 0
+    max: 2147483647
+  svr-pool-server-max-request:
+    type: integer
+    raw_type: integer
+    description: Maximum number of requests that servers in server pool handle before disconnecting (default = unlimited).
+    default: '0'
+    min: 0
+    max: 2147483647
+  svr-pool-ttl:
+    type: integer
+    raw_type: integer
+    description: Time-to-live in the server pool for idle connections to servers.
+    default: '15'
+    min: 0
+    max: 2147483647
+  vip:
+    type: string
+    raw_type: string
+    description: Virtual IP name.
+    max_length: 79
+children:
+  api-gateway:
+    attributes:
+      application:
+        type: string
+        raw_type: string
+        description: SaaS application controlled by this Access Proxy. SaaS application name.
+        max_length: 79
+      h2-support:
+        type: enum
+        raw_type: option
+        description: HTTP2 support, default=Enable.
+        default: enable
+      h3-support:
+        type: enum
+        raw_type: option
+        description: HTTP3/QUIC support, default=Disable.
+        default: disable
+      http-cookie-age:
+        type: integer
+        raw_type: integer
+        description: Time in minutes that client web browsers should keep a cookie. Default is 60 minutes. 0 = no time limit.
+        default: '60'
+        min: 0
+        max: 525600
+      http-cookie-domain:
+        type: string
+        raw_type: string
+        description: Domain that HTTP cookie persistence should apply to.
+        max_length: 35
+      http-cookie-domain-from-host:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of HTTP cookie domain from host field in HTTP.
+        default: disable
+      http-cookie-generation:
+        type: integer
+        raw_type: integer
+        description: Generation of HTTP cookie to be accepted. Changing invalidates all existing cookies.
+        default: '0'
+        min: 0
+        max: 4294967295
+      http-cookie-path:
+        type: string
+        raw_type: string
+        description: Limit HTTP cookie persistence to the specified path.
+        max_length: 35
+      http-cookie-share:
+        type: enum
+        raw_type: option
+        description: Control sharing of cookies across API Gateway. Use of same-ip means a cookie from one virtual server
+          can be used by another. Disable stops cookie sharing.
+        default: same-ip
+      https-cookie-secure:
+        type: enum
+        raw_type: option
+        description: Enable/disable verification that inserted HTTPS cookies are secure.
+        default: disable
+      id:
+        type: integer
+        raw_type: integer
+        description: API Gateway ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      ldb-method:
+        type: enum
+        raw_type: option
+        description: Method used to distribute sessions to real servers.
+        default: static
+      persistence:
+        type: enum
+        raw_type: option
+        description: Configure how to make sure that clients connect to the same server every time they make a request that
+          is part of the same session.
+        default: none
+      saml-redirect:
+        type: enum
+        raw_type: option
+        description: Enable/disable SAML redirection after successful authentication.
+        default: enable
+      saml-server:
+        type: string
+        raw_type: string
+        description: SAML service provider configuration for VIP authentication.
+        max_length: 35
+      service:
+        type: enum
+        raw_type: option
+        description: Service.
+        default: https
+      ssl-algorithm:
+        type: enum
+        raw_type: option
+        description: Permitted encryption algorithms for the server side of SSL full mode sessions according to encryption
+          strength.
+        default: high
+      ssl-dh-bits:
+        type: enum
+        raw_type: option
+        description: Number of bits to use in the Diffie-Hellman exchange for RSA encryption of SSL sessions.
+        default: '2048'
+      ssl-max-version:
+        type: enum
+        raw_type: option
+        description: Highest SSL/TLS version acceptable from a server.
+        default: tls-1.3
+      ssl-min-version:
+        type: enum
+        raw_type: option
+        description: Lowest SSL/TLS version acceptable from a server.
+        default: tls-1.1
+      ssl-renegotiation:
+        type: enum
+        raw_type: option
+        description: Enable/disable secure renegotiation to comply with RFC 5746.
+        default: enable
+      ssl-vpn-web-portal:
+        type: string
+        raw_type: string
+        description: Agentless VPN web portal.
+        max_length: 35
+      url-map:
+        type: string
+        raw_type: string
+        description: URL pattern to match.
+        default: /
+        max_length: 511
+      url-map-type:
+        type: enum
+        raw_type: option
+        description: Type of url-map.
+        default: sub-string
+      virtual-host:
+        type: string
+        raw_type: string
+        description: Virtual host.
+        max_length: 79
+  quic:
+    attributes:
+      ack-delay-exponent:
+        type: integer
+        raw_type: integer
+        description: ACK delay exponent (1 - 20, default = 3).
+        default: '3'
+        min: 1
+        max: 20
+      active-connection-id-limit:
+        type: integer
+        raw_type: integer
+        description: Active connection ID limit (1 - 8, default = 2).
+        default: '2'
+        min: 1
+        max: 8
+      active-migration:
+        type: enum
+        raw_type: option
+        description: Enable/disable active migration (default = disable).
+        default: disable
+      grease-quic-bit:
+        type: enum
+        raw_type: option
+        description: Enable/disable grease QUIC bit (default = enable).
+        default: enable
+      max-ack-delay:
+        type: integer
+        raw_type: integer
+        description: Maximum ACK delay in milliseconds (1 - 16383, default = 25).
+        default: '25'
+        min: 1
+        max: 16383
+      max-datagram-frame-size:
+        type: integer
+        raw_type: integer
+        description: Maximum datagram frame size in bytes (1 - 1500, default = 1500).
+        default: '1500'
+        min: 1
+        max: 1500
+      max-idle-timeout:
+        type: integer
+        raw_type: integer
+        description: Maximum idle timeout milliseconds (1 - 60000, default = 30000).
+        default: '30000'
+        min: 1
+        max: 60000
+      max-udp-payload-size:
+        type: integer
+        raw_type: integer
+        description: Maximum UDP payload size in bytes (1200 - 1500, default = 1500).
+        default: '1500'
+        min: 1200
+        max: 1500
+  realservers:
+    attributes:
+      addr-type:
+        type: enum
+        raw_type: option
+        description: Type of address.
+        default: ip
+      address:
+        type: string
+        raw_type: string
+        description: Address or address group of the real server.
+        max_length: 79
+      domain:
+        type: string
+        raw_type: string
+        description: Wildcard domain name of the real server.
+        max_length: 255
+      external-auth:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of external browser as user-agent for SAML user authentication.
+        default: disable
+      health-check:
+        type: enum
+        raw_type: option
+        description: Enable to check the responsiveness of the real server before forwarding traffic.
+        default: disable
+      health-check-proto:
+        type: enum
+        raw_type: option
+        description: Protocol of the health check monitor to use when polling to determine server's connectivity status.
+        default: ping
+      holddown-interval:
+        type: enum
+        raw_type: option
+        description: Enable/disable holddown timer. Server will be considered active and reachable once the holddown period
+          has expired (30 seconds).
+        default: enable
+      http-host:
+        type: string
+        raw_type: string
+        description: HTTP server domain name in HTTP header.
+        max_length: 63
+      id:
+        type: integer
+        raw_type: integer
+        description: Real server ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      ip:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: IPv6 address of the real server.
+        default: '::'
+      mappedport:
+        type: string
+        raw_type: user
+        description: Port for communicating with the real server.
+      port:
+        type: integer
+        raw_type: integer
+        description: Port for communicating with the real server.
+        default: '443'
+        min: 1
+        max: 65535
+      ssh-client-cert:
+        type: string
+        raw_type: string
+        description: Set access-proxy SSH client certificate profile.
+        max_length: 79
+      ssh-host-key:
+        type: string
+        raw_type: string
+        description: One or more server host key. Server host key name.
+        max_length: 79
+      ssh-host-key-validation:
+        type: enum
+        raw_type: option
+        description: Enable/disable SSH real server host key validation.
+        default: disable
+      status:
+        type: enum
+        raw_type: option
+        description: Set the status of the real server to active so that it can accept traffic, or on standby or disabled
+          so no traffic is sent.
+        default: active
+      translate-host:
+        type: enum
+        raw_type: option
+        description: Enable/disable translation of hostname/IP from virtual server to real server.
+        default: enable
+      tunnel-encryption:
+        type: enum
+        raw_type: option
+        description: Tunnel encryption.
+        default: disable
+      type:
+        type: enum
+        raw_type: option
+        description: TCP forwarding server type.
+        default: tcp-forwarding
+      verify-cert:
+        type: enum
+        raw_type: option
+        description: Enable/disable certificate verification of the real server.
+        default: enable
+      weight:
+        type: integer
+        raw_type: integer
+        description: Weight of the real server. If weighted load balancing is enabled, the server with the highest weight
+          gets more connections.
+        default: '1'
+        min: 1
+        max: 255
+  ssl-cipher-suites:
+    attributes:
+      cipher:
+        type: enum
+        raw_type: option
+        description: Cipher suite name.
+      priority:
+        type: integer
+        raw_type: integer
+        description: SSL/TLS cipher suites priority.
+        default: '0'
+        min: 0
+        max: 4294967295
+      versions:
+        type: enum
+        raw_type: option
+        description: SSL/TLS versions that the cipher suite can be used with.
+        default: tls-1.0 tls-1.1 tls-1.2 tls-1.3
+  api-gateway6:
+    attributes:
+      application:
+        type: string
+        raw_type: string
+        description: SaaS application controlled by this Access Proxy. SaaS application name.
+        max_length: 79
+      h2-support:
+        type: enum
+        raw_type: option
+        description: HTTP2 support, default=Enable.
+        default: enable
+      h3-support:
+        type: enum
+        raw_type: option
+        description: HTTP3/QUIC support, default=Disable.
+        default: disable
+      http-cookie-age:
+        type: integer
+        raw_type: integer
+        description: Time in minutes that client web browsers should keep a cookie. Default is 60 minutes. 0 = no time limit.
+        default: '60'
+        min: 0
+        max: 525600
+      http-cookie-domain:
+        type: string
+        raw_type: string
+        description: Domain that HTTP cookie persistence should apply to.
+        max_length: 35
+      http-cookie-domain-from-host:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of HTTP cookie domain from host field in HTTP.
+        default: disable
+      http-cookie-generation:
+        type: integer
+        raw_type: integer
+        description: Generation of HTTP cookie to be accepted. Changing invalidates all existing cookies.
+        default: '0'
+        min: 0
+        max: 4294967295
+      http-cookie-path:
+        type: string
+        raw_type: string
+        description: Limit HTTP cookie persistence to the specified path.
+        max_length: 35
+      http-cookie-share:
+        type: enum
+        raw_type: option
+        description: Control sharing of cookies across API Gateway. Use of same-ip means a cookie from one virtual server
+          can be used by another. Disable stops cookie sharing.
+        default: same-ip
+      https-cookie-secure:
+        type: enum
+        raw_type: option
+        description: Enable/disable verification that inserted HTTPS cookies are secure.
+        default: disable
+      id:
+        type: integer
+        raw_type: integer
+        description: API Gateway ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      ldb-method:
+        type: enum
+        raw_type: option
+        description: Method used to distribute sessions to real servers.
+        default: static
+      persistence:
+        type: enum
+        raw_type: option
+        description: Configure how to make sure that clients connect to the same server every time they make a request that
+          is part of the same session.
+        default: none
+      saml-redirect:
+        type: enum
+        raw_type: option
+        description: Enable/disable SAML redirection after successful authentication.
+        default: enable
+      saml-server:
+        type: string
+        raw_type: string
+        description: SAML service provider configuration for VIP authentication.
+        max_length: 35
+      service:
+        type: enum
+        raw_type: option
+        description: Service.
+        default: https
+      ssl-algorithm:
+        type: enum
+        raw_type: option
+        description: Permitted encryption algorithms for the server side of SSL full mode sessions according to encryption
+          strength.
+        default: high
+      ssl-dh-bits:
+        type: enum
+        raw_type: option
+        description: Number of bits to use in the Diffie-Hellman exchange for RSA encryption of SSL sessions.
+        default: '2048'
+      ssl-max-version:
+        type: enum
+        raw_type: option
+        description: Highest SSL/TLS version acceptable from a server.
+        default: tls-1.3
+      ssl-min-version:
+        type: enum
+        raw_type: option
+        description: Lowest SSL/TLS version acceptable from a server.
+        default: tls-1.1
+      ssl-renegotiation:
+        type: enum
+        raw_type: option
+        description: Enable/disable secure renegotiation to comply with RFC 5746.
+        default: enable
+      ssl-vpn-web-portal:
+        type: string
+        raw_type: string
+        description: Agentless VPN web portal.
+        max_length: 35
+      url-map:
+        type: string
+        raw_type: string
+        description: URL pattern to match.
+        default: /
+        max_length: 511
+      url-map-type:
+        type: enum
+        raw_type: option
+        description: Type of url-map.
+        default: sub-string
+      virtual-host:
+        type: string
+        raw_type: string
+        description: Virtual host.
+        max_length: 79

@@ -1,0 +1,206 @@
+id: telemetry-controller.global
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  auto_group_telemetry_addr:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.6.4
+        - ''
+      choices: &id001
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable automatically adding the telemetry address to the default addrgrp TELEMETRY.
+      source_attribute: auto-group-telemetry-addr
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable automatically adding the telemetry address to the default addrgrp TELEMETRY.
+        source_attribute: auto_group_telemetry_addr
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auto_group_telemetry_addr
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable automatically adding the telemetry address to the default addrgrp TELEMETRY.
+        default: enable
+        source_attribute: auto-group-telemetry-addr
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  region:
+    canonical:
+      type: enum
+      version_ranges: &id004
+      - - v7.6.3
+        - ''
+      choices: &id003
+      - global
+      default: global
+      description: Configure telemetry cloud region.
+      source_attribute: region
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: Configure telemetry cloud region.
+        source_attribute: region
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: region
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Configure telemetry cloud region.
+        default: global
+        source_attribute: region
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  retry_interval:
+    canonical:
+      type: integer
+      version_ranges: &id005
+      - - v7.6.3
+        - ''
+      default: '60'
+      min: 1
+      max: 999
+      description: Configure telemetry cloud retry interval (1 - 999, default = 60).
+      source_attribute: retry-interval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id005
+        description: Configure telemetry cloud retry interval (1 - 999).
+        source_attribute: retry_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 999
+        source_attribute: retry_interval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Configure telemetry cloud retry interval (1 - 999, default = 60).
+        default: '60'
+        min: 1
+        max: 999
+        source_attribute: retry-interval
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  telemetry_ca_certificate:
+    canonical:
+      type: string
+      references: &id007
+      - certificate.ca.name
+      version_ranges: &id006
+      - - v7.6.3
+        - ''
+      min_length: 0
+      max_length: 79
+      description: Name of the CA certificate used to verify the telemetry agent certificate.
+      source_attribute: telemetry-ca-certificate
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id006
+        description: Name of the CA certificate used to verify the telemetry agent certificate. Source certificate.ca.name.
+        references: *id007
+        source_attribute: telemetry_ca_certificate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: telemetry_ca_certificate
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of the CA certificate used to verify the telemetry agent certificate.
+        max_length: 79
+        source_attribute: telemetry-ca-certificate
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

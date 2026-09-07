@@ -1,0 +1,2783 @@
+id: casb.user-activity
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  application:
+    canonical:
+      type: string
+      references: &id002
+      - casb.saas-application.name
+      version_ranges: &id001
+      - - v7.4.1
+        - ''
+      min_length: 0
+      max_length: 79
+      description: CASB SaaS application name.
+      source_attribute: application
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: CASB SaaS application name. Source casb.saas-application.name.
+        references: *id002
+        source_attribute: application
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: application
+      cli_reference:
+        type: string
+        raw_type: string
+        description: CASB SaaS application name.
+        max_length: 79
+        source_attribute: application
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  casb_name:
+    canonical:
+      type: string
+      version_ranges: &id003
+      - - v7.4.1
+        - ''
+      min_length: 0
+      max_length: 79
+      description: CASB user activity signature name.
+      source_attribute: casb-name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: CASB user activity signature name.
+        source_attribute: casb_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: casb_name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: CASB user activity signature name.
+        max_length: 79
+        source_attribute: casb-name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  category:
+    canonical:
+      type: enum
+      version_ranges: &id005
+      - - v7.4.1
+        - ''
+      choices: &id004
+      - activity-control
+      - tenant-control
+      - domain-control
+      - safe-search-control
+      - advanced-tenant-control
+      - other
+      default: activity-control
+      description: CASB user activity category.
+      source_attribute: category
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id004
+        version_ranges: *id005
+        description: CASB user activity category.
+        source_attribute: category
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: category
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: CASB user activity category.
+        default: activity-control
+        source_attribute: category
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  control_options:
+    canonical:
+      type: list
+      elements: dict
+      children: &id007
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id008
+          - - v7.4.1
+            - ''
+          description: CASB control option name.
+        status:
+          type: enum
+          raw_type: string
+          choices: &id033
+          - enable
+          - disable
+          version_ranges: &id032
+          - - v7.4.2
+            - ''
+          description: CASB control option status.
+        operations:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id010
+          - - v7.4.1
+            - ''
+          description: CASB control option operations.
+          children: &id009
+            name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id019
+              - - v7.4.1
+                - ''
+              description: CASB control option operation name.
+            target:
+              type: enum
+              raw_type: string
+              choices: &id024
+              - header
+              - path
+              - body
+              version_ranges: &id023
+              - - v7.4.1
+                - ''
+              description: CASB operation target.
+            action:
+              type: enum
+              raw_type: string
+              choices: &id013
+              - append
+              - prepend
+              - replace
+              - new
+              - new-on-not-found
+              - delete
+              version_ranges: &id012
+              - - v7.4.1
+                - ''
+              description: CASB operation action.
+            direction:
+              type: enum
+              raw_type: string
+              choices: &id017
+              - request
+              - response
+              version_ranges: &id016
+              - - v7.4.1
+                - ''
+              description: CASB operation direction.
+            header_name:
+              type: string
+              raw_type: string
+              version_ranges: &id018
+              - - v7.4.1
+                - ''
+              description: CASB operation header name to search.
+            search_pattern:
+              type: enum
+              raw_type: string
+              choices: &id022
+              - simple
+              - substr
+              - regexp
+              version_ranges: &id021
+              - - v7.4.1
+                - ''
+              description: CASB operation search pattern.
+            search_key:
+              type: string
+              raw_type: string
+              version_ranges: &id020
+              - - v7.4.1
+                - ''
+              description: CASB operation key to search.
+            case_sensitive:
+              type: enum
+              raw_type: string
+              choices: &id015
+              - enable
+              - disable
+              version_ranges: &id014
+              - - v7.4.1
+                - ''
+              description: CASB operation search case sensitive.
+            value_from_input:
+              type: enum
+              raw_type: string
+              choices: &id026
+              - enable
+              - disable
+              version_ranges: &id025
+              - - v7.4.1
+                - ''
+              description: Enable/disable value from user input.
+            value_name_from_input:
+              type: string
+              raw_type: string
+              version_ranges: &id027
+              - - v7.6.4
+                - ''
+              description: CASB operation value name from user input.
+            values:
+              type: list
+              raw_type: list
+              elements: dict
+              version_ranges: &id029
+              - - v7.4.1
+                - ''
+              description: CASB operation new values.
+              children: &id028
+                value:
+                  type: string
+                  raw_type: string
+                  required: true
+                  version_ranges: &id031
+                  - - v7.4.1
+                    - ''
+                  description: Operation value.
+      version_ranges: &id006
+      - - v7.4.1
+        - ''
+      description: CASB control options.
+      source_attribute: control_options
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id006
+        description: CASB control options.
+        children: *id007
+        source_attribute: control_options
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          operations:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id011
+              name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+              target:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              action:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              direction:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              header_name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 255
+              search_pattern:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              search_key:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 1023
+              case_sensitive:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              value_from_input:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              value_name_from_input:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+              values:
+                type: list
+                raw_type: TypeSet
+                optional: true
+                children: &id030
+                  value:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    min_length: 0
+                    max_length: 79
+        source_attribute: control_options
+    sources:
+    - ansible
+    - terraform
+  control_options.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id008
+      min_length: 0
+      max_length: 79
+      description: CASB control option name.
+      source_attribute: control_options.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id008
+        description: CASB control option name.
+        source_attribute: control_options.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: control_options.name
+    sources:
+    - ansible
+    - terraform
+  control_options.operations:
+    canonical:
+      type: list
+      elements: dict
+      children: *id009
+      version_ranges: *id010
+      description: CASB control option operations.
+      source_attribute: control_options.operations
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id010
+        description: CASB control option operations.
+        children: *id009
+        source_attribute: control_options.operations
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id011
+        source_attribute: control_options.operations
+    sources:
+    - ansible
+    - terraform
+  control_options.operations.action:
+    canonical:
+      type: enum
+      version_ranges: *id012
+      choices: *id013
+      description: CASB operation action.
+      source_attribute: control_options.operations.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id012
+        description: CASB operation action.
+        source_attribute: control_options.operations.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: control_options.operations.action
+    sources:
+    - ansible
+    - terraform
+  control_options.operations.case_sensitive:
+    canonical:
+      type: enum
+      version_ranges: *id014
+      choices: *id015
+      description: CASB operation search case sensitive.
+      source_attribute: control_options.operations.case_sensitive
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id015
+        version_ranges: *id014
+        description: CASB operation search case sensitive.
+        source_attribute: control_options.operations.case_sensitive
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: control_options.operations.case_sensitive
+    sources:
+    - ansible
+    - terraform
+  control_options.operations.direction:
+    canonical:
+      type: enum
+      version_ranges: *id016
+      choices: *id017
+      description: CASB operation direction.
+      source_attribute: control_options.operations.direction
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id017
+        version_ranges: *id016
+        description: CASB operation direction.
+        source_attribute: control_options.operations.direction
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: control_options.operations.direction
+    sources:
+    - ansible
+    - terraform
+  control_options.operations.header_name:
+    canonical:
+      type: string
+      version_ranges: *id018
+      min_length: 0
+      max_length: 255
+      description: CASB operation header name to search.
+      source_attribute: control_options.operations.header_name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id018
+        description: CASB operation header name to search.
+        source_attribute: control_options.operations.header_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: control_options.operations.header_name
+    sources:
+    - ansible
+    - terraform
+  control_options.operations.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id019
+      min_length: 0
+      max_length: 79
+      description: CASB control option operation name.
+      source_attribute: control_options.operations.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id019
+        description: CASB control option operation name.
+        source_attribute: control_options.operations.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: control_options.operations.name
+    sources:
+    - ansible
+    - terraform
+  control_options.operations.search_key:
+    canonical:
+      type: string
+      version_ranges: *id020
+      min_length: 0
+      max_length: 1023
+      description: CASB operation key to search.
+      source_attribute: control_options.operations.search_key
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id020
+        description: CASB operation key to search.
+        source_attribute: control_options.operations.search_key
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 1023
+        source_attribute: control_options.operations.search_key
+    sources:
+    - ansible
+    - terraform
+  control_options.operations.search_pattern:
+    canonical:
+      type: enum
+      version_ranges: *id021
+      choices: *id022
+      description: CASB operation search pattern.
+      source_attribute: control_options.operations.search_pattern
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id022
+        version_ranges: *id021
+        description: CASB operation search pattern.
+        source_attribute: control_options.operations.search_pattern
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: control_options.operations.search_pattern
+    sources:
+    - ansible
+    - terraform
+  control_options.operations.target:
+    canonical:
+      type: enum
+      version_ranges: *id023
+      choices: *id024
+      description: CASB operation target.
+      source_attribute: control_options.operations.target
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id024
+        version_ranges: *id023
+        description: CASB operation target.
+        source_attribute: control_options.operations.target
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: control_options.operations.target
+    sources:
+    - ansible
+    - terraform
+  control_options.operations.value_from_input:
+    canonical:
+      type: enum
+      version_ranges: *id025
+      choices: *id026
+      description: Enable/disable value from user input.
+      source_attribute: control_options.operations.value_from_input
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id026
+        version_ranges: *id025
+        description: Enable/disable value from user input.
+        source_attribute: control_options.operations.value_from_input
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: control_options.operations.value_from_input
+    sources:
+    - ansible
+    - terraform
+  control_options.operations.value_name_from_input:
+    canonical:
+      type: string
+      version_ranges: *id027
+      min_length: 0
+      max_length: 79
+      description: CASB operation value name from user input.
+      source_attribute: control_options.operations.value_name_from_input
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id027
+        description: CASB operation value name from user input.
+        source_attribute: control_options.operations.value_name_from_input
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: control_options.operations.value_name_from_input
+    sources:
+    - ansible
+    - terraform
+  control_options.operations.values:
+    canonical:
+      type: list
+      elements: dict
+      children: *id028
+      version_ranges: *id029
+      description: CASB operation new values.
+      source_attribute: control_options.operations.values
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id029
+        description: CASB operation new values.
+        children: *id028
+        source_attribute: control_options.operations.values
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id030
+        source_attribute: control_options.operations.values
+    sources:
+    - ansible
+    - terraform
+  control_options.operations.values.value:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id031
+      min_length: 0
+      max_length: 79
+      description: Operation value.
+      source_attribute: control_options.operations.values.value
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id031
+        description: Operation value.
+        source_attribute: control_options.operations.values.value
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: control_options.operations.values.value
+    sources:
+    - ansible
+    - terraform
+  control_options.status:
+    canonical:
+      type: enum
+      version_ranges: *id032
+      choices: *id033
+      description: CASB control option status.
+      source_attribute: control_options.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id033
+        version_ranges: *id032
+        description: CASB control option status.
+        source_attribute: control_options.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: control_options.status
+    sources:
+    - ansible
+    - terraform
+  description:
+    canonical:
+      type: string
+      version_ranges: &id034
+      - - v7.4.1
+        - ''
+      min_length: 0
+      max_length: 63
+      description: CASB user activity description.
+      source_attribute: description
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id034
+        description: CASB user activity description.
+        source_attribute: description
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: description
+      cli_reference:
+        type: string
+        raw_type: string
+        description: CASB user activity description.
+        max_length: 63
+        source_attribute: description
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  match:
+    canonical:
+      type: list
+      elements: dict
+      children: &id036
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id037
+          - - v7.4.1
+            - ''
+          description: CASB user activity match rules ID. see <a href='#notes'>Notes</a>.
+        strategy:
+          type: enum
+          raw_type: string
+          choices: &id064
+          - and
+          - or
+          version_ranges: &id063
+          - - v7.4.1
+            - ''
+          description: CASB user activity rules strategy.
+        rules:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id039
+          - - v7.4.1
+            - ''
+          description: CASB user activity rules.
+          children: &id038
+            id:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id050
+              - - v7.4.1
+                - ''
+              description: CASB user activity rule ID. see <a href='#notes'>Notes</a>.
+            type:
+              type: enum
+              raw_type: string
+              choices: &id062
+              - domains
+              - host
+              - path
+              - header
+              - header-value
+              - method
+              - body
+              version_ranges: &id061
+              - - v7.4.1
+                - ''
+              description: CASB user activity rule type.
+            domains:
+              type: list
+              raw_type: list
+              elements: dict
+              version_ranges: &id046
+              - - v7.4.1
+                - ''
+              description: CASB user activity domain list.
+              children: &id045
+                domain:
+                  type: string
+                  raw_type: string
+                  required: true
+                  version_ranges: &id048
+                  - - v7.4.1
+                    - ''
+                  description: Domain list separated by space.
+            methods:
+              type: list
+              raw_type: list
+              elements: dict
+              version_ranges: &id056
+              - - v7.4.1
+                - ''
+              description: CASB user activity method list.
+              children: &id055
+                method:
+                  type: string
+                  raw_type: string
+                  required: true
+                  version_ranges: &id058
+                  - - v7.4.1
+                    - ''
+                  description: User activity method.
+            match_pattern:
+              type: enum
+              raw_type: string
+              choices: &id053
+              - simple
+              - substr
+              - regexp
+              version_ranges: &id052
+              - - v7.4.1
+                - ''
+              description: CASB user activity rule match pattern.
+            match_value:
+              type: string
+              raw_type: string
+              version_ranges: &id054
+              - - v7.4.1
+                - ''
+              description: CASB user activity rule match value.
+            header_name:
+              type: string
+              raw_type: string
+              version_ranges: &id049
+              - - v7.4.1
+                - ''
+              description: CASB user activity rule header name.
+            body_type:
+              type: enum
+              raw_type: string
+              choices: &id042
+              - json
+              version_ranges: &id041
+              - - v7.6.1
+                - ''
+              description: CASB user activity match rule body type.
+            jq:
+              type: string
+              raw_type: string
+              version_ranges: &id051
+              - - v7.6.1
+                - ''
+              description: CASB user activity rule match jq script.
+            case_sensitive:
+              type: enum
+              raw_type: string
+              choices: &id044
+              - enable
+              - disable
+              version_ranges: &id043
+              - - v7.4.1
+                - ''
+              description: CASB user activity match case sensitive.
+            negate:
+              type: enum
+              raw_type: string
+              choices: &id060
+              - enable
+              - disable
+              version_ranges: &id059
+              - - v7.4.1
+                - ''
+              description: Enable/disable what the matching strategy must not be.
+        tenant_extraction:
+          type: object
+          raw_type: dict
+          version_ranges: &id066
+          - - v7.6.1
+            - ''
+          description: CASB user activity tenant extraction.
+          children: &id065
+            status:
+              type: enum
+              raw_type: string
+              choices: &id082
+              - disable
+              - enable
+              version_ranges: &id081
+              - - v7.6.1
+                - ''
+              description: Enable/disable CASB tenant extraction.
+            type:
+              type: enum
+              raw_type: string
+              choices: &id084
+              - json-query
+              version_ranges: &id083
+              - - v7.6.1
+                - ''
+              description: CASB user activity tenant extraction type.
+            jq:
+              type: string
+              raw_type: string
+              version_ranges: &id080
+              - - v7.6.1
+                - ''
+              description: CASB user activity tenant extraction jq script.
+            filters:
+              type: list
+              raw_type: list
+              elements: dict
+              version_ranges: &id070
+              - - v7.6.1
+                - ''
+              description: CASB user activity tenant extraction filters.
+              children: &id069
+                id:
+                  type: integer
+                  raw_type: integer
+                  required: true
+                  version_ranges: &id077
+                  - - v7.6.1
+                    - ''
+                  description: CASB content extraction filter ID. see <a href='#notes'>Notes</a>.
+                direction:
+                  type: enum
+                  raw_type: string
+                  choices: &id075
+                  - request
+                  - response
+                  version_ranges: &id074
+                  - - v7.6.1
+                    - ''
+                  description: CASB content extraction filter direction.
+                place:
+                  type: enum
+                  raw_type: string
+                  choices: &id079
+                  - path
+                  - header
+                  - body
+                  version_ranges: &id078
+                  - - v7.6.1
+                    - ''
+                  description: CASB content extraction filter place type.
+                header_name:
+                  type: string
+                  raw_type: string
+                  version_ranges: &id076
+                  - - v7.6.1
+                    - ''
+                  description: CASB content extraction filter header name.
+                body_type:
+                  type: enum
+                  raw_type: string
+                  choices: &id073
+                  - json
+                  version_ranges: &id072
+                  - - v7.6.1
+                    - ''
+                  description: CASB content extraction filter body type.
+      version_ranges: &id035
+      - - v7.4.1
+        - ''
+      description: CASB user activity match rules.
+      source_attribute: match
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id035
+        description: CASB user activity match rules.
+        children: *id036
+        source_attribute: match
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          strategy:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          rules:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id040
+              id:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+              type:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              domains:
+                type: list
+                raw_type: TypeSet
+                optional: true
+                children: &id047
+                  domain:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    min_length: 0
+                    max_length: 127
+              methods:
+                type: list
+                raw_type: TypeSet
+                optional: true
+                children: &id057
+                  method:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    min_length: 0
+                    max_length: 79
+              match_pattern:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              match_value:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 1023
+              header_name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 255
+              body_type:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              jq:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 255
+              case_sensitive:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              negate:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+          tenant_extraction:
+            type: list
+            raw_type: TypeList
+            optional: true
+            computed: true
+            children: &id067
+              status:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              type:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              jq:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 1023
+              filters:
+                type: list
+                raw_type: TypeList
+                optional: true
+                children: &id071
+                  id:
+                    type: integer
+                    raw_type: TypeInt
+                    optional: true
+                    computed: true
+                  direction:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    computed: true
+                  place:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    computed: true
+                  header_name:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    min_length: 0
+                    max_length: 255
+                  body_type:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    computed: true
+          tenant_session_extraction:
+            type: list
+            raw_type: TypeList
+            optional: true
+            computed: true
+            children: &id085
+              status:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              session_source:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              session_match:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+              jq:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 1023
+              filters:
+                type: list
+                raw_type: TypeList
+                optional: true
+                children: &id086
+                  id:
+                    type: integer
+                    raw_type: TypeInt
+                    optional: true
+                    computed: true
+                  direction:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    computed: true
+                  place:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    computed: true
+                  header_name:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    min_length: 0
+                    max_length: 255
+                  cookie_name:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    min_length: 0
+                    max_length: 255
+                  body_type:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    computed: true
+        source_attribute: match
+    sources:
+    - ansible
+    - terraform
+  match.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id037
+      description: CASB user activity match rules ID. see <a href='#notes'>Notes</a>.
+      source_attribute: match.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id037
+        description: CASB user activity match rules ID. see <a href='#notes'>Notes</a>.
+        source_attribute: match.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: match.id
+    sources:
+    - ansible
+    - terraform
+  match.rules:
+    canonical:
+      type: list
+      elements: dict
+      children: *id038
+      version_ranges: *id039
+      description: CASB user activity rules.
+      source_attribute: match.rules
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id039
+        description: CASB user activity rules.
+        children: *id038
+        source_attribute: match.rules
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id040
+        source_attribute: match.rules
+    sources:
+    - ansible
+    - terraform
+  match.rules.body_type:
+    canonical:
+      type: enum
+      version_ranges: *id041
+      choices: *id042
+      description: CASB user activity match rule body type.
+      source_attribute: match.rules.body_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id042
+        version_ranges: *id041
+        description: CASB user activity match rule body type.
+        source_attribute: match.rules.body_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: match.rules.body_type
+    sources:
+    - ansible
+    - terraform
+  match.rules.case_sensitive:
+    canonical:
+      type: enum
+      version_ranges: *id043
+      choices: *id044
+      description: CASB user activity match case sensitive.
+      source_attribute: match.rules.case_sensitive
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id044
+        version_ranges: *id043
+        description: CASB user activity match case sensitive.
+        source_attribute: match.rules.case_sensitive
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: match.rules.case_sensitive
+    sources:
+    - ansible
+    - terraform
+  match.rules.domains:
+    canonical:
+      type: list
+      elements: dict
+      children: *id045
+      version_ranges: *id046
+      description: CASB user activity domain list.
+      source_attribute: match.rules.domains
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id046
+        description: CASB user activity domain list.
+        children: *id045
+        source_attribute: match.rules.domains
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id047
+        source_attribute: match.rules.domains
+    sources:
+    - ansible
+    - terraform
+  match.rules.domains.domain:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id048
+      min_length: 0
+      max_length: 127
+      description: Domain list separated by space.
+      source_attribute: match.rules.domains.domain
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id048
+        description: Domain list separated by space.
+        source_attribute: match.rules.domains.domain
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: match.rules.domains.domain
+    sources:
+    - ansible
+    - terraform
+  match.rules.header_name:
+    canonical:
+      type: string
+      version_ranges: *id049
+      min_length: 0
+      max_length: 255
+      description: CASB user activity rule header name.
+      source_attribute: match.rules.header_name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id049
+        description: CASB user activity rule header name.
+        source_attribute: match.rules.header_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: match.rules.header_name
+    sources:
+    - ansible
+    - terraform
+  match.rules.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id050
+      description: CASB user activity rule ID. see <a href='#notes'>Notes</a>.
+      source_attribute: match.rules.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id050
+        description: CASB user activity rule ID. see <a href='#notes'>Notes</a>.
+        source_attribute: match.rules.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: match.rules.id
+    sources:
+    - ansible
+    - terraform
+  match.rules.jq:
+    canonical:
+      type: string
+      version_ranges: *id051
+      min_length: 0
+      max_length: 255
+      description: CASB user activity rule match jq script.
+      source_attribute: match.rules.jq
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id051
+        description: CASB user activity rule match jq script.
+        source_attribute: match.rules.jq
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: match.rules.jq
+    sources:
+    - ansible
+    - terraform
+  match.rules.match_pattern:
+    canonical:
+      type: enum
+      version_ranges: *id052
+      choices: *id053
+      description: CASB user activity rule match pattern.
+      source_attribute: match.rules.match_pattern
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id053
+        version_ranges: *id052
+        description: CASB user activity rule match pattern.
+        source_attribute: match.rules.match_pattern
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: match.rules.match_pattern
+    sources:
+    - ansible
+    - terraform
+  match.rules.match_value:
+    canonical:
+      type: string
+      version_ranges: *id054
+      min_length: 0
+      max_length: 1023
+      description: CASB user activity rule match value.
+      source_attribute: match.rules.match_value
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id054
+        description: CASB user activity rule match value.
+        source_attribute: match.rules.match_value
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 1023
+        source_attribute: match.rules.match_value
+    sources:
+    - ansible
+    - terraform
+  match.rules.methods:
+    canonical:
+      type: list
+      elements: dict
+      children: *id055
+      version_ranges: *id056
+      description: CASB user activity method list.
+      source_attribute: match.rules.methods
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id056
+        description: CASB user activity method list.
+        children: *id055
+        source_attribute: match.rules.methods
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id057
+        source_attribute: match.rules.methods
+    sources:
+    - ansible
+    - terraform
+  match.rules.methods.method:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id058
+      min_length: 0
+      max_length: 79
+      description: User activity method.
+      source_attribute: match.rules.methods.method
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id058
+        description: User activity method.
+        source_attribute: match.rules.methods.method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: match.rules.methods.method
+    sources:
+    - ansible
+    - terraform
+  match.rules.negate:
+    canonical:
+      type: enum
+      version_ranges: *id059
+      choices: *id060
+      description: Enable/disable what the matching strategy must not be.
+      source_attribute: match.rules.negate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id060
+        version_ranges: *id059
+        description: Enable/disable what the matching strategy must not be.
+        source_attribute: match.rules.negate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: match.rules.negate
+    sources:
+    - ansible
+    - terraform
+  match.rules.type:
+    canonical:
+      type: enum
+      version_ranges: *id061
+      choices: *id062
+      description: CASB user activity rule type.
+      source_attribute: match.rules.type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id062
+        version_ranges: *id061
+        description: CASB user activity rule type.
+        source_attribute: match.rules.type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: match.rules.type
+    sources:
+    - ansible
+    - terraform
+  match.strategy:
+    canonical:
+      type: enum
+      version_ranges: *id063
+      choices: *id064
+      description: CASB user activity rules strategy.
+      source_attribute: match.strategy
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id064
+        version_ranges: *id063
+        description: CASB user activity rules strategy.
+        source_attribute: match.strategy
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: match.strategy
+    sources:
+    - ansible
+    - terraform
+  match.tenant_extraction:
+    canonical:
+      type: list
+      children: *id065
+      version_ranges: *id066
+      description: CASB user activity tenant extraction.
+      source_attribute: match.tenant_extraction
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id066
+        description: CASB user activity tenant extraction.
+        children: *id065
+        source_attribute: match.tenant_extraction
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children: *id067
+        source_attribute: match.tenant_extraction
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id068
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id068
+  match.tenant_extraction.filters:
+    canonical:
+      type: list
+      elements: dict
+      children: *id069
+      version_ranges: *id070
+      description: CASB user activity tenant extraction filters.
+      source_attribute: match.tenant_extraction.filters
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id070
+        description: CASB user activity tenant extraction filters.
+        children: *id069
+        source_attribute: match.tenant_extraction.filters
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id071
+        source_attribute: match.tenant_extraction.filters
+    sources:
+    - ansible
+    - terraform
+  match.tenant_extraction.filters.body_type:
+    canonical:
+      type: enum
+      version_ranges: *id072
+      choices: *id073
+      description: CASB content extraction filter body type.
+      source_attribute: match.tenant_extraction.filters.body_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id073
+        version_ranges: *id072
+        description: CASB content extraction filter body type.
+        source_attribute: match.tenant_extraction.filters.body_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: match.tenant_extraction.filters.body_type
+    sources:
+    - ansible
+    - terraform
+  match.tenant_extraction.filters.direction:
+    canonical:
+      type: enum
+      version_ranges: *id074
+      choices: *id075
+      description: CASB content extraction filter direction.
+      source_attribute: match.tenant_extraction.filters.direction
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id075
+        version_ranges: *id074
+        description: CASB content extraction filter direction.
+        source_attribute: match.tenant_extraction.filters.direction
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: match.tenant_extraction.filters.direction
+    sources:
+    - ansible
+    - terraform
+  match.tenant_extraction.filters.header_name:
+    canonical:
+      type: string
+      version_ranges: *id076
+      min_length: 0
+      max_length: 255
+      description: CASB content extraction filter header name.
+      source_attribute: match.tenant_extraction.filters.header_name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id076
+        description: CASB content extraction filter header name.
+        source_attribute: match.tenant_extraction.filters.header_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: match.tenant_extraction.filters.header_name
+    sources:
+    - ansible
+    - terraform
+  match.tenant_extraction.filters.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id077
+      description: CASB content extraction filter ID. see <a href='#notes'>Notes</a>.
+      source_attribute: match.tenant_extraction.filters.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id077
+        description: CASB content extraction filter ID. see <a href='#notes'>Notes</a>.
+        source_attribute: match.tenant_extraction.filters.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: match.tenant_extraction.filters.id
+    sources:
+    - ansible
+    - terraform
+  match.tenant_extraction.filters.place:
+    canonical:
+      type: enum
+      version_ranges: *id078
+      choices: *id079
+      description: CASB content extraction filter place type.
+      source_attribute: match.tenant_extraction.filters.place
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id079
+        version_ranges: *id078
+        description: CASB content extraction filter place type.
+        source_attribute: match.tenant_extraction.filters.place
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: match.tenant_extraction.filters.place
+    sources:
+    - ansible
+    - terraform
+  match.tenant_extraction.jq:
+    canonical:
+      type: string
+      version_ranges: *id080
+      min_length: 0
+      max_length: 1023
+      description: CASB user activity tenant extraction jq script.
+      source_attribute: match.tenant_extraction.jq
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id080
+        description: CASB user activity tenant extraction jq script.
+        source_attribute: match.tenant_extraction.jq
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 1023
+        source_attribute: match.tenant_extraction.jq
+    sources:
+    - ansible
+    - terraform
+  match.tenant_extraction.status:
+    canonical:
+      type: enum
+      version_ranges: *id081
+      choices: *id082
+      description: Enable/disable CASB tenant extraction.
+      source_attribute: match.tenant_extraction.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id082
+        version_ranges: *id081
+        description: Enable/disable CASB tenant extraction.
+        source_attribute: match.tenant_extraction.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: match.tenant_extraction.status
+    sources:
+    - ansible
+    - terraform
+  match.tenant_extraction.type:
+    canonical:
+      type: enum
+      version_ranges: *id083
+      choices: *id084
+      description: CASB user activity tenant extraction type.
+      source_attribute: match.tenant_extraction.type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id084
+        version_ranges: *id083
+        description: CASB user activity tenant extraction type.
+        source_attribute: match.tenant_extraction.type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: match.tenant_extraction.type
+    sources:
+    - ansible
+    - terraform
+  match.tenant_session_extraction:
+    canonical:
+      type: list
+      children: *id085
+      source_attribute: match.tenant_session_extraction
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children: *id085
+        source_attribute: match.tenant_session_extraction
+    sources:
+    - terraform
+  match.tenant_session_extraction.filters:
+    canonical:
+      type: list
+      children: *id086
+      source_attribute: match.tenant_session_extraction.filters
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id086
+        source_attribute: match.tenant_session_extraction.filters
+    sources:
+    - terraform
+  match.tenant_session_extraction.filters.body_type:
+    canonical:
+      type: string
+      source_attribute: match.tenant_session_extraction.filters.body_type
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: match.tenant_session_extraction.filters.body_type
+    sources:
+    - terraform
+  match.tenant_session_extraction.filters.cookie_name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 255
+      source_attribute: match.tenant_session_extraction.filters.cookie_name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: match.tenant_session_extraction.filters.cookie_name
+    sources:
+    - terraform
+  match.tenant_session_extraction.filters.direction:
+    canonical:
+      type: string
+      source_attribute: match.tenant_session_extraction.filters.direction
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: match.tenant_session_extraction.filters.direction
+    sources:
+    - terraform
+  match.tenant_session_extraction.filters.header_name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 255
+      source_attribute: match.tenant_session_extraction.filters.header_name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: match.tenant_session_extraction.filters.header_name
+    sources:
+    - terraform
+  match.tenant_session_extraction.filters.id:
+    canonical:
+      type: integer
+      source_attribute: match.tenant_session_extraction.filters.id
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: match.tenant_session_extraction.filters.id
+    sources:
+    - terraform
+  match.tenant_session_extraction.filters.place:
+    canonical:
+      type: string
+      source_attribute: match.tenant_session_extraction.filters.place
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: match.tenant_session_extraction.filters.place
+    sources:
+    - terraform
+  match.tenant_session_extraction.jq:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 1023
+      source_attribute: match.tenant_session_extraction.jq
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 1023
+        source_attribute: match.tenant_session_extraction.jq
+    sources:
+    - terraform
+  match.tenant_session_extraction.session_match:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 79
+      source_attribute: match.tenant_session_extraction.session_match
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: match.tenant_session_extraction.session_match
+    sources:
+    - terraform
+  match.tenant_session_extraction.session_source:
+    canonical:
+      type: string
+      source_attribute: match.tenant_session_extraction.session_source
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: match.tenant_session_extraction.session_source
+    sources:
+    - terraform
+  match.tenant_session_extraction.status:
+    canonical:
+      type: string
+      source_attribute: match.tenant_session_extraction.status
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: match.tenant_session_extraction.status
+    sources:
+    - terraform
+  match_strategy:
+    canonical:
+      type: enum
+      version_ranges: &id088
+      - - v7.4.1
+        - ''
+      choices: &id087
+      - and
+      - or
+      default: or
+      description: CASB user activity match strategy.
+      source_attribute: match-strategy
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id087
+        version_ranges: *id088
+        description: CASB user activity match strategy.
+        source_attribute: match_strategy
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: match_strategy
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: CASB user activity match strategy.
+        default: or
+        source_attribute: match-strategy
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id089
+      - - v7.4.1
+        - ''
+      min_length: 0
+      max_length: 79
+      description: CASB user activity name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id089
+        description: CASB user activity name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 79
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: CASB user activity name.
+        max_length: 79
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id091
+      - - v7.4.2
+        - ''
+      choices: &id090
+      - enable
+      - disable
+      default: enable
+      description: CASB user activity status.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id090
+        version_ranges: *id091
+        description: CASB user activity status.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: CASB user activity status.
+        default: enable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  type:
+    canonical:
+      type: enum
+      version_ranges: &id093
+      - - v7.4.1
+        - ''
+      choices: &id092
+      - built-in
+      - customized
+      default: customized
+      description: CASB user activity type.
+      source_attribute: type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id092
+        version_ranges: *id093
+        description: CASB user activity type.
+        source_attribute: type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: CASB user activity type.
+        default: customized
+        source_attribute: type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  uuid:
+    canonical:
+      type: string
+      version_ranges: &id094
+      - - v7.4.1
+        - ''
+      min_length: 0
+      max_length: 36
+      description: Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id094
+        description: Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+        source_attribute: uuid
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 36
+        source_attribute: uuid
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+        max_length: 36
+        source_attribute: uuid
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: match.tenant_extraction
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict

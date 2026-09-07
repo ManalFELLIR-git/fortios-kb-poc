@@ -1,0 +1,496 @@
+id: firewall.acl
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: false
+  cli_reference: true
+attributes_flat:
+  comments:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      max_length: 1023
+      description: Comment.
+      source_attribute: comments
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Comment.
+        source_attribute: comments
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 1023
+        source_attribute: comments
+    sources:
+    - ansible
+    - cli_reference
+  dstaddr:
+    canonical:
+      type: list
+      elements: dict
+      children: &id003
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id006
+          - - v6.0.0
+            - ''
+          description: Address name. Source firewall.address.name firewall.addrgrp.name.
+          references: &id005
+          - firewall.address.name
+          - firewall.addrgrp.name
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Destination address name. Address name.
+      source_attribute: dstaddr
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id002
+        description: Destination address name.
+        children: *id003
+        source_attribute: dstaddr
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Destination address name. Address name.
+        max_length: 79
+        source_attribute: dstaddr
+    sources:
+    - ansible
+    - cli_reference
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id004
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id004
+  dstaddr.name:
+    canonical:
+      type: string
+      references: *id005
+      required: true
+      version_ranges: *id006
+      description: Address name. Source firewall.address.name firewall.addrgrp.name.
+      source_attribute: dstaddr.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id006
+        description: Address name. Source firewall.address.name firewall.addrgrp.name.
+        references: *id005
+        source_attribute: dstaddr.name
+    sources:
+    - ansible
+  fragment:
+    canonical:
+      type: enum
+      version_ranges: &id008
+      - - v7.4.1
+        - ''
+      choices: &id007
+      - pass
+      - drop
+      default: pass
+      description: Pass/drop fragments that match L3 information.
+      source_attribute: fragment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id007
+        version_ranges: *id008
+        description: Pass/drop fragments that match L3 information.
+        source_attribute: fragment
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Pass/drop fragments that match L3 information.
+        default: pass
+        source_attribute: fragment
+    sources:
+    - ansible
+    - cli_reference
+  interface:
+    canonical:
+      type: string
+      references: &id010
+      - system.interface.name
+      - system.zone.name
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      max_length: 35
+      description: Interface name.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id009
+        description: Interface name. Source system.zone.name system.interface.name.
+        references: *id010
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Interface name.
+        max_length: 35
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+  name:
+    canonical:
+      type: string
+      version_ranges: &id011
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      max_length: 35
+      description: Policy name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: Policy name.
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Policy name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+  policyid:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id012
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 9999
+      description: Policy ID.
+      source_attribute: policyid
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id012
+        description: Policy ID. see <a href='#notes'>Notes</a>.
+        source_attribute: policyid
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Policy ID.
+        default: '0'
+        min: 0
+        max: 9999
+        source_attribute: policyid
+    sources:
+    - ansible
+    - cli_reference
+  service:
+    canonical:
+      type: list
+      elements: dict
+      children: &id014
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id017
+          - - v6.0.0
+            - ''
+          description: Service name. Source firewall.service.custom.name firewall.service.group.name.
+          references: &id016
+          - firewall.service.custom.name
+          - firewall.service.group.name
+      version_ranges: &id013
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Service name. Service name.
+      source_attribute: service
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id013
+        description: Service name.
+        children: *id014
+        source_attribute: service
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Service name. Service name.
+        max_length: 79
+        source_attribute: service
+    sources:
+    - ansible
+    - cli_reference
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id015
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id015
+  service.name:
+    canonical:
+      type: string
+      references: *id016
+      required: true
+      version_ranges: *id017
+      description: Service name. Source firewall.service.custom.name firewall.service.group.name.
+      source_attribute: service.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id017
+        description: Service name. Source firewall.service.custom.name firewall.service.group.name.
+        references: *id016
+        source_attribute: service.name
+    sources:
+    - ansible
+  srcaddr:
+    canonical:
+      type: list
+      elements: dict
+      children: &id019
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id022
+          - - v6.0.0
+            - ''
+          description: Address name. Source firewall.address.name firewall.addrgrp.name.
+          references: &id021
+          - firewall.address.name
+          - firewall.addrgrp.name
+      version_ranges: &id018
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Source address name. Address name.
+      source_attribute: srcaddr
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id018
+        description: Source address name.
+        children: *id019
+        source_attribute: srcaddr
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Source address name. Address name.
+        max_length: 79
+        source_attribute: srcaddr
+    sources:
+    - ansible
+    - cli_reference
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id020
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id020
+  srcaddr.name:
+    canonical:
+      type: string
+      references: *id021
+      required: true
+      version_ranges: *id022
+      description: Address name. Source firewall.address.name firewall.addrgrp.name.
+      source_attribute: srcaddr.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id022
+        description: Address name. Source firewall.address.name firewall.addrgrp.name.
+        references: *id021
+        source_attribute: srcaddr.name
+    sources:
+    - ansible
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id024
+      - - v6.0.0
+        - ''
+      choices: &id023
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable access control list status.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id023
+        version_ranges: *id024
+        description: Enable/disable access control list status.
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable access control list status.
+        default: enable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+conflicts:
+- attribute: dstaddr
+  field: type
+  values:
+    ansible: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: service
+  field: type
+  values:
+    ansible: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: srcaddr
+  field: type
+  values:
+    ansible: list
+    cli_reference: string
+  classification: representation_or_real_conflict

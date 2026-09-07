@@ -1,0 +1,71 @@
+id: firewall.global
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  banned_ip_persistency:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.2.1
+        - ''
+      choices: &id001
+      - disabled
+      - permanent-only
+      - all
+      default: disabled
+      description: Persistency of banned IPs across power cycling.
+      source_attribute: banned-ip-persistency
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Persistency of banned IPs across power cycling.
+        source_attribute: banned_ip_persistency
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: banned_ip_persistency
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Persistency of banned IPs across power cycling.
+        default: disabled
+        source_attribute: banned-ip-persistency
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

@@ -1,0 +1,189 @@
+id: ips.sensor
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/237852230/config-ips-sensor
+attributes:
+  block-malicious-url:
+    type: enum
+    raw_type: option
+    description: Enable/disable malicious URL blocking.
+    default: disable
+  comment:
+    type: string
+    raw_type: var-string
+    description: Comment.
+    max_length: 255
+  extended-log:
+    type: enum
+    raw_type: option
+    description: Enable/disable extended logging.
+    default: disable
+  name:
+    type: string
+    raw_type: string
+    description: Sensor name.
+    max_length: 47
+  replacemsg-group:
+    type: string
+    raw_type: string
+    description: Replacement message group.
+    max_length: 35
+  scan-botnet-connections:
+    type: enum
+    raw_type: option
+    description: Block or monitor connections to Botnet servers, or disable Botnet scanning.
+    default: disable
+children:
+  entries:
+    attributes:
+      action:
+        type: enum
+        raw_type: option
+        description: Action taken with traffic in which signatures are detected.
+        default: default
+      application:
+        type: string
+        raw_type: user
+        description: Operating systems to be protected. Use all for every application and other for unlisted application.
+        default: all
+      cve:
+        type: string
+        raw_type: string
+        description: List of CVE IDs of the signatures to add to the sensor. CVE IDs or CVE wildcards.
+        max_length: 19
+      default-action:
+        type: enum
+        raw_type: option
+        description: Signature default action filter.
+        default: all
+      default-status:
+        type: enum
+        raw_type: option
+        description: Signature default status filter.
+        default: all
+      id:
+        type: integer
+        raw_type: integer
+        description: Rule ID in IPS database (0 - 4294967295).
+        default: '0'
+        min: 0
+        max: 4294967295
+      last-modified:
+        type: string
+        raw_type: user
+        description: 'Filter by signature last modified date. Formats: before <date>, after <date>, between <start-date> <end-date>.'
+      location:
+        type: string
+        raw_type: user
+        description: Protect client or server traffic.
+        default: all
+      log:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging of signatures included in filter.
+        default: enable
+      log-attack-context:
+        type: enum
+        raw_type: option
+        description: 'Enable/disable logging of attack context: URL buffer, header buffer, body buffer, packet buffer.'
+        default: disable
+      log-packet:
+        type: enum
+        raw_type: option
+        description: Enable/disable packet logging. Enable to save the packet that triggers the filter. You can download the
+          packets in pcap format for diagnostic use.
+        default: disable
+      os:
+        type: string
+        raw_type: user
+        description: Operating systems to be protected. Use all for every operating system and other for unlisted operating
+          systems.
+        default: all
+      protocol:
+        type: string
+        raw_type: user
+        description: Protocols to be examined. Use all for every protocol and other for unlisted protocols.
+        default: all
+      quarantine:
+        type: enum
+        raw_type: option
+        description: Quarantine method.
+        default: none
+      quarantine-expiry:
+        type: string
+        raw_type: user
+        description: 'Duration of quarantine. (Format ###d##h##m, minimum 1m, maximum 364d23h59m, default = 5m). Requires
+          quarantine set to attacker.'
+        default: 5m
+      quarantine-log:
+        type: enum
+        raw_type: option
+        description: Enable/disable quarantine logging.
+        default: enable
+      rate-count:
+        type: integer
+        raw_type: integer
+        description: Count of the rate.
+        default: '0'
+        min: 0
+        max: 65535
+      rate-duration:
+        type: integer
+        raw_type: integer
+        description: Duration (sec) of the rate.
+        default: '60'
+        min: 1
+        max: 65535
+      rate-mode:
+        type: enum
+        raw_type: option
+        description: Rate limit mode.
+        default: continuous
+      rate-track:
+        type: enum
+        raw_type: option
+        description: Track the packet protocol field.
+        default: none
+      rule:
+        type: integer
+        raw_type: integer
+        description: Identifies the predefined or custom IPS signatures to add to the sensor. Rule IPS.
+        min: 0
+        max: 4294967295
+      severity:
+        type: string
+        raw_type: user
+        description: Relative severity of the signature, from info to critical. Log messages generated by the signature include
+          the severity.
+        default: all
+      status:
+        type: enum
+        raw_type: option
+        description: Status of the signatures included in filter. Only those filters with a status to enable are used.
+        default: default
+      vuln-type:
+        type: integer
+        raw_type: integer
+        description: List of signature vulnerability types to filter by. Vulnerability type ID.
+        min: 0
+        max: 4294967295
+  exempt-ip:
+    attributes:
+      dst-ip:
+        type: ipv4-classnet
+        raw_type: ipv4-classnet
+        description: Destination IP address and netmask (applies to packet matching the signature).
+        default: 0.0.0.0 0.0.0.0
+      id:
+        type: integer
+        raw_type: integer
+        description: Exempt IP ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      src-ip:
+        type: ipv4-classnet
+        raw_type: ipv4-classnet
+        description: Source IP address and netmask (applies to packet matching the signature).
+        default: 0.0.0.0 0.0.0.0

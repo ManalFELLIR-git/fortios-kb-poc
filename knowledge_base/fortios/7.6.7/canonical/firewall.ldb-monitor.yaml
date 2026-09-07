@@ -1,0 +1,659 @@
+id: firewall.ldb-monitor
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dns_match_ip:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id001
+      - - v7.0.0
+        - ''
+      default: 0.0.0.0
+      description: Response IP expected from DNS server.
+      source_attribute: dns-match-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Response IP expected from DNS server.
+        source_attribute: dns_match_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dns_match_ip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Response IP expected from DNS server.
+        default: 0.0.0.0
+        source_attribute: dns-match-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id002
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id002
+  dns_protocol:
+    canonical:
+      type: enum
+      version_ranges: &id004
+      - - v7.0.0
+        - ''
+      choices: &id003
+      - udp
+      - tcp
+      default: udp
+      description: Select the protocol used by the DNS health check monitor to check the health of the server (UDP | TCP).
+      source_attribute: dns-protocol
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: Select the protocol used by the DNS health check monitor to check the health of the server (UDP | TCP).
+        source_attribute: dns_protocol
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dns_protocol
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Select the protocol used by the DNS health check monitor to check the health of the server (UDP | TCP).
+        default: udp
+        source_attribute: dns-protocol
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dns_request_domain:
+    canonical:
+      type: string
+      version_ranges: &id005
+      - - v7.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Fully qualified domain name to resolve for the DNS probe.
+      source_attribute: dns-request-domain
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: Fully qualified domain name to resolve for the DNS probe.
+        source_attribute: dns_request_domain
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: dns_request_domain
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Fully qualified domain name to resolve for the DNS probe.
+        max_length: 255
+        source_attribute: dns-request-domain
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  http_get:
+    canonical:
+      type: string
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Request URI used to send a GET request to check the health of an HTTP server. Optionally provide a hostname
+        before the first '/' and it will be used as the HTTP Host Header.
+      source_attribute: http-get
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id006
+        description: Request URI used to send a GET request to check the health of an HTTP server. Optionally provide a hostname
+          before the first "/" and it will be used as the HTTP Host Header.
+        source_attribute: http_get
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: http_get
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Request URI used to send a GET request to check the health of an HTTP server. Optionally provide a hostname
+          before the first '/' and it will be used as the HTTP Host Header.
+        max_length: 255
+        source_attribute: http-get
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  http_match:
+    canonical:
+      type: string
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: String to match the value expected in response to an HTTP-GET request.
+      source_attribute: http-match
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: String to match the value expected in response to an HTTP-GET request.
+        source_attribute: http_match
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: http_match
+      cli_reference:
+        type: string
+        raw_type: string
+        description: String to match the value expected in response to an HTTP-GET request.
+        max_length: 255
+        source_attribute: http-match
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  http_max_redirects:
+    canonical:
+      type: integer
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 5
+      description: The maximum number of HTTP redirects to be allowed (0 - 5, default = 0).
+      source_attribute: http-max-redirects
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id008
+        description: The maximum number of HTTP redirects to be allowed (0 - 5).
+        source_attribute: http_max_redirects
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 5
+        source_attribute: http_max_redirects
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The maximum number of HTTP redirects to be allowed (0 - 5, default = 0).
+        default: '0'
+        min: 0
+        max: 5
+        source_attribute: http-max-redirects
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interval:
+    canonical:
+      type: integer
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      default: '10'
+      min: 5
+      max: 65535
+      description: Time between health checks (5 - 65535 sec, default = 10).
+      source_attribute: interval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id009
+        description: Time between health checks (5 - 65535 sec).
+        source_attribute: interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 5
+        max: 65535
+        source_attribute: interval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time between health checks (5 - 65535 sec, default = 10).
+        default: '10'
+        min: 5
+        max: 65535
+        source_attribute: interval
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id010
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Monitor name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id010
+        description: Monitor name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Monitor name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  port:
+    canonical:
+      type: integer
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 65535
+      description: Service port used to perform the health check. If 0, health check monitor inherits port configured for
+        the server (0 - 65535, default = 0).
+      source_attribute: port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id011
+        description: Service port used to perform the health check. If 0, health check monitor inherits port configured for
+          the server (0 - 65535).
+        source_attribute: port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Service port used to perform the health check. If 0, health check monitor inherits port configured for
+          the server (0 - 65535, default = 0).
+        default: '0'
+        min: 0
+        max: 65535
+        source_attribute: port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  retry:
+    canonical:
+      type: integer
+      version_ranges: &id012
+      - - v6.0.0
+        - ''
+      default: '3'
+      min: 1
+      max: 255
+      description: Number health check attempts before the server is considered down (1 - 255, default = 3).
+      source_attribute: retry
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id012
+        description: Number health check attempts before the server is considered down (1 - 255).
+        source_attribute: retry
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 255
+        source_attribute: retry
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Number health check attempts before the server is considered down (1 - 255, default = 3).
+        default: '3'
+        min: 1
+        max: 255
+        source_attribute: retry
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  src_ip:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id013
+      - - v6.4.0
+        - ''
+      default: 0.0.0.0
+      description: Source IP for ldb-monitor.
+      source_attribute: src-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id013
+        description: Source IP for ldb-monitor.
+        source_attribute: src_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: src_ip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Source IP for ldb-monitor.
+        default: 0.0.0.0
+        source_attribute: src-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id014
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id014
+  timeout:
+    canonical:
+      type: integer
+      version_ranges: &id015
+      - - v6.0.0
+        - ''
+      default: '2'
+      min: 1
+      max: 255
+      description: Time to wait to receive response to a health check from a server. Reaching the timeout means the health
+        check failed (1 - 255 sec, default = 2).
+      source_attribute: timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id015
+        description: Time to wait to receive response to a health check from a server. Reaching the timeout means the health
+          check failed (1 - 255 sec).
+        source_attribute: timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 255
+        source_attribute: timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time to wait to receive response to a health check from a server. Reaching the timeout means the health
+          check failed (1 - 255 sec, default = 2).
+        default: '2'
+        min: 1
+        max: 255
+        source_attribute: timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  type:
+    canonical:
+      type: enum
+      required: true
+      version_ranges: &id017
+      - - v6.0.0
+        - ''
+      choices: &id016
+      - ping
+      - tcp
+      - http
+      - https
+      - dns
+      - passive-sip
+      description: Select the Monitor type used by the health check monitor to check the health of the server (PING | TCP
+        | HTTP | HTTPS | DNS).
+      source_attribute: type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id016
+        version_ranges: *id017
+        description: Select the Monitor type used by the health check monitor to check the health of the server (PING | TCP
+          | HTTP | HTTPS | DNS).
+        source_attribute: type
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Select the Monitor type used by the health check monitor to check the health of the server (PING | TCP
+          | HTTP | HTTPS | DNS).
+        source_attribute: type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: dns_match_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: src_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict

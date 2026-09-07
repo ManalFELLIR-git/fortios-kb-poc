@@ -1,0 +1,118 @@
+id: switch-controller.qos.queue-policy
+version: 7.6.7
+source_object: fortios_switch_controller_qos_queue_policy
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_switch_controller_qos_queue_policy.py
+root_type: list
+attributes:
+  name:
+    type: string
+    raw_type: string
+    required: true
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: QoS policy name.
+  schedule:
+    type: enum
+    raw_type: string
+    choices:
+    - strict
+    - round-robin
+    - weighted
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: COS queue scheduling.
+  rate_by:
+    type: enum
+    raw_type: string
+    choices:
+    - kbps
+    - percent
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: COS queue rate by kbps or percent.
+  cos_queue:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: COS queue configuration.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Cos queue ID.
+      description:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Description of the COS queue.
+      min_rate:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Minimum rate (0 - 4294967295 kbps, 0 to disable).
+      max_rate:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Maximum rate (0 - 4294967295 kbps, 0 to disable).
+      min_rate_percent:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: Minimum rate (% of link speed).
+      max_rate_percent:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: Maximum rate (% of link speed).
+      drop_policy:
+        type: enum
+        raw_type: string
+        choices:
+        - taildrop
+        - weighted-random-early-detection
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: COS queue drop policy.
+      ecn:
+        type: enum
+        raw_type: string
+        choices:
+        - disable
+        - enable
+        version_ranges:
+        - - v6.4.0
+          - v6.4.0
+        - - v6.4.4
+          - ''
+        description: Enable/disable ECN packet marking to drop eligible packets.
+      weight:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Weight of weighted round robin scheduling.

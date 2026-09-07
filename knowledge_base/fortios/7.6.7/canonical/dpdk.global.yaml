@@ -1,0 +1,474 @@
+id: dpdk.global
+version: 7.6.7
+source_presence:
+  ansible: false
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  elasticbuffer:
+    canonical:
+      type: enum
+      default: disable
+      description: Enable/disable elasticbuffer support for all DPDK ports.
+      source_attribute: elasticbuffer
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: elasticbuffer
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable elasticbuffer support for all DPDK ports.
+        default: disable
+        source_attribute: elasticbuffer
+    sources:
+    - cli_reference
+    - terraform
+  frag_offload:
+    canonical:
+      type: enum
+      default: enable
+      description: Enable/disable DPDK fragmentation/defragmentation offloading (default = enable).
+      source_attribute: frag-offload
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: frag_offload
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable DPDK fragmentation/defragmentation offloading (default = enable).
+        default: enable
+        source_attribute: frag-offload
+    sources:
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  hugepage_percentage:
+    canonical:
+      type: integer
+      default: '30'
+      min: 15
+      max: 50
+      description: Percentage of main memory allocated to hugepages, which are available for DPDK operation.
+      source_attribute: hugepage-percentage
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 10
+        max: 50
+        source_attribute: hugepage_percentage
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Percentage of main memory allocated to hugepages, which are available for DPDK operation.
+        default: '30'
+        min: 15
+        max: 50
+        source_attribute: hugepage-percentage
+    sources:
+    - cli_reference
+    - terraform
+    resolution:
+      range:
+        min:
+          resolution: exact_version_cli_preferred
+          status: resolved
+          confidence: medium
+          canonical_policy: prefer_exact_version_cli_range
+          special_values: []
+          requires_hardware_overlay: false
+          requires_runtime_validation: true
+          ansible_ranges_detected: []
+          cli_ranges_detected: []
+          cli_units: []
+          ansible_units: []
+          cli_internal_inconsistency: false
+    requires_runtime_validation: true
+  interface:
+    canonical:
+      type: list
+      children: &id001
+        interface_name:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 31
+      max_length: 31
+      description: Physical interfaces that enable DPDK. Physical interface name.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id001
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Physical interfaces that enable DPDK. Physical interface name.
+        max_length: 31
+        source_attribute: interface
+    sources:
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id002
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id002
+  interface.interface_name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 31
+      source_attribute: interface.interface_name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 31
+        source_attribute: interface.interface_name
+    sources:
+    - terraform
+  ipsec_offload:
+    canonical:
+      type: enum
+      default: disable
+      description: Enable/disable DPDK IPsec phase 2 offloading.
+      source_attribute: ipsec-offload
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ipsec_offload
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable DPDK IPsec phase 2 offloading.
+        default: disable
+        source_attribute: ipsec-offload
+    sources:
+    - cli_reference
+    - terraform
+  mbufpool_percentage:
+    canonical:
+      type: integer
+      min: 5
+      max: 45
+      source_attribute: mbufpool_percentage
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 5
+        max: 45
+        source_attribute: mbufpool_percentage
+    sources:
+    - terraform
+  multiqueue:
+    canonical:
+      type: enum
+      default: disable
+      description: Enable/disable multi-queue RX/TX support for all DPDK ports.
+      source_attribute: multiqueue
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: multiqueue
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable multi-queue RX/TX support for all DPDK ports.
+        default: disable
+        source_attribute: multiqueue
+    sources:
+    - cli_reference
+    - terraform
+  per_session_accounting:
+    canonical:
+      type: enum
+      default: traffic-log-only
+      description: Enable/disable per-session accounting.
+      source_attribute: per-session-accounting
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: per_session_accounting
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable per-session accounting.
+        default: traffic-log-only
+        source_attribute: per-session-accounting
+    sources:
+    - cli_reference
+    - terraform
+  protects:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 2047
+      description: Special arguments for device
+      source_attribute: protects
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 2047
+        source_attribute: protects
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Special arguments for device
+        max_length: 2047
+        source_attribute: protects
+    sources:
+    - cli_reference
+    - terraform
+  session_table_percentage:
+    canonical:
+      type: integer
+      default: '5'
+      min: 0
+      max: 60
+      description: Percentage of main memory allocated to DPDK session table.
+      source_attribute: session-table-percentage
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 60
+        source_attribute: session_table_percentage
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Percentage of main memory allocated to DPDK session table.
+        default: '5'
+        min: 0
+        max: 60
+        source_attribute: session-table-percentage
+    sources:
+    - cli_reference
+    - terraform
+  sleep_on_idle:
+    canonical:
+      type: enum
+      default: disable
+      description: Enable/disable sleep-on-idle support for all FDH engines.
+      source_attribute: sleep-on-idle
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sleep_on_idle
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable sleep-on-idle support for all FDH engines.
+        default: disable
+        source_attribute: sleep-on-idle
+    sources:
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: enum
+      default: disable
+      description: Enable/disable DPDK operation for the entire system.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable DPDK operation for the entire system.
+        default: disable
+        source_attribute: status
+    sources:
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: interface
+  field: type
+  values:
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

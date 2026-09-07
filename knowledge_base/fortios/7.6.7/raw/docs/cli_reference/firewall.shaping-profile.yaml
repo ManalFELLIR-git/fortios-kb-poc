@@ -1,0 +1,111 @@
+id: firewall.shaping-profile
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/202122851/config-firewall-shaping-profile
+attributes:
+  comment:
+    type: string
+    raw_type: var-string
+    description: Comment.
+    max_length: 1023
+  default-class-id:
+    type: integer
+    raw_type: integer
+    description: Default class ID to handle unclassified packets (including all local traffic).
+    default: '0'
+    min: 0
+    max: 4294967295
+  npu-offloading:
+    type: enum
+    raw_type: option
+    description: Enable/disable NPU offloading.
+    default: enable
+  profile-name:
+    type: string
+    raw_type: string
+    description: Shaping profile name.
+    max_length: 35
+  type:
+    type: enum
+    raw_type: option
+    description: 'Select shaping profile type: policing / queuing.'
+    default: policing
+children:
+  shaping-entries:
+    attributes:
+      burst-in-msec:
+        type: integer
+        raw_type: integer
+        description: 'Number of bytes that can be burst at maximum-bandwidth speed. Formula: burst = maximum-bandwidth*burst-in-msec.'
+        default: '0'
+        min: 0
+        max: 2000
+      cburst-in-msec:
+        type: integer
+        raw_type: integer
+        description: 'Number of bytes that can be burst as fast as the interface can transmit. Formula: cburst = maximum-bandwidth*cburst-in-msec.'
+        default: '0'
+        min: 0
+        max: 2000
+      class-id:
+        type: integer
+        raw_type: integer
+        description: Class ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      guaranteed-bandwidth-percentage:
+        type: integer
+        raw_type: integer
+        description: Guaranteed bandwidth in percentage.
+        default: '0'
+        min: 0
+        max: 100
+      id:
+        type: integer
+        raw_type: integer
+        description: ID number.
+        default: '0'
+        min: 0
+        max: 4294967295
+      limit:
+        type: integer
+        raw_type: integer
+        description: Hard limit on the real queue size in packets.
+        default: '100'
+        min: 5
+        max: 10000
+      max:
+        type: integer
+        raw_type: integer
+        description: Average queue size in packets at which RED drop probability is maximal.
+        default: '250'
+        min: 3
+        max: 3000
+      maximum-bandwidth-percentage:
+        type: integer
+        raw_type: integer
+        description: Maximum bandwidth in percentage.
+        default: '1'
+        min: 1
+        max: 100
+      min:
+        type: integer
+        raw_type: integer
+        description: Average queue size in packets at which RED drop becomes a possibility.
+        default: '83'
+        min: 3
+        max: 3000
+      priority:
+        type: enum
+        raw_type: option
+        description: Priority.
+        default: high
+      red-probability:
+        type: integer
+        raw_type: integer
+        description: Maximum probability (in percentage) for RED marking.
+        default: '0'
+        min: 0
+        max: 20

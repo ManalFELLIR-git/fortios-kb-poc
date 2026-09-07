@@ -1,0 +1,324 @@
+id: dnsfilter.profile
+version: 7.6.7
+source_object: fortios_dnsfilter_profile
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_dnsfilter_profile.py
+root_type: list
+attributes:
+  name:
+    type: string
+    raw_type: string
+    required: true
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Profile name.
+  comment:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Comment.
+  domain_filter:
+    type: object
+    raw_type: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Domain filter settings.
+    children:
+      domain_filter_table:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: DNS domain filter table ID. Source dnsfilter.domain-filter.id.
+        references:
+        - dnsfilter.domain-filter.id
+  ftgd_dns:
+    type: object
+    raw_type: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: FortiGuard DNS Filter settings.
+    children:
+      options:
+        type: enum
+        raw_type: list
+        choices:
+        - error-allow
+        - ftgd-disable
+        multiple_values: true
+        elements: str
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: FortiGuard DNS filter options.
+      filters:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: FortiGuard DNS domain filters.
+        children:
+          id:
+            type: integer
+            raw_type: integer
+            required: true
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: ID number. see <a href='#notes'>Notes</a>.
+          category:
+            type: integer
+            raw_type: integer
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: Category number.
+          action:
+            type: enum
+            raw_type: string
+            choices:
+            - block
+            - monitor
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: Action to take for DNS requests matching the category.
+          log:
+            type: enum
+            raw_type: string
+            choices:
+            - enable
+            - disable
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: Enable/disable DNS filter logging for this DNS profile.
+  log_all_domain:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable logging of all domains visited (detailed DNS logging).
+  sdns_ftgd_err_log:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable FortiGuard SDNS rating error logging.
+  sdns_domain_log:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable domain filtering and botnet domain logging.
+  block_action:
+    type: enum
+    raw_type: string
+    choices:
+    - block
+    - redirect
+    - block-sevrfail
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Action to take for blocked domains.
+  redirect_portal:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: IPv4 address of the SDNS redirect portal.
+  redirect_portal6:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: IPv6 address of the SDNS redirect portal.
+  block_botnet:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable blocking botnet C&C DNS lookups.
+  safe_search:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable Google, Bing, YouTube, Qwant, DuckDuckGo safe search.
+  youtube_restrict:
+    type: enum
+    raw_type: string
+    choices:
+    - strict
+    - moderate
+    - none
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Set safe search for YouTube restriction level.
+  external_ip_blocklist:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: One or more external IP block lists.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: External domain block list name. Source system.external-resource.name.
+        references:
+        - system.external-resource.name
+  dns_translation:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: DNS translation settings.
+    children:
+      id:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: ID. see <a href='#notes'>Notes</a>.
+      addr_type:
+        type: enum
+        raw_type: string
+        choices:
+        - ipv4
+        - ipv6
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: DNS translation type (IPv4 or IPv6).
+      src:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: IPv4 address or subnet on the internal network to compare with the resolved address in DNS query replies.
+          If the resolved address matches, the resolved address is substituted with dst.
+      dst:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: IPv4 address or subnet on the external network to substitute for the resolved address in DNS query replies.
+          Can be single IP address or subnet on the external network, but number of addresses must equal number of mapped
+          IP addresses in src.
+      netmask:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: If src and dst are subnets rather than single IP addresses, enter the netmask for both src and dst.
+      status:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: Enable/disable this DNS translation entry.
+      src6:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: IPv6 address or subnet on the internal network to compare with the resolved address in DNS query replies.
+          If the resolved address matches, the resolved address is substituted with dst6.
+      dst6:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: IPv6 address or subnet on the external network to substitute for the resolved address in DNS query replies.
+          Can be single IP address or subnet on the external network, but number of addresses must equal number of mapped
+          IP addresses in src6.
+      prefix:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: If src6 and dst6 are subnets rather than single IP addresses, enter the prefix for both src6 and dst6
+          (1 - 128).
+  transparent_dns_database:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v7.4.1
+      - ''
+    description: Transparent DNS database zones.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v7.4.1
+          - ''
+        description: DNS database zone name. Source system.dns-database.name.
+        references:
+        - system.dns-database.name
+  strip_ech:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v7.4.4
+      - ''
+    description: Enable/disable removal of the encrypted client hello service parameter from supporting DNS RRs.

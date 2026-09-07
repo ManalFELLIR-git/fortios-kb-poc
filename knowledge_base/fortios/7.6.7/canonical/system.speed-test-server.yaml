@@ -1,0 +1,572 @@
+id: system.speed-test-server
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  host:
+    canonical:
+      type: list
+      elements: dict
+      children: &id002
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id004
+          - - v6.2.0
+            - ''
+          description: Server host ID. see <a href='#notes'>Notes</a>.
+        ip:
+          type: string
+          raw_type: string
+          version_ranges: &id005
+          - - v6.2.0
+            - ''
+          description: Server host IPv4 address.
+        port:
+          type: integer
+          raw_type: integer
+          version_ranges: &id009
+          - - v6.2.0
+            - ''
+          description: Server host port number to communicate with client.
+        user:
+          type: string
+          raw_type: string
+          version_ranges: &id010
+          - - v6.2.0
+            - ''
+          description: Speed test host user name.
+        password:
+          type: string
+          raw_type: string
+          version_ranges: &id008
+          - - v6.2.0
+            - ''
+          description: Speed test host password.
+        longitude:
+          type: string
+          raw_type: string
+          version_ranges: &id007
+          - - v7.0.12
+            - v7.0.12
+          - - v7.2.4
+            - ''
+          description: Speed test host longitude.
+        latitude:
+          type: string
+          raw_type: string
+          version_ranges: &id006
+          - - v7.0.12
+            - v7.0.12
+          - - v7.2.4
+            - ''
+          description: Speed test host latitude.
+        distance:
+          type: integer
+          raw_type: integer
+          version_ranges: &id003
+          - - v7.0.12
+            - v7.0.12
+          - - v7.2.4
+            - ''
+          description: Speed test host distance.
+      version_ranges: &id001
+      - - v6.2.0
+        - ''
+      description: Hosts of the server.
+      source_attribute: host
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id001
+        description: Hosts of the server.
+        children: *id002
+        source_attribute: host
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          port:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 65535
+          user:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 64
+          password:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 128
+          longitude:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+            min_length: 0
+            max_length: 7
+          latitude:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+            min_length: 0
+            max_length: 7
+          distance:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+        source_attribute: host
+    sources:
+    - ansible
+    - terraform
+  host.distance:
+    canonical:
+      type: integer
+      version_ranges: *id003
+      description: Speed test host distance.
+      source_attribute: host.distance
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id003
+        description: Speed test host distance.
+        source_attribute: host.distance
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: host.distance
+    sources:
+    - ansible
+    - terraform
+  host.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id004
+      description: Server host ID. see <a href='#notes'>Notes</a>.
+      source_attribute: host.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id004
+        description: Server host ID. see <a href='#notes'>Notes</a>.
+        source_attribute: host.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: host.id
+    sources:
+    - ansible
+    - terraform
+  host.ip:
+    canonical:
+      type: string
+      version_ranges: *id005
+      description: Server host IPv4 address.
+      source_attribute: host.ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: Server host IPv4 address.
+        source_attribute: host.ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: host.ip
+    sources:
+    - ansible
+    - terraform
+  host.latitude:
+    canonical:
+      type: string
+      version_ranges: *id006
+      min_length: 0
+      max_length: 7
+      description: Speed test host latitude.
+      source_attribute: host.latitude
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id006
+        description: Speed test host latitude.
+        source_attribute: host.latitude
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 7
+        source_attribute: host.latitude
+    sources:
+    - ansible
+    - terraform
+  host.longitude:
+    canonical:
+      type: string
+      version_ranges: *id007
+      min_length: 0
+      max_length: 7
+      description: Speed test host longitude.
+      source_attribute: host.longitude
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: Speed test host longitude.
+        source_attribute: host.longitude
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 7
+        source_attribute: host.longitude
+    sources:
+    - ansible
+    - terraform
+  host.password:
+    canonical:
+      type: string
+      version_ranges: *id008
+      min_length: 0
+      max_length: 128
+      description: Speed test host password.
+      source_attribute: host.password
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: Speed test host password.
+        source_attribute: host.password
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: host.password
+    sources:
+    - ansible
+    - terraform
+  host.port:
+    canonical:
+      type: integer
+      version_ranges: *id009
+      min: 1
+      max: 65535
+      description: Server host port number to communicate with client.
+      source_attribute: host.port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id009
+        description: Server host port number to communicate with client.
+        source_attribute: host.port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: host.port
+    sources:
+    - ansible
+    - terraform
+  host.user:
+    canonical:
+      type: string
+      version_ranges: *id010
+      min_length: 0
+      max_length: 64
+      description: Speed test host user name.
+      source_attribute: host.user
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id010
+        description: Speed test host user name.
+        source_attribute: host.user
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 64
+        source_attribute: host.user
+    sources:
+    - ansible
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id011
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Speed test server name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id011
+        description: Speed test server name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Speed test server name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  timestamp:
+    canonical:
+      type: integer
+      version_ranges: &id012
+      - - v6.2.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Speed test server timestamp.
+      source_attribute: timestamp
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id012
+        description: Speed test server timestamp.
+        source_attribute: timestamp
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: timestamp
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Speed test server timestamp.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: timestamp
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

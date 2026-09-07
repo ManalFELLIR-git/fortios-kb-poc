@@ -1,0 +1,135 @@
+id: monitoring.npu-hpe
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: false
+  cli_reference: true
+attributes_flat:
+  interval:
+    canonical:
+      type: integer
+      version_ranges: &id001
+      - - v7.0.0
+        - ''
+      default: '1'
+      min: 1
+      max: 60
+      description: HPE status check interval (1 - 60 seconds, default = 1 second).
+      source_attribute: interval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id001
+        description: HPE status check interval (1 - 60 seconds).
+        source_attribute: interval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: HPE status check interval (1 - 60 seconds, default = 1 second).
+        default: '1'
+        min: 1
+        max: 60
+        source_attribute: interval
+    sources:
+    - ansible
+    - cli_reference
+  multipliers:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: &id002
+      - - v7.0.0
+        - ''
+      description: HPE type interval multipliers (12 integers from <1> to <255>, default = 4, 4, 4, 4, 8, 8, 8, 8, 8, 8, 8,
+        8). An event log is generated after every (interval * multiplier)seconds as configured for any HPE type when drops
+        occur for that HPE type. An attack log is generated after every (4 * multiplier) number of continuous event logs.
+      source_attribute: multipliers
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id002
+        description: HPE type interval multipliers (12 integers from <1> to <255>) number of continuous event logs.
+        source_attribute: multipliers
+      cli_reference:
+        type: string
+        raw_type: user
+        description: HPE type interval multipliers (12 integers from <1> to <255>, default = 4, 4, 4, 4, 8, 8, 8, 8, 8, 8,
+          8, 8). An event log is generated after every (interval * multiplier)seconds as configured for any HPE type when
+          drops occur for that HPE type. An attack log is generated after every (4 * multiplier) number of continuous event
+          logs.
+        source_attribute: multipliers
+    sources:
+    - ansible
+    - cli_reference
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id003
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id003
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id005
+      - - v7.0.0
+        - ''
+      choices: &id004
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable HPE status monitoring.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id004
+        version_ranges: *id005
+        description: Enable/disable HPE status monitoring.
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable HPE status monitoring.
+        default: disable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+conflicts:
+- attribute: multipliers
+  field: type
+  values:
+    ansible: list
+    cli_reference: string
+  classification: representation_or_real_conflict

@@ -1,0 +1,464 @@
+id: switch-controller.qos.ip-dscp-map
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  description:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Description of the ip-dscp map name.
+      source_attribute: description
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Description of the ip-dscp map name.
+        source_attribute: description
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: description
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Description of the ip-dscp map name.
+        max_length: 63
+        source_attribute: description
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  map:
+    canonical:
+      type: list
+      elements: dict
+      children: &id003
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id009
+          - - v6.0.0
+            - ''
+          description: Dscp mapping entry name.
+        cos_queue:
+          type: integer
+          raw_type: integer
+          version_ranges: &id004
+          - - v6.0.0
+            - ''
+          description: COS queue number.
+        diffserv:
+          type: enum
+          raw_type: list
+          choices: &id006
+          - CS0
+          - CS1
+          - AF11
+          - AF12
+          - AF13
+          - CS2
+          - AF21
+          - AF22
+          - AF23
+          - CS3
+          - AF31
+          - AF32
+          - AF33
+          - CS4
+          - AF41
+          - AF42
+          - AF43
+          - CS5
+          - EF
+          - CS6
+          - CS7
+          multiple_values: true
+          elements: str
+          version_ranges: &id005
+          - - v6.0.0
+            - ''
+          description: Differentiated service.
+        ip_precedence:
+          type: enum
+          raw_type: list
+          choices: &id008
+          - network-control
+          - internetwork-control
+          - critic-ecp
+          - flashoverride
+          - flash
+          - immediate
+          - priority
+          - routine
+          multiple_values: true
+          elements: str
+          version_ranges: &id007
+          - - v6.0.0
+            - ''
+          description: IP Precedence.
+        value:
+          type: string
+          raw_type: string
+          version_ranges: &id010
+          - - v6.0.0
+            - ''
+          description: Raw values of DSCP (0 - 63).
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      description: Maps between IP-DSCP value to COS queue.
+      source_attribute: map
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id002
+        description: Maps between IP-DSCP value to COS queue.
+        children: *id003
+        source_attribute: map
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          cos_queue:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 7
+          diffserv:
+            type: string
+            raw_type: TypeString
+            optional: true
+          ip_precedence:
+            type: string
+            raw_type: TypeString
+            optional: true
+          value:
+            type: string
+            raw_type: TypeString
+            optional: true
+        source_attribute: map
+    sources:
+    - ansible
+    - terraform
+  map.cos_queue:
+    canonical:
+      type: integer
+      version_ranges: *id004
+      min: 0
+      max: 7
+      description: COS queue number.
+      source_attribute: map.cos_queue
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id004
+        description: COS queue number.
+        source_attribute: map.cos_queue
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 7
+        source_attribute: map.cos_queue
+    sources:
+    - ansible
+    - terraform
+  map.diffserv:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: *id005
+      choices: *id006
+      description: Differentiated service.
+      source_attribute: map.diffserv
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id006
+        multiple_values: true
+        elements: str
+        version_ranges: *id005
+        description: Differentiated service.
+        source_attribute: map.diffserv
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: map.diffserv
+    sources:
+    - ansible
+    - terraform
+  map.ip_precedence:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: *id007
+      choices: *id008
+      description: IP Precedence.
+      source_attribute: map.ip_precedence
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id008
+        multiple_values: true
+        elements: str
+        version_ranges: *id007
+        description: IP Precedence.
+        source_attribute: map.ip_precedence
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: map.ip_precedence
+    sources:
+    - ansible
+    - terraform
+  map.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id009
+      min_length: 0
+      max_length: 63
+      description: Dscp mapping entry name.
+      source_attribute: map.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id009
+        description: Dscp mapping entry name.
+        source_attribute: map.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: map.name
+    sources:
+    - ansible
+    - terraform
+  map.value:
+    canonical:
+      type: string
+      version_ranges: *id010
+      description: Raw values of DSCP (0 - 63).
+      source_attribute: map.value
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id010
+        description: Raw values of DSCP (0 - 63).
+        source_attribute: map.value
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: map.value
+    sources:
+    - ansible
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Dscp map name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id011
+        description: Dscp map name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        force_new: true
+        min_length: 0
+        max_length: 63
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Dscp map name.
+        max_length: 63
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

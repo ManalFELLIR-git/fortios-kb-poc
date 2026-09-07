@@ -1,0 +1,1310 @@
+id: authentication.rule
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  active_auth_method:
+    canonical:
+      type: string
+      references: &id002
+      - authentication.scheme.name
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Select an active authentication method.
+      source_attribute: active-auth-method
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Select an active authentication method. Source authentication.scheme.name.
+        references: *id002
+        source_attribute: active_auth_method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: active_auth_method
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Select an active authentication method.
+        max_length: 35
+        source_attribute: active-auth-method
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cert_auth_cookie:
+    canonical:
+      type: enum
+      version_ranges: &id004
+      - - v7.4.4
+        - ''
+      choices: &id003
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable to use device certificate as authentication cookie (default = enable).
+      source_attribute: cert-auth-cookie
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: Enable/disable to use device certificate as authentication cookie .
+        source_attribute: cert_auth_cookie
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cert_auth_cookie
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable to use device certificate as authentication cookie (default = enable).
+        default: enable
+        source_attribute: cert-auth-cookie
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  comments:
+    canonical:
+      type: string
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 1023
+      description: Comment.
+      source_attribute: comments
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: Comment.
+        source_attribute: comments
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 1023
+        source_attribute: comments
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 1023
+        source_attribute: comments
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cors_depth:
+    canonical:
+      type: integer
+      version_ranges: &id006
+      - - v7.4.1
+        - ''
+      default: '3'
+      min: 1
+      max: 8
+      description: Depth to allow CORS access (default = 3).
+      source_attribute: cors-depth
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id006
+        description: Depth to allow CORS access .
+        source_attribute: cors_depth
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 8
+        source_attribute: cors_depth
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Depth to allow CORS access (default = 3).
+        default: '3'
+        min: 1
+        max: 8
+        source_attribute: cors-depth
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cors_stateful:
+    canonical:
+      type: enum
+      version_ranges: &id008
+      - - v7.4.1
+        - ''
+      choices: &id007
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable allowance of CORS access (default = disable).
+      source_attribute: cors-stateful
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id007
+        version_ranges: *id008
+        description: Enable/disable allowance of CORS access .
+        source_attribute: cors_stateful
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cors_stateful
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable allowance of CORS access (default = disable).
+        default: disable
+        source_attribute: cors-stateful
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dstaddr:
+    canonical:
+      type: list
+      elements: dict
+      children: &id010
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id013
+          - - v7.0.0
+            - ''
+          description: Address name. Source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name
+            system .external-resource.name.
+          references: &id012
+          - firewall.address.name
+          - firewall.addrgrp.name
+          - firewall.proxy-address.name
+          - firewall.proxy-addrgrp.name
+      version_ranges: &id009
+      - - v7.0.0
+        - ''
+      max_length: 79
+      description: Select an IPv4 destination address from available options. Required for web proxy authentication. Address
+        name.
+      source_attribute: dstaddr
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id009
+        description: Select an IPv4 destination address from available options. Required for web proxy authentication.
+        children: *id010
+        source_attribute: dstaddr
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: dstaddr
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Select an IPv4 destination address from available options. Required for web proxy authentication. Address
+          name.
+        max_length: 79
+        source_attribute: dstaddr
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id011
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id011
+  dstaddr.name:
+    canonical:
+      type: string
+      references: *id012
+      required: true
+      version_ranges: *id013
+      min_length: 0
+      max_length: 79
+      description: Address name. Source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name
+        system .external-resource.name.
+      source_attribute: dstaddr.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id013
+        description: Address name. Source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name
+          system .external-resource.name.
+        references: *id012
+        source_attribute: dstaddr.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: dstaddr.name
+    sources:
+    - ansible
+    - terraform
+  dstaddr6:
+    canonical:
+      type: list
+      elements: dict
+      children: &id015
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id018
+          - - v7.0.0
+            - ''
+          description: Address name. Source firewall.address6.name firewall.addrgrp6.name firewall.proxy-address6.name firewall.proxy-addrgrp6.name.
+          references: &id017
+          - firewall.address6.name
+          - firewall.addrgrp6.name
+          - firewall.proxy-address6.name
+          - firewall.proxy-addrgrp6.name
+      version_ranges: &id014
+      - - v7.0.0
+        - ''
+      max_length: 79
+      description: Select an IPv6 destination address from available options. Required for web proxy authentication. Address
+        name.
+      source_attribute: dstaddr6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id014
+        description: Select an IPv6 destination address from available options. Required for web proxy authentication.
+        children: *id015
+        source_attribute: dstaddr6
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: dstaddr6
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Select an IPv6 destination address from available options. Required for web proxy authentication. Address
+          name.
+        max_length: 79
+        source_attribute: dstaddr6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id016
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id016
+  dstaddr6.name:
+    canonical:
+      type: string
+      references: *id017
+      required: true
+      version_ranges: *id018
+      min_length: 0
+      max_length: 79
+      description: Address name. Source firewall.address6.name firewall.addrgrp6.name firewall.proxy-address6.name firewall.proxy-addrgrp6.name.
+      source_attribute: dstaddr6.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id018
+        description: Address name. Source firewall.address6.name firewall.addrgrp6.name firewall.proxy-address6.name firewall.proxy-addrgrp6.name.
+        references: *id017
+        source_attribute: dstaddr6.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: dstaddr6.name
+    sources:
+    - ansible
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  ip_based:
+    canonical:
+      type: enum
+      version_ranges: &id020
+      - - v6.0.0
+        - ''
+      choices: &id019
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable IP-based authentication. When enabled, previously authenticated users from the same IP address
+        will be exempted.
+      source_attribute: ip-based
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id019
+        version_ranges: *id020
+        description: Enable/disable IP-based authentication. When enabled, previously authenticated users from the same IP
+          address will be exempted.
+        source_attribute: ip_based
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ip_based
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable IP-based authentication. When enabled, previously authenticated users from the same IP
+          address will be exempted.
+        default: enable
+        source_attribute: ip-based
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id021
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Authentication rule name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id021
+        description: Authentication rule name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Authentication rule name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  protocol:
+    canonical:
+      type: enum
+      version_ranges: &id023
+      - - v6.0.0
+        - ''
+      choices: &id022
+      - http
+      - ftp
+      - socks
+      - ssh
+      - ztna-portal
+      default: http
+      description: Authentication is required for the selected protocol (default = HTTP).
+      source_attribute: protocol
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id022
+        version_ranges: *id023
+        description: Authentication is required for the selected protocol .
+        source_attribute: protocol
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: protocol
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Authentication is required for the selected protocol (default = HTTP).
+        default: http
+        source_attribute: protocol
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  session_logout:
+    canonical:
+      type: enum
+      version_ranges: &id025
+      - - v7.6.5
+        - ''
+      choices: &id024
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable logout of a user from the current session.
+      source_attribute: session-logout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id024
+        version_ranges: *id025
+        description: Enable/disable logout of a user from the current session.
+        source_attribute: session_logout
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: session_logout
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logout of a user from the current session.
+        default: disable
+        source_attribute: session-logout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  srcaddr:
+    canonical:
+      type: list
+      elements: dict
+      children: &id027
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id030
+          - - v6.0.0
+            - ''
+          description: Address name. Source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name
+            system .external-resource.name.
+          references: &id029
+          - firewall.address.name
+          - firewall.addrgrp.name
+          - firewall.proxy-address.name
+          - firewall.proxy-addrgrp.name
+      version_ranges: &id026
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Authentication is required for the selected IPv4 source address. Address name.
+      source_attribute: srcaddr
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id026
+        description: Authentication is required for the selected IPv4 source address.
+        children: *id027
+        source_attribute: srcaddr
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: srcaddr
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Authentication is required for the selected IPv4 source address. Address name.
+        max_length: 79
+        source_attribute: srcaddr
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id028
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id028
+  srcaddr.name:
+    canonical:
+      type: string
+      references: *id029
+      required: true
+      version_ranges: *id030
+      min_length: 0
+      max_length: 79
+      description: Address name. Source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name
+        system .external-resource.name.
+      source_attribute: srcaddr.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id030
+        description: Address name. Source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name
+          system .external-resource.name.
+        references: *id029
+        source_attribute: srcaddr.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: srcaddr.name
+    sources:
+    - ansible
+    - terraform
+  srcaddr6:
+    canonical:
+      type: list
+      elements: dict
+      children: &id032
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id035
+          - - v6.0.0
+            - ''
+          description: Address name. Source firewall.address6.name firewall.addrgrp6.name firewall.proxy-address6.name firewall.proxy-addrgrp6.name.
+          references: &id034
+          - firewall.address6.name
+          - firewall.addrgrp6.name
+          - firewall.proxy-address6.name
+          - firewall.proxy-addrgrp6.name
+      version_ranges: &id031
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Authentication is required for the selected IPv6 source address. Address name.
+      source_attribute: srcaddr6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id031
+        description: Authentication is required for the selected IPv6 source address.
+        children: *id032
+        source_attribute: srcaddr6
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: srcaddr6
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Authentication is required for the selected IPv6 source address. Address name.
+        max_length: 79
+        source_attribute: srcaddr6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id033
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id033
+  srcaddr6.name:
+    canonical:
+      type: string
+      references: *id034
+      required: true
+      version_ranges: *id035
+      min_length: 0
+      max_length: 79
+      description: Address name. Source firewall.address6.name firewall.addrgrp6.name firewall.proxy-address6.name firewall.proxy-addrgrp6.name.
+      source_attribute: srcaddr6.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id035
+        description: Address name. Source firewall.address6.name firewall.addrgrp6.name firewall.proxy-address6.name firewall.proxy-addrgrp6.name.
+        references: *id034
+        source_attribute: srcaddr6.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: srcaddr6.name
+    sources:
+    - ansible
+    - terraform
+  srcintf:
+    canonical:
+      type: list
+      elements: dict
+      children: &id037
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id040
+          - - v7.0.0
+            - ''
+          description: Interface name. Source system.interface.name system.zone.name system.sdwan.zone.name.
+          references: &id039
+          - system.interface.name
+          - system.sdwan.zone.name
+          - system.zone.name
+      version_ranges: &id036
+      - - v7.0.0
+        - ''
+      max_length: 79
+      description: Incoming (ingress) interface. Interface name.
+      source_attribute: srcintf
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id036
+        description: Incoming (ingress) interface.
+        children: *id037
+        source_attribute: srcintf
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: srcintf
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Incoming (ingress) interface. Interface name.
+        max_length: 79
+        source_attribute: srcintf
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id038
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id038
+  srcintf.name:
+    canonical:
+      type: string
+      references: *id039
+      required: true
+      version_ranges: *id040
+      min_length: 0
+      max_length: 79
+      description: Interface name. Source system.interface.name system.zone.name system.sdwan.zone.name.
+      source_attribute: srcintf.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id040
+        description: Interface name. Source system.interface.name system.zone.name system.sdwan.zone.name.
+        references: *id039
+        source_attribute: srcintf.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: srcintf.name
+    sources:
+    - ansible
+    - terraform
+  sso_auth_method:
+    canonical:
+      type: string
+      references: &id042
+      - authentication.scheme.name
+      version_ranges: &id041
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Select a single-sign on (SSO) authentication method.
+      source_attribute: sso-auth-method
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id041
+        description: Select a single-sign on (SSO) authentication method. Source authentication.scheme.name.
+        references: *id042
+        source_attribute: sso_auth_method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: sso_auth_method
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Select a single-sign on (SSO) authentication method.
+        max_length: 35
+        source_attribute: sso-auth-method
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id044
+      - - v6.0.0
+        - ''
+      choices: &id043
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable this authentication rule.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id043
+        version_ranges: *id044
+        description: Enable/disable this authentication rule.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable this authentication rule.
+        default: enable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  transaction_based:
+    canonical:
+      type: enum
+      version_ranges: &id046
+      - - v6.0.0
+        - ''
+      choices: &id045
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable transaction based authentication (default = disable).
+      source_attribute: transaction-based
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id045
+        version_ranges: *id046
+        description: Enable/disable transaction based authentication .
+        source_attribute: transaction_based
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: transaction_based
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable transaction based authentication (default = disable).
+        default: disable
+        source_attribute: transaction-based
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  web_auth_cookie:
+    canonical:
+      type: enum
+      version_ranges: &id048
+      - - v6.0.0
+        - ''
+      choices: &id047
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable Web authentication cookies (default = disable).
+      source_attribute: web-auth-cookie
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id047
+        version_ranges: *id048
+        description: Enable/disable Web authentication cookies .
+        source_attribute: web_auth_cookie
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_auth_cookie
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable Web authentication cookies (default = disable).
+        default: disable
+        source_attribute: web-auth-cookie
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  web_portal:
+    canonical:
+      type: enum
+      version_ranges: &id050
+      - - v6.2.0
+        - ''
+      choices: &id049
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable web portal for proxy transparent policy (default = enable).
+      source_attribute: web-portal
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id049
+        version_ranges: *id050
+        description: Enable/disable web portal for proxy transparent policy .
+        source_attribute: web_portal
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_portal
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable web portal for proxy transparent policy (default = enable).
+        default: enable
+        source_attribute: web-portal
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: dstaddr
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: dstaddr6
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: srcaddr
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: srcaddr6
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: srcintf
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

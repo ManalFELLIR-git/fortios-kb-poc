@@ -1,0 +1,391 @@
+id: extension-controller.fortigate-profile
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  extension:
+    canonical:
+      type: enum
+      default: lan-extension
+      description: Extension option. Read-only.
+      source_attribute: extension
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: extension
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Extension option. Read-only.
+        default: lan-extension
+        source_attribute: extension
+    sources:
+    - cli_reference
+    - terraform
+  fosid:
+    canonical:
+      type: integer
+      min: 0
+      max: 102400000
+      source_attribute: fosid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 102400000
+        source_attribute: fosid
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  id:
+    canonical:
+      type: integer
+      version_ranges: &id001
+      - - v7.2.1
+        - ''
+      default: '32'
+      min: 0
+      max: 102400000
+      description: ID.
+      source_attribute: id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id001
+        description: ID.
+        source_attribute: id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: ID.
+        default: '32'
+        min: 0
+        max: 102400000
+        source_attribute: id
+    sources:
+    - ansible
+    - cli_reference
+  lan_extension:
+    canonical:
+      type: list
+      children: &id003
+        ipsec_tunnel:
+          type: string
+          raw_type: string
+          version_ranges: &id008
+          - - v7.2.1
+            - ''
+          description: IPsec tunnel name.
+        backhaul_interface:
+          type: string
+          raw_type: string
+          version_ranges: &id006
+          - - v7.2.1
+            - ''
+          description: IPsec phase1 interface. Source system.interface.name.
+          references: &id005
+          - system.interface.name
+        backhaul_ip:
+          type: string
+          raw_type: string
+          version_ranges: &id007
+          - - v7.2.1
+            - ''
+          description: IPsec phase1 IPv4/FQDN. Used to specify the external IP/FQDN when the FortiGate unit is behind a NAT
+            device.
+      version_ranges: &id002
+      - - v7.2.1
+        - ''
+      description: FortiGate connector LAN extension configuration.
+      source_attribute: lan_extension
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id002
+        description: FortiGate connector LAN extension configuration.
+        children: *id003
+        source_attribute: lan_extension
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          ipsec_tunnel:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          backhaul_interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          backhaul_ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+        source_attribute: lan_extension
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id004
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id004
+  lan_extension.backhaul_interface:
+    canonical:
+      type: string
+      references: *id005
+      version_ranges: *id006
+      min_length: 0
+      max_length: 15
+      description: IPsec phase1 interface. Source system.interface.name.
+      source_attribute: lan_extension.backhaul_interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id006
+        description: IPsec phase1 interface. Source system.interface.name.
+        references: *id005
+        source_attribute: lan_extension.backhaul_interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: lan_extension.backhaul_interface
+    sources:
+    - ansible
+    - terraform
+  lan_extension.backhaul_ip:
+    canonical:
+      type: string
+      version_ranges: *id007
+      min_length: 0
+      max_length: 63
+      description: IPsec phase1 IPv4/FQDN. Used to specify the external IP/FQDN when the FortiGate unit is behind a NAT device.
+      source_attribute: lan_extension.backhaul_ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: IPsec phase1 IPv4/FQDN. Used to specify the external IP/FQDN when the FortiGate unit is behind a NAT
+          device.
+        source_attribute: lan_extension.backhaul_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: lan_extension.backhaul_ip
+    sources:
+    - ansible
+    - terraform
+  lan_extension.ipsec_tunnel:
+    canonical:
+      type: string
+      version_ranges: *id008
+      min_length: 0
+      max_length: 15
+      description: IPsec tunnel name.
+      source_attribute: lan_extension.ipsec_tunnel
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: IPsec tunnel name.
+        source_attribute: lan_extension.ipsec_tunnel
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: lan_extension.ipsec_tunnel
+    sources:
+    - ansible
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id009
+      - - v7.2.1
+        - ''
+      min_length: 0
+      max_length: 31
+      description: FortiGate connector profile name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id009
+        description: FortiGate connector profile name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 31
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: FortiGate connector profile name.
+        max_length: 31
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: lan_extension
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict

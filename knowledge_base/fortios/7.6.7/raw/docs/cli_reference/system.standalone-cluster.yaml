@@ -1,0 +1,197 @@
+id: system.standalone-cluster
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/302062596/config-system-standalone-cluster
+attributes:
+  asymmetric-traffic-control:
+    type: enum
+    raw_type: option
+    description: Asymmetric traffic control mode.
+    default: cps-preferred
+  encryption:
+    type: enum
+    raw_type: option
+    description: Enable/disable encryption when synchronizing sessions.
+    default: disable
+  group-member-id:
+    type: integer
+    raw_type: integer
+    description: Cluster member ID (0 - 15).
+    default: '0'
+    min: 0
+    max: 15
+  helper-traffic-bounce:
+    type: enum
+    raw_type: option
+    description: Enable/disable helper related traffic bounce.
+    default: enable
+  layer2-connection:
+    type: enum
+    raw_type: option
+    description: Indicate whether layer 2 connections are present among FGSP members.
+    default: unavailable
+  monitor-interface:
+    type: string
+    raw_type: string
+    description: Configure a list of interfaces on which to monitor itself. Monitoring is performed on the status of the interface.
+      Interface name.
+    max_length: 79
+  pingsvr-monitor-interface:
+    type: string
+    raw_type: string
+    description: List of pingsvr monitor interface to check for remote IP monitoring. Interface name.
+    max_length: 79
+  psksecret:
+    type: password-3
+    raw_type: password-3
+    description: Pre-shared secret for session synchronization (ASCII string or hexadecimal encoded with a leading 0x).
+  session-sync-dev:
+    type: string
+    raw_type: user
+    description: Offload session-sync process to kernel and sync sessions using connected interface(s) directly.
+  standalone-group-id:
+    type: integer
+    raw_type: integer
+    description: Cluster group ID (0 - 255). Must be the same for all members.
+    default: '0'
+    min: 0
+    max: 255
+  utm-traffic-bounce:
+    type: enum
+    raw_type: option
+    description: Enable/disable UTM related traffic bounce.
+    default: enable
+children:
+  cluster-peer:
+    attributes:
+      down-intfs-before-sess-sync:
+        type: string
+        raw_type: string
+        description: List of interfaces to be turned down before session synchronization is complete. Interface name.
+        max_length: 79
+      hb-interval:
+        type: integer
+        raw_type: integer
+        description: Heartbeat interval (1 - 20 (100*ms). Increase to reduce false positives.
+        default: '2'
+        min: 1
+        max: 20
+      hb-lost-threshold:
+        type: integer
+        raw_type: integer
+        description: Lost heartbeat threshold (1 - 60). Increase to reduce false positives.
+        default: '10'
+        min: 1
+        max: 60
+      ipsec-tunnel-sync:
+        type: enum
+        raw_type: option
+        description: Enable/disable IPsec tunnel synchronization.
+        default: enable
+      peerip:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: IP address of the interface on the peer unit that is used for the session synchronization link.
+        default: 0.0.0.0
+      peervd:
+        type: string
+        raw_type: string
+        description: VDOM that contains the session synchronization link interface on the peer unit. Usually both peers would
+          have the same peervd.
+        default: root
+        max_length: 31
+      secondary-add-ipsec-routes:
+        type: enum
+        raw_type: option
+        description: Enable/disable IKE route announcement on the backup unit.
+        default: enable
+      sync-id:
+        type: integer
+        raw_type: integer
+        description: Sync ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      syncvd:
+        type: string
+        raw_type: string
+        description: Sessions from these VDOMs are synchronized using this session synchronization configuration. VDOM name.
+        max_length: 79
+  session-sync-filter:
+    attributes:
+      dstaddr:
+        type: ipv4-classnet-any
+        raw_type: ipv4-classnet-any
+        description: Only sessions to this IPv4 address are synchronized.
+        default: 0.0.0.0 0.0.0.0
+      dstaddr6:
+        type: ipv6-network
+        raw_type: ipv6-network
+        description: Only sessions to this IPv6 address are synchronized.
+        default: ::/0
+      dstintf:
+        type: string
+        raw_type: string
+        description: Only sessions to this interface are synchronized.
+        max_length: 15
+      srcaddr:
+        type: ipv4-classnet-any
+        raw_type: ipv4-classnet-any
+        description: Only sessions from this IPv4 address are synchronized.
+        default: 0.0.0.0 0.0.0.0
+      srcaddr6:
+        type: ipv6-network
+        raw_type: ipv6-network
+        description: Only sessions from this IPv6 address are synchronized.
+        default: ::/0
+      srcintf:
+        type: string
+        raw_type: string
+        description: Only sessions from this interface are synchronized.
+        max_length: 15
+  custom-service:
+    attributes:
+      dst-port-range:
+        type: string
+        raw_type: user
+        description: Custom service destination port range.
+        default: 0-0
+      id:
+        type: integer
+        raw_type: integer
+        description: Custom service ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      src-port-range:
+        type: string
+        raw_type: user
+        description: Custom service source port range.
+        default: 0-0
+  monitor-prefix:
+    attributes:
+      id:
+        type: integer
+        raw_type: integer
+        description: ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      prefix:
+        type: ipv4-classnet-any
+        raw_type: ipv4-classnet-any
+        description: Prefix.
+        default: 0.0.0.0 0.0.0.0
+      vdom:
+        type: string
+        raw_type: string
+        description: VDOM name.
+        max_length: 31
+      vrf:
+        type: integer
+        raw_type: integer
+        description: VRF ID.
+        default: '0'
+        min: 0
+        max: 511

@@ -1,0 +1,266 @@
+id: switch-controller.auto-config.custom
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id001
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Auto-Config FortiLink or ISL/ICL interface name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id001
+        description: Auto-Config FortiLink or ISL/ICL interface name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        force_new: true
+        min_length: 0
+        max_length: 15
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Auto-Config FortiLink or ISL/ICL interface name.
+        max_length: 15
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  switch_binding:
+    canonical:
+      type: list
+      elements: dict
+      children: &id003
+        switch_id:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id006
+          - - v6.2.0
+            - ''
+          description: Switch name.
+        policy:
+          type: string
+          raw_type: string
+          version_ranges: &id005
+          - - v6.2.0
+            - ''
+          description: Custom auto-config policy. Source switch-controller.auto-config.policy.name.
+          references: &id004
+          - switch-controller.auto-config.policy.name
+      version_ranges: &id002
+      - - v6.2.0
+        - ''
+      description: Switch binding list.
+      source_attribute: switch_binding
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id002
+        description: Switch binding list.
+        children: *id003
+        source_attribute: switch_binding
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          switch_id:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          policy:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+            min_length: 0
+            max_length: 63
+        source_attribute: switch_binding
+    sources:
+    - ansible
+    - terraform
+  switch_binding.policy:
+    canonical:
+      type: string
+      references: *id004
+      version_ranges: *id005
+      min_length: 0
+      max_length: 63
+      description: Custom auto-config policy. Source switch-controller.auto-config.policy.name.
+      source_attribute: switch_binding.policy
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: Custom auto-config policy. Source switch-controller.auto-config.policy.name.
+        references: *id004
+        source_attribute: switch_binding.policy
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 63
+        source_attribute: switch_binding.policy
+    sources:
+    - ansible
+    - terraform
+  switch_binding.switch_id:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id006
+      min_length: 0
+      max_length: 35
+      description: Switch name.
+      source_attribute: switch_binding.switch_id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id006
+        description: Switch name.
+        source_attribute: switch_binding.switch_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: switch_binding.switch_id
+    sources:
+    - ansible
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

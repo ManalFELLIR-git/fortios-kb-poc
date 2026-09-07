@@ -1,0 +1,1744 @@
+id: system.snmp.community
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  events:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - cpu-high
+      - mem-low
+      - log-full
+      - intf-ip
+      - vpn-tun-up
+      - vpn-tun-down
+      - ha-switch
+      - ha-hb-failure
+      - ips-signature
+      - ips-anomaly
+      - av-virus
+      - av-oversize
+      - av-pattern
+      - av-fragmented
+      - fm-if-change
+      - fm-conf-change
+      - bgp-established
+      - bgp-backward-transition
+      - ha-member-up
+      - ha-member-down
+      - ent-conf-change
+      - av-conserve
+      - av-bypass
+      - av-oversize-passed
+      - av-oversize-blocked
+      - ips-pkg-update
+      - ips-fail-open
+      - temperature-high
+      - voltage-alert
+      - power-supply
+      - faz-disconnect
+      - faz
+      - fan-failure
+      - wc-ap-up
+      - wc-ap-down
+      - fswctl-session-up
+      - fswctl-session-down
+      - load-balance-real-server-down
+      - device-new
+      - per-cpu-high
+      - dhcp
+      - pool-usage
+      - ippool
+      - interface
+      - ospf-nbr-state-change
+      - ospf-virtnbr-state-change
+      - bfd
+      default: cpu-high mem-low log-full intf-ip vpn-tun-up vpn-tun-down ha-switch ha-hb-failure ips-signature ips-anomaly
+        av-virus av-oversize av-pattern av-fragmented fm-if-change bgp-established bgp-backward-transition ha-member-up ha-member-down
+        ent-conf-change av-conserve av-bypass av-oversize-passed av-oversize-blocked ips-pkg-update ips-fail-open temperature-high
+        voltage-alert power-supply faz-disconnect faz fan-failure wc-ap-up wc-ap-down fswctl-session-up fswctl-session-down
+        load-balance-real-server-down per-cpu-high dhcp pool-usage ippool interface ospf-nbr-state-change ospf-virtnbr-state-change
+        bfd **
+      description: SNMP trap events.
+      source_attribute: events
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id001
+        multiple_values: true
+        elements: str
+        version_ranges: *id002
+        description: SNMP trap events.
+        source_attribute: events
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: events
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: SNMP trap events.
+        default: cpu-high mem-low log-full intf-ip vpn-tun-up vpn-tun-down ha-switch ha-hb-failure ips-signature ips-anomaly
+          av-virus av-oversize av-pattern av-fragmented fm-if-change bgp-established bgp-backward-transition ha-member-up
+          ha-member-down ent-conf-change av-conserve av-bypass av-oversize-passed av-oversize-blocked ips-pkg-update ips-fail-open
+          temperature-high voltage-alert power-supply faz-disconnect faz fan-failure wc-ap-up wc-ap-down fswctl-session-up
+          fswctl-session-down load-balance-real-server-down per-cpu-high dhcp pool-usage ippool interface ospf-nbr-state-change
+          ospf-virtnbr-state-change bfd **
+        source_attribute: events
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fosid:
+    canonical:
+      type: integer
+      required: true
+      source_attribute: fosid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      required: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        required: true
+        force_new: true
+        source_attribute: fosid
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  hosts:
+    canonical:
+      type: list
+      elements: dict
+      children: &id004
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id009
+          - - v6.0.0
+            - ''
+          description: Host entry ID. see <a href='#notes'>Notes</a>.
+        source_ip:
+          type: string
+          raw_type: string
+          version_ranges: &id015
+          - - v6.0.0
+            - ''
+          description: Source IPv4 address for SNMP traps.
+        ip:
+          type: string
+          raw_type: string
+          version_ranges: &id014
+          - - v6.0.0
+            - ''
+          description: IPv4 address of the SNMP manager (host).
+        ha_direct:
+          type: enum
+          raw_type: string
+          choices: &id006
+          - enable
+          - disable
+          version_ranges: &id005
+          - - v6.0.0
+            - ''
+          description: Enable/disable direct management of HA cluster members.
+        host_type:
+          type: enum
+          raw_type: string
+          choices: &id008
+          - any
+          - query
+          - trap
+          version_ranges: &id007
+          - - v6.0.0
+            - ''
+          description: Control whether the SNMP manager sends SNMP queries, receives SNMP traps, or both. No traps will be
+            sent when IP type is subnet.
+        interface_select_method:
+          type: enum
+          raw_type: string
+          choices: &id013
+          - auto
+          - sdwan
+          - specify
+          version_ranges: &id012
+          - - v7.6.0
+            - ''
+          description: Specify how to select outgoing interface to reach server.
+        interface:
+          type: string
+          raw_type: string
+          version_ranges: &id011
+          - - v7.6.0
+            - ''
+          description: Specify outgoing interface to reach server. Source system.interface.name.
+          references: &id010
+          - system.interface.name
+        vrf_select:
+          type: integer
+          raw_type: integer
+          version_ranges: &id016
+          - - v7.6.1
+            - ''
+          description: VRF ID used for connection to server.
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      description: Configure IPv4 SNMP managers (hosts).
+      source_attribute: hosts
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id003
+        description: Configure IPv4 SNMP managers (hosts).
+        children: *id004
+        source_attribute: hosts
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          source_ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+          ha_direct:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          host_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          interface_select_method:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          vrf_select:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 511
+        source_attribute: hosts
+    sources:
+    - ansible
+    - terraform
+  hosts.ha_direct:
+    canonical:
+      type: enum
+      version_ranges: *id005
+      choices: *id006
+      description: Enable/disable direct management of HA cluster members.
+      source_attribute: hosts.ha_direct
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id006
+        version_ranges: *id005
+        description: Enable/disable direct management of HA cluster members.
+        source_attribute: hosts.ha_direct
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: hosts.ha_direct
+    sources:
+    - ansible
+    - terraform
+  hosts.host_type:
+    canonical:
+      type: enum
+      version_ranges: *id007
+      choices: *id008
+      description: Control whether the SNMP manager sends SNMP queries, receives SNMP traps, or both. No traps will be sent
+        when IP type is subnet.
+      source_attribute: hosts.host_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id008
+        version_ranges: *id007
+        description: Control whether the SNMP manager sends SNMP queries, receives SNMP traps, or both. No traps will be sent
+          when IP type is subnet.
+        source_attribute: hosts.host_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: hosts.host_type
+    sources:
+    - ansible
+    - terraform
+  hosts.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id009
+      description: Host entry ID. see <a href='#notes'>Notes</a>.
+      source_attribute: hosts.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id009
+        description: Host entry ID. see <a href='#notes'>Notes</a>.
+        source_attribute: hosts.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: hosts.id
+    sources:
+    - ansible
+    - terraform
+  hosts.interface:
+    canonical:
+      type: string
+      references: *id010
+      version_ranges: *id011
+      min_length: 0
+      max_length: 15
+      description: Specify outgoing interface to reach server. Source system.interface.name.
+      source_attribute: hosts.interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: Specify outgoing interface to reach server. Source system.interface.name.
+        references: *id010
+        source_attribute: hosts.interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: hosts.interface
+    sources:
+    - ansible
+    - terraform
+  hosts.interface_select_method:
+    canonical:
+      type: enum
+      version_ranges: *id012
+      choices: *id013
+      description: Specify how to select outgoing interface to reach server.
+      source_attribute: hosts.interface_select_method
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id012
+        description: Specify how to select outgoing interface to reach server.
+        source_attribute: hosts.interface_select_method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: hosts.interface_select_method
+    sources:
+    - ansible
+    - terraform
+  hosts.ip:
+    canonical:
+      type: string
+      version_ranges: *id014
+      description: IPv4 address of the SNMP manager (host).
+      source_attribute: hosts.ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: IPv4 address of the SNMP manager (host).
+        source_attribute: hosts.ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: hosts.ip
+    sources:
+    - ansible
+    - terraform
+  hosts.source_ip:
+    canonical:
+      type: string
+      version_ranges: *id015
+      description: Source IPv4 address for SNMP traps.
+      source_attribute: hosts.source_ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id015
+        description: Source IPv4 address for SNMP traps.
+        source_attribute: hosts.source_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: hosts.source_ip
+    sources:
+    - ansible
+    - terraform
+  hosts.vrf_select:
+    canonical:
+      type: integer
+      version_ranges: *id016
+      min: 0
+      max: 511
+      description: VRF ID used for connection to server.
+      source_attribute: hosts.vrf_select
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id016
+        description: VRF ID used for connection to server.
+        source_attribute: hosts.vrf_select
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 511
+        source_attribute: hosts.vrf_select
+    sources:
+    - ansible
+    - terraform
+  hosts6:
+    canonical:
+      type: list
+      elements: dict
+      children: &id018
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id023
+          - - v6.0.0
+            - ''
+          description: Host6 entry ID. see <a href='#notes'>Notes</a>.
+        source_ipv6:
+          type: string
+          raw_type: string
+          version_ranges: &id029
+          - - v6.0.0
+            - ''
+          description: Source IPv6 address for SNMP traps.
+        ipv6:
+          type: string
+          raw_type: string
+          version_ranges: &id028
+          - - v6.0.0
+            - ''
+          description: SNMP manager IPv6 address prefix.
+        ha_direct:
+          type: enum
+          raw_type: string
+          choices: &id020
+          - enable
+          - disable
+          version_ranges: &id019
+          - - v6.0.0
+            - ''
+          description: Enable/disable direct management of HA cluster members.
+        host_type:
+          type: enum
+          raw_type: string
+          choices: &id022
+          - any
+          - query
+          - trap
+          version_ranges: &id021
+          - - v6.0.0
+            - ''
+          description: Control whether the SNMP manager sends SNMP queries, receives SNMP traps, or both.
+        interface_select_method:
+          type: enum
+          raw_type: string
+          choices: &id027
+          - auto
+          - sdwan
+          - specify
+          version_ranges: &id026
+          - - v7.6.0
+            - ''
+          description: Specify how to select outgoing interface to reach server.
+        interface:
+          type: string
+          raw_type: string
+          version_ranges: &id025
+          - - v7.6.0
+            - ''
+          description: Specify outgoing interface to reach server. Source system.interface.name.
+          references: &id024
+          - system.interface.name
+        vrf_select:
+          type: integer
+          raw_type: integer
+          version_ranges: &id030
+          - - v7.6.1
+            - ''
+          description: VRF ID used for connection to server.
+      version_ranges: &id017
+      - - v6.0.0
+        - ''
+      description: Configure IPv6 SNMP managers.
+      source_attribute: hosts6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id017
+        description: Configure IPv6 SNMP managers.
+        children: *id018
+        source_attribute: hosts6
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          source_ipv6:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ipv6:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ha_direct:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          host_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          interface_select_method:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          vrf_select:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 511
+        source_attribute: hosts6
+    sources:
+    - ansible
+    - terraform
+  hosts6.ha_direct:
+    canonical:
+      type: enum
+      version_ranges: *id019
+      choices: *id020
+      description: Enable/disable direct management of HA cluster members.
+      source_attribute: hosts6.ha_direct
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id020
+        version_ranges: *id019
+        description: Enable/disable direct management of HA cluster members.
+        source_attribute: hosts6.ha_direct
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: hosts6.ha_direct
+    sources:
+    - ansible
+    - terraform
+  hosts6.host_type:
+    canonical:
+      type: enum
+      version_ranges: *id021
+      choices: *id022
+      description: Control whether the SNMP manager sends SNMP queries, receives SNMP traps, or both.
+      source_attribute: hosts6.host_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id022
+        version_ranges: *id021
+        description: Control whether the SNMP manager sends SNMP queries, receives SNMP traps, or both.
+        source_attribute: hosts6.host_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: hosts6.host_type
+    sources:
+    - ansible
+    - terraform
+  hosts6.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id023
+      description: Host6 entry ID. see <a href='#notes'>Notes</a>.
+      source_attribute: hosts6.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id023
+        description: Host6 entry ID. see <a href='#notes'>Notes</a>.
+        source_attribute: hosts6.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: hosts6.id
+    sources:
+    - ansible
+    - terraform
+  hosts6.interface:
+    canonical:
+      type: string
+      references: *id024
+      version_ranges: *id025
+      min_length: 0
+      max_length: 15
+      description: Specify outgoing interface to reach server. Source system.interface.name.
+      source_attribute: hosts6.interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id025
+        description: Specify outgoing interface to reach server. Source system.interface.name.
+        references: *id024
+        source_attribute: hosts6.interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: hosts6.interface
+    sources:
+    - ansible
+    - terraform
+  hosts6.interface_select_method:
+    canonical:
+      type: enum
+      version_ranges: *id026
+      choices: *id027
+      description: Specify how to select outgoing interface to reach server.
+      source_attribute: hosts6.interface_select_method
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id027
+        version_ranges: *id026
+        description: Specify how to select outgoing interface to reach server.
+        source_attribute: hosts6.interface_select_method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: hosts6.interface_select_method
+    sources:
+    - ansible
+    - terraform
+  hosts6.ipv6:
+    canonical:
+      type: string
+      version_ranges: *id028
+      description: SNMP manager IPv6 address prefix.
+      source_attribute: hosts6.ipv6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id028
+        description: SNMP manager IPv6 address prefix.
+        source_attribute: hosts6.ipv6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: hosts6.ipv6
+    sources:
+    - ansible
+    - terraform
+  hosts6.source_ipv6:
+    canonical:
+      type: string
+      version_ranges: *id029
+      description: Source IPv6 address for SNMP traps.
+      source_attribute: hosts6.source_ipv6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id029
+        description: Source IPv6 address for SNMP traps.
+        source_attribute: hosts6.source_ipv6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: hosts6.source_ipv6
+    sources:
+    - ansible
+    - terraform
+  hosts6.vrf_select:
+    canonical:
+      type: integer
+      version_ranges: *id030
+      min: 0
+      max: 511
+      description: VRF ID used for connection to server.
+      source_attribute: hosts6.vrf_select
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id030
+        description: VRF ID used for connection to server.
+        source_attribute: hosts6.vrf_select
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 511
+        source_attribute: hosts6.vrf_select
+    sources:
+    - ansible
+    - terraform
+  id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id031
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Community ID.
+      source_attribute: id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id031
+        description: Community ID. see <a href='#notes'>Notes</a>.
+        source_attribute: id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Community ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: id
+    sources:
+    - ansible
+    - cli_reference
+  mib_view:
+    canonical:
+      type: string
+      references: &id033
+      - system.snmp.mib-view.name
+      version_ranges: &id032
+      - - v7.2.0
+        - ''
+      min_length: 0
+      max_length: 32
+      description: SNMP access control MIB view.
+      source_attribute: mib-view
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id032
+        description: SNMP access control MIB view. Source system.snmp.mib-view.name.
+        references: *id033
+        source_attribute: mib_view
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 32
+        source_attribute: mib_view
+      cli_reference:
+        type: string
+        raw_type: string
+        description: SNMP access control MIB view.
+        max_length: 32
+        source_attribute: mib-view
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id034
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Community name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id034
+        description: Community name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Community name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  query_v1_port:
+    canonical:
+      type: integer
+      version_ranges: &id035
+      - - v6.0.0
+        - ''
+      default: '161'
+      min: 1
+      max: 65535
+      description: SNMP v1 query port (default = 161).
+      source_attribute: query-v1-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id035
+        description: SNMP v1 query port .
+        source_attribute: query_v1_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: query_v1_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: SNMP v1 query port (default = 161).
+        default: '161'
+        min: 1
+        max: 65535
+        source_attribute: query-v1-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  query_v1_status:
+    canonical:
+      type: enum
+      version_ranges: &id037
+      - - v6.0.0
+        - ''
+      choices: &id036
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable SNMP v1 queries.
+      source_attribute: query-v1-status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id036
+        version_ranges: *id037
+        description: Enable/disable SNMP v1 queries.
+        source_attribute: query_v1_status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: query_v1_status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable SNMP v1 queries.
+        default: enable
+        source_attribute: query-v1-status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  query_v2c_port:
+    canonical:
+      type: integer
+      version_ranges: &id038
+      - - v6.0.0
+        - ''
+      default: '161'
+      min: 0
+      max: 65535
+      description: SNMP v2c query port (default = 161).
+      source_attribute: query-v2c-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id038
+        description: SNMP v2c query port .
+        source_attribute: query_v2c_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: query_v2c_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: SNMP v2c query port (default = 161).
+        default: '161'
+        min: 0
+        max: 65535
+        source_attribute: query-v2c-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  query_v2c_status:
+    canonical:
+      type: enum
+      version_ranges: &id040
+      - - v6.0.0
+        - ''
+      choices: &id039
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable SNMP v2c queries.
+      source_attribute: query-v2c-status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id039
+        version_ranges: *id040
+        description: Enable/disable SNMP v2c queries.
+        source_attribute: query_v2c_status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: query_v2c_status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable SNMP v2c queries.
+        default: enable
+        source_attribute: query-v2c-status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id042
+      - - v6.0.0
+        - ''
+      choices: &id041
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable this SNMP community.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id041
+        version_ranges: *id042
+        description: Enable/disable this SNMP community.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable this SNMP community.
+        default: enable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  trap_v1_lport:
+    canonical:
+      type: integer
+      version_ranges: &id043
+      - - v6.0.0
+        - ''
+      default: '162'
+      min: 1
+      max: 65535
+      description: SNMP v1 trap local port (default = 162).
+      source_attribute: trap-v1-lport
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id043
+        description: SNMP v1 trap local port .
+        source_attribute: trap_v1_lport
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: trap_v1_lport
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: SNMP v1 trap local port (default = 162).
+        default: '162'
+        min: 1
+        max: 65535
+        source_attribute: trap-v1-lport
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  trap_v1_rport:
+    canonical:
+      type: integer
+      version_ranges: &id044
+      - - v6.0.0
+        - ''
+      default: '162'
+      min: 1
+      max: 65535
+      description: SNMP v1 trap remote port (default = 162).
+      source_attribute: trap-v1-rport
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id044
+        description: SNMP v1 trap remote port .
+        source_attribute: trap_v1_rport
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: trap_v1_rport
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: SNMP v1 trap remote port (default = 162).
+        default: '162'
+        min: 1
+        max: 65535
+        source_attribute: trap-v1-rport
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  trap_v1_status:
+    canonical:
+      type: enum
+      version_ranges: &id046
+      - - v6.0.0
+        - ''
+      choices: &id045
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable SNMP v1 traps.
+      source_attribute: trap-v1-status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id045
+        version_ranges: *id046
+        description: Enable/disable SNMP v1 traps.
+        source_attribute: trap_v1_status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: trap_v1_status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable SNMP v1 traps.
+        default: enable
+        source_attribute: trap-v1-status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  trap_v2c_lport:
+    canonical:
+      type: integer
+      version_ranges: &id047
+      - - v6.0.0
+        - ''
+      default: '162'
+      min: 1
+      max: 65535
+      description: SNMP v2c trap local port (default = 162).
+      source_attribute: trap-v2c-lport
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id047
+        description: SNMP v2c trap local port .
+        source_attribute: trap_v2c_lport
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: trap_v2c_lport
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: SNMP v2c trap local port (default = 162).
+        default: '162'
+        min: 1
+        max: 65535
+        source_attribute: trap-v2c-lport
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  trap_v2c_rport:
+    canonical:
+      type: integer
+      version_ranges: &id048
+      - - v6.0.0
+        - ''
+      default: '162'
+      min: 1
+      max: 65535
+      description: SNMP v2c trap remote port (default = 162).
+      source_attribute: trap-v2c-rport
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id048
+        description: SNMP v2c trap remote port .
+        source_attribute: trap_v2c_rport
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: trap_v2c_rport
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: SNMP v2c trap remote port (default = 162).
+        default: '162'
+        min: 1
+        max: 65535
+        source_attribute: trap-v2c-rport
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  trap_v2c_status:
+    canonical:
+      type: enum
+      version_ranges: &id050
+      - - v6.0.0
+        - ''
+      choices: &id049
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable SNMP v2c traps.
+      source_attribute: trap-v2c-status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id049
+        version_ranges: *id050
+        description: Enable/disable SNMP v2c traps.
+        source_attribute: trap_v2c_status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: trap_v2c_status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable SNMP v2c traps.
+        default: enable
+        source_attribute: trap-v2c-status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  vdoms:
+    canonical:
+      type: list
+      elements: dict
+      children: &id052
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id055
+          - - v7.2.0
+            - ''
+          description: VDOM name. Source system.vdom.name.
+          references: &id054
+          - system.vdom.name
+      version_ranges: &id051
+      - - v7.2.0
+        - ''
+      max_length: 79
+      description: SNMP access control VDOMs. VDOM name.
+      source_attribute: vdoms
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id051
+        description: SNMP access control VDOMs.
+        children: *id052
+        source_attribute: vdoms
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: vdoms
+      cli_reference:
+        type: string
+        raw_type: string
+        description: SNMP access control VDOMs. VDOM name.
+        max_length: 79
+        source_attribute: vdoms
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id053
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id053
+  vdoms.name:
+    canonical:
+      type: string
+      references: *id054
+      required: true
+      version_ranges: *id055
+      min_length: 0
+      max_length: 79
+      description: VDOM name. Source system.vdom.name.
+      source_attribute: vdoms.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id055
+        description: VDOM name. Source system.vdom.name.
+        references: *id054
+        source_attribute: vdoms.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: vdoms.name
+    sources:
+    - ansible
+    - terraform
+conflicts:
+- attribute: vdoms
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

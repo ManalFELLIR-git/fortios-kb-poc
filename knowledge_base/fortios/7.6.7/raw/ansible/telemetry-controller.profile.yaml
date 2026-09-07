@@ -1,0 +1,173 @@
+id: telemetry-controller.profile
+version: 7.6.7
+source_object: fortios_telemetry_controller_profile
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_telemetry_controller_profile.py
+root_type: list
+attributes:
+  name:
+    type: string
+    raw_type: string
+    required: true
+    version_ranges:
+    - - v7.6.3
+      - ''
+    description: Name of the profile.
+  comment:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v7.6.3
+      - ''
+    description: Comment.
+  application:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v7.6.3
+      - ''
+    description: Configure applications.
+    children:
+      id:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v7.6.3
+          - ''
+        description: ID. see <a href='#notes'>Notes</a>.
+      app_name:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.6.3
+          - ''
+        description: Application name. Source telemetry-controller.application.custom.app-name telemetry-controller.application.predefine.app-name.
+        references:
+        - telemetry-controller.application.custom.app-name
+        - telemetry-controller.application.predefine.app-name
+      monitor:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v7.6.3
+          - ''
+        description: Enable/disable monitoring of the application.
+      interval:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.6.3
+          - ''
+        description: Time in milliseconds to check the application (60 * 1000 - 86,400 * 1000).
+      sla:
+        type: object
+        raw_type: dict
+        version_ranges:
+        - - v7.6.3
+          - ''
+        description: Service level agreement (SLA).
+        children:
+          sla_factor:
+            type: enum
+            raw_type: list
+            choices:
+            - experience-score
+            - failure-rate
+            - latency
+            - jitter
+            - packet-loss
+            - ttfb
+            - atdt
+            - tcp-rtt
+            - dns-time
+            - tls-time
+            - app-throughput
+            multiple_values: true
+            elements: str
+            version_ranges:
+            - - v7.6.3
+              - ''
+            description: Criteria on which metric to SLA threshold list.
+          experience_score_threshold:
+            type: integer
+            raw_type: integer
+            version_ranges:
+            - - v7.6.3
+              - ''
+            description: Threshold of experience score (0 - 10).
+          failure_rate_threshold:
+            type: integer
+            raw_type: integer
+            version_ranges:
+            - - v7.6.3
+              - ''
+            description: Threshold of failure rate (0 - 100).
+          latency_threshold:
+            type: integer
+            raw_type: integer
+            version_ranges:
+            - - v7.6.3
+              - ''
+            description: Threshold of latency in milliseconds (0 - 10,000,000).
+          jitter_threshold:
+            type: integer
+            raw_type: integer
+            version_ranges:
+            - - v7.6.3
+              - ''
+            description: Threshold of jitter in milliseconds (0 - 10,000,000).
+          packet_loss_threshold:
+            type: integer
+            raw_type: integer
+            version_ranges:
+            - - v7.6.3
+              - ''
+            description: Threshold of packet loss (0 - 100).
+          ttfb_threshold:
+            type: integer
+            raw_type: integer
+            version_ranges:
+            - - v7.6.3
+              - ''
+            description: Threshold of time to first byte in milliseconds (0 - 10,000,000).
+          atdt_threshold:
+            type: integer
+            raw_type: integer
+            version_ranges:
+            - - v7.6.3
+              - ''
+            description: Threshold of application total downloading time in milliseconds (0 - 10,000,000).
+          tcp_rtt_threshold:
+            type: integer
+            raw_type: integer
+            version_ranges:
+            - - v7.6.3
+              - ''
+            description: Threshold of TCP round-trip time in milliseconds (0 - 10,000,000).
+          dns_time_threshold:
+            type: integer
+            raw_type: integer
+            version_ranges:
+            - - v7.6.3
+              - ''
+            description: Threshold of 95th percentile of DNS resolution time in milliseconds (0 - 10,000,000).
+          tls_time_threshold:
+            type: integer
+            raw_type: integer
+            version_ranges:
+            - - v7.6.3
+              - ''
+            description: Threshold of 95th percentile of TLS handshake time in milliseconds (0 - 10,000,000).
+          app_throughput_threshold:
+            type: integer
+            raw_type: integer
+            version_ranges:
+            - - v7.6.3
+              - ''
+            description: Threshold of application throughput in megabytes (0 - 10,000).

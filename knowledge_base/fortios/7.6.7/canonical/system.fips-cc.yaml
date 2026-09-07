@@ -1,0 +1,194 @@
+id: system.fips-cc
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  entropy_token:
+    canonical:
+      type: string
+      source_attribute: entropy_token
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entropy_token
+    sources:
+    - terraform
+  key_generation_self_test:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable self tests after key generation.
+      source_attribute: key-generation-self-test
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable self tests after key generation.
+        source_attribute: key_generation_self_test
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: key_generation_self_test
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable self tests after key generation.
+        default: disable
+        source_attribute: key-generation-self-test
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  self_test_period:
+    canonical:
+      type: integer
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      default: '1440'
+      min: 5
+      max: 1440
+      description: Self test period.
+      source_attribute: self-test-period
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id003
+        description: Self test period.
+        source_attribute: self_test_period
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 1440
+        source_attribute: self_test_period
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Self test period.
+        default: '1440'
+        min: 5
+        max: 1440
+        source_attribute: self-test-period
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      range:
+        min:
+          resolution: exact_version_cli_preferred
+          status: resolved
+          confidence: medium
+          canonical_policy: prefer_exact_version_cli_range
+          special_values: []
+          requires_hardware_overlay: false
+          requires_runtime_validation: true
+          ansible_ranges_detected: []
+          cli_ranges_detected: []
+          cli_units: []
+          ansible_units: []
+          cli_internal_inconsistency: false
+    requires_runtime_validation: true
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      choices: &id004
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable ciphers for FIPS mode of operation.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id004
+        version_ranges: *id005
+        description: Enable/disable ciphers for FIPS mode of operation.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable ciphers for FIPS mode of operation.
+        default: disable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

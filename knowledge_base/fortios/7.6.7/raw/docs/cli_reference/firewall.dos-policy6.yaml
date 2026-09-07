@@ -1,0 +1,95 @@
+id: firewall.dos-policy6
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/302266572/config-firewall-dos-policy6
+attributes:
+  comments:
+    type: string
+    raw_type: var-string
+    description: Comment.
+    max_length: 1023
+  dstaddr:
+    type: string
+    raw_type: string
+    description: Destination address name from available addresses. Address name.
+    max_length: 79
+  interface:
+    type: string
+    raw_type: string
+    description: Incoming interface name from available interfaces.
+    max_length: 35
+  name:
+    type: string
+    raw_type: string
+    description: Policy name.
+    max_length: 35
+  policyid:
+    type: integer
+    raw_type: integer
+    description: Policy ID.
+    default: '0'
+    min: 0
+    max: 9999
+  service:
+    type: string
+    raw_type: string
+    description: Service object from available options. Service name.
+    max_length: 79
+  srcaddr:
+    type: string
+    raw_type: string
+    description: Source address name from available addresses. Address name.
+    max_length: 79
+  status:
+    type: enum
+    raw_type: option
+    description: Enable/disable this policy.
+    default: enable
+children:
+  anomaly:
+    attributes:
+      action:
+        type: enum
+        raw_type: option
+        description: Action taken when the threshold is reached.
+        default: pass
+      log:
+        type: enum
+        raw_type: option
+        description: Enable/disable anomaly logging.
+        default: disable
+      name:
+        type: string
+        raw_type: string
+        description: Anomaly name.
+        max_length: 63
+      quarantine:
+        type: enum
+        raw_type: option
+        description: Quarantine method.
+        default: none
+      quarantine-expiry:
+        type: string
+        raw_type: user
+        description: 'Duration of quarantine. (Format ###d##h##m, minimum 1m, maximum 364d23h59m, default = 5m). Requires
+          quarantine set to attacker.'
+        default: 5m
+      quarantine-log:
+        type: enum
+        raw_type: option
+        description: Enable/disable quarantine logging.
+        default: enable
+      status:
+        type: enum
+        raw_type: option
+        description: Enable/disable this anomaly.
+        default: disable
+      threshold:
+        type: integer
+        raw_type: integer
+        description: Number of detected instances (packets per second or concurrent session number) which triggers action
+          (1 - 2147483647, default = 1000). Note that each anomaly has a different threshold value assigned to it. Read-only.
+        default: '0'
+        min: 0
+        max: 4294967295

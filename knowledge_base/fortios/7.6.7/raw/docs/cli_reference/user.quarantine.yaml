@@ -1,0 +1,56 @@
+id: user.quarantine
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/777649911/config-user-quarantine
+attributes:
+  firewall-groups:
+    type: string
+    raw_type: string
+    description: Firewall address group which includes all quarantine MAC address.
+    max_length: 79
+  quarantine:
+    type: enum
+    raw_type: option
+    description: Enable/disable quarantine.
+    default: enable
+  traffic-policy:
+    type: string
+    raw_type: string
+    description: Traffic policy for quarantined MACs.
+    max_length: 63
+children:
+  targets:
+    attributes:
+      description:
+        type: string
+        raw_type: string
+        description: Description for the quarantine entry.
+        max_length: 63
+      entry:
+        type: string
+        raw_type: string
+        description: Quarantine entry name.
+        max_length: 63
+  macs:
+    attributes:
+      description:
+        type: string
+        raw_type: string
+        description: Description for the quarantine MAC.
+        max_length: 63
+      drop:
+        type: enum
+        raw_type: option
+        description: Enable/disable dropping of quarantined device traffic.
+        default: disable
+      mac:
+        type: mac-address
+        raw_type: mac-address
+        description: Quarantine MAC.
+        default: 00:00:00:00:00:00
+      parent:
+        type: string
+        raw_type: string
+        description: Parent entry name. Read-only.
+        max_length: 63

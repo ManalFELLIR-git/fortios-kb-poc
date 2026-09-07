@@ -1,0 +1,1503 @@
+id: system.dns-database
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  allow_transfer:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      description: DNS zone transfer IP address list.
+      source_attribute: allow-transfer
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id001
+        description: DNS zone transfer IP address list.
+        source_attribute: allow_transfer
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: allow_transfer
+      cli_reference:
+        type: string
+        raw_type: user
+        description: DNS zone transfer IP address list.
+        source_attribute: allow-transfer
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id002
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id002
+  authoritative:
+    canonical:
+      type: enum
+      required: true
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      choices: &id003
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable authoritative zone.
+      source_attribute: authoritative
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: Enable/disable authoritative zone.
+        source_attribute: authoritative
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: authoritative
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable authoritative zone.
+        default: enable
+        source_attribute: authoritative
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  contact:
+    canonical:
+      type: string
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      default: host
+      min_length: 0
+      max_length: 255
+      description: Email address of the administrator for this zone. You can specify only the username, such as admin or the
+        full email address, such as admin@test.com When using only a username, the domain of the email will be this zone.
+      source_attribute: contact
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: Email address of the administrator for this zone. You can specify only the username, such as admin or
+          the full email address, such as admin@test.com When using only a username, the domain of the email will be this
+          zone.
+        source_attribute: contact
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 255
+        source_attribute: contact
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Email address of the administrator for this zone. You can specify only the username, such as admin or
+          the full email address, such as admin@test.com When using only a username, the domain of the email will be this
+          zone.
+        default: host
+        max_length: 255
+        source_attribute: contact
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dns_entry:
+    canonical:
+      type: list
+      elements: dict
+      children: &id007
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id010
+          - - v6.0.0
+            - ''
+          description: DNS entry ID. see <a href='#notes'>Notes</a>.
+        status:
+          type: enum
+          raw_type: string
+          choices: &id015
+          - enable
+          - disable
+          version_ranges: &id014
+          - - v6.0.0
+            - ''
+          description: Enable/disable resource record status.
+        type:
+          type: enum
+          raw_type: string
+          choices: &id018
+          - A
+          - NS
+          - CNAME
+          - MX
+          - AAAA
+          - PTR
+          - PTR_V6
+          version_ranges: &id017
+          - - v6.0.0
+            - ''
+          description: Resource record type.
+        ttl:
+          type: integer
+          raw_type: integer
+          version_ranges: &id016
+          - - v6.0.0
+            - ''
+          description: Time-to-live for this entry (0 to 2147483647 sec).
+        preference:
+          type: integer
+          raw_type: integer
+          version_ranges: &id013
+          - - v6.0.0
+            - ''
+          description: DNS entry preference (0 - 65535, highest preference = 0).
+        ip:
+          type: string
+          raw_type: string
+          version_ranges: &id011
+          - - v6.0.0
+            - ''
+          description: IPv4 address of the host.
+        ipv6:
+          type: string
+          raw_type: string
+          version_ranges: &id012
+          - - v6.0.0
+            - ''
+          description: IPv6 address of the host.
+        hostname:
+          type: string
+          raw_type: string
+          version_ranges: &id009
+          - - v6.0.0
+            - ''
+          description: Name of the host.
+        canonical_name:
+          type: string
+          raw_type: string
+          version_ranges: &id008
+          - - v6.0.0
+            - ''
+          description: Canonical name of the host.
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      description: DNS entry.
+      source_attribute: dns_entry
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id006
+        description: DNS entry.
+        children: *id007
+        source_attribute: dns_entry
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ttl:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          preference:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 65535
+          ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ipv6:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          hostname:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 255
+          canonical_name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 255
+        source_attribute: dns_entry
+    sources:
+    - ansible
+    - terraform
+  dns_entry.canonical_name:
+    canonical:
+      type: string
+      version_ranges: *id008
+      min_length: 0
+      max_length: 255
+      description: Canonical name of the host.
+      source_attribute: dns_entry.canonical_name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: Canonical name of the host.
+        source_attribute: dns_entry.canonical_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: dns_entry.canonical_name
+    sources:
+    - ansible
+    - terraform
+  dns_entry.hostname:
+    canonical:
+      type: string
+      version_ranges: *id009
+      min_length: 0
+      max_length: 255
+      description: Name of the host.
+      source_attribute: dns_entry.hostname
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id009
+        description: Name of the host.
+        source_attribute: dns_entry.hostname
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: dns_entry.hostname
+    sources:
+    - ansible
+    - terraform
+  dns_entry.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id010
+      description: DNS entry ID. see <a href='#notes'>Notes</a>.
+      source_attribute: dns_entry.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id010
+        description: DNS entry ID. see <a href='#notes'>Notes</a>.
+        source_attribute: dns_entry.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: dns_entry.id
+    sources:
+    - ansible
+    - terraform
+  dns_entry.ip:
+    canonical:
+      type: string
+      version_ranges: *id011
+      description: IPv4 address of the host.
+      source_attribute: dns_entry.ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: IPv4 address of the host.
+        source_attribute: dns_entry.ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dns_entry.ip
+    sources:
+    - ansible
+    - terraform
+  dns_entry.ipv6:
+    canonical:
+      type: string
+      version_ranges: *id012
+      description: IPv6 address of the host.
+      source_attribute: dns_entry.ipv6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id012
+        description: IPv6 address of the host.
+        source_attribute: dns_entry.ipv6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dns_entry.ipv6
+    sources:
+    - ansible
+    - terraform
+  dns_entry.preference:
+    canonical:
+      type: integer
+      version_ranges: *id013
+      min: 0
+      max: 65535
+      description: DNS entry preference (0 - 65535, highest preference = 0).
+      source_attribute: dns_entry.preference
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id013
+        description: DNS entry preference (0 - 65535, highest preference = 0).
+        source_attribute: dns_entry.preference
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: dns_entry.preference
+    sources:
+    - ansible
+    - terraform
+  dns_entry.status:
+    canonical:
+      type: enum
+      version_ranges: *id014
+      choices: *id015
+      description: Enable/disable resource record status.
+      source_attribute: dns_entry.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id015
+        version_ranges: *id014
+        description: Enable/disable resource record status.
+        source_attribute: dns_entry.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dns_entry.status
+    sources:
+    - ansible
+    - terraform
+  dns_entry.ttl:
+    canonical:
+      type: integer
+      version_ranges: *id016
+      description: Time-to-live for this entry (0 to 2147483647 sec).
+      source_attribute: dns_entry.ttl
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id016
+        description: Time-to-live for this entry (0 to 2147483647 sec).
+        source_attribute: dns_entry.ttl
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: dns_entry.ttl
+    sources:
+    - ansible
+    - terraform
+  dns_entry.type:
+    canonical:
+      type: enum
+      version_ranges: *id017
+      choices: *id018
+      description: Resource record type.
+      source_attribute: dns_entry.type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id018
+        version_ranges: *id017
+        description: Resource record type.
+        source_attribute: dns_entry.type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dns_entry.type
+    sources:
+    - ansible
+    - terraform
+  domain:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id019
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Domain name.
+      source_attribute: domain
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id019
+        description: Domain name.
+        source_attribute: domain
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 255
+        source_attribute: domain
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Domain name.
+        max_length: 255
+        source_attribute: domain
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  forwarder:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: &id020
+      - - v6.0.0
+        - ''
+      description: DNS zone forwarder IP address list.
+      source_attribute: forwarder
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id020
+        description: DNS zone forwarder IP address list.
+        source_attribute: forwarder
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: forwarder
+      cli_reference:
+        type: string
+        raw_type: user
+        description: DNS zone forwarder IP address list.
+        source_attribute: forwarder
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id021
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id021
+  forwarder6:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id022
+      - - v7.4.1
+        - ''
+      default: '::'
+      description: Forwarder IPv6 address.
+      source_attribute: forwarder6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id022
+        description: Forwarder IPv6 address.
+        source_attribute: forwarder6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: forwarder6
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: Forwarder IPv6 address.
+        default: '::'
+        source_attribute: forwarder6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id023
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id023
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  interface:
+    canonical:
+      type: string
+      references: &id025
+      - system.interface.name
+      version_ranges: &id024
+      - - v7.6.1
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Specify outgoing interface to reach server.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id024
+        description: Specify outgoing interface to reach server. Source system.interface.name.
+        references: *id025
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Specify outgoing interface to reach server.
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface_select_method:
+    canonical:
+      type: enum
+      version_ranges: &id027
+      - - v7.6.1
+        - ''
+      choices: &id026
+      - auto
+      - sdwan
+      - specify
+      default: auto
+      description: Specify how to select outgoing interface to reach server.
+      source_attribute: interface-select-method
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id026
+        version_ranges: *id027
+        description: Specify how to select outgoing interface to reach server.
+        source_attribute: interface_select_method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface_select_method
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Specify how to select outgoing interface to reach server.
+        default: auto
+        source_attribute: interface-select-method
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ip_master:
+    canonical:
+      type: string
+      source_attribute: ip_master
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ip_master
+    sources:
+    - terraform
+  ip_primary:
+    canonical:
+      type: ipv4-address-any
+      version_ranges: &id028
+      - - v7.0.0
+        - ''
+      default: 0.0.0.0
+      description: IP address of primary DNS server. Entries in this primary DNS server and imported into the DNS zone.
+      source_attribute: ip-primary
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id028
+        description: IP address of primary DNS server. Entries in this primary DNS server and imported into the DNS zone.
+        source_attribute: ip_primary
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ip_primary
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: IP address of primary DNS server. Entries in this primary DNS server and imported into the DNS zone.
+        default: 0.0.0.0
+        source_attribute: ip-primary
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id029
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id029
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id030
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Zone name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id030
+        description: Zone name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Zone name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  primary_name:
+    canonical:
+      type: string
+      version_ranges: &id031
+      - - v6.0.0
+        - ''
+      default: dns
+      min_length: 0
+      max_length: 255
+      description: Domain name of the default DNS server for this zone.
+      source_attribute: primary-name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id031
+        description: Domain name of the default DNS server for this zone.
+        source_attribute: primary_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 255
+        source_attribute: primary_name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Domain name of the default DNS server for this zone.
+        default: dns
+        max_length: 255
+        source_attribute: primary-name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rr_max:
+    canonical:
+      type: integer
+      version_ranges: &id032
+      - - v6.4.0
+        - ''
+      default: '16384'
+      min: 10
+      max: 65536
+      description: Maximum number of resource records (10 - 65536, 0 means infinite).
+      source_attribute: rr-max
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id032
+        description: Maximum number of resource records (10 - 65536, 0 means infinite).
+        source_attribute: rr_max
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: rr_max
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum number of resource records (10 - 65536, 0 means infinite).
+        default: '16384'
+        min: 10
+        max: 65536
+        source_attribute: rr-max
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source_ip:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id033
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: Source IP for forwarding to DNS server.
+      source_attribute: source-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id033
+        description: Source IP for forwarding to DNS server.
+        source_attribute: source_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_ip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Source IP for forwarding to DNS server.
+        default: 0.0.0.0
+        source_attribute: source-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id034
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id034
+  source_ip6:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id035
+      - - v7.4.1
+        - ''
+      default: '::'
+      description: IPv6 source IP address for forwarding to DNS server.
+      source_attribute: source-ip6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id035
+        description: IPv6 source IP address for forwarding to DNS server.
+        source_attribute: source_ip6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_ip6
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: IPv6 source IP address for forwarding to DNS server.
+        default: '::'
+        source_attribute: source-ip6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id036
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id036
+  source_ip_interface:
+    canonical:
+      type: string
+      references: &id038
+      - system.interface.name
+      version_ranges: &id037
+      - - v7.6.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: IP address of the specified interface as the source IP address.
+      source_attribute: source-ip-interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id037
+        description: IP address of the specified interface as the source IP address. Source system.interface.name.
+        references: *id038
+        source_attribute: source_ip_interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: source_ip_interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: IP address of the specified interface as the source IP address.
+        max_length: 15
+        source_attribute: source-ip-interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id040
+      - - v6.0.0
+        - ''
+      choices: &id039
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable this DNS zone.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id039
+        version_ranges: *id040
+        description: Enable/disable this DNS zone.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable this DNS zone.
+        default: enable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ttl:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id041
+      - - v6.0.0
+        - ''
+      default: '86400'
+      min: 0
+      max: 2147483647
+      description: Default time-to-live value for the entries of this DNS zone (0 - 2147483647 sec, default = 86400).
+      source_attribute: ttl
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id041
+        description: Default time-to-live value for the entries of this DNS zone (0 - 2147483647 sec).
+        source_attribute: ttl
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        required: true
+        source_attribute: ttl
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Default time-to-live value for the entries of this DNS zone (0 - 2147483647 sec, default = 86400).
+        default: '86400'
+        min: 0
+        max: 2147483647
+        source_attribute: ttl
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  type:
+    canonical:
+      type: enum
+      required: true
+      version_ranges: &id043
+      - - v6.0.0
+        - ''
+      choices: &id042
+      - primary
+      - secondary
+      default: primary
+      description: Zone type (primary to manage entries directly, secondary to import entries from other zones).
+      source_attribute: type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id042
+        version_ranges: *id043
+        description: Zone type (primary to manage entries directly, secondary to import entries from other zones).
+        source_attribute: type
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Zone type (primary to manage entries directly, secondary to import entries from other zones).
+        default: primary
+        source_attribute: type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  view:
+    canonical:
+      type: enum
+      required: true
+      version_ranges: &id045
+      - - v6.0.0
+        - ''
+      choices: &id044
+      - shadow
+      - public
+      - shadow-ztna
+      - proxy
+      default: shadow
+      description: Zone view (public to serve public clients, shadow to serve internal clients).
+      source_attribute: view
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id044
+        version_ranges: *id045
+        description: Zone view (public to serve public clients, shadow to serve internal clients).
+        source_attribute: view
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: view
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Zone view (public to serve public clients, shadow to serve internal clients).
+        default: shadow
+        source_attribute: view
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vrf_select:
+    canonical:
+      type: integer
+      version_ranges: &id046
+      - - v7.6.1
+        - ''
+      default: '0'
+      min: 0
+      max: 511
+      description: VRF ID used for connection to server.
+      source_attribute: vrf-select
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id046
+        description: VRF ID used for connection to server.
+        source_attribute: vrf_select
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 511
+        source_attribute: vrf_select
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: VRF ID used for connection to server.
+        default: '0'
+        min: 0
+        max: 511
+        source_attribute: vrf-select
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: allow_transfer
+  field: type
+  values:
+    ansible: list
+    terraform: string
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: forwarder
+  field: type
+  values:
+    ansible: list
+    terraform: string
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: forwarder6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict
+- attribute: ip_primary
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict
+- attribute: source_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: source_ip6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict

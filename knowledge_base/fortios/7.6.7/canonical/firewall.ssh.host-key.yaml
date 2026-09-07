@@ -1,0 +1,455 @@
+id: firewall.ssh.host-key
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  hostname:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Hostname of the SSH server to match SSH certificate principals.
+      source_attribute: hostname
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Hostname of the SSH server to match SSH certificate principals.
+        source_attribute: hostname
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: hostname
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Hostname of the SSH server to match SSH certificate principals.
+        max_length: 255
+        source_attribute: hostname
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ip:
+    canonical:
+      type: ipv4-address-any
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: IP address of the SSH server.
+      source_attribute: ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id002
+        description: IP address of the SSH server.
+        source_attribute: ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ip
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: IP address of the SSH server.
+        default: 0.0.0.0
+        source_attribute: ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id003
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id003
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: SSH public key name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id004
+        description: SSH public key name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: SSH public key name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  nid:
+    canonical:
+      type: enum
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      choices: &id005
+      - '256'
+      - '384'
+      - '521'
+      default: '256'
+      description: Set the nid of the ECDSA key.
+      source_attribute: nid
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Set the nid of the ECDSA key.
+        source_attribute: nid
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: nid
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Set the nid of the ECDSA key.
+        default: '256'
+        source_attribute: nid
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  port:
+    canonical:
+      type: integer
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      default: '22'
+      min: 0
+      max: 4294967295
+      description: Port of the SSH server.
+      source_attribute: port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id007
+        description: Port of the SSH server.
+        source_attribute: port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port of the SSH server.
+        default: '22'
+        min: 0
+        max: 4294967295
+        source_attribute: port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  public_key:
+    canonical:
+      type: string
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 32768
+      description: SSH public key.
+      source_attribute: public-key
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: SSH public key.
+        source_attribute: public_key
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 32768
+        source_attribute: public_key
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: SSH public key.
+        max_length: 32768
+        source_attribute: public-key
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id010
+      - - v6.0.0
+        - ''
+      choices: &id009
+      - trusted
+      - revoked
+      default: trusted
+      description: Set the trust status of the public key.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id010
+        description: Set the trust status of the public key.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Set the trust status of the public key.
+        default: trusted
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  type:
+    canonical:
+      type: enum
+      version_ranges: &id012
+      - - v6.0.0
+        - ''
+      choices: &id011
+      - RSA
+      - DSA
+      - ECDSA
+      - ED25519
+      - RSA-CA
+      - DSA-CA
+      - ECDSA-CA
+      - ED25519-CA
+      default: RSA
+      description: Set the type of the public key.
+      source_attribute: type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id011
+        version_ranges: *id012
+        description: Set the type of the public key.
+        source_attribute: type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Set the type of the public key.
+        default: RSA
+        source_attribute: type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  usage:
+    canonical:
+      type: enum
+      version_ranges: &id014
+      - - v7.0.1
+        - ''
+      choices: &id013
+      - transparent-proxy
+      - access-proxy
+      default: transparent-proxy
+      description: Usage for this public key.
+      source_attribute: usage
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id014
+        description: Usage for this public key.
+        source_attribute: usage
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: usage
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Usage for this public key.
+        default: transparent-proxy
+        source_attribute: usage
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict

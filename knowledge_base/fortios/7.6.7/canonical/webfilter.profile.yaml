@@ -1,0 +1,5851 @@
+id: webfilter.profile
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  antiphish:
+    canonical:
+      type: list
+      children: &id002
+        status:
+          type: enum
+          raw_type: string
+          choices: &id036
+          - enable
+          - disable
+          version_ranges: &id035
+          - - v6.4.0
+            - ''
+          description: Toggle AntiPhishing functionality.
+        default_action:
+          type: enum
+          raw_type: string
+          choices: &id021
+          - exempt
+          - log
+          - block
+          version_ranges: &id020
+          - - v6.4.0
+            - ''
+          description: Action to be taken when there is no matching rule.
+        check_uri:
+          type: enum
+          raw_type: string
+          choices: &id009
+          - enable
+          - disable
+          version_ranges: &id008
+          - - v6.4.0
+            - ''
+          description: Enable/disable checking of GET URI parameters for known credentials.
+        check_basic_auth:
+          type: enum
+          raw_type: string
+          choices: &id007
+          - enable
+          - disable
+          version_ranges: &id006
+          - - v6.4.0
+            - ''
+          description: Enable/disable checking of HTTP Basic Auth field for known credentials.
+        check_username_only:
+          type: enum
+          raw_type: string
+          choices: &id011
+          - enable
+          - disable
+          version_ranges: &id010
+          - - v6.4.4
+            - ''
+          description: Enable/disable username only matching of credentials. Action will be taken for valid usernames regardless
+            of password validity.
+        max_body_len:
+          type: integer
+          raw_type: integer
+          version_ranges: &id034
+          - - v6.4.0
+            - ''
+          description: Maximum size of a POST body to check for credentials.
+        inspection_entries:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id025
+          - - v6.4.0
+            - ''
+          description: AntiPhishing entries.
+          children: &id024
+            name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id031
+              - - v6.4.0
+                - ''
+              description: Inspection target name.
+            fortiguard_category:
+              type: list
+              raw_type: list
+              multiple_values: true
+              elements: str
+              version_ranges: &id029
+              - - v6.4.0
+                - ''
+              description: FortiGuard category to match.
+            action:
+              type: enum
+              raw_type: string
+              choices: &id028
+              - exempt
+              - log
+              - block
+              version_ranges: &id027
+              - - v6.4.0
+                - ''
+              description: Action to be taken upon an AntiPhishing match.
+        custom_patterns:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id013
+          - - v6.4.0
+            - ''
+          description: Custom username and password regex patterns.
+          children: &id012
+            pattern:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id017
+              - - v6.4.0
+                - ''
+              description: Target pattern.
+            category:
+              type: enum
+              raw_type: string
+              choices: &id016
+              - username
+              - password
+              version_ranges: &id015
+              - - v6.4.0
+                - ''
+              description: Category that the pattern matches.
+            type:
+              type: enum
+              raw_type: string
+              choices: &id019
+              - regex
+              - literal
+              version_ranges: &id018
+              - - v7.0.0
+                - ''
+              description: Pattern will be treated either as a regex pattern or literal string.
+        authentication:
+          type: enum
+          raw_type: string
+          choices: &id005
+          - domain-controller
+          - ldap
+          version_ranges: &id004
+          - - v7.0.0
+            - ''
+          description: Authentication methods.
+        domain_controller:
+          type: string
+          raw_type: string
+          version_ranges: &id023
+          - - v6.4.0
+            - ''
+          description: Domain for which to verify received credentials against. Source user.domain-controller.name credential-store.domain-controller
+            .server-name.
+          references: &id022
+          - user.domain-controller.name
+        ldap:
+          type: string
+          raw_type: string
+          version_ranges: &id033
+          - - v7.0.0
+            - ''
+          description: LDAP server for which to verify received credentials against. Source user.ldap.name.
+          references: &id032
+          - user.ldap.name
+      version_ranges: &id001
+      - - v6.4.0
+        - ''
+      description: AntiPhishing profile.
+      source_attribute: antiphish
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id001
+        description: AntiPhishing profile.
+        children: *id002
+        source_attribute: antiphish
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          domain_controller:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          ldap:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          default_action:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          check_uri:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          check_basic_auth:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          check_username_only:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          max_body_len:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          inspection_entries:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id026
+              name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 63
+              fortiguard_category:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              action:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+          custom_patterns:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id014
+              pattern:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 255
+              category:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              type:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+          authentication:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: antiphish
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id003
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id003
+  antiphish.authentication:
+    canonical:
+      type: enum
+      version_ranges: *id004
+      choices: *id005
+      description: Authentication methods.
+      source_attribute: antiphish.authentication
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id004
+        description: Authentication methods.
+        source_attribute: antiphish.authentication
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: antiphish.authentication
+    sources:
+    - ansible
+    - terraform
+  antiphish.check_basic_auth:
+    canonical:
+      type: enum
+      version_ranges: *id006
+      choices: *id007
+      description: Enable/disable checking of HTTP Basic Auth field for known credentials.
+      source_attribute: antiphish.check_basic_auth
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id007
+        version_ranges: *id006
+        description: Enable/disable checking of HTTP Basic Auth field for known credentials.
+        source_attribute: antiphish.check_basic_auth
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: antiphish.check_basic_auth
+    sources:
+    - ansible
+    - terraform
+  antiphish.check_uri:
+    canonical:
+      type: enum
+      version_ranges: *id008
+      choices: *id009
+      description: Enable/disable checking of GET URI parameters for known credentials.
+      source_attribute: antiphish.check_uri
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id008
+        description: Enable/disable checking of GET URI parameters for known credentials.
+        source_attribute: antiphish.check_uri
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: antiphish.check_uri
+    sources:
+    - ansible
+    - terraform
+  antiphish.check_username_only:
+    canonical:
+      type: enum
+      version_ranges: *id010
+      choices: *id011
+      description: Enable/disable username only matching of credentials. Action will be taken for valid usernames regardless
+        of password validity.
+      source_attribute: antiphish.check_username_only
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id011
+        version_ranges: *id010
+        description: Enable/disable username only matching of credentials. Action will be taken for valid usernames regardless
+          of password validity.
+        source_attribute: antiphish.check_username_only
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: antiphish.check_username_only
+    sources:
+    - ansible
+    - terraform
+  antiphish.custom_patterns:
+    canonical:
+      type: list
+      elements: dict
+      children: *id012
+      version_ranges: *id013
+      description: Custom username and password regex patterns.
+      source_attribute: antiphish.custom_patterns
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id013
+        description: Custom username and password regex patterns.
+        children: *id012
+        source_attribute: antiphish.custom_patterns
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id014
+        source_attribute: antiphish.custom_patterns
+    sources:
+    - ansible
+    - terraform
+  antiphish.custom_patterns.category:
+    canonical:
+      type: enum
+      version_ranges: *id015
+      choices: *id016
+      description: Category that the pattern matches.
+      source_attribute: antiphish.custom_patterns.category
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id016
+        version_ranges: *id015
+        description: Category that the pattern matches.
+        source_attribute: antiphish.custom_patterns.category
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: antiphish.custom_patterns.category
+    sources:
+    - ansible
+    - terraform
+  antiphish.custom_patterns.pattern:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id017
+      min_length: 0
+      max_length: 255
+      description: Target pattern.
+      source_attribute: antiphish.custom_patterns.pattern
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id017
+        description: Target pattern.
+        source_attribute: antiphish.custom_patterns.pattern
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: antiphish.custom_patterns.pattern
+    sources:
+    - ansible
+    - terraform
+  antiphish.custom_patterns.type:
+    canonical:
+      type: enum
+      version_ranges: *id018
+      choices: *id019
+      description: Pattern will be treated either as a regex pattern or literal string.
+      source_attribute: antiphish.custom_patterns.type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id019
+        version_ranges: *id018
+        description: Pattern will be treated either as a regex pattern or literal string.
+        source_attribute: antiphish.custom_patterns.type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: antiphish.custom_patterns.type
+    sources:
+    - ansible
+    - terraform
+  antiphish.default_action:
+    canonical:
+      type: enum
+      version_ranges: *id020
+      choices: *id021
+      description: Action to be taken when there is no matching rule.
+      source_attribute: antiphish.default_action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id021
+        version_ranges: *id020
+        description: Action to be taken when there is no matching rule.
+        source_attribute: antiphish.default_action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: antiphish.default_action
+    sources:
+    - ansible
+    - terraform
+  antiphish.domain_controller:
+    canonical:
+      type: string
+      references: *id022
+      version_ranges: *id023
+      min_length: 0
+      max_length: 63
+      description: Domain for which to verify received credentials against. Source user.domain-controller.name credential-store.domain-controller
+        .server-name.
+      source_attribute: antiphish.domain_controller
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id023
+        description: Domain for which to verify received credentials against. Source user.domain-controller.name credential-store.domain-controller
+          .server-name.
+        references: *id022
+        source_attribute: antiphish.domain_controller
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: antiphish.domain_controller
+    sources:
+    - ansible
+    - terraform
+  antiphish.inspection_entries:
+    canonical:
+      type: list
+      elements: dict
+      children: *id024
+      version_ranges: *id025
+      description: AntiPhishing entries.
+      source_attribute: antiphish.inspection_entries
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id025
+        description: AntiPhishing entries.
+        children: *id024
+        source_attribute: antiphish.inspection_entries
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id026
+        source_attribute: antiphish.inspection_entries
+    sources:
+    - ansible
+    - terraform
+  antiphish.inspection_entries.action:
+    canonical:
+      type: enum
+      version_ranges: *id027
+      choices: *id028
+      description: Action to be taken upon an AntiPhishing match.
+      source_attribute: antiphish.inspection_entries.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id028
+        version_ranges: *id027
+        description: Action to be taken upon an AntiPhishing match.
+        source_attribute: antiphish.inspection_entries.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: antiphish.inspection_entries.action
+    sources:
+    - ansible
+    - terraform
+  antiphish.inspection_entries.fortiguard_category:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: *id029
+      description: FortiGuard category to match.
+      source_attribute: antiphish.inspection_entries.fortiguard_category
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id029
+        description: FortiGuard category to match.
+        source_attribute: antiphish.inspection_entries.fortiguard_category
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: antiphish.inspection_entries.fortiguard_category
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id030
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id030
+  antiphish.inspection_entries.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id031
+      min_length: 0
+      max_length: 63
+      description: Inspection target name.
+      source_attribute: antiphish.inspection_entries.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id031
+        description: Inspection target name.
+        source_attribute: antiphish.inspection_entries.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: antiphish.inspection_entries.name
+    sources:
+    - ansible
+    - terraform
+  antiphish.ldap:
+    canonical:
+      type: string
+      references: *id032
+      version_ranges: *id033
+      min_length: 0
+      max_length: 63
+      description: LDAP server for which to verify received credentials against. Source user.ldap.name.
+      source_attribute: antiphish.ldap
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id033
+        description: LDAP server for which to verify received credentials against. Source user.ldap.name.
+        references: *id032
+        source_attribute: antiphish.ldap
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: antiphish.ldap
+    sources:
+    - ansible
+    - terraform
+  antiphish.max_body_len:
+    canonical:
+      type: integer
+      version_ranges: *id034
+      description: Maximum size of a POST body to check for credentials.
+      source_attribute: antiphish.max_body_len
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id034
+        description: Maximum size of a POST body to check for credentials.
+        source_attribute: antiphish.max_body_len
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: antiphish.max_body_len
+    sources:
+    - ansible
+    - terraform
+  antiphish.status:
+    canonical:
+      type: enum
+      version_ranges: *id035
+      choices: *id036
+      description: Toggle AntiPhishing functionality.
+      source_attribute: antiphish.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id036
+        version_ranges: *id035
+        description: Toggle AntiPhishing functionality.
+        source_attribute: antiphish.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: antiphish.status
+    sources:
+    - ansible
+    - terraform
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id037
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Optional comments.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id037
+        description: Optional comments.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Optional comments.
+        max_length: 255
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  extended_log:
+    canonical:
+      type: enum
+      version_ranges: &id039
+      - - v6.0.0
+        - ''
+      choices: &id038
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable extended logging for web filtering.
+      source_attribute: extended-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id038
+        version_ranges: *id039
+        description: Enable/disable extended logging for web filtering.
+        source_attribute: extended_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: extended_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable extended logging for web filtering.
+        default: disable
+        source_attribute: extended-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fabric_force_sync:
+    canonical:
+      type: string
+      source_attribute: fabric_force_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_force_sync
+    sources:
+    - terraform
+  fabric_object:
+    canonical:
+      type: string
+      source_attribute: fabric_object
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object
+    sources:
+    - terraform
+  fabric_object_source:
+    canonical:
+      type: string
+      source_attribute: fabric_object_source
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object_source
+    sources:
+    - terraform
+  feature_set:
+    canonical:
+      type: enum
+      version_ranges: &id041
+      - - v6.4.0
+        - ''
+      choices: &id040
+      - flow
+      - proxy
+      default: flow
+      description: Flow/proxy feature set.
+      source_attribute: feature-set
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id040
+        version_ranges: *id041
+        description: Flow/proxy feature set.
+        source_attribute: feature_set
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: feature_set
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Flow/proxy feature set.
+        default: flow
+        source_attribute: feature-set
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  file_filter:
+    canonical:
+      type: list
+      children: &id042
+        status:
+          type: string
+          raw_type: TypeString
+          optional: true
+        log:
+          type: string
+          raw_type: TypeString
+          optional: true
+        scan_archive_contents:
+          type: string
+          raw_type: TypeString
+          optional: true
+        entries:
+          type: list
+          raw_type: TypeList
+          optional: true
+          children: &id043
+            filter:
+              type: string
+              raw_type: TypeString
+              optional: true
+              min_length: 0
+              max_length: 35
+            comment:
+              type: string
+              raw_type: TypeString
+              optional: true
+              min_length: 0
+              max_length: 255
+            protocol:
+              type: string
+              raw_type: TypeString
+              optional: true
+            action:
+              type: string
+              raw_type: TypeString
+              optional: true
+            direction:
+              type: string
+              raw_type: TypeString
+              optional: true
+            password_protected:
+              type: string
+              raw_type: TypeString
+              optional: true
+            file_type:
+              type: list
+              raw_type: TypeSet
+              optional: true
+              children: &id044
+                name:
+                  type: string
+                  raw_type: TypeString
+                  optional: true
+                  min_length: 0
+                  max_length: 39
+      source_attribute: file_filter
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children: *id042
+        source_attribute: file_filter
+    sources:
+    - terraform
+  file_filter.entries:
+    canonical:
+      type: list
+      children: *id043
+      source_attribute: file_filter.entries
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id043
+        source_attribute: file_filter.entries
+    sources:
+    - terraform
+  file_filter.entries.action:
+    canonical:
+      type: string
+      source_attribute: file_filter.entries.action
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: file_filter.entries.action
+    sources:
+    - terraform
+  file_filter.entries.comment:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 255
+      source_attribute: file_filter.entries.comment
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: file_filter.entries.comment
+    sources:
+    - terraform
+  file_filter.entries.direction:
+    canonical:
+      type: string
+      source_attribute: file_filter.entries.direction
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: file_filter.entries.direction
+    sources:
+    - terraform
+  file_filter.entries.file_type:
+    canonical:
+      type: list
+      children: *id044
+      source_attribute: file_filter.entries.file_type
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id044
+        source_attribute: file_filter.entries.file_type
+    sources:
+    - terraform
+  file_filter.entries.file_type.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 39
+      source_attribute: file_filter.entries.file_type.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 39
+        source_attribute: file_filter.entries.file_type.name
+    sources:
+    - terraform
+  file_filter.entries.filter:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: file_filter.entries.filter
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: file_filter.entries.filter
+    sources:
+    - terraform
+  file_filter.entries.password_protected:
+    canonical:
+      type: string
+      source_attribute: file_filter.entries.password_protected
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: file_filter.entries.password_protected
+    sources:
+    - terraform
+  file_filter.entries.protocol:
+    canonical:
+      type: string
+      source_attribute: file_filter.entries.protocol
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: file_filter.entries.protocol
+    sources:
+    - terraform
+  file_filter.log:
+    canonical:
+      type: string
+      source_attribute: file_filter.log
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: file_filter.log
+    sources:
+    - terraform
+  file_filter.scan_archive_contents:
+    canonical:
+      type: string
+      source_attribute: file_filter.scan_archive_contents
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: file_filter.scan_archive_contents
+    sources:
+    - terraform
+  file_filter.status:
+    canonical:
+      type: string
+      source_attribute: file_filter.status
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: file_filter.status
+    sources:
+    - terraform
+  ftgd_wf:
+    canonical:
+      type: list
+      children: &id046
+        options:
+          type: enum
+          raw_type: list
+          choices: &id072
+          - error-allow
+          - rate-server-ip
+          - connect-request-bypass
+          - ftgd-disable
+          multiple_values: true
+          elements: str
+          version_ranges: &id071
+          - - v6.0.0
+            - ''
+          description: Options for FortiGuard Web Filter.
+        exempt_quota:
+          type: list
+          raw_type: list
+          multiple_values: true
+          elements: str
+          version_ranges: &id048
+          - - v6.0.0
+            - ''
+          description: Do not stop quota for these categories.
+        ovrd:
+          type: list
+          raw_type: list
+          multiple_values: true
+          elements: str
+          version_ranges: &id073
+          - - v6.0.0
+            - ''
+          description: Allow web filter profile overrides.
+        filters:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id051
+          - - v6.0.0
+            - ''
+          description: FortiGuard filters.
+          children: &id050
+            id:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id061
+              - - v6.0.0
+                - ''
+              description: ID number. see <a href='#notes'>Notes</a>.
+            category:
+              type: integer
+              raw_type: integer
+              version_ranges: &id060
+              - - v6.0.0
+                - ''
+              description: Categories and groups the filter examines.
+            action:
+              type: enum
+              raw_type: string
+              choices: &id054
+              - block
+              - authenticate
+              - monitor
+              - warning
+              version_ranges: &id053
+              - - v6.0.0
+                - ''
+              description: Action to take for matches.
+            warn_duration:
+              type: string
+              raw_type: string
+              version_ranges: &id065
+              - - v6.0.0
+                - ''
+              description: Duration of warnings.
+            auth_usr_grp:
+              type: list
+              raw_type: list
+              elements: dict
+              version_ranges: &id056
+              - - v6.0.0
+                - ''
+              description: Groups with permission to authenticate.
+              children: &id055
+                name:
+                  type: string
+                  raw_type: string
+                  required: true
+                  version_ranges: &id059
+                  - - v6.0.0
+                    - ''
+                  description: User group name. Source user.group.name.
+                  references: &id058
+                  - user.group.name
+            log:
+              type: enum
+              raw_type: string
+              choices: &id063
+              - enable
+              - disable
+              version_ranges: &id062
+              - - v6.0.0
+                - ''
+              description: Enable/disable logging.
+            override_replacemsg:
+              type: string
+              raw_type: string
+              version_ranges: &id064
+              - - v6.0.0
+                - ''
+              description: Override replacement message.
+            warning_prompt:
+              type: enum
+              raw_type: string
+              choices: &id069
+              - per-domain
+              - per-category
+              version_ranges: &id068
+              - - v6.0.0
+                - ''
+              description: Warning prompts in each category or each domain.
+            warning_duration_type:
+              type: enum
+              raw_type: string
+              choices: &id067
+              - session
+              - timeout
+              version_ranges: &id066
+              - - v6.0.0
+                - ''
+              description: Re-display warning after closing browser or after a timeout.
+        risk:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id095
+          - - v7.6.1
+            - ''
+          description: FortiGuard risk level settings.
+          children: &id094
+            id:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id099
+              - - v7.6.1
+                - ''
+              description: ID number. see <a href='#notes'>Notes</a>.
+            risk_level:
+              type: string
+              raw_type: string
+              version_ranges: &id103
+              - - v7.6.1
+                - ''
+              description: Risk level to be examined. Source webfilter.ftgd-risk-level.name.
+              references: &id102
+              - webfilter.ftgd-risk-level.name
+            action:
+              type: enum
+              raw_type: string
+              choices: &id098
+              - block
+              - monitor
+              version_ranges: &id097
+              - - v7.6.1
+                - ''
+              description: Action to take for matches.
+            log:
+              type: enum
+              raw_type: string
+              choices: &id101
+              - enable
+              - disable
+              version_ranges: &id100
+              - - v7.6.1
+                - ''
+              description: Enable/disable logging.
+        quota:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id076
+          - - v6.0.0
+            - ''
+          description: FortiGuard traffic quota settings.
+          children: &id075
+            id:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id081
+              - - v6.0.0
+                - ''
+              description: ID number. see <a href='#notes'>Notes</a>.
+            category:
+              type: list
+              raw_type: list
+              multiple_values: true
+              elements: str
+              version_ranges: &id078
+              - - v6.0.0
+                - ''
+              description: FortiGuard categories to apply quota to (category action must be set to monitor).
+            type:
+              type: enum
+              raw_type: string
+              choices: &id084
+              - time
+              - traffic
+              version_ranges: &id083
+              - - v6.0.0
+                - ''
+              description: Quota type.
+            unit:
+              type: enum
+              raw_type: string
+              choices: &id086
+              - B
+              - KB
+              - MB
+              - GB
+              version_ranges: &id085
+              - - v6.0.0
+                - ''
+              description: Traffic quota unit of measurement.
+            value:
+              type: integer
+              raw_type: integer
+              version_ranges: &id087
+              - - v6.0.0
+                - ''
+              description: Traffic quota value.
+            duration:
+              type: string
+              raw_type: string
+              version_ranges: &id080
+              - - v6.0.0
+                - ''
+              description: Duration of quota.
+            override_replacemsg:
+              type: string
+              raw_type: string
+              version_ranges: &id082
+              - - v6.0.0
+                - ''
+              description: Override replacement message.
+        max_quota_timeout:
+          type: integer
+          raw_type: integer
+          version_ranges: &id070
+          - - v6.0.0
+            - ''
+          description: Maximum FortiGuard quota used by single page view in seconds (excludes streams).
+        rate_javascript_urls:
+          type: enum
+          raw_type: string
+          choices: &id093
+          - disable
+          - enable
+          version_ranges: &id092
+          - - v6.0.0
+            - ''
+          description: Enable/disable rating JavaScript by URL.
+        rate_css_urls:
+          type: enum
+          raw_type: string
+          choices: &id091
+          - disable
+          - enable
+          version_ranges: &id090
+          - - v6.0.0
+            - ''
+          description: Enable/disable rating CSS by URL.
+        rate_crl_urls:
+          type: enum
+          raw_type: string
+          choices: &id089
+          - disable
+          - enable
+          version_ranges: &id088
+          - - v6.0.0
+            - ''
+          description: Enable/disable rating CRL by URL.
+      version_ranges: &id045
+      - - v6.0.0
+        - ''
+      description: FortiGuard Web Filter settings.
+      source_attribute: ftgd_wf
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id045
+        description: FortiGuard Web Filter settings.
+        children: *id046
+        source_attribute: ftgd_wf
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          options:
+            type: string
+            raw_type: TypeString
+            optional: true
+            default: ftgd-disable
+          exempt_quota:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ovrd:
+            type: string
+            raw_type: TypeString
+            optional: true
+          filters:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id052
+              id:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+                min: 0
+                max: 255
+              category:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                min: 0
+                max: 255
+              action:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              warn_duration:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              auth_usr_grp:
+                type: list
+                raw_type: TypeSet
+                optional: true
+                children: &id057
+                  name:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    min_length: 0
+                    max_length: 79
+              log:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              override_replacemsg:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 28
+              warning_prompt:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              warning_duration_type:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+          risk:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id096
+              id:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+                min: 0
+                max: 255
+              risk_level:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 35
+              action:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              log:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+          quota:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id077
+              id:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+              category:
+                type: string
+                raw_type: TypeString
+                optional: true
+              type:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              unit:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              value:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+              duration:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              override_replacemsg:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 28
+          max_quota_timeout:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 86400
+          rate_image_urls:
+            type: string
+            raw_type: TypeString
+            optional: true
+          rate_javascript_urls:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          rate_css_urls:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          rate_crl_urls:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: ftgd_wf
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id047
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id047
+  ftgd_wf.exempt_quota:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: *id048
+      description: Do not stop quota for these categories.
+      source_attribute: ftgd_wf.exempt_quota
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id048
+        description: Do not stop quota for these categories.
+        source_attribute: ftgd_wf.exempt_quota
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftgd_wf.exempt_quota
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id049
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id049
+  ftgd_wf.filters:
+    canonical:
+      type: list
+      elements: dict
+      children: *id050
+      version_ranges: *id051
+      description: FortiGuard filters.
+      source_attribute: ftgd_wf.filters
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id051
+        description: FortiGuard filters.
+        children: *id050
+        source_attribute: ftgd_wf.filters
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id052
+        source_attribute: ftgd_wf.filters
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.filters.action:
+    canonical:
+      type: enum
+      version_ranges: *id053
+      choices: *id054
+      description: Action to take for matches.
+      source_attribute: ftgd_wf.filters.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id054
+        version_ranges: *id053
+        description: Action to take for matches.
+        source_attribute: ftgd_wf.filters.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftgd_wf.filters.action
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.filters.auth_usr_grp:
+    canonical:
+      type: list
+      elements: dict
+      children: *id055
+      version_ranges: *id056
+      description: Groups with permission to authenticate.
+      source_attribute: ftgd_wf.filters.auth_usr_grp
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id056
+        description: Groups with permission to authenticate.
+        children: *id055
+        source_attribute: ftgd_wf.filters.auth_usr_grp
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id057
+        source_attribute: ftgd_wf.filters.auth_usr_grp
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.filters.auth_usr_grp.name:
+    canonical:
+      type: string
+      references: *id058
+      required: true
+      version_ranges: *id059
+      min_length: 0
+      max_length: 79
+      description: User group name. Source user.group.name.
+      source_attribute: ftgd_wf.filters.auth_usr_grp.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id059
+        description: User group name. Source user.group.name.
+        references: *id058
+        source_attribute: ftgd_wf.filters.auth_usr_grp.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: ftgd_wf.filters.auth_usr_grp.name
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.filters.category:
+    canonical:
+      type: integer
+      version_ranges: *id060
+      min: 0
+      max: 255
+      description: Categories and groups the filter examines.
+      source_attribute: ftgd_wf.filters.category
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id060
+        description: Categories and groups the filter examines.
+        source_attribute: ftgd_wf.filters.category
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: ftgd_wf.filters.category
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.filters.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id061
+      min: 0
+      max: 255
+      description: ID number. see <a href='#notes'>Notes</a>.
+      source_attribute: ftgd_wf.filters.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id061
+        description: ID number. see <a href='#notes'>Notes</a>.
+        source_attribute: ftgd_wf.filters.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 255
+        source_attribute: ftgd_wf.filters.id
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.filters.log:
+    canonical:
+      type: enum
+      version_ranges: *id062
+      choices: *id063
+      description: Enable/disable logging.
+      source_attribute: ftgd_wf.filters.log
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id063
+        version_ranges: *id062
+        description: Enable/disable logging.
+        source_attribute: ftgd_wf.filters.log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftgd_wf.filters.log
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.filters.override_replacemsg:
+    canonical:
+      type: string
+      version_ranges: *id064
+      min_length: 0
+      max_length: 28
+      description: Override replacement message.
+      source_attribute: ftgd_wf.filters.override_replacemsg
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id064
+        description: Override replacement message.
+        source_attribute: ftgd_wf.filters.override_replacemsg
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 28
+        source_attribute: ftgd_wf.filters.override_replacemsg
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.filters.warn_duration:
+    canonical:
+      type: string
+      version_ranges: *id065
+      description: Duration of warnings.
+      source_attribute: ftgd_wf.filters.warn_duration
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id065
+        description: Duration of warnings.
+        source_attribute: ftgd_wf.filters.warn_duration
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftgd_wf.filters.warn_duration
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.filters.warning_duration_type:
+    canonical:
+      type: enum
+      version_ranges: *id066
+      choices: *id067
+      description: Re-display warning after closing browser or after a timeout.
+      source_attribute: ftgd_wf.filters.warning_duration_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id067
+        version_ranges: *id066
+        description: Re-display warning after closing browser or after a timeout.
+        source_attribute: ftgd_wf.filters.warning_duration_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftgd_wf.filters.warning_duration_type
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.filters.warning_prompt:
+    canonical:
+      type: enum
+      version_ranges: *id068
+      choices: *id069
+      description: Warning prompts in each category or each domain.
+      source_attribute: ftgd_wf.filters.warning_prompt
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id069
+        version_ranges: *id068
+        description: Warning prompts in each category or each domain.
+        source_attribute: ftgd_wf.filters.warning_prompt
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftgd_wf.filters.warning_prompt
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.max_quota_timeout:
+    canonical:
+      type: integer
+      version_ranges: *id070
+      min: 1
+      max: 86400
+      description: Maximum FortiGuard quota used by single page view in seconds (excludes streams).
+      source_attribute: ftgd_wf.max_quota_timeout
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id070
+        description: Maximum FortiGuard quota used by single page view in seconds (excludes streams).
+        source_attribute: ftgd_wf.max_quota_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 86400
+        source_attribute: ftgd_wf.max_quota_timeout
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.options:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: *id071
+      choices: *id072
+      default: ftgd-disable
+      description: Options for FortiGuard Web Filter.
+      source_attribute: ftgd_wf.options
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id072
+        multiple_values: true
+        elements: str
+        version_ranges: *id071
+        description: Options for FortiGuard Web Filter.
+        source_attribute: ftgd_wf.options
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: ftgd-disable
+        source_attribute: ftgd_wf.options
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.ovrd:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: *id073
+      description: Allow web filter profile overrides.
+      source_attribute: ftgd_wf.ovrd
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id073
+        description: Allow web filter profile overrides.
+        source_attribute: ftgd_wf.ovrd
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: ftgd_wf.ovrd
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id074
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id074
+  ftgd_wf.quota:
+    canonical:
+      type: list
+      elements: dict
+      children: *id075
+      version_ranges: *id076
+      description: FortiGuard traffic quota settings.
+      source_attribute: ftgd_wf.quota
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id076
+        description: FortiGuard traffic quota settings.
+        children: *id075
+        source_attribute: ftgd_wf.quota
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id077
+        source_attribute: ftgd_wf.quota
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.quota.category:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: *id078
+      description: FortiGuard categories to apply quota to (category action must be set to monitor).
+      source_attribute: ftgd_wf.quota.category
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id078
+        description: FortiGuard categories to apply quota to (category action must be set to monitor).
+        source_attribute: ftgd_wf.quota.category
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: ftgd_wf.quota.category
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id079
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id079
+  ftgd_wf.quota.duration:
+    canonical:
+      type: string
+      version_ranges: *id080
+      description: Duration of quota.
+      source_attribute: ftgd_wf.quota.duration
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id080
+        description: Duration of quota.
+        source_attribute: ftgd_wf.quota.duration
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftgd_wf.quota.duration
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.quota.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id081
+      description: ID number. see <a href='#notes'>Notes</a>.
+      source_attribute: ftgd_wf.quota.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id081
+        description: ID number. see <a href='#notes'>Notes</a>.
+        source_attribute: ftgd_wf.quota.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: ftgd_wf.quota.id
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.quota.override_replacemsg:
+    canonical:
+      type: string
+      version_ranges: *id082
+      min_length: 0
+      max_length: 28
+      description: Override replacement message.
+      source_attribute: ftgd_wf.quota.override_replacemsg
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id082
+        description: Override replacement message.
+        source_attribute: ftgd_wf.quota.override_replacemsg
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 28
+        source_attribute: ftgd_wf.quota.override_replacemsg
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.quota.type:
+    canonical:
+      type: enum
+      version_ranges: *id083
+      choices: *id084
+      description: Quota type.
+      source_attribute: ftgd_wf.quota.type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id084
+        version_ranges: *id083
+        description: Quota type.
+        source_attribute: ftgd_wf.quota.type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftgd_wf.quota.type
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.quota.unit:
+    canonical:
+      type: enum
+      version_ranges: *id085
+      choices: *id086
+      description: Traffic quota unit of measurement.
+      source_attribute: ftgd_wf.quota.unit
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id086
+        version_ranges: *id085
+        description: Traffic quota unit of measurement.
+        source_attribute: ftgd_wf.quota.unit
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftgd_wf.quota.unit
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.quota.value:
+    canonical:
+      type: integer
+      version_ranges: *id087
+      description: Traffic quota value.
+      source_attribute: ftgd_wf.quota.value
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id087
+        description: Traffic quota value.
+        source_attribute: ftgd_wf.quota.value
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: ftgd_wf.quota.value
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.rate_crl_urls:
+    canonical:
+      type: enum
+      version_ranges: *id088
+      choices: *id089
+      description: Enable/disable rating CRL by URL.
+      source_attribute: ftgd_wf.rate_crl_urls
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id089
+        version_ranges: *id088
+        description: Enable/disable rating CRL by URL.
+        source_attribute: ftgd_wf.rate_crl_urls
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftgd_wf.rate_crl_urls
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.rate_css_urls:
+    canonical:
+      type: enum
+      version_ranges: *id090
+      choices: *id091
+      description: Enable/disable rating CSS by URL.
+      source_attribute: ftgd_wf.rate_css_urls
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id091
+        version_ranges: *id090
+        description: Enable/disable rating CSS by URL.
+        source_attribute: ftgd_wf.rate_css_urls
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftgd_wf.rate_css_urls
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.rate_image_urls:
+    canonical:
+      type: string
+      source_attribute: ftgd_wf.rate_image_urls
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: ftgd_wf.rate_image_urls
+    sources:
+    - terraform
+  ftgd_wf.rate_javascript_urls:
+    canonical:
+      type: enum
+      version_ranges: *id092
+      choices: *id093
+      description: Enable/disable rating JavaScript by URL.
+      source_attribute: ftgd_wf.rate_javascript_urls
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id093
+        version_ranges: *id092
+        description: Enable/disable rating JavaScript by URL.
+        source_attribute: ftgd_wf.rate_javascript_urls
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftgd_wf.rate_javascript_urls
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.risk:
+    canonical:
+      type: list
+      elements: dict
+      children: *id094
+      version_ranges: *id095
+      description: FortiGuard risk level settings.
+      source_attribute: ftgd_wf.risk
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id095
+        description: FortiGuard risk level settings.
+        children: *id094
+        source_attribute: ftgd_wf.risk
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id096
+        source_attribute: ftgd_wf.risk
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.risk.action:
+    canonical:
+      type: enum
+      version_ranges: *id097
+      choices: *id098
+      description: Action to take for matches.
+      source_attribute: ftgd_wf.risk.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id098
+        version_ranges: *id097
+        description: Action to take for matches.
+        source_attribute: ftgd_wf.risk.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftgd_wf.risk.action
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.risk.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id099
+      min: 0
+      max: 255
+      description: ID number. see <a href='#notes'>Notes</a>.
+      source_attribute: ftgd_wf.risk.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id099
+        description: ID number. see <a href='#notes'>Notes</a>.
+        source_attribute: ftgd_wf.risk.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 255
+        source_attribute: ftgd_wf.risk.id
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.risk.log:
+    canonical:
+      type: enum
+      version_ranges: *id100
+      choices: *id101
+      description: Enable/disable logging.
+      source_attribute: ftgd_wf.risk.log
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id101
+        version_ranges: *id100
+        description: Enable/disable logging.
+        source_attribute: ftgd_wf.risk.log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftgd_wf.risk.log
+    sources:
+    - ansible
+    - terraform
+  ftgd_wf.risk.risk_level:
+    canonical:
+      type: string
+      references: *id102
+      version_ranges: *id103
+      min_length: 0
+      max_length: 35
+      description: Risk level to be examined. Source webfilter.ftgd-risk-level.name.
+      source_attribute: ftgd_wf.risk.risk_level
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id103
+        description: Risk level to be examined. Source webfilter.ftgd-risk-level.name.
+        references: *id102
+        source_attribute: ftgd_wf.risk.risk_level
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: ftgd_wf.risk.risk_level
+    sources:
+    - ansible
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  https_replacemsg:
+    canonical:
+      type: enum
+      version_ranges: &id105
+      - - v6.0.0
+        - ''
+      choices: &id104
+      - enable
+      - disable
+      default: enable
+      description: Enable replacement messages for HTTPS.
+      source_attribute: https-replacemsg
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id104
+        version_ranges: *id105
+        description: Enable replacement messages for HTTPS.
+        source_attribute: https_replacemsg
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: https_replacemsg
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable replacement messages for HTTPS.
+        default: enable
+        source_attribute: https-replacemsg
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  inspection_mode:
+    canonical:
+      type: string
+      source_attribute: inspection_mode
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: inspection_mode
+    sources:
+    - terraform
+  log_all_url:
+    canonical:
+      type: enum
+      version_ranges: &id107
+      - - v6.0.0
+        - ''
+      choices: &id106
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable logging all URLs visited.
+      source_attribute: log-all-url
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id106
+        version_ranges: *id107
+        description: Enable/disable logging all URLs visited.
+        source_attribute: log_all_url
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: log_all_url
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging all URLs visited.
+        default: disable
+        source_attribute: log-all-url
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id108
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 47
+      description: Profile name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id108
+        description: Profile name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        force_new: true
+        min_length: 0
+        max_length: 47
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Profile name.
+        max_length: 47
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  options:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id110
+      - - v6.0.0
+        - ''
+      choices: &id109
+      - activexfilter
+      - cookiefilter
+      - javafilter
+      - block-invalid-url
+      - jscript
+      - js
+      - vbs
+      - unknown
+      - intrinsic
+      - wf-referer
+      - wf-cookie
+      - per-user-bal
+      description: Options.
+      source_attribute: options
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id109
+        multiple_values: true
+        elements: str
+        version_ranges: *id110
+        description: Options.
+        source_attribute: options
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: options
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Options.
+        source_attribute: options
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  override:
+    canonical:
+      type: list
+      children: &id112
+        ovrd_cookie:
+          type: enum
+          raw_type: string
+          choices: &id115
+          - allow
+          - deny
+          version_ranges: &id114
+          - - v6.0.0
+            - ''
+          description: Allow/deny browser-based (cookie) overrides.
+        ovrd_scope:
+          type: enum
+          raw_type: string
+          choices: &id120
+          - user
+          - user-group
+          - ip
+          - browser
+          - ask
+          version_ranges: &id119
+          - - v6.0.0
+            - ''
+          description: Override scope.
+        profile_type:
+          type: enum
+          raw_type: string
+          choices: &id134
+          - list
+          - radius
+          version_ranges: &id133
+          - - v6.0.0
+            - ''
+          description: Override profile type.
+        ovrd_dur_mode:
+          type: enum
+          raw_type: string
+          choices: &id118
+          - constant
+          - ask
+          version_ranges: &id117
+          - - v6.0.0
+            - ''
+          description: Override duration mode.
+        ovrd_dur:
+          type: string
+          raw_type: string
+          version_ranges: &id116
+          - - v6.0.0
+            - ''
+          description: Override duration.
+        profile_attribute:
+          type: enum
+          raw_type: string
+          choices: &id132
+          - User-Name
+          - NAS-IP-Address
+          - Framed-IP-Address
+          - Framed-IP-Netmask
+          - Filter-Id
+          - Login-IP-Host
+          - Reply-Message
+          - Callback-Number
+          - Callback-Id
+          - Framed-Route
+          - Framed-IPX-Network
+          - Class
+          - Called-Station-Id
+          - Calling-Station-Id
+          - NAS-Identifier
+          - Proxy-State
+          - Login-LAT-Service
+          - Login-LAT-Node
+          - Login-LAT-Group
+          - Framed-AppleTalk-Zone
+          - Acct-Session-Id
+          - Acct-Multi-Session-Id
+          version_ranges: &id131
+          - - v6.0.0
+            - ''
+          description: Profile attribute to retrieve from the RADIUS server.
+        ovrd_user_group:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id122
+          - - v6.0.0
+            - ''
+          description: User groups with permission to use the override.
+          children: &id121
+            name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id125
+              - - v6.0.0
+                - ''
+              description: User group name. Source user.group.name.
+              references: &id124
+              - user.group.name
+        profile:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id127
+          - - v6.0.0
+            - ''
+          description: Web filter profile with permission to create overrides.
+          children: &id126
+            name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id130
+              - - v6.0.0
+                - ''
+              description: Web profile. Source webfilter.profile.name.
+              references: &id129
+              - webfilter.profile.name
+      version_ranges: &id111
+      - - v6.0.0
+        - ''
+      description: Web Filter override settings.
+      source_attribute: override
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id111
+        description: Web Filter override settings.
+        children: *id112
+        source_attribute: override
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          ovrd_cookie:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ovrd_scope:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          profile_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ovrd_dur_mode:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ovrd_dur:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          profile_attribute:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ovrd_user_group:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id123
+              name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+          profile:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id128
+              name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+        source_attribute: override
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id113
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id113
+  override.ovrd_cookie:
+    canonical:
+      type: enum
+      version_ranges: *id114
+      choices: *id115
+      description: Allow/deny browser-based (cookie) overrides.
+      source_attribute: override.ovrd_cookie
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id115
+        version_ranges: *id114
+        description: Allow/deny browser-based (cookie) overrides.
+        source_attribute: override.ovrd_cookie
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: override.ovrd_cookie
+    sources:
+    - ansible
+    - terraform
+  override.ovrd_dur:
+    canonical:
+      type: string
+      version_ranges: *id116
+      description: Override duration.
+      source_attribute: override.ovrd_dur
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id116
+        description: Override duration.
+        source_attribute: override.ovrd_dur
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: override.ovrd_dur
+    sources:
+    - ansible
+    - terraform
+  override.ovrd_dur_mode:
+    canonical:
+      type: enum
+      version_ranges: *id117
+      choices: *id118
+      description: Override duration mode.
+      source_attribute: override.ovrd_dur_mode
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id118
+        version_ranges: *id117
+        description: Override duration mode.
+        source_attribute: override.ovrd_dur_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: override.ovrd_dur_mode
+    sources:
+    - ansible
+    - terraform
+  override.ovrd_scope:
+    canonical:
+      type: enum
+      version_ranges: *id119
+      choices: *id120
+      description: Override scope.
+      source_attribute: override.ovrd_scope
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id120
+        version_ranges: *id119
+        description: Override scope.
+        source_attribute: override.ovrd_scope
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: override.ovrd_scope
+    sources:
+    - ansible
+    - terraform
+  override.ovrd_user_group:
+    canonical:
+      type: list
+      elements: dict
+      children: *id121
+      version_ranges: *id122
+      description: User groups with permission to use the override.
+      source_attribute: override.ovrd_user_group
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id122
+        description: User groups with permission to use the override.
+        children: *id121
+        source_attribute: override.ovrd_user_group
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id123
+        source_attribute: override.ovrd_user_group
+    sources:
+    - ansible
+    - terraform
+  override.ovrd_user_group.name:
+    canonical:
+      type: string
+      references: *id124
+      required: true
+      version_ranges: *id125
+      min_length: 0
+      max_length: 79
+      description: User group name. Source user.group.name.
+      source_attribute: override.ovrd_user_group.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id125
+        description: User group name. Source user.group.name.
+        references: *id124
+        source_attribute: override.ovrd_user_group.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: override.ovrd_user_group.name
+    sources:
+    - ansible
+    - terraform
+  override.profile:
+    canonical:
+      type: list
+      elements: dict
+      children: *id126
+      version_ranges: *id127
+      description: Web filter profile with permission to create overrides.
+      source_attribute: override.profile
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id127
+        description: Web filter profile with permission to create overrides.
+        children: *id126
+        source_attribute: override.profile
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id128
+        source_attribute: override.profile
+    sources:
+    - ansible
+    - terraform
+  override.profile.name:
+    canonical:
+      type: string
+      references: *id129
+      required: true
+      version_ranges: *id130
+      min_length: 0
+      max_length: 79
+      description: Web profile. Source webfilter.profile.name.
+      source_attribute: override.profile.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id130
+        description: Web profile. Source webfilter.profile.name.
+        references: *id129
+        source_attribute: override.profile.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: override.profile.name
+    sources:
+    - ansible
+    - terraform
+  override.profile_attribute:
+    canonical:
+      type: enum
+      version_ranges: *id131
+      choices: *id132
+      description: Profile attribute to retrieve from the RADIUS server.
+      source_attribute: override.profile_attribute
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id132
+        version_ranges: *id131
+        description: Profile attribute to retrieve from the RADIUS server.
+        source_attribute: override.profile_attribute
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: override.profile_attribute
+    sources:
+    - ansible
+    - terraform
+  override.profile_type:
+    canonical:
+      type: enum
+      version_ranges: *id133
+      choices: *id134
+      description: Override profile type.
+      source_attribute: override.profile_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id134
+        version_ranges: *id133
+        description: Override profile type.
+        source_attribute: override.profile_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: override.profile_type
+    sources:
+    - ansible
+    - terraform
+  ovrd_perm:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id136
+      - - v6.0.0
+        - ''
+      choices: &id135
+      - bannedword-override
+      - urlfilter-override
+      - fortiguard-wf-override
+      - contenttype-check-override
+      description: Permitted override types.
+      source_attribute: ovrd-perm
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id135
+        multiple_values: true
+        elements: str
+        version_ranges: *id136
+        description: Permitted override types.
+        source_attribute: ovrd_perm
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: ovrd_perm
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Permitted override types.
+        source_attribute: ovrd-perm
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  post_action:
+    canonical:
+      type: enum
+      version_ranges: &id138
+      - - v6.0.0
+        - ''
+      choices: &id137
+      - normal
+      - block
+      default: normal
+      description: Action taken for HTTP POST traffic.
+      source_attribute: post-action
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id137
+        version_ranges: *id138
+        description: Action taken for HTTP POST traffic.
+        source_attribute: post_action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: post_action
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Action taken for HTTP POST traffic.
+        default: normal
+        source_attribute: post-action
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  replacemsg_group:
+    canonical:
+      type: string
+      references: &id140
+      - system.replacemsg-group.name
+      version_ranges: &id139
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Replacement message group.
+      source_attribute: replacemsg-group
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id139
+        description: Replacement message group. Source system.replacemsg-group.name.
+        references: *id140
+        source_attribute: replacemsg_group
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: replacemsg_group
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Replacement message group.
+        max_length: 35
+        source_attribute: replacemsg-group
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  url_extraction:
+    canonical:
+      type: object
+      children: &id142
+        status:
+          type: enum
+          raw_type: string
+          choices: &id149
+          - enable
+          - disable
+          version_ranges: &id148
+          - - v6.0.0
+            - v7.0.8
+          - - v7.2.0
+            - v7.2.4
+          - - v7.4.3
+            - v7.6.7
+          description: Enable URL Extraction
+        server_fqdn:
+          type: string
+          raw_type: string
+          version_ranges: &id147
+          - - v6.0.0
+            - v7.0.8
+          - - v7.2.0
+            - v7.2.4
+          - - v7.4.3
+            - v7.6.7
+          description: URL extraction server FQDN (fully qualified domain name)
+        redirect_header:
+          type: string
+          raw_type: string
+          version_ranges: &id143
+          - - v6.0.0
+            - v7.0.8
+          - - v7.2.0
+            - v7.2.4
+          - - v7.4.3
+            - v7.6.7
+          description: HTTP header name to use for client redirect on blocked requests
+        redirect_url:
+          type: string
+          raw_type: string
+          version_ranges: &id146
+          - - v6.0.0
+            - v7.0.8
+          - - v7.2.0
+            - v7.2.4
+          - - v7.4.3
+            - v7.6.7
+          description: HTTP header value to use for client redirect on blocked requests
+        redirect_no_content:
+          type: enum
+          raw_type: string
+          choices: &id145
+          - enable
+          - disable
+          version_ranges: &id144
+          - - v6.0.0
+            - v7.0.8
+          - - v7.2.0
+            - v7.2.4
+          - - v7.4.3
+            - v7.6.7
+          description: Enable / Disable empty message-body entity in HTTP response
+      version_ranges: &id141
+      - - v6.0.0
+        - v7.0.8
+      - - v7.2.0
+        - v7.2.4
+      - - v7.4.3
+        - v7.6.7
+      description: Configure URL Extraction
+      source_attribute: url_extraction
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id141
+        description: Configure URL Extraction
+        children: *id142
+        source_attribute: url_extraction
+    sources:
+    - ansible
+  url_extraction.redirect_header:
+    canonical:
+      type: string
+      version_ranges: *id143
+      description: HTTP header name to use for client redirect on blocked requests
+      source_attribute: url_extraction.redirect_header
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id143
+        description: HTTP header name to use for client redirect on blocked requests
+        source_attribute: url_extraction.redirect_header
+    sources:
+    - ansible
+  url_extraction.redirect_no_content:
+    canonical:
+      type: enum
+      version_ranges: *id144
+      choices: *id145
+      description: Enable / Disable empty message-body entity in HTTP response
+      source_attribute: url_extraction.redirect_no_content
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id145
+        version_ranges: *id144
+        description: Enable / Disable empty message-body entity in HTTP response
+        source_attribute: url_extraction.redirect_no_content
+    sources:
+    - ansible
+  url_extraction.redirect_url:
+    canonical:
+      type: string
+      version_ranges: *id146
+      description: HTTP header value to use for client redirect on blocked requests
+      source_attribute: url_extraction.redirect_url
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id146
+        description: HTTP header value to use for client redirect on blocked requests
+        source_attribute: url_extraction.redirect_url
+    sources:
+    - ansible
+  url_extraction.server_fqdn:
+    canonical:
+      type: string
+      version_ranges: *id147
+      description: URL extraction server FQDN (fully qualified domain name)
+      source_attribute: url_extraction.server_fqdn
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id147
+        description: URL extraction server FQDN (fully qualified domain name)
+        source_attribute: url_extraction.server_fqdn
+    sources:
+    - ansible
+  url_extraction.status:
+    canonical:
+      type: enum
+      version_ranges: *id148
+      choices: *id149
+      description: Enable URL Extraction
+      source_attribute: url_extraction.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id149
+        version_ranges: *id148
+        description: Enable URL Extraction
+        source_attribute: url_extraction.status
+    sources:
+    - ansible
+  uuid:
+    canonical:
+      type: string
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  web:
+    canonical:
+      type: list
+      children: &id151
+        bword_threshold:
+          type: integer
+          raw_type: integer
+          version_ranges: &id159
+          - - v6.0.0
+            - ''
+          description: Banned word score threshold.
+        bword_table:
+          type: integer
+          raw_type: integer
+          version_ranges: &id158
+          - - v6.0.0
+            - ''
+          description: Banned word table ID. Source webfilter.content.id.
+          references: &id157
+          - webfilter.content.id
+        urlfilter_table:
+          type: integer
+          raw_type: integer
+          version_ranges: &id171
+          - - v6.0.0
+            - ''
+          description: URL filter table ID. Source webfilter.urlfilter.id.
+          references: &id170
+          - webfilter.urlfilter.id
+        content_header_list:
+          type: integer
+          raw_type: integer
+          version_ranges: &id161
+          - - v6.0.0
+            - ''
+          description: Content header list. Source webfilter.content-header.id.
+          references: &id160
+          - webfilter.content-header.id
+        blocklist:
+          type: enum
+          raw_type: string
+          choices: &id156
+          - enable
+          - disable
+          version_ranges: &id155
+          - - v7.0.0
+            - ''
+          description: Enable/disable automatic addition of URLs detected by FortiSandbox to blocklist.
+        allowlist:
+          type: enum
+          raw_type: list
+          choices: &id154
+          - exempt-av
+          - exempt-webcontent
+          - exempt-activex-java-cookie
+          - exempt-dlp
+          - exempt-rangeblock
+          - extended-log-others
+          multiple_values: true
+          elements: str
+          version_ranges: &id153
+          - - v7.0.0
+            - ''
+          description: FortiGuard allowlist settings.
+        safe_search:
+          type: enum
+          raw_type: list
+          choices: &id169
+          - url
+          - header
+          multiple_values: true
+          elements: str
+          version_ranges: &id168
+          - - v6.0.0
+            - ''
+          description: Safe search type.
+        youtube_restrict:
+          type: enum
+          raw_type: string
+          choices: &id174
+          - none
+          - strict
+          - moderate
+          version_ranges: &id173
+          - - v6.0.0
+            - v6.4.4
+          - - v7.0.1
+            - ''
+          description: YouTube EDU filter level.
+        vimeo_restrict:
+          type: string
+          raw_type: string
+          version_ranges: &id172
+          - - v7.0.1
+            - ''
+          description: Set Vimeo-restrict ("7" = don"t show mature content, "134" = don"t show unrated and mature content).
+            A value of cookie "content_rating".
+        log_search:
+          type: enum
+          raw_type: string
+          choices: &id167
+          - enable
+          - disable
+          version_ranges: &id166
+          - - v6.0.0
+            - ''
+          description: Enable/disable logging all search phrases.
+        keyword_match:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id163
+          - - v6.0.0
+            - ''
+          description: Search keywords to log when match is found.
+          children: &id162
+            pattern:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id165
+              - - v6.0.0
+                - ''
+              description: Pattern/keyword to search for.
+      version_ranges: &id150
+      - - v6.0.0
+        - ''
+      description: Web content filtering settings.
+      source_attribute: web
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id150
+        description: Web content filtering settings.
+        children: *id151
+        source_attribute: web
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          bword_threshold:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          bword_table:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          urlfilter_table:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          content_header_list:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          blocklist:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          allowlist:
+            type: string
+            raw_type: TypeString
+            optional: true
+          blacklist:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          whitelist:
+            type: string
+            raw_type: TypeString
+            optional: true
+          safe_search:
+            type: string
+            raw_type: TypeString
+            optional: true
+          youtube_restrict:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          vimeo_restrict:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          log_search:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          keyword_match:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id164
+              pattern:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+        source_attribute: web
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id152
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id152
+  web.allowlist:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: *id153
+      choices: *id154
+      description: FortiGuard allowlist settings.
+      source_attribute: web.allowlist
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id154
+        multiple_values: true
+        elements: str
+        version_ranges: *id153
+        description: FortiGuard allowlist settings.
+        source_attribute: web.allowlist
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: web.allowlist
+    sources:
+    - ansible
+    - terraform
+  web.blacklist:
+    canonical:
+      type: string
+      source_attribute: web.blacklist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web.blacklist
+    sources:
+    - terraform
+  web.blocklist:
+    canonical:
+      type: enum
+      version_ranges: *id155
+      choices: *id156
+      description: Enable/disable automatic addition of URLs detected by FortiSandbox to blocklist.
+      source_attribute: web.blocklist
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id156
+        version_ranges: *id155
+        description: Enable/disable automatic addition of URLs detected by FortiSandbox to blocklist.
+        source_attribute: web.blocklist
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web.blocklist
+    sources:
+    - ansible
+    - terraform
+  web.bword_table:
+    canonical:
+      type: integer
+      references: *id157
+      version_ranges: *id158
+      description: Banned word table ID. Source webfilter.content.id.
+      source_attribute: web.bword_table
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id158
+        description: Banned word table ID. Source webfilter.content.id.
+        references: *id157
+        source_attribute: web.bword_table
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: web.bword_table
+    sources:
+    - ansible
+    - terraform
+  web.bword_threshold:
+    canonical:
+      type: integer
+      version_ranges: *id159
+      description: Banned word score threshold.
+      source_attribute: web.bword_threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id159
+        description: Banned word score threshold.
+        source_attribute: web.bword_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: web.bword_threshold
+    sources:
+    - ansible
+    - terraform
+  web.content_header_list:
+    canonical:
+      type: integer
+      references: *id160
+      version_ranges: *id161
+      description: Content header list. Source webfilter.content-header.id.
+      source_attribute: web.content_header_list
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id161
+        description: Content header list. Source webfilter.content-header.id.
+        references: *id160
+        source_attribute: web.content_header_list
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: web.content_header_list
+    sources:
+    - ansible
+    - terraform
+  web.keyword_match:
+    canonical:
+      type: list
+      elements: dict
+      children: *id162
+      version_ranges: *id163
+      description: Search keywords to log when match is found.
+      source_attribute: web.keyword_match
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id163
+        description: Search keywords to log when match is found.
+        children: *id162
+        source_attribute: web.keyword_match
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id164
+        source_attribute: web.keyword_match
+    sources:
+    - ansible
+    - terraform
+  web.keyword_match.pattern:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id165
+      min_length: 0
+      max_length: 79
+      description: Pattern/keyword to search for.
+      source_attribute: web.keyword_match.pattern
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id165
+        description: Pattern/keyword to search for.
+        source_attribute: web.keyword_match.pattern
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: web.keyword_match.pattern
+    sources:
+    - ansible
+    - terraform
+  web.log_search:
+    canonical:
+      type: enum
+      version_ranges: *id166
+      choices: *id167
+      description: Enable/disable logging all search phrases.
+      source_attribute: web.log_search
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id167
+        version_ranges: *id166
+        description: Enable/disable logging all search phrases.
+        source_attribute: web.log_search
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web.log_search
+    sources:
+    - ansible
+    - terraform
+  web.safe_search:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: *id168
+      choices: *id169
+      description: Safe search type.
+      source_attribute: web.safe_search
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id169
+        multiple_values: true
+        elements: str
+        version_ranges: *id168
+        description: Safe search type.
+        source_attribute: web.safe_search
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: web.safe_search
+    sources:
+    - ansible
+    - terraform
+  web.urlfilter_table:
+    canonical:
+      type: integer
+      references: *id170
+      version_ranges: *id171
+      description: URL filter table ID. Source webfilter.urlfilter.id.
+      source_attribute: web.urlfilter_table
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id171
+        description: URL filter table ID. Source webfilter.urlfilter.id.
+        references: *id170
+        source_attribute: web.urlfilter_table
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: web.urlfilter_table
+    sources:
+    - ansible
+    - terraform
+  web.vimeo_restrict:
+    canonical:
+      type: string
+      version_ranges: *id172
+      min_length: 0
+      max_length: 63
+      description: Set Vimeo-restrict ("7" = don"t show mature content, "134" = don"t show unrated and mature content). A
+        value of cookie "content_rating".
+      source_attribute: web.vimeo_restrict
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id172
+        description: Set Vimeo-restrict ("7" = don"t show mature content, "134" = don"t show unrated and mature content).
+          A value of cookie "content_rating".
+        source_attribute: web.vimeo_restrict
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: web.vimeo_restrict
+    sources:
+    - ansible
+    - terraform
+  web.whitelist:
+    canonical:
+      type: string
+      source_attribute: web.whitelist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: web.whitelist
+    sources:
+    - terraform
+  web.youtube_restrict:
+    canonical:
+      type: enum
+      version_ranges: *id173
+      choices: *id174
+      description: YouTube EDU filter level.
+      source_attribute: web.youtube_restrict
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id174
+        version_ranges: *id173
+        description: YouTube EDU filter level.
+        source_attribute: web.youtube_restrict
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web.youtube_restrict
+    sources:
+    - ansible
+    - terraform
+  web_antiphishing_log:
+    canonical:
+      type: enum
+      version_ranges: &id176
+      - - v6.4.0
+        - ''
+      choices: &id175
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable logging of AntiPhishing checks.
+      source_attribute: web-antiphishing-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id175
+        version_ranges: *id176
+        description: Enable/disable logging of AntiPhishing checks.
+        source_attribute: web_antiphishing_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_antiphishing_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging of AntiPhishing checks.
+        default: enable
+        source_attribute: web-antiphishing-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  web_content_log:
+    canonical:
+      type: enum
+      version_ranges: &id178
+      - - v6.0.0
+        - ''
+      choices: &id177
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable logging logging blocked web content.
+      source_attribute: web-content-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id177
+        version_ranges: *id178
+        description: Enable/disable logging logging blocked web content.
+        source_attribute: web_content_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_content_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging logging blocked web content.
+        default: enable
+        source_attribute: web-content-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  web_extended_all_action_log:
+    canonical:
+      type: enum
+      version_ranges: &id180
+      - - v6.0.0
+        - ''
+      choices: &id179
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable extended any filter action logging for web filtering.
+      source_attribute: web-extended-all-action-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id179
+        version_ranges: *id180
+        description: Enable/disable extended any filter action logging for web filtering.
+        source_attribute: web_extended_all_action_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_extended_all_action_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable extended any filter action logging for web filtering.
+        default: disable
+        source_attribute: web-extended-all-action-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  web_filter_activex_log:
+    canonical:
+      type: enum
+      version_ranges: &id182
+      - - v6.0.0
+        - ''
+      choices: &id181
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable logging ActiveX.
+      source_attribute: web-filter-activex-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id181
+        version_ranges: *id182
+        description: Enable/disable logging ActiveX.
+        source_attribute: web_filter_activex_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_filter_activex_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging ActiveX.
+        default: enable
+        source_attribute: web-filter-activex-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  web_filter_applet_log:
+    canonical:
+      type: enum
+      version_ranges: &id184
+      - - v6.0.0
+        - ''
+      choices: &id183
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable logging Java applets.
+      source_attribute: web-filter-applet-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id183
+        version_ranges: *id184
+        description: Enable/disable logging Java applets.
+        source_attribute: web_filter_applet_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_filter_applet_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging Java applets.
+        default: enable
+        source_attribute: web-filter-applet-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  web_filter_command_block_log:
+    canonical:
+      type: enum
+      version_ranges: &id186
+      - - v6.0.0
+        - ''
+      choices: &id185
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable logging blocked commands.
+      source_attribute: web-filter-command-block-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id185
+        version_ranges: *id186
+        description: Enable/disable logging blocked commands.
+        source_attribute: web_filter_command_block_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_filter_command_block_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging blocked commands.
+        default: enable
+        source_attribute: web-filter-command-block-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  web_filter_cookie_log:
+    canonical:
+      type: enum
+      version_ranges: &id188
+      - - v6.0.0
+        - ''
+      choices: &id187
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable logging cookie filtering.
+      source_attribute: web-filter-cookie-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id187
+        version_ranges: *id188
+        description: Enable/disable logging cookie filtering.
+        source_attribute: web_filter_cookie_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_filter_cookie_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging cookie filtering.
+        default: enable
+        source_attribute: web-filter-cookie-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  web_filter_cookie_removal_log:
+    canonical:
+      type: enum
+      version_ranges: &id190
+      - - v6.0.0
+        - ''
+      choices: &id189
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable logging blocked cookies.
+      source_attribute: web-filter-cookie-removal-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id189
+        version_ranges: *id190
+        description: Enable/disable logging blocked cookies.
+        source_attribute: web_filter_cookie_removal_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_filter_cookie_removal_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging blocked cookies.
+        default: enable
+        source_attribute: web-filter-cookie-removal-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  web_filter_js_log:
+    canonical:
+      type: enum
+      version_ranges: &id192
+      - - v6.0.0
+        - ''
+      choices: &id191
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable logging Java scripts.
+      source_attribute: web-filter-js-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id191
+        version_ranges: *id192
+        description: Enable/disable logging Java scripts.
+        source_attribute: web_filter_js_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_filter_js_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging Java scripts.
+        default: enable
+        source_attribute: web-filter-js-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  web_filter_jscript_log:
+    canonical:
+      type: enum
+      version_ranges: &id194
+      - - v6.0.0
+        - ''
+      choices: &id193
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable logging JScripts.
+      source_attribute: web-filter-jscript-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id193
+        version_ranges: *id194
+        description: Enable/disable logging JScripts.
+        source_attribute: web_filter_jscript_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_filter_jscript_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging JScripts.
+        default: enable
+        source_attribute: web-filter-jscript-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  web_filter_referer_log:
+    canonical:
+      type: enum
+      version_ranges: &id196
+      - - v6.0.0
+        - ''
+      choices: &id195
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable logging referrers.
+      source_attribute: web-filter-referer-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id195
+        version_ranges: *id196
+        description: Enable/disable logging referrers.
+        source_attribute: web_filter_referer_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_filter_referer_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging referrers.
+        default: enable
+        source_attribute: web-filter-referer-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  web_filter_unknown_log:
+    canonical:
+      type: enum
+      version_ranges: &id198
+      - - v6.0.0
+        - ''
+      choices: &id197
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable logging unknown scripts.
+      source_attribute: web-filter-unknown-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id197
+        version_ranges: *id198
+        description: Enable/disable logging unknown scripts.
+        source_attribute: web_filter_unknown_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_filter_unknown_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging unknown scripts.
+        default: enable
+        source_attribute: web-filter-unknown-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  web_filter_vbs_log:
+    canonical:
+      type: enum
+      version_ranges: &id200
+      - - v6.0.0
+        - ''
+      choices: &id199
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable logging VBS scripts.
+      source_attribute: web-filter-vbs-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id199
+        version_ranges: *id200
+        description: Enable/disable logging VBS scripts.
+        source_attribute: web_filter_vbs_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_filter_vbs_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging VBS scripts.
+        default: enable
+        source_attribute: web-filter-vbs-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  web_flow_log_encoding:
+    canonical:
+      type: enum
+      version_ranges: &id202
+      - - v7.4.2
+        - ''
+      choices: &id201
+      - utf-8
+      - punycode
+      default: utf-8
+      description: Log encoding in flow mode.
+      source_attribute: web-flow-log-encoding
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id201
+        version_ranges: *id202
+        description: Log encoding in flow mode.
+        source_attribute: web_flow_log_encoding
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_flow_log_encoding
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Log encoding in flow mode.
+        default: utf-8
+        source_attribute: web-flow-log-encoding
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  web_ftgd_err_log:
+    canonical:
+      type: enum
+      version_ranges: &id204
+      - - v6.0.0
+        - ''
+      choices: &id203
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable logging rating errors.
+      source_attribute: web-ftgd-err-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id203
+        version_ranges: *id204
+        description: Enable/disable logging rating errors.
+        source_attribute: web_ftgd_err_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_ftgd_err_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging rating errors.
+        default: enable
+        source_attribute: web-ftgd-err-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  web_ftgd_quota_usage:
+    canonical:
+      type: enum
+      version_ranges: &id206
+      - - v6.0.0
+        - ''
+      choices: &id205
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable logging daily quota usage.
+      source_attribute: web-ftgd-quota-usage
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id205
+        version_ranges: *id206
+        description: Enable/disable logging daily quota usage.
+        source_attribute: web_ftgd_quota_usage
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_ftgd_quota_usage
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging daily quota usage.
+        default: enable
+        source_attribute: web-ftgd-quota-usage
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  web_invalid_domain_log:
+    canonical:
+      type: enum
+      version_ranges: &id208
+      - - v6.0.0
+        - ''
+      choices: &id207
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable logging invalid domain names.
+      source_attribute: web-invalid-domain-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id207
+        version_ranges: *id208
+        description: Enable/disable logging invalid domain names.
+        source_attribute: web_invalid_domain_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_invalid_domain_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging invalid domain names.
+        default: enable
+        source_attribute: web-invalid-domain-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  web_url_log:
+    canonical:
+      type: enum
+      version_ranges: &id210
+      - - v6.0.0
+        - ''
+      choices: &id209
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable logging URL filtering.
+      source_attribute: web-url-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id209
+        version_ranges: *id210
+        description: Enable/disable logging URL filtering.
+        source_attribute: web_url_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_url_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging URL filtering.
+        default: enable
+        source_attribute: web-url-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  wisp:
+    canonical:
+      type: enum
+      version_ranges: &id212
+      - - v6.0.0
+        - ''
+      choices: &id211
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable web proxy WISP.
+      source_attribute: wisp
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id211
+        version_ranges: *id212
+        description: Enable/disable web proxy WISP.
+        source_attribute: wisp
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: wisp
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable web proxy WISP.
+        default: disable
+        source_attribute: wisp
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  wisp_algorithm:
+    canonical:
+      type: enum
+      version_ranges: &id214
+      - - v6.0.0
+        - ''
+      choices: &id213
+      - primary-secondary
+      - round-robin
+      - auto-learning
+      default: auto-learning
+      description: WISP server selection algorithm.
+      source_attribute: wisp-algorithm
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id213
+        version_ranges: *id214
+        description: WISP server selection algorithm.
+        source_attribute: wisp_algorithm
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: wisp_algorithm
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: WISP server selection algorithm.
+        default: auto-learning
+        source_attribute: wisp-algorithm
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  wisp_servers:
+    canonical:
+      type: list
+      elements: dict
+      children: &id216
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id219
+          - - v6.0.0
+            - ''
+          description: Server name. Source web-proxy.wisp.name.
+          references: &id218
+          - web-proxy.wisp.name
+      version_ranges: &id215
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: WISP servers. Server name.
+      source_attribute: wisp-servers
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id215
+        description: WISP servers.
+        children: *id216
+        source_attribute: wisp_servers
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: wisp_servers
+      cli_reference:
+        type: string
+        raw_type: string
+        description: WISP servers. Server name.
+        max_length: 79
+        source_attribute: wisp-servers
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id217
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id217
+  wisp_servers.name:
+    canonical:
+      type: string
+      references: *id218
+      required: true
+      version_ranges: *id219
+      min_length: 0
+      max_length: 79
+      description: Server name. Source web-proxy.wisp.name.
+      source_attribute: wisp_servers.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id219
+        description: Server name. Source web-proxy.wisp.name.
+        references: *id218
+        source_attribute: wisp_servers.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: wisp_servers.name
+    sources:
+    - ansible
+    - terraform
+  youtube_channel_filter:
+    canonical:
+      type: list
+      children: &id220
+        id:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+          computed: true
+        channel_id:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 255
+        comment:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 255
+      source_attribute: youtube_channel_filter
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id220
+        source_attribute: youtube_channel_filter
+    sources:
+    - terraform
+  youtube_channel_filter.channel_id:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 255
+      source_attribute: youtube_channel_filter.channel_id
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: youtube_channel_filter.channel_id
+    sources:
+    - terraform
+  youtube_channel_filter.comment:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 255
+      source_attribute: youtube_channel_filter.comment
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: youtube_channel_filter.comment
+    sources:
+    - terraform
+  youtube_channel_filter.id:
+    canonical:
+      type: integer
+      source_attribute: youtube_channel_filter.id
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: youtube_channel_filter.id
+    sources:
+    - terraform
+  youtube_channel_status:
+    canonical:
+      type: string
+      source_attribute: youtube_channel_status
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: youtube_channel_status
+    sources:
+    - terraform
+conflicts:
+- attribute: antiphish
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: antiphish.inspection_entries.fortiguard_category
+  field: type
+  values:
+    ansible: list
+    terraform: string
+  classification: representation_or_real_conflict
+- attribute: ftgd_wf
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: ftgd_wf.exempt_quota
+  field: type
+  values:
+    ansible: list
+    terraform: string
+  classification: representation_or_real_conflict
+- attribute: ftgd_wf.ovrd
+  field: type
+  values:
+    ansible: list
+    terraform: string
+  classification: representation_or_real_conflict
+- attribute: ftgd_wf.quota.category
+  field: type
+  values:
+    ansible: list
+    terraform: string
+  classification: representation_or_real_conflict
+- attribute: override
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: web
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: wisp_servers
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

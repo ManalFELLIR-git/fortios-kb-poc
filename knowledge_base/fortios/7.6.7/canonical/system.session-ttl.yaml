@@ -1,0 +1,408 @@
+id: system.session-ttl
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  default:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      description: Default timeout.
+      source_attribute: default
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Default timeout.
+        source_attribute: default
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: default
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Default timeout.
+        source_attribute: default
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  port:
+    canonical:
+      type: list
+      elements: dict
+      children: &id003
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id005
+          - - v6.0.0
+            - ''
+          description: Table entry ID. see <a href='#notes'>Notes</a>.
+        protocol:
+          type: integer
+          raw_type: integer
+          version_ranges: &id006
+          - - v6.0.0
+            - ''
+          description: Protocol (0 - 255).
+        start_port:
+          type: integer
+          raw_type: integer
+          version_ranges: &id009
+          - - v6.0.0
+            - ''
+          description: Start port number.
+        end_port:
+          type: integer
+          raw_type: integer
+          version_ranges: &id004
+          - - v6.0.0
+            - ''
+          description: End port number.
+        timeout:
+          type: string
+          raw_type: string
+          version_ranges: &id010
+          - - v6.0.0
+            - ''
+          description: Session timeout (TTL).
+        refresh_direction:
+          type: enum
+          raw_type: string
+          choices: &id008
+          - both
+          - outgoing
+          - incoming
+          version_ranges: &id007
+          - - v7.4.1
+            - ''
+          description: Configure refresh direction.
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      description: Session TTL port.
+      source_attribute: port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id002
+        description: Session TTL port.
+        children: *id003
+        source_attribute: port
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 65535
+          protocol:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 255
+          start_port:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 65535
+          end_port:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 65535
+          timeout:
+            type: string
+            raw_type: TypeString
+            optional: true
+          refresh_direction:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: port
+    sources:
+    - ansible
+    - terraform
+  port.end_port:
+    canonical:
+      type: integer
+      version_ranges: *id004
+      min: 0
+      max: 65535
+      description: End port number.
+      source_attribute: port.end_port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id004
+        description: End port number.
+        source_attribute: port.end_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: port.end_port
+    sources:
+    - ansible
+    - terraform
+  port.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id005
+      min: 0
+      max: 65535
+      description: Table entry ID. see <a href='#notes'>Notes</a>.
+      source_attribute: port.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id005
+        description: Table entry ID. see <a href='#notes'>Notes</a>.
+        source_attribute: port.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: port.id
+    sources:
+    - ansible
+    - terraform
+  port.protocol:
+    canonical:
+      type: integer
+      version_ranges: *id006
+      min: 0
+      max: 255
+      description: Protocol (0 - 255).
+      source_attribute: port.protocol
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id006
+        description: Protocol (0 - 255).
+        source_attribute: port.protocol
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: port.protocol
+    sources:
+    - ansible
+    - terraform
+  port.refresh_direction:
+    canonical:
+      type: enum
+      version_ranges: *id007
+      choices: *id008
+      description: Configure refresh direction.
+      source_attribute: port.refresh_direction
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id008
+        version_ranges: *id007
+        description: Configure refresh direction.
+        source_attribute: port.refresh_direction
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: port.refresh_direction
+    sources:
+    - ansible
+    - terraform
+  port.start_port:
+    canonical:
+      type: integer
+      version_ranges: *id009
+      min: 0
+      max: 65535
+      description: Start port number.
+      source_attribute: port.start_port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id009
+        description: Start port number.
+        source_attribute: port.start_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: port.start_port
+    sources:
+    - ansible
+    - terraform
+  port.timeout:
+    canonical:
+      type: string
+      version_ranges: *id010
+      description: Session timeout (TTL).
+      source_attribute: port.timeout
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id010
+        description: Session timeout (TTL).
+        source_attribute: port.timeout
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: port.timeout
+    sources:
+    - ansible
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

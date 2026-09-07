@@ -1,0 +1,1078 @@
+id: system.alarm
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  audible:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable audible alarm.
+      source_attribute: audible
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable audible alarm.
+        source_attribute: audible
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: audible
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable audible alarm.
+        default: disable
+        source_attribute: audible
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  groups:
+    canonical:
+      type: list
+      elements: dict
+      children: &id004
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id020
+          - - v6.0.0
+            - ''
+          description: Group ID. see <a href='#notes'>Notes</a>.
+        period:
+          type: integer
+          raw_type: integer
+          version_ranges: &id022
+          - - v6.0.0
+            - ''
+          description: Time period in seconds (0 = from start up).
+        admin_auth_failure_threshold:
+          type: integer
+          raw_type: integer
+          version_ranges: &id005
+          - - v6.0.0
+            - ''
+          description: Admin authentication failure threshold.
+        admin_auth_lockout_threshold:
+          type: integer
+          raw_type: integer
+          version_ranges: &id006
+          - - v6.0.0
+            - ''
+          description: Admin authentication lockout threshold.
+        user_auth_failure_threshold:
+          type: integer
+          raw_type: integer
+          version_ranges: &id025
+          - - v6.0.0
+            - ''
+          description: User authentication failure threshold.
+        user_auth_lockout_threshold:
+          type: integer
+          raw_type: integer
+          version_ranges: &id026
+          - - v6.0.0
+            - ''
+          description: User authentication lockout threshold.
+        replay_attempt_threshold:
+          type: integer
+          raw_type: integer
+          version_ranges: &id023
+          - - v6.0.0
+            - ''
+          description: Replay attempt threshold.
+        self_test_failure_threshold:
+          type: integer
+          raw_type: integer
+          version_ranges: &id024
+          - - v6.0.0
+            - ''
+          description: Self-test failure threshold.
+        log_full_warning_threshold:
+          type: integer
+          raw_type: integer
+          version_ranges: &id021
+          - - v6.0.0
+            - ''
+          description: Log full warning threshold.
+        encryption_failure_threshold:
+          type: integer
+          raw_type: integer
+          version_ranges: &id008
+          - - v6.0.0
+            - ''
+          description: Encryption failure threshold.
+        decryption_failure_threshold:
+          type: integer
+          raw_type: integer
+          version_ranges: &id007
+          - - v6.0.0
+            - ''
+          description: Decryption failure threshold.
+        fw_policy_violations:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id012
+          - - v6.0.0
+            - ''
+          description: Firewall policy violations.
+          children: &id011
+            id:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id016
+              - - v6.0.0
+                - ''
+              description: Firewall policy violations ID. see <a href='#notes'>Notes</a>.
+            threshold:
+              type: integer
+              raw_type: integer
+              version_ranges: &id019
+              - - v6.0.0
+                - ''
+              description: Firewall policy violation threshold.
+            src_ip:
+              type: string
+              raw_type: string
+              version_ranges: &id017
+              - - v6.0.0
+                - ''
+              description: Source IP (0=all).
+            dst_ip:
+              type: string
+              raw_type: string
+              version_ranges: &id014
+              - - v6.0.0
+                - ''
+              description: Destination IP (0=all).
+            src_port:
+              type: integer
+              raw_type: integer
+              version_ranges: &id018
+              - - v6.0.0
+                - ''
+              description: Source port (0=all).
+            dst_port:
+              type: integer
+              raw_type: integer
+              version_ranges: &id015
+              - - v6.0.0
+                - ''
+              description: Destination port (0=all).
+        fw_policy_id:
+          type: integer
+          raw_type: integer
+          version_ranges: &id009
+          - - v6.0.0
+            - ''
+          description: Firewall policy ID.
+        fw_policy_id_threshold:
+          type: integer
+          raw_type: integer
+          version_ranges: &id010
+          - - v6.0.0
+            - ''
+          description: Firewall policy ID threshold.
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      description: Alarm groups.
+      source_attribute: groups
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id003
+        description: Alarm groups.
+        children: *id004
+        source_attribute: groups
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          period:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          admin_auth_failure_threshold:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 1024
+          admin_auth_lockout_threshold:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 1024
+          user_auth_failure_threshold:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 1024
+          user_auth_lockout_threshold:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 1024
+          replay_attempt_threshold:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 1024
+          self_test_failure_threshold:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 1
+          log_full_warning_threshold:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 1024
+          encryption_failure_threshold:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 1024
+          decryption_failure_threshold:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 1024
+          fw_policy_violations:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id013
+              id:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+              threshold:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                min: 0
+                max: 1024
+              src_ip:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              dst_ip:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              src_port:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                min: 0
+                max: 65535
+              dst_port:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                min: 0
+                max: 65535
+          fw_policy_id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          fw_policy_id_threshold:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 1024
+        source_attribute: groups
+    sources:
+    - ansible
+    - terraform
+  groups.admin_auth_failure_threshold:
+    canonical:
+      type: integer
+      version_ranges: *id005
+      min: 0
+      max: 1024
+      description: Admin authentication failure threshold.
+      source_attribute: groups.admin_auth_failure_threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id005
+        description: Admin authentication failure threshold.
+        source_attribute: groups.admin_auth_failure_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 1024
+        source_attribute: groups.admin_auth_failure_threshold
+    sources:
+    - ansible
+    - terraform
+  groups.admin_auth_lockout_threshold:
+    canonical:
+      type: integer
+      version_ranges: *id006
+      min: 0
+      max: 1024
+      description: Admin authentication lockout threshold.
+      source_attribute: groups.admin_auth_lockout_threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id006
+        description: Admin authentication lockout threshold.
+        source_attribute: groups.admin_auth_lockout_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 1024
+        source_attribute: groups.admin_auth_lockout_threshold
+    sources:
+    - ansible
+    - terraform
+  groups.decryption_failure_threshold:
+    canonical:
+      type: integer
+      version_ranges: *id007
+      min: 0
+      max: 1024
+      description: Decryption failure threshold.
+      source_attribute: groups.decryption_failure_threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id007
+        description: Decryption failure threshold.
+        source_attribute: groups.decryption_failure_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 1024
+        source_attribute: groups.decryption_failure_threshold
+    sources:
+    - ansible
+    - terraform
+  groups.encryption_failure_threshold:
+    canonical:
+      type: integer
+      version_ranges: *id008
+      min: 0
+      max: 1024
+      description: Encryption failure threshold.
+      source_attribute: groups.encryption_failure_threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id008
+        description: Encryption failure threshold.
+        source_attribute: groups.encryption_failure_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 1024
+        source_attribute: groups.encryption_failure_threshold
+    sources:
+    - ansible
+    - terraform
+  groups.fw_policy_id:
+    canonical:
+      type: integer
+      version_ranges: *id009
+      description: Firewall policy ID.
+      source_attribute: groups.fw_policy_id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id009
+        description: Firewall policy ID.
+        source_attribute: groups.fw_policy_id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: groups.fw_policy_id
+    sources:
+    - ansible
+    - terraform
+  groups.fw_policy_id_threshold:
+    canonical:
+      type: integer
+      version_ranges: *id010
+      min: 0
+      max: 1024
+      description: Firewall policy ID threshold.
+      source_attribute: groups.fw_policy_id_threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id010
+        description: Firewall policy ID threshold.
+        source_attribute: groups.fw_policy_id_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 1024
+        source_attribute: groups.fw_policy_id_threshold
+    sources:
+    - ansible
+    - terraform
+  groups.fw_policy_violations:
+    canonical:
+      type: list
+      elements: dict
+      children: *id011
+      version_ranges: *id012
+      description: Firewall policy violations.
+      source_attribute: groups.fw_policy_violations
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id012
+        description: Firewall policy violations.
+        children: *id011
+        source_attribute: groups.fw_policy_violations
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id013
+        source_attribute: groups.fw_policy_violations
+    sources:
+    - ansible
+    - terraform
+  groups.fw_policy_violations.dst_ip:
+    canonical:
+      type: string
+      version_ranges: *id014
+      description: Destination IP (0=all).
+      source_attribute: groups.fw_policy_violations.dst_ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: Destination IP (0=all).
+        source_attribute: groups.fw_policy_violations.dst_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: groups.fw_policy_violations.dst_ip
+    sources:
+    - ansible
+    - terraform
+  groups.fw_policy_violations.dst_port:
+    canonical:
+      type: integer
+      version_ranges: *id015
+      min: 0
+      max: 65535
+      description: Destination port (0=all).
+      source_attribute: groups.fw_policy_violations.dst_port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id015
+        description: Destination port (0=all).
+        source_attribute: groups.fw_policy_violations.dst_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: groups.fw_policy_violations.dst_port
+    sources:
+    - ansible
+    - terraform
+  groups.fw_policy_violations.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id016
+      description: Firewall policy violations ID. see <a href='#notes'>Notes</a>.
+      source_attribute: groups.fw_policy_violations.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id016
+        description: Firewall policy violations ID. see <a href='#notes'>Notes</a>.
+        source_attribute: groups.fw_policy_violations.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: groups.fw_policy_violations.id
+    sources:
+    - ansible
+    - terraform
+  groups.fw_policy_violations.src_ip:
+    canonical:
+      type: string
+      version_ranges: *id017
+      description: Source IP (0=all).
+      source_attribute: groups.fw_policy_violations.src_ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id017
+        description: Source IP (0=all).
+        source_attribute: groups.fw_policy_violations.src_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: groups.fw_policy_violations.src_ip
+    sources:
+    - ansible
+    - terraform
+  groups.fw_policy_violations.src_port:
+    canonical:
+      type: integer
+      version_ranges: *id018
+      min: 0
+      max: 65535
+      description: Source port (0=all).
+      source_attribute: groups.fw_policy_violations.src_port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id018
+        description: Source port (0=all).
+        source_attribute: groups.fw_policy_violations.src_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: groups.fw_policy_violations.src_port
+    sources:
+    - ansible
+    - terraform
+  groups.fw_policy_violations.threshold:
+    canonical:
+      type: integer
+      version_ranges: *id019
+      min: 0
+      max: 1024
+      description: Firewall policy violation threshold.
+      source_attribute: groups.fw_policy_violations.threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id019
+        description: Firewall policy violation threshold.
+        source_attribute: groups.fw_policy_violations.threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 1024
+        source_attribute: groups.fw_policy_violations.threshold
+    sources:
+    - ansible
+    - terraform
+  groups.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id020
+      description: Group ID. see <a href='#notes'>Notes</a>.
+      source_attribute: groups.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id020
+        description: Group ID. see <a href='#notes'>Notes</a>.
+        source_attribute: groups.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: groups.id
+    sources:
+    - ansible
+    - terraform
+  groups.log_full_warning_threshold:
+    canonical:
+      type: integer
+      version_ranges: *id021
+      min: 0
+      max: 1024
+      description: Log full warning threshold.
+      source_attribute: groups.log_full_warning_threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id021
+        description: Log full warning threshold.
+        source_attribute: groups.log_full_warning_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 1024
+        source_attribute: groups.log_full_warning_threshold
+    sources:
+    - ansible
+    - terraform
+  groups.period:
+    canonical:
+      type: integer
+      version_ranges: *id022
+      description: Time period in seconds (0 = from start up).
+      source_attribute: groups.period
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id022
+        description: Time period in seconds (0 = from start up).
+        source_attribute: groups.period
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: groups.period
+    sources:
+    - ansible
+    - terraform
+  groups.replay_attempt_threshold:
+    canonical:
+      type: integer
+      version_ranges: *id023
+      min: 0
+      max: 1024
+      description: Replay attempt threshold.
+      source_attribute: groups.replay_attempt_threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id023
+        description: Replay attempt threshold.
+        source_attribute: groups.replay_attempt_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 1024
+        source_attribute: groups.replay_attempt_threshold
+    sources:
+    - ansible
+    - terraform
+  groups.self_test_failure_threshold:
+    canonical:
+      type: integer
+      version_ranges: *id024
+      min: 0
+      max: 1
+      description: Self-test failure threshold.
+      source_attribute: groups.self_test_failure_threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id024
+        description: Self-test failure threshold.
+        source_attribute: groups.self_test_failure_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 1
+        source_attribute: groups.self_test_failure_threshold
+    sources:
+    - ansible
+    - terraform
+  groups.user_auth_failure_threshold:
+    canonical:
+      type: integer
+      version_ranges: *id025
+      min: 0
+      max: 1024
+      description: User authentication failure threshold.
+      source_attribute: groups.user_auth_failure_threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id025
+        description: User authentication failure threshold.
+        source_attribute: groups.user_auth_failure_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 1024
+        source_attribute: groups.user_auth_failure_threshold
+    sources:
+    - ansible
+    - terraform
+  groups.user_auth_lockout_threshold:
+    canonical:
+      type: integer
+      version_ranges: *id026
+      min: 0
+      max: 1024
+      description: User authentication lockout threshold.
+      source_attribute: groups.user_auth_lockout_threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id026
+        description: User authentication lockout threshold.
+        source_attribute: groups.user_auth_lockout_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 1024
+        source_attribute: groups.user_auth_lockout_threshold
+    sources:
+    - ansible
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id028
+      - - v6.0.0
+        - ''
+      choices: &id027
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable alarm.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id027
+        version_ranges: *id028
+        description: Enable/disable alarm.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable alarm.
+        default: disable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

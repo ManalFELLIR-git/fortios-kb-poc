@@ -1,0 +1,1433 @@
+id: wireless-controller.snmp
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  community:
+    canonical:
+      type: list
+      elements: dict
+      children: &id002
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id013
+          - - v6.2.0
+            - ''
+          description: Community ID. see <a href='#notes'>Notes</a>.
+        name:
+          type: string
+          raw_type: string
+          version_ranges: &id014
+          - - v6.2.0
+            - ''
+          description: Community name.
+        status:
+          type: enum
+          raw_type: string
+          choices: &id020
+          - enable
+          - disable
+          version_ranges: &id019
+          - - v6.2.0
+            - ''
+          description: Enable/disable this SNMP community.
+        query_v1_status:
+          type: enum
+          raw_type: string
+          choices: &id016
+          - enable
+          - disable
+          version_ranges: &id015
+          - - v6.2.0
+            - ''
+          description: Enable/disable SNMP v1 queries.
+        query_v2c_status:
+          type: enum
+          raw_type: string
+          choices: &id018
+          - enable
+          - disable
+          version_ranges: &id017
+          - - v6.2.0
+            - ''
+          description: Enable/disable SNMP v2c queries.
+        trap_v1_status:
+          type: enum
+          raw_type: string
+          choices: &id022
+          - enable
+          - disable
+          version_ranges: &id021
+          - - v6.2.0
+            - ''
+          description: Enable/disable SNMP v1 traps.
+        trap_v2c_status:
+          type: enum
+          raw_type: string
+          choices: &id024
+          - enable
+          - disable
+          version_ranges: &id023
+          - - v6.2.0
+            - ''
+          description: Enable/disable SNMP v2c traps.
+        hosts:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id004
+          - - v6.2.0
+            - ''
+          description: Configure IPv4 SNMP managers (hosts).
+          children: &id003
+            id:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id006
+              - - v6.2.0
+                - ''
+              description: Host entry ID. see <a href='#notes'>Notes</a>.
+            ip:
+              type: string
+              raw_type: string
+              version_ranges: &id007
+              - - v6.2.0
+                - ''
+              description: IPv4 address of the SNMP manager (host).
+        hosts6:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id009
+          - - v7.6.5
+            - ''
+          description: Configure IPv6 SNMP managers (hosts).
+          children: &id008
+            id:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id011
+              - - v7.6.5
+                - ''
+              description: Host6 entry ID. see <a href='#notes'>Notes</a>.
+            ipv6:
+              type: string
+              raw_type: string
+              version_ranges: &id012
+              - - v7.6.5
+                - ''
+              description: IPv6 address of the SNMP manager (host).
+      version_ranges: &id001
+      - - v6.2.0
+        - ''
+      description: SNMP Community Configuration.
+      source_attribute: community
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id001
+        description: SNMP Community Configuration.
+        children: *id002
+        source_attribute: community
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          query_v1_status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          query_v2c_status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          trap_v1_status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          trap_v2c_status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          hosts:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id005
+              id:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+              ip:
+                type: string
+                raw_type: TypeString
+                optional: true
+          hosts6:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id010
+              id:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+              ipv6:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+        source_attribute: community
+    sources:
+    - ansible
+    - terraform
+  community.hosts:
+    canonical:
+      type: list
+      elements: dict
+      children: *id003
+      version_ranges: *id004
+      description: Configure IPv4 SNMP managers (hosts).
+      source_attribute: community.hosts
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id004
+        description: Configure IPv4 SNMP managers (hosts).
+        children: *id003
+        source_attribute: community.hosts
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id005
+        source_attribute: community.hosts
+    sources:
+    - ansible
+    - terraform
+  community.hosts.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id006
+      description: Host entry ID. see <a href='#notes'>Notes</a>.
+      source_attribute: community.hosts.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id006
+        description: Host entry ID. see <a href='#notes'>Notes</a>.
+        source_attribute: community.hosts.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: community.hosts.id
+    sources:
+    - ansible
+    - terraform
+  community.hosts.ip:
+    canonical:
+      type: string
+      version_ranges: *id007
+      description: IPv4 address of the SNMP manager (host).
+      source_attribute: community.hosts.ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: IPv4 address of the SNMP manager (host).
+        source_attribute: community.hosts.ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: community.hosts.ip
+    sources:
+    - ansible
+    - terraform
+  community.hosts6:
+    canonical:
+      type: list
+      elements: dict
+      children: *id008
+      version_ranges: *id009
+      description: Configure IPv6 SNMP managers (hosts).
+      source_attribute: community.hosts6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id009
+        description: Configure IPv6 SNMP managers (hosts).
+        children: *id008
+        source_attribute: community.hosts6
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id010
+        source_attribute: community.hosts6
+    sources:
+    - ansible
+    - terraform
+  community.hosts6.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id011
+      description: Host6 entry ID. see <a href='#notes'>Notes</a>.
+      source_attribute: community.hosts6.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id011
+        description: Host6 entry ID. see <a href='#notes'>Notes</a>.
+        source_attribute: community.hosts6.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: community.hosts6.id
+    sources:
+    - ansible
+    - terraform
+  community.hosts6.ipv6:
+    canonical:
+      type: string
+      version_ranges: *id012
+      description: IPv6 address of the SNMP manager (host).
+      source_attribute: community.hosts6.ipv6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id012
+        description: IPv6 address of the SNMP manager (host).
+        source_attribute: community.hosts6.ipv6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: community.hosts6.ipv6
+    sources:
+    - ansible
+    - terraform
+  community.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id013
+      description: Community ID. see <a href='#notes'>Notes</a>.
+      source_attribute: community.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id013
+        description: Community ID. see <a href='#notes'>Notes</a>.
+        source_attribute: community.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: community.id
+    sources:
+    - ansible
+    - terraform
+  community.name:
+    canonical:
+      type: string
+      version_ranges: *id014
+      min_length: 0
+      max_length: 35
+      description: Community name.
+      source_attribute: community.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: Community name.
+        source_attribute: community.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: community.name
+    sources:
+    - ansible
+    - terraform
+  community.query_v1_status:
+    canonical:
+      type: enum
+      version_ranges: *id015
+      choices: *id016
+      description: Enable/disable SNMP v1 queries.
+      source_attribute: community.query_v1_status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id016
+        version_ranges: *id015
+        description: Enable/disable SNMP v1 queries.
+        source_attribute: community.query_v1_status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: community.query_v1_status
+    sources:
+    - ansible
+    - terraform
+  community.query_v2c_status:
+    canonical:
+      type: enum
+      version_ranges: *id017
+      choices: *id018
+      description: Enable/disable SNMP v2c queries.
+      source_attribute: community.query_v2c_status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id018
+        version_ranges: *id017
+        description: Enable/disable SNMP v2c queries.
+        source_attribute: community.query_v2c_status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: community.query_v2c_status
+    sources:
+    - ansible
+    - terraform
+  community.status:
+    canonical:
+      type: enum
+      version_ranges: *id019
+      choices: *id020
+      description: Enable/disable this SNMP community.
+      source_attribute: community.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id020
+        version_ranges: *id019
+        description: Enable/disable this SNMP community.
+        source_attribute: community.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: community.status
+    sources:
+    - ansible
+    - terraform
+  community.trap_v1_status:
+    canonical:
+      type: enum
+      version_ranges: *id021
+      choices: *id022
+      description: Enable/disable SNMP v1 traps.
+      source_attribute: community.trap_v1_status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id022
+        version_ranges: *id021
+        description: Enable/disable SNMP v1 traps.
+        source_attribute: community.trap_v1_status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: community.trap_v1_status
+    sources:
+    - ansible
+    - terraform
+  community.trap_v2c_status:
+    canonical:
+      type: enum
+      version_ranges: *id023
+      choices: *id024
+      description: Enable/disable SNMP v2c traps.
+      source_attribute: community.trap_v2c_status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id024
+        version_ranges: *id023
+        description: Enable/disable SNMP v2c traps.
+        source_attribute: community.trap_v2c_status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: community.trap_v2c_status
+    sources:
+    - ansible
+    - terraform
+  contact_info:
+    canonical:
+      type: string
+      version_ranges: &id025
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 31
+      description: Contact Information.
+      source_attribute: contact-info
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id025
+        description: Contact Information.
+        source_attribute: contact_info
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 31
+        source_attribute: contact_info
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Contact Information.
+        max_length: 31
+        source_attribute: contact-info
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  engine_id:
+    canonical:
+      type: string
+      version_ranges: &id026
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 23
+      description: AC SNMP engineID string (maximum 24 characters).
+      source_attribute: engine-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id026
+        description: AC SNMP engineID string (maximum 24 characters).
+        source_attribute: engine_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 23
+        source_attribute: engine_id
+      cli_reference:
+        type: string
+        raw_type: string
+        description: AC SNMP engineID string (maximum 24 characters).
+        max_length: 23
+        source_attribute: engine-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  trap_high_cpu_threshold:
+    canonical:
+      type: integer
+      version_ranges: &id027
+      - - v6.2.0
+        - ''
+      default: '80'
+      min: 10
+      max: 100
+      description: CPU usage when trap is sent.
+      source_attribute: trap-high-cpu-threshold
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id027
+        description: CPU usage when trap is sent.
+        source_attribute: trap_high_cpu_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 10
+        max: 100
+        source_attribute: trap_high_cpu_threshold
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: CPU usage when trap is sent.
+        default: '80'
+        min: 10
+        max: 100
+        source_attribute: trap-high-cpu-threshold
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  trap_high_mem_threshold:
+    canonical:
+      type: integer
+      version_ranges: &id028
+      - - v6.2.0
+        - ''
+      default: '80'
+      min: 10
+      max: 100
+      description: Memory usage when trap is sent.
+      source_attribute: trap-high-mem-threshold
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id028
+        description: Memory usage when trap is sent.
+        source_attribute: trap_high_mem_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 10
+        max: 100
+        source_attribute: trap_high_mem_threshold
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Memory usage when trap is sent.
+        default: '80'
+        min: 10
+        max: 100
+        source_attribute: trap-high-mem-threshold
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  user:
+    canonical:
+      type: list
+      elements: dict
+      children: &id030
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id034
+          - - v6.2.0
+            - ''
+          description: SNMP user name.
+        status:
+          type: enum
+          raw_type: string
+          choices: &id047
+          - enable
+          - disable
+          version_ranges: &id046
+          - - v6.2.0
+            - ''
+          description: SNMP user enable.
+        queries:
+          type: enum
+          raw_type: string
+          choices: &id043
+          - enable
+          - disable
+          version_ranges: &id042
+          - - v6.2.0
+            - ''
+          description: Enable/disable SNMP queries for this user.
+        trap_status:
+          type: enum
+          raw_type: string
+          choices: &id049
+          - enable
+          - disable
+          version_ranges: &id048
+          - - v6.2.0
+            - ''
+          description: Enable/disable traps for this SNMP user.
+        security_level:
+          type: enum
+          raw_type: string
+          choices: &id045
+          - no-auth-no-priv
+          - auth-no-priv
+          - auth-priv
+          version_ranges: &id044
+          - - v6.2.0
+            - ''
+          description: Security level for message authentication and encryption.
+        auth_proto:
+          type: enum
+          raw_type: string
+          choices: &id032
+          - md5
+          - sha
+          - sha224
+          - sha256
+          - sha384
+          - sha512
+          version_ranges: &id031
+          - - v6.2.0
+            - ''
+          description: Authentication protocol.
+        auth_pwd:
+          type: string
+          raw_type: string
+          version_ranges: &id033
+          - - v6.2.0
+            - ''
+          description: Password for authentication protocol.
+        priv_proto:
+          type: enum
+          raw_type: string
+          choices: &id040
+          - aes
+          - des
+          - aes256
+          - aes256cisco
+          version_ranges: &id039
+          - - v6.2.0
+            - ''
+          description: Privacy (encryption) protocol.
+        priv_pwd:
+          type: string
+          raw_type: string
+          version_ranges: &id041
+          - - v6.2.0
+            - ''
+          description: Password for privacy (encryption) protocol.
+        notify_hosts:
+          type: list
+          raw_type: list
+          multiple_values: true
+          elements: str
+          version_ranges: &id035
+          - - v6.2.0
+            - ''
+          description: Configure SNMP User Notify Hosts.
+        notify_hosts6:
+          type: list
+          raw_type: list
+          multiple_values: true
+          elements: str
+          version_ranges: &id037
+          - - v7.6.5
+            - ''
+          description: Configure IPv6 SNMP User Notify Hosts.
+      version_ranges: &id029
+      - - v6.2.0
+        - ''
+      description: SNMP User Configuration.
+      source_attribute: user
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id029
+        description: SNMP User Configuration.
+        children: *id030
+        source_attribute: user
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+            min_length: 0
+            max_length: 32
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          queries:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          trap_status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          security_level:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          auth_proto:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          auth_pwd:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 128
+          priv_proto:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          priv_pwd:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 128
+          notify_hosts:
+            type: string
+            raw_type: TypeString
+            optional: true
+          notify_hosts6:
+            type: string
+            raw_type: TypeString
+            optional: true
+        source_attribute: user
+    sources:
+    - ansible
+    - terraform
+  user.auth_proto:
+    canonical:
+      type: enum
+      version_ranges: *id031
+      choices: *id032
+      description: Authentication protocol.
+      source_attribute: user.auth_proto
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id032
+        version_ranges: *id031
+        description: Authentication protocol.
+        source_attribute: user.auth_proto
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: user.auth_proto
+    sources:
+    - ansible
+    - terraform
+  user.auth_pwd:
+    canonical:
+      type: string
+      version_ranges: *id033
+      min_length: 0
+      max_length: 128
+      description: Password for authentication protocol.
+      source_attribute: user.auth_pwd
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id033
+        description: Password for authentication protocol.
+        source_attribute: user.auth_pwd
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: user.auth_pwd
+    sources:
+    - ansible
+    - terraform
+  user.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id034
+      min_length: 0
+      max_length: 32
+      description: SNMP user name.
+      source_attribute: user.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id034
+        description: SNMP user name.
+        source_attribute: user.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 32
+        source_attribute: user.name
+    sources:
+    - ansible
+    - terraform
+  user.notify_hosts:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: *id035
+      description: Configure SNMP User Notify Hosts.
+      source_attribute: user.notify_hosts
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id035
+        description: Configure SNMP User Notify Hosts.
+        source_attribute: user.notify_hosts
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: user.notify_hosts
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id036
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id036
+  user.notify_hosts6:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: *id037
+      description: Configure IPv6 SNMP User Notify Hosts.
+      source_attribute: user.notify_hosts6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id037
+        description: Configure IPv6 SNMP User Notify Hosts.
+        source_attribute: user.notify_hosts6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: user.notify_hosts6
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id038
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id038
+  user.priv_proto:
+    canonical:
+      type: enum
+      version_ranges: *id039
+      choices: *id040
+      description: Privacy (encryption) protocol.
+      source_attribute: user.priv_proto
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id040
+        version_ranges: *id039
+        description: Privacy (encryption) protocol.
+        source_attribute: user.priv_proto
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: user.priv_proto
+    sources:
+    - ansible
+    - terraform
+  user.priv_pwd:
+    canonical:
+      type: string
+      version_ranges: *id041
+      min_length: 0
+      max_length: 128
+      description: Password for privacy (encryption) protocol.
+      source_attribute: user.priv_pwd
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id041
+        description: Password for privacy (encryption) protocol.
+        source_attribute: user.priv_pwd
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: user.priv_pwd
+    sources:
+    - ansible
+    - terraform
+  user.queries:
+    canonical:
+      type: enum
+      version_ranges: *id042
+      choices: *id043
+      description: Enable/disable SNMP queries for this user.
+      source_attribute: user.queries
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id043
+        version_ranges: *id042
+        description: Enable/disable SNMP queries for this user.
+        source_attribute: user.queries
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: user.queries
+    sources:
+    - ansible
+    - terraform
+  user.security_level:
+    canonical:
+      type: enum
+      version_ranges: *id044
+      choices: *id045
+      description: Security level for message authentication and encryption.
+      source_attribute: user.security_level
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id045
+        version_ranges: *id044
+        description: Security level for message authentication and encryption.
+        source_attribute: user.security_level
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: user.security_level
+    sources:
+    - ansible
+    - terraform
+  user.status:
+    canonical:
+      type: enum
+      version_ranges: *id046
+      choices: *id047
+      description: SNMP user enable.
+      source_attribute: user.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id047
+        version_ranges: *id046
+        description: SNMP user enable.
+        source_attribute: user.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: user.status
+    sources:
+    - ansible
+    - terraform
+  user.trap_status:
+    canonical:
+      type: enum
+      version_ranges: *id048
+      choices: *id049
+      description: Enable/disable traps for this SNMP user.
+      source_attribute: user.trap_status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id049
+        version_ranges: *id048
+        description: Enable/disable traps for this SNMP user.
+        source_attribute: user.trap_status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: user.trap_status
+    sources:
+    - ansible
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: user.notify_hosts
+  field: type
+  values:
+    ansible: list
+    terraform: string
+  classification: representation_or_real_conflict
+- attribute: user.notify_hosts6
+  field: type
+  values:
+    ansible: list
+    terraform: string
+  classification: representation_or_real_conflict

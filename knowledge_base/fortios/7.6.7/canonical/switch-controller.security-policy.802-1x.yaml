@@ -1,0 +1,1290 @@
+id: switch-controller.security-policy.802-1x
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  allow_mac_move:
+    canonical:
+      type: string
+      source_attribute: allow_mac_move
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: allow_mac_move
+    sources:
+    - terraform
+  auth_fail_vlan:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - disable
+      - enable
+      default: disable
+      description: Enable to allow limited access to clients that cannot authenticate.
+      source_attribute: auth-fail-vlan
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable to allow limited access to clients that cannot authenticate.
+        source_attribute: auth_fail_vlan
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auth_fail_vlan
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable to allow limited access to clients that cannot authenticate.
+        default: disable
+        source_attribute: auth-fail-vlan
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  auth_fail_vlan_id:
+    canonical:
+      type: string
+      references: &id004
+      - system.interface.name
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: VLAN ID on which authentication failed.
+      source_attribute: auth-fail-vlan-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: VLAN ID on which authentication failed. Source system.interface.name.
+        references: *id004
+        source_attribute: auth_fail_vlan_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: auth_fail_vlan_id
+      cli_reference:
+        type: string
+        raw_type: string
+        description: VLAN ID on which authentication failed.
+        max_length: 15
+        source_attribute: auth-fail-vlan-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  auth_fail_vlanid:
+    canonical:
+      type: integer
+      min: 0
+      max: 65535
+      source_attribute: auth_fail_vlanid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: auth_fail_vlanid
+    sources:
+    - terraform
+  auth_order:
+    canonical:
+      type: enum
+      version_ranges: &id006
+      - - v7.6.0
+        - ''
+      choices: &id005
+      - dot1x-mab
+      - mab-dot1x
+      - mab
+      default: mab-dot1x
+      description: Configure authentication order.
+      source_attribute: auth-order
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Configure authentication order.
+        source_attribute: auth_order
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auth_order
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Configure authentication order.
+        default: mab-dot1x
+        source_attribute: auth-order
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  auth_priority:
+    canonical:
+      type: enum
+      version_ranges: &id008
+      - - v7.6.0
+        - ''
+      choices: &id007
+      - legacy
+      - dot1x-mab
+      - mab-dot1x
+      default: legacy
+      description: Configure authentication priority.
+      source_attribute: auth-priority
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id007
+        version_ranges: *id008
+        description: Configure authentication priority.
+        source_attribute: auth_priority
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auth_priority
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Configure authentication priority.
+        default: legacy
+        source_attribute: auth-priority
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  authserver_timeout_period:
+    canonical:
+      type: integer
+      version_ranges: &id009
+      - - v6.4.4
+        - ''
+      default: '3'
+      min: 3
+      max: 15
+      description: Authentication server timeout period (3 - 15 sec, default = 3).
+      source_attribute: authserver-timeout-period
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id009
+        description: Authentication server timeout period (3 - 15 sec).
+        source_attribute: authserver_timeout_period
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 3
+        max: 15
+        source_attribute: authserver_timeout_period
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Authentication server timeout period (3 - 15 sec, default = 3).
+        default: '3'
+        min: 3
+        max: 15
+        source_attribute: authserver-timeout-period
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  authserver_timeout_tagged:
+    canonical:
+      type: enum
+      version_ranges: &id011
+      - - v7.4.4
+        - ''
+      choices: &id010
+      - disable
+      - lldp-voice
+      - static
+      default: disable
+      description: Configure timeout option for the tagged VLAN which allows limited access when the authentication server
+        is unavailable.
+      source_attribute: authserver-timeout-tagged
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id011
+        description: Configure timeout option for the tagged VLAN which allows limited access when the authentication server
+          is unavailable.
+        source_attribute: authserver_timeout_tagged
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: authserver_timeout_tagged
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Configure timeout option for the tagged VLAN which allows limited access when the authentication server
+          is unavailable.
+        default: disable
+        source_attribute: authserver-timeout-tagged
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  authserver_timeout_tagged_vlanid:
+    canonical:
+      type: string
+      references: &id013
+      - system.interface.name
+      version_ranges: &id012
+      - - v7.4.4
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Tagged VLAN name for which the timeout option is applied to (only one VLAN ID).
+      source_attribute: authserver-timeout-tagged-vlanid
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id012
+        description: Tagged VLAN name for which the timeout option is applied to (only one VLAN ID). Source system.interface.name.
+        references: *id013
+        source_attribute: authserver_timeout_tagged_vlanid
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: authserver_timeout_tagged_vlanid
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Tagged VLAN name for which the timeout option is applied to (only one VLAN ID).
+        max_length: 15
+        source_attribute: authserver-timeout-tagged-vlanid
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  authserver_timeout_vlan:
+    canonical:
+      type: enum
+      version_ranges: &id015
+      - - v6.4.4
+        - ''
+      choices: &id014
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable the authentication server timeout VLAN to allow limited access when RADIUS is unavailable.
+      source_attribute: authserver-timeout-vlan
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id014
+        version_ranges: *id015
+        description: Enable/disable the authentication server timeout VLAN to allow limited access when RADIUS is unavailable.
+        source_attribute: authserver_timeout_vlan
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: authserver_timeout_vlan
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable the authentication server timeout VLAN to allow limited access when RADIUS is unavailable.
+        default: disable
+        source_attribute: authserver-timeout-vlan
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  authserver_timeout_vlanid:
+    canonical:
+      type: string
+      references: &id017
+      - system.interface.name
+      version_ranges: &id016
+      - - v6.4.4
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Authentication server timeout VLAN name.
+      source_attribute: authserver-timeout-vlanid
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id016
+        description: Authentication server timeout VLAN name. Source system.interface.name.
+        references: *id017
+        source_attribute: authserver_timeout_vlanid
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: authserver_timeout_vlanid
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Authentication server timeout VLAN name.
+        max_length: 15
+        source_attribute: authserver-timeout-vlanid
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  client_limit:
+    canonical:
+      type: integer
+      min: 2
+      max: 20
+      source_attribute: client_limit
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 2
+        max: 20
+        source_attribute: client_limit
+    sources:
+    - terraform
+  dacl:
+    canonical:
+      type: enum
+      version_ranges: &id019
+      - - v7.4.4
+        - ''
+      choices: &id018
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable dynamic access control list on this interface.
+      source_attribute: dacl
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id018
+        version_ranges: *id019
+        description: Enable/disable dynamic access control list on this interface.
+        source_attribute: dacl
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dacl
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable dynamic access control list on this interface.
+        default: disable
+        source_attribute: dacl
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  eap_auto_untagged_vlans:
+    canonical:
+      type: enum
+      version_ranges: &id021
+      - - v6.4.0
+        - ''
+      choices: &id020
+      - disable
+      - enable
+      default: enable
+      description: Enable/disable automatic inclusion of untagged VLANs.
+      source_attribute: eap-auto-untagged-vlans
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id020
+        version_ranges: *id021
+        description: Enable/disable automatic inclusion of untagged VLANs.
+        source_attribute: eap_auto_untagged_vlans
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: eap_auto_untagged_vlans
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable automatic inclusion of untagged VLANs.
+        default: enable
+        source_attribute: eap-auto-untagged-vlans
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  eap_egress_tagged:
+    canonical:
+      type: string
+      source_attribute: eap_egress_tagged
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: eap_egress_tagged
+    sources:
+    - terraform
+  eap_passthru:
+    canonical:
+      type: enum
+      version_ranges: &id023
+      - - v6.0.0
+        - ''
+      choices: &id022
+      - disable
+      - enable
+      default: enable
+      description: Enable/disable EAP pass-through mode, allowing protocols (such as LLDP) to pass through ports for more
+        flexible authentication.
+      source_attribute: eap-passthru
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id022
+        version_ranges: *id023
+        description: Enable/disable EAP pass-through mode, allowing protocols (such as LLDP) to pass through ports for more
+          flexible authentication.
+        source_attribute: eap_passthru
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: eap_passthru
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable EAP pass-through mode, allowing protocols (such as LLDP) to pass through ports for more
+          flexible authentication.
+        default: enable
+        source_attribute: eap-passthru
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  framevid_apply:
+    canonical:
+      type: enum
+      version_ranges: &id025
+      - - v6.2.0
+        - ''
+      choices: &id024
+      - disable
+      - enable
+      default: enable
+      description: Enable/disable the capability to apply the EAP/MAB frame VLAN to the port native VLAN.
+      source_attribute: framevid-apply
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id024
+        version_ranges: *id025
+        description: Enable/disable the capability to apply the EAP/MAB frame VLAN to the port native VLAN.
+        source_attribute: framevid_apply
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: framevid_apply
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable the capability to apply the EAP/MAB frame VLAN to the port native VLAN.
+        default: enable
+        source_attribute: framevid-apply
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  guest_auth_delay:
+    canonical:
+      type: integer
+      version_ranges: &id026
+      - - v6.0.0
+        - ''
+      default: '30'
+      min: 1
+      max: 900
+      description: Guest authentication delay (1 - 900 sec, default = 30).
+      source_attribute: guest-auth-delay
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id026
+        description: Guest authentication delay (1 - 900  sec).
+        source_attribute: guest_auth_delay
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 900
+        source_attribute: guest_auth_delay
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Guest authentication delay (1 - 900 sec, default = 30).
+        default: '30'
+        min: 1
+        max: 900
+        source_attribute: guest-auth-delay
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  guest_vlan:
+    canonical:
+      type: enum
+      version_ranges: &id028
+      - - v6.0.0
+        - ''
+      choices: &id027
+      - disable
+      - enable
+      default: disable
+      description: Enable the guest VLAN feature to allow limited access to non-802.1X-compliant clients.
+      source_attribute: guest-vlan
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id027
+        version_ranges: *id028
+        description: Enable the guest VLAN feature to allow limited access to non-802.1X-compliant clients.
+        source_attribute: guest_vlan
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: guest_vlan
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable the guest VLAN feature to allow limited access to non-802.1X-compliant clients.
+        default: disable
+        source_attribute: guest-vlan
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  guest_vlan_id:
+    canonical:
+      type: string
+      references: &id030
+      - system.interface.name
+      version_ranges: &id029
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Guest VLAN name.
+      source_attribute: guest-vlan-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id029
+        description: Guest VLAN name. Source system.interface.name.
+        references: *id030
+        source_attribute: guest_vlan_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: guest_vlan_id
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Guest VLAN name.
+        max_length: 15
+        source_attribute: guest-vlan-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  guest_vlanid:
+    canonical:
+      type: integer
+      min: 0
+      max: 65535
+      source_attribute: guest_vlanid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: guest_vlanid
+    sources:
+    - terraform
+  mac_auth_bypass:
+    canonical:
+      type: enum
+      version_ranges: &id032
+      - - v6.0.0
+        - ''
+      choices: &id031
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable MAB for this policy.
+      source_attribute: mac-auth-bypass
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id031
+        version_ranges: *id032
+        description: Enable/disable MAB for this policy.
+        source_attribute: mac_auth_bypass
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mac_auth_bypass
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable MAB for this policy.
+        default: disable
+        source_attribute: mac-auth-bypass
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id033
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 31
+      description: Policy name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id033
+        description: Policy name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 31
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Policy name.
+        max_length: 31
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  open_auth:
+    canonical:
+      type: enum
+      version_ranges: &id035
+      - - v6.0.0
+        - ''
+      choices: &id034
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable open authentication for this policy.
+      source_attribute: open-auth
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id034
+        version_ranges: *id035
+        description: Enable/disable open authentication for this policy.
+        source_attribute: open_auth
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: open_auth
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable open authentication for this policy.
+        default: disable
+        source_attribute: open-auth
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  policy_type:
+    canonical:
+      type: enum
+      version_ranges: &id037
+      - - v6.0.0
+        - ''
+      choices: &id036
+      - 802.1X
+      default: 802.1X
+      description: Policy type.
+      source_attribute: policy-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id036
+        version_ranges: *id037
+        description: Policy type.
+        source_attribute: policy_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: policy_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Policy type.
+        default: 802.1X
+        source_attribute: policy-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  radius_timeout_overwrite:
+    canonical:
+      type: enum
+      version_ranges: &id039
+      - - v6.0.0
+        - ''
+      choices: &id038
+      - disable
+      - enable
+      default: disable
+      description: Enable to override the global RADIUS session timeout.
+      source_attribute: radius-timeout-overwrite
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id038
+        version_ranges: *id039
+        description: Enable to override the global RADIUS session timeout.
+        source_attribute: radius_timeout_overwrite
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: radius_timeout_overwrite
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable to override the global RADIUS session timeout.
+        default: disable
+        source_attribute: radius-timeout-overwrite
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  security_mode:
+    canonical:
+      type: enum
+      version_ranges: &id041
+      - - v6.0.0
+        - ''
+      choices: &id040
+      - 802.1X
+      - 802.1X-mac-based
+      default: 802.1X
+      description: Port or MAC based 802.1X security mode.
+      source_attribute: security-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id040
+        version_ranges: *id041
+        description: Port or MAC based 802.1X security mode.
+        source_attribute: security_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: security_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Port or MAC based 802.1X security mode.
+        default: 802.1X
+        source_attribute: security-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  user_group:
+    canonical:
+      type: list
+      elements: dict
+      children: &id043
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id046
+          - - v6.0.0
+            - ''
+          description: Group name. Source user.group.name.
+          references: &id045
+          - user.group.name
+      version_ranges: &id042
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Name of user-group to assign to this MAC Authentication Bypass (MAB) policy. Group name.
+      source_attribute: user-group
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id042
+        description: Name of user-group to assign to this MAC Authentication Bypass (MAB) policy.
+        children: *id043
+        source_attribute: user_group
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: user_group
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of user-group to assign to this MAC Authentication Bypass (MAB) policy. Group name.
+        max_length: 79
+        source_attribute: user-group
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id044
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id044
+  user_group.name:
+    canonical:
+      type: string
+      references: *id045
+      required: true
+      version_ranges: *id046
+      min_length: 0
+      max_length: 79
+      description: Group name. Source user.group.name.
+      source_attribute: user_group.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id046
+        description: Group name. Source user.group.name.
+        references: *id045
+        source_attribute: user_group.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: user_group.name
+    sources:
+    - ansible
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: user_group
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

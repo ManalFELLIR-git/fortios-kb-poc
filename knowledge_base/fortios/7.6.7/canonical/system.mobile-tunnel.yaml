@@ -1,0 +1,925 @@
+id: system.mobile-tunnel
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  hash_algorithm:
+    canonical:
+      type: enum
+      required: true
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - hmac-md5
+      default: hmac-md5
+      description: Hash Algorithm (Keyed MD5).
+      source_attribute: hash-algorithm
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Hash Algorithm (Keyed MD5).
+        source_attribute: hash_algorithm
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: hash_algorithm
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Hash Algorithm (Keyed MD5).
+        default: hmac-md5
+        source_attribute: hash-algorithm
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  home_address:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: 'Home IP address (Format: xxx.xxx.xxx.xxx).'
+      source_attribute: home-address
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: 'Home IP address (Format: xxx.xxx.xxx.xxx).'
+        source_attribute: home_address
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: home_address
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: 'Home IP address (Format: xxx.xxx.xxx.xxx).'
+        default: 0.0.0.0
+        source_attribute: home-address
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id004
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id004
+  home_agent:
+    canonical:
+      type: ipv4-address
+      required: true
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: 'IPv4 address of the NEMO HA (Format: xxx.xxx.xxx.xxx).'
+      source_attribute: home-agent
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: 'IPv4 address of the NEMO HA (Format: xxx.xxx.xxx.xxx).'
+        source_attribute: home_agent
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: home_agent
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: 'IPv4 address of the NEMO HA (Format: xxx.xxx.xxx.xxx).'
+        default: 0.0.0.0
+        source_attribute: home-agent
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id006
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id006
+  lifetime:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      default: '65535'
+      min: 180
+      max: 65535
+      description: NMMO HA registration request lifetime (180 - 65535 sec, default = 65535).
+      source_attribute: lifetime
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id007
+        description: NMMO HA registration request lifetime (180 - 65535 sec).
+        source_attribute: lifetime
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        required: true
+        min: 180
+        max: 65535
+        source_attribute: lifetime
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: NMMO HA registration request lifetime (180 - 65535 sec, default = 65535).
+        default: '65535'
+        min: 180
+        max: 65535
+        source_attribute: lifetime
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  n_mhae_key:
+    canonical:
+      type: password_aes256
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      description: NEMO authentication key.
+      source_attribute: n-mhae-key
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: NEMO authentication key.
+        source_attribute: n_mhae_key
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: n_mhae_key
+      cli_reference:
+        type: password_aes256
+        raw_type: password_aes256
+        description: NEMO authentication key.
+        source_attribute: n-mhae-key
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id009
+          primitive: string
+          format: password_aes256
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id009
+  n_mhae_key_type:
+    canonical:
+      type: enum
+      required: true
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      choices: &id010
+      - ascii
+      - base64
+      default: ascii
+      description: NEMO authentication key type (ASCII or base64).
+      source_attribute: n-mhae-key-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id011
+        description: NEMO authentication key type (ASCII or base64).
+        source_attribute: n_mhae_key_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: n_mhae_key_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: NEMO authentication key type (ASCII or base64).
+        default: ascii
+        source_attribute: n-mhae-key-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  n_mhae_spi:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id012
+      - - v6.0.0
+        - ''
+      default: '256'
+      min: 0
+      max: 4294967295
+      description: 'NEMO authentication SPI (default: 256).'
+      source_attribute: n-mhae-spi
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id012
+        description: NEMO authentication SPI .
+        source_attribute: n_mhae_spi
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        required: true
+        source_attribute: n_mhae_spi
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: 'NEMO authentication SPI (default: 256).'
+        default: '256'
+        min: 0
+        max: 4294967295
+        source_attribute: n-mhae-spi
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id013
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Tunnel name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id013
+        description: Tunnel name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 15
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Tunnel name.
+        max_length: 15
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  network:
+    canonical:
+      type: list
+      elements: dict
+      children: &id015
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id016
+          - - v6.0.0
+            - ''
+          description: Network entry ID. see <a href='#notes'>Notes</a>.
+        interface:
+          type: string
+          raw_type: string
+          version_ranges: &id018
+          - - v6.0.0
+            - ''
+          description: Select the associated interface name from available options. Source system.interface.name.
+          references: &id017
+          - system.interface.name
+        prefix:
+          type: string
+          raw_type: string
+          version_ranges: &id019
+          - - v6.0.0
+            - ''
+          description: Class IP and Netmask with correction (Format:xxx.xxx.xxx.xxx xxx.xxx.xxx.xxx or xxx.xxx.xxx.xxx/x).
+      version_ranges: &id014
+      - - v6.0.0
+        - ''
+      description: NEMO network configuration.
+      source_attribute: network
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id014
+        description: NEMO network configuration.
+        children: *id015
+        source_attribute: network
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          prefix:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: network
+    sources:
+    - ansible
+    - terraform
+  network.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id016
+      description: Network entry ID. see <a href='#notes'>Notes</a>.
+      source_attribute: network.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id016
+        description: Network entry ID. see <a href='#notes'>Notes</a>.
+        source_attribute: network.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: network.id
+    sources:
+    - ansible
+    - terraform
+  network.interface:
+    canonical:
+      type: string
+      references: *id017
+      version_ranges: *id018
+      min_length: 0
+      max_length: 15
+      description: Select the associated interface name from available options. Source system.interface.name.
+      source_attribute: network.interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id018
+        description: Select the associated interface name from available options. Source system.interface.name.
+        references: *id017
+        source_attribute: network.interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: network.interface
+    sources:
+    - ansible
+    - terraform
+  network.prefix:
+    canonical:
+      type: string
+      version_ranges: *id019
+      description: Class IP and Netmask with correction (Format:xxx.xxx.xxx.xxx xxx.xxx.xxx.xxx or xxx.xxx.xxx.xxx/x).
+      source_attribute: network.prefix
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id019
+        description: Class IP and Netmask with correction (Format:xxx.xxx.xxx.xxx xxx.xxx.xxx.xxx or xxx.xxx.xxx.xxx/x).
+        source_attribute: network.prefix
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: network.prefix
+    sources:
+    - ansible
+    - terraform
+  reg_interval:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id020
+      - - v6.0.0
+        - ''
+      default: '5'
+      min: 5
+      max: 300
+      description: NMMO HA registration interval (5 - 300, default = 5).
+      source_attribute: reg-interval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id020
+        description: NMMO HA registration interval (5 - 300).
+        source_attribute: reg_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        required: true
+        min: 5
+        max: 300
+        source_attribute: reg_interval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: NMMO HA registration interval (5 - 300, default = 5).
+        default: '5'
+        min: 5
+        max: 300
+        source_attribute: reg-interval
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  reg_retry:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id021
+      - - v6.0.0
+        - ''
+      default: '3'
+      min: 1
+      max: 30
+      description: Maximum number of NMMO HA registration retries (1 to 30, default = 3).
+      source_attribute: reg-retry
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id021
+        description: Maximum number of NMMO HA registration retries (1 to 30).
+        source_attribute: reg_retry
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        required: true
+        min: 1
+        max: 30
+        source_attribute: reg_retry
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum number of NMMO HA registration retries (1 to 30, default = 3).
+        default: '3'
+        min: 1
+        max: 30
+        source_attribute: reg-retry
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  renew_interval:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id022
+      - - v6.0.0
+        - ''
+      default: '60'
+      min: 5
+      max: 60
+      description: Time before lifetime expiration to send NMMO HA re-registration (5 - 60, default = 60).
+      source_attribute: renew-interval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id022
+        description: Time before lifetime expiration to send NMMO HA re-registration (5 - 60).
+        source_attribute: renew_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        required: true
+        min: 5
+        max: 60
+        source_attribute: renew_interval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time before lifetime expiration to send NMMO HA re-registration (5 - 60, default = 60).
+        default: '60'
+        min: 5
+        max: 60
+        source_attribute: renew-interval
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  roaming_interface:
+    canonical:
+      type: string
+      references: &id024
+      - system.interface.name
+      required: true
+      version_ranges: &id023
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Select the associated interface name from available options.
+      source_attribute: roaming-interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id023
+        description: Select the associated interface name from available options. Source system.interface.name.
+        references: *id024
+        source_attribute: roaming_interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 15
+        source_attribute: roaming_interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Select the associated interface name from available options.
+        max_length: 15
+        source_attribute: roaming-interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id026
+      - - v6.0.0
+        - ''
+      choices: &id025
+      - disable
+      - enable
+      default: enable
+      description: Enable/disable this mobile tunnel.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id025
+        version_ranges: *id026
+        description: Enable/disable this mobile tunnel.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable this mobile tunnel.
+        default: enable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  tunnel_mode:
+    canonical:
+      type: enum
+      required: true
+      version_ranges: &id028
+      - - v6.0.0
+        - ''
+      choices: &id027
+      - gre
+      default: gre
+      description: NEMO tunnel mode (GRE tunnel).
+      source_attribute: tunnel-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id027
+        version_ranges: *id028
+        description: NEMO tunnel mode (GRE tunnel).
+        source_attribute: tunnel_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: tunnel_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: NEMO tunnel mode (GRE tunnel).
+        default: gre
+        source_attribute: tunnel-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: home_address
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: home_agent
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: n_mhae_key
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password_aes256
+  classification: representation_or_real_conflict

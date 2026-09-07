@@ -1,0 +1,2071 @@
+id: system.standalone-cluster
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  asymmetric_traffic_control:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.4.2
+        - ''
+      choices: &id001
+      - cps-preferred
+      - strict-anti-replay
+      default: cps-preferred
+      description: Asymmetric traffic control mode.
+      source_attribute: asymmetric-traffic-control
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Asymmetric traffic control mode.
+        source_attribute: asymmetric_traffic_control
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: asymmetric_traffic_control
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Asymmetric traffic control mode.
+        default: cps-preferred
+        source_attribute: asymmetric-traffic-control
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cluster_peer:
+    canonical:
+      type: list
+      elements: dict
+      children: &id004
+        sync_id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id037
+          - - v7.2.1
+            - ''
+          description: Sync ID. see <a href='#notes'>Notes</a>.
+        peervd:
+          type: string
+          raw_type: string
+          version_ranges: &id016
+          - - v7.2.1
+            - ''
+          description: VDOM that contains the session synchronization link interface on the peer unit. Usually both peers
+            would have the same peervd. Source system.vdom.name.
+          references: &id015
+          - system.vdom.name
+        peerip:
+          type: string
+          raw_type: string
+          version_ranges: &id014
+          - - v7.2.1
+            - ''
+          description: IP address of the interface on the peer unit that is used for the session synchronization link.
+        syncvd:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id039
+          - - v7.2.1
+            - ''
+          description: Sessions from these VDOMs are synchronized using this session synchronization configuration.
+          children: &id038
+            name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id042
+              - - v7.2.1
+                - ''
+              description: VDOM name. Source system.vdom.name.
+              references: &id041
+              - system.vdom.name
+        down_intfs_before_sess_sync:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id006
+          - - v7.2.1
+            - ''
+          description: List of interfaces to be turned down before session synchronization is complete.
+          children: &id005
+            name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id009
+              - - v7.2.1
+                - ''
+              description: Interface name. Source system.interface.name.
+              references: &id008
+              - system.interface.name
+        hb_interval:
+          type: integer
+          raw_type: integer
+          version_ranges: &id010
+          - - v7.2.1
+            - ''
+          description: Heartbeat interval (1 - 20) (100*ms). Increase to reduce false positives.
+        hb_lost_threshold:
+          type: integer
+          raw_type: integer
+          version_ranges: &id011
+          - - v7.2.1
+            - ''
+          description: Lost heartbeat threshold (1 - 60). Increase to reduce false positives.
+        ipsec_tunnel_sync:
+          type: enum
+          raw_type: string
+          choices: &id013
+          - enable
+          - disable
+          version_ranges: &id012
+          - - v7.2.1
+            - ''
+          description: Enable/disable IPsec tunnel synchronization.
+        secondary_add_ipsec_routes:
+          type: enum
+          raw_type: string
+          choices: &id018
+          - enable
+          - disable
+          version_ranges: &id017
+          - - v7.2.1
+            - ''
+          description: Enable/disable IKE route announcement on the backup unit.
+        session_sync_filter:
+          type: object
+          raw_type: dict
+          version_ranges: &id020
+          - - v7.2.1
+            - ''
+          description: Add one or more filters if you only want to synchronize some sessions. Use the filter to configure
+            the types of sessions to synchronize.
+          children: &id019
+            srcintf:
+              type: string
+              raw_type: string
+              version_ranges: &id036
+              - - v7.2.1
+                - ''
+              description: Only sessions from this interface are synchronized. Source system.interface.name.
+              references: &id035
+              - system.interface.name
+            dstintf:
+              type: string
+              raw_type: string
+              version_ranges: &id032
+              - - v7.2.1
+                - ''
+              description: Only sessions to this interface are synchronized. Source system.interface.name.
+              references: &id031
+              - system.interface.name
+            srcaddr:
+              type: string
+              raw_type: string
+              version_ranges: &id033
+              - - v7.2.1
+                - ''
+              description: Only sessions from this IPv4 address are synchronized.
+            dstaddr:
+              type: string
+              raw_type: string
+              version_ranges: &id029
+              - - v7.2.1
+                - ''
+              description: Only sessions to this IPv4 address are synchronized.
+            srcaddr6:
+              type: string
+              raw_type: string
+              version_ranges: &id034
+              - - v7.2.1
+                - ''
+              description: Only sessions from this IPv6 address are synchronized.
+            dstaddr6:
+              type: string
+              raw_type: string
+              version_ranges: &id030
+              - - v7.2.1
+                - ''
+              description: Only sessions to this IPv6 address are synchronized.
+            custom_service:
+              type: list
+              raw_type: list
+              elements: dict
+              version_ranges: &id024
+              - - v7.2.1
+                - ''
+              description: Only sessions using these custom services are synchronized. Use source and destination port ranges
+                to define these custom services.
+              children: &id023
+                id:
+                  type: integer
+                  raw_type: integer
+                  required: true
+                  version_ranges: &id027
+                  - - v7.2.1
+                    - ''
+                  description: Custom service ID. see <a href='#notes'>Notes</a>.
+                src_port_range:
+                  type: string
+                  raw_type: string
+                  version_ranges: &id028
+                  - - v7.2.1
+                    - ''
+                  description: Custom service source port range.
+                dst_port_range:
+                  type: string
+                  raw_type: string
+                  version_ranges: &id026
+                  - - v7.2.1
+                    - ''
+                  description: Custom service destination port range.
+      version_ranges: &id003
+      - - v7.2.1
+        - ''
+      description: Configure FortiGate Session Life Support Protocol (FGSP) session synchronization.
+      source_attribute: cluster_peer
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id003
+        description: Configure FortiGate Session Life Support Protocol (FGSP) session synchronization.
+        children: *id004
+        source_attribute: cluster_peer
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          sync_id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          peervd:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+            min_length: 0
+            max_length: 31
+          peerip:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          syncvd:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id040
+              name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+          interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          source_ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          down_intfs_before_sess_sync:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id007
+              name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+          hb_interval:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 20
+          hb_lost_threshold:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 60
+          ipsec_tunnel_sync:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          secondary_add_ipsec_routes:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          session_sync_filter:
+            type: list
+            raw_type: TypeList
+            optional: true
+            computed: true
+            children: &id021
+              srcintf:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 15
+              dstintf:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 15
+              srcaddr:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              dstaddr:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              srcaddr6:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              dstaddr6:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              custom_service:
+                type: list
+                raw_type: TypeList
+                optional: true
+                children: &id025
+                  id:
+                    type: integer
+                    raw_type: TypeInt
+                    optional: true
+                    computed: true
+                  src_port_range:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    computed: true
+                  dst_port_range:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    computed: true
+        source_attribute: cluster_peer
+    sources:
+    - ansible
+    - terraform
+  cluster_peer.down_intfs_before_sess_sync:
+    canonical:
+      type: list
+      elements: dict
+      children: *id005
+      version_ranges: *id006
+      description: List of interfaces to be turned down before session synchronization is complete.
+      source_attribute: cluster_peer.down_intfs_before_sess_sync
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id006
+        description: List of interfaces to be turned down before session synchronization is complete.
+        children: *id005
+        source_attribute: cluster_peer.down_intfs_before_sess_sync
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id007
+        source_attribute: cluster_peer.down_intfs_before_sess_sync
+    sources:
+    - ansible
+    - terraform
+  cluster_peer.down_intfs_before_sess_sync.name:
+    canonical:
+      type: string
+      references: *id008
+      required: true
+      version_ranges: *id009
+      min_length: 0
+      max_length: 79
+      description: Interface name. Source system.interface.name.
+      source_attribute: cluster_peer.down_intfs_before_sess_sync.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id009
+        description: Interface name. Source system.interface.name.
+        references: *id008
+        source_attribute: cluster_peer.down_intfs_before_sess_sync.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: cluster_peer.down_intfs_before_sess_sync.name
+    sources:
+    - ansible
+    - terraform
+  cluster_peer.hb_interval:
+    canonical:
+      type: integer
+      version_ranges: *id010
+      min: 1
+      max: 20
+      description: Heartbeat interval (1 - 20) (100*ms). Increase to reduce false positives.
+      source_attribute: cluster_peer.hb_interval
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id010
+        description: Heartbeat interval (1 - 20) (100*ms). Increase to reduce false positives.
+        source_attribute: cluster_peer.hb_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 20
+        source_attribute: cluster_peer.hb_interval
+    sources:
+    - ansible
+    - terraform
+  cluster_peer.hb_lost_threshold:
+    canonical:
+      type: integer
+      version_ranges: *id011
+      min: 1
+      max: 60
+      description: Lost heartbeat threshold (1 - 60). Increase to reduce false positives.
+      source_attribute: cluster_peer.hb_lost_threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id011
+        description: Lost heartbeat threshold (1 - 60). Increase to reduce false positives.
+        source_attribute: cluster_peer.hb_lost_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 60
+        source_attribute: cluster_peer.hb_lost_threshold
+    sources:
+    - ansible
+    - terraform
+  cluster_peer.interface:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 15
+      source_attribute: cluster_peer.interface
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: cluster_peer.interface
+    sources:
+    - terraform
+  cluster_peer.ipsec_tunnel_sync:
+    canonical:
+      type: enum
+      version_ranges: *id012
+      choices: *id013
+      description: Enable/disable IPsec tunnel synchronization.
+      source_attribute: cluster_peer.ipsec_tunnel_sync
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id012
+        description: Enable/disable IPsec tunnel synchronization.
+        source_attribute: cluster_peer.ipsec_tunnel_sync
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cluster_peer.ipsec_tunnel_sync
+    sources:
+    - ansible
+    - terraform
+  cluster_peer.peerip:
+    canonical:
+      type: string
+      version_ranges: *id014
+      description: IP address of the interface on the peer unit that is used for the session synchronization link.
+      source_attribute: cluster_peer.peerip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: IP address of the interface on the peer unit that is used for the session synchronization link.
+        source_attribute: cluster_peer.peerip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cluster_peer.peerip
+    sources:
+    - ansible
+    - terraform
+  cluster_peer.peervd:
+    canonical:
+      type: string
+      references: *id015
+      version_ranges: *id016
+      min_length: 0
+      max_length: 31
+      description: VDOM that contains the session synchronization link interface on the peer unit. Usually both peers would
+        have the same peervd. Source system.vdom.name.
+      source_attribute: cluster_peer.peervd
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id016
+        description: VDOM that contains the session synchronization link interface on the peer unit. Usually both peers would
+          have the same peervd. Source system.vdom.name.
+        references: *id015
+        source_attribute: cluster_peer.peervd
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 31
+        source_attribute: cluster_peer.peervd
+    sources:
+    - ansible
+    - terraform
+  cluster_peer.secondary_add_ipsec_routes:
+    canonical:
+      type: enum
+      version_ranges: *id017
+      choices: *id018
+      description: Enable/disable IKE route announcement on the backup unit.
+      source_attribute: cluster_peer.secondary_add_ipsec_routes
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id018
+        version_ranges: *id017
+        description: Enable/disable IKE route announcement on the backup unit.
+        source_attribute: cluster_peer.secondary_add_ipsec_routes
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cluster_peer.secondary_add_ipsec_routes
+    sources:
+    - ansible
+    - terraform
+  cluster_peer.session_sync_filter:
+    canonical:
+      type: list
+      children: *id019
+      version_ranges: *id020
+      description: Add one or more filters if you only want to synchronize some sessions. Use the filter to configure the
+        types of sessions to synchronize.
+      source_attribute: cluster_peer.session_sync_filter
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id020
+        description: Add one or more filters if you only want to synchronize some sessions. Use the filter to configure the
+          types of sessions to synchronize.
+        children: *id019
+        source_attribute: cluster_peer.session_sync_filter
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children: *id021
+        source_attribute: cluster_peer.session_sync_filter
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id022
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id022
+  cluster_peer.session_sync_filter.custom_service:
+    canonical:
+      type: list
+      elements: dict
+      children: *id023
+      version_ranges: *id024
+      description: Only sessions using these custom services are synchronized. Use source and destination port ranges to define
+        these custom services.
+      source_attribute: cluster_peer.session_sync_filter.custom_service
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id024
+        description: Only sessions using these custom services are synchronized. Use source and destination port ranges to
+          define these custom services.
+        children: *id023
+        source_attribute: cluster_peer.session_sync_filter.custom_service
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id025
+        source_attribute: cluster_peer.session_sync_filter.custom_service
+    sources:
+    - ansible
+    - terraform
+  cluster_peer.session_sync_filter.custom_service.dst_port_range:
+    canonical:
+      type: string
+      version_ranges: *id026
+      description: Custom service destination port range.
+      source_attribute: cluster_peer.session_sync_filter.custom_service.dst_port_range
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id026
+        description: Custom service destination port range.
+        source_attribute: cluster_peer.session_sync_filter.custom_service.dst_port_range
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cluster_peer.session_sync_filter.custom_service.dst_port_range
+    sources:
+    - ansible
+    - terraform
+  cluster_peer.session_sync_filter.custom_service.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id027
+      description: Custom service ID. see <a href='#notes'>Notes</a>.
+      source_attribute: cluster_peer.session_sync_filter.custom_service.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id027
+        description: Custom service ID. see <a href='#notes'>Notes</a>.
+        source_attribute: cluster_peer.session_sync_filter.custom_service.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: cluster_peer.session_sync_filter.custom_service.id
+    sources:
+    - ansible
+    - terraform
+  cluster_peer.session_sync_filter.custom_service.src_port_range:
+    canonical:
+      type: string
+      version_ranges: *id028
+      description: Custom service source port range.
+      source_attribute: cluster_peer.session_sync_filter.custom_service.src_port_range
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id028
+        description: Custom service source port range.
+        source_attribute: cluster_peer.session_sync_filter.custom_service.src_port_range
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cluster_peer.session_sync_filter.custom_service.src_port_range
+    sources:
+    - ansible
+    - terraform
+  cluster_peer.session_sync_filter.dstaddr:
+    canonical:
+      type: string
+      version_ranges: *id029
+      description: Only sessions to this IPv4 address are synchronized.
+      source_attribute: cluster_peer.session_sync_filter.dstaddr
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id029
+        description: Only sessions to this IPv4 address are synchronized.
+        source_attribute: cluster_peer.session_sync_filter.dstaddr
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cluster_peer.session_sync_filter.dstaddr
+    sources:
+    - ansible
+    - terraform
+  cluster_peer.session_sync_filter.dstaddr6:
+    canonical:
+      type: string
+      version_ranges: *id030
+      description: Only sessions to this IPv6 address are synchronized.
+      source_attribute: cluster_peer.session_sync_filter.dstaddr6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id030
+        description: Only sessions to this IPv6 address are synchronized.
+        source_attribute: cluster_peer.session_sync_filter.dstaddr6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cluster_peer.session_sync_filter.dstaddr6
+    sources:
+    - ansible
+    - terraform
+  cluster_peer.session_sync_filter.dstintf:
+    canonical:
+      type: string
+      references: *id031
+      version_ranges: *id032
+      min_length: 0
+      max_length: 15
+      description: Only sessions to this interface are synchronized. Source system.interface.name.
+      source_attribute: cluster_peer.session_sync_filter.dstintf
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id032
+        description: Only sessions to this interface are synchronized. Source system.interface.name.
+        references: *id031
+        source_attribute: cluster_peer.session_sync_filter.dstintf
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: cluster_peer.session_sync_filter.dstintf
+    sources:
+    - ansible
+    - terraform
+  cluster_peer.session_sync_filter.srcaddr:
+    canonical:
+      type: string
+      version_ranges: *id033
+      description: Only sessions from this IPv4 address are synchronized.
+      source_attribute: cluster_peer.session_sync_filter.srcaddr
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id033
+        description: Only sessions from this IPv4 address are synchronized.
+        source_attribute: cluster_peer.session_sync_filter.srcaddr
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cluster_peer.session_sync_filter.srcaddr
+    sources:
+    - ansible
+    - terraform
+  cluster_peer.session_sync_filter.srcaddr6:
+    canonical:
+      type: string
+      version_ranges: *id034
+      description: Only sessions from this IPv6 address are synchronized.
+      source_attribute: cluster_peer.session_sync_filter.srcaddr6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id034
+        description: Only sessions from this IPv6 address are synchronized.
+        source_attribute: cluster_peer.session_sync_filter.srcaddr6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cluster_peer.session_sync_filter.srcaddr6
+    sources:
+    - ansible
+    - terraform
+  cluster_peer.session_sync_filter.srcintf:
+    canonical:
+      type: string
+      references: *id035
+      version_ranges: *id036
+      min_length: 0
+      max_length: 15
+      description: Only sessions from this interface are synchronized. Source system.interface.name.
+      source_attribute: cluster_peer.session_sync_filter.srcintf
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id036
+        description: Only sessions from this interface are synchronized. Source system.interface.name.
+        references: *id035
+        source_attribute: cluster_peer.session_sync_filter.srcintf
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: cluster_peer.session_sync_filter.srcintf
+    sources:
+    - ansible
+    - terraform
+  cluster_peer.source_ip:
+    canonical:
+      type: string
+      source_attribute: cluster_peer.source_ip
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cluster_peer.source_ip
+    sources:
+    - terraform
+  cluster_peer.sync_id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id037
+      description: Sync ID. see <a href='#notes'>Notes</a>.
+      source_attribute: cluster_peer.sync_id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id037
+        description: Sync ID. see <a href='#notes'>Notes</a>.
+        source_attribute: cluster_peer.sync_id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: cluster_peer.sync_id
+    sources:
+    - ansible
+    - terraform
+  cluster_peer.syncvd:
+    canonical:
+      type: list
+      elements: dict
+      children: *id038
+      version_ranges: *id039
+      description: Sessions from these VDOMs are synchronized using this session synchronization configuration.
+      source_attribute: cluster_peer.syncvd
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id039
+        description: Sessions from these VDOMs are synchronized using this session synchronization configuration.
+        children: *id038
+        source_attribute: cluster_peer.syncvd
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id040
+        source_attribute: cluster_peer.syncvd
+    sources:
+    - ansible
+    - terraform
+  cluster_peer.syncvd.name:
+    canonical:
+      type: string
+      references: *id041
+      required: true
+      version_ranges: *id042
+      min_length: 0
+      max_length: 79
+      description: VDOM name. Source system.vdom.name.
+      source_attribute: cluster_peer.syncvd.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id042
+        description: VDOM name. Source system.vdom.name.
+        references: *id041
+        source_attribute: cluster_peer.syncvd.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: cluster_peer.syncvd.name
+    sources:
+    - ansible
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  encryption:
+    canonical:
+      type: enum
+      version_ranges: &id044
+      - - v6.4.0
+        - ''
+      choices: &id043
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable encryption when synchronizing sessions.
+      source_attribute: encryption
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id043
+        version_ranges: *id044
+        description: Enable/disable encryption when synchronizing sessions.
+        source_attribute: encryption
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: encryption
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable encryption when synchronizing sessions.
+        default: disable
+        source_attribute: encryption
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  group_member_id:
+    canonical:
+      type: integer
+      version_ranges: &id045
+      - - v6.4.0
+        - ''
+      default: '0'
+      min: 0
+      max: 15
+      description: Cluster member ID (0 - 15).
+      source_attribute: group-member-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id045
+        description: Cluster member ID (0 - 15).
+        source_attribute: group_member_id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 15
+        source_attribute: group_member_id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Cluster member ID (0 - 15).
+        default: '0'
+        min: 0
+        max: 15
+        source_attribute: group-member-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  helper_traffic_bounce:
+    canonical:
+      type: enum
+      version_ranges: &id047
+      - - v7.6.4
+        - ''
+      choices: &id046
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable helper related traffic bounce.
+      source_attribute: helper-traffic-bounce
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id046
+        version_ranges: *id047
+        description: Enable/disable helper related traffic bounce.
+        source_attribute: helper_traffic_bounce
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: helper_traffic_bounce
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable helper related traffic bounce.
+        default: enable
+        source_attribute: helper-traffic-bounce
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  layer2_connection:
+    canonical:
+      type: enum
+      version_ranges: &id049
+      - - v6.4.0
+        - ''
+      choices: &id048
+      - available
+      - unavailable
+      default: unavailable
+      description: Indicate whether layer 2 connections are present among FGSP members.
+      source_attribute: layer2-connection
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id048
+        version_ranges: *id049
+        description: Indicate whether layer 2 connections are present among FGSP members.
+        source_attribute: layer2_connection
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: layer2_connection
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Indicate whether layer 2 connections are present among FGSP members.
+        default: unavailable
+        source_attribute: layer2-connection
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  monitor_interface:
+    canonical:
+      type: list
+      elements: dict
+      children: &id051
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id054
+          - - v7.6.0
+            - ''
+          description: Interface name. Source system.interface.name.
+          references: &id053
+          - system.interface.name
+      version_ranges: &id050
+      - - v7.6.0
+        - ''
+      max_length: 79
+      description: Configure a list of interfaces on which to monitor itself. Monitoring is performed on the status of the
+        interface. Interface name.
+      source_attribute: monitor-interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id050
+        description: Configure a list of interfaces on which to monitor itself. Monitoring is performed on the status of the
+          interface.
+        children: *id051
+        source_attribute: monitor_interface
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: monitor_interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Configure a list of interfaces on which to monitor itself. Monitoring is performed on the status of the
+          interface. Interface name.
+        max_length: 79
+        source_attribute: monitor-interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id052
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id052
+  monitor_interface.name:
+    canonical:
+      type: string
+      references: *id053
+      required: true
+      version_ranges: *id054
+      min_length: 0
+      max_length: 79
+      description: Interface name. Source system.interface.name.
+      source_attribute: monitor_interface.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id054
+        description: Interface name. Source system.interface.name.
+        references: *id053
+        source_attribute: monitor_interface.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: monitor_interface.name
+    sources:
+    - ansible
+    - terraform
+  monitor_prefix:
+    canonical:
+      type: list
+      elements: dict
+      children: &id056
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id057
+          - - v7.6.1
+            - ''
+          description: ID. see <a href='#notes'>Notes</a>.
+        vdom:
+          type: string
+          raw_type: string
+          version_ranges: &id060
+          - - v7.6.1
+            - ''
+          description: VDOM name. Source system.vdom.name.
+          references: &id059
+          - system.vdom.name
+        vrf:
+          type: integer
+          raw_type: integer
+          version_ranges: &id061
+          - - v7.6.1
+            - ''
+          description: VRF ID.
+        prefix:
+          type: string
+          raw_type: string
+          version_ranges: &id058
+          - - v7.6.1
+            - ''
+          description: Prefix.
+      version_ranges: &id055
+      - - v7.6.1
+        - ''
+      description: Configure a list of routing prefixes to monitor.
+      source_attribute: monitor_prefix
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id055
+        description: Configure a list of routing prefixes to monitor.
+        children: *id056
+        source_attribute: monitor_prefix
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          vdom:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 31
+          vrf:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 511
+          prefix:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: monitor_prefix
+    sources:
+    - ansible
+    - terraform
+  monitor_prefix.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id057
+      description: ID. see <a href='#notes'>Notes</a>.
+      source_attribute: monitor_prefix.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id057
+        description: ID. see <a href='#notes'>Notes</a>.
+        source_attribute: monitor_prefix.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: monitor_prefix.id
+    sources:
+    - ansible
+    - terraform
+  monitor_prefix.prefix:
+    canonical:
+      type: string
+      version_ranges: *id058
+      description: Prefix.
+      source_attribute: monitor_prefix.prefix
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id058
+        description: Prefix.
+        source_attribute: monitor_prefix.prefix
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: monitor_prefix.prefix
+    sources:
+    - ansible
+    - terraform
+  monitor_prefix.vdom:
+    canonical:
+      type: string
+      references: *id059
+      version_ranges: *id060
+      min_length: 0
+      max_length: 31
+      description: VDOM name. Source system.vdom.name.
+      source_attribute: monitor_prefix.vdom
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id060
+        description: VDOM name. Source system.vdom.name.
+        references: *id059
+        source_attribute: monitor_prefix.vdom
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 31
+        source_attribute: monitor_prefix.vdom
+    sources:
+    - ansible
+    - terraform
+  monitor_prefix.vrf:
+    canonical:
+      type: integer
+      version_ranges: *id061
+      min: 0
+      max: 511
+      description: VRF ID.
+      source_attribute: monitor_prefix.vrf
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id061
+        description: VRF ID.
+        source_attribute: monitor_prefix.vrf
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 511
+        source_attribute: monitor_prefix.vrf
+    sources:
+    - ansible
+    - terraform
+  pingsvr_monitor_interface:
+    canonical:
+      type: list
+      elements: dict
+      children: &id063
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id066
+          - - v7.6.0
+            - ''
+          description: Interface name. Source system.interface.name.
+          references: &id065
+          - system.interface.name
+      version_ranges: &id062
+      - - v7.6.0
+        - ''
+      max_length: 79
+      description: List of pingsvr monitor interface to check for remote IP monitoring. Interface name.
+      source_attribute: pingsvr-monitor-interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id062
+        description: List of pingsvr monitor interface to check for remote IP monitoring.
+        children: *id063
+        source_attribute: pingsvr_monitor_interface
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: pingsvr_monitor_interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: List of pingsvr monitor interface to check for remote IP monitoring. Interface name.
+        max_length: 79
+        source_attribute: pingsvr-monitor-interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id064
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id064
+  pingsvr_monitor_interface.name:
+    canonical:
+      type: string
+      references: *id065
+      required: true
+      version_ranges: *id066
+      min_length: 0
+      max_length: 79
+      description: Interface name. Source system.interface.name.
+      source_attribute: pingsvr_monitor_interface.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id066
+        description: Interface name. Source system.interface.name.
+        references: *id065
+        source_attribute: pingsvr_monitor_interface.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: pingsvr_monitor_interface.name
+    sources:
+    - ansible
+    - terraform
+  psksecret:
+    canonical:
+      type: password-3
+      version_ranges: &id067
+      - - v6.4.0
+        - ''
+      description: Pre-shared secret for session synchronization (ASCII string or hexadecimal encoded with a leading 0x).
+      source_attribute: psksecret
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id067
+        description: Pre-shared secret for session synchronization (ASCII string or hexadecimal encoded with a leading 0x).
+        source_attribute: psksecret
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: psksecret
+      cli_reference:
+        type: password-3
+        raw_type: password-3
+        description: Pre-shared secret for session synchronization (ASCII string or hexadecimal encoded with a leading 0x).
+        source_attribute: psksecret
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id068
+          primitive: string
+          format: password-3
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id068
+  session_sync:
+    canonical:
+      type: string
+      source_attribute: session_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: session_sync
+    sources:
+    - terraform
+  session_sync_dev:
+    canonical:
+      type: list
+      elements: str
+      references: &id070
+      - system.interface.name
+      version_ranges: &id069
+      - - v6.4.0
+        - ''
+      description: Offload session-sync process to kernel and sync sessions using connected interface(s) directly.
+      source_attribute: session-sync-dev
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      references: ansible
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id069
+        description: Offload session-sync process to kernel and sync sessions using connected interface(s) directly. Source
+          system.interface.name.
+        references: *id070
+        source_attribute: session_sync_dev
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: session_sync_dev
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Offload session-sync process to kernel and sync sessions using connected interface(s) directly.
+        source_attribute: session-sync-dev
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id071
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id071
+  standalone_group_id:
+    canonical:
+      type: integer
+      version_ranges: &id072
+      - - v6.4.0
+        - ''
+      default: '0'
+      min: 0
+      max: 255
+      description: Cluster group ID (0 - 255). Must be the same for all members.
+      source_attribute: standalone-group-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id072
+        description: Cluster group ID (0 - 255). Must be the same for all members.
+        source_attribute: standalone_group_id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: standalone_group_id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Cluster group ID (0 - 255). Must be the same for all members.
+        default: '0'
+        min: 0
+        max: 255
+        source_attribute: standalone-group-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  utm_traffic_bounce:
+    canonical:
+      type: enum
+      version_ranges: &id074
+      - - v7.6.4
+        - ''
+      choices: &id073
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable UTM related traffic bounce.
+      source_attribute: utm-traffic-bounce
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id073
+        version_ranges: *id074
+        description: Enable/disable UTM related traffic bounce, disable it may stop the asymmetric-traffic UTM features from
+          working.
+        source_attribute: utm_traffic_bounce
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: utm_traffic_bounce
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable UTM related traffic bounce.
+        default: enable
+        source_attribute: utm-traffic-bounce
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: cluster_peer.session_sync_filter
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: monitor_interface
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: pingsvr_monitor_interface
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: psksecret
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password-3
+  classification: representation_or_real_conflict
+- attribute: session_sync_dev
+  field: type
+  values:
+    ansible: list
+    terraform: string
+    cli_reference: string
+  classification: representation_or_real_conflict

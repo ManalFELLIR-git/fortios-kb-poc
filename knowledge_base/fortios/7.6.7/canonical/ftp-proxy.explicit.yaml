@@ -1,0 +1,531 @@
+id: ftp-proxy.explicit
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  incoming_ip:
+    canonical:
+      type: ipv4-address-any
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: Accept incoming FTP requests from this IP address. An interface must have this IP address.
+      source_attribute: incoming-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Accept incoming FTP requests from this IP address. An interface must have this IP address.
+        source_attribute: incoming_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: incoming_ip
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: Accept incoming FTP requests from this IP address. An interface must have this IP address.
+        default: 0.0.0.0
+        source_attribute: incoming-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id002
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id002
+  incoming_port:
+    canonical:
+      type: string
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      description: Accept incoming FTP requests on one or more ports.
+      source_attribute: incoming-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Accept incoming FTP requests on one or more ports.
+        source_attribute: incoming_port
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: incoming_port
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Accept incoming FTP requests on one or more ports.
+        source_attribute: incoming-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  outgoing_ip:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      description: Outgoing FTP requests will leave from this IP address. An interface must have this IP address.
+      source_attribute: outgoing-ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id004
+        description: Outgoing FTP requests will leave from this IP address. An interface must have this IP address.
+        source_attribute: outgoing_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: outgoing_ip
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: Outgoing FTP requests will leave from this IP address. An interface must have this IP address.
+        source_attribute: outgoing-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id005
+          element_type: null
+          cardinality: multiple
+        confidence: medium
+    semantic_type: *id005
+  sec_default_action:
+    canonical:
+      type: enum
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      choices: &id006
+      - accept
+      - deny
+      default: deny
+      description: Accept or deny explicit FTP proxy sessions when no FTP proxy firewall policy exists.
+      source_attribute: sec-default-action
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id006
+        version_ranges: *id007
+        description: Accept or deny explicit FTP proxy sessions when no FTP proxy firewall policy exists.
+        source_attribute: sec_default_action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sec_default_action
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Accept or deny explicit FTP proxy sessions when no FTP proxy firewall policy exists.
+        default: deny
+        source_attribute: sec-default-action
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  server_data_mode:
+    canonical:
+      type: enum
+      version_ranges: &id009
+      - - v7.4.0
+        - ''
+      choices: &id008
+      - client
+      - passive
+      default: client
+      description: Determine mode of data session on FTP server side.
+      source_attribute: server-data-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id008
+        version_ranges: *id009
+        description: Determine mode of data session on FTP server side.
+        source_attribute: server_data_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: server_data_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Determine mode of data session on FTP server side.
+        default: client
+        source_attribute: server-data-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssl:
+    canonical:
+      type: enum
+      version_ranges: &id011
+      - - v6.2.0
+        - ''
+      choices: &id010
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable the explicit FTPS proxy.
+      source_attribute: ssl
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id011
+        description: Enable/disable the explicit FTPS proxy.
+        source_attribute: ssl
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssl
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable the explicit FTPS proxy.
+        default: disable
+        source_attribute: ssl
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssl_algorithm:
+    canonical:
+      type: enum
+      version_ranges: &id013
+      - - v6.2.0
+        - ''
+      choices: &id012
+      - high
+      - medium
+      - low
+      default: high
+      description: Relative strength of encryption algorithms accepted in negotiation.
+      source_attribute: ssl-algorithm
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id012
+        version_ranges: *id013
+        description: Relative strength of encryption algorithms accepted in negotiation.
+        source_attribute: ssl_algorithm
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssl_algorithm
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Relative strength of encryption algorithms accepted in negotiation.
+        default: high
+        source_attribute: ssl-algorithm
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssl_cert:
+    canonical:
+      type: string
+      max_length: 79
+      description: List of certificate names to use for SSL connections to this server. Certificate list.
+      source_attribute: ssl-cert
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssl_cert
+      cli_reference:
+        type: string
+        raw_type: string
+        description: List of certificate names to use for SSL connections to this server. Certificate list.
+        max_length: 79
+        source_attribute: ssl-cert
+    sources:
+    - cli_reference
+    - terraform
+  ssl_cert_dict:
+    canonical:
+      type: list
+      elements: dict
+      children: &id015
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id017
+          - - v7.4.2
+            - ''
+          description: Certificate list. Source vpn.certificate.local.name.
+          references: &id016
+          - vpn.certificate.local.name
+      version_ranges: &id014
+      - - v7.4.2
+        - ''
+      description: List of certificate names to use for SSL connections to this server.
+      source_attribute: ssl_cert_dict
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id014
+        description: List of certificate names to use for SSL connections to this server.
+        children: *id015
+        source_attribute: ssl_cert_dict
+    sources:
+    - ansible
+  ssl_cert_dict.name:
+    canonical:
+      type: string
+      references: *id016
+      required: true
+      version_ranges: *id017
+      description: Certificate list. Source vpn.certificate.local.name.
+      source_attribute: ssl_cert_dict.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id017
+        description: Certificate list. Source vpn.certificate.local.name.
+        references: *id016
+        source_attribute: ssl_cert_dict.name
+    sources:
+    - ansible
+  ssl_dh_bits:
+    canonical:
+      type: enum
+      version_ranges: &id019
+      - - v6.2.0
+        - ''
+      choices: &id018
+      - '768'
+      - '1024'
+      - '1536'
+      - '2048'
+      default: '2048'
+      description: Bit-size of Diffie-Hellman (DH) prime used in DHE-RSA negotiation (default = 2048).
+      source_attribute: ssl-dh-bits
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id018
+        version_ranges: *id019
+        description: Bit-size of Diffie-Hellman (DH) prime used in DHE-RSA negotiation .
+        source_attribute: ssl_dh_bits
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssl_dh_bits
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Bit-size of Diffie-Hellman (DH) prime used in DHE-RSA negotiation (default = 2048).
+        default: '2048'
+        source_attribute: ssl-dh-bits
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id021
+      - - v6.0.0
+        - ''
+      choices: &id020
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable the explicit FTP proxy.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id020
+        version_ranges: *id021
+        description: Enable/disable the explicit FTP proxy.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable the explicit FTP proxy.
+        default: disable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: incoming_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict
+- attribute: outgoing_ip
+  field: type
+  values:
+    ansible: list
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict

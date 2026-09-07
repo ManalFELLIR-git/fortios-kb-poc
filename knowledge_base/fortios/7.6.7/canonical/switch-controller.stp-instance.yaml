@@ -1,0 +1,255 @@
+id: switch-controller.stp-instance
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  fosid:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 2
+      source_attribute: fosid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 2
+        source_attribute: fosid
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  id:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id001
+      - - v6.2.0
+        - ''
+      max_length: 2
+      description: Instance ID.
+      source_attribute: id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id001
+        description: Instance ID.
+        source_attribute: id
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Instance ID.
+        max_length: 2
+        source_attribute: id
+    sources:
+    - ansible
+    - cli_reference
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  vlan_range:
+    canonical:
+      type: list
+      elements: dict
+      children: &id003
+        vlan_name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id006
+          - - v6.2.0
+            - ''
+          description: VLAN name. Source system.interface.name.
+          references: &id005
+          - system.interface.name
+      version_ranges: &id002
+      - - v6.2.0
+        - ''
+      max_length: 79
+      description: Configure VLAN range for STP instance. VLAN name.
+      source_attribute: vlan-range
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id002
+        description: Configure VLAN range for STP instance.
+        children: *id003
+        source_attribute: vlan_range
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          vlan_name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: vlan_range
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Configure VLAN range for STP instance. VLAN name.
+        max_length: 79
+        source_attribute: vlan-range
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id004
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id004
+  vlan_range.vlan_name:
+    canonical:
+      type: string
+      references: *id005
+      required: true
+      version_ranges: *id006
+      min_length: 0
+      max_length: 79
+      description: VLAN name. Source system.interface.name.
+      source_attribute: vlan_range.vlan_name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id006
+        description: VLAN name. Source system.interface.name.
+        references: *id005
+        source_attribute: vlan_range.vlan_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: vlan_range.vlan_name
+    sources:
+    - ansible
+    - terraform
+conflicts:
+- attribute: vlan_range
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

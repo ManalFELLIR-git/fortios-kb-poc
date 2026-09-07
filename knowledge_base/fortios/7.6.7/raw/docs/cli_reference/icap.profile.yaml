@@ -1,0 +1,229 @@
+id: icap.profile
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/306917704/config-icap-profile
+attributes:
+  204-response:
+    type: enum
+    raw_type: option
+    description: Enable/disable allowance of 204 response from ICAP server.
+    default: disable
+  204-size-limit:
+    type: integer
+    raw_type: integer
+    description: 204 response size limit to be saved by ICAP client in megabytes (1 - 10, default = 1 MB).
+    default: '1'
+    min: 1
+    max: 10
+  chunk-encap:
+    type: enum
+    raw_type: option
+    description: Enable/disable chunked encapsulation (default = disable).
+    default: disable
+  comment:
+    type: string
+    raw_type: var-string
+    description: Comment.
+    max_length: 255
+  extension-feature:
+    type: enum
+    raw_type: option
+    description: Enable/disable ICAP extension features.
+  file-transfer:
+    type: enum
+    raw_type: option
+    description: Configure the file transfer protocols to pass transferred files to an ICAP server as REQMOD.
+  file-transfer-failure:
+    type: enum
+    raw_type: option
+    description: Action to take if the ICAP server cannot be contacted when processing a file transfer.
+    default: error
+  file-transfer-path:
+    type: string
+    raw_type: string
+    description: Path component of the ICAP URI that identifies the file transfer processing service.
+    max_length: 127
+  file-transfer-server:
+    type: string
+    raw_type: string
+    description: ICAP server to use for a file transfer.
+    max_length: 63
+  icap-block-log:
+    type: enum
+    raw_type: option
+    description: Enable/disable UTM log when infection found (default = disable).
+    default: disable
+  methods:
+    type: enum
+    raw_type: option
+    description: The allowed HTTP methods that will be sent to ICAP server for further processing.
+    default: delete get head options post put trace connect other
+  name:
+    type: string
+    raw_type: string
+    description: ICAP profile name.
+    max_length: 47
+  ocr-only:
+    type: enum
+    raw_type: option
+    description: Enable/disable this FortiGate unit to submit only OCR interested content to the ICAP server.
+    default: disable
+  preview:
+    type: enum
+    raw_type: option
+    description: Enable/disable preview of data to ICAP server.
+    default: disable
+  preview-data-length:
+    type: integer
+    raw_type: integer
+    description: Preview data length to be sent to ICAP server.
+    default: '0'
+    min: 0
+    max: 4096
+  replacemsg-group:
+    type: string
+    raw_type: string
+    description: Replacement message group.
+    max_length: 35
+  request:
+    type: enum
+    raw_type: option
+    description: Enable/disable whether an HTTP request is passed to an ICAP server.
+    default: disable
+  request-failure:
+    type: enum
+    raw_type: option
+    description: Action to take if the ICAP server cannot be contacted when processing an HTTP request.
+    default: error
+  request-path:
+    type: string
+    raw_type: string
+    description: Path component of the ICAP URI that identifies the HTTP request processing service.
+    max_length: 127
+  request-server:
+    type: string
+    raw_type: string
+    description: ICAP server to use for an HTTP request.
+    max_length: 63
+  respmod-default-action:
+    type: enum
+    raw_type: option
+    description: Default action to ICAP response modification (respmod) processing.
+    default: forward
+  response:
+    type: enum
+    raw_type: option
+    description: Enable/disable whether an HTTP response is passed to an ICAP server.
+    default: disable
+  response-failure:
+    type: enum
+    raw_type: option
+    description: Action to take if the ICAP server cannot be contacted when processing an HTTP response.
+    default: error
+  response-path:
+    type: string
+    raw_type: string
+    description: Path component of the ICAP URI that identifies the HTTP response processing service.
+    max_length: 127
+  response-req-hdr:
+    type: enum
+    raw_type: option
+    description: Enable/disable addition of req-hdr for ICAP response modification (respmod) processing.
+    default: enable
+  response-server:
+    type: string
+    raw_type: string
+    description: ICAP server to use for an HTTP response.
+    max_length: 63
+  scan-progress-interval:
+    type: integer
+    raw_type: integer
+    description: Scan progress interval value.
+    default: '10'
+    min: 5
+    max: 30
+  streaming-content-bypass:
+    type: enum
+    raw_type: option
+    description: Enable/disable bypassing of ICAP server for streaming content.
+    default: disable
+  timeout:
+    type: integer
+    raw_type: integer
+    description: Time (in seconds) that ICAP client waits for the response from ICAP server.
+    default: '30'
+    min: 30
+    max: 3600
+children:
+  icap-headers:
+    attributes:
+      base64-encoding:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of base64 encoding of HTTP content.
+        default: disable
+      content:
+        type: string
+        raw_type: string
+        description: HTTP header content.
+        max_length: 255
+      id:
+        type: integer
+        raw_type: integer
+        description: HTTP forwarded header ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      name:
+        type: string
+        raw_type: string
+        description: HTTP forwarded header name.
+        max_length: 79
+  respmod-forward-rules:
+    attributes:
+      action:
+        type: enum
+        raw_type: option
+        description: Action to be taken for ICAP server.
+        default: forward
+      host:
+        type: string
+        raw_type: string
+        description: Address object for the host.
+        max_length: 79
+      http-resp-status-code:
+        type: integer
+        raw_type: integer
+        description: HTTP response status code. HTTP response status code.
+        min: 100
+        max: 599
+      name:
+        type: string
+        raw_type: string
+        description: Address name.
+        max_length: 63
+  header-group:
+    attributes:
+      case-sensitivity:
+        type: enum
+        raw_type: option
+        description: Enable/disable case sensitivity when matching header.
+        default: disable
+      header:
+        type: string
+        raw_type: string
+        description: HTTP header regular expression.
+        max_length: 255
+      header-name:
+        type: string
+        raw_type: string
+        description: HTTP header.
+        max_length: 79
+      id:
+        type: integer
+        raw_type: integer
+        description: ID.
+        default: '0'
+        min: 0
+        max: 4294967295

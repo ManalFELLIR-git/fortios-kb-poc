@@ -1,0 +1,264 @@
+id: web-proxy.profile
+version: 7.6.7
+source_object: fortios_web_proxy_profile
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_web_proxy_profile.py
+root_type: list
+attributes:
+  name:
+    type: string
+    raw_type: string
+    required: true
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Profile name.
+  header_client_ip:
+    type: enum
+    raw_type: string
+    choices:
+    - pass
+    - add
+    - remove
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: 'Action to take on the HTTP client-IP header in forwarded requests: forwards (pass), adds, or removes the
+      HTTP header.'
+  header_via_request:
+    type: enum
+    raw_type: string
+    choices:
+    - pass
+    - add
+    - remove
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: 'Action to take on the HTTP via header in forwarded requests: forwards (pass), adds, or removes the HTTP
+      header.'
+  header_via_response:
+    type: enum
+    raw_type: string
+    choices:
+    - pass
+    - add
+    - remove
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: 'Action to take on the HTTP via header in forwarded responses: forwards (pass), adds, or removes the HTTP
+      header.'
+  header_client_cert:
+    type: enum
+    raw_type: string
+    choices:
+    - pass
+    - add
+    - remove
+    version_ranges:
+    - - v7.6.5
+      - ''
+    description: 'Action to take on the HTTP Client-Cert/Client-Cert-Chain headers in forwarded responses: forwards (pass),
+      adds, or removes the HTTP header.'
+  header_x_forwarded_for:
+    type: enum
+    raw_type: string
+    choices:
+    - pass
+    - add
+    - remove
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: 'Action to take on the HTTP x-forwarded-for header in forwarded requests: forwards (pass), adds, or removes
+      the HTTP header.'
+  header_x_forwarded_client_cert:
+    type: enum
+    raw_type: string
+    choices:
+    - pass
+    - add
+    - remove
+    version_ranges:
+    - - v7.0.1
+      - ''
+    description: 'Action to take on the HTTP x-forwarded-client-cert header in forwarded requests: forwards (pass), adds,
+      or removes the HTTP header.'
+  header_front_end_https:
+    type: enum
+    raw_type: string
+    choices:
+    - pass
+    - add
+    - remove
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: 'Action to take on the HTTP front-end-HTTPS header in forwarded requests: forwards (pass), adds, or removes
+      the HTTP header.'
+  header_x_authenticated_user:
+    type: enum
+    raw_type: string
+    choices:
+    - pass
+    - add
+    - remove
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: 'Action to take on the HTTP x-authenticated-user header in forwarded requests: forwards (pass), adds, or
+      removes the HTTP header.'
+  header_x_authenticated_groups:
+    type: enum
+    raw_type: string
+    choices:
+    - pass
+    - add
+    - remove
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: 'Action to take on the HTTP x-authenticated-groups header in forwarded requests: forwards (pass), adds, or
+      removes the HTTP header.'
+  strip_encoding:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable stripping unsupported encoding from the request header.
+  log_header_change:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable logging HTTP header changes.
+  headers:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Configure HTTP forwarded requests headers.
+    children:
+      id:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: HTTP forwarded header id. see <a href='#notes'>Notes</a>.
+      name:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: HTTP forwarded header name.
+      dstaddr:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: Destination address and address group names.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.2.0
+              - ''
+            description: Address name. Source firewall.address.name firewall.addrgrp.name.
+            references:
+            - firewall.address.name
+            - firewall.addrgrp.name
+      dstaddr6:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: Destination address and address group names (IPv6).
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.2.0
+              - ''
+            description: Address name. Source firewall.address6.name firewall.addrgrp6.name.
+            references:
+            - firewall.address6.name
+            - firewall.addrgrp6.name
+      action:
+        type: enum
+        raw_type: string
+        choices:
+        - add-to-request
+        - add-to-response
+        - remove-from-request
+        - remove-from-response
+        - monitor-request
+        - monitor-response
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Configure adding, removing, or logging of the HTTP header entry in HTTP requests and responses.
+      content:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: HTTP header content (0 - 16383).
+      base64_encoding:
+        type: enum
+        raw_type: string
+        choices:
+        - disable
+        - enable
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: Enable/disable use of base64 encoding of HTTP content.
+      add_option:
+        type: enum
+        raw_type: string
+        choices:
+        - append
+        - new-on-not-found
+        - new
+        - replace
+        - replace-when-match
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: Configure options to append content to existing HTTP header or add new HTTP header.
+      protocol:
+        type: enum
+        raw_type: list
+        choices:
+        - https
+        - http
+        multiple_values: true
+        elements: str
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: Configure protocol(s) to take add-option action on (HTTP, HTTPS, or both).

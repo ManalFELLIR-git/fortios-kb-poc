@@ -1,0 +1,740 @@
+id: firewall.ssl-server
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  add_header_x_forwarded_proto:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable adding an X-Forwarded-Proto header to forwarded requests.
+      source_attribute: add-header-x-forwarded-proto
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable adding an X-Forwarded-Proto header to forwarded requests.
+        source_attribute: add_header_x_forwarded_proto
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: add_header_x_forwarded_proto
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable adding an X-Forwarded-Proto header to forwarded requests.
+        default: enable
+        source_attribute: add-header-x-forwarded-proto
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ip:
+    canonical:
+      type: ipv4-address-any
+      required: true
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: IPv4 address of the SSL server.
+      source_attribute: ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: IPv4 address of the SSL server.
+        source_attribute: ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: ip
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: IPv4 address of the SSL server.
+        default: 0.0.0.0
+        source_attribute: ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id004
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id004
+  mapped_port:
+    canonical:
+      type: integer
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      default: '80'
+      min: 1
+      max: 65535
+      description: Mapped server service port (1 - 65535, default = 80).
+      source_attribute: mapped-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id005
+        description: Mapped server service port (1 - 65535).
+        source_attribute: mapped_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: mapped_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Mapped server service port (1 - 65535, default = 80).
+        default: '80'
+        min: 1
+        max: 65535
+        source_attribute: mapped-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Server name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id006
+        description: Server name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Server name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  port:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      default: '443'
+      min: 1
+      max: 65535
+      description: Server service port (1 - 65535, default = 443).
+      source_attribute: port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id007
+        description: Server service port (1 - 65535).
+        source_attribute: port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        required: true
+        min: 1
+        max: 65535
+        source_attribute: port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Server service port (1 - 65535, default = 443).
+        default: '443'
+        min: 1
+        max: 65535
+        source_attribute: port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssl_algorithm:
+    canonical:
+      type: enum
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      choices: &id008
+      - high
+      - medium
+      - low
+      default: high
+      description: Relative strength of encryption algorithms accepted in negotiation.
+      source_attribute: ssl-algorithm
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id008
+        version_ranges: *id009
+        description: Relative strength of encryption algorithms accepted in negotiation.
+        source_attribute: ssl_algorithm
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssl_algorithm
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Relative strength of encryption algorithms accepted in negotiation.
+        default: high
+        source_attribute: ssl-algorithm
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssl_cert:
+    canonical:
+      type: string
+      required: true
+      max_length: 79
+      description: List of certificate names to use for SSL connections to this server. (default = "Fortinet_SSL"). Certificate
+        list.
+      source_attribute: ssl-cert
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: ssl_cert
+      cli_reference:
+        type: string
+        raw_type: string
+        description: List of certificate names to use for SSL connections to this server. (default = "Fortinet_SSL"). Certificate
+          list.
+        max_length: 79
+        source_attribute: ssl-cert
+    sources:
+    - cli_reference
+    - terraform
+  ssl_cert_dict:
+    canonical:
+      type: list
+      elements: dict
+      children: &id011
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id013
+          - - v7.4.2
+            - ''
+          description: Certificate list. Source vpn.certificate.local.name.
+          references: &id012
+          - vpn.certificate.local.name
+      version_ranges: &id010
+      - - v7.4.2
+        - ''
+      description: List of certificate names to use for SSL connections to this server. .
+      source_attribute: ssl_cert_dict
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id010
+        description: List of certificate names to use for SSL connections to this server. .
+        children: *id011
+        source_attribute: ssl_cert_dict
+    sources:
+    - ansible
+  ssl_cert_dict.name:
+    canonical:
+      type: string
+      references: *id012
+      required: true
+      version_ranges: *id013
+      description: Certificate list. Source vpn.certificate.local.name.
+      source_attribute: ssl_cert_dict.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id013
+        description: Certificate list. Source vpn.certificate.local.name.
+        references: *id012
+        source_attribute: ssl_cert_dict.name
+    sources:
+    - ansible
+  ssl_client_renegotiation:
+    canonical:
+      type: enum
+      version_ranges: &id015
+      - - v6.0.0
+        - ''
+      choices: &id014
+      - allow
+      - deny
+      - secure
+      default: allow
+      description: Allow or block client renegotiation by server.
+      source_attribute: ssl-client-renegotiation
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id014
+        version_ranges: *id015
+        description: Allow or block client renegotiation by server.
+        source_attribute: ssl_client_renegotiation
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssl_client_renegotiation
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Allow or block client renegotiation by server.
+        default: allow
+        source_attribute: ssl-client-renegotiation
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssl_dh_bits:
+    canonical:
+      type: enum
+      version_ranges: &id017
+      - - v6.0.0
+        - ''
+      choices: &id016
+      - '768'
+      - '1024'
+      - '1536'
+      - '2048'
+      default: '2048'
+      description: Bit-size of Diffie-Hellman (DH) prime used in DHE-RSA negotiation (default = 2048).
+      source_attribute: ssl-dh-bits
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id016
+        version_ranges: *id017
+        description: Bit-size of Diffie-Hellman (DH) prime used in DHE-RSA negotiation .
+        source_attribute: ssl_dh_bits
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssl_dh_bits
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Bit-size of Diffie-Hellman (DH) prime used in DHE-RSA negotiation (default = 2048).
+        default: '2048'
+        source_attribute: ssl-dh-bits
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssl_max_version:
+    canonical:
+      type: enum
+      version_ranges: &id019
+      - - v6.0.0
+        - ''
+      choices: &id018
+      - tls-1.0
+      - tls-1.1
+      - tls-1.2
+      - tls-1.3
+      default: tls-1.3
+      description: Highest SSL/TLS version to negotiate.
+      source_attribute: ssl-max-version
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id018
+        version_ranges: *id019
+        description: Highest SSL/TLS version to negotiate.
+        source_attribute: ssl_max_version
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssl_max_version
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Highest SSL/TLS version to negotiate.
+        default: tls-1.3
+        source_attribute: ssl-max-version
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssl_min_version:
+    canonical:
+      type: enum
+      version_ranges: &id021
+      - - v6.0.0
+        - ''
+      choices: &id020
+      - tls-1.0
+      - tls-1.1
+      - tls-1.2
+      - tls-1.3
+      default: tls-1.1
+      description: Lowest SSL/TLS version to negotiate.
+      source_attribute: ssl-min-version
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id020
+        version_ranges: *id021
+        description: Lowest SSL/TLS version to negotiate.
+        source_attribute: ssl_min_version
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssl_min_version
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Lowest SSL/TLS version to negotiate.
+        default: tls-1.1
+        source_attribute: ssl-min-version
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssl_mode:
+    canonical:
+      type: enum
+      version_ranges: &id023
+      - - v6.0.0
+        - ''
+      choices: &id022
+      - half
+      - full
+      default: full
+      description: SSL/TLS mode for encryption and decryption of traffic.
+      source_attribute: ssl-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id022
+        version_ranges: *id023
+        description: SSL/TLS mode for encryption and decryption of traffic.
+        source_attribute: ssl_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssl_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: SSL/TLS mode for encryption and decryption of traffic.
+        default: full
+        source_attribute: ssl-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssl_send_empty_frags:
+    canonical:
+      type: enum
+      version_ranges: &id025
+      - - v6.0.0
+        - ''
+      choices: &id024
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable sending empty fragments to avoid attack on CBC IV.
+      source_attribute: ssl-send-empty-frags
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id024
+        version_ranges: *id025
+        description: Enable/disable sending empty fragments to avoid attack on CBC IV.
+        source_attribute: ssl_send_empty_frags
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssl_send_empty_frags
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable sending empty fragments to avoid attack on CBC IV.
+        default: enable
+        source_attribute: ssl-send-empty-frags
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  url_rewrite:
+    canonical:
+      type: enum
+      version_ranges: &id027
+      - - v6.0.0
+        - ''
+      choices: &id026
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable rewriting the URL.
+      source_attribute: url-rewrite
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id026
+        version_ranges: *id027
+        description: Enable/disable rewriting the URL.
+        source_attribute: url_rewrite
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: url_rewrite
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable rewriting the URL.
+        default: disable
+        source_attribute: url-rewrite
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict

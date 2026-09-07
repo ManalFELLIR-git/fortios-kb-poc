@@ -1,0 +1,1134 @@
+id: system.netflow
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  active_flow_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      default: '1800'
+      min: 60
+      max: 3600
+      description: Timeout to report active flows (60 - 3600 sec, default = 1800).
+      source_attribute: active-flow-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id001
+        description: Timeout to report active flows (60 - 3600 sec).
+        source_attribute: active_flow_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 3600
+        source_attribute: active_flow_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Timeout to report active flows (60 - 3600 sec, default = 1800).
+        default: '1800'
+        min: 60
+        max: 3600
+        source_attribute: active-flow-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      range:
+        min:
+          resolution: terraform_constraint_mismatch
+          status: resolved
+          confidence: high
+          canonical_policy: prefer_exact_version_cli_range
+          special_values: []
+          requires_hardware_overlay: false
+          requires_runtime_validation: false
+          ansible_ranges_detected:
+          - - '60'
+            - '3600'
+          cli_ranges_detected:
+          - - '60'
+            - '3600'
+          cli_units:
+          - seconds
+          ansible_units:
+          - seconds
+          cli_internal_inconsistency: false
+  collector_ip:
+    canonical:
+      type: string
+      source_attribute: collector_ip
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: collector_ip
+    sources:
+    - terraform
+  collector_port:
+    canonical:
+      type: integer
+      min: 0
+      max: 65535
+      source_attribute: collector_port
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: collector_port
+    sources:
+    - terraform
+  collectors:
+    canonical:
+      type: list
+      elements: dict
+      children: &id003
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id006
+          - - v7.4.2
+            - ''
+          description: ID. see <a href='#notes'>Notes</a>.
+        collector_ip:
+          type: string
+          raw_type: string
+          version_ranges: &id004
+          - - v7.4.2
+            - ''
+          description: Collector IP.
+        collector_port:
+          type: integer
+          raw_type: integer
+          version_ranges: &id005
+          - - v7.4.2
+            - ''
+          description: NetFlow collector port number.
+        source_ip:
+          type: string
+          raw_type: string
+          version_ranges: &id011
+          - - v7.4.2
+            - ''
+          description: Source IP address for communication with the NetFlow agent.
+        source_ip_interface:
+          type: string
+          raw_type: string
+          version_ranges: &id013
+          - - v7.6.0
+            - ''
+          description: Name of the interface used to determine the source IP for exporting packets. Source system.interface.name.
+          references: &id012
+          - system.interface.name
+        interface_select_method:
+          type: enum
+          raw_type: string
+          choices: &id010
+          - auto
+          - sdwan
+          - specify
+          version_ranges: &id009
+          - - v7.4.2
+            - ''
+          description: Specify how to select outgoing interface to reach server.
+        interface:
+          type: string
+          raw_type: string
+          version_ranges: &id008
+          - - v7.4.2
+            - ''
+          description: Specify outgoing interface to reach server. Source system.interface.name.
+          references: &id007
+          - system.interface.name
+        vrf_select:
+          type: integer
+          raw_type: integer
+          version_ranges: &id014
+          - - v7.6.1
+            - ''
+          description: VRF ID used for connection to server.
+      version_ranges: &id002
+      - - v7.4.2
+        - ''
+      description: Netflow collectors.
+      source_attribute: collectors
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id002
+        description: Netflow collectors.
+        children: *id003
+        source_attribute: collectors
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 6
+          collector_ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          collector_port:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 65535
+          source_ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          source_ip_interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          interface_select_method:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          vrf_select:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 511
+        source_attribute: collectors
+    sources:
+    - ansible
+    - terraform
+  collectors.collector_ip:
+    canonical:
+      type: string
+      version_ranges: *id004
+      min_length: 0
+      max_length: 63
+      description: Collector IP.
+      source_attribute: collectors.collector_ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id004
+        description: Collector IP.
+        source_attribute: collectors.collector_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: collectors.collector_ip
+    sources:
+    - ansible
+    - terraform
+  collectors.collector_port:
+    canonical:
+      type: integer
+      version_ranges: *id005
+      min: 0
+      max: 65535
+      description: NetFlow collector port number.
+      source_attribute: collectors.collector_port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id005
+        description: NetFlow collector port number.
+        source_attribute: collectors.collector_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: collectors.collector_port
+    sources:
+    - ansible
+    - terraform
+  collectors.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id006
+      min: 1
+      max: 6
+      description: ID. see <a href='#notes'>Notes</a>.
+      source_attribute: collectors.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id006
+        description: ID. see <a href='#notes'>Notes</a>.
+        source_attribute: collectors.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 6
+        source_attribute: collectors.id
+    sources:
+    - ansible
+    - terraform
+  collectors.interface:
+    canonical:
+      type: string
+      references: *id007
+      version_ranges: *id008
+      min_length: 0
+      max_length: 15
+      description: Specify outgoing interface to reach server. Source system.interface.name.
+      source_attribute: collectors.interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: Specify outgoing interface to reach server. Source system.interface.name.
+        references: *id007
+        source_attribute: collectors.interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: collectors.interface
+    sources:
+    - ansible
+    - terraform
+  collectors.interface_select_method:
+    canonical:
+      type: enum
+      version_ranges: *id009
+      choices: *id010
+      description: Specify how to select outgoing interface to reach server.
+      source_attribute: collectors.interface_select_method
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id009
+        description: Specify how to select outgoing interface to reach server.
+        source_attribute: collectors.interface_select_method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: collectors.interface_select_method
+    sources:
+    - ansible
+    - terraform
+  collectors.source_ip:
+    canonical:
+      type: string
+      version_ranges: *id011
+      min_length: 0
+      max_length: 63
+      description: Source IP address for communication with the NetFlow agent.
+      source_attribute: collectors.source_ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: Source IP address for communication with the NetFlow agent.
+        source_attribute: collectors.source_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: collectors.source_ip
+    sources:
+    - ansible
+    - terraform
+  collectors.source_ip_interface:
+    canonical:
+      type: string
+      references: *id012
+      version_ranges: *id013
+      min_length: 0
+      max_length: 15
+      description: Name of the interface used to determine the source IP for exporting packets. Source system.interface.name.
+      source_attribute: collectors.source_ip_interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id013
+        description: Name of the interface used to determine the source IP for exporting packets. Source system.interface.name.
+        references: *id012
+        source_attribute: collectors.source_ip_interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: collectors.source_ip_interface
+    sources:
+    - ansible
+    - terraform
+  collectors.vrf_select:
+    canonical:
+      type: integer
+      version_ranges: *id014
+      min: 0
+      max: 511
+      description: VRF ID used for connection to server.
+      source_attribute: collectors.vrf_select
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id014
+        description: VRF ID used for connection to server.
+        source_attribute: collectors.vrf_select
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 511
+        source_attribute: collectors.vrf_select
+    sources:
+    - ansible
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  exclusion_filters:
+    canonical:
+      type: list
+      elements: dict
+      children: &id016
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id019
+          - - v7.6.0
+            - ''
+          description: Filter ID. see <a href='#notes'>Notes</a>.
+        source_ip:
+          type: string
+          raw_type: string
+          version_ranges: &id021
+          - - v7.6.0
+            - ''
+          description: Session source address.
+        destination_ip:
+          type: string
+          raw_type: string
+          version_ranges: &id017
+          - - v7.6.0
+            - ''
+          description: Session destination address.
+        source_port:
+          type: string
+          raw_type: string
+          version_ranges: &id022
+          - - v7.6.0
+            - ''
+          description: Session source port number or range.
+        destination_port:
+          type: string
+          raw_type: string
+          version_ranges: &id018
+          - - v7.6.0
+            - ''
+          description: Session destination port number or range.
+        protocol:
+          type: integer
+          raw_type: integer
+          version_ranges: &id020
+          - - v7.6.0
+            - ''
+          description: Session IP protocol (0 - 255).
+      version_ranges: &id015
+      - - v7.6.0
+        - ''
+      description: Exclusion filters
+      source_attribute: exclusion_filters
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id015
+        description: Exclusion filters
+        children: *id016
+        source_attribute: exclusion_filters
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          source_ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+          destination_ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+          source_port:
+            type: string
+            raw_type: TypeString
+            optional: true
+          destination_port:
+            type: string
+            raw_type: TypeString
+            optional: true
+          protocol:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 255
+        source_attribute: exclusion_filters
+    sources:
+    - ansible
+    - terraform
+  exclusion_filters.destination_ip:
+    canonical:
+      type: string
+      version_ranges: *id017
+      description: Session destination address.
+      source_attribute: exclusion_filters.destination_ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id017
+        description: Session destination address.
+        source_attribute: exclusion_filters.destination_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: exclusion_filters.destination_ip
+    sources:
+    - ansible
+    - terraform
+  exclusion_filters.destination_port:
+    canonical:
+      type: string
+      version_ranges: *id018
+      description: Session destination port number or range.
+      source_attribute: exclusion_filters.destination_port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id018
+        description: Session destination port number or range.
+        source_attribute: exclusion_filters.destination_port
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: exclusion_filters.destination_port
+    sources:
+    - ansible
+    - terraform
+  exclusion_filters.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id019
+      description: Filter ID. see <a href='#notes'>Notes</a>.
+      source_attribute: exclusion_filters.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id019
+        description: Filter ID. see <a href='#notes'>Notes</a>.
+        source_attribute: exclusion_filters.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: exclusion_filters.id
+    sources:
+    - ansible
+    - terraform
+  exclusion_filters.protocol:
+    canonical:
+      type: integer
+      version_ranges: *id020
+      min: 0
+      max: 255
+      description: Session IP protocol (0 - 255).
+      source_attribute: exclusion_filters.protocol
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id020
+        description: Session IP protocol (0 - 255).
+        source_attribute: exclusion_filters.protocol
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 255
+        source_attribute: exclusion_filters.protocol
+    sources:
+    - ansible
+    - terraform
+  exclusion_filters.source_ip:
+    canonical:
+      type: string
+      version_ranges: *id021
+      description: Session source address.
+      source_attribute: exclusion_filters.source_ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id021
+        description: Session source address.
+        source_attribute: exclusion_filters.source_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: exclusion_filters.source_ip
+    sources:
+    - ansible
+    - terraform
+  exclusion_filters.source_port:
+    canonical:
+      type: string
+      version_ranges: *id022
+      description: Session source port number or range.
+      source_attribute: exclusion_filters.source_port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id022
+        description: Session source port number or range.
+        source_attribute: exclusion_filters.source_port
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: exclusion_filters.source_port
+    sources:
+    - ansible
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  inactive_flow_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id023
+      - - v6.0.0
+        - ''
+      default: '15'
+      min: 10
+      max: 600
+      description: Timeout for periodic report of finished flows (10 - 600 sec, default = 15).
+      source_attribute: inactive-flow-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id023
+        description: Timeout for periodic report of finished flows (10 - 600 sec).
+        source_attribute: inactive_flow_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 10
+        max: 600
+        source_attribute: inactive_flow_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Timeout for periodic report of finished flows (10 - 600 sec, default = 15).
+        default: '15'
+        min: 10
+        max: 600
+        source_attribute: inactive-flow-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 15
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - terraform
+  interface_select_method:
+    canonical:
+      type: string
+      source_attribute: interface_select_method
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface_select_method
+    sources:
+    - terraform
+  session_cache_size:
+    canonical:
+      type: enum
+      version_ranges: &id025
+      - - v7.6.3
+        - ''
+      choices: &id024
+      - min
+      - default
+      - max
+      default: default
+      description: Maximum RAM usage allowed for Netflow session cache.
+      source_attribute: session-cache-size
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id024
+        version_ranges: *id025
+        description: Maximum RAM usage allowed for Netflow session cache.
+        source_attribute: session_cache_size
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: session_cache_size
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Maximum RAM usage allowed for Netflow session cache.
+        default: default
+        source_attribute: session-cache-size
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source_ip:
+    canonical:
+      type: string
+      source_attribute: source_ip
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_ip
+    sources:
+    - terraform
+  template_tx_counter:
+    canonical:
+      type: integer
+      version_ranges: &id026
+      - - v6.0.0
+        - ''
+      default: '20'
+      min: 10
+      max: 6000
+      description: Counter of flowset records before resending a template flowset record.
+      source_attribute: template-tx-counter
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id026
+        description: Counter of flowset records before resending a template flowset record.
+        source_attribute: template_tx_counter
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 10
+        max: 6000
+        source_attribute: template_tx_counter
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Counter of flowset records before resending a template flowset record.
+        default: '20'
+        min: 10
+        max: 6000
+        source_attribute: template-tx-counter
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  template_tx_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id027
+      - - v6.0.0
+        - ''
+      default: '1800'
+      min: 60
+      max: 86400
+      description: Timeout for periodic template flowset transmission (60 - 86400 sec, default = 1800).
+      source_attribute: template-tx-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id027
+        description: Timeout for periodic template flowset transmission (60 - 86400 sec).
+        source_attribute: template_tx_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 86400
+        source_attribute: template_tx_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Timeout for periodic template flowset transmission (60 - 86400 sec, default = 1800).
+        default: '1800'
+        min: 60
+        max: 86400
+        source_attribute: template-tx-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      range:
+        min:
+          resolution: terraform_constraint_mismatch
+          status: resolved
+          confidence: high
+          canonical_policy: prefer_exact_version_cli_range
+          special_values: []
+          requires_hardware_overlay: false
+          requires_runtime_validation: false
+          ansible_ranges_detected:
+          - - '60'
+            - '86400'
+          cli_ranges_detected:
+          - - '60'
+            - '86400'
+          cli_units:
+          - seconds
+          ansible_units:
+          - seconds
+          cli_internal_inconsistency: false
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

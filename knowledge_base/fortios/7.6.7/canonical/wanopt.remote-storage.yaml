@@ -1,0 +1,209 @@
+id: wanopt.remote-storage
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  local_cache_id:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: ID that this device uses to connect to the remote device.
+      source_attribute: local-cache-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: ID that this device uses to connect to the remote device.
+        source_attribute: local_cache_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: local_cache_id
+      cli_reference:
+        type: string
+        raw_type: string
+        description: ID that this device uses to connect to the remote device.
+        max_length: 35
+        source_attribute: local-cache-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  remote_cache_id:
+    canonical:
+      type: string
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: ID of the remote device to which the device connects.
+      source_attribute: remote-cache-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id002
+        description: ID of the remote device to which the device connects.
+        source_attribute: remote_cache_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: remote_cache_id
+      cli_reference:
+        type: string
+        raw_type: string
+        description: ID of the remote device to which the device connects.
+        max_length: 35
+        source_attribute: remote-cache-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  remote_cache_ip:
+    canonical:
+      type: ipv4-address-any
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: IP address of the remote device to which the device connects.
+      source_attribute: remote-cache-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: IP address of the remote device to which the device connects.
+        source_attribute: remote_cache_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: remote_cache_ip
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: IP address of the remote device to which the device connects.
+        default: 0.0.0.0
+        source_attribute: remote-cache-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id004
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id004
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      choices: &id005
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable using remote device as Web cache storage.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Enable/disable using remote device as Web cache storage.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable using remote device as Web cache storage.
+        default: disable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: remote_cache_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict

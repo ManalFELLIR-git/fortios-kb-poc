@@ -1,0 +1,642 @@
+id: ips.custom
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  action:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - pass
+      - block
+      default: pass
+      description: Default action (pass or block) for this signature.
+      source_attribute: action
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Default action (pass or block) for this signature.
+        source_attribute: action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: action
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Default action (pass or block) for this signature.
+        default: pass
+        source_attribute: action
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  application:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      description: Applications to be protected. Blank for all applications.
+      source_attribute: application
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id003
+        description: Applications to be protected. Blank for all applications.
+        source_attribute: application
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: application
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Applications to be protected. Blank for all applications.
+        source_attribute: application
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id004
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id004
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Comment.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: Comment.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Comment.
+        max_length: 63
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  location:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      description: Protect client or server traffic.
+      source_attribute: location
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id006
+        description: Protect client or server traffic.
+        source_attribute: location
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: location
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Protect client or server traffic.
+        source_attribute: location
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id007
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id007
+  log:
+    canonical:
+      type: enum
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      choices: &id008
+      - disable
+      - enable
+      default: enable
+      description: Enable/disable logging.
+      source_attribute: log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id008
+        version_ranges: *id009
+        description: Enable/disable logging.
+        source_attribute: log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging.
+        default: enable
+        source_attribute: log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  log_packet:
+    canonical:
+      type: enum
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      choices: &id010
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable packet logging.
+      source_attribute: log-packet
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id011
+        description: Enable/disable packet logging.
+        source_attribute: log_packet
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: log_packet
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable packet logging.
+        default: disable
+        source_attribute: log-packet
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  os:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: &id012
+      - - v6.0.0
+        - ''
+      description: Operating system(s) that the signature protects. Blank for all operating systems.
+      source_attribute: os
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id012
+        description: Operating system(s) that the signature protects. Blank for all operating systems.
+        source_attribute: os
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: os
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Operating system(s) that the signature protects. Blank for all operating systems.
+        source_attribute: os
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id013
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id013
+  protocol:
+    canonical:
+      type: string
+      version_ranges: &id014
+      - - v6.0.0
+        - ''
+      description: Protocol(s) that the signature scans. Blank for all protocols.
+      source_attribute: protocol
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: Protocol(s) that the signature scans. Blank for all protocols.
+        source_attribute: protocol
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: protocol
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Protocol(s) that the signature scans. Blank for all protocols.
+        source_attribute: protocol
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rule_id:
+    canonical:
+      type: integer
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Signature ID. Read-only.
+      source_attribute: rule-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: rule_id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Signature ID. Read-only.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: rule-id
+    sources:
+    - cli_reference
+    - terraform
+  severity:
+    canonical:
+      type: string
+      version_ranges: &id015
+      - - v6.0.0
+        - ''
+      description: Relative severity of the signature, from info to critical. Log messages generated by the signature include
+        the severity.
+      source_attribute: severity
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id015
+        description: Relative severity of the signature, from info to critical. Log messages generated by the signature include
+          the severity.
+        source_attribute: severity
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: severity
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Relative severity of the signature, from info to critical. Log messages generated by the signature include
+          the severity.
+        source_attribute: severity
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sig_name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 63
+      source_attribute: sig_name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 63
+        source_attribute: sig_name
+    sources:
+    - terraform
+  signature:
+    canonical:
+      type: string
+      version_ranges: &id016
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 4095
+      description: Custom signature enclosed in single quotes.
+      source_attribute: signature
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id016
+        description: Custom signature enclosed in single quotes.
+        source_attribute: signature
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 4095
+        source_attribute: signature
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Custom signature enclosed in single quotes.
+        max_length: 4095
+        source_attribute: signature
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id018
+      - - v6.0.0
+        - ''
+      choices: &id017
+      - disable
+      - enable
+      default: enable
+      description: Enable/disable this signature.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id017
+        version_ranges: *id018
+        description: Enable/disable this signature.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable this signature.
+        default: enable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  tag:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id019
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Signature tag.
+      source_attribute: tag
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id019
+        description: Signature tag.
+        source_attribute: tag
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 63
+        source_attribute: tag
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Signature tag.
+        max_length: 63
+        source_attribute: tag
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: application
+  field: type
+  values:
+    ansible: list
+    terraform: string
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: location
+  field: type
+  values:
+    ansible: list
+    terraform: string
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: os
+  field: type
+  values:
+    ansible: list
+    terraform: string
+    cli_reference: string
+  classification: representation_or_real_conflict

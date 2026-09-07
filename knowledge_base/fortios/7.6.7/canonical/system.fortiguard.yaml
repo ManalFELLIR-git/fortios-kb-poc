@@ -1,0 +1,2953 @@
+id: system.fortiguard
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  FDS_license_expiring_days:
+    canonical:
+      type: integer
+      version_ranges: &id001
+      - - v7.4.0
+        - ''
+      default: '15'
+      min: 1
+      max: 100
+      description: Threshold for number of days before FortiGuard license expiration to generate license expiring event log
+        (1 - 100 days, default = 15).
+      source_attribute: FDS-license-expiring-days
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id001
+        description: Threshold for number of days before FortiGuard license expiration to generate license expiring event
+          log (1 - 100 days).
+        source_attribute: FDS_license_expiring_days
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Threshold for number of days before FortiGuard license expiration to generate license expiring event
+          log (1 - 100 days, default = 15).
+        default: '15'
+        min: 1
+        max: 100
+        source_attribute: FDS-license-expiring-days
+    sources:
+    - ansible
+    - cli_reference
+  antispam_cache:
+    canonical:
+      type: enum
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      choices: &id002
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable FortiGuard antispam request caching. Uses a small amount of memory but improves performance.
+      source_attribute: antispam-cache
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id002
+        version_ranges: *id003
+        description: Enable/disable FortiGuard antispam request caching. Uses a small amount of memory but improves performance.
+        source_attribute: antispam_cache
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: antispam_cache
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable FortiGuard antispam request caching. Uses a small amount of memory but improves performance.
+        default: enable
+        source_attribute: antispam-cache
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  antispam_cache_mpercent:
+    canonical:
+      type: integer
+      min: 1
+      max: 15
+      source_attribute: antispam_cache_mpercent
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 15
+        source_attribute: antispam_cache_mpercent
+    sources:
+    - terraform
+  antispam_cache_mpermille:
+    canonical:
+      type: integer
+      version_ranges: &id004
+      - - v7.4.0
+        - ''
+      default: '1'
+      min: 1
+      max: 150
+      description: Maximum permille of FortiGate memory the antispam cache is allowed to use (1 - 150).
+      source_attribute: antispam-cache-mpermille
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id004
+        description: Maximum permille of FortiGate memory the antispam cache is allowed to use (1 - 150).
+        source_attribute: antispam_cache_mpermille
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 150
+        source_attribute: antispam_cache_mpermille
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum permille of FortiGate memory the antispam cache is allowed to use (1 - 150).
+        default: '1'
+        min: 1
+        max: 150
+        source_attribute: antispam-cache-mpermille
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  antispam_cache_ttl:
+    canonical:
+      type: integer
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      default: '1800'
+      min: 300
+      max: 86400
+      description: Time-to-live for antispam cache entries in seconds (300 - 86400). Lower times reduce the cache size. Higher
+        times may improve performance since the cache will have more entries.
+      source_attribute: antispam-cache-ttl
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id005
+        description: Time-to-live for antispam cache entries in seconds (300 - 86400). Lower times reduce the cache size.
+          Higher times may improve performance since the cache will have more entries.
+        source_attribute: antispam_cache_ttl
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 300
+        max: 86400
+        source_attribute: antispam_cache_ttl
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time-to-live for antispam cache entries in seconds (300 - 86400). Lower times reduce the cache size.
+          Higher times may improve performance since the cache will have more entries.
+        default: '1800'
+        min: 300
+        max: 86400
+        source_attribute: antispam-cache-ttl
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  antispam_expiration:
+    canonical:
+      type: integer
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Expiration date of the FortiGuard antispam contract. Read-only.
+      source_attribute: antispam-expiration
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: antispam_expiration
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Expiration date of the FortiGuard antispam contract. Read-only.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: antispam-expiration
+    sources:
+    - cli_reference
+    - terraform
+  antispam_force_off:
+    canonical:
+      type: enum
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      choices: &id006
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable turning off the FortiGuard antispam service.
+      source_attribute: antispam-force-off
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id006
+        version_ranges: *id007
+        description: Enable/disable turning off the FortiGuard antispam service.
+        source_attribute: antispam_force_off
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: antispam_force_off
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable turning off the FortiGuard antispam service.
+        default: disable
+        source_attribute: antispam-force-off
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  antispam_license:
+    canonical:
+      type: integer
+      default: '4294967295'
+      min: 0
+      max: 4294967295
+      description: Interval of time between license checks for the FortiGuard antispam contract. Read-only.
+      source_attribute: antispam-license
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: antispam_license
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Interval of time between license checks for the FortiGuard antispam contract. Read-only.
+        default: '4294967295'
+        min: 0
+        max: 4294967295
+        source_attribute: antispam-license
+    sources:
+    - cli_reference
+    - terraform
+  antispam_timeout:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      default: '7'
+      min: 1
+      max: 30
+      description: Antispam query time out (1 - 30 sec, default = 7).
+      source_attribute: antispam-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id008
+        description: Antispam query time out (1 - 30 sec).
+        source_attribute: antispam_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        required: true
+        min: 1
+        max: 30
+        source_attribute: antispam_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Antispam query time out (1 - 30 sec, default = 7).
+        default: '7'
+        min: 1
+        max: 30
+        source_attribute: antispam-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  anycast_sdns_server_ip:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id009
+      - - v6.4.0
+        - ''
+      default: 0.0.0.0
+      description: IP address of the FortiGuard anycast DNS rating server.
+      source_attribute: anycast-sdns-server-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id009
+        description: IP address of the FortiGuard anycast DNS rating server.
+        source_attribute: anycast_sdns_server_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: anycast_sdns_server_ip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: IP address of the FortiGuard anycast DNS rating server.
+        default: 0.0.0.0
+        source_attribute: anycast-sdns-server-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id010
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id010
+  anycast_sdns_server_port:
+    canonical:
+      type: integer
+      version_ranges: &id011
+      - - v6.4.0
+        - ''
+      default: '853'
+      min: 1
+      max: 65535
+      description: Port to connect to on the FortiGuard anycast DNS rating server.
+      source_attribute: anycast-sdns-server-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id011
+        description: Port to connect to on the FortiGuard anycast DNS rating server.
+        source_attribute: anycast_sdns_server_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: anycast_sdns_server_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port to connect to on the FortiGuard anycast DNS rating server.
+        default: '853'
+        min: 1
+        max: 65535
+        source_attribute: anycast-sdns-server-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  auto_firmware_upgrade:
+    canonical:
+      type: enum
+      version_ranges: &id013
+      - - v7.2.1
+        - ''
+      choices: &id012
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable automatic patch-level firmware upgrade from FortiGuard. The FortiGate unit searches for
+        new patches only in the same major and minor version. Enabled by default for entry-level FortiGates; see Automatic
+        firmware updates .
+      source_attribute: auto-firmware-upgrade
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id012
+        version_ranges: *id013
+        description: Enable/disable automatic patch-level firmware upgrade from FortiGuard. The FortiGate unit searches for
+          new patches only in the same major and minor version.
+        source_attribute: auto_firmware_upgrade
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auto_firmware_upgrade
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable automatic patch-level firmware upgrade from FortiGuard. The FortiGate unit searches for
+          new patches only in the same major and minor version. Enabled by default for entry-level FortiGates; see Automatic
+          firmware updates .
+        default: enable
+        source_attribute: auto-firmware-upgrade
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  auto_firmware_upgrade_day:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id015
+      - - v7.2.1
+        - ''
+      choices: &id014
+      - sunday
+      - monday
+      - tuesday
+      - wednesday
+      - thursday
+      - friday
+      - saturday
+      description: Allowed day(s) of the week to install an automatic patch-level firmware upgrade from FortiGuard (default
+        is none). Disallow any day of the week to use auto-firmware-upgrade-delay instead, which waits for designated days
+        before installing an automatic patch-level firmware upgrade.
+      source_attribute: auto-firmware-upgrade-day
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id014
+        multiple_values: true
+        elements: str
+        version_ranges: *id015
+        description: Allowed day(s) of the week to install an automatic patch-level firmware upgrade from FortiGuard . Disallow
+          any day of the week to use auto-firmware-upgrade-delay instead, which waits for designated days before installing
+          an automatic patch-level firmware upgrade.
+        source_attribute: auto_firmware_upgrade_day
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auto_firmware_upgrade_day
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Allowed day(s) of the week to install an automatic patch-level firmware upgrade from FortiGuard (default
+          is none). Disallow any day of the week to use auto-firmware-upgrade-delay instead, which waits for designated days
+          before installing an automatic patch-level firmware upgrade.
+        source_attribute: auto-firmware-upgrade-day
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  auto_firmware_upgrade_delay:
+    canonical:
+      type: integer
+      version_ranges: &id016
+      - - v7.4.0
+        - ''
+      default: '3'
+      min: 0
+      max: 14
+      description: Delay of day(s) before installing an automatic patch-level firmware upgrade from FortiGuard (default =
+        3). Set it 0 to use auto-firmware-upgrade-day instead, which selects allowed day(s) of the week for installing an
+        automatic patch-level firmware upgrade.
+      source_attribute: auto-firmware-upgrade-delay
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id016
+        description: Delay of day(s) before installing an automatic patch-level firmware upgrade from FortiGuard  of the week
+          for installing an automatic patch-level firmware upgrade.
+        source_attribute: auto_firmware_upgrade_delay
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 14
+        source_attribute: auto_firmware_upgrade_delay
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Delay of day(s) before installing an automatic patch-level firmware upgrade from FortiGuard (default
+          = 3). Set it 0 to use auto-firmware-upgrade-day instead, which selects allowed day(s) of the week for installing
+          an automatic patch-level firmware upgrade.
+        default: '3'
+        min: 0
+        max: 14
+        source_attribute: auto-firmware-upgrade-delay
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  auto_firmware_upgrade_end_hour:
+    canonical:
+      type: integer
+      version_ranges: &id017
+      - - v7.2.1
+        - ''
+      default: '4'
+      min: 0
+      max: 23
+      description: End time in the designated time window for automatic patch-level firmware upgrade from FortiGuard in 24
+        hour time (0 ~ 23, default = 4). When the end time is smaller than the start time, the end time is interpreted as
+        the next day. The actual upgrade time is selected randomly within the time window.
+      source_attribute: auto-firmware-upgrade-end-hour
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id017
+        description: End time in the designated time window for automatic patch-level firmware upgrade from FortiGuard in
+          24 hour time (0 ~ 23). When the end time is smaller than the start time, the end time is interpreted as the next
+          day. The actual upgrade time is selected randomly within the time window.
+        source_attribute: auto_firmware_upgrade_end_hour
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 23
+        source_attribute: auto_firmware_upgrade_end_hour
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: End time in the designated time window for automatic patch-level firmware upgrade from FortiGuard in
+          24 hour time (0 ~ 23, default = 4). When the end time is smaller than the start time, the end time is interpreted
+          as the next day. The actual upgrade time is selected randomly within the time window.
+        default: '4'
+        min: 0
+        max: 23
+        source_attribute: auto-firmware-upgrade-end-hour
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  auto_firmware_upgrade_start_hour:
+    canonical:
+      type: integer
+      version_ranges: &id018
+      - - v7.2.1
+        - ''
+      default: '2'
+      min: 0
+      max: 23
+      description: Start time in the designated time window for automatic patch-level firmware upgrade from FortiGuard in
+        24 hour time (0 ~ 23, default = 2). The actual upgrade time is selected randomly within the time window.
+      source_attribute: auto-firmware-upgrade-start-hour
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id018
+        description: Start time in the designated time window for automatic patch-level firmware upgrade from FortiGuard in
+          24 hour time (0 ~ 23). The actual upgrade time is selected randomly within the time window.
+        source_attribute: auto_firmware_upgrade_start_hour
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 23
+        source_attribute: auto_firmware_upgrade_start_hour
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Start time in the designated time window for automatic patch-level firmware upgrade from FortiGuard in
+          24 hour time (0 ~ 23, default = 2). The actual upgrade time is selected randomly within the time window.
+        default: '2'
+        min: 0
+        max: 23
+        source_attribute: auto-firmware-upgrade-start-hour
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  auto_join_forticloud:
+    canonical:
+      type: enum
+      default: enable
+      description: Automatically connect to and login to FortiCloud.
+      source_attribute: auto-join-forticloud
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        description: Automatically connect to and login to FortiCloud.
+        source_attribute: auto_join_forticloud
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auto_join_forticloud
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Automatically connect to and login to FortiCloud.
+        default: enable
+        source_attribute: auto-join-forticloud
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ddns_server_ip:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id019
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: IP address of the FortiDDNS server.
+      source_attribute: ddns-server-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id019
+        description: IP address of the FortiDDNS server.
+        source_attribute: ddns_server_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ddns_server_ip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: IP address of the FortiDDNS server.
+        default: 0.0.0.0
+        source_attribute: ddns-server-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id020
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id020
+  ddns_server_ip6:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id021
+      - - v7.0.1
+        - ''
+      default: '::'
+      description: IPv6 address of the FortiDDNS server.
+      source_attribute: ddns-server-ip6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id021
+        description: IPv6 address of the FortiDDNS server.
+        source_attribute: ddns_server_ip6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ddns_server_ip6
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: IPv6 address of the FortiDDNS server.
+        default: '::'
+        source_attribute: ddns-server-ip6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id022
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id022
+  ddns_server_port:
+    canonical:
+      type: integer
+      version_ranges: &id023
+      - - v6.0.0
+        - ''
+      default: '443'
+      min: 1
+      max: 65535
+      description: Port used to communicate with FortiDDNS servers.
+      source_attribute: ddns-server-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id023
+        description: Port used to communicate with FortiDDNS servers.
+        source_attribute: ddns_server_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: ddns_server_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port used to communicate with FortiDDNS servers.
+        default: '443'
+        min: 1
+        max: 65535
+        source_attribute: ddns-server-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fds_license_expiring_days:
+    canonical:
+      type: integer
+      min: 1
+      max: 100
+      source_attribute: fds_license_expiring_days
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 100
+        source_attribute: fds_license_expiring_days
+    sources:
+    - terraform
+  fortiguard_anycast:
+    canonical:
+      type: enum
+      version_ranges: &id025
+      - - v6.2.0
+        - ''
+      choices: &id024
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable use of FortiGuard's Anycast network.
+      source_attribute: fortiguard-anycast
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id024
+        version_ranges: *id025
+        description: Enable/disable use of FortiGuard"s Anycast network.
+        source_attribute: fortiguard_anycast
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fortiguard_anycast
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of FortiGuard's Anycast network.
+        default: enable
+        source_attribute: fortiguard-anycast
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fortiguard_anycast_source:
+    canonical:
+      type: enum
+      version_ranges: &id027
+      - - v6.2.0
+        - ''
+      choices: &id026
+      - fortinet
+      - aws
+      - debug
+      default: fortinet
+      description: Configure which of Fortinet's servers to provide FortiGuard services in FortiGuard's anycast network. Default
+        is Fortinet.
+      source_attribute: fortiguard-anycast-source
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id026
+        version_ranges: *id027
+        description: Configure which of Fortinet"s servers to provide FortiGuard services in FortiGuard"s anycast network.
+          Default is Fortinet.
+        source_attribute: fortiguard_anycast_source
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fortiguard_anycast_source
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Configure which of Fortinet's servers to provide FortiGuard services in FortiGuard's anycast network.
+          Default is Fortinet.
+        default: fortinet
+        source_attribute: fortiguard-anycast-source
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  gui_prompt_auto_upgrade:
+    canonical:
+      type: string
+      source_attribute: gui_prompt_auto_upgrade
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: gui_prompt_auto_upgrade
+    sources:
+    - terraform
+  interface:
+    canonical:
+      type: string
+      references: &id029
+      - system.interface.name
+      version_ranges: &id028
+      - - v6.2.0
+        - v6.2.0
+      - - v6.2.5
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Specify outgoing interface to reach server.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id028
+        description: Specify outgoing interface to reach server. Source system.interface.name.
+        references: *id029
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Specify outgoing interface to reach server.
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface_select_method:
+    canonical:
+      type: enum
+      version_ranges: &id031
+      - - v6.2.0
+        - v6.2.0
+      - - v6.2.5
+        - ''
+      choices: &id030
+      - auto
+      - sdwan
+      - specify
+      default: auto
+      description: Specify how to select outgoing interface to reach server.
+      source_attribute: interface-select-method
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id030
+        version_ranges: *id031
+        description: Specify how to select outgoing interface to reach server.
+        source_attribute: interface_select_method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface_select_method
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Specify how to select outgoing interface to reach server.
+        default: auto
+        source_attribute: interface-select-method
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  load_balance_servers:
+    canonical:
+      type: integer
+      version_ranges: &id032
+      - - v6.0.0
+        - ''
+      default: '1'
+      min: 1
+      max: 266
+      description: Number of servers to alternate between as first FortiGuard option.
+      source_attribute: load-balance-servers
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id032
+        description: Number of servers to alternate between as first FortiGuard option.
+        source_attribute: load_balance_servers
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 266
+        source_attribute: load_balance_servers
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Number of servers to alternate between as first FortiGuard option.
+        default: '1'
+        min: 1
+        max: 266
+        source_attribute: load-balance-servers
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  outbreak_prevention_cache:
+    canonical:
+      type: enum
+      version_ranges: &id034
+      - - v6.0.0
+        - ''
+      choices: &id033
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable FortiGuard Virus Outbreak Prevention cache.
+      source_attribute: outbreak-prevention-cache
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id033
+        version_ranges: *id034
+        description: Enable/disable FortiGuard Virus Outbreak Prevention cache.
+        source_attribute: outbreak_prevention_cache
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: outbreak_prevention_cache
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable FortiGuard Virus Outbreak Prevention cache.
+        default: enable
+        source_attribute: outbreak-prevention-cache
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  outbreak_prevention_cache_mpercent:
+    canonical:
+      type: integer
+      min: 1
+      max: 15
+      source_attribute: outbreak_prevention_cache_mpercent
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 15
+        source_attribute: outbreak_prevention_cache_mpercent
+    sources:
+    - terraform
+  outbreak_prevention_cache_mpermille:
+    canonical:
+      type: integer
+      version_ranges: &id035
+      - - v7.4.0
+        - ''
+      default: '1'
+      min: 1
+      max: 150
+      description: Maximum permille of memory FortiGuard Virus Outbreak Prevention cache can use (1 - 150 permille, default
+        = 1).
+      source_attribute: outbreak-prevention-cache-mpermille
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id035
+        description: Maximum permille of memory FortiGuard Virus Outbreak Prevention cache can use (1 - 150 permille).
+        source_attribute: outbreak_prevention_cache_mpermille
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 150
+        source_attribute: outbreak_prevention_cache_mpermille
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum permille of memory FortiGuard Virus Outbreak Prevention cache can use (1 - 150 permille, default
+          = 1).
+        default: '1'
+        min: 1
+        max: 150
+        source_attribute: outbreak-prevention-cache-mpermille
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  outbreak_prevention_cache_ttl:
+    canonical:
+      type: integer
+      version_ranges: &id036
+      - - v6.0.0
+        - ''
+      default: '300'
+      min: 300
+      max: 86400
+      description: Time-to-live for FortiGuard Virus Outbreak Prevention cache entries (300 - 86400 sec, default = 300).
+      source_attribute: outbreak-prevention-cache-ttl
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id036
+        description: Time-to-live for FortiGuard Virus Outbreak Prevention cache entries (300 - 86400 sec).
+        source_attribute: outbreak_prevention_cache_ttl
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 300
+        max: 86400
+        source_attribute: outbreak_prevention_cache_ttl
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time-to-live for FortiGuard Virus Outbreak Prevention cache entries (300 - 86400 sec, default = 300).
+        default: '300'
+        min: 300
+        max: 86400
+        source_attribute: outbreak-prevention-cache-ttl
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  outbreak_prevention_expiration:
+    canonical:
+      type: integer
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Expiration date of FortiGuard Virus Outbreak Prevention contract. Read-only.
+      source_attribute: outbreak-prevention-expiration
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: outbreak_prevention_expiration
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Expiration date of FortiGuard Virus Outbreak Prevention contract. Read-only.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: outbreak-prevention-expiration
+    sources:
+    - cli_reference
+    - terraform
+  outbreak_prevention_force_off:
+    canonical:
+      type: enum
+      version_ranges: &id038
+      - - v6.0.0
+        - ''
+      choices: &id037
+      - enable
+      - disable
+      default: disable
+      description: Turn off FortiGuard Virus Outbreak Prevention service.
+      source_attribute: outbreak-prevention-force-off
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id037
+        version_ranges: *id038
+        description: Turn off FortiGuard Virus Outbreak Prevention service.
+        source_attribute: outbreak_prevention_force_off
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: outbreak_prevention_force_off
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Turn off FortiGuard Virus Outbreak Prevention service.
+        default: disable
+        source_attribute: outbreak-prevention-force-off
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  outbreak_prevention_license:
+    canonical:
+      type: integer
+      default: '4294967295'
+      min: 0
+      max: 4294967295
+      description: Interval of time between license checks for FortiGuard Virus Outbreak Prevention contract. Read-only.
+      source_attribute: outbreak-prevention-license
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: outbreak_prevention_license
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Interval of time between license checks for FortiGuard Virus Outbreak Prevention contract. Read-only.
+        default: '4294967295'
+        min: 0
+        max: 4294967295
+        source_attribute: outbreak-prevention-license
+    sources:
+    - cli_reference
+    - terraform
+  outbreak_prevention_timeout:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id039
+      - - v6.0.0
+        - ''
+      default: '7'
+      min: 1
+      max: 30
+      description: FortiGuard Virus Outbreak Prevention time out (1 - 30 sec, default = 7).
+      source_attribute: outbreak-prevention-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id039
+        description: FortiGuard Virus Outbreak Prevention time out (1 - 30 sec).
+        source_attribute: outbreak_prevention_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        required: true
+        min: 1
+        max: 30
+        source_attribute: outbreak_prevention_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: FortiGuard Virus Outbreak Prevention time out (1 - 30 sec, default = 7).
+        default: '7'
+        min: 1
+        max: 30
+        source_attribute: outbreak-prevention-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  persistent_connection:
+    canonical:
+      type: enum
+      version_ranges: &id041
+      - - v7.0.0
+        - ''
+      choices: &id040
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable use of persistent connection to receive update notification from FortiGuard.
+      source_attribute: persistent-connection
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id040
+        version_ranges: *id041
+        description: Enable/disable use of persistent connection to receive update notification from FortiGuard.
+        source_attribute: persistent_connection
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: persistent_connection
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of persistent connection to receive update notification from FortiGuard.
+        default: disable
+        source_attribute: persistent-connection
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  port:
+    canonical:
+      type: enum
+      version_ranges: &id043
+      - - v6.0.0
+        - ''
+      choices: &id042
+      - '8888'
+      - '53'
+      - '80'
+      - '443'
+      default: '443'
+      description: Port used to communicate with the FortiGuard servers.
+      source_attribute: port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id042
+        version_ranges: *id043
+        description: Port used to communicate with the FortiGuard servers.
+        source_attribute: port
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: port
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Port used to communicate with the FortiGuard servers.
+        default: '443'
+        source_attribute: port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  protocol:
+    canonical:
+      type: enum
+      version_ranges: &id045
+      - - v6.0.0
+        - v6.0.0
+      - - v6.0.11
+        - ''
+      choices: &id044
+      - udp
+      - http
+      - https
+      default: https
+      description: Protocol used to communicate with the FortiGuard servers.
+      source_attribute: protocol
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id044
+        version_ranges: *id045
+        description: Protocol used to communicate with the FortiGuard servers.
+        source_attribute: protocol
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: protocol
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Protocol used to communicate with the FortiGuard servers.
+        default: https
+        source_attribute: protocol
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  proxy_fqdn_host:
+    canonical:
+      type: string
+      source_attribute: proxy_fqdn_host
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: proxy_fqdn_host
+    sources:
+    - terraform
+  proxy_password:
+    canonical:
+      type: password
+      version_ranges: &id046
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: Proxy user password.
+      source_attribute: proxy-password
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id046
+        description: Proxy user password.
+        source_attribute: proxy_password
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: proxy_password
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Proxy user password.
+        source_attribute: proxy-password
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id047
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id047
+  proxy_server_ip:
+    canonical:
+      type: string
+      version_ranges: &id048
+      - - v6.2.0
+        - ''
+      max_length: 63
+      description: Hostname or IPv4 address of the proxy server.
+      source_attribute: proxy-server-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id048
+        description: Hostname or IPv4 address of the proxy server.
+        source_attribute: proxy_server_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: proxy_server_ip
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Hostname or IPv4 address of the proxy server.
+        max_length: 63
+        source_attribute: proxy-server-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  proxy_server_port:
+    canonical:
+      type: integer
+      version_ranges: &id049
+      - - v6.2.0
+        - ''
+      default: '0'
+      min: 0
+      max: 65535
+      description: Port used to communicate with the proxy server.
+      source_attribute: proxy-server-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id049
+        description: Port used to communicate with the proxy server.
+        source_attribute: proxy_server_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: proxy_server_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port used to communicate with the proxy server.
+        default: '0'
+        min: 0
+        max: 65535
+        source_attribute: proxy-server-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  proxy_username:
+    canonical:
+      type: string
+      version_ranges: &id050
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 64
+      description: Proxy user name.
+      source_attribute: proxy-username
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id050
+        description: Proxy user name.
+        source_attribute: proxy_username
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 64
+        source_attribute: proxy_username
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Proxy user name.
+        max_length: 64
+        source_attribute: proxy-username
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sandbox_inline_scan:
+    canonical:
+      type: enum
+      version_ranges: &id052
+      - - v7.2.1
+        - ''
+      choices: &id051
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable FortiCloud Sandbox inline-scan.
+      source_attribute: sandbox-inline-scan
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id051
+        version_ranges: *id052
+        description: Enable/disable FortiCloud Sandbox inline-scan.
+        source_attribute: sandbox_inline_scan
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sandbox_inline_scan
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable FortiCloud Sandbox inline-scan.
+        default: disable
+        source_attribute: sandbox-inline-scan
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sandbox_region:
+    canonical:
+      type: string
+      version_ranges: &id053
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: FortiCloud Sandbox region.
+      source_attribute: sandbox-region
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id053
+        description: FortiCloud Sandbox region.
+        source_attribute: sandbox_region
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: sandbox_region
+      cli_reference:
+        type: string
+        raw_type: string
+        description: FortiCloud Sandbox region.
+        max_length: 63
+        source_attribute: sandbox-region
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sdns_options:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id055
+      - - v6.4.0
+        - ''
+      choices: &id054
+      - include-question-section
+      description: Customization options for the FortiGuard DNS service.
+      source_attribute: sdns-options
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id054
+        multiple_values: true
+        elements: str
+        version_ranges: *id055
+        description: Customization options for the FortiGuard DNS service.
+        source_attribute: sdns_options
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: sdns_options
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Customization options for the FortiGuard DNS service.
+        source_attribute: sdns-options
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sdns_server_ip:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: &id056
+      - - v6.0.0
+        - ''
+      description: IP address of the FortiGuard DNS rating server.
+      source_attribute: sdns-server-ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id056
+        description: IP address of the FortiGuard DNS rating server.
+        source_attribute: sdns_server_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: sdns_server_ip
+      cli_reference:
+        type: string
+        raw_type: user
+        description: IP address of the FortiGuard DNS rating server.
+        source_attribute: sdns-server-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id057
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id057
+  sdns_server_port:
+    canonical:
+      type: integer
+      version_ranges: &id058
+      - - v6.0.0
+        - ''
+      default: '53'
+      min: 1
+      max: 65535
+      description: Port to connect to on the FortiGuard DNS rating server.
+      source_attribute: sdns-server-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id058
+        description: Port to connect to on the FortiGuard DNS rating server.
+        source_attribute: sdns_server_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: sdns_server_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port to connect to on the FortiGuard DNS rating server.
+        default: '53'
+        min: 1
+        max: 65535
+        source_attribute: sdns-server-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  service_account_id:
+    canonical:
+      type: string
+      version_ranges: &id059
+      - - v6.0.0
+        - v6.0.11
+      - - v6.2.3
+        - v6.2.3
+      - - v7.0.12
+        - v7.0.12
+      - - v7.2.1
+        - ''
+      min_length: 0
+      max_length: 50
+      description: Service account ID. Read only.
+      source_attribute: service-account-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id059
+        description: Service account ID.
+        source_attribute: service_account_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 50
+        source_attribute: service_account_id
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Service account ID. Read only.
+        max_length: 50
+        source_attribute: service-account-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source_ip:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id060
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: Source IPv4 address used to communicate with FortiGuard.
+      source_attribute: source-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id060
+        description: Source IPv4 address used to communicate with FortiGuard.
+        source_attribute: source_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_ip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Source IPv4 address used to communicate with FortiGuard.
+        default: 0.0.0.0
+        source_attribute: source-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id061
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id061
+  source_ip6:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id062
+      - - v6.0.0
+        - ''
+      default: '::'
+      description: Source IPv6 address used to communicate with FortiGuard.
+      source_attribute: source-ip6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id062
+        description: Source IPv6 address used to communicate with FortiGuard.
+        source_attribute: source_ip6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_ip6
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: Source IPv6 address used to communicate with FortiGuard.
+        default: '::'
+        source_attribute: source-ip6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id063
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id063
+  subscribe_update_notification:
+    canonical:
+      type: enum
+      version_ranges: &id065
+      - - v7.6.3
+        - ''
+      choices: &id064
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable subscription to receive update notification from FortiGuard.
+      source_attribute: subscribe-update-notification
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id064
+        version_ranges: *id065
+        description: Enable/disable subscription to receive update notification from FortiGuard.
+        source_attribute: subscribe_update_notification
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: subscribe_update_notification
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable subscription to receive update notification from FortiGuard.
+        default: disable
+        source_attribute: subscribe-update-notification
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_build_proxy:
+    canonical:
+      type: enum
+      version_ranges: &id067
+      - - v7.0.0
+        - ''
+      choices: &id066
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable proxy dictionary rebuild.
+      source_attribute: update-build-proxy
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id066
+        version_ranges: *id067
+        description: Enable/disable proxy dictionary rebuild.
+        source_attribute: update_build_proxy
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: update_build_proxy
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable proxy dictionary rebuild.
+        default: enable
+        source_attribute: update-build-proxy
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_dldb:
+    canonical:
+      type: enum
+      version_ranges: &id069
+      - - v7.4.0
+        - ''
+      choices: &id068
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable DLP signature update.
+      source_attribute: update-dldb
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id068
+        version_ranges: *id069
+        description: Enable/disable DLP signature update.
+        source_attribute: update_dldb
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: update_dldb
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable DLP signature update.
+        default: enable
+        source_attribute: update-dldb
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_extdb:
+    canonical:
+      type: enum
+      version_ranges: &id071
+      - - v7.0.0
+        - ''
+      choices: &id070
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable external resource update.
+      source_attribute: update-extdb
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id070
+        version_ranges: *id071
+        description: Enable/disable external resource update.
+        source_attribute: update_extdb
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: update_extdb
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable external resource update.
+        default: enable
+        source_attribute: update-extdb
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_ffdb:
+    canonical:
+      type: enum
+      version_ranges: &id073
+      - - v7.0.0
+        - ''
+      choices: &id072
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable Internet Service Database update.
+      source_attribute: update-ffdb
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id072
+        version_ranges: *id073
+        description: Enable/disable Internet Service Database update.
+        source_attribute: update_ffdb
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: update_ffdb
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable Internet Service Database update.
+        default: enable
+        source_attribute: update-ffdb
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_server_location:
+    canonical:
+      type: enum
+      version_ranges: &id075
+      - - v6.0.0
+        - ''
+      choices: &id074
+      - automatic
+      - usa
+      - eu
+      default: automatic
+      description: Location from which to receive FortiGuard updates.
+      source_attribute: update-server-location
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id074
+        version_ranges: *id075
+        description: Location from which to receive FortiGuard updates.
+        source_attribute: update_server_location
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: update_server_location
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Location from which to receive FortiGuard updates.
+        default: automatic
+        source_attribute: update-server-location
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_uwdb:
+    canonical:
+      type: enum
+      version_ranges: &id077
+      - - v7.0.0
+        - ''
+      choices: &id076
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable allowlist update.
+      source_attribute: update-uwdb
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id076
+        version_ranges: *id077
+        description: Enable/disable allowlist update.
+        source_attribute: update_uwdb
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: update_uwdb
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable allowlist update.
+        default: enable
+        source_attribute: update-uwdb
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdom:
+    canonical:
+      type: string
+      references: &id079
+      - system.vdom.name
+      version_ranges: &id078
+      - - v7.2.0
+        - ''
+      min_length: 0
+      max_length: 31
+      description: FortiGuard Service virtual domain name.
+      source_attribute: vdom
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id078
+        description: FortiGuard Service virtual domain name. Source system.vdom.name.
+        references: *id079
+        source_attribute: vdom
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 31
+        source_attribute: vdom
+      cli_reference:
+        type: string
+        raw_type: string
+        description: FortiGuard Service virtual domain name.
+        max_length: 31
+        source_attribute: vdom
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  videofilter_expiration:
+    canonical:
+      type: integer
+      source_attribute: videofilter_expiration
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: videofilter_expiration
+    sources:
+    - terraform
+  videofilter_license:
+    canonical:
+      type: integer
+      source_attribute: videofilter_license
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: videofilter_license
+    sources:
+    - terraform
+  vrf_select:
+    canonical:
+      type: integer
+      version_ranges: &id080
+      - - v7.6.1
+        - ''
+      default: '0'
+      min: 0
+      max: 511
+      description: VRF ID used for connection to server.
+      source_attribute: vrf-select
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id080
+        description: VRF ID used for connection to server.
+        source_attribute: vrf_select
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 511
+        source_attribute: vrf_select
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: VRF ID used for connection to server.
+        default: '0'
+        min: 0
+        max: 511
+        source_attribute: vrf-select
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  webfilter_cache:
+    canonical:
+      type: enum
+      version_ranges: &id082
+      - - v6.0.0
+        - ''
+      choices: &id081
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable FortiGuard web filter caching.
+      source_attribute: webfilter-cache
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id081
+        version_ranges: *id082
+        description: Enable/disable FortiGuard web filter caching.
+        source_attribute: webfilter_cache
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: webfilter_cache
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable FortiGuard web filter caching.
+        default: enable
+        source_attribute: webfilter-cache
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  webfilter_cache_ttl:
+    canonical:
+      type: integer
+      version_ranges: &id083
+      - - v6.0.0
+        - ''
+      default: '3600'
+      min: 300
+      max: 86400
+      description: Time-to-live for web filter cache entries in seconds (300 - 86400).
+      source_attribute: webfilter-cache-ttl
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id083
+        description: Time-to-live for web filter cache entries in seconds (300 - 86400).
+        source_attribute: webfilter_cache_ttl
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 300
+        max: 86400
+        source_attribute: webfilter_cache_ttl
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time-to-live for web filter cache entries in seconds (300 - 86400).
+        default: '3600'
+        min: 300
+        max: 86400
+        source_attribute: webfilter-cache-ttl
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  webfilter_expiration:
+    canonical:
+      type: integer
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Expiration date of the FortiGuard web filter contract. Read-only.
+      source_attribute: webfilter-expiration
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: webfilter_expiration
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Expiration date of the FortiGuard web filter contract. Read-only.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: webfilter-expiration
+    sources:
+    - cli_reference
+    - terraform
+  webfilter_force_off:
+    canonical:
+      type: enum
+      version_ranges: &id085
+      - - v6.0.0
+        - ''
+      choices: &id084
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable turning off the FortiGuard web filtering service.
+      source_attribute: webfilter-force-off
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id084
+        version_ranges: *id085
+        description: Enable/disable turning off the FortiGuard web filtering service.
+        source_attribute: webfilter_force_off
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: webfilter_force_off
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable turning off the FortiGuard web filtering service.
+        default: disable
+        source_attribute: webfilter-force-off
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  webfilter_license:
+    canonical:
+      type: integer
+      default: '4294967295'
+      min: 0
+      max: 4294967295
+      description: Interval of time between license checks for the FortiGuard web filter contract. Read-only.
+      source_attribute: webfilter-license
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: webfilter_license
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Interval of time between license checks for the FortiGuard web filter contract. Read-only.
+        default: '4294967295'
+        min: 0
+        max: 4294967295
+        source_attribute: webfilter-license
+    sources:
+    - cli_reference
+    - terraform
+  webfilter_timeout:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id086
+      - - v6.0.0
+        - ''
+      default: '15'
+      min: 1
+      max: 30
+      description: Web filter query time out (1 - 30 sec, default = 15).
+      source_attribute: webfilter-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id086
+        description: Web filter query time out (1 - 30 sec).
+        source_attribute: webfilter_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        required: true
+        min: 1
+        max: 30
+        source_attribute: webfilter_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Web filter query time out (1 - 30 sec, default = 15).
+        default: '15'
+        min: 1
+        max: 30
+        source_attribute: webfilter-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: anycast_sdns_server_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: ddns_server_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: ddns_server_ip6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict
+- attribute: proxy_password
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict
+- attribute: sdns_server_ip
+  field: type
+  values:
+    ansible: list
+    terraform: string
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: source_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: source_ip6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict

@@ -1,0 +1,63 @@
+id: fortimanager.system_ntp
+version: 7.6.7
+source_presence:
+  ansible: false
+  terraform: true
+  cli_reference: false
+attributes_flat:
+  server:
+    canonical:
+      type: string
+      required: true
+      source_attribute: server
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      required: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: server
+    sources:
+    - terraform
+  status:
+    canonical:
+      type: enum
+      choices: &id001
+      - disable
+      - enable
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      choices: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        choices: *id001
+        source_attribute: status
+    sources:
+    - terraform
+  sync_interval:
+    canonical:
+      type: integer
+      source_attribute: sync_interval
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: sync_interval
+    sources:
+    - terraform
+conflicts: []

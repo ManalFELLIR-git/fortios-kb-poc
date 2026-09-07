@@ -1,0 +1,791 @@
+id: system.vxlan
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dstport:
+    canonical:
+      type: integer
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      default: '4789'
+      min: 1
+      max: 65535
+      description: VXLAN destination port (1 - 65535, default = 4789).
+      source_attribute: dstport
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id001
+        description: VXLAN destination port (1 - 65535).
+        source_attribute: dstport
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: dstport
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: VXLAN destination port (1 - 65535, default = 4789).
+        default: '4789'
+        min: 1
+        max: 65535
+        source_attribute: dstport
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  evpn_id:
+    canonical:
+      type: integer
+      references: &id003
+      - system.evpn.id
+      version_ranges: &id002
+      - - v7.4.0
+        - ''
+      default: '0'
+      min: 1
+      max: 65535
+      description: EVPN instance.
+      source_attribute: evpn-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id002
+        description: EVPN instance. Source system.evpn.id.
+        references: *id003
+        source_attribute: evpn_id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 65535
+        source_attribute: evpn_id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: EVPN instance.
+        default: '0'
+        min: 1
+        max: 65535
+        source_attribute: evpn-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  interface:
+    canonical:
+      type: string
+      references: &id005
+      - system.interface.name
+      required: true
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Outgoing interface for VXLAN encapsulated traffic.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id004
+        description: Outgoing interface for VXLAN encapsulated traffic. Source system.interface.name.
+        references: *id005
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Outgoing interface for VXLAN encapsulated traffic.
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ip_version:
+    canonical:
+      type: enum
+      required: true
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      choices: &id006
+      - ipv4-unicast
+      - ipv6-unicast
+      - ipv4-multicast
+      - ipv6-multicast
+      default: ipv4-unicast
+      description: IP version to use for the VXLAN interface and so for communication over the VXLAN. IPv4 or IPv6 unicast
+        or multicast.
+      source_attribute: ip-version
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id006
+        version_ranges: *id007
+        description: IP version to use for the VXLAN interface and so for communication over the VXLAN. IPv4 or IPv6 unicast
+          or multicast.
+        source_attribute: ip_version
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: ip_version
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: IP version to use for the VXLAN interface and so for communication over the VXLAN. IPv4 or IPv6 unicast
+          or multicast.
+        default: ipv4-unicast
+        source_attribute: ip-version
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  learn_from_traffic:
+    canonical:
+      type: enum
+      version_ranges: &id009
+      - - v7.4.0
+        - ''
+      choices: &id008
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable VXLAN MAC learning from traffic.
+      source_attribute: learn-from-traffic
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id008
+        version_ranges: *id009
+        description: Enable/disable VXLAN MAC learning from traffic.
+        source_attribute: learn_from_traffic
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: learn_from_traffic
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable VXLAN MAC learning from traffic.
+        default: disable
+        source_attribute: learn-from-traffic
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  local_ip:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id010
+      - - v7.6.4
+        - ''
+      default: 0.0.0.0
+      description: IPv4 address to use as the source address for egress VXLAN packets.
+      source_attribute: local-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id010
+        description: IPv4 address to use as the source address for egress VXLAN packets.
+        source_attribute: local_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: local_ip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: IPv4 address to use as the source address for egress VXLAN packets.
+        default: 0.0.0.0
+        source_attribute: local-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id011
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id011
+  local_ip6:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id012
+      - - v7.6.4
+        - ''
+      default: '::'
+      description: IPv6 address to use as the source address for egress VXLAN packets.
+      source_attribute: local-ip6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id012
+        description: IPv6 address to use as the source address for egress VXLAN packets.
+        source_attribute: local_ip6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: local_ip6
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: IPv6 address to use as the source address for egress VXLAN packets.
+        default: '::'
+        source_attribute: local-ip6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id013
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id013
+  multicast_ttl:
+    canonical:
+      type: integer
+      version_ranges: &id014
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 1
+      max: 255
+      description: VXLAN multicast TTL (1-255, default = 0).
+      source_attribute: multicast-ttl
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id014
+        description: VXLAN multicast TTL (1-255).
+        source_attribute: multicast_ttl
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 255
+        source_attribute: multicast_ttl
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: VXLAN multicast TTL (1-255, default = 0).
+        default: '0'
+        min: 1
+        max: 255
+        source_attribute: multicast-ttl
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id015
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: VXLAN device or interface name. Must be a unique interface name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id015
+        description: VXLAN device or interface name. Must be a unique interface name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 15
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: VXLAN device or interface name. Must be a unique interface name.
+        max_length: 15
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  remote_ip:
+    canonical:
+      type: list
+      elements: dict
+      children: &id017
+        ip:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id019
+          - - v6.0.0
+            - ''
+          description: IPv4 address.
+      version_ranges: &id016
+      - - v6.0.0
+        - ''
+      max_length: 15
+      description: IPv4 address of the VXLAN interface on the device at the remote end of the VXLAN. IPv4 address.
+      source_attribute: remote-ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id016
+        description: IPv4 address of the VXLAN interface on the device at the remote end of the VXLAN.
+        children: *id017
+        source_attribute: remote_ip
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+        source_attribute: remote_ip
+      cli_reference:
+        type: string
+        raw_type: string
+        description: IPv4 address of the VXLAN interface on the device at the remote end of the VXLAN. IPv4 address.
+        max_length: 15
+        source_attribute: remote-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id018
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id018
+  remote_ip.ip:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id019
+      min_length: 0
+      max_length: 15
+      description: IPv4 address.
+      source_attribute: remote_ip.ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id019
+        description: IPv4 address.
+        source_attribute: remote_ip.ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: remote_ip.ip
+    sources:
+    - ansible
+    - terraform
+  remote_ip6:
+    canonical:
+      type: list
+      elements: dict
+      children: &id021
+        ip6:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id023
+          - - v6.0.0
+            - ''
+          description: IPv6 address.
+      version_ranges: &id020
+      - - v6.0.0
+        - ''
+      max_length: 45
+      description: IPv6 IP address of the VXLAN interface on the device at the remote end of the VXLAN. IPv6 address.
+      source_attribute: remote-ip6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id020
+        description: IPv6 IP address of the VXLAN interface on the device at the remote end of the VXLAN.
+        children: *id021
+        source_attribute: remote_ip6
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          ip6:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 45
+        source_attribute: remote_ip6
+      cli_reference:
+        type: string
+        raw_type: string
+        description: IPv6 IP address of the VXLAN interface on the device at the remote end of the VXLAN. IPv6 address.
+        max_length: 45
+        source_attribute: remote-ip6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id022
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id022
+  remote_ip6.ip6:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id023
+      min_length: 0
+      max_length: 45
+      description: IPv6 address.
+      source_attribute: remote_ip6.ip6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id023
+        description: IPv6 address.
+        source_attribute: remote_ip6.ip6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 45
+        source_attribute: remote_ip6.ip6
+    sources:
+    - ansible
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  vni:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id024
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 1
+      max: 16777215
+      description: VXLAN network ID.
+      source_attribute: vni
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id024
+        description: VXLAN network ID.
+        source_attribute: vni
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        required: true
+        min: 1
+        max: 16777215
+        source_attribute: vni
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: VXLAN network ID.
+        default: '0'
+        min: 1
+        max: 16777215
+        source_attribute: vni
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: local_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: local_ip6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict
+- attribute: remote_ip
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: remote_ip6
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

@@ -1,0 +1,1069 @@
+id: switch-controller.flow-tracking
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  aggregates:
+    canonical:
+      type: list
+      elements: dict
+      children: &id002
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id003
+          - - v6.2.0
+            - ''
+          description: Aggregate id. see <a href='#notes'>Notes</a>.
+        ip:
+          type: string
+          raw_type: string
+          version_ranges: &id004
+          - - v6.2.0
+            - ''
+          description: IP address to group all matching traffic sessions to a flow.
+      version_ranges: &id001
+      - - v6.2.0
+        - ''
+      description: Configure aggregates in which all traffic sessions matching the IP Address will be grouped into the same
+        flow.
+      source_attribute: aggregates
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id001
+        description: Configure aggregates in which all traffic sessions matching the IP Address will be grouped into the same
+          flow.
+        children: *id002
+        source_attribute: aggregates
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: aggregates
+    sources:
+    - ansible
+    - terraform
+  aggregates.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id003
+      description: Aggregate id. see <a href='#notes'>Notes</a>.
+      source_attribute: aggregates.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id003
+        description: Aggregate id. see <a href='#notes'>Notes</a>.
+        source_attribute: aggregates.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: aggregates.id
+    sources:
+    - ansible
+    - terraform
+  aggregates.ip:
+    canonical:
+      type: string
+      version_ranges: *id004
+      description: IP address to group all matching traffic sessions to a flow.
+      source_attribute: aggregates.ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id004
+        description: IP address to group all matching traffic sessions to a flow.
+        source_attribute: aggregates.ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: aggregates.ip
+    sources:
+    - ansible
+    - terraform
+  collector_ip:
+    canonical:
+      type: string
+      source_attribute: collector_ip
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: collector_ip
+    sources:
+    - terraform
+  collector_port:
+    canonical:
+      type: integer
+      min: 0
+      max: 65535
+      source_attribute: collector_port
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: collector_port
+    sources:
+    - terraform
+  collectors:
+    canonical:
+      type: list
+      elements: dict
+      children: &id006
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id008
+          - - v7.2.0
+            - ''
+          description: Collector name.
+        ip:
+          type: string
+          raw_type: string
+          version_ranges: &id007
+          - - v7.2.0
+            - ''
+          description: Collector IP address.
+        port:
+          type: integer
+          raw_type: integer
+          version_ranges: &id009
+          - - v7.2.0
+            - ''
+          description: Collector port number(0-65535).
+        transport:
+          type: enum
+          raw_type: string
+          choices: &id011
+          - udp
+          - tcp
+          - sctp
+          version_ranges: &id010
+          - - v7.2.0
+            - ''
+          description: Collector L4 transport protocol for exporting packets.
+      version_ranges: &id005
+      - - v7.2.0
+        - ''
+      description: Configure collectors for the flow.
+      source_attribute: collectors
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id005
+        description: Configure collectors for the flow.
+        children: *id006
+        source_attribute: collectors
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          port:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 65535
+          transport:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: collectors
+    sources:
+    - ansible
+    - terraform
+  collectors.ip:
+    canonical:
+      type: string
+      version_ranges: *id007
+      description: Collector IP address.
+      source_attribute: collectors.ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: Collector IP address.
+        source_attribute: collectors.ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: collectors.ip
+    sources:
+    - ansible
+    - terraform
+  collectors.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id008
+      min_length: 0
+      max_length: 63
+      description: Collector name.
+      source_attribute: collectors.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id008
+        description: Collector name.
+        source_attribute: collectors.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: collectors.name
+    sources:
+    - ansible
+    - terraform
+  collectors.port:
+    canonical:
+      type: integer
+      version_ranges: *id009
+      min: 0
+      max: 65535
+      description: Collector port number(0-65535).
+      source_attribute: collectors.port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id009
+        description: Collector port number(0-65535).
+        source_attribute: collectors.port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: collectors.port
+    sources:
+    - ansible
+    - terraform
+  collectors.transport:
+    canonical:
+      type: enum
+      version_ranges: *id010
+      choices: *id011
+      description: Collector L4 transport protocol for exporting packets.
+      source_attribute: collectors.transport
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id011
+        version_ranges: *id010
+        description: Collector L4 transport protocol for exporting packets.
+        source_attribute: collectors.transport
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: collectors.transport
+    sources:
+    - ansible
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  format:
+    canonical:
+      type: enum
+      version_ranges: &id013
+      - - v6.2.0
+        - ''
+      choices: &id012
+      - netflow1
+      - netflow5
+      - netflow9
+      - ipfix
+      default: netflow9
+      description: Configure flow tracking protocol.
+      source_attribute: format
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id012
+        version_ranges: *id013
+        description: Configure flow tracking protocol.
+        source_attribute: format
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: format
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Configure flow tracking protocol.
+        default: netflow9
+        source_attribute: format
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  level:
+    canonical:
+      type: enum
+      version_ranges: &id015
+      - - v6.2.0
+        - ''
+      choices: &id014
+      - vlan
+      - ip
+      - port
+      - proto
+      - mac
+      default: ip
+      description: Configure flow tracking level.
+      source_attribute: level
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id014
+        version_ranges: *id015
+        description: Configure flow tracking level.
+        source_attribute: level
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: level
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Configure flow tracking level.
+        default: ip
+        source_attribute: level
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  max_export_pkt_size:
+    canonical:
+      type: integer
+      version_ranges: &id016
+      - - v6.2.0
+        - ''
+      default: '512'
+      min: 512
+      max: 9216
+      description: Configure flow max export packet size (512-9216, default=512 bytes).
+      source_attribute: max-export-pkt-size
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id016
+        description: Configure flow max export packet size (512-9216).
+        source_attribute: max_export_pkt_size
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 512
+        max: 9216
+        source_attribute: max_export_pkt_size
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Configure flow max export packet size (512-9216, default=512 bytes).
+        default: '512'
+        min: 512
+        max: 9216
+        source_attribute: max-export-pkt-size
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sample_mode:
+    canonical:
+      type: enum
+      version_ranges: &id018
+      - - v6.2.0
+        - ''
+      choices: &id017
+      - local
+      - perimeter
+      - device-ingress
+      default: perimeter
+      description: Configure sample mode for the flow tracking.
+      source_attribute: sample-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id017
+        version_ranges: *id018
+        description: Configure sample mode for the flow tracking.
+        source_attribute: sample_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sample_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Configure sample mode for the flow tracking.
+        default: perimeter
+        source_attribute: sample-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sample_rate:
+    canonical:
+      type: integer
+      version_ranges: &id019
+      - - v6.2.0
+        - ''
+      default: '512'
+      min: 0
+      max: 99999
+      description: Configure sample rate for the perimeter and device-ingress sampling(0 - 99999).
+      source_attribute: sample-rate
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id019
+        description: Configure sample rate for the perimeter and device-ingress sampling(0 - 99999).
+        source_attribute: sample_rate
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 99999
+        source_attribute: sample_rate
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Configure sample rate for the perimeter and device-ingress sampling(0 - 99999).
+        default: '512'
+        min: 0
+        max: 99999
+        source_attribute: sample-rate
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  template_export_period:
+    canonical:
+      type: integer
+      version_ranges: &id020
+      - - v7.2.0
+        - ''
+      default: '5'
+      min: 1
+      max: 60
+      description: Configure template export period (1-60, default=5 minutes).
+      source_attribute: template-export-period
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id020
+        description: Configure template export period (1-60).
+        source_attribute: template_export_period
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 60
+        source_attribute: template_export_period
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Configure template export period (1-60, default=5 minutes).
+        default: '5'
+        min: 1
+        max: 60
+        source_attribute: template-export-period
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  timeout_general:
+    canonical:
+      type: integer
+      version_ranges: &id021
+      - - v6.2.0
+        - ''
+      default: '3600'
+      min: 60
+      max: 604800
+      description: Configure flow session general timeout (60-604800, default=3600 seconds).
+      source_attribute: timeout-general
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id021
+        description: Configure flow session general timeout (60-604800).
+        source_attribute: timeout_general
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 60
+        max: 604800
+        source_attribute: timeout_general
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Configure flow session general timeout (60-604800, default=3600 seconds).
+        default: '3600'
+        min: 60
+        max: 604800
+        source_attribute: timeout-general
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  timeout_icmp:
+    canonical:
+      type: integer
+      version_ranges: &id022
+      - - v6.2.0
+        - ''
+      default: '300'
+      min: 60
+      max: 604800
+      description: Configure flow session ICMP timeout (60-604800, default=300 seconds).
+      source_attribute: timeout-icmp
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id022
+        description: Configure flow session ICMP timeout (60-604800).
+        source_attribute: timeout_icmp
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 60
+        max: 604800
+        source_attribute: timeout_icmp
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Configure flow session ICMP timeout (60-604800, default=300 seconds).
+        default: '300'
+        min: 60
+        max: 604800
+        source_attribute: timeout-icmp
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  timeout_max:
+    canonical:
+      type: integer
+      version_ranges: &id023
+      - - v6.2.0
+        - ''
+      default: '604800'
+      min: 60
+      max: 604800
+      description: Configure flow session max timeout (60-604800, default=604800 seconds).
+      source_attribute: timeout-max
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id023
+        description: Configure flow session max timeout (60-604800).
+        source_attribute: timeout_max
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 60
+        max: 604800
+        source_attribute: timeout_max
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Configure flow session max timeout (60-604800, default=604800 seconds).
+        default: '604800'
+        min: 60
+        max: 604800
+        source_attribute: timeout-max
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  timeout_tcp:
+    canonical:
+      type: integer
+      version_ranges: &id024
+      - - v6.2.0
+        - ''
+      default: '3600'
+      min: 60
+      max: 604800
+      description: Configure flow session TCP timeout (60-604800, default=3600 seconds).
+      source_attribute: timeout-tcp
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id024
+        description: Configure flow session TCP timeout (60-604800).
+        source_attribute: timeout_tcp
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 60
+        max: 604800
+        source_attribute: timeout_tcp
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Configure flow session TCP timeout (60-604800, default=3600 seconds).
+        default: '3600'
+        min: 60
+        max: 604800
+        source_attribute: timeout-tcp
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  timeout_tcp_fin:
+    canonical:
+      type: integer
+      version_ranges: &id025
+      - - v6.2.0
+        - ''
+      default: '300'
+      min: 60
+      max: 604800
+      description: Configure flow session TCP FIN timeout (60-604800, default=300 seconds).
+      source_attribute: timeout-tcp-fin
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id025
+        description: Configure flow session TCP FIN timeout (60-604800).
+        source_attribute: timeout_tcp_fin
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 60
+        max: 604800
+        source_attribute: timeout_tcp_fin
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Configure flow session TCP FIN timeout (60-604800, default=300 seconds).
+        default: '300'
+        min: 60
+        max: 604800
+        source_attribute: timeout-tcp-fin
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  timeout_tcp_rst:
+    canonical:
+      type: integer
+      version_ranges: &id026
+      - - v6.2.0
+        - ''
+      default: '120'
+      min: 60
+      max: 604800
+      description: Configure flow session TCP RST timeout (60-604800, default=120 seconds).
+      source_attribute: timeout-tcp-rst
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id026
+        description: Configure flow session TCP RST timeout (60-604800).
+        source_attribute: timeout_tcp_rst
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 60
+        max: 604800
+        source_attribute: timeout_tcp_rst
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Configure flow session TCP RST timeout (60-604800, default=120 seconds).
+        default: '120'
+        min: 60
+        max: 604800
+        source_attribute: timeout-tcp-rst
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  timeout_udp:
+    canonical:
+      type: integer
+      version_ranges: &id027
+      - - v6.2.0
+        - ''
+      default: '300'
+      min: 60
+      max: 604800
+      description: Configure flow session UDP timeout (60-604800, default=300 seconds).
+      source_attribute: timeout-udp
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id027
+        description: Configure flow session UDP timeout (60-604800).
+        source_attribute: timeout_udp
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 60
+        max: 604800
+        source_attribute: timeout_udp
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Configure flow session UDP timeout (60-604800, default=300 seconds).
+        default: '300'
+        min: 60
+        max: 604800
+        source_attribute: timeout-udp
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  transport:
+    canonical:
+      type: string
+      source_attribute: transport
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: transport
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

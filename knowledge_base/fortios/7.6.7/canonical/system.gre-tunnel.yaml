@@ -1,0 +1,963 @@
+id: system.gre-tunnel
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  auto_asic_offload:
+    canonical:
+      type: enum
+      default: enable
+      description: Enable/disable automatic ASIC offloading.
+      source_attribute: auto-asic-offload
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auto_asic_offload
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable automatic ASIC offloading.
+        default: enable
+        source_attribute: auto-asic-offload
+    sources:
+    - cli_reference
+    - terraform
+  checksum_reception:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.4.0
+        - v6.4.0
+      - - v7.2.0
+        - v7.2.0
+      - - v7.4.0
+        - ''
+      choices: &id001
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable validating checksums in received GRE packets.
+      source_attribute: checksum-reception
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable validating checksums in received GRE packets.
+        source_attribute: checksum_reception
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: checksum_reception
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable validating checksums in received GRE packets.
+        default: disable
+        source_attribute: checksum-reception
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  checksum_transmission:
+    canonical:
+      type: enum
+      version_ranges: &id004
+      - - v6.4.0
+        - v6.4.0
+      - - v7.2.0
+        - v7.2.0
+      - - v7.4.0
+        - ''
+      choices: &id003
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable including checksums in transmitted GRE packets.
+      source_attribute: checksum-transmission
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: Enable/disable including checksums in transmitted GRE packets.
+        source_attribute: checksum_transmission
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: checksum_transmission
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable including checksums in transmitted GRE packets.
+        default: disable
+        source_attribute: checksum-transmission
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  diffservcode:
+    canonical:
+      type: string
+      version_ranges: &id005
+      - - v6.2.0
+        - ''
+      description: DiffServ setting to be applied to GRE tunnel outer IP header.
+      source_attribute: diffservcode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: DiffServ setting to be applied to GRE tunnel outer IP header.
+        source_attribute: diffservcode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: diffservcode
+      cli_reference:
+        type: string
+        raw_type: user
+        description: DiffServ setting to be applied to GRE tunnel outer IP header.
+        source_attribute: diffservcode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dscp_copying:
+    canonical:
+      type: enum
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      choices: &id006
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable DSCP copying.
+      source_attribute: dscp-copying
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id006
+        version_ranges: *id007
+        description: Enable/disable DSCP copying.
+        source_attribute: dscp_copying
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dscp_copying
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable DSCP copying.
+        default: disable
+        source_attribute: dscp-copying
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface:
+    canonical:
+      type: string
+      references: &id009
+      - system.interface.name
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Interface name.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: Interface name. Source system.interface.name.
+        references: *id009
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Interface name.
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ip_version:
+    canonical:
+      type: enum
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      choices: &id010
+      - '4'
+      - '6'
+      default: '4'
+      description: IP version to use for VPN interface.
+      source_attribute: ip-version
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id011
+        description: IP version to use for VPN interface.
+        source_attribute: ip_version
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ip_version
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: IP version to use for VPN interface.
+        default: '4'
+        source_attribute: ip-version
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  keepalive_failtimes:
+    canonical:
+      type: integer
+      version_ranges: &id012
+      - - v6.0.0
+        - ''
+      default: '10'
+      min: 1
+      max: 255
+      description: Number of consecutive unreturned keepalive messages before a GRE connection is considered down (1 - 255).
+      source_attribute: keepalive-failtimes
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id012
+        description: Number of consecutive unreturned keepalive messages before a GRE connection is considered down (1 - 255).
+        source_attribute: keepalive_failtimes
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 255
+        source_attribute: keepalive_failtimes
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Number of consecutive unreturned keepalive messages before a GRE connection is considered down (1 - 255).
+        default: '10'
+        min: 1
+        max: 255
+        source_attribute: keepalive-failtimes
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  keepalive_interval:
+    canonical:
+      type: integer
+      version_ranges: &id013
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 32767
+      description: Keepalive message interval (0 - 32767, 0 = disabled).
+      source_attribute: keepalive-interval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id013
+        description: Keepalive message interval (0 - 32767, 0 = disabled).
+        source_attribute: keepalive_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 32767
+        source_attribute: keepalive_interval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Keepalive message interval (0 - 32767, 0 = disabled).
+        default: '0'
+        min: 0
+        max: 32767
+        source_attribute: keepalive-interval
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  key_inbound:
+    canonical:
+      type: integer
+      version_ranges: &id014
+      - - v6.4.0
+        - v6.4.0
+      - - v7.2.0
+        - v7.2.0
+      - - v7.4.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Require received GRE packets contain this key (0 - 4294967295).
+      source_attribute: key-inbound
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id014
+        description: Require received GRE packets contain this key (0 - 4294967295).
+        source_attribute: key_inbound
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: key_inbound
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Require received GRE packets contain this key (0 - 4294967295).
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: key-inbound
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  key_outbound:
+    canonical:
+      type: integer
+      version_ranges: &id015
+      - - v6.4.0
+        - v6.4.0
+      - - v7.2.0
+        - v7.2.0
+      - - v7.4.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Include this key in transmitted GRE packets (0 - 4294967295).
+      source_attribute: key-outbound
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id015
+        description: Include this key in transmitted GRE packets (0 - 4294967295).
+        source_attribute: key_outbound
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: key_outbound
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Include this key in transmitted GRE packets (0 - 4294967295).
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: key-outbound
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  local_gw:
+    canonical:
+      type: ipv4-address-any
+      required: true
+      version_ranges: &id016
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: IP address of the local gateway.
+      source_attribute: local-gw
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id016
+        description: IP address of the local gateway.
+        source_attribute: local_gw
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: local_gw
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: IP address of the local gateway.
+        default: 0.0.0.0
+        source_attribute: local-gw
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id017
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id017
+  local_gw6:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id018
+      - - v6.0.0
+        - ''
+      default: '::'
+      description: IPv6 address of the local gateway.
+      source_attribute: local-gw6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id018
+        description: IPv6 address of the local gateway.
+        source_attribute: local_gw6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: local_gw6
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: IPv6 address of the local gateway.
+        default: '::'
+        source_attribute: local-gw6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id019
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id019
+  loopback_ecmp_offload:
+    canonical:
+      type: enum
+      default: disable
+      description: Enable/disable tunnel over loopback ecmp offloading support.
+      source_attribute: loopback-ecmp-offload
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: loopback_ecmp_offload
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable tunnel over loopback ecmp offloading support.
+        default: disable
+        source_attribute: loopback-ecmp-offload
+    sources:
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id020
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Tunnel name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id020
+        description: Tunnel name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 15
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Tunnel name.
+        max_length: 15
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  remote_gw:
+    canonical:
+      type: ipv4-address
+      required: true
+      version_ranges: &id021
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: IP address of the remote gateway.
+      source_attribute: remote-gw
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id021
+        description: IP address of the remote gateway.
+        source_attribute: remote_gw
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: remote_gw
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: IP address of the remote gateway.
+        default: 0.0.0.0
+        source_attribute: remote-gw
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id022
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id022
+  remote_gw6:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id023
+      - - v6.0.0
+        - ''
+      default: '::'
+      description: IPv6 address of the remote gateway.
+      source_attribute: remote-gw6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id023
+        description: IPv6 address of the remote gateway.
+        source_attribute: remote_gw6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: remote_gw6
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: IPv6 address of the remote gateway.
+        default: '::'
+        source_attribute: remote-gw6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id024
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id024
+  sequence_number_reception:
+    canonical:
+      type: enum
+      version_ranges: &id026
+      - - v6.4.0
+        - v6.4.0
+      - - v7.2.0
+        - v7.2.0
+      - - v7.4.0
+        - ''
+      choices: &id025
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable validating sequence numbers in received GRE packets.
+      source_attribute: sequence-number-reception
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id025
+        version_ranges: *id026
+        description: Enable/disable validating sequence numbers in received GRE packets.
+        source_attribute: sequence_number_reception
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sequence_number_reception
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable validating sequence numbers in received GRE packets.
+        default: disable
+        source_attribute: sequence-number-reception
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sequence_number_transmission:
+    canonical:
+      type: enum
+      version_ranges: &id028
+      - - v6.4.0
+        - v6.4.0
+      - - v7.2.0
+        - v7.2.0
+      - - v7.4.0
+        - ''
+      choices: &id027
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable including of sequence numbers in transmitted GRE packets.
+      source_attribute: sequence-number-transmission
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id027
+        version_ranges: *id028
+        description: Enable/disable including of sequence numbers in transmitted GRE packets.
+        source_attribute: sequence_number_transmission
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sequence_number_transmission
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable including of sequence numbers in transmitted GRE packets.
+        default: disable
+        source_attribute: sequence-number-transmission
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  use_sdwan:
+    canonical:
+      type: enum
+      version_ranges: &id030
+      - - v7.0.0
+        - ''
+      choices: &id029
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable use of SD-WAN to reach remote gateway.
+      source_attribute: use-sdwan
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id029
+        version_ranges: *id030
+        description: Enable/disable use of SD-WAN to reach remote gateway.
+        source_attribute: use_sdwan
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: use_sdwan
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of SD-WAN to reach remote gateway.
+        default: disable
+        source_attribute: use-sdwan
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: local_gw
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict
+- attribute: local_gw6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict
+- attribute: remote_gw
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: remote_gw6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict

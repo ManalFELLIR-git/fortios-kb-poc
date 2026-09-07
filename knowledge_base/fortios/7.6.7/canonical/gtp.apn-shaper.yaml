@@ -1,0 +1,203 @@
+id: gtp.apn-shaper
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: false
+  cli_reference: false
+attributes_flat:
+  action:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.0.0
+        - v7.0.8
+      - - v7.2.0
+        - v7.2.4
+      - - v7.4.3
+        - v7.6.7
+      choices: &id001
+      - drop
+      - reject
+      description: Action.
+      source_attribute: action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Action.
+        source_attribute: action
+    sources:
+    - ansible
+  apn:
+    canonical:
+      type: list
+      elements: dict
+      children: &id005
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id007
+          - - v6.2.0
+            - v7.0.8
+          - - v7.2.0
+            - v7.2.4
+          - - v7.4.3
+            - v7.6.7
+          description: APN name. Source gtp.apn.name gtp.apngrp.name.
+          references: &id006
+          - gtp.apn.name
+          - gtp.apngrp.name
+      references: &id004
+      - gtp.apn.name
+      version_ranges: &id003
+      - - v6.0.0
+        - v7.0.8
+      - - v7.2.0
+        - v7.2.4
+      - - v7.4.3
+        - v7.6.7
+      description: APN names to match. Leave empty to match ANY. Source gtp.apn.name.
+      source_attribute: apn
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      references: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id003
+        description: APN names to match. Leave empty to match ANY. Source gtp.apn.name.
+        references: *id004
+        children: *id005
+        source_attribute: apn
+    sources:
+    - ansible
+  apn.name:
+    canonical:
+      type: string
+      references: *id006
+      required: true
+      version_ranges: *id007
+      description: APN name. Source gtp.apn.name gtp.apngrp.name.
+      source_attribute: apn.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id007
+        description: APN name. Source gtp.apn.name gtp.apngrp.name.
+        references: *id006
+        source_attribute: apn.name
+    sources:
+    - ansible
+  back_off_time:
+    canonical:
+      type: integer
+      version_ranges: &id008
+      - - v6.0.0
+        - v7.0.8
+      - - v7.2.0
+        - v7.2.4
+      - - v7.4.3
+        - v7.6.7
+      description: Back off time in seconds (10 - 360).
+      source_attribute: back_off_time
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id008
+        description: Back off time in seconds (10 - 360).
+        source_attribute: back_off_time
+    sources:
+    - ansible
+  id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id009
+      - - v6.0.0
+        - v7.0.8
+      - - v7.2.0
+        - v7.2.4
+      - - v7.4.3
+        - v7.6.7
+      description: Shaper ID. see <a href='#notes'>Notes</a>.
+      source_attribute: id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id009
+        description: Shaper ID. see <a href='#notes'>Notes</a>.
+        source_attribute: id
+    sources:
+    - ansible
+  rate_limit:
+    canonical:
+      type: integer
+      version_ranges: &id010
+      - - v6.0.0
+        - v7.0.8
+      - - v7.2.0
+        - v7.2.4
+      - - v7.4.3
+        - v7.6.7
+      description: Rate limit in packets/s (0 - 1000000, 0 means unlimited).
+      source_attribute: rate_limit
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id010
+        description: Rate limit in packets/s (0 - 1000000, 0 means unlimited).
+        source_attribute: rate_limit
+    sources:
+    - ansible
+conflicts: []

@@ -1,0 +1,307 @@
+id: firewall.ip-translation
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  endip:
+    canonical:
+      type: ipv4-address-any
+      required: true
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: 'Final IPv4 address (inclusive) in the range of the addresses to be translated (format xxx.xxx.xxx.xxx,
+        default: 0.0.0.0).'
+      source_attribute: endip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Final IPv4 address (inclusive) in the range of the addresses to be translated (format xxx.xxx.xxx.xxx).
+        source_attribute: endip
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: endip
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: 'Final IPv4 address (inclusive) in the range of the addresses to be translated (format xxx.xxx.xxx.xxx,
+          default: 0.0.0.0).'
+        default: 0.0.0.0
+        source_attribute: endip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id002
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id002
+  map_startip:
+    canonical:
+      type: ipv4-address-any
+      required: true
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: 'Address to be used as the starting point for translation in the range (format xxx.xxx.xxx.xxx, default:
+        0.0.0.0).'
+      source_attribute: map-startip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Address to be used as the starting point for translation in the range (format xxx.xxx.xxx.xxx).
+        source_attribute: map_startip
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: map_startip
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: 'Address to be used as the starting point for translation in the range (format xxx.xxx.xxx.xxx, default:
+          0.0.0.0).'
+        default: 0.0.0.0
+        source_attribute: map-startip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id004
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id004
+  startip:
+    canonical:
+      type: ipv4-address-any
+      required: true
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: 'First IPv4 address (inclusive) in the range of the addresses to be translated (format xxx.xxx.xxx.xxx,
+        default: 0.0.0.0).'
+      source_attribute: startip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: First IPv4 address (inclusive) in the range of the addresses to be translated (format xxx.xxx.xxx.xxx).
+        source_attribute: startip
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: startip
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: 'First IPv4 address (inclusive) in the range of the addresses to be translated (format xxx.xxx.xxx.xxx,
+          default: 0.0.0.0).'
+        default: 0.0.0.0
+        source_attribute: startip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id006
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id006
+  transid:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: IP translation ID.
+      source_attribute: transid
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id007
+        description: IP translation ID. see <a href='#notes'>Notes</a>.
+        source_attribute: transid
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: transid
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: IP translation ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: transid
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  type:
+    canonical:
+      type: enum
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      choices: &id008
+      - SCTP
+      default: SCTP
+      description: 'IP translation type (option: SCTP).'
+      source_attribute: type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id008
+        version_ranges: *id009
+        description: 'IP translation type (option: SCTP).'
+        source_attribute: type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: 'IP translation type (option: SCTP).'
+        default: SCTP
+        source_attribute: type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: endip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict
+- attribute: map_startip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict
+- attribute: startip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict

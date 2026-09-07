@@ -1,0 +1,423 @@
+id: router.multicast
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/183110249/config-router-multicast
+attributes:
+  multicast-routing:
+    type: enum
+    raw_type: option
+    description: Enable/disable IP multicast routing.
+    default: disable
+  route-limit:
+    type: integer
+    raw_type: integer
+    description: Maximum number of multicast routes.
+    default: '2147483647'
+    min: 1
+    max: 2147483647
+  route-threshold:
+    type: integer
+    raw_type: integer
+    description: Generate warnings when the number of multicast routes exceeds this number, must not be greater than route-limit.
+    min: 1
+    max: 2147483647
+children:
+  interface:
+    attributes:
+      bfd:
+        type: enum
+        raw_type: option
+        description: Enable/disable Protocol Independent Multicast (PIM) Bidirectional Forwarding Detection (BFD).
+        default: disable
+      cisco-exclude-genid:
+        type: enum
+        raw_type: option
+        description: Exclude GenID from hello packets (compatibility with old Cisco IOS).
+        default: disable
+      dr-priority:
+        type: integer
+        raw_type: integer
+        description: DR election priority.
+        default: '1'
+        min: 1
+        max: 4294967295
+      hello-holdtime:
+        type: integer
+        raw_type: integer
+        description: Time before old neighbor information expires (0 - 65535 sec, default = 105).
+        default: '105'
+        min: 1
+        max: 65535
+      hello-interval:
+        type: integer
+        raw_type: integer
+        description: Interval between sending PIM hello messages (0 - 65535 sec, default = 30).
+        default: '30'
+        min: 1
+        max: 65535
+      multicast-flow:
+        type: string
+        raw_type: string
+        description: Acceptable source for multicast group.
+        max_length: 35
+      name:
+        type: string
+        raw_type: string
+        description: Interface name.
+        max_length: 15
+      neighbour-filter:
+        type: string
+        raw_type: string
+        description: Routers acknowledged as neighbor routers.
+        max_length: 35
+      passive:
+        type: enum
+        raw_type: option
+        description: Enable/disable listening to IGMP but not participating in PIM.
+        default: disable
+      pim-mode:
+        type: enum
+        raw_type: option
+        description: PIM operation mode.
+        default: sparse-mode
+      propagation-delay:
+        type: integer
+        raw_type: integer
+        description: Delay flooding packets on this interface (100 - 5000 msec, default = 500).
+        default: '500'
+        min: 100
+        max: 5000
+      rp-candidate:
+        type: enum
+        raw_type: option
+        description: Enable/disable compete to become RP in elections.
+        default: disable
+      rp-candidate-group:
+        type: string
+        raw_type: string
+        description: Multicast groups managed by this RP.
+        max_length: 35
+      rp-candidate-interval:
+        type: integer
+        raw_type: integer
+        description: RP candidate advertisement interval (1 - 16383 sec, default = 60).
+        default: '60'
+        min: 1
+        max: 16383
+      rp-candidate-priority:
+        type: integer
+        raw_type: integer
+        description: Router's priority as RP.
+        default: '192'
+        min: 0
+        max: 255
+      rpf-nbr-fail-back:
+        type: enum
+        raw_type: option
+        description: Enable/disable fail back for RPF neighbor query.
+        default: disable
+      rpf-nbr-fail-back-filter:
+        type: string
+        raw_type: string
+        description: Filter for fail back RPF neighbors.
+        max_length: 35
+      state-refresh-interval:
+        type: integer
+        raw_type: integer
+        description: Interval between sending state-refresh packets (1 - 100 sec, default = 60).
+        default: '60'
+        min: 1
+        max: 100
+      static-group:
+        type: string
+        raw_type: string
+        description: Statically set multicast groups to forward out.
+        max_length: 35
+      ttl-threshold:
+        type: integer
+        raw_type: integer
+        description: Minimum TTL of multicast packets that will be forwarded (applied only to new multicast routes) (1 - 255,
+          default = 1).
+        default: '1'
+        min: 1
+        max: 255
+      update-source:
+        type: string
+        raw_type: string
+        description: Interface to use as source IP.
+        max_length: 15
+  igmp:
+    attributes:
+      access-group:
+        type: string
+        raw_type: string
+        description: Groups IGMP hosts are allowed to join.
+        max_length: 35
+      immediate-leave-group:
+        type: string
+        raw_type: string
+        description: Groups to drop membership for immediately after receiving IGMPv2 leave.
+        max_length: 35
+      last-member-query-count:
+        type: integer
+        raw_type: integer
+        description: Number of group specific queries before removing group (2 - 7, default = 2).
+        default: '2'
+        min: 2
+        max: 7
+      last-member-query-interval:
+        type: integer
+        raw_type: integer
+        description: Timeout between IGMPv2 leave and removing group (1 - 65535 msec, default = 1000).
+        default: '1000'
+        min: 1
+        max: 65535
+      query-interval:
+        type: integer
+        raw_type: integer
+        description: Interval between queries to IGMP hosts (1 - 65535 sec, default = 125).
+        default: '125'
+        min: 1
+        max: 65535
+      query-max-response-time:
+        type: integer
+        raw_type: integer
+        description: Maximum time to wait for a IGMP query response (1 - 25 sec, default = 10).
+        default: '10'
+        min: 1
+        max: 25
+      query-timeout:
+        type: integer
+        raw_type: integer
+        description: Timeout between queries before becoming querying unit for network (60 - 900, default = 255).
+        default: '255'
+        min: 60
+        max: 900
+      router-alert-check:
+        type: enum
+        raw_type: option
+        description: Enable/disable require IGMP packets contain router alert option.
+        default: disable
+      version:
+        type: enum
+        raw_type: option
+        description: Maximum version of IGMP to support.
+        default: '3'
+  join-group:
+    attributes:
+      address:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: Multicast group IP address.
+        default: 0.0.0.0
+  pim-sm-global:
+    attributes:
+      accept-register-list:
+        type: string
+        raw_type: string
+        description: Sources allowed to register packets with this Rendezvous Point (RP).
+        max_length: 35
+      accept-source-list:
+        type: string
+        raw_type: string
+        description: Sources allowed to send multicast traffic.
+        max_length: 35
+      bsr-allow-quick-refresh:
+        type: enum
+        raw_type: option
+        description: Enable/disable accept BSR quick refresh packets from neighbors.
+        default: disable
+      bsr-candidate:
+        type: enum
+        raw_type: option
+        description: Enable/disable allowing this router to become a bootstrap router (BSR).
+        default: disable
+      bsr-hash:
+        type: integer
+        raw_type: integer
+        description: BSR hash length (0 - 32, default = 10).
+        default: '10'
+        min: 0
+        max: 32
+      bsr-interface:
+        type: string
+        raw_type: string
+        description: Interface to advertise as candidate BSR.
+        max_length: 15
+      bsr-priority:
+        type: integer
+        raw_type: integer
+        description: BSR priority (0 - 255, default = 0).
+        default: '0'
+        min: 0
+        max: 255
+      cisco-crp-prefix:
+        type: enum
+        raw_type: option
+        description: Enable/disable making candidate RP compatible with old Cisco IOS.
+        default: disable
+      cisco-ignore-rp-set-priority:
+        type: enum
+        raw_type: option
+        description: Use only hash for RP selection (compatibility with old Cisco IOS).
+        default: disable
+      cisco-register-checksum:
+        type: enum
+        raw_type: option
+        description: Checksum entire register packet(for old Cisco IOS compatibility).
+        default: disable
+      cisco-register-checksum-group:
+        type: string
+        raw_type: string
+        description: Cisco register checksum only these groups.
+        max_length: 35
+      join-prune-holdtime:
+        type: integer
+        raw_type: integer
+        description: Join/prune holdtime (1 - 65535, default = 210).
+        default: '210'
+        min: 1
+        max: 65535
+      message-interval:
+        type: integer
+        raw_type: integer
+        description: Period of time between sending periodic PIM join/prune messages in seconds (1 - 65535, default = 60).
+        default: '60'
+        min: 1
+        max: 65535
+      null-register-retries:
+        type: integer
+        raw_type: integer
+        description: Maximum retries of null register (1 - 20, default = 1).
+        default: '1'
+        min: 1
+        max: 20
+      pim-use-sdwan:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of SDWAN when checking RPF neighbor and sending of REG packet.
+        default: disable
+      register-rate-limit:
+        type: integer
+        raw_type: integer
+        description: Limit of packets/sec per source registered through this RP (0 - 65535, default = 0 which means unlimited).
+        default: '0'
+        min: 0
+        max: 65535
+      register-rp-reachability:
+        type: enum
+        raw_type: option
+        description: Enable/disable check RP is reachable before registering packets.
+        default: enable
+      register-source:
+        type: enum
+        raw_type: option
+        description: Override source address in register packets.
+        default: disable
+      register-source-interface:
+        type: string
+        raw_type: string
+        description: Override with primary interface address.
+        max_length: 15
+      register-source-ip:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Override with local IP address.
+        default: 0.0.0.0
+      register-supression:
+        type: integer
+        raw_type: integer
+        description: Period of time to honor register-stop message (1 - 65535 sec, default = 60).
+        default: '60'
+        min: 1
+        max: 65535
+      rp-register-keepalive:
+        type: integer
+        raw_type: integer
+        description: Timeout for RP receiving data on (S,G) tree (1 - 65535 sec, default = 185).
+        default: '185'
+        min: 1
+        max: 65535
+      spt-threshold:
+        type: enum
+        raw_type: option
+        description: Enable/disable switching to source specific trees.
+        default: enable
+      spt-threshold-group:
+        type: string
+        raw_type: string
+        description: Groups allowed to switch to source tree.
+        max_length: 35
+      ssm:
+        type: enum
+        raw_type: option
+        description: Enable/disable source specific multicast.
+        default: disable
+      ssm-range:
+        type: string
+        raw_type: string
+        description: Groups allowed to source specific multicast.
+        max_length: 35
+  rp-address:
+    attributes:
+      group:
+        type: string
+        raw_type: string
+        description: Groups to use this RP.
+        max_length: 35
+      id:
+        type: integer
+        raw_type: integer
+        description: ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      ip-address:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: RP router address.
+        default: 0.0.0.0
+  pim-sm-global-vrf:
+    attributes:
+      bsr-allow-quick-refresh:
+        type: enum
+        raw_type: option
+        description: Enable/disable accept BSR quick refresh packets from neighbors.
+        default: disable
+      bsr-candidate:
+        type: enum
+        raw_type: option
+        description: Enable/disable allowing this router to become a bootstrap router (BSR).
+        default: disable
+      bsr-hash:
+        type: integer
+        raw_type: integer
+        description: BSR hash length (0 - 32, default = 10).
+        default: '10'
+        min: 0
+        max: 32
+      bsr-interface:
+        type: string
+        raw_type: string
+        description: Interface to advertise as candidate BSR.
+        max_length: 15
+      bsr-priority:
+        type: integer
+        raw_type: integer
+        description: BSR priority (0 - 255, default = 0).
+        default: '0'
+        min: 0
+        max: 255
+      cisco-crp-prefix:
+        type: enum
+        raw_type: option
+        description: Enable/disable making candidate RP compatible with old Cisco IOS.
+        default: disable
+      vrf:
+        type: integer
+        raw_type: integer
+        description: VRF ID.
+        default: 1886221359 **
+        min: 1
+        max: 511

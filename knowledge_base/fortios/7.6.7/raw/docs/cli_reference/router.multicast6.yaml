@@ -1,0 +1,65 @@
+id: router.multicast6
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/709599639/config-router-multicast6
+attributes:
+  multicast-pmtu:
+    type: enum
+    raw_type: option
+    description: Enable/disable PMTU for IPv6 multicast.
+    default: disable
+  multicast-routing:
+    type: enum
+    raw_type: option
+    description: Enable/disable IPv6 multicast routing.
+    default: disable
+children:
+  interface:
+    attributes:
+      hello-holdtime:
+        type: integer
+        raw_type: integer
+        description: Time before old neighbor information expires in seconds (1 - 65535, default = 105).
+        min: 1
+        max: 65535
+      hello-interval:
+        type: integer
+        raw_type: integer
+        description: Interval between sending PIM hello messages in seconds (1 - 65535, default = 30).
+        default: '30'
+        min: 1
+        max: 65535
+      name:
+        type: string
+        raw_type: string
+        description: Interface name.
+        max_length: 15
+  pim-sm-global:
+    attributes:
+      pim-use-sdwan:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of SDWAN when checking RPF neighbor and sending of REG packet.
+        default: disable
+      register-rate-limit:
+        type: integer
+        raw_type: integer
+        description: Limit of packets/sec per source registered through this RP (0 means unlimited).
+        default: '0'
+        min: 0
+        max: 65535
+  rp-address:
+    attributes:
+      id:
+        type: integer
+        raw_type: integer
+        description: ID of the entry.
+        default: '0'
+        min: 0
+        max: 4294967295
+      ip6-address:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: RP router IPv6 address.
+        default: '::'

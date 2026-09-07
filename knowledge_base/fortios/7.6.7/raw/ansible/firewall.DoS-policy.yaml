@@ -1,0 +1,196 @@
+id: firewall.DoS-policy
+version: 7.6.7
+source_object: fortios_firewall_dos_policy
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_firewall_dos_policy.py
+root_type: list
+attributes:
+  policyid:
+    type: integer
+    raw_type: integer
+    required: true
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Policy ID. see <a href='#notes'>Notes</a>.
+  status:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable this policy.
+  name:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.4.0
+      - v6.4.0
+    - - v6.4.4
+      - ''
+    description: Policy name.
+  comments:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Comment.
+  interface:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Incoming interface name from available interfaces. Source system.zone.name system.sdwan.zone.name system.interface.name.
+    references:
+    - system.interface.name
+    - system.sdwan.zone.name
+    - system.zone.name
+  srcaddr:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Source address name from available addresses.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Address name. Source firewall.address.name firewall.addrgrp.name.
+        references:
+        - firewall.address.name
+        - firewall.addrgrp.name
+  dstaddr:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Destination address name from available addresses.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Address name. Source firewall.address.name firewall.addrgrp.name.
+        references:
+        - firewall.address.name
+        - firewall.addrgrp.name
+  service:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Service object from available options.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Service name. Source firewall.service.custom.name firewall.service.group.name.
+        references:
+        - firewall.service.custom.name
+        - firewall.service.group.name
+  anomaly:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Anomaly name.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Anomaly name.
+      status:
+        type: enum
+        raw_type: string
+        choices:
+        - disable
+        - enable
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Enable/disable this anomaly.
+      log:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Enable/disable anomaly logging.
+      action:
+        type: enum
+        raw_type: string
+        choices:
+        - pass
+        - block
+        - proxy
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Action taken when the threshold is reached.
+      quarantine:
+        type: enum
+        raw_type: string
+        choices:
+        - none
+        - attacker
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Quarantine method.
+      quarantine_expiry:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Duration of quarantine. (Format
+      quarantine_log:
+        type: enum
+        raw_type: string
+        choices:
+        - disable
+        - enable
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Enable/disable quarantine logging.
+      threshold:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Anomaly threshold. Number of detected instances (packets per second or concurrent session number) that
+          triggers the anomaly action.

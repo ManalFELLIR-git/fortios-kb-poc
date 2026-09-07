@@ -1,0 +1,132 @@
+from __future__ import annotations
+from pathlib import Path
+import re
+from .utils import canonical_type, dump_yaml
+
+
+def matching_brace(text: str, open_pos: int, open_ch="{", close_ch="}"):
+    depth = 0
+    in_str = False
+    esc = False
+    for i in range(open_pos, len(text)):
+        c = text[i]
+        if in_str:
+            if esc:
+                esc = False
+            elif c == "\\":
+                esc = True
+            elif c == '"':
+                in_str = False
+            continue
+        if c == '"':
+            in_str = True
+        elif c == open_ch:
+            depth += 1
+        elif c == close_ch:
+            depth -= 1
+            if depth == 0:
+                return i
+    return -1
+
+
+def find_schema_map(text: str):
+    m = re.search(r"\bSchema\s*:\s*map\[string\]\*schema\.Schema\s*\{", text)
+    if not m:
+        return None
+    op = text.find("{", m.start())
+    end = matching_brace(text, op)
+    return text[op+1:end] if end > op else None
+
+
+def top_level_entries(block: str):
+    entries = []
+    i = 0
+    while i < len(block):
+        m = re.search(r'"([^"\\]+)"\s*:\s*&schema\.Schema\s*\{', block[i:])
+        if not m:
+            break
+        name = m.group(1)
+        start = i + m.end() - 1
+        end = matching_brace(block, start)
+        if end < 0:
+            break
+        entries.append((name, block[start+1:end]))
+        i = end + 1
+    return entries
+
+
+def extract_validation(body: str):
+    out = {}
+    m = re.search(r"validation\.IntBetween\(\s*(-?\d+)\s*,\s*(-?\d+)\s*\)", body)
+    if m:
+        out["min"] = int(m.group(1)); out["max"] = int(m.group(2))
+    m = re.search(r"validation\.StringLenBetween\(\s*(\d+)\s*,\s*(\d+)\s*\)", body)
+    if m:
+        out["min_length"] = int(m.group(1)); out["max_length"] = int(m.group(2))
+    m = re.search(r"validation\.StringInSlice\(\s*\[\]string\s*\{([^}]*)\}", body, re.S)
+    if m:
+        vals = re.findall(r'"([^"\\]*)"', m.group(1))
+        if vals:
+            out["choices"] = vals
+    return out
+
+
+def parse_schema_entry(body: str):
+    tm = re.search(r"\bType\s*:\s*schema\.(Type\w+)", body)
+    raw_type = tm.group(1) if tm else None
+    out = {"type": canonical_type(raw_type), "raw_type": raw_type}
+    for key, go_key in [("required", "Required"), ("optional", "Optional"), ("computed", "Computed"), ("force_new", "ForceNew")]:
+        m = re.search(rf"\b{go_key}\s*:\s*(true|false)", body)
+        if m:
+            out[key] = m.group(1) == "true"
+    out.update(extract_validation(body))
+    nested = find_schema_map(body)
+    if nested:
+        out["children"] = {name: parse_schema_entry(b) for name, b in top_level_entries(nested)}
+    return {k:v for k,v in out.items() if v is not None}
+
+
+def resource_id(path: Path):
+    base = path.stem.removeprefix("resource_")
+    parts = base.split("_", 1)
+    return ".".join(parts) if len(parts) == 2 else base
+
+
+def extract_resource(path: Path, target_version: str, docs_dir: Path | None = None):
+    text = path.read_text(encoding="utf-8", errors="replace")
+    schema_block = find_schema_map(text)
+    if not schema_block:
+        return None
+    rid = resource_id(path)
+    attrs = {name: parse_schema_entry(body) for name, body in top_level_entries(schema_block)}
+    support = None
+    if docs_dir:
+        doc = docs_dir / f"fortios_{path.stem.removeprefix('resource_')}.html.markdown"
+        if doc.exists():
+            dtext = doc.read_text(encoding="utf-8", errors="replace")
+            m = re.search(r"Applies to FortiOS Version\s*`([^`]+)`", dtext)
+            if m:
+                support = m.group(1).strip()
+    item = {
+        "id": rid,
+        "version": target_version,
+        "source_object": path.stem,
+        "source": {"kind": "terraform", "file": str(path)},
+        "attributes": attrs,
+    }
+    if support:
+        item["declared_version_support"] = support
+    return item
+
+
+def extract_all(resources_dir: Path, target_version: str, out_dir: Path, docs_dir: Path | None = None):
+    results, errors = [], []
+    for path in sorted(resources_dir.glob("resource_*.go")):
+        try:
+            item = extract_resource(path, target_version, docs_dir)
+            if item:
+                results.append(item)
+                dump_yaml(out_dir / f"{item['id']}.yaml", item)
+        except Exception as exc:
+            errors.append({"file": str(path), "error": repr(exc)})
+    return results, errors

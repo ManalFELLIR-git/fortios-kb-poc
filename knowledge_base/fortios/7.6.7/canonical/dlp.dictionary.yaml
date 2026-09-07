@@ -1,0 +1,674 @@
+id: dlp.dictionary
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v7.2.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Optional comments.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Optional comments.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Optional comments.
+        max_length: 255
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  entries:
+    canonical:
+      type: list
+      elements: dict
+      children: &id003
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id005
+          - - v7.2.0
+            - ''
+          description: ID. see <a href='#notes'>Notes</a>.
+        type:
+          type: string
+          raw_type: string
+          version_ranges: &id014
+          - - v7.2.0
+            - ''
+          description: Pattern type to match. Source dlp.data-type.name.
+          references: &id013
+          - dlp.data-type.name
+        pattern:
+          type: string
+          raw_type: string
+          version_ranges: &id008
+          - - v7.2.0
+            - ''
+          description: Pattern to match.
+        ignore_case:
+          type: enum
+          raw_type: string
+          choices: &id007
+          - enable
+          - disable
+          version_ranges: &id006
+          - - v7.2.0
+            - ''
+          description: Enable/disable ignore case.
+        repeat:
+          type: enum
+          raw_type: string
+          choices: &id010
+          - enable
+          - disable
+          version_ranges: &id009
+          - - v7.2.0
+            - ''
+          description: Enable/disable repeat match.
+        status:
+          type: enum
+          raw_type: string
+          choices: &id012
+          - enable
+          - disable
+          version_ranges: &id011
+          - - v7.2.0
+            - ''
+          description: Enable/disable this pattern.
+        comment:
+          type: string
+          raw_type: string
+          version_ranges: &id004
+          - - v7.2.0
+            - ''
+          description: Optional comments.
+      version_ranges: &id002
+      - - v7.2.0
+        - ''
+      description: DLP dictionary entries.
+      source_attribute: entries
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id002
+        description: DLP dictionary entries.
+        children: *id003
+        source_attribute: entries
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          pattern:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 255
+          ignore_case:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          repeat:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          comment:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 255
+        source_attribute: entries
+    sources:
+    - ansible
+    - terraform
+  entries.comment:
+    canonical:
+      type: string
+      version_ranges: *id004
+      min_length: 0
+      max_length: 255
+      description: Optional comments.
+      source_attribute: entries.comment
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id004
+        description: Optional comments.
+        source_attribute: entries.comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: entries.comment
+    sources:
+    - ansible
+    - terraform
+  entries.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id005
+      description: ID. see <a href='#notes'>Notes</a>.
+      source_attribute: entries.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id005
+        description: ID. see <a href='#notes'>Notes</a>.
+        source_attribute: entries.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: entries.id
+    sources:
+    - ansible
+    - terraform
+  entries.ignore_case:
+    canonical:
+      type: enum
+      version_ranges: *id006
+      choices: *id007
+      description: Enable/disable ignore case.
+      source_attribute: entries.ignore_case
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id007
+        version_ranges: *id006
+        description: Enable/disable ignore case.
+        source_attribute: entries.ignore_case
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.ignore_case
+    sources:
+    - ansible
+    - terraform
+  entries.pattern:
+    canonical:
+      type: string
+      version_ranges: *id008
+      min_length: 0
+      max_length: 255
+      description: Pattern to match.
+      source_attribute: entries.pattern
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: Pattern to match.
+        source_attribute: entries.pattern
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: entries.pattern
+    sources:
+    - ansible
+    - terraform
+  entries.repeat:
+    canonical:
+      type: enum
+      version_ranges: *id009
+      choices: *id010
+      description: Enable/disable repeat match.
+      source_attribute: entries.repeat
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id009
+        description: Enable/disable repeat match.
+        source_attribute: entries.repeat
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.repeat
+    sources:
+    - ansible
+    - terraform
+  entries.status:
+    canonical:
+      type: enum
+      version_ranges: *id011
+      choices: *id012
+      description: Enable/disable this pattern.
+      source_attribute: entries.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id012
+        version_ranges: *id011
+        description: Enable/disable this pattern.
+        source_attribute: entries.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.status
+    sources:
+    - ansible
+    - terraform
+  entries.type:
+    canonical:
+      type: string
+      references: *id013
+      version_ranges: *id014
+      min_length: 0
+      max_length: 35
+      description: Pattern type to match. Source dlp.data-type.name.
+      source_attribute: entries.type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: Pattern type to match. Source dlp.data-type.name.
+        references: *id013
+        source_attribute: entries.type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: entries.type
+    sources:
+    - ansible
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  match_around:
+    canonical:
+      type: enum
+      version_ranges: &id016
+      - - v7.4.0
+        - ''
+      choices: &id015
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable match-around support.
+      source_attribute: match-around
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id015
+        version_ranges: *id016
+        description: Enable/disable match-around support.
+        source_attribute: match_around
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: match_around
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable match-around support.
+        default: disable
+        source_attribute: match-around
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  match_type:
+    canonical:
+      type: enum
+      version_ranges: &id018
+      - - v7.2.0
+        - ''
+      choices: &id017
+      - match-all
+      - match-any
+      default: match-any
+      description: Logical relation between entries (default = match-any).
+      source_attribute: match-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id017
+        version_ranges: *id018
+        description: Logical relation between entries .
+        source_attribute: match_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: match_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Logical relation between entries (default = match-any).
+        default: match-any
+        source_attribute: match-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id019
+      - - v7.2.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Name of table containing the dictionary.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id019
+        description: Name of table containing the dictionary.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of table containing the dictionary.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  uuid:
+    canonical:
+      type: uuid
+      version_ranges: &id020
+      - - v7.2.0
+        - ''
+      default: 00000000-0000-0000-0000-000000000000
+      description: Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id020
+        description: Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+        source_attribute: uuid
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+      cli_reference:
+        type: uuid
+        raw_type: uuid
+        description: Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+        default: 00000000-0000-0000-0000-000000000000
+        source_attribute: uuid
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id021
+          primitive: string
+          format: uuid
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id021
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: uuid
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: uuid
+  classification: representation_or_real_conflict

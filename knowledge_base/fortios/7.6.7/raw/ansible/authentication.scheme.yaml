@@ -1,0 +1,203 @@
+id: authentication.scheme
+version: 7.6.7
+source_object: fortios_authentication_scheme
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_authentication_scheme.py
+root_type: list
+attributes:
+  name:
+    type: string
+    raw_type: string
+    required: true
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Authentication scheme name.
+  method:
+    type: enum
+    raw_type: list
+    choices:
+    - ntlm
+    - basic
+    - digest
+    - form
+    - negotiate
+    - fsso
+    - rsso
+    - ssh-publickey
+    - cert
+    - saml
+    - entra-sso
+    multiple_values: true
+    elements: str
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Authentication methods .
+  negotiate_ntlm:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable negotiate authentication for NTLM .
+  kerberos_keytab:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Kerberos keytab setting. Source user.krb-keytab.name.
+    references:
+    - user.krb-keytab.name
+  domain_controller:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Domain controller setting. Source user.domain-controller.name.
+    references:
+    - user.domain-controller.name
+  saml_server:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v7.0.0
+      - ''
+    description: SAML configuration. Source user.saml.name.
+    references:
+    - user.saml.name
+  saml_timeout:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.0.0
+      - ''
+    description: SAML authentication timeout in seconds.
+  fsso_agent_for_ntlm:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: FSSO agent to use for NTLM authentication. Source user.fsso.name.
+    references:
+    - user.fsso.name
+  require_tfa:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable two-factor authentication .
+  fsso_guest:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable user fsso-guest authentication .
+  user_cert:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v7.0.1
+      - ''
+    description: Enable/disable authentication with user certificate .
+  cert_http_header:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v7.6.5
+      - ''
+    description: Enable/disable authentication with user certificate in Client-Cert HTTP header .
+  user_database:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Authentication server to contain user information; "local-user-db" (default) or "123" (for LDAP).
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Authentication server name. Source system.datasource.name user.radius.name user.tacacs+.name user.ldap.name
+          user.group.name user .scim.name.
+        references:
+        - system.datasource.name
+        - user.group.name
+        - user.ldap.name
+        - user.radius.name
+  ssh_ca:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: SSH CA name. Source firewall.ssh.local-ca.name.
+    references:
+    - firewall.ssh.local-ca.name
+  external_idp:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v7.6.1
+      - ''
+    description: External identity provider configuration. Source user.external-identity-provider.name.
+    references:
+    - user.external-identity-provider.name
+  group_attr_type:
+    type: enum
+    raw_type: string
+    choices:
+    - display-name
+    - external-id
+    version_ranges:
+    - - v7.6.3
+      - ''
+    description: Group attribute type used to match SCIM groups .
+  digest_algo:
+    type: enum
+    raw_type: list
+    choices:
+    - md5
+    - sha-256
+    multiple_values: true
+    elements: str
+    version_ranges:
+    - - v7.6.3
+      - ''
+    description: Digest Authentication Algorithms.
+  digest_rfc2069:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v7.6.4
+      - ''
+    description: Enable/disable support for the deprecated RFC2069 Digest Client (no cnonce field).

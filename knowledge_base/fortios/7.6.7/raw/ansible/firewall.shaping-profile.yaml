@@ -1,0 +1,147 @@
+id: firewall.shaping-profile
+version: 7.6.7
+source_object: fortios_firewall_shaping_profile
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_firewall_shaping_profile.py
+root_type: list
+attributes:
+  profile_name:
+    type: string
+    raw_type: string
+    required: true
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Shaping profile name.
+  comment:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Comment.
+  type:
+    type: enum
+    raw_type: string
+    choices:
+    - policing
+    - queuing
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: 'Select shaping profile type: policing / queuing.'
+  npu_offloading:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v7.6.0
+      - ''
+    description: Enable/disable NPU offloading.
+  default_class_id:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Default class ID to handle unclassified packets (including all local traffic). Source firewall.traffic-class.class-id.
+    references:
+    - firewall.traffic-class.class-id
+  shaping_entries:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Define shaping entries of this shaping profile.
+    children:
+      id:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: ID number. see <a href='#notes'>Notes</a>.
+      class_id:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Class ID. Source firewall.traffic-class.class-id.
+        references:
+        - firewall.traffic-class.class-id
+      priority:
+        type: enum
+        raw_type: string
+        choices:
+        - top
+        - critical
+        - high
+        - medium
+        - low
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Priority.
+      guaranteed_bandwidth_percentage:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Guaranteed bandwidth in percentage.
+      maximum_bandwidth_percentage:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Maximum bandwidth in percentage.
+      limit:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: Hard limit on the real queue size in packets.
+      burst_in_msec:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: 'Number of bytes that can be burst at maximum-bandwidth speed. Formula: burst = maximum-bandwidth*burst-in-msec.'
+      cburst_in_msec:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: 'Number of bytes that can be burst as fast as the interface can transmit. Formula: cburst = maximum-bandwidth*cburst-in-msec.'
+      red_probability:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: Maximum probability (in percentage) for RED marking.
+      min:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: Average queue size in packets at which RED drop becomes a possibility.
+      max:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: Average queue size in packets at which RED drop probability is maximal.

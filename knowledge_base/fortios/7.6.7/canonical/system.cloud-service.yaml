@@ -1,0 +1,353 @@
+id: system.cloud-service
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  gck_access_token_lifetime:
+    canonical:
+      type: integer
+      version_ranges: &id001
+      - - v7.6.3
+        - ''
+      default: '60'
+      min: 1
+      max: 3600
+      description: Lifetime of automatically generated access tokens in minutes (default is 60 minutes).
+      source_attribute: gck-access-token-lifetime
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id001
+        description: Lifetime of automatically generated access tokens in minutes .
+        source_attribute: gck_access_token_lifetime
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 3600
+        source_attribute: gck_access_token_lifetime
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Lifetime of automatically generated access tokens in minutes (default is 60 minutes).
+        default: '60'
+        min: 1
+        max: 3600
+        source_attribute: gck-access-token-lifetime
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  gck_keyid:
+    canonical:
+      type: string
+      version_ranges: &id002
+      - - v7.6.3
+        - ''
+      min_length: 0
+      max_length: 127
+      description: Key id, also referred as "kid".
+      source_attribute: gck-keyid
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id002
+        description: Key id, also referred as "kid".
+        source_attribute: gck_keyid
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: gck_keyid
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Key id, also referred as "kid".
+        max_length: 127
+        source_attribute: gck-keyid
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  gck_private_key:
+    canonical:
+      type: string
+      version_ranges: &id003
+      - - v7.6.3
+        - ''
+      min_length: 0
+      max_length: 8191
+      description: Service account private key in PEM format (e.g. "-----BEGIN PRIVATE KEY-----\ ...").
+      source_attribute: gck-private-key
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Service account private key in PEM format (e.g. "-----BEGIN PRIVATE KEY-----\...").
+        source_attribute: gck_private_key
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 8191
+        source_attribute: gck_private_key
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Service account private key in PEM format (e.g. "-----BEGIN PRIVATE KEY-----\ ...").
+        max_length: 8191
+        source_attribute: gck-private-key
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  gck_service_account:
+    canonical:
+      type: string
+      version_ranges: &id004
+      - - v7.6.3
+        - ''
+      min_length: 0
+      max_length: 285
+      description: Service account (e.g. "account-id@sampledomain.com").
+      source_attribute: gck-service-account
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id004
+        description: Service account (e.g. "account-id@sampledomain.com").
+        source_attribute: gck_service_account
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 285
+        source_attribute: gck_service_account
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Service account (e.g. "account-id@sampledomain.com").
+        max_length: 285
+        source_attribute: gck-service-account
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id005
+      - - v7.6.3
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id005
+        description: Name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  traffic_vdom:
+    canonical:
+      type: string
+      references: &id007
+      - system.vdom.name
+      version_ranges: &id006
+      - - v7.6.3
+        - ''
+      min_length: 0
+      max_length: 31
+      description: Vdom used to communicate with cloud service.
+      source_attribute: traffic-vdom
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id006
+        description: Vdom used to communicate with cloud service. Source system.vdom.name.
+        references: *id007
+        source_attribute: traffic_vdom
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 31
+        source_attribute: traffic_vdom
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Vdom used to communicate with cloud service.
+        max_length: 31
+        source_attribute: traffic-vdom
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  vendor:
+    canonical:
+      type: enum
+      version_ranges: &id009
+      - - v7.6.3
+        - ''
+      choices: &id008
+      - unknown
+      - google-cloud-kms
+      default: unknown
+      description: Cloud service vendor.
+      source_attribute: vendor
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id008
+        version_ranges: *id009
+        description: Cloud service vendor.
+        source_attribute: vendor
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: vendor
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Cloud service vendor.
+        default: unknown
+        source_attribute: vendor
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts: []

@@ -1,0 +1,1522 @@
+id: log.setting
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  anonymization_hash:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v7.0.2
+        - ''
+      min_length: 0
+      max_length: 32
+      description: User name anonymization hash salt.
+      source_attribute: anonymization-hash
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: User name anonymization hash salt.
+        source_attribute: anonymization_hash
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 32
+        source_attribute: anonymization_hash
+      cli_reference:
+        type: string
+        raw_type: string
+        description: User name anonymization hash salt.
+        max_length: 32
+        source_attribute: anonymization-hash
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  brief_traffic_format:
+    canonical:
+      type: enum
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      choices: &id002
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable brief format traffic logging.
+      source_attribute: brief-traffic-format
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id002
+        version_ranges: *id003
+        description: Enable/disable brief format traffic logging.
+        source_attribute: brief_traffic_format
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: brief_traffic_format
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable brief format traffic logging.
+        default: disable
+        source_attribute: brief-traffic-format
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  custom_log_fields:
+    canonical:
+      type: list
+      elements: dict
+      children: &id005
+        field_id:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id008
+          - - v6.0.0
+            - ''
+          description: Custom log field. Source log.custom-field.id.
+          references: &id007
+          - log.custom-field.id
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      max_length: 35
+      description: Custom fields to append to all log messages. Custom log field.
+      source_attribute: custom-log-fields
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id004
+        description: Custom fields to append to all log messages.
+        children: *id005
+        source_attribute: custom_log_fields
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          field_id:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+        source_attribute: custom_log_fields
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Custom fields to append to all log messages. Custom log field.
+        max_length: 35
+        source_attribute: custom-log-fields
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id006
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id006
+  custom_log_fields.field_id:
+    canonical:
+      type: string
+      references: *id007
+      required: true
+      version_ranges: *id008
+      min_length: 0
+      max_length: 35
+      description: Custom log field. Source log.custom-field.id.
+      source_attribute: custom_log_fields.field_id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id008
+        description: Custom log field. Source log.custom-field.id.
+        references: *id007
+        source_attribute: custom_log_fields.field_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: custom_log_fields.field_id
+    sources:
+    - ansible
+    - terraform
+  daemon_log:
+    canonical:
+      type: enum
+      version_ranges: &id010
+      - - v6.0.0
+        - ''
+      choices: &id009
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable daemon logging.
+      source_attribute: daemon-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id010
+        description: Enable/disable daemon logging.
+        source_attribute: daemon_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: daemon_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable daemon logging.
+        default: disable
+        source_attribute: daemon-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  detailed_svc_name:
+    canonical:
+      type: string
+      source_attribute: detailed_svc_name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: detailed_svc_name
+    sources:
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  expolicy_implicit_log:
+    canonical:
+      type: enum
+      version_ranges: &id012
+      - - v6.0.0
+        - ''
+      choices: &id011
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable proxy firewall implicit policy logging.
+      source_attribute: expolicy-implicit-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id011
+        version_ranges: *id012
+        description: Enable/disable proxy firewall implicit policy logging.
+        source_attribute: expolicy_implicit_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: expolicy_implicit_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable proxy firewall implicit policy logging.
+        default: disable
+        source_attribute: expolicy-implicit-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  extended_log:
+    canonical:
+      type: enum
+      version_ranges: &id014
+      - - v7.4.0
+        - ''
+      choices: &id013
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable extended traffic logging.
+      source_attribute: extended-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id014
+        description: Enable/disable extended traffic logging.
+        source_attribute: extended_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: extended_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable extended traffic logging.
+        default: disable
+        source_attribute: extended-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  extended_utm_log:
+    canonical:
+      type: enum
+      version_ranges: &id016
+      - - v7.6.0
+        - ''
+      choices: &id015
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable extended UTM logging.
+      source_attribute: extended-utm-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id015
+        version_ranges: *id016
+        description: Enable/disable extended UTM logging.
+        source_attribute: extended_utm_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: extended_utm_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable extended UTM logging.
+        default: disable
+        source_attribute: extended-utm-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  faz_override:
+    canonical:
+      type: enum
+      version_ranges: &id018
+      - - v6.2.0
+        - ''
+      choices: &id017
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable override FortiAnalyzer settings.
+      source_attribute: faz-override
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id017
+        version_ranges: *id018
+        description: Enable/disable override FortiAnalyzer settings.
+        source_attribute: faz_override
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: faz_override
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable override FortiAnalyzer settings.
+        default: disable
+        source_attribute: faz-override
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fortiview_weekly_data:
+    canonical:
+      type: enum
+      version_ranges: &id020
+      - - v6.0.0
+        - v7.4.1
+      - - v7.4.3
+        - ''
+      choices: &id019
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable FortiView weekly data.
+      source_attribute: fortiview-weekly-data
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id019
+        version_ranges: *id020
+        description: Enable/disable FortiView weekly data.
+        source_attribute: fortiview_weekly_data
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fortiview_weekly_data
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable FortiView weekly data.
+        default: disable
+        source_attribute: fortiview-weekly-data
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fwpolicy6_implicit_log:
+    canonical:
+      type: enum
+      version_ranges: &id022
+      - - v6.0.0
+        - ''
+      choices: &id021
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable implicit firewall policy6 logging.
+      source_attribute: fwpolicy6-implicit-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id021
+        version_ranges: *id022
+        description: Enable/disable implicit firewall policy6 logging.
+        source_attribute: fwpolicy6_implicit_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fwpolicy6_implicit_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable implicit firewall policy6 logging.
+        default: disable
+        source_attribute: fwpolicy6-implicit-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fwpolicy_implicit_log:
+    canonical:
+      type: enum
+      version_ranges: &id024
+      - - v6.0.0
+        - ''
+      choices: &id023
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable implicit firewall policy logging.
+      source_attribute: fwpolicy-implicit-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id023
+        version_ranges: *id024
+        description: Enable/disable implicit firewall policy logging.
+        source_attribute: fwpolicy_implicit_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fwpolicy_implicit_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable implicit firewall policy logging.
+        default: disable
+        source_attribute: fwpolicy-implicit-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  local_in_allow:
+    canonical:
+      type: enum
+      version_ranges: &id026
+      - - v6.0.0
+        - ''
+      choices: &id025
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable local-in-allow logging.
+      source_attribute: local-in-allow
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id025
+        version_ranges: *id026
+        description: Enable/disable local-in-allow logging.
+        source_attribute: local_in_allow
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: local_in_allow
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable local-in-allow logging.
+        default: disable
+        source_attribute: local-in-allow
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  local_in_deny_broadcast:
+    canonical:
+      type: enum
+      version_ranges: &id028
+      - - v6.0.0
+        - ''
+      choices: &id027
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable local-in-deny-broadcast logging.
+      source_attribute: local-in-deny-broadcast
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id027
+        version_ranges: *id028
+        description: Enable/disable local-in-deny-broadcast logging.
+        source_attribute: local_in_deny_broadcast
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: local_in_deny_broadcast
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable local-in-deny-broadcast logging.
+        default: disable
+        source_attribute: local-in-deny-broadcast
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  local_in_deny_unicast:
+    canonical:
+      type: enum
+      version_ranges: &id030
+      - - v6.0.0
+        - ''
+      choices: &id029
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable local-in-deny-unicast logging.
+      source_attribute: local-in-deny-unicast
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id029
+        version_ranges: *id030
+        description: Enable/disable local-in-deny-unicast logging.
+        source_attribute: local_in_deny_unicast
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: local_in_deny_unicast
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable local-in-deny-unicast logging.
+        default: disable
+        source_attribute: local-in-deny-unicast
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  local_in_policy_log:
+    canonical:
+      type: enum
+      version_ranges: &id032
+      - - v7.6.0
+        - ''
+      choices: &id031
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable local-in-policy logging.
+      source_attribute: local-in-policy-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id031
+        version_ranges: *id032
+        description: Enable/disable local-in-policy logging.
+        source_attribute: local_in_policy_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: local_in_policy_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable local-in-policy logging.
+        default: disable
+        source_attribute: local-in-policy-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  local_out:
+    canonical:
+      type: enum
+      version_ranges: &id034
+      - - v6.0.0
+        - ''
+      choices: &id033
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable local-out logging.
+      source_attribute: local-out
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id033
+        version_ranges: *id034
+        description: Enable/disable local-out logging.
+        source_attribute: local_out
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: local_out
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable local-out logging.
+        default: enable
+        source_attribute: local-out
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  local_out_ioc_detection:
+    canonical:
+      type: enum
+      version_ranges: &id036
+      - - v7.2.0
+        - ''
+      choices: &id035
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable local-out traffic IoC detection. Requires local-out to be enabled.
+      source_attribute: local-out-ioc-detection
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id035
+        version_ranges: *id036
+        description: Enable/disable local-out traffic IoC detection. Requires local-out to be enabled.
+        source_attribute: local_out_ioc_detection
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: local_out_ioc_detection
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable local-out traffic IoC detection. Requires local-out to be enabled.
+        default: enable
+        source_attribute: local-out-ioc-detection
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  log_invalid_packet:
+    canonical:
+      type: string
+      source_attribute: log_invalid_packet
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: log_invalid_packet
+    sources:
+    - terraform
+  log_policy_comment:
+    canonical:
+      type: enum
+      version_ranges: &id038
+      - - v6.0.0
+        - ''
+      choices: &id037
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable inserting policy comments into traffic logs.
+      source_attribute: log-policy-comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id037
+        version_ranges: *id038
+        description: Enable/disable inserting policy comments into traffic logs.
+        source_attribute: log_policy_comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: log_policy_comment
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable inserting policy comments into traffic logs.
+        default: disable
+        source_attribute: log-policy-comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  log_policy_name:
+    canonical:
+      type: string
+      source_attribute: log_policy_name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: log_policy_name
+    sources:
+    - terraform
+  log_user_in_upper:
+    canonical:
+      type: enum
+      version_ranges: &id040
+      - - v6.0.0
+        - ''
+      choices: &id039
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable logs with user-in-upper.
+      source_attribute: log-user-in-upper
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id039
+        version_ranges: *id040
+        description: Enable/disable logs with user-in-upper.
+        source_attribute: log_user_in_upper
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: log_user_in_upper
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logs with user-in-upper.
+        default: disable
+        source_attribute: log-user-in-upper
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  long_live_session_stat:
+    canonical:
+      type: enum
+      version_ranges: &id042
+      - - v7.4.2
+        - ''
+      choices: &id041
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable long-live-session statistics logging.
+      source_attribute: long-live-session-stat
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id041
+        version_ranges: *id042
+        description: Enable/disable long-live-session statistics logging.
+        source_attribute: long_live_session_stat
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: long_live_session_stat
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable long-live-session statistics logging.
+        default: enable
+        source_attribute: long-live-session-stat
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  neighbor_event:
+    canonical:
+      type: enum
+      version_ranges: &id044
+      - - v6.0.0
+        - ''
+      choices: &id043
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable neighbor event logging.
+      source_attribute: neighbor-event
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id043
+        version_ranges: *id044
+        description: Enable/disable neighbor event logging.
+        source_attribute: neighbor_event
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: neighbor_event
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable neighbor event logging.
+        default: disable
+        source_attribute: neighbor-event
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  resolve_ip:
+    canonical:
+      type: enum
+      version_ranges: &id046
+      - - v6.0.0
+        - ''
+      choices: &id045
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable adding resolved domain names to traffic logs if possible.
+      source_attribute: resolve-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id045
+        version_ranges: *id046
+        description: Enable/disable adding resolved domain names to traffic logs if possible.
+        source_attribute: resolve_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: resolve_ip
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable adding resolved domain names to traffic logs if possible.
+        default: disable
+        source_attribute: resolve-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  resolve_port:
+    canonical:
+      type: enum
+      version_ranges: &id048
+      - - v6.0.0
+        - ''
+      choices: &id047
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable adding resolved service names to traffic logs.
+      source_attribute: resolve-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id047
+        version_ranges: *id048
+        description: Enable/disable adding resolved service names to traffic logs.
+        source_attribute: resolve_port
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: resolve_port
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable adding resolved service names to traffic logs.
+        default: enable
+        source_attribute: resolve-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rest_api_get:
+    canonical:
+      type: enum
+      version_ranges: &id050
+      - - v7.0.4
+        - ''
+      choices: &id049
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable REST API GET request logging.
+      source_attribute: rest-api-get
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id049
+        version_ranges: *id050
+        description: Enable/disable REST API GET request logging.
+        source_attribute: rest_api_get
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rest_api_get
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable REST API GET request logging.
+        default: disable
+        source_attribute: rest-api-get
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rest_api_performance:
+    canonical:
+      type: enum
+      version_ranges: &id052
+      - - v7.6.5
+        - ''
+      choices: &id051
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable REST API memory and performance stats in rest-api-get/set logs.
+      source_attribute: rest-api-performance
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id051
+        version_ranges: *id052
+        description: Enable/disable REST API memory and performance stats in rest-api-get/set logs.
+        source_attribute: rest_api_performance
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rest_api_performance
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable REST API memory and performance stats in rest-api-get/set logs.
+        default: disable
+        source_attribute: rest-api-performance
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rest_api_set:
+    canonical:
+      type: enum
+      version_ranges: &id054
+      - - v7.0.4
+        - ''
+      choices: &id053
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable REST API POST/PUT/DELETE request logging.
+      source_attribute: rest-api-set
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id053
+        version_ranges: *id054
+        description: Enable/disable REST API POST/PUT/DELETE request logging.
+        source_attribute: rest_api_set
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rest_api_set
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable REST API POST/PUT/DELETE request logging.
+        default: disable
+        source_attribute: rest-api-set
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  syslog_override:
+    canonical:
+      type: enum
+      version_ranges: &id056
+      - - v6.2.0
+        - ''
+      choices: &id055
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable override Syslog settings.
+      source_attribute: syslog-override
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id055
+        version_ranges: *id056
+        description: Enable/disable override Syslog settings.
+        source_attribute: syslog_override
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: syslog_override
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable override Syslog settings.
+        default: disable
+        source_attribute: syslog-override
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  tacacs_accounting_server_alternate:
+    canonical:
+      type: string
+      source_attribute: tacacs_accounting_server_alternate
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: tacacs_accounting_server_alternate
+    sources:
+    - terraform
+  user_anonymize:
+    canonical:
+      type: enum
+      version_ranges: &id058
+      - - v6.0.0
+        - ''
+      choices: &id057
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable anonymizing user names in log messages.
+      source_attribute: user-anonymize
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id057
+        version_ranges: *id058
+        description: Enable/disable anonymizing user names in log messages.
+        source_attribute: user_anonymize
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: user_anonymize
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable anonymizing user names in log messages.
+        default: disable
+        source_attribute: user-anonymize
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  web_svc_perf:
+    canonical:
+      type: enum
+      version_ranges: &id060
+      - - v7.6.5
+        - ''
+      choices: &id059
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable web-svc performance logging.
+      source_attribute: web-svc-perf
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id059
+        version_ranges: *id060
+        description: Enable/disable web-svc performance logging.
+        source_attribute: web_svc_perf
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_svc_perf
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable web-svc performance logging.
+        default: disable
+        source_attribute: web-svc-perf
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  zone_name:
+    canonical:
+      type: enum
+      version_ranges: &id062
+      - - v7.6.4
+        - ''
+      choices: &id061
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable zone name logging.
+      source_attribute: zone-name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id061
+        version_ranges: *id062
+        description: Enable/disable zone name logging.
+        source_attribute: zone_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: zone_name
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable zone name logging.
+        default: disable
+        source_attribute: zone-name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: custom_log_fields
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

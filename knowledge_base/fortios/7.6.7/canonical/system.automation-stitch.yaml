@@ -1,0 +1,807 @@
+id: system.automation-stitch
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  action:
+    canonical:
+      type: list
+      children: &id001
+        name:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 79
+      source_attribute: action
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id001
+        source_attribute: action
+    sources:
+    - terraform
+  action.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 79
+      source_attribute: action.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: action.name
+    sources:
+    - terraform
+  actions:
+    canonical:
+      type: list
+      elements: dict
+      children: &id003
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id007
+          - - v7.0.1
+            - ''
+          description: Entry ID. see <a href='#notes'>Notes</a>.
+        action:
+          type: string
+          raw_type: string
+          version_ranges: &id005
+          - - v7.0.1
+            - ''
+          description: Action name. Source system.automation-action.name.
+          references: &id004
+          - system.automation-action.name
+        delay:
+          type: integer
+          raw_type: integer
+          version_ranges: &id006
+          - - v7.0.1
+            - ''
+          description: Delay before execution (in seconds).
+        required:
+          type: enum
+          raw_type: string
+          choices: &id009
+          - enable
+          - disable
+          version_ranges: &id008
+          - - v7.0.1
+            - ''
+          description: Required in action chain.
+      version_ranges: &id002
+      - - v7.0.1
+        - ''
+      description: Configure stitch actions.
+      source_attribute: actions
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id002
+        description: Configure stitch actions.
+        children: *id003
+        source_attribute: actions
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          action:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 64
+          delay:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 3600
+          required:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: actions
+    sources:
+    - ansible
+    - terraform
+  actions.action:
+    canonical:
+      type: string
+      references: *id004
+      version_ranges: *id005
+      min_length: 0
+      max_length: 64
+      description: Action name. Source system.automation-action.name.
+      source_attribute: actions.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: Action name. Source system.automation-action.name.
+        references: *id004
+        source_attribute: actions.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 64
+        source_attribute: actions.action
+    sources:
+    - ansible
+    - terraform
+  actions.delay:
+    canonical:
+      type: integer
+      version_ranges: *id006
+      min: 0
+      max: 3600
+      description: Delay before execution (in seconds).
+      source_attribute: actions.delay
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id006
+        description: Delay before execution (in seconds).
+        source_attribute: actions.delay
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 3600
+        source_attribute: actions.delay
+    sources:
+    - ansible
+    - terraform
+  actions.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id007
+      description: Entry ID. see <a href='#notes'>Notes</a>.
+      source_attribute: actions.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id007
+        description: Entry ID. see <a href='#notes'>Notes</a>.
+        source_attribute: actions.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: actions.id
+    sources:
+    - ansible
+    - terraform
+  actions.required:
+    canonical:
+      type: enum
+      version_ranges: *id008
+      choices: *id009
+      description: Required in action chain.
+      source_attribute: actions.required
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id008
+        description: Required in action chain.
+        source_attribute: actions.required
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: actions.required
+    sources:
+    - ansible
+    - terraform
+  condition:
+    canonical:
+      type: list
+      elements: dict
+      children: &id011
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id014
+          - - v7.6.1
+            - ''
+          description: Condition name. Source system.automation-condition.name.
+          references: &id013
+          - system.automation-condition.name
+      version_ranges: &id010
+      - - v7.6.1
+        - ''
+      max_length: 79
+      description: Automation conditions. Condition name.
+      source_attribute: condition
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id010
+        description: Automation conditions.
+        children: *id011
+        source_attribute: condition
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: condition
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Automation conditions. Condition name.
+        max_length: 79
+        source_attribute: condition
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id012
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id012
+  condition.name:
+    canonical:
+      type: string
+      references: *id013
+      required: true
+      version_ranges: *id014
+      min_length: 0
+      max_length: 79
+      description: Condition name. Source system.automation-condition.name.
+      source_attribute: condition.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id014
+        description: Condition name. Source system.automation-condition.name.
+        references: *id013
+        source_attribute: condition.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: condition.name
+    sources:
+    - ansible
+    - terraform
+  condition_logic:
+    canonical:
+      type: enum
+      version_ranges: &id016
+      - - v7.6.1
+        - ''
+      choices: &id015
+      - and
+      - or
+      default: and
+      description: Apply AND/OR logic to the specified automation conditions.
+      source_attribute: condition-logic
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id015
+        version_ranges: *id016
+        description: Apply AND/OR logic to the specified automation conditions.
+        source_attribute: condition_logic
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: condition_logic
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Apply AND/OR logic to the specified automation conditions.
+        default: and
+        source_attribute: condition-logic
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  description:
+    canonical:
+      type: string
+      version_ranges: &id017
+      - - v7.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Description.
+      source_attribute: description
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id017
+        description: Description.
+        source_attribute: description
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: description
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Description.
+        max_length: 255
+        source_attribute: description
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  destination:
+    canonical:
+      type: list
+      elements: dict
+      children: &id019
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id022
+          - - v6.0.0
+            - ''
+          description: Destination name. Source system.automation-destination.name.
+          references: &id021
+          - system.automation-destination.name
+      version_ranges: &id018
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Serial number/HA group-name of destination devices. Destination name.
+      source_attribute: destination
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id018
+        description: Serial number/HA group-name of destination devices.
+        children: *id019
+        source_attribute: destination
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: destination
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Serial number/HA group-name of destination devices. Destination name.
+        max_length: 79
+        source_attribute: destination
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id020
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id020
+  destination.name:
+    canonical:
+      type: string
+      references: *id021
+      required: true
+      version_ranges: *id022
+      min_length: 0
+      max_length: 79
+      description: Destination name. Source system.automation-destination.name.
+      source_attribute: destination.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id022
+        description: Destination name. Source system.automation-destination.name.
+        references: *id021
+        source_attribute: destination.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: destination.name
+    sources:
+    - ansible
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id023
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id023
+        description: Name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: enum
+      required: true
+      version_ranges: &id025
+      - - v6.0.0
+        - ''
+      choices: &id024
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable this stitch.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id024
+        version_ranges: *id025
+        description: Enable/disable this stitch.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable this stitch.
+        default: enable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  trigger:
+    canonical:
+      type: string
+      references: &id027
+      - system.automation-trigger.name
+      required: true
+      version_ranges: &id026
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Trigger name.
+      source_attribute: trigger
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id026
+        description: Trigger name. Source system.automation-trigger.name.
+        references: *id027
+        source_attribute: trigger
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 35
+        source_attribute: trigger
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Trigger name.
+        max_length: 35
+        source_attribute: trigger
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: condition
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: destination
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

@@ -1,0 +1,397 @@
+id: user.group
+version: 7.6.7
+source_object: fortios_user_group
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_user_group.py
+root_type: list
+attributes:
+  name:
+    type: string
+    raw_type: string
+    required: true
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Group name.
+  group_type:
+    type: enum
+    raw_type: string
+    choices:
+    - firewall
+    - fsso-service
+    - rsso
+    - guest
+    - scim
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Set the group to be for firewall authentication, FSSO, RSSO, SCIM, or guest users.
+  authtimeout:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Authentication timeout in minutes for this user group. 0 to use the global user setting auth-timeout.
+  auth_concurrent_override:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable overriding the global number of concurrent authentication sessions for this user group.
+  auth_concurrent_value:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Maximum number of concurrent authenticated connections per user (0 - 100).
+  http_digest_realm:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Realm attribute for MD5-digest authentication.
+  sso_attribute_value:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: RADIUS attribute value.
+  member:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Names of users, peers, LDAP severs, RADIUS servers, SCIM client or external idp servers to add to the user
+      group.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Group member name. Source user.peer.name user.local.name user.radius.name user.tacacs+.name user.ldap.name
+          user.saml.name user .external-identity-provider.name user.adgrp.name user.pop3.name user.certificate.name user.scim.name
+          user.oidc.name.
+        references:
+        - user.adgrp.name
+        - user.certificate.name
+        - user.ldap.name
+        - user.local.name
+        - user.oidc.name
+        - user.peer.name
+        - user.pop3.name
+        - user.radius.name
+        - user.saml.name
+        - user.scim.name
+  match:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Group matches.
+    children:
+      id:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: ID. see <a href='#notes'>Notes</a>.
+      server_name:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Name of remote auth server. Source user.radius.name user.ldap.name user.tacacs+.name user.saml.name user
+          .external-identity-provider.name.
+        references:
+        - user.ldap.name
+        - user.radius.name
+        - user.saml.name
+      group_name:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Name of matching user or group on remote authentication server or SCIM.
+  user_id:
+    type: enum
+    raw_type: string
+    choices:
+    - email
+    - auto-generate
+    - specify
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Guest user ID type.
+  password:
+    type: enum
+    raw_type: string
+    choices:
+    - auto-generate
+    - specify
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Guest user password type.
+  user_name:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable the guest user name entry.
+  sponsor:
+    type: enum
+    raw_type: string
+    choices:
+    - optional
+    - mandatory
+    - disabled
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Set the action for the sponsor guest user field.
+  company:
+    type: enum
+    raw_type: string
+    choices:
+    - optional
+    - mandatory
+    - disabled
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Set the action for the company guest user field.
+  email:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable the guest user email address field.
+  mobile_phone:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable the guest user mobile phone number field.
+  sms_server:
+    type: enum
+    raw_type: string
+    choices:
+    - fortiguard
+    - custom
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Send SMS through FortiGuard or other external server.
+  sms_custom_server:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: SMS server. Source system.sms-server.name.
+    references:
+    - system.sms-server.name
+  expire_type:
+    type: enum
+    raw_type: string
+    choices:
+    - immediately
+    - first-successful-login
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Determine when the expiration countdown begins.
+  expire:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Time in seconds before guest user accounts expire (1 - 31536000).
+  max_accounts:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Maximum number of guest accounts that can be created for this group (0 means unlimited).
+  multiple_guest_add:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable addition of multiple guests.
+  guest:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Guest User.
+    children:
+      id:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: Guest ID. see <a href='#notes'>Notes</a>.
+      user_id:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Guest ID.
+      name:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Guest name.
+      password:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Guest password.
+      mobile_phone:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Mobile phone.
+      sponsor:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Set the action for the sponsor guest user field.
+      company:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Set the action for the company guest user field.
+      email:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Email.
+      expiration:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Expire time.
+      comment:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Comment.
+  scim_user_attr_type:
+    type: enum
+    raw_type: string
+    choices:
+    - user-name
+    - display-name
+    - external-id
+    - email
+    version_ranges:
+    - - v7.6.7
+      - ''
+    description: User attribute type used to match SCIM users .
+  scim_group_attr_type:
+    type: enum
+    raw_type: string
+    choices:
+    - display-name
+    - external-id
+    version_ranges:
+    - - v7.6.7
+      - ''
+    description: Group attribute type used to match SCIM groups .
+  scim_users:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v7.6.7
+      - ''
+    description: Names of SCIM users.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v7.6.7
+          - ''
+        description: Names of SCIM users.
+  scim_groups:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v7.6.7
+      - ''
+    description: Names of SCIM groups.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v7.6.7
+          - ''
+        description: Names of SCIM groups.

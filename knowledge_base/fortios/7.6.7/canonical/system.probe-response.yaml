@@ -1,0 +1,358 @@
+id: system.probe-response
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  http_probe_value:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      default: OK
+      min_length: 0
+      max_length: 1024
+      description: Value to respond to the monitoring server.
+      source_attribute: http-probe-value
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Value to respond to the monitoring server.
+        source_attribute: http_probe_value
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 1024
+        source_attribute: http_probe_value
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Value to respond to the monitoring server.
+        default: OK
+        max_length: 1024
+        source_attribute: http-probe-value
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  mode:
+    canonical:
+      type: enum
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      choices: &id002
+      - none
+      - http-probe
+      - twamp
+      default: none
+      description: SLA response mode.
+      source_attribute: mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id002
+        version_ranges: *id003
+        description: SLA response mode.
+        source_attribute: mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: SLA response mode.
+        default: none
+        source_attribute: mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  password:
+    canonical:
+      type: password
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: TWAMP responder password in authentication mode.
+      source_attribute: password
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id004
+        description: TWAMP responder password in authentication mode.
+        source_attribute: password
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: password
+      cli_reference:
+        type: password
+        raw_type: password
+        description: TWAMP responder password in authentication mode.
+        source_attribute: password
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id005
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id005
+  port:
+    canonical:
+      type: integer
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      default: '8008'
+      min: 1
+      max: 65535
+      description: Port number to response.
+      source_attribute: port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id006
+        description: Port number to response.
+        source_attribute: port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port number to response.
+        default: '8008'
+        min: 1
+        max: 65535
+        source_attribute: port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  security_mode:
+    canonical:
+      type: enum
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      choices: &id007
+      - none
+      - authentication
+      default: none
+      description: TWAMP responder security mode.
+      source_attribute: security-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id007
+        version_ranges: *id008
+        description: TWAMP responder security mode.
+        source_attribute: security_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: security_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: TWAMP responder security mode.
+        default: none
+        source_attribute: security-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  timeout:
+    canonical:
+      type: integer
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      default: '300'
+      min: 10
+      max: 3600
+      description: An inactivity timer for a twamp test session.
+      source_attribute: timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id009
+        description: An inactivity timer for a twamp test session.
+        source_attribute: timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 10
+        max: 3600
+        source_attribute: timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: An inactivity timer for a twamp test session.
+        default: '300'
+        min: 10
+        max: 3600
+        source_attribute: timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ttl_mode:
+    canonical:
+      type: enum
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      choices: &id010
+      - reinit
+      - decrease
+      - retain
+      default: retain
+      description: Mode for TWAMP packet TTL modification.
+      source_attribute: ttl-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id011
+        description: Mode for TWAMP packet TTL modification.
+        source_attribute: ttl_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ttl_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Mode for TWAMP packet TTL modification.
+        default: retain
+        source_attribute: ttl-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: password
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict

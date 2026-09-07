@@ -1,0 +1,474 @@
+id: dlp.settings
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  cache_mem_percent:
+    canonical:
+      type: integer
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      default: '2'
+      min: 1
+      max: 15
+      description: Maximum percentage of available memory allocated to caching DLP fingerprints (1 - 15).
+      source_attribute: cache-mem-percent
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id001
+        description: Maximum percentage of available memory allocated to caching DLP fingerprints (1 - 15).
+        source_attribute: cache_mem_percent
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 15
+        source_attribute: cache_mem_percent
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum percentage of available memory allocated to caching DLP fingerprints (1 - 15).
+        default: '2'
+        min: 1
+        max: 15
+        source_attribute: cache-mem-percent
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  chunk_size:
+    canonical:
+      type: integer
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      default: '2800'
+      min: 100
+      max: 100000
+      description: Maximum fingerprint chunk size. Caution, changing this setting will flush the entire database.
+      source_attribute: chunk-size
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id002
+        description: Maximum fingerprint chunk size. Caution, changing this setting will flush the entire database.
+        source_attribute: chunk_size
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 100
+        max: 100000
+        source_attribute: chunk_size
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum fingerprint chunk size. Caution, changing this setting will flush the entire database.
+        default: '2800'
+        min: 100
+        max: 100000
+        source_attribute: chunk-size
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  config_builder_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id003
+      - - v7.6.1
+        - ''
+      default: '60'
+      min: 10
+      max: 100000
+      description: Maximum time allowed for building a single DLP profile (default 60 seconds).
+      source_attribute: config-builder-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id003
+        description: Maximum time allowed for building a single DLP profile .
+        source_attribute: config_builder_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 10
+        max: 100000
+        source_attribute: config_builder_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum time allowed for building a single DLP profile (default 60 seconds).
+        default: '60'
+        min: 10
+        max: 100000
+        source_attribute: config-builder-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  db_mode:
+    canonical:
+      type: enum
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      choices: &id004
+      - stop-adding
+      - remove-modified-then-oldest
+      - remove-oldest
+      default: stop-adding
+      description: Behavior when the maximum size is reached in the DLP fingerprint database.
+      source_attribute: db-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id004
+        version_ranges: *id005
+        description: Behavior when the maximum size is reached in the DLP fingerprint database.
+        source_attribute: db_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: db_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Behavior when the maximum size is reached in the DLP fingerprint database.
+        default: stop-adding
+        source_attribute: db-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  ocr:
+    canonical:
+      type: list
+      children: &id006
+        scan:
+          type: string
+          raw_type: TypeString
+          optional: true
+          computed: true
+        confidence:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+          computed: true
+          min: 0
+          max: 100
+        max_file_size:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+          min: 0
+          max: 1427456
+        filetype_ignore_list:
+          type: list
+          raw_type: TypeSet
+          optional: true
+          children: &id007
+            name:
+              type: string
+              raw_type: TypeString
+              optional: true
+              min_length: 0
+              max_length: 39
+      source_attribute: ocr
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children: *id006
+        source_attribute: ocr
+    sources:
+    - terraform
+  ocr.confidence:
+    canonical:
+      type: integer
+      min: 0
+      max: 100
+      source_attribute: ocr.confidence
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 100
+        source_attribute: ocr.confidence
+    sources:
+    - terraform
+  ocr.filetype_ignore_list:
+    canonical:
+      type: list
+      children: *id007
+      source_attribute: ocr.filetype_ignore_list
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id007
+        source_attribute: ocr.filetype_ignore_list
+    sources:
+    - terraform
+  ocr.filetype_ignore_list.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 39
+      source_attribute: ocr.filetype_ignore_list.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 39
+        source_attribute: ocr.filetype_ignore_list.name
+    sources:
+    - terraform
+  ocr.max_file_size:
+    canonical:
+      type: integer
+      min: 0
+      max: 1427456
+      source_attribute: ocr.max_file_size
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 1427456
+        source_attribute: ocr.max_file_size
+    sources:
+    - terraform
+  ocr.scan:
+    canonical:
+      type: string
+      source_attribute: ocr.scan
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ocr.scan
+    sources:
+    - terraform
+  size:
+    canonical:
+      type: integer
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      default: '16'
+      min: 16
+      max: 4294967295
+      description: Maximum total size of files within the DLP fingerprint database (MB).
+      source_attribute: size
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id008
+        description: Maximum total size of files within the DLP fingerprint database (MB).
+        source_attribute: size
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: size
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum total size of files within the DLP fingerprint database (MB).
+        default: '16'
+        min: 16
+        max: 4294967295
+        source_attribute: size
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  storage_device:
+    canonical:
+      type: string
+      references: &id010
+      - system.storage.name
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Storage device name.
+      source_attribute: storage-device
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id009
+        description: Storage device name. Source system.storage.name.
+        references: *id010
+        source_attribute: storage_device
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: storage_device
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Storage device name.
+        max_length: 35
+        source_attribute: storage-device
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

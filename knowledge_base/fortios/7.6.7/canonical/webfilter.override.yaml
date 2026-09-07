@@ -1,0 +1,571 @@
+id: webfilter.override
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  expires:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      default: 1969/12/31 16:00:00
+      description: 'Override expiration date and time, from 5 minutes to 365 from now (format: yyyy/mm/dd hh:mm:ss).'
+      source_attribute: expires
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: 'Override expiration date and time, from 5 minutes to 365 from now (format: yyyy/mm/dd hh:mm:ss).'
+        source_attribute: expires
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: expires
+      cli_reference:
+        type: string
+        raw_type: user
+        description: 'Override expiration date and time, from 5 minutes to 365 from now (format: yyyy/mm/dd hh:mm:ss).'
+        default: 1969/12/31 16:00:00
+        source_attribute: expires
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fosid:
+    canonical:
+      type: integer
+      source_attribute: fosid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: fosid
+    sources:
+    - terraform
+  id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Override rule ID.
+      source_attribute: id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id002
+        description: Override rule ID. see <a href='#notes'>Notes</a>.
+        source_attribute: id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Override rule ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: id
+    sources:
+    - ansible
+    - cli_reference
+  initiator:
+    canonical:
+      type: string
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 64
+      description: Initiating user of override (read-only setting).
+      source_attribute: initiator
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Initiating user of override (read-only setting).
+        source_attribute: initiator
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 64
+        source_attribute: initiator
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Initiating user of override (read-only setting).
+        max_length: 64
+        source_attribute: initiator
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ip:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: IPv4 address which the override applies.
+      source_attribute: ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id004
+        description: IPv4 address which the override applies.
+        source_attribute: ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: IPv4 address which the override applies.
+        default: 0.0.0.0
+        source_attribute: ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id005
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id005
+  ip6:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      default: '::'
+      description: IPv6 address which the override applies.
+      source_attribute: ip6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id006
+        description: IPv6 address which the override applies.
+        source_attribute: ip6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ip6
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: IPv6 address which the override applies.
+        default: '::'
+        source_attribute: ip6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id007
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id007
+  new_profile:
+    canonical:
+      type: string
+      references: &id009
+      - webfilter.profile.name
+      required: true
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 47
+      description: Name of the new web filter profile used by the override.
+      source_attribute: new-profile
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: Name of the new web filter profile used by the override. Source webfilter.profile.name.
+        references: *id009
+        source_attribute: new_profile
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 47
+        source_attribute: new_profile
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of the new web filter profile used by the override.
+        max_length: 47
+        source_attribute: new-profile
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  old_profile:
+    canonical:
+      type: string
+      references: &id011
+      - webfilter.profile.name
+      required: true
+      version_ranges: &id010
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 47
+      description: Name of the web filter profile which the override applies.
+      source_attribute: old-profile
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id010
+        description: Name of the web filter profile which the override applies. Source webfilter.profile.name.
+        references: *id011
+        source_attribute: old_profile
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 47
+        source_attribute: old_profile
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of the web filter profile which the override applies.
+        max_length: 47
+        source_attribute: old-profile
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  scope:
+    canonical:
+      type: enum
+      version_ranges: &id013
+      - - v6.0.0
+        - ''
+      choices: &id012
+      - user
+      - user-group
+      - ip
+      - ip6
+      default: user
+      description: Override either the specific user, user group, IPv4 address, or IPv6 address.
+      source_attribute: scope
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id012
+        version_ranges: *id013
+        description: Override either the specific user, user group, IPv4 address, or IPv6 address.
+        source_attribute: scope
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: scope
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Override either the specific user, user group, IPv4 address, or IPv6 address.
+        default: user
+        source_attribute: scope
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id015
+      - - v6.0.0
+        - ''
+      choices: &id014
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable override rule.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id014
+        version_ranges: *id015
+        description: Enable/disable override rule.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable override rule.
+        default: disable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  user:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id016
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 64
+      description: Name of the user which the override applies.
+      source_attribute: user
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id016
+        description: Name of the user which the override applies.
+        source_attribute: user
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 64
+        source_attribute: user
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of the user which the override applies.
+        max_length: 64
+        source_attribute: user
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  user_group:
+    canonical:
+      type: string
+      references: &id018
+      - user.group.name
+      version_ranges: &id017
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Specify the user group for which the override applies.
+      source_attribute: user-group
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id017
+        description: Specify the user group for which the override applies. Source user.group.name.
+        references: *id018
+        source_attribute: user_group
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: user_group
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Specify the user group for which the override applies.
+        max_length: 63
+        source_attribute: user-group
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: ip6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict

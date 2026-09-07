@@ -1,0 +1,147 @@
+id: system.replacemsg.webproxy
+version: 7.6.7
+source_presence:
+  ansible: false
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  buffer:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 32768
+      description: Message string.
+      source_attribute: buffer
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 32768
+        source_attribute: buffer
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Message string.
+        max_length: 32768
+        source_attribute: buffer
+    sources:
+    - cli_reference
+    - terraform
+  format:
+    canonical:
+      type: enum
+      default: none
+      description: Format flag.
+      source_attribute: format
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: format
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Format flag.
+        default: none
+        source_attribute: format
+    sources:
+    - cli_reference
+    - terraform
+  header:
+    canonical:
+      type: enum
+      default: none
+      description: Header flag.
+      source_attribute: header
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: header
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Header flag.
+        default: none
+        source_attribute: header
+    sources:
+    - cli_reference
+    - terraform
+  msg_type:
+    canonical:
+      type: string
+      required: true
+      min_length: 0
+      max_length: 28
+      description: Message type.
+      source_attribute: msg-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        force_new: true
+        min_length: 0
+        max_length: 28
+        source_attribute: msg_type
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Message type.
+        max_length: 28
+        source_attribute: msg-type
+    sources:
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

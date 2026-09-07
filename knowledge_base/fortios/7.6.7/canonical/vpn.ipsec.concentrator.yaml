@@ -1,0 +1,349 @@
+id: vpn.ipsec.concentrator
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  fosid:
+    canonical:
+      type: integer
+      min: 1
+      max: 65535
+      source_attribute: fosid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: fosid
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id001
+      - - v7.0.1
+        - ''
+      default: '0'
+      min: 1
+      max: 65535
+      description: Concentrator ID (1 - 65535).
+      source_attribute: id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id001
+        description: Concentrator ID (1 - 65535). see <a href='#notes'>Notes</a>.
+        source_attribute: id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Concentrator ID (1 - 65535).
+        default: '0'
+        min: 1
+        max: 65535
+        source_attribute: id
+    sources:
+    - ansible
+    - cli_reference
+  member:
+    canonical:
+      type: list
+      elements: dict
+      children: &id003
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id006
+          - - v6.0.0
+            - ''
+          description: Member name. Source vpn.ipsec.manualkey.name vpn.ipsec.phase1.name.
+          references: &id005
+          - vpn.ipsec.manualkey.name
+          - vpn.ipsec.phase1.name
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Names of up to 3 VPN tunnels to add to the concentrator. Member name.
+      source_attribute: member
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id002
+        description: Names of up to 3 VPN tunnels to add to the concentrator.
+        children: *id003
+        source_attribute: member
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: member
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Names of up to 3 VPN tunnels to add to the concentrator. Member name.
+        max_length: 79
+        source_attribute: member
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id004
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id004
+  member.name:
+    canonical:
+      type: string
+      references: *id005
+      required: true
+      version_ranges: *id006
+      min_length: 0
+      max_length: 79
+      description: Member name. Source vpn.ipsec.manualkey.name vpn.ipsec.phase1.name.
+      source_attribute: member.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id006
+        description: Member name. Source vpn.ipsec.manualkey.name vpn.ipsec.phase1.name.
+        references: *id005
+        source_attribute: member.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: member.name
+    sources:
+    - ansible
+    - terraform
+  name:
+    canonical:
+      type: string
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Concentrator name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: Concentrator name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Concentrator name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  src_check:
+    canonical:
+      type: enum
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      choices: &id008
+      - disable
+      - enable
+      default: disable
+      description: Enable to check source address of phase 2 selector. Disable to check only the destination selector.
+      source_attribute: src-check
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id008
+        version_ranges: *id009
+        description: Enable to check source address of phase 2 selector. Disable to check only the destination selector.
+        source_attribute: src_check
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: src_check
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable to check source address of phase 2 selector. Disable to check only the destination selector.
+        default: disable
+        source_attribute: src-check
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: member
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

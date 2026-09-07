@@ -1,0 +1,75 @@
+id: web-proxy.forward-server-group
+version: 7.6.7
+source_object: fortios_web_proxy_forward_server_group
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_web_proxy_forward_server_group.py
+root_type: list
+attributes:
+  name:
+    type: string
+    raw_type: string
+    required: true
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Configure a forward server group consisting one or multiple forward servers. Supports failover and load balancing.
+  affinity:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable affinity, attaching a source-ip"s traffic to the assigned forwarding server until the forward-server-affinity-timeout
+      is reached (under web-proxy global).
+  ldb_method:
+    type: enum
+    raw_type: string
+    choices:
+    - weighted
+    - least-session
+    - active-passive
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: 'Load balance method: weighted or least-session.'
+  group_down_option:
+    type: enum
+    raw_type: string
+    choices:
+    - block
+    - pass
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: 'Action to take when all of the servers in the forward server group are down: block sessions until at least
+      one server is back up or pass sessions to their destination.'
+  server_list:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Add web forward servers to a list to form a server group. Optionally assign weights to each server.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Forward server name. Source web-proxy.forward-server.name.
+        references:
+        - web-proxy.forward-server.name
+      weight:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Optionally assign a weight of the forwarding server for weighted load balancing (1 - 100).

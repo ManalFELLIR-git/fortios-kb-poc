@@ -1,0 +1,252 @@
+id: application.list
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/117262721/config-application-list
+attributes:
+  app-replacemsg:
+    type: enum
+    raw_type: option
+    description: Enable/disable replacement messages for blocked applications.
+    default: enable
+  comment:
+    type: string
+    raw_type: var-string
+    description: Comments.
+    max_length: 255
+  control-default-network-services:
+    type: enum
+    raw_type: option
+    description: Enable/disable enforcement of protocols over selected ports.
+    default: disable
+  deep-app-inspection:
+    type: enum
+    raw_type: option
+    description: Enable/disable deep application inspection.
+    default: enable
+  enforce-default-app-port:
+    type: enum
+    raw_type: option
+    description: Enable/disable default application port enforcement for allowed applications.
+    default: disable
+  extended-log:
+    type: enum
+    raw_type: option
+    description: Enable/disable extended logging.
+    default: disable
+  force-inclusion-ssl-di-sigs:
+    type: enum
+    raw_type: option
+    description: Enable/disable forced inclusion of SSL deep inspection signatures.
+    default: disable
+  name:
+    type: string
+    raw_type: string
+    description: List name.
+    max_length: 47
+  options:
+    type: enum
+    raw_type: option
+    description: Basic application protocol signatures allowed by default.
+    default: allow-dns
+  other-application-action:
+    type: enum
+    raw_type: option
+    description: Action for other applications.
+    default: pass
+  other-application-log:
+    type: enum
+    raw_type: option
+    description: Enable/disable logging for other applications.
+    default: disable
+  p2p-block-list:
+    type: enum
+    raw_type: option
+    description: P2P applications to be block listed.
+  replacemsg-group:
+    type: string
+    raw_type: string
+    description: Replacement message group.
+    max_length: 35
+  unknown-application-action:
+    type: enum
+    raw_type: option
+    description: Pass or block traffic from unknown applications.
+    default: pass
+  unknown-application-log:
+    type: enum
+    raw_type: option
+    description: Enable/disable logging for unknown applications.
+    default: disable
+children:
+  default-network-services:
+    attributes:
+      id:
+        type: integer
+        raw_type: integer
+        description: Entry ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      port:
+        type: integer
+        raw_type: integer
+        description: Port number.
+        default: '0'
+        min: 0
+        max: 65535
+      services:
+        type: enum
+        raw_type: option
+        description: Network protocols.
+      violation-action:
+        type: enum
+        raw_type: option
+        description: Action for protocols not in the allowlist for selected port.
+        default: block
+  entries:
+    attributes:
+      action:
+        type: enum
+        raw_type: option
+        description: Pass or block traffic, or reset connection for traffic from this application.
+        default: block
+      application:
+        type: integer
+        raw_type: integer
+        description: ID of allowed applications. Application IDs.
+        min: 0
+        max: 4294967295
+      behavior:
+        type: string
+        raw_type: user
+        description: Application behavior filter.
+        default: all
+      category:
+        type: integer
+        raw_type: integer
+        description: Category ID list. Application category ID.
+        min: 0
+        max: 4294967295
+      exclusion:
+        type: integer
+        raw_type: integer
+        description: ID of excluded applications. Excluded application IDs.
+        min: 0
+        max: 4294967295
+      id:
+        type: integer
+        raw_type: integer
+        description: Entry ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      log:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging for this application list.
+        default: enable
+      log-packet:
+        type: enum
+        raw_type: option
+        description: Enable/disable packet logging.
+        default: disable
+      per-ip-shaper:
+        type: string
+        raw_type: string
+        description: Per-IP traffic shaper.
+        max_length: 35
+      popularity:
+        type: enum
+        raw_type: option
+        description: Application popularity filter (1 - 5, from least to most popular).
+        default: 1 2 3 4 5
+      protocols:
+        type: string
+        raw_type: user
+        description: Application protocol filter.
+        default: all
+      quarantine:
+        type: enum
+        raw_type: option
+        description: Quarantine method.
+        default: none
+      quarantine-expiry:
+        type: string
+        raw_type: user
+        description: 'Duration of quarantine. (Format ###d##h##m, minimum 1m, maximum 364d23h59m, default = 5m). Requires
+          quarantine set to attacker.'
+        default: 5m
+      quarantine-log:
+        type: enum
+        raw_type: option
+        description: Enable/disable quarantine logging.
+        default: enable
+      rate-count:
+        type: integer
+        raw_type: integer
+        description: Count of the rate.
+        default: '0'
+        min: 0
+        max: 65535
+      rate-duration:
+        type: integer
+        raw_type: integer
+        description: Duration (sec) of the rate.
+        default: '60'
+        min: 1
+        max: 65535
+      rate-mode:
+        type: enum
+        raw_type: option
+        description: Rate limit mode.
+        default: continuous
+      rate-track:
+        type: enum
+        raw_type: option
+        description: Track the packet protocol field.
+        default: none
+      risk:
+        type: integer
+        raw_type: integer
+        description: Risk, or impact, of allowing traffic from this application to occur (1 - 5; Low, Elevated, Medium, High,
+          and Critical). Risk, or impact, of allowing traffic from this application to occur (1 - 5; Low, Elevated, Medium,
+          High, and Critical).
+        min: 0
+        max: 4294967295
+      session-ttl:
+        type: integer
+        raw_type: integer
+        description: Session TTL (0 = default).
+        default: '0'
+        min: 0
+        max: 4294967295
+      shaper:
+        type: string
+        raw_type: string
+        description: Traffic shaper.
+        max_length: 35
+      shaper-reverse:
+        type: string
+        raw_type: string
+        description: Reverse traffic shaper.
+        max_length: 35
+      technology:
+        type: string
+        raw_type: user
+        description: Application technology filter.
+        default: all
+      vendor:
+        type: string
+        raw_type: user
+        description: Application vendor filter.
+        default: all
+  parameters:
+    attributes:
+      id:
+        type: integer
+        raw_type: integer
+        description: Parameter tuple ID.
+        default: '0'
+        min: 0
+        max: 4294967295

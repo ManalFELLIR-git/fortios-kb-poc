@@ -1,0 +1,2601 @@
+id: emailfilter.profile
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Comment.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Comment.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 255
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  external:
+    canonical:
+      type: enum
+      version_ranges: &id003
+      - - v6.2.0
+        - ''
+      choices: &id002
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable external Email inspection.
+      source_attribute: external
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id002
+        version_ranges: *id003
+        description: Enable/disable external Email inspection.
+        source_attribute: external
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: external
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable external Email inspection.
+        default: disable
+        source_attribute: external
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fabric_force_sync:
+    canonical:
+      type: string
+      source_attribute: fabric_force_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_force_sync
+    sources:
+    - terraform
+  fabric_object:
+    canonical:
+      type: string
+      source_attribute: fabric_object
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object
+    sources:
+    - terraform
+  fabric_object_source:
+    canonical:
+      type: string
+      source_attribute: fabric_object_source
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object_source
+    sources:
+    - terraform
+  feature_set:
+    canonical:
+      type: enum
+      version_ranges: &id005
+      - - v6.4.0
+        - ''
+      choices: &id004
+      - flow
+      - proxy
+      default: flow
+      description: Flow/proxy feature set.
+      source_attribute: feature-set
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id004
+        version_ranges: *id005
+        description: Flow/proxy feature set.
+        source_attribute: feature_set
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: feature_set
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Flow/proxy feature set.
+        default: flow
+        source_attribute: feature-set
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  file_filter:
+    canonical:
+      type: list
+      children: &id006
+        status:
+          type: string
+          raw_type: TypeString
+          optional: true
+        log:
+          type: string
+          raw_type: TypeString
+          optional: true
+        scan_archive_contents:
+          type: string
+          raw_type: TypeString
+          optional: true
+        entries:
+          type: list
+          raw_type: TypeList
+          optional: true
+          children: &id007
+            filter:
+              type: string
+              raw_type: TypeString
+              optional: true
+              min_length: 0
+              max_length: 35
+            comment:
+              type: string
+              raw_type: TypeString
+              optional: true
+              min_length: 0
+              max_length: 255
+            protocol:
+              type: string
+              raw_type: TypeString
+              optional: true
+            action:
+              type: string
+              raw_type: TypeString
+              optional: true
+            password_protected:
+              type: string
+              raw_type: TypeString
+              optional: true
+            file_type:
+              type: list
+              raw_type: TypeSet
+              optional: true
+              children: &id008
+                name:
+                  type: string
+                  raw_type: TypeString
+                  optional: true
+                  min_length: 0
+                  max_length: 39
+      source_attribute: file_filter
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children: *id006
+        source_attribute: file_filter
+    sources:
+    - terraform
+  file_filter.entries:
+    canonical:
+      type: list
+      children: *id007
+      source_attribute: file_filter.entries
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id007
+        source_attribute: file_filter.entries
+    sources:
+    - terraform
+  file_filter.entries.action:
+    canonical:
+      type: string
+      source_attribute: file_filter.entries.action
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: file_filter.entries.action
+    sources:
+    - terraform
+  file_filter.entries.comment:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 255
+      source_attribute: file_filter.entries.comment
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: file_filter.entries.comment
+    sources:
+    - terraform
+  file_filter.entries.file_type:
+    canonical:
+      type: list
+      children: *id008
+      source_attribute: file_filter.entries.file_type
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id008
+        source_attribute: file_filter.entries.file_type
+    sources:
+    - terraform
+  file_filter.entries.file_type.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 39
+      source_attribute: file_filter.entries.file_type.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 39
+        source_attribute: file_filter.entries.file_type.name
+    sources:
+    - terraform
+  file_filter.entries.filter:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: file_filter.entries.filter
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: file_filter.entries.filter
+    sources:
+    - terraform
+  file_filter.entries.password_protected:
+    canonical:
+      type: string
+      source_attribute: file_filter.entries.password_protected
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: file_filter.entries.password_protected
+    sources:
+    - terraform
+  file_filter.entries.protocol:
+    canonical:
+      type: string
+      source_attribute: file_filter.entries.protocol
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: file_filter.entries.protocol
+    sources:
+    - terraform
+  file_filter.log:
+    canonical:
+      type: string
+      source_attribute: file_filter.log
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: file_filter.log
+    sources:
+    - terraform
+  file_filter.scan_archive_contents:
+    canonical:
+      type: string
+      source_attribute: file_filter.scan_archive_contents
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: file_filter.scan_archive_contents
+    sources:
+    - terraform
+  file_filter.status:
+    canonical:
+      type: string
+      source_attribute: file_filter.status
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: file_filter.status
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  gmail:
+    canonical:
+      type: list
+      children: &id010
+        log_all:
+          type: enum
+          raw_type: string
+          choices: &id013
+          - disable
+          - enable
+          version_ranges: &id012
+          - - v6.4.0
+            - v6.4.0
+          - - v6.4.4
+            - ''
+          description: Enable/disable logging of all email traffic.
+      version_ranges: &id009
+      - - v6.2.0
+        - ''
+      description: Gmail.
+      source_attribute: gmail
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id009
+        description: Gmail.
+        children: *id010
+        source_attribute: gmail
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          log_all:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          log:
+            type: string
+            raw_type: TypeString
+            optional: true
+        source_attribute: gmail
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id011
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id011
+  gmail.log:
+    canonical:
+      type: string
+      source_attribute: gmail.log
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: gmail.log
+    sources:
+    - terraform
+  gmail.log_all:
+    canonical:
+      type: enum
+      version_ranges: *id012
+      choices: *id013
+      description: Enable/disable logging of all email traffic.
+      source_attribute: gmail.log_all
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id012
+        description: Enable/disable logging of all email traffic.
+        source_attribute: gmail.log_all
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: gmail.log_all
+    sources:
+    - ansible
+    - terraform
+  imap:
+    canonical:
+      type: list
+      children: &id015
+        log_all:
+          type: enum
+          raw_type: string
+          choices: &id020
+          - disable
+          - enable
+          version_ranges: &id019
+          - - v6.4.0
+            - v6.4.0
+          - - v6.4.4
+            - ''
+          description: Enable/disable logging of all email traffic.
+        action:
+          type: enum
+          raw_type: string
+          choices: &id018
+          - pass
+          - tag
+          version_ranges: &id017
+          - - v6.2.0
+            - ''
+          description: Action for spam email.
+        tag_type:
+          type: enum
+          raw_type: list
+          choices: &id023
+          - subject
+          - header
+          - spaminfo
+          multiple_values: true
+          elements: str
+          version_ranges: &id022
+          - - v6.2.0
+            - ''
+          description: Tag subject or header for spam email.
+        tag_msg:
+          type: string
+          raw_type: string
+          version_ranges: &id021
+          - - v6.2.0
+            - ''
+          description: Subject text or header added to spam email.
+      version_ranges: &id014
+      - - v6.2.0
+        - ''
+      description: IMAP.
+      source_attribute: imap
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id014
+        description: IMAP.
+        children: *id015
+        source_attribute: imap
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          log_all:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          log:
+            type: string
+            raw_type: TypeString
+            optional: true
+          action:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          tag_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          tag_msg:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+            min_length: 0
+            max_length: 63
+        source_attribute: imap
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id016
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id016
+  imap.action:
+    canonical:
+      type: enum
+      version_ranges: *id017
+      choices: *id018
+      description: Action for spam email.
+      source_attribute: imap.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id018
+        version_ranges: *id017
+        description: Action for spam email.
+        source_attribute: imap.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: imap.action
+    sources:
+    - ansible
+    - terraform
+  imap.log:
+    canonical:
+      type: string
+      source_attribute: imap.log
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: imap.log
+    sources:
+    - terraform
+  imap.log_all:
+    canonical:
+      type: enum
+      version_ranges: *id019
+      choices: *id020
+      description: Enable/disable logging of all email traffic.
+      source_attribute: imap.log_all
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id020
+        version_ranges: *id019
+        description: Enable/disable logging of all email traffic.
+        source_attribute: imap.log_all
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: imap.log_all
+    sources:
+    - ansible
+    - terraform
+  imap.tag_msg:
+    canonical:
+      type: string
+      version_ranges: *id021
+      min_length: 0
+      max_length: 63
+      description: Subject text or header added to spam email.
+      source_attribute: imap.tag_msg
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id021
+        description: Subject text or header added to spam email.
+        source_attribute: imap.tag_msg
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 63
+        source_attribute: imap.tag_msg
+    sources:
+    - ansible
+    - terraform
+  imap.tag_type:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: *id022
+      choices: *id023
+      description: Tag subject or header for spam email.
+      source_attribute: imap.tag_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id023
+        multiple_values: true
+        elements: str
+        version_ranges: *id022
+        description: Tag subject or header for spam email.
+        source_attribute: imap.tag_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: imap.tag_type
+    sources:
+    - ansible
+    - terraform
+  mapi:
+    canonical:
+      type: list
+      children: &id025
+        log_all:
+          type: enum
+          raw_type: string
+          choices: &id030
+          - disable
+          - enable
+          version_ranges: &id029
+          - - v6.4.0
+            - v6.4.0
+          - - v6.4.4
+            - ''
+          description: Enable/disable logging of all email traffic.
+        action:
+          type: enum
+          raw_type: string
+          choices: &id028
+          - pass
+          - discard
+          version_ranges: &id027
+          - - v6.2.0
+            - ''
+          description: Action for spam email.
+      version_ranges: &id024
+      - - v6.2.0
+        - ''
+      description: MAPI.
+      source_attribute: mapi
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id024
+        description: MAPI.
+        children: *id025
+        source_attribute: mapi
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          log_all:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          log:
+            type: string
+            raw_type: TypeString
+            optional: true
+          action:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: mapi
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id026
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id026
+  mapi.action:
+    canonical:
+      type: enum
+      version_ranges: *id027
+      choices: *id028
+      description: Action for spam email.
+      source_attribute: mapi.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id028
+        version_ranges: *id027
+        description: Action for spam email.
+        source_attribute: mapi.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mapi.action
+    sources:
+    - ansible
+    - terraform
+  mapi.log:
+    canonical:
+      type: string
+      source_attribute: mapi.log
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: mapi.log
+    sources:
+    - terraform
+  mapi.log_all:
+    canonical:
+      type: enum
+      version_ranges: *id029
+      choices: *id030
+      description: Enable/disable logging of all email traffic.
+      source_attribute: mapi.log_all
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id030
+        version_ranges: *id029
+        description: Enable/disable logging of all email traffic.
+        source_attribute: mapi.log_all
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mapi.log_all
+    sources:
+    - ansible
+    - terraform
+  msn_hotmail:
+    canonical:
+      type: list
+      children: &id032
+        log_all:
+          type: enum
+          raw_type: string
+          choices: &id035
+          - disable
+          - enable
+          version_ranges: &id034
+          - - v6.4.0
+            - v6.4.0
+          - - v6.4.4
+            - ''
+          description: Enable/disable logging of all email traffic.
+      version_ranges: &id031
+      - - v6.2.0
+        - ''
+      description: MSN Hotmail.
+      source_attribute: msn_hotmail
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id031
+        description: MSN Hotmail.
+        children: *id032
+        source_attribute: msn_hotmail
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          log_all:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          log:
+            type: string
+            raw_type: TypeString
+            optional: true
+        source_attribute: msn_hotmail
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id033
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id033
+  msn_hotmail.log:
+    canonical:
+      type: string
+      source_attribute: msn_hotmail.log
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: msn_hotmail.log
+    sources:
+    - terraform
+  msn_hotmail.log_all:
+    canonical:
+      type: enum
+      version_ranges: *id034
+      choices: *id035
+      description: Enable/disable logging of all email traffic.
+      source_attribute: msn_hotmail.log_all
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id035
+        version_ranges: *id034
+        description: Enable/disable logging of all email traffic.
+        source_attribute: msn_hotmail.log_all
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: msn_hotmail.log_all
+    sources:
+    - ansible
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id036
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 47
+      description: Profile name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id036
+        description: Profile name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 47
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Profile name.
+        max_length: 47
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  options:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id038
+      - - v6.2.0
+        - ''
+      choices: &id037
+      - bannedword
+      - spambal
+      - spamfsip
+      - spamfssubmit
+      - spamfschksum
+      - spamfsurl
+      - spamhelodns
+      - spamraddrdns
+      - spamrbl
+      - spamhdrcheck
+      - spamfsphish
+      description: Options.
+      source_attribute: options
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id037
+        multiple_values: true
+        elements: str
+        version_ranges: *id038
+        description: Options.
+        source_attribute: options
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: options
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Options.
+        source_attribute: options
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  other_webmails:
+    canonical:
+      type: list
+      children: &id040
+        log_all:
+          type: enum
+          raw_type: string
+          choices: &id043
+          - disable
+          - enable
+          version_ranges: &id042
+          - - v6.4.0
+            - v6.4.0
+          - - v6.4.4
+            - ''
+          description: Enable/disable logging of all email traffic.
+      version_ranges: &id039
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      description: Other supported webmails.
+      source_attribute: other_webmails
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id039
+        description: Other supported webmails.
+        children: *id040
+        source_attribute: other_webmails
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          log_all:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: other_webmails
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id041
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id041
+  other_webmails.log_all:
+    canonical:
+      type: enum
+      version_ranges: *id042
+      choices: *id043
+      description: Enable/disable logging of all email traffic.
+      source_attribute: other_webmails.log_all
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id043
+        version_ranges: *id042
+        description: Enable/disable logging of all email traffic.
+        source_attribute: other_webmails.log_all
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: other_webmails.log_all
+    sources:
+    - ansible
+    - terraform
+  pop3:
+    canonical:
+      type: list
+      children: &id045
+        log_all:
+          type: enum
+          raw_type: string
+          choices: &id050
+          - disable
+          - enable
+          version_ranges: &id049
+          - - v6.4.0
+            - v6.4.0
+          - - v6.4.4
+            - ''
+          description: Enable/disable logging of all email traffic.
+        action:
+          type: enum
+          raw_type: string
+          choices: &id048
+          - pass
+          - tag
+          version_ranges: &id047
+          - - v6.2.0
+            - ''
+          description: Action for spam email.
+        tag_type:
+          type: enum
+          raw_type: list
+          choices: &id053
+          - subject
+          - header
+          - spaminfo
+          multiple_values: true
+          elements: str
+          version_ranges: &id052
+          - - v6.2.0
+            - ''
+          description: Tag subject or header for spam email.
+        tag_msg:
+          type: string
+          raw_type: string
+          version_ranges: &id051
+          - - v6.2.0
+            - ''
+          description: Subject text or header added to spam email.
+      version_ranges: &id044
+      - - v6.2.0
+        - ''
+      description: POP3.
+      source_attribute: pop3
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id044
+        description: POP3.
+        children: *id045
+        source_attribute: pop3
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          log_all:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          log:
+            type: string
+            raw_type: TypeString
+            optional: true
+          action:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          tag_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          tag_msg:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+            min_length: 0
+            max_length: 63
+        source_attribute: pop3
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id046
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id046
+  pop3.action:
+    canonical:
+      type: enum
+      version_ranges: *id047
+      choices: *id048
+      description: Action for spam email.
+      source_attribute: pop3.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id048
+        version_ranges: *id047
+        description: Action for spam email.
+        source_attribute: pop3.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pop3.action
+    sources:
+    - ansible
+    - terraform
+  pop3.log:
+    canonical:
+      type: string
+      source_attribute: pop3.log
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: pop3.log
+    sources:
+    - terraform
+  pop3.log_all:
+    canonical:
+      type: enum
+      version_ranges: *id049
+      choices: *id050
+      description: Enable/disable logging of all email traffic.
+      source_attribute: pop3.log_all
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id050
+        version_ranges: *id049
+        description: Enable/disable logging of all email traffic.
+        source_attribute: pop3.log_all
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pop3.log_all
+    sources:
+    - ansible
+    - terraform
+  pop3.tag_msg:
+    canonical:
+      type: string
+      version_ranges: *id051
+      min_length: 0
+      max_length: 63
+      description: Subject text or header added to spam email.
+      source_attribute: pop3.tag_msg
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id051
+        description: Subject text or header added to spam email.
+        source_attribute: pop3.tag_msg
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 63
+        source_attribute: pop3.tag_msg
+    sources:
+    - ansible
+    - terraform
+  pop3.tag_type:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: *id052
+      choices: *id053
+      description: Tag subject or header for spam email.
+      source_attribute: pop3.tag_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id053
+        multiple_values: true
+        elements: str
+        version_ranges: *id052
+        description: Tag subject or header for spam email.
+        source_attribute: pop3.tag_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pop3.tag_type
+    sources:
+    - ansible
+    - terraform
+  replacemsg_group:
+    canonical:
+      type: string
+      references: &id055
+      - system.replacemsg-group.name
+      version_ranges: &id054
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Replacement message group.
+      source_attribute: replacemsg-group
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id054
+        description: Replacement message group. Source system.replacemsg-group.name.
+        references: *id055
+        source_attribute: replacemsg_group
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: replacemsg_group
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Replacement message group.
+        max_length: 35
+        source_attribute: replacemsg-group
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  smtp:
+    canonical:
+      type: list
+      children: &id057
+        log_all:
+          type: enum
+          raw_type: string
+          choices: &id066
+          - disable
+          - enable
+          version_ranges: &id065
+          - - v6.4.0
+            - v6.4.0
+          - - v6.4.4
+            - ''
+          description: Enable/disable logging of all email traffic.
+        action:
+          type: enum
+          raw_type: string
+          choices: &id060
+          - pass
+          - tag
+          - discard
+          version_ranges: &id059
+          - - v6.2.0
+            - ''
+          description: Action for spam email.
+        tag_type:
+          type: enum
+          raw_type: list
+          choices: &id069
+          - subject
+          - header
+          - spaminfo
+          multiple_values: true
+          elements: str
+          version_ranges: &id068
+          - - v6.2.0
+            - ''
+          description: Tag subject or header for spam email.
+        tag_msg:
+          type: string
+          raw_type: string
+          version_ranges: &id067
+          - - v6.2.0
+            - ''
+          description: Subject text or header added to spam email.
+        hdrip:
+          type: enum
+          raw_type: string
+          choices: &id062
+          - disable
+          - enable
+          version_ranges: &id061
+          - - v6.2.0
+            - ''
+          description: Enable/disable SMTP email header IP checks for spamfsip, spamrbl, and spambal filters.
+        local_override:
+          type: enum
+          raw_type: string
+          choices: &id064
+          - disable
+          - enable
+          version_ranges: &id063
+          - - v6.2.0
+            - ''
+          description: Enable/disable local filter to override SMTP remote check result.
+      version_ranges: &id056
+      - - v6.2.0
+        - ''
+      description: SMTP.
+      source_attribute: smtp
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id056
+        description: SMTP.
+        children: *id057
+        source_attribute: smtp
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          log_all:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          log:
+            type: string
+            raw_type: TypeString
+            optional: true
+          action:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          tag_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          tag_msg:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+            min_length: 0
+            max_length: 63
+          hdrip:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          local_override:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: smtp
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id058
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id058
+  smtp.action:
+    canonical:
+      type: enum
+      version_ranges: *id059
+      choices: *id060
+      description: Action for spam email.
+      source_attribute: smtp.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id060
+        version_ranges: *id059
+        description: Action for spam email.
+        source_attribute: smtp.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: smtp.action
+    sources:
+    - ansible
+    - terraform
+  smtp.hdrip:
+    canonical:
+      type: enum
+      version_ranges: *id061
+      choices: *id062
+      description: Enable/disable SMTP email header IP checks for spamfsip, spamrbl, and spambal filters.
+      source_attribute: smtp.hdrip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id062
+        version_ranges: *id061
+        description: Enable/disable SMTP email header IP checks for spamfsip, spamrbl, and spambal filters.
+        source_attribute: smtp.hdrip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: smtp.hdrip
+    sources:
+    - ansible
+    - terraform
+  smtp.local_override:
+    canonical:
+      type: enum
+      version_ranges: *id063
+      choices: *id064
+      description: Enable/disable local filter to override SMTP remote check result.
+      source_attribute: smtp.local_override
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id064
+        version_ranges: *id063
+        description: Enable/disable local filter to override SMTP remote check result.
+        source_attribute: smtp.local_override
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: smtp.local_override
+    sources:
+    - ansible
+    - terraform
+  smtp.log:
+    canonical:
+      type: string
+      source_attribute: smtp.log
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: smtp.log
+    sources:
+    - terraform
+  smtp.log_all:
+    canonical:
+      type: enum
+      version_ranges: *id065
+      choices: *id066
+      description: Enable/disable logging of all email traffic.
+      source_attribute: smtp.log_all
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id066
+        version_ranges: *id065
+        description: Enable/disable logging of all email traffic.
+        source_attribute: smtp.log_all
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: smtp.log_all
+    sources:
+    - ansible
+    - terraform
+  smtp.tag_msg:
+    canonical:
+      type: string
+      version_ranges: *id067
+      min_length: 0
+      max_length: 63
+      description: Subject text or header added to spam email.
+      source_attribute: smtp.tag_msg
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id067
+        description: Subject text or header added to spam email.
+        source_attribute: smtp.tag_msg
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 63
+        source_attribute: smtp.tag_msg
+    sources:
+    - ansible
+    - terraform
+  smtp.tag_type:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: *id068
+      choices: *id069
+      description: Tag subject or header for spam email.
+      source_attribute: smtp.tag_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id069
+        multiple_values: true
+        elements: str
+        version_ranges: *id068
+        description: Tag subject or header for spam email.
+        source_attribute: smtp.tag_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: smtp.tag_type
+    sources:
+    - ansible
+    - terraform
+  spam_bal_table:
+    canonical:
+      type: integer
+      references: &id071
+      - emailfilter.block-allow-list.id
+      version_ranges: &id070
+      - - v7.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Anti-spam block/allow list table ID.
+      source_attribute: spam-bal-table
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id070
+        description: Anti-spam block/allow list table ID. Source emailfilter.block-allow-list.id.
+        references: *id071
+        source_attribute: spam_bal_table
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: spam_bal_table
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Anti-spam block/allow list table ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: spam-bal-table
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  spam_bwl_table:
+    canonical:
+      type: integer
+      source_attribute: spam_bwl_table
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: spam_bwl_table
+    sources:
+    - terraform
+  spam_bword_table:
+    canonical:
+      type: integer
+      references: &id073
+      - emailfilter.bword.id
+      version_ranges: &id072
+      - - v6.2.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Anti-spam banned word table ID.
+      source_attribute: spam-bword-table
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id072
+        description: Anti-spam banned word table ID. Source emailfilter.bword.id.
+        references: *id073
+        source_attribute: spam_bword_table
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: spam_bword_table
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Anti-spam banned word table ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: spam-bword-table
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  spam_bword_threshold:
+    canonical:
+      type: integer
+      version_ranges: &id074
+      - - v6.2.0
+        - ''
+      default: '10'
+      min: 0
+      max: 2147483647
+      description: Spam banned word threshold.
+      source_attribute: spam-bword-threshold
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id074
+        description: Spam banned word threshold.
+        source_attribute: spam_bword_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: spam_bword_threshold
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Spam banned word threshold.
+        default: '10'
+        min: 0
+        max: 2147483647
+        source_attribute: spam-bword-threshold
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  spam_filtering:
+    canonical:
+      type: enum
+      version_ranges: &id076
+      - - v6.2.0
+        - ''
+      choices: &id075
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable spam filtering.
+      source_attribute: spam-filtering
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id075
+        version_ranges: *id076
+        description: Enable/disable spam filtering.
+        source_attribute: spam_filtering
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: spam_filtering
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable spam filtering.
+        default: disable
+        source_attribute: spam-filtering
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  spam_iptrust_table:
+    canonical:
+      type: integer
+      references: &id078
+      - emailfilter.iptrust.id
+      version_ranges: &id077
+      - - v6.2.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Anti-spam IP trust table ID.
+      source_attribute: spam-iptrust-table
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id077
+        description: Anti-spam IP trust table ID. Source emailfilter.iptrust.id.
+        references: *id078
+        source_attribute: spam_iptrust_table
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: spam_iptrust_table
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Anti-spam IP trust table ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: spam-iptrust-table
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  spam_log:
+    canonical:
+      type: enum
+      version_ranges: &id080
+      - - v6.2.0
+        - ''
+      choices: &id079
+      - disable
+      - enable
+      default: enable
+      description: Enable/disable spam logging for email filtering.
+      source_attribute: spam-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id079
+        version_ranges: *id080
+        description: Enable/disable spam logging for email filtering.
+        source_attribute: spam_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: spam_log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable spam logging for email filtering.
+        default: enable
+        source_attribute: spam-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  spam_log_fortiguard_response:
+    canonical:
+      type: enum
+      version_ranges: &id082
+      - - v6.2.0
+        - ''
+      choices: &id081
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable logging FortiGuard spam response.
+      source_attribute: spam-log-fortiguard-response
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id081
+        version_ranges: *id082
+        description: Enable/disable logging FortiGuard spam response.
+        source_attribute: spam_log_fortiguard_response
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: spam_log_fortiguard_response
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging FortiGuard spam response.
+        default: disable
+        source_attribute: spam-log-fortiguard-response
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  spam_mheader_table:
+    canonical:
+      type: integer
+      references: &id084
+      - emailfilter.mheader.id
+      version_ranges: &id083
+      - - v6.2.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Anti-spam MIME header table ID.
+      source_attribute: spam-mheader-table
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id083
+        description: Anti-spam MIME header table ID. Source emailfilter.mheader.id.
+        references: *id084
+        source_attribute: spam_mheader_table
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: spam_mheader_table
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Anti-spam MIME header table ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: spam-mheader-table
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  spam_rbl_table:
+    canonical:
+      type: integer
+      references: &id086
+      - emailfilter.dnsbl.id
+      version_ranges: &id085
+      - - v6.2.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Anti-spam DNSBL table ID.
+      source_attribute: spam-rbl-table
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id085
+        description: Anti-spam DNSBL table ID. Source emailfilter.dnsbl.id.
+        references: *id086
+        source_attribute: spam_rbl_table
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: spam_rbl_table
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Anti-spam DNSBL table ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: spam-rbl-table
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  uuid:
+    canonical:
+      type: string
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  yahoo_mail:
+    canonical:
+      type: list
+      children: &id088
+        log_all:
+          type: enum
+          raw_type: string
+          choices: &id091
+          - disable
+          - enable
+          version_ranges: &id090
+          - - v6.4.0
+            - v6.4.0
+          - - v6.4.4
+            - ''
+          description: Enable/disable logging of all email traffic.
+      version_ranges: &id087
+      - - v6.2.0
+        - ''
+      description: Yahoo! Mail.
+      source_attribute: yahoo_mail
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id087
+        description: Yahoo! Mail.
+        children: *id088
+        source_attribute: yahoo_mail
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          log_all:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          log:
+            type: string
+            raw_type: TypeString
+            optional: true
+        source_attribute: yahoo_mail
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id089
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id089
+  yahoo_mail.log:
+    canonical:
+      type: string
+      source_attribute: yahoo_mail.log
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: yahoo_mail.log
+    sources:
+    - terraform
+  yahoo_mail.log_all:
+    canonical:
+      type: enum
+      version_ranges: *id090
+      choices: *id091
+      description: Enable/disable logging of all email traffic.
+      source_attribute: yahoo_mail.log_all
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id091
+        version_ranges: *id090
+        description: Enable/disable logging of all email traffic.
+        source_attribute: yahoo_mail.log_all
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: yahoo_mail.log_all
+    sources:
+    - ansible
+    - terraform
+conflicts:
+- attribute: gmail
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: imap
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: mapi
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: msn_hotmail
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: other_webmails
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: pop3
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: smtp
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: yahoo_mail
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict

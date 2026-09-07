@@ -1,0 +1,357 @@
+id: web-proxy.url-match
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  cache_exemption:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable exempting this URL pattern from caching.
+      source_attribute: cache-exemption
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable exempting this URL pattern from caching.
+        source_attribute: cache_exemption
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cache_exemption
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable exempting this URL pattern from caching.
+        default: disable
+        source_attribute: cache-exemption
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Comment.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Comment.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 255
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fast_fallback:
+    canonical:
+      type: string
+      references: &id005
+      - web-proxy.fast-fallback.name
+      version_ranges: &id004
+      - - v7.4.1
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Fast fallback configuration entry name.
+      source_attribute: fast-fallback
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id004
+        description: Fast fallback configuration entry name. Source web-proxy.fast-fallback.name.
+        references: *id005
+        source_attribute: fast_fallback
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: fast_fallback
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Fast fallback configuration entry name.
+        max_length: 63
+        source_attribute: fast-fallback
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  forward_server:
+    canonical:
+      type: string
+      references: &id007
+      - web-proxy.forward-server-group.name
+      - web-proxy.forward-server.name
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Forward server name.
+      source_attribute: forward-server
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id006
+        description: Forward server name. Source web-proxy.forward-server.name web-proxy.forward-server-group.name.
+        references: *id007
+        source_attribute: forward_server
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: forward_server
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Forward server name.
+        max_length: 63
+        source_attribute: forward-server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Configure a name for the URL to be exempted.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id008
+        description: Configure a name for the URL to be exempted.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 63
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Configure a name for the URL to be exempted.
+        max_length: 63
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id010
+      - - v6.0.0
+        - ''
+      choices: &id009
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable exempting the URLs matching the URL pattern from web proxy forwarding, caching and fast-fallback.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id010
+        description: Enable/disable exempting the URLs matching the URL pattern from web proxy forwarding, caching and fast-fallback.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable exempting the URLs matching the URL pattern from web proxy forwarding, caching and fast-fallback.
+        default: enable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  url_pattern:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 511
+      description: URL pattern to be exempted from web proxy forwarding, caching and fast-fallback.
+      source_attribute: url-pattern
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: URL pattern to be exempted from web proxy forwarding, caching and fast-fallback.
+        source_attribute: url_pattern
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 511
+        source_attribute: url_pattern
+      cli_reference:
+        type: string
+        raw_type: string
+        description: URL pattern to be exempted from web proxy forwarding, caching and fast-fallback.
+        max_length: 511
+        source_attribute: url-pattern
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

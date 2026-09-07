@@ -1,0 +1,1691 @@
+id: firewall.ippool
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  add_nat64_route:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.0.1
+        - ''
+      choices: &id001
+      - disable
+      - enable
+      default: enable
+      description: Enable/disable adding NAT64 route.
+      source_attribute: add-nat64-route
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable adding NAT64 route.
+        source_attribute: add_nat64_route
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: add_nat64_route
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable adding NAT64 route.
+        default: enable
+        source_attribute: add-nat64-route
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  arp_intf:
+    canonical:
+      type: string
+      references: &id004
+      - system.interface.name
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Select an interface from available options that will reply to ARP requests. (If blank, any is selected).
+      source_attribute: arp-intf
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Select an interface from available options that will reply to ARP requests. (If blank, any is selected).
+          Source system.interface.name.
+        references: *id004
+        source_attribute: arp_intf
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: arp_intf
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Select an interface from available options that will reply to ARP requests. (If blank, any is selected).
+        max_length: 15
+        source_attribute: arp-intf
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  arp_reply:
+    canonical:
+      type: enum
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      choices: &id005
+      - disable
+      - enable
+      default: enable
+      description: Enable/disable replying to ARP requests when an IP Pool is added to a policy (default = enable).
+      source_attribute: arp-reply
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Enable/disable replying to ARP requests when an IP Pool is added to a policy .
+        source_attribute: arp_reply
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: arp_reply
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable replying to ARP requests when an IP Pool is added to a policy (default = enable).
+        default: enable
+        source_attribute: arp-reply
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  associated_interface:
+    canonical:
+      type: string
+      references: &id008
+      - system.interface.name
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Associated interface name.
+      source_attribute: associated-interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: Associated interface name. Source system.interface.name.
+        references: *id008
+        source_attribute: associated_interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: associated_interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Associated interface name.
+        max_length: 15
+        source_attribute: associated-interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  block_size:
+    canonical:
+      type: integer
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      default: '128'
+      min: 64
+      max: 4096
+      description: Number of addresses in a block (64 - 4096, default = 128).
+      source_attribute: block-size
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id009
+        description: Number of addresses in a block (64 - 4096).
+        source_attribute: block_size
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 64
+        max: 4096
+        source_attribute: block_size
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Number of addresses in a block (64 - 4096, default = 128).
+        default: '128'
+        min: 64
+        max: 4096
+        source_attribute: block-size
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cgn_block_size:
+    canonical:
+      type: integer
+      default: '128'
+      min: 64
+      max: 4096
+      description: Number of ports in a block(64 to 4096 in unit of 64, default = 128).
+      source_attribute: cgn-block-size
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Number of ports in a block(64 to 4096 in unit of 64, default = 128).
+        default: '128'
+        min: 64
+        max: 4096
+        source_attribute: cgn-block-size
+    sources:
+    - cli_reference
+  cgn_client_endip:
+    canonical:
+      type: string
+      max_length: 255
+      description: 'Final client IPv4 address (inclusive) (format xxx.xxx.xxx.xxx, Default: 0.0.0.0).'
+      source_attribute: cgn-client-endip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: 'Final client IPv4 address (inclusive) (format xxx.xxx.xxx.xxx, Default: 0.0.0.0).'
+        max_length: 255
+        source_attribute: cgn-client-endip
+    sources:
+    - cli_reference
+  cgn_client_ipv6shift:
+    canonical:
+      type: integer
+      default: '0'
+      min: 0
+      max: 127
+      description: IPv6 shift for fixed-allocation.(default 0)
+      source_attribute: cgn-client-ipv6shift
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: IPv6 shift for fixed-allocation.(default 0)
+        default: '0'
+        min: 0
+        max: 127
+        source_attribute: cgn-client-ipv6shift
+    sources:
+    - cli_reference
+  cgn_client_startip:
+    canonical:
+      type: string
+      max_length: 255
+      description: 'First client IPv4 address (inclusive) (format xxx.xxx.xxx.xxx, Default: 0.0.0.0).'
+      source_attribute: cgn-client-startip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: 'First client IPv4 address (inclusive) (format xxx.xxx.xxx.xxx, Default: 0.0.0.0).'
+        max_length: 255
+        source_attribute: cgn-client-startip
+    sources:
+    - cli_reference
+  cgn_fixedalloc:
+    canonical:
+      type: enum
+      default: disable
+      description: Enable/disable fixed-allocation mode.
+      source_attribute: cgn-fixedalloc
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable fixed-allocation mode.
+        default: disable
+        source_attribute: cgn-fixedalloc
+    sources:
+    - cli_reference
+  cgn_overload:
+    canonical:
+      type: enum
+      default: disable
+      description: Enable/disable overload mode.
+      source_attribute: cgn-overload
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable overload mode.
+        default: disable
+        source_attribute: cgn-overload
+    sources:
+    - cli_reference
+  cgn_port_end:
+    canonical:
+      type: integer
+      default: '65530'
+      min: 1024
+      max: 65535
+      description: Ending public port can be allocated.
+      source_attribute: cgn-port-end
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Ending public port can be allocated.
+        default: '65530'
+        min: 1024
+        max: 65535
+        source_attribute: cgn-port-end
+    sources:
+    - cli_reference
+  cgn_port_start:
+    canonical:
+      type: integer
+      default: '5117'
+      min: 1024
+      max: 65535
+      description: Starting public port can be allocated.
+      source_attribute: cgn-port-start
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Starting public port can be allocated.
+        default: '5117'
+        min: 1024
+        max: 65535
+        source_attribute: cgn-port-start
+    sources:
+    - cli_reference
+  cgn_spa:
+    canonical:
+      type: enum
+      default: disable
+      description: Enable/disable single port allocation mode.
+      source_attribute: cgn-spa
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable single port allocation mode.
+        default: disable
+        source_attribute: cgn-spa
+    sources:
+    - cli_reference
+  client_prefix_length:
+    canonical:
+      type: integer
+      version_ranges: &id010
+      - - v7.6.0
+        - ''
+      default: '64'
+      min: 1
+      max: 128
+      description: Subnet length of a single deterministic NAT64 client (1 - 128, default = 64).
+      source_attribute: client-prefix-length
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id010
+        description: Subnet length of a single deterministic NAT64 client (1 - 128).
+        source_attribute: client_prefix_length
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 128
+        source_attribute: client_prefix_length
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Subnet length of a single deterministic NAT64 client (1 - 128, default = 64).
+        default: '64'
+        min: 1
+        max: 128
+        source_attribute: client-prefix-length
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  comments:
+    canonical:
+      type: string
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Comment.
+      source_attribute: comments
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: Comment.
+        source_attribute: comments
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: comments
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 255
+        source_attribute: comments
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  endip:
+    canonical:
+      type: ipv4-address-any
+      required: true
+      version_ranges: &id012
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: 'Final IPv4 address (inclusive) in the range for the address pool (format xxx.xxx.xxx.xxx, Default: 0.0.0.0).'
+      source_attribute: endip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id012
+        description: Final IPv4 address (inclusive) in the range for the address pool (format xxx.xxx.xxx.xxx).
+        source_attribute: endip
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: endip
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: 'Final IPv4 address (inclusive) in the range for the address pool (format xxx.xxx.xxx.xxx, Default: 0.0.0.0).'
+        default: 0.0.0.0
+        source_attribute: endip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id013
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id013
+  endport:
+    canonical:
+      type: integer
+      version_ranges: &id014
+      - - v7.0.0
+        - ''
+      default: '65533'
+      min: 1024
+      max: 65535
+      description: 'Final port number (inclusive) in the range for the address pool (1024 - 65535, Default: 65533).'
+      source_attribute: endport
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id014
+        description: Final port number (inclusive) in the range for the address pool (1024 - 65535).
+        source_attribute: endport
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1024
+        max: 65535
+        source_attribute: endport
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: 'Final port number (inclusive) in the range for the address pool (1024 - 65535, Default: 65533).'
+        default: '65533'
+        min: 1024
+        max: 65535
+        source_attribute: endport
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  exclude_ip:
+    canonical:
+      type: string
+      max_length: 79
+      description: Exclude IPs x.x.x.x. Exclude IPs (xxx.xxx.xxx.xxx)
+      source_attribute: exclude-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Exclude IPs x.x.x.x. Exclude IPs (xxx.xxx.xxx.xxx)
+        max_length: 79
+        source_attribute: exclude-ip
+    sources:
+    - cli_reference
+  fabric_force_sync:
+    canonical:
+      type: string
+      source_attribute: fabric_force_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_force_sync
+    sources:
+    - terraform
+  fabric_object:
+    canonical:
+      type: string
+      source_attribute: fabric_object
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object
+    sources:
+    - terraform
+  fabric_object_source:
+    canonical:
+      type: string
+      source_attribute: fabric_object_source
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object_source
+    sources:
+    - terraform
+  icmp_session_quota:
+    canonical:
+      type: integer
+      version_ranges: &id015
+      - - v7.6.0
+        - ''
+      default: '0'
+      min: 0
+      max: 2097000
+      description: Maximum number of concurrent ICMP sessions allowed per client (0 - 2097000, default = 0 which means no
+        limit).
+      source_attribute: icmp-session-quota
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id015
+        description: Maximum number of concurrent ICMP sessions allowed per client (0 - 2097000).
+        source_attribute: icmp_session_quota
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 2097000
+        source_attribute: icmp_session_quota
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum number of concurrent ICMP sessions allowed per client (0 - 2097000, default = 0 which means no
+          limit).
+        default: '0'
+        min: 0
+        max: 2097000
+        source_attribute: icmp-session-quota
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id016
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 79
+      description: IP pool name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id016
+        description: IP pool name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: IP pool name.
+        max_length: 79
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  nat64:
+    canonical:
+      type: enum
+      version_ranges: &id018
+      - - v7.0.1
+        - ''
+      choices: &id017
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable NAT64.
+      source_attribute: nat64
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id017
+        version_ranges: *id018
+        description: Enable/disable NAT64.
+        source_attribute: nat64
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: nat64
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable NAT64.
+        default: disable
+        source_attribute: nat64
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  num_blocks_per_user:
+    canonical:
+      type: integer
+      version_ranges: &id019
+      - - v6.0.0
+        - ''
+      default: '8'
+      min: 1
+      max: 128
+      description: Number of addresses blocks that can be used by a user (1 to 128, default = 8).
+      source_attribute: num-blocks-per-user
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id019
+        description: Number of addresses blocks that can be used by a user (1 to 128).
+        source_attribute: num_blocks_per_user
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 128
+        source_attribute: num_blocks_per_user
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Number of addresses blocks that can be used by a user (1 to 128, default = 8).
+        default: '8'
+        min: 1
+        max: 128
+        source_attribute: num-blocks-per-user
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  pba_interim_log:
+    canonical:
+      type: integer
+      version_ranges: &id020
+      - - v7.4.4
+        - ''
+      default: '0'
+      min: 600
+      max: 86400
+      description: Port block allocation interim logging interval (600 - 86400 seconds, default = 0 which disables interim
+        logging).
+      source_attribute: pba-interim-log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id020
+        description: Port block allocation interim logging interval (600 - 86400 seconds).
+        source_attribute: pba_interim_log
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 600
+        max: 86400
+        source_attribute: pba_interim_log
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port block allocation interim logging interval (600 - 86400 seconds, default = 0 which disables interim
+          logging).
+        default: '0'
+        min: 600
+        max: 86400
+        source_attribute: pba-interim-log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  pba_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id021
+      - - v6.0.0
+        - ''
+      default: '30'
+      min: 3
+      max: 86400
+      description: Port block allocation timeout (seconds).
+      source_attribute: pba-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id021
+        description: Port block allocation timeout (seconds).
+        source_attribute: pba_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 3
+        max: 86400
+        source_attribute: pba_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port block allocation timeout (seconds).
+        default: '30'
+        min: 3
+        max: 86400
+        source_attribute: pba-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  permit_any_host:
+    canonical:
+      type: enum
+      version_ranges: &id023
+      - - v6.0.0
+        - ''
+      choices: &id022
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable fullcone NAT. Accept UDP packets from any host.
+      source_attribute: permit-any-host
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id022
+        version_ranges: *id023
+        description: Enable/disable fullcone NAT. Accept UDP packets from any host.
+        source_attribute: permit_any_host
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: permit_any_host
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable fullcone NAT. Accept UDP packets from any host.
+        default: disable
+        source_attribute: permit-any-host
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  port_per_user:
+    canonical:
+      type: integer
+      version_ranges: &id024
+      - - v7.0.0
+        - ''
+      default: '0'
+      min: 32
+      max: 60417
+      description: Number of port for each user (32 - 60416, default = 0, which is auto).
+      source_attribute: port-per-user
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id024
+        description: Number of port for each user (32 - 60416).
+        source_attribute: port_per_user
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: port_per_user
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Number of port for each user (32 - 60416, default = 0, which is auto).
+        default: '0'
+        min: 32
+        max: 60417
+        source_attribute: port-per-user
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  privileged_port_use_pba:
+    canonical:
+      type: enum
+      version_ranges: &id026
+      - - v7.6.0
+        - ''
+      choices: &id025
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable selection of the external port from the port block allocation for NAT'ing privileged ports
+        (deafult = disable).
+      source_attribute: privileged-port-use-pba
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id025
+        version_ranges: *id026
+        description: Enable/disable selection of the external port from the port block allocation for NAT"ing privileged ports
+          (deafult = disable).
+        source_attribute: privileged_port_use_pba
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: privileged_port_use_pba
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable selection of the external port from the port block allocation for NAT'ing privileged ports
+          (deafult = disable).
+        default: disable
+        source_attribute: privileged-port-use-pba
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source_endip:
+    canonical:
+      type: ipv4-address-any
+      version_ranges: &id027
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: 'Final IPv4 address (inclusive) in the range of the source addresses to be translated (format xxx.xxx.xxx.xxx,
+        Default: 0.0.0.0).'
+      source_attribute: source-endip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id027
+        description: Final IPv4 address (inclusive) in the range of the source addresses to be translated (format xxx.xxx.xxx.xxx).
+        source_attribute: source_endip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_endip
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: 'Final IPv4 address (inclusive) in the range of the source addresses to be translated (format xxx.xxx.xxx.xxx,
+          Default: 0.0.0.0).'
+        default: 0.0.0.0
+        source_attribute: source-endip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id028
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id028
+  source_prefix6:
+    canonical:
+      type: ipv6-network
+      version_ranges: &id029
+      - - v7.6.0
+        - ''
+      default: ::/0
+      description: Source IPv6 network to be translated (format = xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx/xxx, default = ::/0).
+      source_attribute: source-prefix6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id029
+        description: Source IPv6 network to be translated (format = xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx/xxx).
+        source_attribute: source_prefix6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_prefix6
+      cli_reference:
+        type: ipv6-network
+        raw_type: ipv6-network
+        description: Source IPv6 network to be translated (format = xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx/xxx, default =
+          ::/0).
+        default: ::/0
+        source_attribute: source-prefix6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id030
+          primitive: string
+          format: ipv6-network
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id030
+  source_startip:
+    canonical:
+      type: ipv4-address-any
+      version_ranges: &id031
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: First IPv4 address (inclusive) in the range of the source addresses to be translated (format = xxx.xxx.xxx.xxx,
+        default = 0.0.0.0).
+      source_attribute: source-startip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id031
+        description: First IPv4 address (inclusive) in the range of the source addresses to be translated (format = xxx.xxx.xxx.xxx).
+        source_attribute: source_startip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_startip
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: First IPv4 address (inclusive) in the range of the source addresses to be translated (format = xxx.xxx.xxx.xxx,
+          default = 0.0.0.0).
+        default: 0.0.0.0
+        source_attribute: source-startip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id032
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id032
+  startip:
+    canonical:
+      type: ipv4-address-any
+      required: true
+      version_ranges: &id033
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: 'First IPv4 address (inclusive) in the range for the address pool (format xxx.xxx.xxx.xxx, Default: 0.0.0.0).'
+      source_attribute: startip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id033
+        description: First IPv4 address (inclusive) in the range for the address pool (format xxx.xxx.xxx.xxx).
+        source_attribute: startip
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: startip
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: 'First IPv4 address (inclusive) in the range for the address pool (format xxx.xxx.xxx.xxx, Default: 0.0.0.0).'
+        default: 0.0.0.0
+        source_attribute: startip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id034
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id034
+  startport:
+    canonical:
+      type: integer
+      version_ranges: &id035
+      - - v7.0.0
+        - ''
+      default: '5117'
+      min: 1024
+      max: 65535
+      description: 'First port number (inclusive) in the range for the address pool (1024 - 65535, Default: 5117).'
+      source_attribute: startport
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id035
+        description: First port number (inclusive) in the range for the address pool (1024 - 65535).
+        source_attribute: startport
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1024
+        max: 65535
+        source_attribute: startport
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: 'First port number (inclusive) in the range for the address pool (1024 - 65535, Default: 5117).'
+        default: '5117'
+        min: 1024
+        max: 65535
+        source_attribute: startport
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  subnet_broadcast_in_ippool:
+    canonical:
+      type: enum
+      version_ranges: &id037
+      - - v7.0.8
+        - v7.0.12
+      - - v7.2.4
+        - ''
+      choices: &id036
+      - disable
+      description: Enable/disable inclusion of the subnetwork address and broadcast IP address in the NAT64 IP pool.
+      source_attribute: subnet-broadcast-in-ippool
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id036
+        version_ranges: *id037
+        description: Enable/disable inclusion of the subnetwork address and broadcast IP address in the NAT64 IP pool.
+        source_attribute: subnet_broadcast_in_ippool
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: subnet_broadcast_in_ippool
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable inclusion of the subnetwork address and broadcast IP address in the NAT64 IP pool.
+        source_attribute: subnet-broadcast-in-ippool
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  tcp_session_quota:
+    canonical:
+      type: integer
+      version_ranges: &id038
+      - - v7.6.0
+        - ''
+      default: '0'
+      min: 0
+      max: 2097000
+      description: Maximum number of concurrent TCP sessions allowed per client (0 - 2097000, default = 0 which means no limit).
+      source_attribute: tcp-session-quota
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id038
+        description: Maximum number of concurrent TCP sessions allowed per client (0 - 2097000).
+        source_attribute: tcp_session_quota
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 2097000
+        source_attribute: tcp_session_quota
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum number of concurrent TCP sessions allowed per client (0 - 2097000, default = 0 which means no
+          limit).
+        default: '0'
+        min: 0
+        max: 2097000
+        source_attribute: tcp-session-quota
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  type:
+    canonical:
+      type: enum
+      version_ranges: &id040
+      - - v6.0.0
+        - ''
+      choices: &id039
+      - overload
+      - one-to-one
+      - fixed-port-range
+      - port-block-allocation
+      default: overload
+      description: 'IP pool type: overload, one-to-one, fixed-port-range, port-block-allocation, cgn-resource-allocation (hyperscale
+        vdom only)'
+      source_attribute: type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id039
+        version_ranges: *id040
+        description: 'IP pool type: overload, one-to-one, fixed-port-range, port-block-allocation, cgn-resource-allocation
+          (hyperscale vdom only)'
+        source_attribute: type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: 'IP pool type: overload, one-to-one, fixed-port-range, port-block-allocation, cgn-resource-allocation
+          (hyperscale vdom only)'
+        default: overload
+        source_attribute: type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  udp_session_quota:
+    canonical:
+      type: integer
+      version_ranges: &id041
+      - - v7.6.0
+        - ''
+      default: '0'
+      min: 0
+      max: 2097000
+      description: Maximum number of concurrent UDP sessions allowed per client (0 - 2097000, default = 0 which means no limit).
+      source_attribute: udp-session-quota
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id041
+        description: Maximum number of concurrent UDP sessions allowed per client (0 - 2097000).
+        source_attribute: udp_session_quota
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 2097000
+        source_attribute: udp_session_quota
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum number of concurrent UDP sessions allowed per client (0 - 2097000, default = 0 which means no
+          limit).
+        default: '0'
+        min: 0
+        max: 2097000
+        source_attribute: udp-session-quota
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  utilization_alarm_clear:
+    canonical:
+      type: integer
+      default: '80'
+      min: 40
+      max: 100
+      description: Pool utilization alarm clear threshold (40-100).
+      source_attribute: utilization-alarm-clear
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Pool utilization alarm clear threshold (40-100).
+        default: '80'
+        min: 40
+        max: 100
+        source_attribute: utilization-alarm-clear
+    sources:
+    - cli_reference
+  utilization_alarm_raise:
+    canonical:
+      type: integer
+      default: '100'
+      min: 50
+      max: 100
+      description: Pool utilization alarm raise threshold (50-100).
+      source_attribute: utilization-alarm-raise
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Pool utilization alarm raise threshold (50-100).
+        default: '100'
+        min: 50
+        max: 100
+        source_attribute: utilization-alarm-raise
+    sources:
+    - cli_reference
+  uuid:
+    canonical:
+      type: string
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: endip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict
+- attribute: source_endip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict
+- attribute: source_prefix6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-network
+  classification: representation_or_real_conflict
+- attribute: source_startip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict
+- attribute: startip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict

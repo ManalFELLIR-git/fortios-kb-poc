@@ -1,0 +1,139 @@
+id: monitoring.np6-ipsec-engine
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: false
+  cli_reference: true
+attributes_flat:
+  interval:
+    canonical:
+      type: integer
+      version_ranges: &id001
+      - - v6.0.0
+        - v7.4.1
+      - - v7.4.3
+        - v7.6.7
+      default: '1'
+      min: 1
+      max: 60
+      description: IPsec engine status check interval (1 - 60 seconds, default = 1).
+      source_attribute: interval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id001
+        description: IPsec engine status check interval (1 - 60 seconds).
+        source_attribute: interval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: IPsec engine status check interval (1 - 60 seconds, default = 1).
+        default: '1'
+        min: 1
+        max: 60
+        source_attribute: interval
+    sources:
+    - ansible
+    - cli_reference
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id003
+      - - v6.0.0
+        - v7.4.1
+      - - v7.4.3
+        - v7.6.7
+      choices: &id002
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable NP6 IPsec engine status monitoring.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id002
+        version_ranges: *id003
+        description: Enable/disable NP6 IPsec engine status monitoring.
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable NP6 IPsec engine status monitoring.
+        default: disable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+  threshold:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: &id004
+      - - v6.0.0
+        - v7.4.1
+      - - v7.4.3
+        - v7.6.7
+      description: 'IPsec engine status check threshold (x x x x x x x x, 8 integers from <1> to <255>, default = 15 15 12
+        12 8 8 5 5). Example: Log is generated if IPsec engine 0 is busy each of every 15 consecutive interval checks.'
+      source_attribute: threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id004
+        description: 'IPsec engine status check threshold (x x x x x x x x, 8 integers from <1> to <255>). Example: Log is
+          generated if IPsec engine 0 is busy each of every 15 consecutive interval checks.'
+        source_attribute: threshold
+      cli_reference:
+        type: string
+        raw_type: user
+        description: 'IPsec engine status check threshold (x x x x x x x x, 8 integers from <1> to <255>, default = 15 15
+          12 12 8 8 5 5). Example: Log is generated if IPsec engine 0 is busy each of every 15 consecutive interval checks.'
+        source_attribute: threshold
+    sources:
+    - ansible
+    - cli_reference
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id005
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id005
+conflicts:
+- attribute: threshold
+  field: type
+  values:
+    ansible: list
+    cli_reference: string
+  classification: representation_or_real_conflict

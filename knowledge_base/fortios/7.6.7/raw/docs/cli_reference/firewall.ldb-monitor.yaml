@@ -1,0 +1,85 @@
+id: firewall.ldb-monitor
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/210668324/config-firewall-ldb-monitor
+attributes:
+  dns-match-ip:
+    type: ipv4-address
+    raw_type: ipv4-address
+    description: Response IP expected from DNS server.
+    default: 0.0.0.0
+  dns-protocol:
+    type: enum
+    raw_type: option
+    description: Select the protocol used by the DNS health check monitor to check the health of the server (UDP | TCP).
+    default: udp
+  dns-request-domain:
+    type: string
+    raw_type: string
+    description: Fully qualified domain name to resolve for the DNS probe.
+    max_length: 255
+  http-get:
+    type: string
+    raw_type: string
+    description: Request URI used to send a GET request to check the health of an HTTP server. Optionally provide a hostname
+      before the first '/' and it will be used as the HTTP Host Header.
+    max_length: 255
+  http-match:
+    type: string
+    raw_type: string
+    description: String to match the value expected in response to an HTTP-GET request.
+    max_length: 255
+  http-max-redirects:
+    type: integer
+    raw_type: integer
+    description: The maximum number of HTTP redirects to be allowed (0 - 5, default = 0).
+    default: '0'
+    min: 0
+    max: 5
+  interval:
+    type: integer
+    raw_type: integer
+    description: Time between health checks (5 - 65535 sec, default = 10).
+    default: '10'
+    min: 5
+    max: 65535
+  name:
+    type: string
+    raw_type: string
+    description: Monitor name.
+    max_length: 35
+  port:
+    type: integer
+    raw_type: integer
+    description: Service port used to perform the health check. If 0, health check monitor inherits port configured for the
+      server (0 - 65535, default = 0).
+    default: '0'
+    min: 0
+    max: 65535
+  retry:
+    type: integer
+    raw_type: integer
+    description: Number health check attempts before the server is considered down (1 - 255, default = 3).
+    default: '3'
+    min: 1
+    max: 255
+  src-ip:
+    type: ipv4-address
+    raw_type: ipv4-address
+    description: Source IP for ldb-monitor.
+    default: 0.0.0.0
+  timeout:
+    type: integer
+    raw_type: integer
+    description: Time to wait to receive response to a health check from a server. Reaching the timeout means the health check
+      failed (1 - 255 sec, default = 2).
+    default: '2'
+    min: 1
+    max: 255
+  type:
+    type: enum
+    raw_type: option
+    description: Select the Monitor type used by the health check monitor to check the health of the server (PING | TCP |
+      HTTP | HTTPS | DNS).
+children: {}

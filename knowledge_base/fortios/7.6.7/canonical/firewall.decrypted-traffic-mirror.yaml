@@ -1,0 +1,389 @@
+id: firewall.decrypted-traffic-mirror
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dstmac:
+    canonical:
+      type: mac-address
+      version_ranges: &id001
+      - - v6.4.0
+        - ''
+      default: ff:ff:ff:ff:ff:ff
+      description: Set destination MAC address for mirrored traffic.
+      source_attribute: dstmac
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Set destination MAC address for mirrored traffic.
+        source_attribute: dstmac
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dstmac
+      cli_reference:
+        type: mac-address
+        raw_type: mac-address
+        description: Set destination MAC address for mirrored traffic.
+        default: ff:ff:ff:ff:ff:ff
+        source_attribute: dstmac
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id002
+          primitive: string
+          format: mac-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id002
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  interface:
+    canonical:
+      type: list
+      elements: dict
+      children: &id004
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id007
+          - - v6.4.0
+            - ''
+          description: Decrypted traffic mirror interface. Source system.interface.name.
+          references: &id006
+          - system.interface.name
+      version_ranges: &id003
+      - - v6.4.0
+        - ''
+      max_length: 79
+      description: Decrypted traffic mirror interface. Decrypted traffic mirror interface.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id003
+        description: Decrypted traffic mirror interface.
+        children: *id004
+        source_attribute: interface
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Decrypted traffic mirror interface. Decrypted traffic mirror interface.
+        max_length: 79
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id005
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id005
+  interface.name:
+    canonical:
+      type: string
+      references: *id006
+      required: true
+      version_ranges: *id007
+      min_length: 0
+      max_length: 79
+      description: Decrypted traffic mirror interface. Source system.interface.name.
+      source_attribute: interface.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id007
+        description: Decrypted traffic mirror interface. Source system.interface.name.
+        references: *id006
+        source_attribute: interface.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: interface.name
+    sources:
+    - ansible
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id008
+      - - v6.4.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id008
+        description: Name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  traffic_source:
+    canonical:
+      type: enum
+      version_ranges: &id010
+      - - v6.4.0
+        - ''
+      choices: &id009
+      - client
+      - server
+      - both
+      default: client
+      description: Source of decrypted traffic to be mirrored.
+      source_attribute: traffic-source
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id010
+        description: Source of decrypted traffic to be mirrored.
+        source_attribute: traffic_source
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: traffic_source
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Source of decrypted traffic to be mirrored.
+        default: client
+        source_attribute: traffic-source
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  traffic_type:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id012
+      - - v6.4.0
+        - ''
+      choices: &id011
+      - ssl
+      - ssh
+      default: ssl
+      description: Types of decrypted traffic to be mirrored.
+      source_attribute: traffic-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id011
+        multiple_values: true
+        elements: str
+        version_ranges: *id012
+        description: Types of decrypted traffic to be mirrored.
+        source_attribute: traffic_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: traffic_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Types of decrypted traffic to be mirrored.
+        default: ssl
+        source_attribute: traffic-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: dstmac
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: mac-address
+  classification: representation_or_real_conflict
+- attribute: interface
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

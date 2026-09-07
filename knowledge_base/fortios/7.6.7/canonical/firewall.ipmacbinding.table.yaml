@@ -1,0 +1,291 @@
+id: firewall.ipmacbinding.table
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  ip:
+    canonical:
+      type: ipv4-address
+      required: true
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: 'IPv4 address portion of the pair (format: xxx.xxx.xxx.xxx).'
+      source_attribute: ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: 'IPv4 address portion of the pair (format: xxx.xxx.xxx.xxx).'
+        source_attribute: ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: ip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: 'IPv4 address portion of the pair (format: xxx.xxx.xxx.xxx).'
+        default: 0.0.0.0
+        source_attribute: ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id002
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id002
+  mac:
+    canonical:
+      type: mac-address
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      default: 00:00:00:00:00:00
+      description: MAC address portion of the pair (format = xx:xx:xx:xx:xx:xx in hexadecimal).
+      source_attribute: mac
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: MAC address portion of the pair (format = xx:xx:xx:xx:xx:xx in hexadecimal).
+        source_attribute: mac
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mac
+      cli_reference:
+        type: mac-address
+        raw_type: mac-address
+        description: MAC address portion of the pair (format = xx:xx:xx:xx:xx:xx in hexadecimal).
+        default: 00:00:00:00:00:00
+        source_attribute: mac
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id004
+          primitive: string
+          format: mac-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id004
+  name:
+    canonical:
+      type: string
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      default: noname
+      min_length: 0
+      max_length: 35
+      description: Name of the pair (optional, default = no name).
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: Name of the pair (optional).
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of the pair (optional, default = no name).
+        default: noname
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  seq_num:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Entry number.
+      source_attribute: seq-num
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id006
+        description: Entry number. see <a href='#notes'>Notes</a>.
+        source_attribute: seq_num
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: seq_num
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Entry number.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: seq-num
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      choices: &id007
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable this IP-mac binding pair.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id007
+        version_ranges: *id008
+        description: Enable/disable this IP-mac binding pair.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable this IP-mac binding pair.
+        default: disable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: mac
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: mac-address
+  classification: representation_or_real_conflict

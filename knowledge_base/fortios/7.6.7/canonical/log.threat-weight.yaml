@@ -1,0 +1,2296 @@
+id: log.threat-weight
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  application:
+    canonical:
+      type: list
+      elements: dict
+      children: &id002
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id004
+          - - v6.0.0
+            - ''
+          description: Entry ID. see <a href='#notes'>Notes</a>.
+        category:
+          type: integer
+          raw_type: integer
+          version_ranges: &id003
+          - - v6.0.0
+            - ''
+          description: Application category.
+        level:
+          type: enum
+          raw_type: string
+          choices: &id006
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id005
+          - - v6.0.0
+            - ''
+          description: Threat weight score for Application events.
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      description: Application-control threat weight settings.
+      source_attribute: application
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id001
+        description: Application-control threat weight settings.
+        children: *id002
+        source_attribute: application
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 255
+          category:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 65535
+          level:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: application
+    sources:
+    - ansible
+    - terraform
+  application.category:
+    canonical:
+      type: integer
+      version_ranges: *id003
+      min: 0
+      max: 65535
+      description: Application category.
+      source_attribute: application.category
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id003
+        description: Application category.
+        source_attribute: application.category
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: application.category
+    sources:
+    - ansible
+    - terraform
+  application.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id004
+      min: 0
+      max: 255
+      description: Entry ID. see <a href='#notes'>Notes</a>.
+      source_attribute: application.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id004
+        description: Entry ID. see <a href='#notes'>Notes</a>.
+        source_attribute: application.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 255
+        source_attribute: application.id
+    sources:
+    - ansible
+    - terraform
+  application.level:
+    canonical:
+      type: enum
+      version_ranges: *id005
+      choices: *id006
+      description: Threat weight score for Application events.
+      source_attribute: application.level
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id006
+        version_ranges: *id005
+        description: Threat weight score for Application events.
+        source_attribute: application.level
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: application.level
+    sources:
+    - ansible
+    - terraform
+  blocked_connection:
+    canonical:
+      type: enum
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      choices: &id007
+      - disable
+      - low
+      - medium
+      - high
+      - critical
+      default: high
+      description: Threat weight score for blocked connections.
+      source_attribute: blocked-connection
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id007
+        version_ranges: *id008
+        description: Threat weight score for blocked connections.
+        source_attribute: blocked_connection
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: blocked_connection
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Threat weight score for blocked connections.
+        default: high
+        source_attribute: blocked-connection
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  botnet_connection_detected:
+    canonical:
+      type: enum
+      version_ranges: &id010
+      - - v6.2.0
+        - ''
+      choices: &id009
+      - disable
+      - low
+      - medium
+      - high
+      - critical
+      default: critical
+      description: Threat weight score for detected botnet connections.
+      source_attribute: botnet-connection-detected
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id010
+        description: Threat weight score for detected botnet connections.
+        source_attribute: botnet_connection_detected
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: botnet_connection_detected
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Threat weight score for detected botnet connections.
+        default: critical
+        source_attribute: botnet-connection-detected
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  failed_connection:
+    canonical:
+      type: enum
+      version_ranges: &id012
+      - - v6.0.0
+        - ''
+      choices: &id011
+      - disable
+      - low
+      - medium
+      - high
+      - critical
+      default: low
+      description: Threat weight score for failed connections.
+      source_attribute: failed-connection
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id011
+        version_ranges: *id012
+        description: Threat weight score for failed connections.
+        source_attribute: failed_connection
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: failed_connection
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Threat weight score for failed connections.
+        default: low
+        source_attribute: failed-connection
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  geolocation:
+    canonical:
+      type: list
+      elements: dict
+      children: &id014
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id016
+          - - v6.0.0
+            - ''
+          description: Entry ID. see <a href='#notes'>Notes</a>.
+        country:
+          type: string
+          raw_type: string
+          version_ranges: &id015
+          - - v6.0.0
+            - ''
+          description: Country code.
+        level:
+          type: enum
+          raw_type: string
+          choices: &id018
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id017
+          - - v6.0.0
+            - ''
+          description: Threat weight score for Geolocation-based events.
+      version_ranges: &id013
+      - - v6.0.0
+        - ''
+      description: Geolocation-based threat weight settings.
+      source_attribute: geolocation
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id013
+        description: Geolocation-based threat weight settings.
+        children: *id014
+        source_attribute: geolocation
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 255
+          country:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 2
+          level:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: geolocation
+    sources:
+    - ansible
+    - terraform
+  geolocation.country:
+    canonical:
+      type: string
+      version_ranges: *id015
+      min_length: 0
+      max_length: 2
+      description: Country code.
+      source_attribute: geolocation.country
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id015
+        description: Country code.
+        source_attribute: geolocation.country
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 2
+        source_attribute: geolocation.country
+    sources:
+    - ansible
+    - terraform
+  geolocation.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id016
+      min: 0
+      max: 255
+      description: Entry ID. see <a href='#notes'>Notes</a>.
+      source_attribute: geolocation.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id016
+        description: Entry ID. see <a href='#notes'>Notes</a>.
+        source_attribute: geolocation.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 255
+        source_attribute: geolocation.id
+    sources:
+    - ansible
+    - terraform
+  geolocation.level:
+    canonical:
+      type: enum
+      version_ranges: *id017
+      choices: *id018
+      description: Threat weight score for Geolocation-based events.
+      source_attribute: geolocation.level
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id018
+        version_ranges: *id017
+        description: Threat weight score for Geolocation-based events.
+        source_attribute: geolocation.level
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: geolocation.level
+    sources:
+    - ansible
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  ips:
+    canonical:
+      type: list
+      children: &id020
+        info_severity:
+          type: enum
+          raw_type: string
+          choices: &id027
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id026
+          - - v6.0.0
+            - ''
+          description: Threat weight score for IPS info severity events.
+        low_severity:
+          type: enum
+          raw_type: string
+          choices: &id029
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id028
+          - - v6.0.0
+            - ''
+          description: Threat weight score for IPS low severity events.
+        medium_severity:
+          type: enum
+          raw_type: string
+          choices: &id031
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id030
+          - - v6.0.0
+            - ''
+          description: Threat weight score for IPS medium severity events.
+        high_severity:
+          type: enum
+          raw_type: string
+          choices: &id025
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id024
+          - - v6.0.0
+            - ''
+          description: Threat weight score for IPS high severity events.
+        critical_severity:
+          type: enum
+          raw_type: string
+          choices: &id023
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id022
+          - - v6.0.0
+            - ''
+          description: Threat weight score for IPS critical severity events.
+      version_ranges: &id019
+      - - v6.0.0
+        - ''
+      description: IPS threat weight settings.
+      source_attribute: ips
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id019
+        description: IPS threat weight settings.
+        children: *id020
+        source_attribute: ips
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          info_severity:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          low_severity:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          medium_severity:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          high_severity:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          critical_severity:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: ips
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id021
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id021
+  ips.critical_severity:
+    canonical:
+      type: enum
+      version_ranges: *id022
+      choices: *id023
+      description: Threat weight score for IPS critical severity events.
+      source_attribute: ips.critical_severity
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id023
+        version_ranges: *id022
+        description: Threat weight score for IPS critical severity events.
+        source_attribute: ips.critical_severity
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ips.critical_severity
+    sources:
+    - ansible
+    - terraform
+  ips.high_severity:
+    canonical:
+      type: enum
+      version_ranges: *id024
+      choices: *id025
+      description: Threat weight score for IPS high severity events.
+      source_attribute: ips.high_severity
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id025
+        version_ranges: *id024
+        description: Threat weight score for IPS high severity events.
+        source_attribute: ips.high_severity
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ips.high_severity
+    sources:
+    - ansible
+    - terraform
+  ips.info_severity:
+    canonical:
+      type: enum
+      version_ranges: *id026
+      choices: *id027
+      description: Threat weight score for IPS info severity events.
+      source_attribute: ips.info_severity
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id027
+        version_ranges: *id026
+        description: Threat weight score for IPS info severity events.
+        source_attribute: ips.info_severity
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ips.info_severity
+    sources:
+    - ansible
+    - terraform
+  ips.low_severity:
+    canonical:
+      type: enum
+      version_ranges: *id028
+      choices: *id029
+      description: Threat weight score for IPS low severity events.
+      source_attribute: ips.low_severity
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id029
+        version_ranges: *id028
+        description: Threat weight score for IPS low severity events.
+        source_attribute: ips.low_severity
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ips.low_severity
+    sources:
+    - ansible
+    - terraform
+  ips.medium_severity:
+    canonical:
+      type: enum
+      version_ranges: *id030
+      choices: *id031
+      description: Threat weight score for IPS medium severity events.
+      source_attribute: ips.medium_severity
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id031
+        version_ranges: *id030
+        description: Threat weight score for IPS medium severity events.
+        source_attribute: ips.medium_severity
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ips.medium_severity
+    sources:
+    - ansible
+    - terraform
+  level:
+    canonical:
+      type: list
+      children: &id033
+        low:
+          type: integer
+          raw_type: integer
+          version_ranges: &id037
+          - - v6.0.0
+            - ''
+          description: Low level score value (1 - 100).
+        medium:
+          type: integer
+          raw_type: integer
+          version_ranges: &id038
+          - - v6.0.0
+            - ''
+          description: Medium level score value (1 - 100).
+        high:
+          type: integer
+          raw_type: integer
+          version_ranges: &id036
+          - - v6.0.0
+            - ''
+          description: High level score value (1 - 100).
+        critical:
+          type: integer
+          raw_type: integer
+          version_ranges: &id035
+          - - v6.0.0
+            - ''
+          description: Critical level score value (1 - 100).
+      version_ranges: &id032
+      - - v6.0.0
+        - ''
+      description: Score mapping for threat weight levels.
+      source_attribute: level
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id032
+        description: Score mapping for threat weight levels.
+        children: *id033
+        source_attribute: level
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          low:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 100
+          medium:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 100
+          high:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 100
+          critical:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 100
+        source_attribute: level
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id034
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id034
+  level.critical:
+    canonical:
+      type: integer
+      version_ranges: *id035
+      min: 1
+      max: 100
+      description: Critical level score value (1 - 100).
+      source_attribute: level.critical
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id035
+        description: Critical level score value (1 - 100).
+        source_attribute: level.critical
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 100
+        source_attribute: level.critical
+    sources:
+    - ansible
+    - terraform
+  level.high:
+    canonical:
+      type: integer
+      version_ranges: *id036
+      min: 1
+      max: 100
+      description: High level score value (1 - 100).
+      source_attribute: level.high
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id036
+        description: High level score value (1 - 100).
+        source_attribute: level.high
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 100
+        source_attribute: level.high
+    sources:
+    - ansible
+    - terraform
+  level.low:
+    canonical:
+      type: integer
+      version_ranges: *id037
+      min: 1
+      max: 100
+      description: Low level score value (1 - 100).
+      source_attribute: level.low
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id037
+        description: Low level score value (1 - 100).
+        source_attribute: level.low
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 100
+        source_attribute: level.low
+    sources:
+    - ansible
+    - terraform
+  level.medium:
+    canonical:
+      type: integer
+      version_ranges: *id038
+      min: 1
+      max: 100
+      description: Medium level score value (1 - 100).
+      source_attribute: level.medium
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id038
+        description: Medium level score value (1 - 100).
+        source_attribute: level.medium
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 100
+        source_attribute: level.medium
+    sources:
+    - ansible
+    - terraform
+  malware:
+    canonical:
+      type: list
+      children: &id040
+        virus_infected:
+          type: enum
+          raw_type: string
+          choices: &id069
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id068
+          - - v6.0.0
+            - ''
+          description: Threat weight score for virus (infected) detected.
+        inline_block:
+          type: enum
+          raw_type: string
+          choices: &id057
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id056
+          - - v7.4.0
+            - ''
+          description: Threat weight score for malware detected by inline block.
+        file_blocked:
+          type: enum
+          raw_type: string
+          choices: &id049
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id048
+          - - v6.2.0
+            - ''
+          description: Threat weight score for blocked file detected.
+        command_blocked:
+          type: enum
+          raw_type: string
+          choices: &id043
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id042
+          - - v6.0.0
+            - ''
+          description: Threat weight score for blocked command detected.
+        oversized:
+          type: enum
+          raw_type: string
+          choices: &id063
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id062
+          - - v6.0.0
+            - ''
+          description: Threat weight score for oversized file detected.
+        virus_scan_error:
+          type: enum
+          raw_type: string
+          choices: &id073
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id072
+          - - v6.0.0
+            - ''
+          description: Threat weight score for virus (scan error) detected.
+        switch_proto:
+          type: enum
+          raw_type: string
+          choices: &id065
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id064
+          - - v6.0.0
+            - ''
+          description: Threat weight score for switch proto detected.
+        mimefragmented:
+          type: enum
+          raw_type: string
+          choices: &id061
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id060
+          - - v6.0.0
+            - ''
+          description: Threat weight score for mimefragmented detected.
+        virus_file_type_executable:
+          type: enum
+          raw_type: string
+          choices: &id067
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id066
+          - - v6.0.0
+            - ''
+          description: Threat weight score for virus (file type executable) detected.
+        virus_outbreak_prevention:
+          type: enum
+          raw_type: string
+          choices: &id071
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id070
+          - - v6.0.0
+            - ''
+          description: Threat weight score for virus (outbreak prevention) event.
+        content_disarm:
+          type: enum
+          raw_type: string
+          choices: &id045
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id044
+          - - v6.0.0
+            - ''
+          description: Threat weight score for virus (content disarm) detected.
+        malware_list:
+          type: enum
+          raw_type: string
+          choices: &id059
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id058
+          - - v6.2.0
+            - ''
+          description: Threat weight score for virus (malware list) detected.
+        ems_threat_feed:
+          type: enum
+          raw_type: string
+          choices: &id047
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id046
+          - - v7.0.0
+            - ''
+          description: Threat weight score for virus (EMS threat feed) detected.
+        fsa_malicious:
+          type: enum
+          raw_type: string
+          choices: &id053
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id052
+          - - v6.2.0
+            - ''
+          description: Threat weight score for FortiSandbox malicious malware detected.
+        fsa_high_risk:
+          type: enum
+          raw_type: string
+          choices: &id051
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id050
+          - - v6.2.0
+            - ''
+          description: Threat weight score for FortiSandbox high risk malware detected.
+        fsa_medium_risk:
+          type: enum
+          raw_type: string
+          choices: &id055
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id054
+          - - v6.2.0
+            - ''
+          description: Threat weight score for FortiSandbox medium risk malware detected.
+      version_ranges: &id039
+      - - v6.0.0
+        - ''
+      description: Anti-virus malware threat weight settings.
+      source_attribute: malware
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id039
+        description: Anti-virus malware threat weight settings.
+        children: *id040
+        source_attribute: malware
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          virus_infected:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          inline_block:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          fortindr:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          fortisandbox:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          fortiai:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          file_blocked:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          command_blocked:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          oversized:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          virus_scan_error:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          switch_proto:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          mimefragmented:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          virus_file_type_executable:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          virus_outbreak_prevention:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          botnet_connection:
+            type: string
+            raw_type: TypeString
+            optional: true
+          content_disarm:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malware_list:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ems_threat_feed:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          fsa_malicious:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          fsa_high_risk:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          fsa_medium_risk:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: malware
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id041
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id041
+  malware.botnet_connection:
+    canonical:
+      type: string
+      source_attribute: malware.botnet_connection
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: malware.botnet_connection
+    sources:
+    - terraform
+  malware.command_blocked:
+    canonical:
+      type: enum
+      version_ranges: *id042
+      choices: *id043
+      description: Threat weight score for blocked command detected.
+      source_attribute: malware.command_blocked
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id043
+        version_ranges: *id042
+        description: Threat weight score for blocked command detected.
+        source_attribute: malware.command_blocked
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: malware.command_blocked
+    sources:
+    - ansible
+    - terraform
+  malware.content_disarm:
+    canonical:
+      type: enum
+      version_ranges: *id044
+      choices: *id045
+      description: Threat weight score for virus (content disarm) detected.
+      source_attribute: malware.content_disarm
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id045
+        version_ranges: *id044
+        description: Threat weight score for virus (content disarm) detected.
+        source_attribute: malware.content_disarm
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: malware.content_disarm
+    sources:
+    - ansible
+    - terraform
+  malware.ems_threat_feed:
+    canonical:
+      type: enum
+      version_ranges: *id046
+      choices: *id047
+      description: Threat weight score for virus (EMS threat feed) detected.
+      source_attribute: malware.ems_threat_feed
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id047
+        version_ranges: *id046
+        description: Threat weight score for virus (EMS threat feed) detected.
+        source_attribute: malware.ems_threat_feed
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: malware.ems_threat_feed
+    sources:
+    - ansible
+    - terraform
+  malware.file_blocked:
+    canonical:
+      type: enum
+      version_ranges: *id048
+      choices: *id049
+      description: Threat weight score for blocked file detected.
+      source_attribute: malware.file_blocked
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id049
+        version_ranges: *id048
+        description: Threat weight score for blocked file detected.
+        source_attribute: malware.file_blocked
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: malware.file_blocked
+    sources:
+    - ansible
+    - terraform
+  malware.fortiai:
+    canonical:
+      type: string
+      source_attribute: malware.fortiai
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: malware.fortiai
+    sources:
+    - terraform
+  malware.fortindr:
+    canonical:
+      type: string
+      source_attribute: malware.fortindr
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: malware.fortindr
+    sources:
+    - terraform
+  malware.fortisandbox:
+    canonical:
+      type: string
+      source_attribute: malware.fortisandbox
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: malware.fortisandbox
+    sources:
+    - terraform
+  malware.fsa_high_risk:
+    canonical:
+      type: enum
+      version_ranges: *id050
+      choices: *id051
+      description: Threat weight score for FortiSandbox high risk malware detected.
+      source_attribute: malware.fsa_high_risk
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id051
+        version_ranges: *id050
+        description: Threat weight score for FortiSandbox high risk malware detected.
+        source_attribute: malware.fsa_high_risk
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: malware.fsa_high_risk
+    sources:
+    - ansible
+    - terraform
+  malware.fsa_malicious:
+    canonical:
+      type: enum
+      version_ranges: *id052
+      choices: *id053
+      description: Threat weight score for FortiSandbox malicious malware detected.
+      source_attribute: malware.fsa_malicious
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id053
+        version_ranges: *id052
+        description: Threat weight score for FortiSandbox malicious malware detected.
+        source_attribute: malware.fsa_malicious
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: malware.fsa_malicious
+    sources:
+    - ansible
+    - terraform
+  malware.fsa_medium_risk:
+    canonical:
+      type: enum
+      version_ranges: *id054
+      choices: *id055
+      description: Threat weight score for FortiSandbox medium risk malware detected.
+      source_attribute: malware.fsa_medium_risk
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id055
+        version_ranges: *id054
+        description: Threat weight score for FortiSandbox medium risk malware detected.
+        source_attribute: malware.fsa_medium_risk
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: malware.fsa_medium_risk
+    sources:
+    - ansible
+    - terraform
+  malware.inline_block:
+    canonical:
+      type: enum
+      version_ranges: *id056
+      choices: *id057
+      description: Threat weight score for malware detected by inline block.
+      source_attribute: malware.inline_block
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id057
+        version_ranges: *id056
+        description: Threat weight score for malware detected by inline block.
+        source_attribute: malware.inline_block
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: malware.inline_block
+    sources:
+    - ansible
+    - terraform
+  malware.malware_list:
+    canonical:
+      type: enum
+      version_ranges: *id058
+      choices: *id059
+      description: Threat weight score for virus (malware list) detected.
+      source_attribute: malware.malware_list
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id059
+        version_ranges: *id058
+        description: Threat weight score for virus (malware list) detected.
+        source_attribute: malware.malware_list
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: malware.malware_list
+    sources:
+    - ansible
+    - terraform
+  malware.mimefragmented:
+    canonical:
+      type: enum
+      version_ranges: *id060
+      choices: *id061
+      description: Threat weight score for mimefragmented detected.
+      source_attribute: malware.mimefragmented
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id061
+        version_ranges: *id060
+        description: Threat weight score for mimefragmented detected.
+        source_attribute: malware.mimefragmented
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: malware.mimefragmented
+    sources:
+    - ansible
+    - terraform
+  malware.oversized:
+    canonical:
+      type: enum
+      version_ranges: *id062
+      choices: *id063
+      description: Threat weight score for oversized file detected.
+      source_attribute: malware.oversized
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id063
+        version_ranges: *id062
+        description: Threat weight score for oversized file detected.
+        source_attribute: malware.oversized
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: malware.oversized
+    sources:
+    - ansible
+    - terraform
+  malware.switch_proto:
+    canonical:
+      type: enum
+      version_ranges: *id064
+      choices: *id065
+      description: Threat weight score for switch proto detected.
+      source_attribute: malware.switch_proto
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id065
+        version_ranges: *id064
+        description: Threat weight score for switch proto detected.
+        source_attribute: malware.switch_proto
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: malware.switch_proto
+    sources:
+    - ansible
+    - terraform
+  malware.virus_file_type_executable:
+    canonical:
+      type: enum
+      version_ranges: *id066
+      choices: *id067
+      description: Threat weight score for virus (file type executable) detected.
+      source_attribute: malware.virus_file_type_executable
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id067
+        version_ranges: *id066
+        description: Threat weight score for virus (file type executable) detected.
+        source_attribute: malware.virus_file_type_executable
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: malware.virus_file_type_executable
+    sources:
+    - ansible
+    - terraform
+  malware.virus_infected:
+    canonical:
+      type: enum
+      version_ranges: *id068
+      choices: *id069
+      description: Threat weight score for virus (infected) detected.
+      source_attribute: malware.virus_infected
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id069
+        version_ranges: *id068
+        description: Threat weight score for virus (infected) detected.
+        source_attribute: malware.virus_infected
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: malware.virus_infected
+    sources:
+    - ansible
+    - terraform
+  malware.virus_outbreak_prevention:
+    canonical:
+      type: enum
+      version_ranges: *id070
+      choices: *id071
+      description: Threat weight score for virus (outbreak prevention) event.
+      source_attribute: malware.virus_outbreak_prevention
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id071
+        version_ranges: *id070
+        description: Threat weight score for virus (outbreak prevention) event.
+        source_attribute: malware.virus_outbreak_prevention
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: malware.virus_outbreak_prevention
+    sources:
+    - ansible
+    - terraform
+  malware.virus_scan_error:
+    canonical:
+      type: enum
+      version_ranges: *id072
+      choices: *id073
+      description: Threat weight score for virus (scan error) detected.
+      source_attribute: malware.virus_scan_error
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id073
+        version_ranges: *id072
+        description: Threat weight score for virus (scan error) detected.
+        source_attribute: malware.virus_scan_error
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: malware.virus_scan_error
+    sources:
+    - ansible
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id075
+      - - v6.0.0
+        - ''
+      choices: &id074
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable the threat weight feature.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id074
+        version_ranges: *id075
+        description: Enable/disable the threat weight feature.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable the threat weight feature.
+        default: enable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  url_block_detected:
+    canonical:
+      type: enum
+      version_ranges: &id077
+      - - v6.0.0
+        - ''
+      choices: &id076
+      - disable
+      - low
+      - medium
+      - high
+      - critical
+      default: high
+      description: Threat weight score for URL blocking.
+      source_attribute: url-block-detected
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id076
+        version_ranges: *id077
+        description: Threat weight score for URL blocking.
+        source_attribute: url_block_detected
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: url_block_detected
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Threat weight score for URL blocking.
+        default: high
+        source_attribute: url-block-detected
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  web:
+    canonical:
+      type: list
+      elements: dict
+      children: &id079
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id081
+          - - v6.0.0
+            - ''
+          description: Entry ID. see <a href='#notes'>Notes</a>.
+        category:
+          type: integer
+          raw_type: integer
+          version_ranges: &id080
+          - - v6.0.0
+            - ''
+          description: Threat weight score for web category filtering matches.
+        level:
+          type: enum
+          raw_type: string
+          choices: &id083
+          - disable
+          - low
+          - medium
+          - high
+          - critical
+          version_ranges: &id082
+          - - v6.0.0
+            - ''
+          description: Threat weight score for web category filtering matches.
+      version_ranges: &id078
+      - - v6.0.0
+        - ''
+      description: Web filtering threat weight settings.
+      source_attribute: web
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id078
+        description: Web filtering threat weight settings.
+        children: *id079
+        source_attribute: web
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 255
+          category:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 255
+          level:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: web
+    sources:
+    - ansible
+    - terraform
+  web.category:
+    canonical:
+      type: integer
+      version_ranges: *id080
+      min: 0
+      max: 255
+      description: Threat weight score for web category filtering matches.
+      source_attribute: web.category
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id080
+        description: Threat weight score for web category filtering matches.
+        source_attribute: web.category
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: web.category
+    sources:
+    - ansible
+    - terraform
+  web.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id081
+      min: 0
+      max: 255
+      description: Entry ID. see <a href='#notes'>Notes</a>.
+      source_attribute: web.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id081
+        description: Entry ID. see <a href='#notes'>Notes</a>.
+        source_attribute: web.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 255
+        source_attribute: web.id
+    sources:
+    - ansible
+    - terraform
+  web.level:
+    canonical:
+      type: enum
+      version_ranges: *id082
+      choices: *id083
+      description: Threat weight score for web category filtering matches.
+      source_attribute: web.level
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id083
+        version_ranges: *id082
+        description: Threat weight score for web category filtering matches.
+        source_attribute: web.level
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web.level
+    sources:
+    - ansible
+    - terraform
+conflicts:
+- attribute: ips
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: level
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: malware
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict

@@ -1,0 +1,292 @@
+id: system.ipsec-aggregate
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  algorithm:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.2.0
+        - ''
+      choices: &id001
+      - L3
+      - L4
+      - round-robin
+      - redundant
+      - weighted-round-robin
+      default: round-robin
+      description: Frame distribution algorithm.
+      source_attribute: algorithm
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Frame distribution algorithm.
+        source_attribute: algorithm
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: algorithm
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Frame distribution algorithm.
+        default: round-robin
+        source_attribute: algorithm
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  member:
+    canonical:
+      type: list
+      elements: dict
+      children: &id004
+        tunnel_name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id007
+          - - v6.2.0
+            - ''
+          description: Tunnel name. Source vpn.ipsec.phase1-interface.name.
+          references: &id006
+          - vpn.ipsec.phase1-interface.name
+      required: true
+      version_ranges: &id003
+      - - v6.2.0
+        - ''
+      max_length: 79
+      description: Member tunnels of the aggregate. Tunnel name.
+      source_attribute: member
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      required: terraform
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id003
+        description: Member tunnels of the aggregate.
+        children: *id004
+        source_attribute: member
+      terraform:
+        type: list
+        raw_type: TypeSet
+        required: true
+        children:
+          tunnel_name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: member
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Member tunnels of the aggregate. Tunnel name.
+        max_length: 79
+        source_attribute: member
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id005
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id005
+  member.tunnel_name:
+    canonical:
+      type: string
+      references: *id006
+      required: true
+      version_ranges: *id007
+      min_length: 0
+      max_length: 79
+      description: Tunnel name. Source vpn.ipsec.phase1-interface.name.
+      source_attribute: member.tunnel_name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id007
+        description: Tunnel name. Source vpn.ipsec.phase1-interface.name.
+        references: *id006
+        source_attribute: member.tunnel_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: member.tunnel_name
+    sources:
+    - ansible
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id008
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: IPsec aggregate name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id008
+        description: IPsec aggregate name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 15
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: IPsec aggregate name.
+        max_length: 15
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: member
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

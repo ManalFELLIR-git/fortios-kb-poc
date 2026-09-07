@@ -1,0 +1,160 @@
+id: switch-controller.lldp-profile
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/323513350/config-switch-controller-lldp-profile
+attributes:
+  '802':
+    type: enum
+    raw_type: option
+    description: Transmitted IEEE 802.3 TLVs.
+  auto-isl:
+    type: enum
+    raw_type: option
+    description: Enable/disable auto inter-switch LAG.
+    default: enable
+  auto-isl-auth:
+    type: enum
+    raw_type: option
+    description: Auto inter-switch LAG authentication mode.
+    default: legacy
+  auto-isl-auth-encrypt:
+    type: enum
+    raw_type: option
+    description: Auto inter-switch LAG encryption mode.
+    default: none
+  auto-isl-auth-identity:
+    type: string
+    raw_type: string
+    description: Auto inter-switch LAG authentication identity.
+    max_length: 63
+  auto-isl-auth-macsec-profile:
+    type: string
+    raw_type: string
+    description: Auto inter-switch LAG macsec profile for encryption.
+    max_length: 63
+  auto-isl-auth-reauth:
+    type: integer
+    raw_type: integer
+    description: Auto inter-switch LAG authentication reauth period in seconds(10 - 3600, default = 3600).
+    default: '3600'
+    min: 180
+    max: 3600
+  auto-isl-auth-user:
+    type: string
+    raw_type: string
+    description: Auto inter-switch LAG authentication user certificate.
+    max_length: 63
+  auto-isl-hello-timer:
+    type: integer
+    raw_type: integer
+    description: Auto inter-switch LAG hello timer duration (1 - 30 sec, default = 3).
+    default: '3'
+    min: 1
+    max: 30
+  auto-isl-port-group:
+    type: integer
+    raw_type: integer
+    description: Auto inter-switch LAG port group ID (0 - 9).
+    default: '0'
+    min: 0
+    max: 9
+  auto-isl-receive-timeout:
+    type: integer
+    raw_type: integer
+    description: Auto inter-switch LAG timeout if no response is received (3 - 90 sec, default = 9).
+    default: '60'
+    min: 0
+    max: 90
+  auto-mclag-icl:
+    type: enum
+    raw_type: option
+    description: Enable/disable MCLAG inter chassis link.
+    default: disable
+  med-tlvs:
+    type: enum
+    raw_type: option
+    description: Transmitted LLDP-MED TLVs (type-length-value descriptions).
+  name:
+    type: string
+    raw_type: string
+    description: Profile name.
+    max_length: 63
+children:
+  custom-tlvs:
+    attributes:
+      information-string:
+        type: string
+        raw_type: user
+        description: Organizationally defined information string (0 - 507 hexadecimal bytes).
+      name:
+        type: string
+        raw_type: string
+        description: TLV name (not sent).
+        max_length: 63
+      oui:
+        type: string
+        raw_type: user
+        description: Organizationally unique identifier (OUI), a 3-byte hexadecimal number, for this TLV.
+        default: '000000'
+      subtype:
+        type: integer
+        raw_type: integer
+        description: Organizationally defined subtype (0 - 255).
+        default: '0'
+        min: 0
+        max: 255
+  med-location-service:
+    attributes:
+      name:
+        type: string
+        raw_type: string
+        description: Location service type name.
+        max_length: 63
+      status:
+        type: enum
+        raw_type: option
+        description: Enable or disable this TLV.
+        default: disable
+      sys-location-id:
+        type: string
+        raw_type: string
+        description: Location service ID.
+        max_length: 63
+  med-network-policy:
+    attributes:
+      assign-vlan:
+        type: enum
+        raw_type: option
+        description: Enable/disable VLAN assignment when this profile is applied on managed FortiSwitch port.
+        default: disable
+      dscp:
+        type: integer
+        raw_type: integer
+        description: Advertised Differentiated Services Code Point (DSCP) value, a packet header value indicating the level
+          of service requested for traffic, such as high priority or best effort delivery.
+        default: '0'
+        min: 0
+        max: 63
+      name:
+        type: string
+        raw_type: string
+        description: Policy type name.
+        max_length: 63
+      priority:
+        type: integer
+        raw_type: integer
+        description: Advertised Layer 2 priority (0 - 7; from lowest to highest priority).
+        default: '0'
+        min: 0
+        max: 7
+      status:
+        type: enum
+        raw_type: option
+        description: Enable or disable this TLV.
+        default: disable
+      vlan-intf:
+        type: string
+        raw_type: string
+        description: VLAN interface to advertise; if configured on port.
+        max_length: 15

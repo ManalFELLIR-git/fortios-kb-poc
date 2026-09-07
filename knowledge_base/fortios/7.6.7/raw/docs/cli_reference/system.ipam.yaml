@@ -1,0 +1,110 @@
+id: system.ipam
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/180909885/config-system-ipam
+attributes:
+  automatic-conflict-resolution:
+    type: enum
+    raw_type: option
+    description: Enable/disable automatic conflict resolution.
+    default: disable
+  manage-lan-addresses:
+    type: enum
+    raw_type: option
+    description: Enable/disable default management of LAN interface addresses.
+    default: enable
+  manage-lan-extension-addresses:
+    type: enum
+    raw_type: option
+    description: Enable/disable default management of FortiExtender LAN extension interface addresses.
+    default: enable
+  manage-ssid-addresses:
+    type: enum
+    raw_type: option
+    description: Enable/disable default management of FortiAP SSID addresses.
+    default: enable
+  require-subnet-size-match:
+    type: enum
+    raw_type: option
+    description: Enable/disable reassignment of subnets to make requested and actual sizes match.
+    default: enable
+  server-type:
+    type: enum
+    raw_type: option
+    description: Configure the type of IPAM server to use.
+    default: fabric-root
+  status:
+    type: enum
+    raw_type: option
+    description: Enable/disable IP address management services.
+    default: disable
+children:
+  pools:
+    attributes:
+      description:
+        type: string
+        raw_type: string
+        description: Description.
+        max_length: 127
+      name:
+        type: string
+        raw_type: string
+        description: IPAM pool name.
+        max_length: 79
+      subnet:
+        type: ipv4-classnet
+        raw_type: ipv4-classnet
+        description: Configure IPAM pool subnet, Class A - Class B subnet.
+        default: 0.0.0.0 0.0.0.0
+  exclude:
+    attributes:
+      ID:
+        type: integer
+        raw_type: integer
+        description: Exclude ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      exclude-subnet:
+        type: ipv4-classnet
+        raw_type: ipv4-classnet
+        description: Configure subnet to exclude from the IPAM pool.
+        default: 0.0.0.0 0.0.0.0
+  rules:
+    attributes:
+      description:
+        type: string
+        raw_type: string
+        description: Description.
+        max_length: 127
+      device:
+        type: string
+        raw_type: string
+        description: Configure serial number or wildcard of FortiGate to match. FortiGate serial number or wildcard.
+        max_length: 79
+      dhcp:
+        type: enum
+        raw_type: option
+        description: Enable/disable DHCP server for matching IPAM interfaces.
+        default: disable
+      interface:
+        type: string
+        raw_type: string
+        description: Configure name or wildcard of interface to match. Interface name or wildcard.
+        max_length: 79
+      name:
+        type: string
+        raw_type: string
+        description: IPAM rule name.
+        max_length: 79
+      pool:
+        type: string
+        raw_type: string
+        description: Configure name of IPAM pool to use. IPAM pool name.
+        max_length: 79
+      role:
+        type: enum
+        raw_type: option
+        description: Configure role of interface to match.
+        default: any

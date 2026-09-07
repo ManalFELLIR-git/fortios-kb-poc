@@ -1,0 +1,98 @@
+id: system.zone
+version: 7.6.7
+source_object: fortios_system_zone
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_system_zone.py
+root_type: list
+attributes:
+  name:
+    type: string
+    raw_type: string
+    required: true
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Zone name.
+  tagging:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Config object tagging.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Tagging entry name.
+      category:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Tag category. Source system.object-tagging.category.
+        references:
+        - system.object-tagging.category
+      tags:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Tags.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: Tag name. Source system.object-tagging.tags.name.
+            references:
+            - system.object-tagging.tags.name
+  description:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: Description.
+  intrazone:
+    type: enum
+    raw_type: string
+    choices:
+    - allow
+    - deny
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Allow or deny traffic routing between different interfaces in the same zone .
+  interface:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Names of the interfaces that belong to this zone. Interfaces must not be assigned to another zone or have
+      firewall policies defined.
+    children:
+      interface_name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Select interfaces to add to the zone. Source system.interface.name.
+        references:
+        - system.interface.name

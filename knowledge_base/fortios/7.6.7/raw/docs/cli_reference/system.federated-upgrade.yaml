@@ -1,0 +1,119 @@
+id: system.federated-upgrade
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/262771434/config-system-federated-upgrade
+attributes:
+  failure-device:
+    type: string
+    raw_type: string
+    description: Serial number of the node to include.
+    max_length: 79
+  failure-reason:
+    type: enum
+    raw_type: option
+    description: Reason for upgrade failure.
+    default: none
+  ha-reboot-controller:
+    type: string
+    raw_type: string
+    description: Serial number of the FortiGate unit that will control the reboot process for the federated upgrade of the
+      HA cluster.
+    max_length: 79
+  ignore-signing-errors:
+    type: enum
+    raw_type: option
+    description: Allow/reject use of FortiGate firmware images that are unsigned.
+    default: disable
+  initial-version:
+    type: string
+    raw_type: user
+    description: Firmware version when the upgrade was set up.
+  next-path-index:
+    type: integer
+    raw_type: integer
+    description: The index of the next image to upgrade to.
+    default: '0'
+    min: 0
+    max: 10
+  source:
+    type: enum
+    raw_type: option
+    description: Source that set up the federated upgrade config.
+    default: user
+  starter-admin:
+    type: string
+    raw_type: string
+    description: Admin that started the upgrade.
+    max_length: 64
+  status:
+    type: enum
+    raw_type: option
+    description: Current status of the upgrade.
+    default: disabled
+  upgrade-id:
+    type: integer
+    raw_type: integer
+    description: Unique identifier for this upgrade.
+    default: '0'
+    min: 0
+    max: 4294967295
+children:
+  known-ha-members:
+    attributes:
+      serial:
+        type: string
+        raw_type: string
+        description: Serial number of HA member
+        max_length: 79
+  node-list:
+    attributes:
+      allow-download:
+        type: enum
+        raw_type: option
+        description: Enable/disable download firmware images.
+        default: enable
+      coordinating-fortigate:
+        type: string
+        raw_type: string
+        description: Serial number of the FortiGate unit that controls this device.
+        max_length: 79
+      device-type:
+        type: enum
+        raw_type: option
+        description: Fortinet device type.
+        default: fortigate
+      failure-reason:
+        type: enum
+        raw_type: option
+        description: Upgrade failure reason.
+        default: none
+      maximum-minutes:
+        type: integer
+        raw_type: integer
+        description: Maximum number of minutes to allow for immediate upgrade preparation.
+        default: '15'
+        min: 5
+        max: 10080
+      serial:
+        type: string
+        raw_type: string
+        description: Serial number of the node to include.
+        max_length: 79
+      setup-time:
+        type: string
+        raw_type: user
+        description: Upgrade preparation start time in UTC (hh:mm yyyy/mm/dd UTC).
+      time:
+        type: string
+        raw_type: user
+        description: Scheduled upgrade execution time in UTC (hh:mm yyyy/mm/dd UTC).
+      timing:
+        type: enum
+        raw_type: option
+        description: Run immediately or at a scheduled time.
+        default: immediate
+      upgrade-path:
+        type: string
+        raw_type: user
+        description: Fortinet OS image versions to upgrade through in major-minor-patch format, such as 7-0-4.

@@ -1,0 +1,275 @@
+id: firewall.dnstranslation
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dst:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: IPv4 address or subnet on the external network to substitute for the resolved address in DNS query replies.
+        Can be single IP address or subnet on the external network, but number of addresses must equal number of mapped IP
+        addresses in src.
+      source_attribute: dst
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: IPv4 address or subnet on the external network to substitute for the resolved address in DNS query replies.
+          Can be single IP address or subnet on the external network, but number of addresses must equal number of mapped
+          IP addresses in src.
+        source_attribute: dst
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dst
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: IPv4 address or subnet on the external network to substitute for the resolved address in DNS query replies.
+          Can be single IP address or subnet on the external network, but number of addresses must equal number of mapped
+          IP addresses in src.
+        default: 0.0.0.0
+        source_attribute: dst
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id002
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id002
+  fosid:
+    canonical:
+      type: integer
+      source_attribute: fosid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: fosid
+    sources:
+    - terraform
+  id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: ID.
+      source_attribute: id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id003
+        description: ID. see <a href='#notes'>Notes</a>.
+        source_attribute: id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: id
+    sources:
+    - ansible
+    - cli_reference
+  netmask:
+    canonical:
+      type: ipv4-netmask
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      default: 255.255.255.255
+      description: If src and dst are subnets rather than single IP addresses, enter the netmask for both src and dst.
+      source_attribute: netmask
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id004
+        description: If src and dst are subnets rather than single IP addresses, enter the netmask for both src and dst.
+        source_attribute: netmask
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: netmask
+      cli_reference:
+        type: ipv4-netmask
+        raw_type: ipv4-netmask
+        description: If src and dst are subnets rather than single IP addresses, enter the netmask for both src and dst.
+        default: 255.255.255.255
+        source_attribute: netmask
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id005
+          primitive: string
+          format: ipv4-netmask
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id005
+  src:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: IPv4 address or subnet on the internal network to compare with the resolved address in DNS query replies.
+        If the resolved address matches, the resolved address is substituted with dst.
+      source_attribute: src
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id006
+        description: IPv4 address or subnet on the internal network to compare with the resolved address in DNS query replies.
+          If the resolved address matches, the resolved address is substituted with dst.
+        source_attribute: src
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: src
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: IPv4 address or subnet on the internal network to compare with the resolved address in DNS query replies.
+          If the resolved address matches, the resolved address is substituted with dst.
+        default: 0.0.0.0
+        source_attribute: src
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id007
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id007
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: dst
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: netmask
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-netmask
+  classification: representation_or_real_conflict
+- attribute: src
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict

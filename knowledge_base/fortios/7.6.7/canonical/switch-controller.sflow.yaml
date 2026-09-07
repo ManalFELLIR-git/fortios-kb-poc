@@ -1,0 +1,129 @@
+id: switch-controller.sflow
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  collector_ip:
+    canonical:
+      type: ipv4-address
+      required: true
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: Collector IP.
+      source_attribute: collector-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Collector IP.
+        source_attribute: collector_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: collector_ip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Collector IP.
+        default: 0.0.0.0
+        source_attribute: collector-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id002
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id002
+  collector_port:
+    canonical:
+      type: integer
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      default: '6343'
+      min: 0
+      max: 65535
+      description: SFlow collector port (0 - 65535).
+      source_attribute: collector-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id003
+        description: SFlow collector port (0 - 65535).
+        source_attribute: collector_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: collector_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: SFlow collector port (0 - 65535).
+        default: '6343'
+        min: 0
+        max: 65535
+        source_attribute: collector-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: collector_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict

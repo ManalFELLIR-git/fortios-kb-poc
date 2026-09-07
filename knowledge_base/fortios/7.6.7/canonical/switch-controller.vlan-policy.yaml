@@ -1,0 +1,581 @@
+id: switch-controller.vlan-policy
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  allowed_vlans:
+    canonical:
+      type: list
+      elements: dict
+      children: &id002
+        vlan_name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id005
+          - - v6.4.0
+            - ''
+          description: VLAN name. Source system.interface.name.
+          references: &id004
+          - system.interface.name
+      version_ranges: &id001
+      - - v6.4.0
+        - ''
+      max_length: 79
+      description: Allowed VLANs to be applied when using this VLAN policy. VLAN name.
+      source_attribute: allowed-vlans
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id001
+        description: Allowed VLANs to be applied when using this VLAN policy.
+        children: *id002
+        source_attribute: allowed_vlans
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          vlan_name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: allowed_vlans
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Allowed VLANs to be applied when using this VLAN policy. VLAN name.
+        max_length: 79
+        source_attribute: allowed-vlans
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id003
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id003
+  allowed_vlans.vlan_name:
+    canonical:
+      type: string
+      references: *id004
+      required: true
+      version_ranges: *id005
+      min_length: 0
+      max_length: 79
+      description: VLAN name. Source system.interface.name.
+      source_attribute: allowed_vlans.vlan_name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id005
+        description: VLAN name. Source system.interface.name.
+        references: *id004
+        source_attribute: allowed_vlans.vlan_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: allowed_vlans.vlan_name
+    sources:
+    - ansible
+    - terraform
+  allowed_vlans_all:
+    canonical:
+      type: enum
+      version_ranges: &id007
+      - - v6.4.0
+        - ''
+      choices: &id006
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable all defined VLANs when using this VLAN policy.
+      source_attribute: allowed-vlans-all
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id006
+        version_ranges: *id007
+        description: Enable/disable all defined VLANs when using this VLAN policy.
+        source_attribute: allowed_vlans_all
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: allowed_vlans_all
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable all defined VLANs when using this VLAN policy.
+        default: disable
+        source_attribute: allowed-vlans-all
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  description:
+    canonical:
+      type: string
+      version_ranges: &id008
+      - - v6.4.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Description for the VLAN policy.
+      source_attribute: description
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: Description for the VLAN policy.
+        source_attribute: description
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: description
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Description for the VLAN policy.
+        max_length: 63
+        source_attribute: description
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  discard_mode:
+    canonical:
+      type: enum
+      version_ranges: &id010
+      - - v6.4.0
+        - ''
+      choices: &id009
+      - none
+      - all-untagged
+      - all-tagged
+      default: none
+      description: Discard mode to be applied when using this VLAN policy.
+      source_attribute: discard-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id010
+        description: Discard mode to be applied when using this VLAN policy.
+        source_attribute: discard_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: discard_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Discard mode to be applied when using this VLAN policy.
+        default: none
+        source_attribute: discard-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  fortilink:
+    canonical:
+      type: string
+      references: &id012
+      - system.interface.name
+      version_ranges: &id011
+      - - v6.4.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: FortiLink interface for which this VLAN policy belongs to.
+      source_attribute: fortilink
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: FortiLink interface for which this VLAN policy belongs to. Source system.interface.name.
+        references: *id012
+        source_attribute: fortilink
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: fortilink
+      cli_reference:
+        type: string
+        raw_type: string
+        description: FortiLink interface for which this VLAN policy belongs to.
+        max_length: 15
+        source_attribute: fortilink
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id013
+      - - v6.4.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: VLAN policy name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id013
+        description: VLAN policy name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 63
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: VLAN policy name.
+        max_length: 63
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  untagged_vlans:
+    canonical:
+      type: list
+      elements: dict
+      children: &id015
+        vlan_name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id018
+          - - v6.4.0
+            - ''
+          description: VLAN name. Source system.interface.name.
+          references: &id017
+          - system.interface.name
+      version_ranges: &id014
+      - - v6.4.0
+        - ''
+      max_length: 79
+      description: Untagged VLANs to be applied when using this VLAN policy. VLAN name.
+      source_attribute: untagged-vlans
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id014
+        description: Untagged VLANs to be applied when using this VLAN policy.
+        children: *id015
+        source_attribute: untagged_vlans
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          vlan_name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: untagged_vlans
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Untagged VLANs to be applied when using this VLAN policy. VLAN name.
+        max_length: 79
+        source_attribute: untagged-vlans
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id016
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id016
+  untagged_vlans.vlan_name:
+    canonical:
+      type: string
+      references: *id017
+      required: true
+      version_ranges: *id018
+      min_length: 0
+      max_length: 79
+      description: VLAN name. Source system.interface.name.
+      source_attribute: untagged_vlans.vlan_name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id018
+        description: VLAN name. Source system.interface.name.
+        references: *id017
+        source_attribute: untagged_vlans.vlan_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: untagged_vlans.vlan_name
+    sources:
+    - ansible
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  vlan:
+    canonical:
+      type: string
+      references: &id020
+      - system.interface.name
+      version_ranges: &id019
+      - - v6.4.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Native VLAN to be applied when using this VLAN policy.
+      source_attribute: vlan
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id019
+        description: Native VLAN to be applied when using this VLAN policy. Source system.interface.name.
+        references: *id020
+        source_attribute: vlan
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: vlan
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Native VLAN to be applied when using this VLAN policy.
+        max_length: 15
+        source_attribute: vlan
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: allowed_vlans
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: untagged_vlans
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

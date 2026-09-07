@@ -1,0 +1,770 @@
+id: vpn.kmip-server
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  interface:
+    canonical:
+      type: string
+      references: &id002
+      - system.interface.name
+      version_ranges: &id001
+      - - v7.4.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Specify outgoing interface to reach server.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Specify outgoing interface to reach server. Source system.interface.name.
+        references: *id002
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Specify outgoing interface to reach server.
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface_select_method:
+    canonical:
+      type: enum
+      version_ranges: &id004
+      - - v7.4.0
+        - ''
+      choices: &id003
+      - auto
+      - sdwan
+      - specify
+      default: auto
+      description: Specify how to select outgoing interface to reach server.
+      source_attribute: interface-select-method
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: Specify how to select outgoing interface to reach server.
+        source_attribute: interface_select_method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface_select_method
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Specify how to select outgoing interface to reach server.
+        default: auto
+        source_attribute: interface-select-method
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id005
+      - - v7.4.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: KMIP server entry name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id005
+        description: KMIP server entry name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: KMIP server entry name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  password:
+    canonical:
+      type: password
+      version_ranges: &id006
+      - - v7.4.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: Password to use for connectivity to the KMIP server.
+      source_attribute: password
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id006
+        description: Password to use for connectivity to the KMIP server.
+        source_attribute: password
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: password
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Password to use for connectivity to the KMIP server.
+        source_attribute: password
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id007
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id007
+  server_identity_check:
+    canonical:
+      type: enum
+      version_ranges: &id009
+      - - v7.4.0
+        - ''
+      choices: &id008
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable KMIP server identity check (verify server FQDN/IP address against the server certificate).
+      source_attribute: server-identity-check
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id008
+        version_ranges: *id009
+        description: Enable/disable KMIP server identity check (verify server FQDN/IP address against the server certificate).
+        source_attribute: server_identity_check
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: server_identity_check
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable KMIP server identity check (verify server FQDN/IP address against the server certificate).
+        default: disable
+        source_attribute: server-identity-check
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  server_list:
+    canonical:
+      type: list
+      elements: dict
+      children: &id011
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id014
+          - - v7.4.0
+            - ''
+          description: ID see <a href='#notes'>Notes</a>.
+        status:
+          type: enum
+          raw_type: string
+          choices: &id018
+          - enable
+          - disable
+          version_ranges: &id017
+          - - v7.4.0
+            - ''
+          description: Enable/disable KMIP server.
+        server:
+          type: string
+          raw_type: string
+          version_ranges: &id016
+          - - v7.4.0
+            - ''
+          description: KMIP server FQDN or IP address.
+        port:
+          type: integer
+          raw_type: integer
+          version_ranges: &id015
+          - - v7.4.0
+            - ''
+          description: KMIP server port.
+        cert:
+          type: string
+          raw_type: string
+          version_ranges: &id013
+          - - v7.4.0
+            - ''
+          description: Client certificate to use for connectivity to the KMIP server. Source vpn.certificate.local.name.
+          references: &id012
+          - vpn.certificate.local.name
+      version_ranges: &id010
+      - - v7.4.0
+        - ''
+      description: KMIP server list.
+      source_attribute: server_list
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id010
+        description: KMIP server list.
+        children: *id011
+        source_attribute: server_list
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          server:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          port:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 65535
+          cert:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+        source_attribute: server_list
+    sources:
+    - ansible
+    - terraform
+  server_list.cert:
+    canonical:
+      type: string
+      references: *id012
+      version_ranges: *id013
+      min_length: 0
+      max_length: 35
+      description: Client certificate to use for connectivity to the KMIP server. Source vpn.certificate.local.name.
+      source_attribute: server_list.cert
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id013
+        description: Client certificate to use for connectivity to the KMIP server. Source vpn.certificate.local.name.
+        references: *id012
+        source_attribute: server_list.cert
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: server_list.cert
+    sources:
+    - ansible
+    - terraform
+  server_list.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id014
+      description: ID see <a href='#notes'>Notes</a>.
+      source_attribute: server_list.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id014
+        description: ID see <a href='#notes'>Notes</a>.
+        source_attribute: server_list.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: server_list.id
+    sources:
+    - ansible
+    - terraform
+  server_list.port:
+    canonical:
+      type: integer
+      version_ranges: *id015
+      min: 0
+      max: 65535
+      description: KMIP server port.
+      source_attribute: server_list.port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id015
+        description: KMIP server port.
+        source_attribute: server_list.port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: server_list.port
+    sources:
+    - ansible
+    - terraform
+  server_list.server:
+    canonical:
+      type: string
+      version_ranges: *id016
+      min_length: 0
+      max_length: 63
+      description: KMIP server FQDN or IP address.
+      source_attribute: server_list.server
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id016
+        description: KMIP server FQDN or IP address.
+        source_attribute: server_list.server
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: server_list.server
+    sources:
+    - ansible
+    - terraform
+  server_list.status:
+    canonical:
+      type: enum
+      version_ranges: *id017
+      choices: *id018
+      description: Enable/disable KMIP server.
+      source_attribute: server_list.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id018
+        version_ranges: *id017
+        description: Enable/disable KMIP server.
+        source_attribute: server_list.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: server_list.status
+    sources:
+    - ansible
+    - terraform
+  source_ip:
+    canonical:
+      type: string
+      version_ranges: &id019
+      - - v7.4.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: FortiGate IP address to be used for communication with the KMIP server.
+      source_attribute: source-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id019
+        description: FortiGate IP address to be used for communication with the KMIP server.
+        source_attribute: source_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: source_ip
+      cli_reference:
+        type: string
+        raw_type: string
+        description: FortiGate IP address to be used for communication with the KMIP server.
+        max_length: 63
+        source_attribute: source-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssl_min_proto_version:
+    canonical:
+      type: enum
+      version_ranges: &id021
+      - - v7.4.0
+        - ''
+      choices: &id020
+      - default
+      - SSLv3
+      - TLSv1
+      - TLSv1-1
+      - TLSv1-2
+      - TLSv1-3
+      default: default
+      description: Minimum supported protocol version for SSL/TLS connections (default is to follow system global setting).
+      source_attribute: ssl-min-proto-version
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id020
+        version_ranges: *id021
+        description: Minimum supported protocol version for SSL/TLS connections .
+        source_attribute: ssl_min_proto_version
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssl_min_proto_version
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Minimum supported protocol version for SSL/TLS connections (default is to follow system global setting).
+        default: default
+        source_attribute: ssl-min-proto-version
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  username:
+    canonical:
+      type: string
+      version_ranges: &id022
+      - - v7.4.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: User name to use for connectivity to the KMIP server.
+      source_attribute: username
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id022
+        description: User name to use for connectivity to the KMIP server.
+        source_attribute: username
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: username
+      cli_reference:
+        type: string
+        raw_type: string
+        description: User name to use for connectivity to the KMIP server.
+        max_length: 63
+        source_attribute: username
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  vrf_select:
+    canonical:
+      type: integer
+      version_ranges: &id023
+      - - v7.6.1
+        - ''
+      default: '0'
+      min: 0
+      max: 511
+      description: VRF ID used for connection to server.
+      source_attribute: vrf-select
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id023
+        description: VRF ID used for connection to server.
+        source_attribute: vrf_select
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 511
+        source_attribute: vrf_select
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: VRF ID used for connection to server.
+        default: '0'
+        min: 0
+        max: 511
+        source_attribute: vrf-select
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: password
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict

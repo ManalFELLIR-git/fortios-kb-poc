@@ -1,0 +1,614 @@
+id: user.security-exempt-list
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  description:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 127
+      description: Description.
+      source_attribute: description
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Description.
+        source_attribute: description
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: description
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Description.
+        max_length: 127
+        source_attribute: description
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Name of the exempt list.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id002
+        description: Name of the exempt list.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of the exempt list.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rule:
+    canonical:
+      type: list
+      elements: dict
+      children: &id004
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id011
+          - - v6.0.0
+            - ''
+          description: ID. see <a href='#notes'>Notes</a>.
+        srcaddr:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id018
+          - - v6.0.0
+            - ''
+          description: Source addresses or address groups.
+          children: &id017
+            name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id021
+              - - v6.0.0
+                - ''
+              description: Address or group name. Source firewall.address.name firewall.addrgrp.name.
+              references: &id020
+              - firewall.address.name
+              - firewall.addrgrp.name
+        dstaddr:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id007
+          - - v6.0.0
+            - ''
+          description: Destination addresses or address groups.
+          children: &id006
+            name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id010
+              - - v6.0.0
+                - ''
+              description: Address or group name. Source firewall.address.name firewall.addrgrp.name.
+              references: &id009
+              - firewall.address.name
+              - firewall.addrgrp.name
+        service:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id013
+          - - v6.0.0
+            - ''
+          description: Destination services.
+          children: &id012
+            name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id016
+              - - v6.0.0
+                - ''
+              description: Service name. Source firewall.service.custom.name firewall.service.group.name.
+              references: &id015
+              - firewall.service.custom.name
+              - firewall.service.group.name
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      description: Configure rules for exempting users from captive portal authentication.
+      source_attribute: rule
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id003
+        description: Configure rules for exempting users from captive portal authentication.
+        children: *id004
+        source_attribute: rule
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          srcaddr:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id019
+              name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+          devices:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id005
+              name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 35
+          dstaddr:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id008
+              name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+          service:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id014
+              name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+        source_attribute: rule
+    sources:
+    - ansible
+    - terraform
+  rule.devices:
+    canonical:
+      type: list
+      children: *id005
+      source_attribute: rule.devices
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id005
+        source_attribute: rule.devices
+    sources:
+    - terraform
+  rule.devices.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: rule.devices.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: rule.devices.name
+    sources:
+    - terraform
+  rule.dstaddr:
+    canonical:
+      type: list
+      elements: dict
+      children: *id006
+      version_ranges: *id007
+      description: Destination addresses or address groups.
+      source_attribute: rule.dstaddr
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id007
+        description: Destination addresses or address groups.
+        children: *id006
+        source_attribute: rule.dstaddr
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id008
+        source_attribute: rule.dstaddr
+    sources:
+    - ansible
+    - terraform
+  rule.dstaddr.name:
+    canonical:
+      type: string
+      references: *id009
+      required: true
+      version_ranges: *id010
+      min_length: 0
+      max_length: 79
+      description: Address or group name. Source firewall.address.name firewall.addrgrp.name.
+      source_attribute: rule.dstaddr.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id010
+        description: Address or group name. Source firewall.address.name firewall.addrgrp.name.
+        references: *id009
+        source_attribute: rule.dstaddr.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: rule.dstaddr.name
+    sources:
+    - ansible
+    - terraform
+  rule.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id011
+      description: ID. see <a href='#notes'>Notes</a>.
+      source_attribute: rule.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id011
+        description: ID. see <a href='#notes'>Notes</a>.
+        source_attribute: rule.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: rule.id
+    sources:
+    - ansible
+    - terraform
+  rule.service:
+    canonical:
+      type: list
+      elements: dict
+      children: *id012
+      version_ranges: *id013
+      description: Destination services.
+      source_attribute: rule.service
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id013
+        description: Destination services.
+        children: *id012
+        source_attribute: rule.service
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id014
+        source_attribute: rule.service
+    sources:
+    - ansible
+    - terraform
+  rule.service.name:
+    canonical:
+      type: string
+      references: *id015
+      required: true
+      version_ranges: *id016
+      min_length: 0
+      max_length: 79
+      description: Service name. Source firewall.service.custom.name firewall.service.group.name.
+      source_attribute: rule.service.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id016
+        description: Service name. Source firewall.service.custom.name firewall.service.group.name.
+        references: *id015
+        source_attribute: rule.service.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: rule.service.name
+    sources:
+    - ansible
+    - terraform
+  rule.srcaddr:
+    canonical:
+      type: list
+      elements: dict
+      children: *id017
+      version_ranges: *id018
+      description: Source addresses or address groups.
+      source_attribute: rule.srcaddr
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id018
+        description: Source addresses or address groups.
+        children: *id017
+        source_attribute: rule.srcaddr
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id019
+        source_attribute: rule.srcaddr
+    sources:
+    - ansible
+    - terraform
+  rule.srcaddr.name:
+    canonical:
+      type: string
+      references: *id020
+      required: true
+      version_ranges: *id021
+      min_length: 0
+      max_length: 79
+      description: Address or group name. Source firewall.address.name firewall.addrgrp.name.
+      source_attribute: rule.srcaddr.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id021
+        description: Address or group name. Source firewall.address.name firewall.addrgrp.name.
+        references: *id020
+        source_attribute: rule.srcaddr.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: rule.srcaddr.name
+    sources:
+    - ansible
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

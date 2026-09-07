@@ -1,0 +1,1226 @@
+id: authentication.setting
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  active_auth_scheme:
+    canonical:
+      type: string
+      references: &id002
+      - authentication.scheme.name
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Active authentication method (scheme name).
+      source_attribute: active-auth-scheme
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Active authentication method (scheme name). Source authentication.scheme.name.
+        references: *id002
+        source_attribute: active_auth_scheme
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: active_auth_scheme
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Active authentication method (scheme name).
+        max_length: 35
+        source_attribute: active-auth-scheme
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  auth_https:
+    canonical:
+      type: enum
+      version_ranges: &id004
+      - - v6.2.0
+        - ''
+      choices: &id003
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable redirecting HTTP user authentication to HTTPS.
+      source_attribute: auth-https
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: Enable/disable redirecting HTTP user authentication to HTTPS.
+        source_attribute: auth_https
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auth_https
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable redirecting HTTP user authentication to HTTPS.
+        default: enable
+        source_attribute: auth-https
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  captive_portal:
+    canonical:
+      type: string
+      references: &id006
+      - firewall.address.name
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Captive portal host name.
+      source_attribute: captive-portal
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: Captive portal host name. Source firewall.address.name.
+        references: *id006
+        source_attribute: captive_portal
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: captive_portal
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Captive portal host name.
+        max_length: 255
+        source_attribute: captive-portal
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  captive_portal6:
+    canonical:
+      type: string
+      references: &id008
+      - firewall.address6.name
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: IPv6 captive portal host name.
+      source_attribute: captive-portal6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: IPv6 captive portal host name. Source firewall.address6.name.
+        references: *id008
+        source_attribute: captive_portal6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: captive_portal6
+      cli_reference:
+        type: string
+        raw_type: string
+        description: IPv6 captive portal host name.
+        max_length: 255
+        source_attribute: captive-portal6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  captive_portal_ip:
+    canonical:
+      type: ipv4-address-any
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: Captive portal IP address.
+      source_attribute: captive-portal-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id009
+        description: Captive portal IP address.
+        source_attribute: captive_portal_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: captive_portal_ip
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: Captive portal IP address.
+        default: 0.0.0.0
+        source_attribute: captive-portal-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id010
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id010
+  captive_portal_ip6:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      default: '::'
+      description: Captive portal IPv6 address.
+      source_attribute: captive-portal-ip6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: Captive portal IPv6 address.
+        source_attribute: captive_portal_ip6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: captive_portal_ip6
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: Captive portal IPv6 address.
+        default: '::'
+        source_attribute: captive-portal-ip6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id012
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id012
+  captive_portal_port:
+    canonical:
+      type: integer
+      version_ranges: &id013
+      - - v6.0.0
+        - ''
+      default: '7830'
+      min: 1
+      max: 65535
+      description: Captive portal port number (1 - 65535, default = 7830).
+      source_attribute: captive-portal-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id013
+        description: Captive portal port number (1 - 65535).
+        source_attribute: captive_portal_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: captive_portal_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Captive portal port number (1 - 65535, default = 7830).
+        default: '7830'
+        min: 1
+        max: 65535
+        source_attribute: captive-portal-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  captive_portal_ssl_port:
+    canonical:
+      type: integer
+      version_ranges: &id014
+      - - v6.2.0
+        - ''
+      default: '7831'
+      min: 1
+      max: 65535
+      description: Captive portal SSL port number (1 - 65535, default = 7831).
+      source_attribute: captive-portal-ssl-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id014
+        description: Captive portal SSL port number (1 - 65535).
+        source_attribute: captive_portal_ssl_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: captive_portal_ssl_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Captive portal SSL port number (1 - 65535, default = 7831).
+        default: '7831'
+        min: 1
+        max: 65535
+        source_attribute: captive-portal-ssl-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  captive_portal_type:
+    canonical:
+      type: enum
+      version_ranges: &id016
+      - - v6.0.0
+        - ''
+      choices: &id015
+      - fqdn
+      - ip
+      default: fqdn
+      description: Captive portal type.
+      source_attribute: captive-portal-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id015
+        version_ranges: *id016
+        description: Captive portal type.
+        source_attribute: captive_portal_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: captive_portal_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Captive portal type.
+        default: fqdn
+        source_attribute: captive-portal-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cert_auth:
+    canonical:
+      type: enum
+      version_ranges: &id018
+      - - v7.0.1
+        - ''
+      choices: &id017
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable redirecting certificate authentication to HTTPS portal.
+      source_attribute: cert-auth
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id017
+        version_ranges: *id018
+        description: Enable/disable redirecting certificate authentication to HTTPS portal.
+        source_attribute: cert_auth
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cert_auth
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable redirecting certificate authentication to HTTPS portal.
+        default: disable
+        source_attribute: cert-auth
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cert_captive_portal:
+    canonical:
+      type: string
+      references: &id020
+      - firewall.address.name
+      version_ranges: &id019
+      - - v7.0.1
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Certificate captive portal host name.
+      source_attribute: cert-captive-portal
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id019
+        description: Certificate captive portal host name. Source firewall.address.name.
+        references: *id020
+        source_attribute: cert_captive_portal
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: cert_captive_portal
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Certificate captive portal host name.
+        max_length: 255
+        source_attribute: cert-captive-portal
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cert_captive_portal_ip:
+    canonical:
+      type: ipv4-address-any
+      version_ranges: &id021
+      - - v7.0.1
+        - ''
+      default: 0.0.0.0
+      description: Certificate captive portal IP address.
+      source_attribute: cert-captive-portal-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id021
+        description: Certificate captive portal IP address.
+        source_attribute: cert_captive_portal_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cert_captive_portal_ip
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: Certificate captive portal IP address.
+        default: 0.0.0.0
+        source_attribute: cert-captive-portal-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id022
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id022
+  cert_captive_portal_port:
+    canonical:
+      type: integer
+      version_ranges: &id023
+      - - v7.0.1
+        - ''
+      default: '7832'
+      min: 1
+      max: 65535
+      description: Certificate captive portal port number (1 - 65535, default = 7832).
+      source_attribute: cert-captive-portal-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id023
+        description: Certificate captive portal port number (1 - 65535).
+        source_attribute: cert_captive_portal_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: cert_captive_portal_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Certificate captive portal port number (1 - 65535, default = 7832).
+        default: '7832'
+        min: 1
+        max: 65535
+        source_attribute: cert-captive-portal-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cookie_max_age:
+    canonical:
+      type: integer
+      version_ranges: &id024
+      - - v7.2.0
+        - ''
+      default: '480'
+      min: 30
+      max: 10080
+      description: Persistent web portal cookie maximum age in minutes (30 - 10080 (1 week), default = 480 (8 hours)).
+      source_attribute: cookie-max-age
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id024
+        description: Persistent web portal cookie maximum age in minutes (30 - 10080 (1 week)).
+        source_attribute: cookie_max_age
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 30
+        max: 10080
+        source_attribute: cookie_max_age
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Persistent web portal cookie maximum age in minutes (30 - 10080 (1 week), default = 480 (8 hours)).
+        default: '480'
+        min: 30
+        max: 10080
+        source_attribute: cookie-max-age
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cookie_refresh_div:
+    canonical:
+      type: integer
+      version_ranges: &id025
+      - - v7.2.0
+        - ''
+      default: '2'
+      min: 2
+      max: 4
+      description: Refresh rate divider of persistent web portal cookie (default = 2). Refresh value = cookie-max-age/cookie-refresh-div.
+      source_attribute: cookie-refresh-div
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id025
+        description: Refresh rate divider of persistent web portal cookie . Refresh value = cookie-max-age/cookie-refresh-div.
+        source_attribute: cookie_refresh_div
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 2
+        max: 4
+        source_attribute: cookie_refresh_div
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Refresh rate divider of persistent web portal cookie (default = 2). Refresh value = cookie-max-age/cookie-refresh-div.
+        default: '2'
+        min: 2
+        max: 4
+        source_attribute: cookie-refresh-div
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dev_range:
+    canonical:
+      type: list
+      elements: dict
+      children: &id027
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id030
+          - - v7.0.0
+            - ''
+          description: Address name. Source firewall.address.name firewall.addrgrp.name.
+          references: &id029
+          - firewall.address.name
+          - firewall.addrgrp.name
+      version_ranges: &id026
+      - - v7.0.0
+        - ''
+      max_length: 79
+      description: Address range for the IP based device query. Address name.
+      source_attribute: dev-range
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id026
+        description: Address range for the IP based device query.
+        children: *id027
+        source_attribute: dev_range
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: dev_range
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Address range for the IP based device query. Address name.
+        max_length: 79
+        source_attribute: dev-range
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id028
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id028
+  dev_range.name:
+    canonical:
+      type: string
+      references: *id029
+      required: true
+      version_ranges: *id030
+      min_length: 0
+      max_length: 79
+      description: Address name. Source firewall.address.name firewall.addrgrp.name.
+      source_attribute: dev_range.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id030
+        description: Address name. Source firewall.address.name firewall.addrgrp.name.
+        references: *id029
+        source_attribute: dev_range.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: dev_range.name
+    sources:
+    - ansible
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  ems_root_ca:
+    canonical:
+      type: enum
+      version_ranges: &id032
+      - - v7.6.7
+        - ''
+      choices: &id031
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable use of the EMS root CA for FortiClient, ZTNA, and endpoint authentication (default = enable).
+      source_attribute: ems-root-ca
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id031
+        version_ranges: *id032
+        description: Enable/disable use of the EMS root CA for FortiClient, ZTNA, and endpoint authentication .
+        source_attribute: ems_root_ca
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ems_root_ca
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of the EMS root CA for FortiClient, ZTNA, and endpoint authentication (default = enable).
+        default: enable
+        source_attribute: ems-root-ca
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  ip_auth_cookie:
+    canonical:
+      type: enum
+      version_ranges: &id034
+      - - v7.2.0
+        - ''
+      choices: &id033
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable persistent cookie on IP based web portal authentication (default = disable).
+      source_attribute: ip-auth-cookie
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id033
+        version_ranges: *id034
+        description: Enable/disable persistent cookie on IP based web portal authentication .
+        source_attribute: ip_auth_cookie
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ip_auth_cookie
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable persistent cookie on IP based web portal authentication (default = disable).
+        default: disable
+        source_attribute: ip-auth-cookie
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  persistent_cookie:
+    canonical:
+      type: enum
+      version_ranges: &id036
+      - - v7.2.0
+        - ''
+      choices: &id035
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable persistent cookie on web portal authentication (default = enable).
+      source_attribute: persistent-cookie
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id035
+        version_ranges: *id036
+        description: Enable/disable persistent cookie on web portal authentication .
+        source_attribute: persistent_cookie
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: persistent_cookie
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable persistent cookie on web portal authentication (default = enable).
+        default: enable
+        source_attribute: persistent-cookie
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sso_auth_scheme:
+    canonical:
+      type: string
+      references: &id038
+      - authentication.scheme.name
+      version_ranges: &id037
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Single-Sign-On authentication method (scheme name).
+      source_attribute: sso-auth-scheme
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id037
+        description: Single-Sign-On authentication method (scheme name). Source authentication.scheme.name.
+        references: *id038
+        source_attribute: sso_auth_scheme
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: sso_auth_scheme
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Single-Sign-On authentication method (scheme name).
+        max_length: 35
+        source_attribute: sso-auth-scheme
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_time:
+    canonical:
+      type: string
+      version_ranges: &id039
+      - - v7.2.0
+        - ''
+      description: Time of the last update.
+      source_attribute: update-time
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id039
+        description: Time of the last update.
+        source_attribute: update_time
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: update_time
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Time of the last update.
+        source_attribute: update-time
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  user_cert_ca:
+    canonical:
+      type: list
+      elements: dict
+      children: &id041
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id044
+          - - v7.0.0
+            - ''
+          description: CA certificate list. Source vpn.certificate.ca.name vpn.certificate.local.name.
+          references: &id043
+          - vpn.certificate.ca.name
+          - vpn.certificate.local.name
+      version_ranges: &id040
+      - - v7.0.0
+        - ''
+      max_length: 79
+      description: CA certificate used for client certificate verification. CA certificate list.
+      source_attribute: user-cert-ca
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id040
+        description: CA certificate used for client certificate verification.
+        children: *id041
+        source_attribute: user_cert_ca
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: user_cert_ca
+      cli_reference:
+        type: string
+        raw_type: string
+        description: CA certificate used for client certificate verification. CA certificate list.
+        max_length: 79
+        source_attribute: user-cert-ca
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id042
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id042
+  user_cert_ca.name:
+    canonical:
+      type: string
+      references: *id043
+      required: true
+      version_ranges: *id044
+      min_length: 0
+      max_length: 79
+      description: CA certificate list. Source vpn.certificate.ca.name vpn.certificate.local.name.
+      source_attribute: user_cert_ca.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id044
+        description: CA certificate list. Source vpn.certificate.ca.name vpn.certificate.local.name.
+        references: *id043
+        source_attribute: user_cert_ca.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: user_cert_ca.name
+    sources:
+    - ansible
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: captive_portal_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict
+- attribute: captive_portal_ip6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict
+- attribute: cert_captive_portal_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict
+- attribute: dev_range
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: user_cert_ca
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

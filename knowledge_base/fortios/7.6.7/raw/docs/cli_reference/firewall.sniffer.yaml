@@ -1,0 +1,201 @@
+id: firewall.sniffer
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/191172213/config-firewall-sniffer
+attributes:
+  application-list:
+    type: string
+    raw_type: string
+    description: Name of an existing application list.
+    max_length: 47
+  application-list-status:
+    type: enum
+    raw_type: option
+    description: Enable/disable application control profile.
+    default: disable
+  av-profile:
+    type: string
+    raw_type: string
+    description: Name of an existing antivirus profile.
+    max_length: 47
+  av-profile-status:
+    type: enum
+    raw_type: option
+    description: Enable/disable antivirus profile.
+    default: disable
+  dlp-profile:
+    type: string
+    raw_type: string
+    description: Name of an existing DLP profile.
+    max_length: 47
+  dlp-profile-status:
+    type: enum
+    raw_type: option
+    description: Enable/disable DLP profile.
+    default: disable
+  dsri:
+    type: enum
+    raw_type: option
+    description: Enable/disable DSRI.
+    default: disable
+  emailfilter-profile:
+    type: string
+    raw_type: string
+    description: Name of an existing email filter profile.
+    max_length: 47
+  emailfilter-profile-status:
+    type: enum
+    raw_type: option
+    description: Enable/disable emailfilter.
+    default: disable
+  file-filter-profile:
+    type: string
+    raw_type: string
+    description: Name of an existing file-filter profile.
+    max_length: 47
+  file-filter-profile-status:
+    type: enum
+    raw_type: option
+    description: Enable/disable file filter.
+    default: disable
+  host:
+    type: string
+    raw_type: string
+    description: 'Hosts to filter for in sniffer traffic (Format examples: 1.1.1.1, 2.2.2.0/24, 3.3.3.3/255.255.255.0, 4.4.4.0-4.4.4.240).'
+    max_length: 63
+  id:
+    type: integer
+    raw_type: integer
+    description: Sniffer ID (0 - 9999).
+    default: '0'
+    min: 0
+    max: 9999
+  interface:
+    type: string
+    raw_type: string
+    description: Interface name that traffic sniffing will take place on.
+    max_length: 35
+  ip-threatfeed:
+    type: string
+    raw_type: string
+    description: Name of an existing IP threat feed. Threat feed name.
+    max_length: 79
+  ip-threatfeed-status:
+    type: enum
+    raw_type: option
+    description: Enable/disable IP threat feed.
+    default: disable
+  ips-dos-status:
+    type: enum
+    raw_type: option
+    description: Enable/disable IPS DoS anomaly detection.
+    default: disable
+  ips-sensor:
+    type: string
+    raw_type: string
+    description: Name of an existing IPS sensor.
+    max_length: 47
+  ips-sensor-status:
+    type: enum
+    raw_type: option
+    description: Enable/disable IPS sensor.
+    default: disable
+  ipv6:
+    type: enum
+    raw_type: option
+    description: Enable/disable sniffing IPv6 packets.
+    default: disable
+  logtraffic:
+    type: enum
+    raw_type: option
+    description: Either log all sessions, only sessions that have a security profile applied, or disable all logging for this
+      policy.
+    default: utm
+  non-ip:
+    type: enum
+    raw_type: option
+    description: Enable/disable sniffing non-IP packets.
+    default: disable
+  port:
+    type: string
+    raw_type: string
+    description: 'Ports to sniff (Format examples: 10, :20, 30:40, 50-, 100-200).'
+    max_length: 63
+  protocol:
+    type: string
+    raw_type: string
+    description: Integer value for the protocol type as defined by IANA (0 - 255).
+    max_length: 63
+  status:
+    type: enum
+    raw_type: option
+    description: Enable/disable the active status of the sniffer.
+    default: enable
+  uuid:
+    type: uuid
+    raw_type: uuid
+    description: Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+    default: 00000000-0000-0000-0000-000000000000
+  vlan:
+    type: string
+    raw_type: string
+    description: List of VLANs to sniff.
+    max_length: 63
+  webfilter-profile:
+    type: string
+    raw_type: string
+    description: Name of an existing web filter profile.
+    max_length: 47
+  webfilter-profile-status:
+    type: enum
+    raw_type: option
+    description: Enable/disable web filter profile.
+    default: disable
+children:
+  anomaly:
+    attributes:
+      action:
+        type: enum
+        raw_type: option
+        description: Action taken when the threshold is reached.
+        default: pass
+      log:
+        type: enum
+        raw_type: option
+        description: Enable/disable anomaly logging.
+        default: disable
+      name:
+        type: string
+        raw_type: string
+        description: Anomaly name.
+        max_length: 63
+      quarantine:
+        type: enum
+        raw_type: option
+        description: Quarantine method.
+        default: none
+      quarantine-expiry:
+        type: string
+        raw_type: user
+        description: 'Duration of quarantine. (Format ###d##h##m, minimum 1m, maximum 364d23h59m, default = 5m). Requires
+          quarantine set to attacker.'
+        default: 5m
+      quarantine-log:
+        type: enum
+        raw_type: option
+        description: Enable/disable quarantine logging.
+        default: enable
+      status:
+        type: enum
+        raw_type: option
+        description: Enable/disable this anomaly.
+        default: disable
+      threshold:
+        type: integer
+        raw_type: integer
+        description: Number of detected instances (packets per second or concurrent session number) which triggers action
+          (1 - 2147483647, default = 1000). Note that each anomaly has a different threshold value assigned to it. Read-only.
+        default: '0'
+        min: 0
+        max: 4294967295

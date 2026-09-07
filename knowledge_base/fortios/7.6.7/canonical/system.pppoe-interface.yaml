@@ -1,0 +1,921 @@
+id: system.pppoe-interface
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  ac_name:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: PPPoE AC name.
+      source_attribute: ac-name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: PPPoE AC name.
+        source_attribute: ac_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: ac_name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: PPPoE AC name.
+        max_length: 63
+        source_attribute: ac-name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  auth_type:
+    canonical:
+      type: enum
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      choices: &id002
+      - auto
+      - pap
+      - chap
+      - mschapv1
+      - mschapv2
+      default: auto
+      description: PPP authentication type to use.
+      source_attribute: auth-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id002
+        version_ranges: *id003
+        description: PPP authentication type to use.
+        source_attribute: auth_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auth_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: PPP authentication type to use.
+        default: auto
+        source_attribute: auth-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  device:
+    canonical:
+      type: string
+      references: &id005
+      - system.interface.name
+      required: true
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Name for the physical interface.
+      source_attribute: device
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id004
+        description: Name for the physical interface. Source system.interface.name.
+        references: *id005
+        source_attribute: device
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 15
+        source_attribute: device
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name for the physical interface.
+        max_length: 15
+        source_attribute: device
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dial_on_demand:
+    canonical:
+      type: enum
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      choices: &id006
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable dial on demand to dial the PPPoE interface when packets are routed to the PPPoE interface.
+      source_attribute: dial-on-demand
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id006
+        version_ranges: *id007
+        description: Enable/disable dial on demand to dial the PPPoE interface when packets are routed to the PPPoE interface.
+        source_attribute: dial_on_demand
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dial_on_demand
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable dial on demand to dial the PPPoE interface when packets are routed to the PPPoE interface.
+        default: disable
+        source_attribute: dial-on-demand
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  disc_retry_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      default: '1'
+      min: 0
+      max: 4294967295
+      description: PPPoE discovery init timeout value in (0-4294967295 sec).
+      source_attribute: disc-retry-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id008
+        description: PPPoE discovery init timeout value in (0-4294967295 sec).
+        source_attribute: disc_retry_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: disc_retry_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: PPPoE discovery init timeout value in (0-4294967295 sec).
+        default: '1'
+        min: 0
+        max: 4294967295
+        source_attribute: disc-retry-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  idle_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: PPPoE auto disconnect after idle timeout (0-4294967295 sec).
+      source_attribute: idle-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id009
+        description: PPPoE auto disconnect after idle timeout (0-4294967295 sec).
+        source_attribute: idle_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: idle_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: PPPoE auto disconnect after idle timeout (0-4294967295 sec).
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: idle-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ipunnumbered:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id010
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: PPPoE unnumbered IP.
+      source_attribute: ipunnumbered
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id010
+        description: PPPoE unnumbered IP.
+        source_attribute: ipunnumbered
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ipunnumbered
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: PPPoE unnumbered IP.
+        default: 0.0.0.0
+        source_attribute: ipunnumbered
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id011
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id011
+  ipv6:
+    canonical:
+      type: enum
+      version_ranges: &id013
+      - - v6.0.0
+        - ''
+      choices: &id012
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable IPv6 Control Protocol (IPv6CP).
+      source_attribute: ipv6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id012
+        version_ranges: *id013
+        description: Enable/disable IPv6 Control Protocol (IPv6CP).
+        source_attribute: ipv6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ipv6
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable IPv6 Control Protocol (IPv6CP).
+        default: disable
+        source_attribute: ipv6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  lcp_echo_interval:
+    canonical:
+      type: integer
+      version_ranges: &id014
+      - - v6.0.0
+        - ''
+      default: '5'
+      min: 0
+      max: 32767
+      description: Time in seconds between PPPoE Link Control Protocol (LCP) echo requests.
+      source_attribute: lcp-echo-interval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id014
+        description: Time in seconds between PPPoE Link Control Protocol (LCP) echo requests.
+        source_attribute: lcp_echo_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: lcp_echo_interval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time in seconds between PPPoE Link Control Protocol (LCP) echo requests.
+        default: '5'
+        min: 0
+        max: 32767
+        source_attribute: lcp-echo-interval
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  lcp_max_echo_fails:
+    canonical:
+      type: integer
+      version_ranges: &id015
+      - - v6.0.0
+        - ''
+      default: '3'
+      min: 0
+      max: 32767
+      description: Maximum missed LCP echo messages before disconnect.
+      source_attribute: lcp-max-echo-fails
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id015
+        description: Maximum missed LCP echo messages before disconnect.
+        source_attribute: lcp_max_echo_fails
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: lcp_max_echo_fails
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum missed LCP echo messages before disconnect.
+        default: '3'
+        min: 0
+        max: 32767
+        source_attribute: lcp-max-echo-fails
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  mrru:
+    canonical:
+      type: integer
+      version_ranges: &id016
+      - - v7.6.5
+        - ''
+      default: '1500'
+      min: 296
+      max: 65535
+      description: PPP MRRU (296 - 65535, default = 1500).
+      source_attribute: mrru
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id016
+        description: PPP MRRU (296 - 65535).
+        source_attribute: mrru
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 296
+        max: 65535
+        source_attribute: mrru
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: PPP MRRU (296 - 65535, default = 1500).
+        default: '1500'
+        min: 296
+        max: 65535
+        source_attribute: mrru
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  multilink:
+    canonical:
+      type: enum
+      version_ranges: &id018
+      - - v7.6.5
+        - ''
+      choices: &id017
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable PPP multilink support.
+      source_attribute: multilink
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id017
+        version_ranges: *id018
+        description: Enable/disable PPP multilink support.
+        source_attribute: multilink
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: multilink
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable PPP multilink support.
+        default: disable
+        source_attribute: multilink
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id019
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Name of the PPPoE interface.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id019
+        description: Name of the PPPoE interface.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 15
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of the PPPoE interface.
+        max_length: 15
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  padt_retry_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id020
+      - - v6.0.0
+        - ''
+      default: '1'
+      min: 0
+      max: 4294967295
+      description: PPPoE terminate timeout value in (0-4294967295 sec).
+      source_attribute: padt-retry-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id020
+        description: PPPoE terminate timeout value in (0-4294967295 sec).
+        source_attribute: padt_retry_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: padt_retry_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: PPPoE terminate timeout value in (0-4294967295 sec).
+        default: '1'
+        min: 0
+        max: 4294967295
+        source_attribute: padt-retry-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  password:
+    canonical:
+      type: password
+      version_ranges: &id021
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: Enter the password.
+      source_attribute: password
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id021
+        description: Enter the password.
+        source_attribute: password
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: password
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Enter the password.
+        source_attribute: password
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id022
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id022
+  pppoe_egress_cos:
+    canonical:
+      type: enum
+      version_ranges: &id024
+      - - v7.6.0
+        - ''
+      choices: &id023
+      - cos0
+      - cos1
+      - cos2
+      - cos3
+      - cos4
+      - cos5
+      - cos6
+      - cos7
+      default: cos0
+      description: CoS in VLAN tag for outgoing PPPoE/PPP packets.
+      source_attribute: pppoe-egress-cos
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id023
+        version_ranges: *id024
+        description: CoS in VLAN tag for outgoing PPPoE/PPP packets.
+        source_attribute: pppoe_egress_cos
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pppoe_egress_cos
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: CoS in VLAN tag for outgoing PPPoE/PPP packets.
+        default: cos0
+        source_attribute: pppoe-egress-cos
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  pppoe_unnumbered_negotiate:
+    canonical:
+      type: enum
+      version_ranges: &id026
+      - - v6.0.0
+        - ''
+      choices: &id025
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable PPPoE unnumbered negotiation.
+      source_attribute: pppoe-unnumbered-negotiate
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id025
+        version_ranges: *id026
+        description: Enable/disable PPPoE unnumbered negotiation.
+        source_attribute: pppoe_unnumbered_negotiate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pppoe_unnumbered_negotiate
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable PPPoE unnumbered negotiation.
+        default: enable
+        source_attribute: pppoe-unnumbered-negotiate
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  service_name:
+    canonical:
+      type: string
+      version_ranges: &id027
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: PPPoE service name.
+      source_attribute: service-name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id027
+        description: PPPoE service name.
+        source_attribute: service_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: service_name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: PPPoE service name.
+        max_length: 63
+        source_attribute: service-name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  username:
+    canonical:
+      type: string
+      version_ranges: &id028
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 64
+      description: User name.
+      source_attribute: username
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id028
+        description: User name.
+        source_attribute: username
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 64
+        source_attribute: username
+      cli_reference:
+        type: string
+        raw_type: string
+        description: User name.
+        max_length: 64
+        source_attribute: username
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: ipunnumbered
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: password
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict

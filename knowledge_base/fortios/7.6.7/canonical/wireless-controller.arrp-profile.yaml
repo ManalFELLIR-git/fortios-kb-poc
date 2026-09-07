@@ -1,0 +1,1227 @@
+id: wireless-controller.arrp-profile
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Comment.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Comment.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 255
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  darrp_optimize:
+    canonical:
+      type: integer
+      version_ranges: &id002
+      - - v7.0.4
+        - ''
+      default: '86400'
+      min: 0
+      max: 86400
+      description: Time for running Distributed Automatic Radio Resource Provisioning (DARRP) optimizations (0 - 86400 sec,
+        default = 86400, 0 = disable).
+      source_attribute: darrp-optimize
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id002
+        description: Time for running Distributed Automatic Radio Resource Provisioning (DARRP) optimizations (0 - 86400 sec).
+        source_attribute: darrp_optimize
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 86400
+        source_attribute: darrp_optimize
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time for running Distributed Automatic Radio Resource Provisioning (DARRP) optimizations (0 - 86400 sec,
+          default = 86400, 0 = disable).
+        default: '86400'
+        min: 0
+        max: 86400
+        source_attribute: darrp-optimize
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  darrp_optimize_schedules:
+    canonical:
+      type: list
+      elements: dict
+      children: &id004
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id007
+          - - v7.0.4
+            - ''
+          description: Schedule name. Source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name.
+          references: &id006
+          - firewall.schedule.group.name
+          - firewall.schedule.onetime.name
+          - firewall.schedule.recurring.name
+      version_ranges: &id003
+      - - v7.0.4
+        - ''
+      max_length: 35
+      description: Firewall schedules for DARRP running time. DARRP will run periodically based on darrp-optimize within the
+        schedules. Separate multiple schedule names with a space. Schedule name.
+      source_attribute: darrp-optimize-schedules
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id003
+        description: Firewall schedules for DARRP running time. DARRP will run periodically based on darrp-optimize within
+          the schedules. Separate multiple schedule names with a space.
+        children: *id004
+        source_attribute: darrp_optimize_schedules
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+        source_attribute: darrp_optimize_schedules
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Firewall schedules for DARRP running time. DARRP will run periodically based on darrp-optimize within
+          the schedules. Separate multiple schedule names with a space. Schedule name.
+        max_length: 35
+        source_attribute: darrp-optimize-schedules
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id005
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id005
+  darrp_optimize_schedules.name:
+    canonical:
+      type: string
+      references: *id006
+      required: true
+      version_ranges: *id007
+      min_length: 0
+      max_length: 35
+      description: Schedule name. Source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name.
+      source_attribute: darrp_optimize_schedules.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id007
+        description: Schedule name. Source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name.
+        references: *id006
+        source_attribute: darrp_optimize_schedules.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: darrp_optimize_schedules.name
+    sources:
+    - ansible
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  include_dfs_channel:
+    canonical:
+      type: enum
+      version_ranges: &id009
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      choices: &id008
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable use of DFS channel in DARRP channel selection phase 1 (default = enable).
+      source_attribute: include-dfs-channel
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id008
+        version_ranges: *id009
+        description: Enable/disable use of DFS channel in DARRP channel selection phase 1 .
+        source_attribute: include_dfs_channel
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: include_dfs_channel
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of DFS channel in DARRP channel selection phase 1 (default = enable).
+        default: enable
+        source_attribute: include-dfs-channel
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  include_weather_channel:
+    canonical:
+      type: enum
+      version_ranges: &id011
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      choices: &id010
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable use of weather channel in DARRP channel selection phase 1 (default = enable).
+      source_attribute: include-weather-channel
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id011
+        description: Enable/disable use of weather channel in DARRP channel selection phase 1 .
+        source_attribute: include_weather_channel
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: include_weather_channel
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable use of weather channel in DARRP channel selection phase 1 (default = enable).
+        default: enable
+        source_attribute: include-weather-channel
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  monitor_period:
+    canonical:
+      type: integer
+      version_ranges: &id012
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      default: '300'
+      min: 0
+      max: 65535
+      description: Period in seconds to measure average transmit retries and receive errors (default = 300).
+      source_attribute: monitor-period
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id012
+        description: Period in seconds to measure average transmit retries and receive errors .
+        source_attribute: monitor_period
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: monitor_period
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Period in seconds to measure average transmit retries and receive errors (default = 300).
+        default: '300'
+        min: 0
+        max: 65535
+        source_attribute: monitor-period
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id013
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      min_length: 0
+      max_length: 35
+      description: WiFi ARRP profile name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id013
+        description: WiFi ARRP profile name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: WiFi ARRP profile name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  override_darrp_optimize:
+    canonical:
+      type: enum
+      version_ranges: &id015
+      - - v7.0.4
+        - ''
+      choices: &id014
+      - enable
+      - disable
+      default: disable
+      description: Enable to override setting darrp-optimize and darrp-optimize-schedules (default = disable).
+      source_attribute: override-darrp-optimize
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id014
+        version_ranges: *id015
+        description: Enable to override setting darrp-optimize and darrp-optimize-schedules .
+        source_attribute: override_darrp_optimize
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: override_darrp_optimize
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable to override setting darrp-optimize and darrp-optimize-schedules (default = disable).
+        default: disable
+        source_attribute: override-darrp-optimize
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  selection_period:
+    canonical:
+      type: integer
+      version_ranges: &id016
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      default: '3600'
+      min: 0
+      max: 65535
+      description: Period in seconds to measure average channel load, noise floor, spectral RSSI (default = 3600).
+      source_attribute: selection-period
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id016
+        description: Period in seconds to measure average channel load, noise floor, spectral RSSI .
+        source_attribute: selection_period
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: selection_period
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Period in seconds to measure average channel load, noise floor, spectral RSSI (default = 3600).
+        default: '3600'
+        min: 0
+        max: 65535
+        source_attribute: selection-period
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  threshold_ap:
+    canonical:
+      type: integer
+      version_ranges: &id017
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      default: '250'
+      min: 0
+      max: 500
+      description: Threshold to reject channel in DARRP channel selection phase 1 due to surrounding APs (0 - 500, default
+        = 250).
+      source_attribute: threshold-ap
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id017
+        description: Threshold to reject channel in DARRP channel selection phase 1 due to surrounding APs (0 - 500).
+        source_attribute: threshold_ap
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 500
+        source_attribute: threshold_ap
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Threshold to reject channel in DARRP channel selection phase 1 due to surrounding APs (0 - 500, default
+          = 250).
+        default: '250'
+        min: 0
+        max: 500
+        source_attribute: threshold-ap
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  threshold_channel_load:
+    canonical:
+      type: integer
+      version_ranges: &id018
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      default: '60'
+      min: 0
+      max: 100
+      description: Threshold in percentage to reject channel in DARRP channel selection phase 1 due to channel load (0 - 100,
+        default = 60).
+      source_attribute: threshold-channel-load
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id018
+        description: Threshold in percentage to reject channel in DARRP channel selection phase 1 due to channel load (0 -
+          100).
+        source_attribute: threshold_channel_load
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 100
+        source_attribute: threshold_channel_load
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Threshold in percentage to reject channel in DARRP channel selection phase 1 due to channel load (0 -
+          100, default = 60).
+        default: '60'
+        min: 0
+        max: 100
+        source_attribute: threshold-channel-load
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  threshold_noise_floor:
+    canonical:
+      type: string
+      version_ranges: &id019
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      default: '-85'
+      min_length: 0
+      max_length: 7
+      description: Threshold in dBm to reject channel in DARRP channel selection phase 1 due to noise floor (-95 to -20, default
+        = -85).
+      source_attribute: threshold-noise-floor
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id019
+        description: Threshold in dBm to reject channel in DARRP channel selection phase 1 due to noise floor (-95 to -20).
+        source_attribute: threshold_noise_floor
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 7
+        source_attribute: threshold_noise_floor
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Threshold in dBm to reject channel in DARRP channel selection phase 1 due to noise floor (-95 to -20,
+          default = -85).
+        default: '-85'
+        max_length: 7
+        source_attribute: threshold-noise-floor
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  threshold_rx_errors:
+    canonical:
+      type: integer
+      version_ranges: &id020
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      default: '50'
+      min: 0
+      max: 100
+      description: Threshold in percentage for receive errors to trigger channel reselection in DARRP monitor stage (0 - 100,
+        default = 50).
+      source_attribute: threshold-rx-errors
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id020
+        description: Threshold in percentage for receive errors to trigger channel reselection in DARRP monitor stage (0 -
+          100).
+        source_attribute: threshold_rx_errors
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 100
+        source_attribute: threshold_rx_errors
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Threshold in percentage for receive errors to trigger channel reselection in DARRP monitor stage (0 -
+          100, default = 50).
+        default: '50'
+        min: 0
+        max: 100
+        source_attribute: threshold-rx-errors
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  threshold_spectral_rssi:
+    canonical:
+      type: string
+      version_ranges: &id021
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      default: '-65'
+      min_length: 0
+      max_length: 7
+      description: Threshold in dBm to reject channel in DARRP channel selection phase 1 due to spectral RSSI (-95 to -20,
+        default = -65).
+      source_attribute: threshold-spectral-rssi
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id021
+        description: Threshold in dBm to reject channel in DARRP channel selection phase 1 due to spectral RSSI (-95 to -20).
+        source_attribute: threshold_spectral_rssi
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 7
+        source_attribute: threshold_spectral_rssi
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Threshold in dBm to reject channel in DARRP channel selection phase 1 due to spectral RSSI (-95 to -20,
+          default = -65).
+        default: '-65'
+        max_length: 7
+        source_attribute: threshold-spectral-rssi
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  threshold_tx_retries:
+    canonical:
+      type: integer
+      version_ranges: &id022
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      default: '300'
+      min: 0
+      max: 1000
+      description: Threshold in percentage for transmit retries to trigger channel reselection in DARRP monitor stage (0 -
+        1000, default = 300).
+      source_attribute: threshold-tx-retries
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id022
+        description: Threshold in percentage for transmit retries to trigger channel reselection in DARRP monitor stage (0
+          - 1000).
+        source_attribute: threshold_tx_retries
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 1000
+        source_attribute: threshold_tx_retries
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Threshold in percentage for transmit retries to trigger channel reselection in DARRP monitor stage (0
+          - 1000, default = 300).
+        default: '300'
+        min: 0
+        max: 1000
+        source_attribute: threshold-tx-retries
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  weight_channel_load:
+    canonical:
+      type: integer
+      version_ranges: &id023
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      default: '20'
+      min: 0
+      max: 2000
+      description: Weight in DARRP channel score calculation for channel load (0 - 2000, default = 20).
+      source_attribute: weight-channel-load
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id023
+        description: Weight in DARRP channel score calculation for channel load (0 - 200).
+        source_attribute: weight_channel_load
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 2000
+        source_attribute: weight_channel_load
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Weight in DARRP channel score calculation for channel load (0 - 2000, default = 20).
+        default: '20'
+        min: 0
+        max: 2000
+        source_attribute: weight-channel-load
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  weight_dfs_channel:
+    canonical:
+      type: integer
+      version_ranges: &id024
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      default: '0'
+      min: 0
+      max: 2000
+      description: Weight in DARRP channel score calculation for DFS channel (0 - 2000, default = 0).
+      source_attribute: weight-dfs-channel
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id024
+        description: Weight in DARRP channel score calculation for DFS channel (0 - 200).
+        source_attribute: weight_dfs_channel
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 2000
+        source_attribute: weight_dfs_channel
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Weight in DARRP channel score calculation for DFS channel (0 - 2000, default = 0).
+        default: '0'
+        min: 0
+        max: 2000
+        source_attribute: weight-dfs-channel
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  weight_managed_ap:
+    canonical:
+      type: integer
+      version_ranges: &id025
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      default: '50'
+      min: 0
+      max: 2000
+      description: Weight in DARRP channel score calculation for managed APs (0 - 2000, default = 50).
+      source_attribute: weight-managed-ap
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id025
+        description: Weight in DARRP channel score calculation for managed APs (0 - 200).
+        source_attribute: weight_managed_ap
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 2000
+        source_attribute: weight_managed_ap
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Weight in DARRP channel score calculation for managed APs (0 - 2000, default = 50).
+        default: '50'
+        min: 0
+        max: 2000
+        source_attribute: weight-managed-ap
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  weight_noise_floor:
+    canonical:
+      type: integer
+      version_ranges: &id026
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      default: '40'
+      min: 0
+      max: 2000
+      description: Weight in DARRP channel score calculation for noise floor (0 - 2000, default = 40).
+      source_attribute: weight-noise-floor
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id026
+        description: Weight in DARRP channel score calculation for noise floor (0 - 200).
+        source_attribute: weight_noise_floor
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 2000
+        source_attribute: weight_noise_floor
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Weight in DARRP channel score calculation for noise floor (0 - 2000, default = 40).
+        default: '40'
+        min: 0
+        max: 2000
+        source_attribute: weight-noise-floor
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  weight_rogue_ap:
+    canonical:
+      type: integer
+      version_ranges: &id027
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      default: '10'
+      min: 0
+      max: 2000
+      description: Weight in DARRP channel score calculation for rogue APs (0 - 2000, default = 10).
+      source_attribute: weight-rogue-ap
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id027
+        description: Weight in DARRP channel score calculation for rogue APs (0 - 200).
+        source_attribute: weight_rogue_ap
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 2000
+        source_attribute: weight_rogue_ap
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Weight in DARRP channel score calculation for rogue APs (0 - 2000, default = 10).
+        default: '10'
+        min: 0
+        max: 2000
+        source_attribute: weight-rogue-ap
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  weight_spectral_rssi:
+    canonical:
+      type: integer
+      version_ranges: &id028
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      default: '40'
+      min: 0
+      max: 2000
+      description: Weight in DARRP channel score calculation for spectral RSSI (0 - 2000, default = 40).
+      source_attribute: weight-spectral-rssi
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id028
+        description: Weight in DARRP channel score calculation for spectral RSSI (0 - 200).
+        source_attribute: weight_spectral_rssi
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 2000
+        source_attribute: weight_spectral_rssi
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Weight in DARRP channel score calculation for spectral RSSI (0 - 2000, default = 40).
+        default: '40'
+        min: 0
+        max: 2000
+        source_attribute: weight-spectral-rssi
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  weight_weather_channel:
+    canonical:
+      type: integer
+      version_ranges: &id029
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      default: '0'
+      min: 0
+      max: 2000
+      description: Weight in DARRP channel score calculation for weather channel (0 - 2000, default = 0).
+      source_attribute: weight-weather-channel
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id029
+        description: Weight in DARRP channel score calculation for weather channel (0 - 200).
+        source_attribute: weight_weather_channel
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 2000
+        source_attribute: weight_weather_channel
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Weight in DARRP channel score calculation for weather channel (0 - 2000, default = 0).
+        default: '0'
+        min: 0
+        max: 2000
+        source_attribute: weight-weather-channel
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: darrp_optimize_schedules
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

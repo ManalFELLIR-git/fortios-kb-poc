@@ -1,0 +1,541 @@
+id: system.ha
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/857448677/config-system-ha
+attributes:
+  arps:
+    type: integer
+    raw_type: integer
+    description: Number of gratuitous ARPs (1 - 60). Lower to reduce traffic. Higher to reduce failover time.
+    default: '5'
+    min: 1
+    max: 60
+  arps-interval:
+    type: integer
+    raw_type: integer
+    description: Time between gratuitous ARPs (1 - 20 sec). Lower to reduce failover time. Higher to reduce traffic.
+    default: '8'
+    min: 1
+    max: 20
+  authentication:
+    type: enum
+    raw_type: option
+    description: Enable/disable heartbeat message authentication.
+    default: disable
+  auto-virtual-mac-interface:
+    type: string
+    raw_type: string
+    description: The physical interface that will be assigned an auto-generated virtual MAC address. Interface name.
+    max_length: 15
+  backup-hbdev:
+    type: string
+    raw_type: string
+    description: Backup heartbeat interfaces. Must be the same for all members. Interface name.
+    max_length: 79
+  bounce-intf-upon-failover:
+    type: enum
+    raw_type: option
+    description: Enable/disable notification of kernel to bring down and up all monitored interfaces. The setting is used
+      during failovers if gratuitous ARPs do not update the network.
+    default: disable
+  check-secondary-dev-health:
+    type: enum
+    raw_type: option
+    description: Enable/disable secondary dev health check for session load-balance in HA A-A mode.
+    default: disable
+  cpu-threshold:
+    type: string
+    raw_type: user
+    description: Dynamic weighted load balancing CPU usage weight and high and low thresholds.
+  encryption:
+    type: enum
+    raw_type: option
+    description: Enable/disable heartbeat message encryption.
+    default: disable
+  evpn-ttl:
+    type: integer
+    raw_type: integer
+    description: HA EVPN FDB TTL on primary box (5 - 3600 sec).
+    default: '60'
+    min: 5
+    max: 3600
+  failover-hold-time:
+    type: integer
+    raw_type: integer
+    description: Time to wait before failover (0 - 300 sec, default = 0), to avoid flip.
+    default: '0'
+    min: 0
+    max: 300
+  ftp-proxy-threshold:
+    type: string
+    raw_type: user
+    description: Dynamic weighted load balancing weight and high and low number of FTP proxy sessions.
+  gratuitous-arps:
+    type: enum
+    raw_type: option
+    description: Enable/disable gratuitous ARPs. Disable if link-failed-signal enabled.
+    default: enable
+  group-id:
+    type: integer
+    raw_type: integer
+    description: HA group ID (0 - 1023; or 0 - 7 when there are more than 2 vclusters). Must be the same for all members.
+    default: '0'
+    min: 0
+    max: 1023
+  group-name:
+    type: string
+    raw_type: string
+    description: Cluster group name. Must be the same for all members.
+    max_length: 32
+  ha-direct:
+    type: enum
+    raw_type: option
+    description: Enable/disable using ha-mgmt interface for syslog, remote authentication (RADIUS), FortiAnalyzer, FortiSandbox,
+      sFlow, and Netflow.
+    default: disable
+  ha-eth-type:
+    type: string
+    raw_type: string
+    description: HA heartbeat packet Ethertype (4-digit hex).
+    default: '8890'
+    max_length: 4
+  ha-mgmt-status:
+    type: enum
+    raw_type: option
+    description: Enable to reserve interfaces to manage individual cluster units.
+    default: disable
+  ha-uptime-diff-margin:
+    type: integer
+    raw_type: integer
+    description: Normally you would only reduce this value for failover testing.
+    default: '300'
+    min: 1
+    max: 65535
+  hb-interval:
+    type: integer
+    raw_type: integer
+    description: Time between sending heartbeat packets (1 - 20). Increase to reduce false positives.
+    default: '2'
+    min: 1
+    max: 20
+  hb-interval-in-milliseconds:
+    type: enum
+    raw_type: option
+    description: Units of heartbeat interval time between sending heartbeat packets. Default is 100ms.
+    default: 100ms
+  hb-lost-threshold:
+    type: integer
+    raw_type: integer
+    description: Number of lost heartbeats to signal a failure (1 - 60). Increase to reduce false positives.
+    default: 6 **
+    min: 1
+    max: 60
+  hbdev:
+    type: string
+    raw_type: user
+    description: Heartbeat interfaces. Must be the same for all members. Enter <interface> <priority> pairs to specify the
+      priority of each heartbeat interface. Higher priority takes precedence.
+  hc-eth-type:
+    type: string
+    raw_type: string
+    description: Transparent mode HA heartbeat packet Ethertype (4-digit hex).
+    default: '8891'
+    max_length: 4
+  hello-holddown:
+    type: integer
+    raw_type: integer
+    description: Time to wait before changing from hello to work state (5 - 300 sec).
+    default: '20'
+    min: 5
+    max: 300
+  http-proxy-threshold:
+    type: string
+    raw_type: user
+    description: Dynamic weighted load balancing weight and high and low number of HTTP proxy sessions.
+  imap-proxy-threshold:
+    type: string
+    raw_type: user
+    description: Dynamic weighted load balancing weight and high and low number of IMAP proxy sessions.
+  ipsec-phase2-proposal:
+    type: enum
+    raw_type: option
+    description: IPsec phase2 proposal.
+  key:
+    type: password
+    raw_type: password
+    description: Key.
+  l2ep-eth-type:
+    type: string
+    raw_type: string
+    description: Telnet session HA heartbeat packet Ethertype (4-digit hex).
+    default: '8893'
+    max_length: 4
+  link-failed-signal:
+    type: enum
+    raw_type: option
+    description: Enable to shut down all interfaces for 1 sec after a failover. Use if gratuitous ARPs do not update network.
+    default: disable
+  load-balance-all:
+    type: enum
+    raw_type: option
+    description: Enable to load balance TCP sessions. Disable to load balance proxy sessions only.
+    default: disable
+  logical-sn:
+    type: enum
+    raw_type: option
+    description: Enable/disable usage of the logical serial number.
+    default: disable
+  memory-based-failover:
+    type: enum
+    raw_type: option
+    description: Enable/disable memory based failover.
+    default: disable
+  memory-compatible-mode:
+    type: enum
+    raw_type: option
+    description: Enable/disable memory compatible mode.
+    default: disable
+  memory-failover-flip-timeout:
+    type: integer
+    raw_type: integer
+    description: Time to wait between subsequent memory based failovers in minutes (6 - 2147483647, default = 6).
+    default: '6'
+    min: 6
+    max: 2147483647
+  memory-failover-monitor-period:
+    type: integer
+    raw_type: integer
+    description: Duration of high memory usage before memory based failover is triggered in seconds (1 - 300, default = 60).
+    default: '60'
+    min: 1
+    max: 300
+  memory-failover-sample-rate:
+    type: integer
+    raw_type: integer
+    description: Rate at which memory usage is sampled in order to measure memory usage in seconds (1 - 60, default = 1).
+    default: '1'
+    min: 1
+    max: 60
+  memory-failover-threshold:
+    type: integer
+    raw_type: integer
+    description: Memory usage threshold to trigger memory based failover (0 means using conserve mode threshold in system.global).
+    default: '0'
+    min: 0
+    max: 95
+  memory-threshold:
+    type: string
+    raw_type: user
+    description: Dynamic weighted load balancing memory usage weight and high and low thresholds.
+  mode:
+    type: enum
+    raw_type: option
+    description: HA mode. Must be the same for all members. FGSP requires standalone.
+    default: standalone
+  monitor:
+    type: string
+    raw_type: user
+    description: Interfaces to check for port monitoring (or link failure).
+  multicast-ttl:
+    type: integer
+    raw_type: integer
+    description: HA multicast TTL on primary (5 - 3600 sec).
+    default: '600'
+    min: 5
+    max: 3600
+  nntp-proxy-threshold:
+    type: string
+    raw_type: user
+    description: Dynamic weighted load balancing weight and high and low number of NNTP proxy sessions.
+  override:
+    type: enum
+    raw_type: option
+    description: Enable and increase the priority of the unit that should always be primary (master).
+    default: disable
+  override-wait-time:
+    type: integer
+    raw_type: integer
+    description: Delay negotiating if override is enabled (0 - 3600 sec). Reduces how often the cluster negotiates.
+    default: '0'
+    min: 0
+    max: 3600
+  password:
+    type: password
+    raw_type: password
+    description: Cluster password. Must be the same for all members.
+  pingserver-failover-threshold:
+    type: integer
+    raw_type: integer
+    description: Remote IP monitoring failover threshold (0 - 50).
+    default: '0'
+    min: 0
+    max: 50
+  pingserver-flip-timeout:
+    type: integer
+    raw_type: integer
+    description: Time to wait in minutes before renegotiating after a remote IP monitoring failover.
+    default: '60'
+    min: 6
+    max: 2147483647
+  pingserver-monitor-interface:
+    type: string
+    raw_type: user
+    description: Interfaces to check for remote IP monitoring.
+  pingserver-secondary-force-reset:
+    type: enum
+    raw_type: option
+    description: Enable to force the cluster to negotiate after a remote IP monitoring failover.
+    default: enable
+  pop3-proxy-threshold:
+    type: string
+    raw_type: user
+    description: Dynamic weighted load balancing weight and high and low number of POP3 proxy sessions.
+  priority:
+    type: integer
+    raw_type: integer
+    description: Increase the priority to select the primary unit (0 - 255).
+    default: '128'
+    min: 0
+    max: 255
+  route-hold:
+    type: integer
+    raw_type: integer
+    description: Time to wait between routing table updates to the cluster (0 - 3600 sec).
+    default: '10'
+    min: 0
+    max: 3600
+  route-ttl:
+    type: integer
+    raw_type: integer
+    description: TTL for primary unit routes (5 - 3600 sec). Increase to maintain active routes during failover.
+    default: '10'
+    min: 5
+    max: 3600
+  route-wait:
+    type: integer
+    raw_type: integer
+    description: Time to wait before sending new routes to the cluster (0 - 3600 sec).
+    default: '0'
+    min: 0
+    max: 3600
+  schedule:
+    type: enum
+    raw_type: option
+    description: Type of A-A load balancing. Use none if you have external load balancers.
+    default: round-robin
+  session-pickup:
+    type: enum
+    raw_type: option
+    description: Enable/disable session pickup. Enabling it can reduce session down time when fail over happens.
+    default: disable
+  session-pickup-connectionless:
+    type: enum
+    raw_type: option
+    description: Enable/disable UDP and ICMP session sync.
+    default: disable
+  session-pickup-delay:
+    type: enum
+    raw_type: option
+    description: Enable to sync sessions longer than 30 sec. Only longer lived sessions need to be synced.
+    default: disable
+  session-pickup-expectation:
+    type: enum
+    raw_type: option
+    description: Enable/disable session helper expectation session sync for FGSP.
+    default: disable
+  session-pickup-nat:
+    type: enum
+    raw_type: option
+    description: Enable/disable NAT session sync for FGSP.
+    default: disable
+  session-sync-dev:
+    type: string
+    raw_type: user
+    description: Offload session-sync process to kernel and sync sessions using connected interface(s) directly.
+  smtp-proxy-threshold:
+    type: string
+    raw_type: user
+    description: Dynamic weighted load balancing weight and high and low number of SMTP proxy sessions.
+  ssd-failover:
+    type: enum
+    raw_type: option
+    description: Enable/disable automatic HA failover on SSD disk failure.
+    default: disable
+  standalone-config-sync:
+    type: enum
+    raw_type: option
+    description: Enable/disable FGSP configuration synchronization.
+    default: disable
+  standalone-mgmt-vdom:
+    type: enum
+    raw_type: option
+    description: Enable/disable standalone management VDOM.
+    default: disable
+  sync-config:
+    type: enum
+    raw_type: option
+    description: Enable/disable configuration synchronization.
+    default: enable
+  sync-packet-balance:
+    type: enum
+    raw_type: option
+    description: Enable/disable HA packet distribution to multiple CPUs.
+    default: disable
+  unicast-gateway:
+    type: ipv4-address
+    raw_type: ipv4-address
+    description: Default route gateway for unicast interface.
+    default: 0.0.0.0
+  unicast-hb:
+    type: enum
+    raw_type: option
+    description: Enable/disable unicast heartbeat.
+    default: disable
+  unicast-hb-netmask:
+    type: ipv4-netmask
+    raw_type: ipv4-netmask
+    description: Unicast heartbeat netmask.
+    default: 0.0.0.0
+  unicast-hb-peerip:
+    type: ipv4-address
+    raw_type: ipv4-address
+    description: Unicast heartbeat peer IP.
+    default: 0.0.0.0
+  unicast-status:
+    type: enum
+    raw_type: option
+    description: Enable/disable unicast connection.
+    default: disable
+  uninterruptible-primary-wait:
+    type: integer
+    raw_type: integer
+    description: Number of minutes the primary HA unit waits before the secondary HA unit is considered upgraded and the system
+      is started before starting its own upgrade (15 - 300, default = 30).
+    default: '30'
+    min: 15
+    max: 300
+  upgrade-mode:
+    type: enum
+    raw_type: option
+    description: The mode to upgrade a cluster.
+    default: uninterruptible
+  vcluster-status:
+    type: enum
+    raw_type: option
+    description: Enable/disable virtual cluster for virtual clustering.
+    default: disable
+  weight:
+    type: string
+    raw_type: user
+    description: Weight-round-robin weight for each cluster unit. Syntax <priority> <weight>.
+    default: 0 40
+children:
+  ha-mgmt-interfaces:
+    attributes:
+      dst:
+        type: ipv4-classnet
+        raw_type: ipv4-classnet
+        description: Default route destination for reserved HA management interface.
+        default: 0.0.0.0 0.0.0.0
+      dst6:
+        type: ipv6-prefix
+        raw_type: ipv6-prefix
+        description: Default IPv6 destination for reserved HA management interface.
+        default: ::/0
+      gateway:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Default route gateway for reserved HA management interface.
+        default: 0.0.0.0
+      gateway6:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: Default IPv6 gateway for reserved HA management interface.
+        default: '::'
+      id:
+        type: integer
+        raw_type: integer
+        description: Table ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      interface:
+        type: string
+        raw_type: string
+        description: Interface to reserve for HA management.
+        max_length: 15
+  unicast-peers:
+    attributes:
+      id:
+        type: integer
+        raw_type: integer
+        description: Table ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      peer-ip:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Unicast peer IP.
+        default: 0.0.0.0
+  vcluster:
+    attributes:
+      monitor:
+        type: string
+        raw_type: user
+        description: Interfaces to check for port monitoring (or link failure).
+      override:
+        type: enum
+        raw_type: option
+        description: Enable and increase the priority of the unit that should always be primary (master).
+        default: disable
+      override-wait-time:
+        type: integer
+        raw_type: integer
+        description: Delay negotiating if override is enabled (0 - 3600 sec). Reduces how often the cluster negotiates.
+        default: '0'
+        min: 0
+        max: 3600
+      pingserver-failover-threshold:
+        type: integer
+        raw_type: integer
+        description: Remote IP monitoring failover threshold (0 - 50).
+        default: '0'
+        min: 0
+        max: 50
+      pingserver-flip-timeout:
+        type: integer
+        raw_type: integer
+        description: Time to wait in minutes before renegotiating after a remote IP monitoring failover.
+        default: '60'
+        min: 6
+        max: 2147483647
+      pingserver-monitor-interface:
+        type: string
+        raw_type: user
+        description: Interfaces to check for remote IP monitoring.
+      pingserver-secondary-force-reset:
+        type: enum
+        raw_type: option
+        description: Enable to force the cluster to negotiate after a remote IP monitoring failover.
+        default: enable
+      priority:
+        type: integer
+        raw_type: integer
+        description: Increase the priority to select the primary unit (0 - 255).
+        default: '128'
+        min: 0
+        max: 255
+      vcluster-id:
+        type: integer
+        raw_type: integer
+        description: ID.
+        default: '1'
+        min: 1
+        max: 30
+      vdom:
+        type: string
+        raw_type: string
+        description: Virtual domain(s) in the virtual cluster. Virtual domain name.
+        max_length: 79

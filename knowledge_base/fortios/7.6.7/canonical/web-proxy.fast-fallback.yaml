@@ -1,0 +1,274 @@
+id: web-proxy.fast-fallback
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  connection_mode:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.4.1
+        - ''
+      choices: &id001
+      - sequentially
+      - simultaneously
+      default: sequentially
+      description: Connection mode for multiple destinations.
+      source_attribute: connection-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Connection mode for multiple destinations.
+        source_attribute: connection_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: connection_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Connection mode for multiple destinations.
+        default: sequentially
+        source_attribute: connection-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  connection_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id003
+      - - v7.4.1
+        - ''
+      default: '200'
+      min: 200
+      max: 1800000
+      description: Number of milliseconds to wait before starting another connection (200 - 1800000, default = 200). For sequential
+        connection-mode only.
+      source_attribute: connection-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id003
+        description: Number of milliseconds to wait before starting another connection (200 - 1800000). For sequential connection-mode
+          only.
+        source_attribute: connection_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 200
+        max: 1800000
+        source_attribute: connection_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Number of milliseconds to wait before starting another connection (200 - 1800000, default = 200). For
+          sequential connection-mode only.
+        default: '200'
+        min: 200
+        max: 1800000
+        source_attribute: connection-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id004
+      - - v7.4.1
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Configure a name for the fast-fallback entry.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id004
+        description: Configure a name for the fast-fallback entry.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 63
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Configure a name for the fast-fallback entry.
+        max_length: 63
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  protocol:
+    canonical:
+      type: enum
+      version_ranges: &id006
+      - - v7.4.1
+        - ''
+      choices: &id005
+      - IPv4-first
+      - IPv6-first
+      - IPv4-only
+      - IPv6-only
+      default: IPv4-first
+      description: Connection protocols for multiple destinations.
+      source_attribute: protocol
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Connection protocols for multiple destinations.
+        source_attribute: protocol
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: protocol
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Connection protocols for multiple destinations.
+        default: IPv4-first
+        source_attribute: protocol
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id008
+      - - v7.4.1
+        - ''
+      choices: &id007
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable the fast-fallback entry.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id007
+        version_ranges: *id008
+        description: Enable/disable the fast-fallback entry.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable the fast-fallback entry.
+        default: enable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

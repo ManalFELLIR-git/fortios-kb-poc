@@ -1,0 +1,239 @@
+id: firewall.ippool
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/182407590/config-firewall-ippool
+attributes:
+  add-nat64-route:
+    type: enum
+    raw_type: option
+    description: Enable/disable adding NAT64 route.
+    default: enable
+  arp-intf:
+    type: string
+    raw_type: string
+    description: Select an interface from available options that will reply to ARP requests. (If blank, any is selected).
+    max_length: 15
+  arp-reply:
+    type: enum
+    raw_type: option
+    description: Enable/disable replying to ARP requests when an IP Pool is added to a policy (default = enable).
+    default: enable
+  associated-interface:
+    type: string
+    raw_type: string
+    description: Associated interface name.
+    max_length: 15
+  block-size:
+    type: integer
+    raw_type: integer
+    description: Number of addresses in a block (64 - 4096, default = 128).
+    default: '128'
+    min: 64
+    max: 4096
+  cgn-block-size:
+    type: integer
+    raw_type: integer
+    description: Number of ports in a block(64 to 4096 in unit of 64, default = 128).
+    default: '128'
+    min: 64
+    max: 4096
+  cgn-client-endip:
+    type: string
+    raw_type: var-string
+    description: 'Final client IPv4 address (inclusive) (format xxx.xxx.xxx.xxx, Default: 0.0.0.0).'
+    max_length: 255
+  cgn-client-ipv6shift:
+    type: integer
+    raw_type: integer
+    description: IPv6 shift for fixed-allocation.(default 0)
+    default: '0'
+    min: 0
+    max: 127
+  cgn-client-startip:
+    type: string
+    raw_type: var-string
+    description: 'First client IPv4 address (inclusive) (format xxx.xxx.xxx.xxx, Default: 0.0.0.0).'
+    max_length: 255
+  cgn-fixedalloc:
+    type: enum
+    raw_type: option
+    description: Enable/disable fixed-allocation mode.
+    default: disable
+  cgn-overload:
+    type: enum
+    raw_type: option
+    description: Enable/disable overload mode.
+    default: disable
+  cgn-port-end:
+    type: integer
+    raw_type: integer
+    description: Ending public port can be allocated.
+    default: '65530'
+    min: 1024
+    max: 65535
+  cgn-port-start:
+    type: integer
+    raw_type: integer
+    description: Starting public port can be allocated.
+    default: '5117'
+    min: 1024
+    max: 65535
+  cgn-spa:
+    type: enum
+    raw_type: option
+    description: Enable/disable single port allocation mode.
+    default: disable
+  client-prefix-length:
+    type: integer
+    raw_type: integer
+    description: Subnet length of a single deterministic NAT64 client (1 - 128, default = 64).
+    default: '64'
+    min: 1
+    max: 128
+  comments:
+    type: string
+    raw_type: var-string
+    description: Comment.
+    max_length: 255
+  endip:
+    type: ipv4-address-any
+    raw_type: ipv4-address-any
+    description: 'Final IPv4 address (inclusive) in the range for the address pool (format xxx.xxx.xxx.xxx, Default: 0.0.0.0).'
+    default: 0.0.0.0
+  endport:
+    type: integer
+    raw_type: integer
+    description: 'Final port number (inclusive) in the range for the address pool (1024 - 65535, Default: 65533).'
+    default: '65533'
+    min: 1024
+    max: 65535
+  exclude-ip:
+    type: string
+    raw_type: string
+    description: Exclude IPs x.x.x.x. Exclude IPs (xxx.xxx.xxx.xxx)
+    max_length: 79
+  icmp-session-quota:
+    type: integer
+    raw_type: integer
+    description: Maximum number of concurrent ICMP sessions allowed per client (0 - 2097000, default = 0 which means no limit).
+    default: '0'
+    min: 0
+    max: 2097000
+  name:
+    type: string
+    raw_type: string
+    description: IP pool name.
+    max_length: 79
+  nat64:
+    type: enum
+    raw_type: option
+    description: Enable/disable NAT64.
+    default: disable
+  num-blocks-per-user:
+    type: integer
+    raw_type: integer
+    description: Number of addresses blocks that can be used by a user (1 to 128, default = 8).
+    default: '8'
+    min: 1
+    max: 128
+  pba-interim-log:
+    type: integer
+    raw_type: integer
+    description: Port block allocation interim logging interval (600 - 86400 seconds, default = 0 which disables interim logging).
+    default: '0'
+    min: 600
+    max: 86400
+  pba-timeout:
+    type: integer
+    raw_type: integer
+    description: Port block allocation timeout (seconds).
+    default: '30'
+    min: 3
+    max: 86400
+  permit-any-host:
+    type: enum
+    raw_type: option
+    description: Enable/disable fullcone NAT. Accept UDP packets from any host.
+    default: disable
+  port-per-user:
+    type: integer
+    raw_type: integer
+    description: Number of port for each user (32 - 60416, default = 0, which is auto).
+    default: '0'
+    min: 32
+    max: 60417
+  privileged-port-use-pba:
+    type: enum
+    raw_type: option
+    description: Enable/disable selection of the external port from the port block allocation for NAT'ing privileged ports
+      (deafult = disable).
+    default: disable
+  source-endip:
+    type: ipv4-address-any
+    raw_type: ipv4-address-any
+    description: 'Final IPv4 address (inclusive) in the range of the source addresses to be translated (format xxx.xxx.xxx.xxx,
+      Default: 0.0.0.0).'
+    default: 0.0.0.0
+  source-prefix6:
+    type: ipv6-network
+    raw_type: ipv6-network
+    description: Source IPv6 network to be translated (format = xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx/xxx, default = ::/0).
+    default: ::/0
+  source-startip:
+    type: ipv4-address-any
+    raw_type: ipv4-address-any
+    description: First IPv4 address (inclusive) in the range of the source addresses to be translated (format = xxx.xxx.xxx.xxx,
+      default = 0.0.0.0).
+    default: 0.0.0.0
+  startip:
+    type: ipv4-address-any
+    raw_type: ipv4-address-any
+    description: 'First IPv4 address (inclusive) in the range for the address pool (format xxx.xxx.xxx.xxx, Default: 0.0.0.0).'
+    default: 0.0.0.0
+  startport:
+    type: integer
+    raw_type: integer
+    description: 'First port number (inclusive) in the range for the address pool (1024 - 65535, Default: 5117).'
+    default: '5117'
+    min: 1024
+    max: 65535
+  subnet-broadcast-in-ippool:
+    type: enum
+    raw_type: option
+    description: Enable/disable inclusion of the subnetwork address and broadcast IP address in the NAT64 IP pool.
+  tcp-session-quota:
+    type: integer
+    raw_type: integer
+    description: Maximum number of concurrent TCP sessions allowed per client (0 - 2097000, default = 0 which means no limit).
+    default: '0'
+    min: 0
+    max: 2097000
+  type:
+    type: enum
+    raw_type: option
+    description: 'IP pool type: overload, one-to-one, fixed-port-range, port-block-allocation, cgn-resource-allocation (hyperscale
+      vdom only)'
+    default: overload
+  udp-session-quota:
+    type: integer
+    raw_type: integer
+    description: Maximum number of concurrent UDP sessions allowed per client (0 - 2097000, default = 0 which means no limit).
+    default: '0'
+    min: 0
+    max: 2097000
+  utilization-alarm-clear:
+    type: integer
+    raw_type: integer
+    description: Pool utilization alarm clear threshold (40-100).
+    default: '80'
+    min: 40
+    max: 100
+  utilization-alarm-raise:
+    type: integer
+    raw_type: integer
+    description: Pool utilization alarm raise threshold (50-100).
+    default: '100'
+    min: 50
+    max: 100
+children: {}

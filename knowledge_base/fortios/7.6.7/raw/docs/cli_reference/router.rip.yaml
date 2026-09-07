@@ -1,0 +1,251 @@
+id: router.rip
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/220705713/config-router-rip
+attributes:
+  default-information-originate:
+    type: enum
+    raw_type: option
+    description: Enable/disable generation of default route.
+    default: disable
+  default-metric:
+    type: integer
+    raw_type: integer
+    description: Default metric.
+    default: '1'
+    min: 1
+    max: 16
+  garbage-timer:
+    type: integer
+    raw_type: integer
+    description: Garbage timer in seconds.
+    default: '120'
+    min: 5
+    max: 2147483647
+  max-out-metric:
+    type: integer
+    raw_type: integer
+    description: Maximum metric allowed to output(0 means 'not set').
+    default: '0'
+    min: 0
+    max: 15
+  passive-interface:
+    type: string
+    raw_type: string
+    description: Passive interface configuration. Passive interface name.
+    max_length: 79
+  timeout-timer:
+    type: integer
+    raw_type: integer
+    description: Timeout timer in seconds.
+    default: '180'
+    min: 5
+    max: 2147483647
+  update-timer:
+    type: integer
+    raw_type: integer
+    description: Update timer in seconds.
+    default: '30'
+    min: 1
+    max: 2147483647
+  version:
+    type: enum
+    raw_type: option
+    description: RIP version.
+    default: '2'
+children:
+  distance:
+    attributes:
+      access-list:
+        type: string
+        raw_type: string
+        description: Access list for route destination.
+        max_length: 35
+      distance:
+        type: integer
+        raw_type: integer
+        description: Distance (1 - 255).
+        default: '0'
+        min: 1
+        max: 255
+      id:
+        type: integer
+        raw_type: integer
+        description: Distance ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      prefix:
+        type: ipv4-classnet-any
+        raw_type: ipv4-classnet-any
+        description: Distance prefix.
+        default: 0.0.0.0 0.0.0.0
+  distribute-list:
+    attributes:
+      direction:
+        type: enum
+        raw_type: option
+        description: Distribute list direction.
+        default: out
+      id:
+        type: integer
+        raw_type: integer
+        description: Distribute list ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      interface:
+        type: string
+        raw_type: string
+        description: Distribute list interface name.
+        max_length: 15
+      listname:
+        type: string
+        raw_type: string
+        description: Distribute access/prefix list name.
+        max_length: 35
+      status:
+        type: enum
+        raw_type: option
+        description: Status.
+        default: disable
+  interface:
+    attributes:
+      auth-keychain:
+        type: string
+        raw_type: string
+        description: Authentication key-chain name.
+        max_length: 35
+      auth-mode:
+        type: enum
+        raw_type: option
+        description: Authentication mode.
+        default: none
+      auth-string:
+        type: password
+        raw_type: password
+        description: Authentication string/password.
+      flags:
+        type: integer
+        raw_type: integer
+        description: Flags. Read-only.
+        default: '8'
+        min: 0
+        max: 255
+      name:
+        type: string
+        raw_type: string
+        description: Interface name.
+        max_length: 35
+      receive-version:
+        type: enum
+        raw_type: option
+        description: Receive version.
+      send-version:
+        type: enum
+        raw_type: option
+        description: Send version.
+      send-version2-broadcast:
+        type: enum
+        raw_type: option
+        description: Enable/disable broadcast version 1 compatible packets.
+        default: disable
+      split-horizon:
+        type: enum
+        raw_type: option
+        description: Enable/disable split horizon.
+        default: poisoned
+      split-horizon-status:
+        type: enum
+        raw_type: option
+        description: Enable/disable split horizon.
+        default: enable
+  neighbor:
+    attributes:
+      id:
+        type: integer
+        raw_type: integer
+        description: Neighbor entry ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      ip:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: IP address.
+        default: 0.0.0.0
+  network:
+    attributes:
+      id:
+        type: integer
+        raw_type: integer
+        description: Network entry ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      prefix:
+        type: ipv4-classnet
+        raw_type: ipv4-classnet
+        description: Network prefix.
+        default: 0.0.0.0 0.0.0.0
+  offset-list:
+    attributes:
+      access-list:
+        type: string
+        raw_type: string
+        description: Access list name.
+        max_length: 35
+      direction:
+        type: enum
+        raw_type: option
+        description: Offset list direction.
+        default: out
+      id:
+        type: integer
+        raw_type: integer
+        description: Offset-list ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      interface:
+        type: string
+        raw_type: string
+        description: Interface name.
+        max_length: 15
+      offset:
+        type: integer
+        raw_type: integer
+        description: Offset.
+        default: '0'
+        min: 1
+        max: 16
+      status:
+        type: enum
+        raw_type: option
+        description: Status.
+        default: enable
+  redistribute:
+    attributes:
+      metric:
+        type: integer
+        raw_type: integer
+        description: Redistribute metric setting.
+        default: '0'
+        min: 1
+        max: 16
+      name:
+        type: string
+        raw_type: string
+        description: Redistribute name.
+        max_length: 35
+      routemap:
+        type: string
+        raw_type: string
+        description: Route map name.
+        max_length: 35
+      status:
+        type: enum
+        raw_type: option
+        description: Status.
+        default: disable

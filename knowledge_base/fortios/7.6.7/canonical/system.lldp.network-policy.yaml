@@ -1,0 +1,2414 @@
+id: system.lldp.network-policy
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 1023
+      description: Comment.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Comment.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 1023
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 1023
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  guest:
+    canonical:
+      type: list
+      children: &id003
+        status:
+          type: enum
+          raw_type: string
+          choices: &id008
+          - disable
+          - enable
+          version_ranges: &id007
+          - - v6.2.0
+            - ''
+          description: Enable/disable advertising this policy.
+        tag:
+          type: enum
+          raw_type: string
+          choices: &id010
+          - none
+          - dot1q
+          - dot1p
+          version_ranges: &id009
+          - - v6.2.0
+            - ''
+          description: Advertise tagged or untagged traffic.
+        vlan:
+          type: integer
+          raw_type: integer
+          version_ranges: &id011
+          - - v6.2.0
+            - ''
+          description: 802.1Q VLAN ID to advertise (1 - 4094).
+        priority:
+          type: integer
+          raw_type: integer
+          version_ranges: &id006
+          - - v6.2.0
+            - ''
+          description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+        dscp:
+          type: integer
+          raw_type: integer
+          version_ranges: &id005
+          - - v6.2.0
+            - ''
+          description: Differentiated Services Code Point (DSCP) value to advertise.
+      version_ranges: &id002
+      - - v6.2.0
+        - ''
+      description: Guest.
+      source_attribute: guest
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id002
+        description: Guest.
+        children: *id003
+        source_attribute: guest
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          tag:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          vlan:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 4094
+          priority:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 7
+          dscp:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 63
+        source_attribute: guest
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id004
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id004
+  guest.dscp:
+    canonical:
+      type: integer
+      version_ranges: *id005
+      min: 0
+      max: 63
+      description: Differentiated Services Code Point (DSCP) value to advertise.
+      source_attribute: guest.dscp
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id005
+        description: Differentiated Services Code Point (DSCP) value to advertise.
+        source_attribute: guest.dscp
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 63
+        source_attribute: guest.dscp
+    sources:
+    - ansible
+    - terraform
+  guest.priority:
+    canonical:
+      type: integer
+      version_ranges: *id006
+      min: 0
+      max: 7
+      description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+      source_attribute: guest.priority
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id006
+        description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+        source_attribute: guest.priority
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 7
+        source_attribute: guest.priority
+    sources:
+    - ansible
+    - terraform
+  guest.status:
+    canonical:
+      type: enum
+      version_ranges: *id007
+      choices: *id008
+      description: Enable/disable advertising this policy.
+      source_attribute: guest.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id008
+        version_ranges: *id007
+        description: Enable/disable advertising this policy.
+        source_attribute: guest.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: guest.status
+    sources:
+    - ansible
+    - terraform
+  guest.tag:
+    canonical:
+      type: enum
+      version_ranges: *id009
+      choices: *id010
+      description: Advertise tagged or untagged traffic.
+      source_attribute: guest.tag
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id009
+        description: Advertise tagged or untagged traffic.
+        source_attribute: guest.tag
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: guest.tag
+    sources:
+    - ansible
+    - terraform
+  guest.vlan:
+    canonical:
+      type: integer
+      version_ranges: *id011
+      min: 1
+      max: 4094
+      description: 802.1Q VLAN ID to advertise (1 - 4094).
+      source_attribute: guest.vlan
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id011
+        description: 802.1Q VLAN ID to advertise (1 - 4094).
+        source_attribute: guest.vlan
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 4094
+        source_attribute: guest.vlan
+    sources:
+    - ansible
+    - terraform
+  guest_voice_signaling:
+    canonical:
+      type: list
+      children: &id013
+        status:
+          type: enum
+          raw_type: string
+          choices: &id018
+          - disable
+          - enable
+          version_ranges: &id017
+          - - v6.2.0
+            - ''
+          description: Enable/disable advertising this policy.
+        tag:
+          type: enum
+          raw_type: string
+          choices: &id020
+          - none
+          - dot1q
+          - dot1p
+          version_ranges: &id019
+          - - v6.2.0
+            - ''
+          description: Advertise tagged or untagged traffic.
+        vlan:
+          type: integer
+          raw_type: integer
+          version_ranges: &id021
+          - - v6.2.0
+            - ''
+          description: 802.1Q VLAN ID to advertise (1 - 4094).
+        priority:
+          type: integer
+          raw_type: integer
+          version_ranges: &id016
+          - - v6.2.0
+            - ''
+          description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+        dscp:
+          type: integer
+          raw_type: integer
+          version_ranges: &id015
+          - - v6.2.0
+            - ''
+          description: Differentiated Services Code Point (DSCP) value to advertise.
+      version_ranges: &id012
+      - - v6.2.0
+        - ''
+      description: Guest Voice Signaling.
+      source_attribute: guest_voice_signaling
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id012
+        description: Guest Voice Signaling.
+        children: *id013
+        source_attribute: guest_voice_signaling
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          tag:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          vlan:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 4094
+          priority:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 7
+          dscp:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 63
+        source_attribute: guest_voice_signaling
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id014
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id014
+  guest_voice_signaling.dscp:
+    canonical:
+      type: integer
+      version_ranges: *id015
+      min: 0
+      max: 63
+      description: Differentiated Services Code Point (DSCP) value to advertise.
+      source_attribute: guest_voice_signaling.dscp
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id015
+        description: Differentiated Services Code Point (DSCP) value to advertise.
+        source_attribute: guest_voice_signaling.dscp
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 63
+        source_attribute: guest_voice_signaling.dscp
+    sources:
+    - ansible
+    - terraform
+  guest_voice_signaling.priority:
+    canonical:
+      type: integer
+      version_ranges: *id016
+      min: 0
+      max: 7
+      description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+      source_attribute: guest_voice_signaling.priority
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id016
+        description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+        source_attribute: guest_voice_signaling.priority
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 7
+        source_attribute: guest_voice_signaling.priority
+    sources:
+    - ansible
+    - terraform
+  guest_voice_signaling.status:
+    canonical:
+      type: enum
+      version_ranges: *id017
+      choices: *id018
+      description: Enable/disable advertising this policy.
+      source_attribute: guest_voice_signaling.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id018
+        version_ranges: *id017
+        description: Enable/disable advertising this policy.
+        source_attribute: guest_voice_signaling.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: guest_voice_signaling.status
+    sources:
+    - ansible
+    - terraform
+  guest_voice_signaling.tag:
+    canonical:
+      type: enum
+      version_ranges: *id019
+      choices: *id020
+      description: Advertise tagged or untagged traffic.
+      source_attribute: guest_voice_signaling.tag
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id020
+        version_ranges: *id019
+        description: Advertise tagged or untagged traffic.
+        source_attribute: guest_voice_signaling.tag
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: guest_voice_signaling.tag
+    sources:
+    - ansible
+    - terraform
+  guest_voice_signaling.vlan:
+    canonical:
+      type: integer
+      version_ranges: *id021
+      min: 1
+      max: 4094
+      description: 802.1Q VLAN ID to advertise (1 - 4094).
+      source_attribute: guest_voice_signaling.vlan
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id021
+        description: 802.1Q VLAN ID to advertise (1 - 4094).
+        source_attribute: guest_voice_signaling.vlan
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 4094
+        source_attribute: guest_voice_signaling.vlan
+    sources:
+    - ansible
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id022
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: LLDP network policy name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id022
+        description: LLDP network policy name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: LLDP network policy name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  softphone:
+    canonical:
+      type: list
+      children: &id024
+        status:
+          type: enum
+          raw_type: string
+          choices: &id029
+          - disable
+          - enable
+          version_ranges: &id028
+          - - v6.2.0
+            - ''
+          description: Enable/disable advertising this policy.
+        tag:
+          type: enum
+          raw_type: string
+          choices: &id031
+          - none
+          - dot1q
+          - dot1p
+          version_ranges: &id030
+          - - v6.2.0
+            - ''
+          description: Advertise tagged or untagged traffic.
+        vlan:
+          type: integer
+          raw_type: integer
+          version_ranges: &id032
+          - - v6.2.0
+            - ''
+          description: 802.1Q VLAN ID to advertise (1 - 4094).
+        priority:
+          type: integer
+          raw_type: integer
+          version_ranges: &id027
+          - - v6.2.0
+            - ''
+          description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+        dscp:
+          type: integer
+          raw_type: integer
+          version_ranges: &id026
+          - - v6.2.0
+            - ''
+          description: Differentiated Services Code Point (DSCP) value to advertise.
+      version_ranges: &id023
+      - - v6.2.0
+        - ''
+      description: Softphone.
+      source_attribute: softphone
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id023
+        description: Softphone.
+        children: *id024
+        source_attribute: softphone
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          tag:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          vlan:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 4094
+          priority:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 7
+          dscp:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 63
+        source_attribute: softphone
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id025
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id025
+  softphone.dscp:
+    canonical:
+      type: integer
+      version_ranges: *id026
+      min: 0
+      max: 63
+      description: Differentiated Services Code Point (DSCP) value to advertise.
+      source_attribute: softphone.dscp
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id026
+        description: Differentiated Services Code Point (DSCP) value to advertise.
+        source_attribute: softphone.dscp
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 63
+        source_attribute: softphone.dscp
+    sources:
+    - ansible
+    - terraform
+  softphone.priority:
+    canonical:
+      type: integer
+      version_ranges: *id027
+      min: 0
+      max: 7
+      description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+      source_attribute: softphone.priority
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id027
+        description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+        source_attribute: softphone.priority
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 7
+        source_attribute: softphone.priority
+    sources:
+    - ansible
+    - terraform
+  softphone.status:
+    canonical:
+      type: enum
+      version_ranges: *id028
+      choices: *id029
+      description: Enable/disable advertising this policy.
+      source_attribute: softphone.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id029
+        version_ranges: *id028
+        description: Enable/disable advertising this policy.
+        source_attribute: softphone.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: softphone.status
+    sources:
+    - ansible
+    - terraform
+  softphone.tag:
+    canonical:
+      type: enum
+      version_ranges: *id030
+      choices: *id031
+      description: Advertise tagged or untagged traffic.
+      source_attribute: softphone.tag
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id031
+        version_ranges: *id030
+        description: Advertise tagged or untagged traffic.
+        source_attribute: softphone.tag
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: softphone.tag
+    sources:
+    - ansible
+    - terraform
+  softphone.vlan:
+    canonical:
+      type: integer
+      version_ranges: *id032
+      min: 1
+      max: 4094
+      description: 802.1Q VLAN ID to advertise (1 - 4094).
+      source_attribute: softphone.vlan
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id032
+        description: 802.1Q VLAN ID to advertise (1 - 4094).
+        source_attribute: softphone.vlan
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 4094
+        source_attribute: softphone.vlan
+    sources:
+    - ansible
+    - terraform
+  streaming_video:
+    canonical:
+      type: list
+      children: &id034
+        status:
+          type: enum
+          raw_type: string
+          choices: &id039
+          - disable
+          - enable
+          version_ranges: &id038
+          - - v6.2.0
+            - ''
+          description: Enable/disable advertising this policy.
+        tag:
+          type: enum
+          raw_type: string
+          choices: &id041
+          - none
+          - dot1q
+          - dot1p
+          version_ranges: &id040
+          - - v6.2.0
+            - ''
+          description: Advertise tagged or untagged traffic.
+        vlan:
+          type: integer
+          raw_type: integer
+          version_ranges: &id042
+          - - v6.2.0
+            - ''
+          description: 802.1Q VLAN ID to advertise (1 - 4094).
+        priority:
+          type: integer
+          raw_type: integer
+          version_ranges: &id037
+          - - v6.2.0
+            - ''
+          description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+        dscp:
+          type: integer
+          raw_type: integer
+          version_ranges: &id036
+          - - v6.2.0
+            - ''
+          description: Differentiated Services Code Point (DSCP) value to advertise.
+      version_ranges: &id033
+      - - v6.2.0
+        - ''
+      description: Streaming Video.
+      source_attribute: streaming_video
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id033
+        description: Streaming Video.
+        children: *id034
+        source_attribute: streaming_video
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          tag:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          vlan:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 4094
+          priority:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 7
+          dscp:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 63
+        source_attribute: streaming_video
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id035
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id035
+  streaming_video.dscp:
+    canonical:
+      type: integer
+      version_ranges: *id036
+      min: 0
+      max: 63
+      description: Differentiated Services Code Point (DSCP) value to advertise.
+      source_attribute: streaming_video.dscp
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id036
+        description: Differentiated Services Code Point (DSCP) value to advertise.
+        source_attribute: streaming_video.dscp
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 63
+        source_attribute: streaming_video.dscp
+    sources:
+    - ansible
+    - terraform
+  streaming_video.priority:
+    canonical:
+      type: integer
+      version_ranges: *id037
+      min: 0
+      max: 7
+      description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+      source_attribute: streaming_video.priority
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id037
+        description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+        source_attribute: streaming_video.priority
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 7
+        source_attribute: streaming_video.priority
+    sources:
+    - ansible
+    - terraform
+  streaming_video.status:
+    canonical:
+      type: enum
+      version_ranges: *id038
+      choices: *id039
+      description: Enable/disable advertising this policy.
+      source_attribute: streaming_video.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id039
+        version_ranges: *id038
+        description: Enable/disable advertising this policy.
+        source_attribute: streaming_video.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: streaming_video.status
+    sources:
+    - ansible
+    - terraform
+  streaming_video.tag:
+    canonical:
+      type: enum
+      version_ranges: *id040
+      choices: *id041
+      description: Advertise tagged or untagged traffic.
+      source_attribute: streaming_video.tag
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id041
+        version_ranges: *id040
+        description: Advertise tagged or untagged traffic.
+        source_attribute: streaming_video.tag
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: streaming_video.tag
+    sources:
+    - ansible
+    - terraform
+  streaming_video.vlan:
+    canonical:
+      type: integer
+      version_ranges: *id042
+      min: 1
+      max: 4094
+      description: 802.1Q VLAN ID to advertise (1 - 4094).
+      source_attribute: streaming_video.vlan
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id042
+        description: 802.1Q VLAN ID to advertise (1 - 4094).
+        source_attribute: streaming_video.vlan
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 4094
+        source_attribute: streaming_video.vlan
+    sources:
+    - ansible
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  video_conferencing:
+    canonical:
+      type: list
+      children: &id044
+        status:
+          type: enum
+          raw_type: string
+          choices: &id049
+          - disable
+          - enable
+          version_ranges: &id048
+          - - v6.2.0
+            - ''
+          description: Enable/disable advertising this policy.
+        tag:
+          type: enum
+          raw_type: string
+          choices: &id051
+          - none
+          - dot1q
+          - dot1p
+          version_ranges: &id050
+          - - v6.2.0
+            - ''
+          description: Advertise tagged or untagged traffic.
+        vlan:
+          type: integer
+          raw_type: integer
+          version_ranges: &id052
+          - - v6.2.0
+            - ''
+          description: 802.1Q VLAN ID to advertise (1 - 4094).
+        priority:
+          type: integer
+          raw_type: integer
+          version_ranges: &id047
+          - - v6.2.0
+            - ''
+          description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+        dscp:
+          type: integer
+          raw_type: integer
+          version_ranges: &id046
+          - - v6.2.0
+            - ''
+          description: Differentiated Services Code Point (DSCP) value to advertise.
+      version_ranges: &id043
+      - - v6.2.0
+        - ''
+      description: Video Conferencing.
+      source_attribute: video_conferencing
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id043
+        description: Video Conferencing.
+        children: *id044
+        source_attribute: video_conferencing
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          tag:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          vlan:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 4094
+          priority:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 7
+          dscp:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 63
+        source_attribute: video_conferencing
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id045
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id045
+  video_conferencing.dscp:
+    canonical:
+      type: integer
+      version_ranges: *id046
+      min: 0
+      max: 63
+      description: Differentiated Services Code Point (DSCP) value to advertise.
+      source_attribute: video_conferencing.dscp
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id046
+        description: Differentiated Services Code Point (DSCP) value to advertise.
+        source_attribute: video_conferencing.dscp
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 63
+        source_attribute: video_conferencing.dscp
+    sources:
+    - ansible
+    - terraform
+  video_conferencing.priority:
+    canonical:
+      type: integer
+      version_ranges: *id047
+      min: 0
+      max: 7
+      description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+      source_attribute: video_conferencing.priority
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id047
+        description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+        source_attribute: video_conferencing.priority
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 7
+        source_attribute: video_conferencing.priority
+    sources:
+    - ansible
+    - terraform
+  video_conferencing.status:
+    canonical:
+      type: enum
+      version_ranges: *id048
+      choices: *id049
+      description: Enable/disable advertising this policy.
+      source_attribute: video_conferencing.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id049
+        version_ranges: *id048
+        description: Enable/disable advertising this policy.
+        source_attribute: video_conferencing.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: video_conferencing.status
+    sources:
+    - ansible
+    - terraform
+  video_conferencing.tag:
+    canonical:
+      type: enum
+      version_ranges: *id050
+      choices: *id051
+      description: Advertise tagged or untagged traffic.
+      source_attribute: video_conferencing.tag
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id051
+        version_ranges: *id050
+        description: Advertise tagged or untagged traffic.
+        source_attribute: video_conferencing.tag
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: video_conferencing.tag
+    sources:
+    - ansible
+    - terraform
+  video_conferencing.vlan:
+    canonical:
+      type: integer
+      version_ranges: *id052
+      min: 1
+      max: 4094
+      description: 802.1Q VLAN ID to advertise (1 - 4094).
+      source_attribute: video_conferencing.vlan
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id052
+        description: 802.1Q VLAN ID to advertise (1 - 4094).
+        source_attribute: video_conferencing.vlan
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 4094
+        source_attribute: video_conferencing.vlan
+    sources:
+    - ansible
+    - terraform
+  video_signaling:
+    canonical:
+      type: list
+      children: &id054
+        status:
+          type: enum
+          raw_type: string
+          choices: &id059
+          - disable
+          - enable
+          version_ranges: &id058
+          - - v6.2.0
+            - ''
+          description: Enable/disable advertising this policy.
+        tag:
+          type: enum
+          raw_type: string
+          choices: &id061
+          - none
+          - dot1q
+          - dot1p
+          version_ranges: &id060
+          - - v6.2.0
+            - ''
+          description: Advertise tagged or untagged traffic.
+        vlan:
+          type: integer
+          raw_type: integer
+          version_ranges: &id062
+          - - v6.2.0
+            - ''
+          description: 802.1Q VLAN ID to advertise (1 - 4094).
+        priority:
+          type: integer
+          raw_type: integer
+          version_ranges: &id057
+          - - v6.2.0
+            - ''
+          description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+        dscp:
+          type: integer
+          raw_type: integer
+          version_ranges: &id056
+          - - v6.2.0
+            - ''
+          description: Differentiated Services Code Point (DSCP) value to advertise.
+      version_ranges: &id053
+      - - v6.2.0
+        - ''
+      description: Video Signaling.
+      source_attribute: video_signaling
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id053
+        description: Video Signaling.
+        children: *id054
+        source_attribute: video_signaling
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          tag:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          vlan:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 4094
+          priority:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 7
+          dscp:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 63
+        source_attribute: video_signaling
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id055
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id055
+  video_signaling.dscp:
+    canonical:
+      type: integer
+      version_ranges: *id056
+      min: 0
+      max: 63
+      description: Differentiated Services Code Point (DSCP) value to advertise.
+      source_attribute: video_signaling.dscp
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id056
+        description: Differentiated Services Code Point (DSCP) value to advertise.
+        source_attribute: video_signaling.dscp
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 63
+        source_attribute: video_signaling.dscp
+    sources:
+    - ansible
+    - terraform
+  video_signaling.priority:
+    canonical:
+      type: integer
+      version_ranges: *id057
+      min: 0
+      max: 7
+      description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+      source_attribute: video_signaling.priority
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id057
+        description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+        source_attribute: video_signaling.priority
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 7
+        source_attribute: video_signaling.priority
+    sources:
+    - ansible
+    - terraform
+  video_signaling.status:
+    canonical:
+      type: enum
+      version_ranges: *id058
+      choices: *id059
+      description: Enable/disable advertising this policy.
+      source_attribute: video_signaling.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id059
+        version_ranges: *id058
+        description: Enable/disable advertising this policy.
+        source_attribute: video_signaling.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: video_signaling.status
+    sources:
+    - ansible
+    - terraform
+  video_signaling.tag:
+    canonical:
+      type: enum
+      version_ranges: *id060
+      choices: *id061
+      description: Advertise tagged or untagged traffic.
+      source_attribute: video_signaling.tag
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id061
+        version_ranges: *id060
+        description: Advertise tagged or untagged traffic.
+        source_attribute: video_signaling.tag
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: video_signaling.tag
+    sources:
+    - ansible
+    - terraform
+  video_signaling.vlan:
+    canonical:
+      type: integer
+      version_ranges: *id062
+      min: 1
+      max: 4094
+      description: 802.1Q VLAN ID to advertise (1 - 4094).
+      source_attribute: video_signaling.vlan
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id062
+        description: 802.1Q VLAN ID to advertise (1 - 4094).
+        source_attribute: video_signaling.vlan
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 4094
+        source_attribute: video_signaling.vlan
+    sources:
+    - ansible
+    - terraform
+  voice:
+    canonical:
+      type: list
+      children: &id064
+        status:
+          type: enum
+          raw_type: string
+          choices: &id069
+          - disable
+          - enable
+          version_ranges: &id068
+          - - v6.2.0
+            - ''
+          description: Enable/disable advertising this policy.
+        tag:
+          type: enum
+          raw_type: string
+          choices: &id071
+          - none
+          - dot1q
+          - dot1p
+          version_ranges: &id070
+          - - v6.2.0
+            - ''
+          description: Advertise tagged or untagged traffic.
+        vlan:
+          type: integer
+          raw_type: integer
+          version_ranges: &id072
+          - - v6.2.0
+            - ''
+          description: 802.1Q VLAN ID to advertise (1 - 4094).
+        priority:
+          type: integer
+          raw_type: integer
+          version_ranges: &id067
+          - - v6.2.0
+            - ''
+          description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+        dscp:
+          type: integer
+          raw_type: integer
+          version_ranges: &id066
+          - - v6.2.0
+            - ''
+          description: Differentiated Services Code Point (DSCP) value to advertise.
+      version_ranges: &id063
+      - - v6.2.0
+        - ''
+      description: Voice.
+      source_attribute: voice
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id063
+        description: Voice.
+        children: *id064
+        source_attribute: voice
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          tag:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          vlan:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 4094
+          priority:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 7
+          dscp:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 63
+        source_attribute: voice
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id065
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id065
+  voice.dscp:
+    canonical:
+      type: integer
+      version_ranges: *id066
+      min: 0
+      max: 63
+      description: Differentiated Services Code Point (DSCP) value to advertise.
+      source_attribute: voice.dscp
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id066
+        description: Differentiated Services Code Point (DSCP) value to advertise.
+        source_attribute: voice.dscp
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 63
+        source_attribute: voice.dscp
+    sources:
+    - ansible
+    - terraform
+  voice.priority:
+    canonical:
+      type: integer
+      version_ranges: *id067
+      min: 0
+      max: 7
+      description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+      source_attribute: voice.priority
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id067
+        description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+        source_attribute: voice.priority
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 7
+        source_attribute: voice.priority
+    sources:
+    - ansible
+    - terraform
+  voice.status:
+    canonical:
+      type: enum
+      version_ranges: *id068
+      choices: *id069
+      description: Enable/disable advertising this policy.
+      source_attribute: voice.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id069
+        version_ranges: *id068
+        description: Enable/disable advertising this policy.
+        source_attribute: voice.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: voice.status
+    sources:
+    - ansible
+    - terraform
+  voice.tag:
+    canonical:
+      type: enum
+      version_ranges: *id070
+      choices: *id071
+      description: Advertise tagged or untagged traffic.
+      source_attribute: voice.tag
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id071
+        version_ranges: *id070
+        description: Advertise tagged or untagged traffic.
+        source_attribute: voice.tag
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: voice.tag
+    sources:
+    - ansible
+    - terraform
+  voice.vlan:
+    canonical:
+      type: integer
+      version_ranges: *id072
+      min: 1
+      max: 4094
+      description: 802.1Q VLAN ID to advertise (1 - 4094).
+      source_attribute: voice.vlan
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id072
+        description: 802.1Q VLAN ID to advertise (1 - 4094).
+        source_attribute: voice.vlan
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 4094
+        source_attribute: voice.vlan
+    sources:
+    - ansible
+    - terraform
+  voice_signaling:
+    canonical:
+      type: list
+      children: &id074
+        status:
+          type: enum
+          raw_type: string
+          choices: &id079
+          - disable
+          - enable
+          version_ranges: &id078
+          - - v6.2.0
+            - ''
+          description: Enable/disable advertising this policy.
+        tag:
+          type: enum
+          raw_type: string
+          choices: &id081
+          - none
+          - dot1q
+          - dot1p
+          version_ranges: &id080
+          - - v6.2.0
+            - ''
+          description: Advertise tagged or untagged traffic.
+        vlan:
+          type: integer
+          raw_type: integer
+          version_ranges: &id082
+          - - v6.2.0
+            - ''
+          description: 802.1Q VLAN ID to advertise (1 - 4094).
+        priority:
+          type: integer
+          raw_type: integer
+          version_ranges: &id077
+          - - v6.2.0
+            - ''
+          description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+        dscp:
+          type: integer
+          raw_type: integer
+          version_ranges: &id076
+          - - v6.2.0
+            - ''
+          description: Differentiated Services Code Point (DSCP) value to advertise.
+      version_ranges: &id073
+      - - v6.2.0
+        - ''
+      description: Voice signaling.
+      source_attribute: voice_signaling
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id073
+        description: Voice signaling.
+        children: *id074
+        source_attribute: voice_signaling
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          tag:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          vlan:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 4094
+          priority:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 7
+          dscp:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 63
+        source_attribute: voice_signaling
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id075
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id075
+  voice_signaling.dscp:
+    canonical:
+      type: integer
+      version_ranges: *id076
+      min: 0
+      max: 63
+      description: Differentiated Services Code Point (DSCP) value to advertise.
+      source_attribute: voice_signaling.dscp
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id076
+        description: Differentiated Services Code Point (DSCP) value to advertise.
+        source_attribute: voice_signaling.dscp
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 63
+        source_attribute: voice_signaling.dscp
+    sources:
+    - ansible
+    - terraform
+  voice_signaling.priority:
+    canonical:
+      type: integer
+      version_ranges: *id077
+      min: 0
+      max: 7
+      description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+      source_attribute: voice_signaling.priority
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id077
+        description: 802.1P CoS/PCP to advertise (0 - 7; from lowest to highest priority).
+        source_attribute: voice_signaling.priority
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 7
+        source_attribute: voice_signaling.priority
+    sources:
+    - ansible
+    - terraform
+  voice_signaling.status:
+    canonical:
+      type: enum
+      version_ranges: *id078
+      choices: *id079
+      description: Enable/disable advertising this policy.
+      source_attribute: voice_signaling.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id079
+        version_ranges: *id078
+        description: Enable/disable advertising this policy.
+        source_attribute: voice_signaling.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: voice_signaling.status
+    sources:
+    - ansible
+    - terraform
+  voice_signaling.tag:
+    canonical:
+      type: enum
+      version_ranges: *id080
+      choices: *id081
+      description: Advertise tagged or untagged traffic.
+      source_attribute: voice_signaling.tag
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id081
+        version_ranges: *id080
+        description: Advertise tagged or untagged traffic.
+        source_attribute: voice_signaling.tag
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: voice_signaling.tag
+    sources:
+    - ansible
+    - terraform
+  voice_signaling.vlan:
+    canonical:
+      type: integer
+      version_ranges: *id082
+      min: 1
+      max: 4094
+      description: 802.1Q VLAN ID to advertise (1 - 4094).
+      source_attribute: voice_signaling.vlan
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id082
+        description: 802.1Q VLAN ID to advertise (1 - 4094).
+        source_attribute: voice_signaling.vlan
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 4094
+        source_attribute: voice_signaling.vlan
+    sources:
+    - ansible
+    - terraform
+conflicts:
+- attribute: guest
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: guest_voice_signaling
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: softphone
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: streaming_video
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: video_conferencing
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: video_signaling
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: voice
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: voice_signaling
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict

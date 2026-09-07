@@ -1,0 +1,757 @@
+id: emailfilter.block-allow-list
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v7.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Optional comments.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Optional comments.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Optional comments.
+        max_length: 255
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  entries:
+    canonical:
+      type: list
+      elements: dict
+      children: &id003
+        status:
+          type: enum
+          raw_type: string
+          choices: &id015
+          - enable
+          - disable
+          version_ranges: &id014
+          - - v7.0.0
+            - ''
+          description: Enable/disable status.
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id008
+          - - v7.0.0
+            - ''
+          description: Entry ID. see <a href='#notes'>Notes</a>.
+        type:
+          type: enum
+          raw_type: string
+          choices: &id017
+          - ip
+          - email-to
+          - email-from
+          - subject
+          version_ranges: &id016
+          - - v7.0.0
+            - ''
+          description: Entry type.
+        action:
+          type: enum
+          raw_type: string
+          choices: &id005
+          - reject
+          - spam
+          - clear
+          version_ranges: &id004
+          - - v7.0.0
+            - ''
+          description: Reject, mark as spam or good email.
+        addr_type:
+          type: enum
+          raw_type: string
+          choices: &id007
+          - ipv4
+          - ipv6
+          version_ranges: &id006
+          - - v7.0.0
+            - ''
+          description: IP address type.
+        ip4_subnet:
+          type: string
+          raw_type: string
+          version_ranges: &id009
+          - - v7.0.0
+            - ''
+          description: IPv4 network address/subnet mask bits.
+        ip6_subnet:
+          type: string
+          raw_type: string
+          version_ranges: &id010
+          - - v7.0.0
+            - ''
+          description: IPv6 network address/subnet mask bits.
+        pattern_type:
+          type: enum
+          raw_type: string
+          choices: &id013
+          - wildcard
+          - regexp
+          version_ranges: &id012
+          - - v7.0.0
+            - ''
+          description: Wildcard pattern or regular expression.
+        pattern:
+          type: string
+          raw_type: string
+          version_ranges: &id011
+          - - v7.2.0
+            - ''
+          description: Pattern to match.
+      version_ranges: &id002
+      - - v7.0.0
+        - ''
+      description: Anti-spam block/allow entries.
+      source_attribute: entries
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id002
+        description: Anti-spam block/allow entries.
+        children: *id003
+        source_attribute: entries
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          action:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          addr_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ip4_subnet:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ip6_subnet:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          pattern_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          pattern:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 127
+          email_pattern:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 127
+        source_attribute: entries
+    sources:
+    - ansible
+    - terraform
+  entries.action:
+    canonical:
+      type: enum
+      version_ranges: *id004
+      choices: *id005
+      description: Reject, mark as spam or good email.
+      source_attribute: entries.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id004
+        description: Reject, mark as spam or good email.
+        source_attribute: entries.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.action
+    sources:
+    - ansible
+    - terraform
+  entries.addr_type:
+    canonical:
+      type: enum
+      version_ranges: *id006
+      choices: *id007
+      description: IP address type.
+      source_attribute: entries.addr_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id007
+        version_ranges: *id006
+        description: IP address type.
+        source_attribute: entries.addr_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.addr_type
+    sources:
+    - ansible
+    - terraform
+  entries.email_pattern:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 127
+      source_attribute: entries.email_pattern
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: entries.email_pattern
+    sources:
+    - terraform
+  entries.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id008
+      description: Entry ID. see <a href='#notes'>Notes</a>.
+      source_attribute: entries.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id008
+        description: Entry ID. see <a href='#notes'>Notes</a>.
+        source_attribute: entries.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: entries.id
+    sources:
+    - ansible
+    - terraform
+  entries.ip4_subnet:
+    canonical:
+      type: string
+      version_ranges: *id009
+      description: IPv4 network address/subnet mask bits.
+      source_attribute: entries.ip4_subnet
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id009
+        description: IPv4 network address/subnet mask bits.
+        source_attribute: entries.ip4_subnet
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.ip4_subnet
+    sources:
+    - ansible
+    - terraform
+  entries.ip6_subnet:
+    canonical:
+      type: string
+      version_ranges: *id010
+      description: IPv6 network address/subnet mask bits.
+      source_attribute: entries.ip6_subnet
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id010
+        description: IPv6 network address/subnet mask bits.
+        source_attribute: entries.ip6_subnet
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.ip6_subnet
+    sources:
+    - ansible
+    - terraform
+  entries.pattern:
+    canonical:
+      type: string
+      version_ranges: *id011
+      min_length: 0
+      max_length: 127
+      description: Pattern to match.
+      source_attribute: entries.pattern
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: Pattern to match.
+        source_attribute: entries.pattern
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: entries.pattern
+    sources:
+    - ansible
+    - terraform
+  entries.pattern_type:
+    canonical:
+      type: enum
+      version_ranges: *id012
+      choices: *id013
+      description: Wildcard pattern or regular expression.
+      source_attribute: entries.pattern_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id012
+        description: Wildcard pattern or regular expression.
+        source_attribute: entries.pattern_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.pattern_type
+    sources:
+    - ansible
+    - terraform
+  entries.status:
+    canonical:
+      type: enum
+      version_ranges: *id014
+      choices: *id015
+      description: Enable/disable status.
+      source_attribute: entries.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id015
+        version_ranges: *id014
+        description: Enable/disable status.
+        source_attribute: entries.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.status
+    sources:
+    - ansible
+    - terraform
+  entries.type:
+    canonical:
+      type: enum
+      version_ranges: *id016
+      choices: *id017
+      description: Entry type.
+      source_attribute: entries.type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id017
+        version_ranges: *id016
+        description: Entry type.
+        source_attribute: entries.type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.type
+    sources:
+    - ansible
+    - terraform
+  fabric_force_sync:
+    canonical:
+      type: string
+      source_attribute: fabric_force_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_force_sync
+    sources:
+    - terraform
+  fabric_object:
+    canonical:
+      type: string
+      source_attribute: fabric_object
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object
+    sources:
+    - terraform
+  fabric_object_source:
+    canonical:
+      type: string
+      source_attribute: fabric_object_source
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object_source
+    sources:
+    - terraform
+  fosid:
+    canonical:
+      type: integer
+      source_attribute: fosid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: fosid
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id018
+      - - v7.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: ID.
+      source_attribute: id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id018
+        description: ID. see <a href='#notes'>Notes</a>.
+        source_attribute: id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: id
+    sources:
+    - ansible
+    - cli_reference
+  name:
+    canonical:
+      type: string
+      version_ranges: &id019
+      - - v7.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Name of table.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id019
+        description: Name of table.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of table.
+        max_length: 63
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  uuid:
+    canonical:
+      type: string
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

@@ -1,0 +1,199 @@
+id: system.tos-based-priority
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  fosid:
+    canonical:
+      type: integer
+      source_attribute: fosid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: fosid
+    sources:
+    - terraform
+  id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Item ID.
+      source_attribute: id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id001
+        description: Item ID. see <a href='#notes'>Notes</a>.
+        source_attribute: id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Item ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: id
+    sources:
+    - ansible
+    - cli_reference
+  priority:
+    canonical:
+      type: enum
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      choices: &id002
+      - low
+      - medium
+      - high
+      default: high
+      description: ToS based priority level to low, medium or high (these priorities match firewall traffic shaping priorities)
+        (default = medium).
+      source_attribute: priority
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id002
+        version_ranges: *id003
+        description: ToS based priority level to low, medium or high (these priorities match firewall traffic shaping priorities)
+          .
+        source_attribute: priority
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: priority
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: ToS based priority level to low, medium or high (these priorities match firewall traffic shaping priorities)
+          (default = medium).
+        default: high
+        source_attribute: priority
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  tos:
+    canonical:
+      type: integer
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 15
+      description: 'Value of the ToS byte in the IP datagram header (0-15, 8: minimize delay, 4: maximize throughput, 2: maximize
+        reliability, 1: minimize monetary cost, and 0: default service).'
+      source_attribute: tos
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id004
+        description: 'Value of the ToS byte in the IP datagram header (0-15, 8: minimize delay, 4: maximize throughput, 2:
+          maximize reliability, 1: minimize monetary cost, and 0: ).'
+        source_attribute: tos
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 15
+        source_attribute: tos
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: 'Value of the ToS byte in the IP datagram header (0-15, 8: minimize delay, 4: maximize throughput, 2:
+          maximize reliability, 1: minimize monetary cost, and 0: default service).'
+        default: '0'
+        min: 0
+        max: 15
+        source_attribute: tos
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

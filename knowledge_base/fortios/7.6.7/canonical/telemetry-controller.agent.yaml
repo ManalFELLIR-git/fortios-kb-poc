@@ -1,0 +1,265 @@
+id: telemetry-controller.agent
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  agent_id:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id001
+      - - v7.6.3
+        - ''
+      min_length: 0
+      max_length: 19
+      description: Agent ID.
+      source_attribute: agent-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id001
+        description: Agent ID.
+        source_attribute: agent_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 19
+        source_attribute: agent_id
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Agent ID.
+        max_length: 19
+        source_attribute: agent-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  agent_profile:
+    canonical:
+      type: string
+      references: &id003
+      - telemetry-controller.agent-profile.name
+      version_ranges: &id002
+      - - v7.6.3
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Name of an existing agent profile.
+      source_attribute: agent-profile
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id002
+        description: Name of an existing agent profile. Source telemetry-controller.agent-profile.name.
+        references: *id003
+        source_attribute: agent_profile
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: agent_profile
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of an existing agent profile.
+        max_length: 35
+        source_attribute: agent-profile
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  alias:
+    canonical:
+      type: string
+      version_ranges: &id004
+      - - v7.6.3
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Alias used in display for ease of distinguishing agents.
+      source_attribute: alias
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id004
+        description: Alias used in display for ease of distinguishing agents.
+        source_attribute: alias
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: alias
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Alias used in display for ease of distinguishing agents.
+        max_length: 35
+        source_attribute: alias
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  authz:
+    canonical:
+      type: enum
+      version_ranges: &id006
+      - - v7.6.3
+        - ''
+      choices: &id005
+      - rejected
+      - authorized
+      - unauthorized
+      default: unauthorized
+      description: Authorization status of this agent.
+      source_attribute: authz
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Authorization status of this agent.
+        source_attribute: authz
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: authz
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Authorization status of this agent.
+        default: unauthorized
+        source_attribute: authz
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id007
+      - - v7.6.3
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Comment.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: Comment.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 255
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

@@ -1,0 +1,110 @@
+id: router.multicast6
+version: 7.6.7
+source_object: fortios_router_multicast6
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_router_multicast6.py
+root_type: object
+attributes:
+  multicast_routing:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable IPv6 multicast routing.
+  multicast_pmtu:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable PMTU for IPv6 multicast.
+  interface:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Protocol Independent Multicast (PIM) interfaces.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Interface name. Source system.interface.name.
+        references:
+        - system.interface.name
+      hello_interval:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Interval between sending PIM hello messages in seconds (1 - 65535).
+      hello_holdtime:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Time before old neighbor information expires in seconds (1 - 65535).
+  pim_sm_global:
+    type: object
+    raw_type: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: PIM sparse-mode global settings.
+    children:
+      register_rate_limit:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Limit of packets/sec per source registered through this RP (0 means unlimited).
+      pim_use_sdwan:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v7.6.0
+          - ''
+        description: Enable/disable use of SDWAN when checking RPF neighbor and sending of REG packet.
+      rp_address:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Statically configured RP addresses.
+        children:
+          id:
+            type: integer
+            raw_type: integer
+            required: true
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: ID of the entry. see <a href='#notes'>Notes</a>.
+          ip6_address:
+            type: string
+            raw_type: string
+            version_ranges:
+            - - v6.0.0
+              - ''
+            description: RP router IPv6 address.

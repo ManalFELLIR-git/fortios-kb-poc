@@ -1,0 +1,1215 @@
+id: system.ntp
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  authentication:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.2.0
+        - ''
+      choices: &id001
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable authentication.
+      source_attribute: authentication
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable authentication.
+        source_attribute: authentication
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: authentication
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable authentication.
+        default: disable
+        source_attribute: authentication
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  interface:
+    canonical:
+      type: list
+      elements: dict
+      children: &id004
+        interface_name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id007
+          - - v6.0.0
+            - ''
+          description: Interface name. Source system.interface.name.
+          references: &id006
+          - system.interface.name
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: FortiGate interface(s) with NTP server mode enabled. Devices on your network can contact these interfaces
+        for NTP services. Interface name.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id003
+        description: FortiGate interface(s) with NTP server mode enabled. Devices on your network can contact these interfaces
+          for NTP services.
+        children: *id004
+        source_attribute: interface
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          interface_name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: FortiGate interface(s) with NTP server mode enabled. Devices on your network can contact these interfaces
+          for NTP services. Interface name.
+        max_length: 79
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id005
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id005
+  interface.interface_name:
+    canonical:
+      type: string
+      references: *id006
+      required: true
+      version_ranges: *id007
+      min_length: 0
+      max_length: 79
+      description: Interface name. Source system.interface.name.
+      source_attribute: interface.interface_name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id007
+        description: Interface name. Source system.interface.name.
+        references: *id006
+        source_attribute: interface.interface_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: interface.interface_name
+    sources:
+    - ansible
+    - terraform
+  key:
+    canonical:
+      type: password
+      version_ranges: &id008
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 64
+      description: Key for authentication.
+      source_attribute: key
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: Key for authentication.
+        source_attribute: key
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 64
+        source_attribute: key
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Key for authentication.
+        source_attribute: key
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id009
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id009
+  key_id:
+    canonical:
+      type: integer
+      version_ranges: &id010
+      - - v6.2.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Key ID for authentication.
+      source_attribute: key-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id010
+        description: Key ID for authentication.
+        source_attribute: key_id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: key_id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Key ID for authentication.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: key-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  key_type:
+    canonical:
+      type: enum
+      version_ranges: &id012
+      - - v6.2.0
+        - ''
+      choices: &id011
+      - MD5
+      - SHA1
+      - SHA256
+      default: MD5
+      description: Key type for authentication (MD5, SHA1, SHA256).
+      source_attribute: key-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id011
+        version_ranges: *id012
+        description: Key type for authentication (MD5, SHA1, SHA256).
+        source_attribute: key_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: key_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Key type for authentication (MD5, SHA1, SHA256).
+        default: MD5
+        source_attribute: key-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ntpserver:
+    canonical:
+      type: list
+      elements: dict
+      children: &id014
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id017
+          - - v6.0.0
+            - ''
+          description: NTP server ID. see <a href='#notes'>Notes</a>.
+        server:
+          type: string
+          raw_type: string
+          version_ranges: &id030
+          - - v6.0.0
+            - ''
+          description: IP address or hostname of the NTP Server.
+        ntpv3:
+          type: enum
+          raw_type: string
+          choices: &id029
+          - enable
+          - disable
+          version_ranges: &id028
+          - - v6.0.0
+            - ''
+          description: Enable to use NTPv3 instead of NTPv4.
+        authentication:
+          type: enum
+          raw_type: string
+          choices: &id016
+          - enable
+          - disable
+          version_ranges: &id015
+          - - v6.0.0
+            - ''
+          description: Enable/disable authentication.
+        key_type:
+          type: enum
+          raw_type: string
+          choices: &id027
+          - MD5
+          - SHA1
+          - SHA256
+          version_ranges: &id026
+          - - v7.4.4
+            - ''
+          description: Select NTP authentication type.
+        key:
+          type: string
+          raw_type: string
+          version_ranges: &id024
+          - - v6.0.0
+            - ''
+          description: Key for MD5(NTPv3)/SHA1(NTPv4)/SHA256(NTPv4) authentication.
+        key_id:
+          type: integer
+          raw_type: integer
+          version_ranges: &id025
+          - - v6.0.0
+            - ''
+          description: Key ID for authentication.
+        ip_type:
+          type: enum
+          raw_type: string
+          choices: &id023
+          - IPv6
+          - IPv4
+          - Both
+          version_ranges: &id022
+          - - v7.4.2
+            - ''
+          description: Choose to connect to IPv4 or/and IPv6 NTP server.
+        interface_select_method:
+          type: enum
+          raw_type: string
+          choices: &id021
+          - auto
+          - sdwan
+          - specify
+          version_ranges: &id020
+          - - v6.2.0
+            - v6.2.0
+          - - v6.2.5
+            - v6.4.0
+          - - v6.4.4
+            - ''
+          description: Specify how to select outgoing interface to reach server.
+        interface:
+          type: string
+          raw_type: string
+          version_ranges: &id019
+          - - v6.2.0
+            - v6.2.0
+          - - v6.2.5
+            - v6.4.0
+          - - v6.4.4
+            - ''
+          description: Specify outgoing interface to reach server. Source system.interface.name.
+          references: &id018
+          - system.interface.name
+        vrf_select:
+          type: integer
+          raw_type: integer
+          version_ranges: &id031
+          - - v7.6.1
+            - ''
+          description: VRF ID used for connection to server.
+      version_ranges: &id013
+      - - v6.0.0
+        - ''
+      description: Configure the FortiGate to connect to any available third-party NTP server.
+      source_attribute: ntpserver
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id013
+        description: Configure the FortiGate to connect to any available third-party NTP server.
+        children: *id014
+        source_attribute: ntpserver
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          server:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          ntpv3:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          authentication:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          key_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          key:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 64
+          key_id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          ip_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          interface_select_method:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          vrf_select:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 511
+        source_attribute: ntpserver
+    sources:
+    - ansible
+    - terraform
+  ntpserver.authentication:
+    canonical:
+      type: enum
+      version_ranges: *id015
+      choices: *id016
+      description: Enable/disable authentication.
+      source_attribute: ntpserver.authentication
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id016
+        version_ranges: *id015
+        description: Enable/disable authentication.
+        source_attribute: ntpserver.authentication
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ntpserver.authentication
+    sources:
+    - ansible
+    - terraform
+  ntpserver.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id017
+      description: NTP server ID. see <a href='#notes'>Notes</a>.
+      source_attribute: ntpserver.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id017
+        description: NTP server ID. see <a href='#notes'>Notes</a>.
+        source_attribute: ntpserver.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: ntpserver.id
+    sources:
+    - ansible
+    - terraform
+  ntpserver.interface:
+    canonical:
+      type: string
+      references: *id018
+      version_ranges: *id019
+      min_length: 0
+      max_length: 15
+      description: Specify outgoing interface to reach server. Source system.interface.name.
+      source_attribute: ntpserver.interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id019
+        description: Specify outgoing interface to reach server. Source system.interface.name.
+        references: *id018
+        source_attribute: ntpserver.interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: ntpserver.interface
+    sources:
+    - ansible
+    - terraform
+  ntpserver.interface_select_method:
+    canonical:
+      type: enum
+      version_ranges: *id020
+      choices: *id021
+      description: Specify how to select outgoing interface to reach server.
+      source_attribute: ntpserver.interface_select_method
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id021
+        version_ranges: *id020
+        description: Specify how to select outgoing interface to reach server.
+        source_attribute: ntpserver.interface_select_method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ntpserver.interface_select_method
+    sources:
+    - ansible
+    - terraform
+  ntpserver.ip_type:
+    canonical:
+      type: enum
+      version_ranges: *id022
+      choices: *id023
+      description: Choose to connect to IPv4 or/and IPv6 NTP server.
+      source_attribute: ntpserver.ip_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id023
+        version_ranges: *id022
+        description: Choose to connect to IPv4 or/and IPv6 NTP server.
+        source_attribute: ntpserver.ip_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ntpserver.ip_type
+    sources:
+    - ansible
+    - terraform
+  ntpserver.key:
+    canonical:
+      type: string
+      version_ranges: *id024
+      min_length: 0
+      max_length: 64
+      description: Key for MD5(NTPv3)/SHA1(NTPv4)/SHA256(NTPv4) authentication.
+      source_attribute: ntpserver.key
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id024
+        description: Key for MD5(NTPv3)/SHA1(NTPv4)/SHA256(NTPv4) authentication.
+        source_attribute: ntpserver.key
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 64
+        source_attribute: ntpserver.key
+    sources:
+    - ansible
+    - terraform
+  ntpserver.key_id:
+    canonical:
+      type: integer
+      version_ranges: *id025
+      description: Key ID for authentication.
+      source_attribute: ntpserver.key_id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id025
+        description: Key ID for authentication.
+        source_attribute: ntpserver.key_id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: ntpserver.key_id
+    sources:
+    - ansible
+    - terraform
+  ntpserver.key_type:
+    canonical:
+      type: enum
+      version_ranges: *id026
+      choices: *id027
+      description: Select NTP authentication type.
+      source_attribute: ntpserver.key_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id027
+        version_ranges: *id026
+        description: Select NTP authentication type.
+        source_attribute: ntpserver.key_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ntpserver.key_type
+    sources:
+    - ansible
+    - terraform
+  ntpserver.ntpv3:
+    canonical:
+      type: enum
+      version_ranges: *id028
+      choices: *id029
+      description: Enable to use NTPv3 instead of NTPv4.
+      source_attribute: ntpserver.ntpv3
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id029
+        version_ranges: *id028
+        description: Enable to use NTPv3 instead of NTPv4.
+        source_attribute: ntpserver.ntpv3
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ntpserver.ntpv3
+    sources:
+    - ansible
+    - terraform
+  ntpserver.server:
+    canonical:
+      type: string
+      version_ranges: *id030
+      min_length: 0
+      max_length: 63
+      description: IP address or hostname of the NTP Server.
+      source_attribute: ntpserver.server
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id030
+        description: IP address or hostname of the NTP Server.
+        source_attribute: ntpserver.server
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: ntpserver.server
+    sources:
+    - ansible
+    - terraform
+  ntpserver.vrf_select:
+    canonical:
+      type: integer
+      version_ranges: *id031
+      min: 0
+      max: 511
+      description: VRF ID used for connection to server.
+      source_attribute: ntpserver.vrf_select
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id031
+        description: VRF ID used for connection to server.
+        source_attribute: ntpserver.vrf_select
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 511
+        source_attribute: ntpserver.vrf_select
+    sources:
+    - ansible
+    - terraform
+  ntpsync:
+    canonical:
+      type: enum
+      version_ranges: &id033
+      - - v6.0.0
+        - ''
+      choices: &id032
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable setting the FortiGate system time by synchronizing with an NTP Server. This option is disabled
+        when unset, but enabled after a factory reset.
+      source_attribute: ntpsync
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id032
+        version_ranges: *id033
+        description: Enable/disable setting the FortiGate system time by synchronizing with an NTP Server.
+        source_attribute: ntpsync
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ntpsync
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable setting the FortiGate system time by synchronizing with an NTP Server. This option is
+          disabled when unset, but enabled after a factory reset.
+        default: disable
+        source_attribute: ntpsync
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  server_mode:
+    canonical:
+      type: enum
+      version_ranges: &id035
+      - - v6.0.0
+        - ''
+      choices: &id034
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable FortiGate NTP Server Mode. Your FortiGate becomes an NTP server for other devices on your
+        network. The FortiGate relays NTP requests to its configured NTP server. This option is disabled when unset, but enabled
+        after a factory reset.
+      source_attribute: server-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id034
+        version_ranges: *id035
+        description: Enable/disable FortiGate NTP Server Mode. Your FortiGate becomes an NTP server for other devices on your
+          network. The FortiGate relays NTP requests to its configured NTP server.
+        source_attribute: server_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: server_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable FortiGate NTP Server Mode. Your FortiGate becomes an NTP server for other devices on your
+          network. The FortiGate relays NTP requests to its configured NTP server. This option is disabled when unset, but
+          enabled after a factory reset.
+        default: disable
+        source_attribute: server-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source_ip:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id036
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: Source IP address for communication to the NTP server.
+      source_attribute: source-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id036
+        description: Source IP address for communication to the NTP server.
+        source_attribute: source_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_ip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Source IP address for communication to the NTP server.
+        default: 0.0.0.0
+        source_attribute: source-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id037
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id037
+  source_ip6:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id038
+      - - v6.0.0
+        - ''
+      default: '::'
+      description: Source IPv6 address for communication to the NTP server.
+      source_attribute: source-ip6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id038
+        description: Source IPv6 address for communication to the NTP server.
+        source_attribute: source_ip6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_ip6
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: Source IPv6 address for communication to the NTP server.
+        default: '::'
+        source_attribute: source-ip6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id039
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id039
+  syncinterval:
+    canonical:
+      type: integer
+      version_ranges: &id040
+      - - v6.0.0
+        - ''
+      default: '60'
+      min: 1
+      max: 1440
+      description: NTP synchronization interval (1 - 1440 min).
+      source_attribute: syncinterval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id040
+        description: NTP synchronization interval (1 - 1440 min).
+        source_attribute: syncinterval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 1440
+        source_attribute: syncinterval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: NTP synchronization interval (1 - 1440 min).
+        default: '60'
+        min: 1
+        max: 1440
+        source_attribute: syncinterval
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  type:
+    canonical:
+      type: enum
+      version_ranges: &id042
+      - - v6.0.0
+        - ''
+      choices: &id041
+      - fortiguard
+      - custom
+      default: fortiguard
+      description: Use the FortiGuard NTP server or any other available NTP Server.
+      source_attribute: type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id041
+        version_ranges: *id042
+        description: Use the FortiGuard NTP server or any other available NTP Server.
+        source_attribute: type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Use the FortiGuard NTP server or any other available NTP Server.
+        default: fortiguard
+        source_attribute: type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: interface
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: key
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict
+- attribute: source_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: source_ip6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict

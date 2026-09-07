@@ -1,0 +1,561 @@
+id: antivirus.quarantine
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  agelimit:
+    canonical:
+      type: integer
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 479
+      description: Age limit for quarantined files (0 - 479 hours, 0 means forever).
+      source_attribute: agelimit
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id001
+        description: Age limit for quarantined files (0 - 479 hours, 0 means forever).
+        source_attribute: agelimit
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 479
+        source_attribute: agelimit
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Age limit for quarantined files (0 - 479 hours, 0 means forever).
+        default: '0'
+        min: 0
+        max: 479
+        source_attribute: agelimit
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  destination:
+    canonical:
+      type: enum
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      choices: &id002
+      - 'NULL'
+      - disk
+      - FortiAnalyzer
+      default: disk **
+      description: Choose whether to quarantine files to the FortiGate disk or to FortiAnalyzer or to delete them instead
+        of quarantining them.
+      source_attribute: destination
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id002
+        version_ranges: *id003
+        description: Choose whether to quarantine files to the FortiGate disk or to FortiAnalyzer or to delete them instead
+          of quarantining them.
+        source_attribute: destination
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: destination
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Choose whether to quarantine files to the FortiGate disk or to FortiAnalyzer or to delete them instead
+          of quarantining them.
+        default: disk **
+        source_attribute: destination
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  drop_blocked:
+    canonical:
+      type: string
+      source_attribute: drop_blocked
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: drop_blocked
+    sources:
+    - terraform
+  drop_heuristic:
+    canonical:
+      type: string
+      source_attribute: drop_heuristic
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: drop_heuristic
+    sources:
+    - terraform
+  drop_infected:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      choices: &id004
+      - imap
+      - smtp
+      - pop3
+      - http
+      - ftp
+      - nntp
+      - imaps
+      - smtps
+      - pop3s
+      - https
+      - ftps
+      - mapi
+      - cifs
+      - ssh
+      description: Do not quarantine infected files found in sessions using the selected protocols. Dropped files are deleted
+        instead of being quarantined.
+      source_attribute: drop-infected
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id004
+        multiple_values: true
+        elements: str
+        version_ranges: *id005
+        description: Do not quarantine infected files found in sessions using the selected protocols. Dropped files are deleted
+          instead of being quarantined.
+        source_attribute: drop_infected
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: drop_infected
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Do not quarantine infected files found in sessions using the selected protocols. Dropped files are deleted
+          instead of being quarantined.
+        source_attribute: drop-infected
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  drop_machine_learning:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id007
+      - - v7.0.1
+        - ''
+      choices: &id006
+      - imap
+      - smtp
+      - pop3
+      - http
+      - ftp
+      - nntp
+      - imaps
+      - smtps
+      - pop3s
+      - https
+      - ftps
+      - mapi
+      - cifs
+      - ssh
+      description: Do not quarantine files detected by machine learning found in sessions using the selected protocols. Dropped
+        files are deleted instead of being quarantined.
+      source_attribute: drop-machine-learning
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id006
+        multiple_values: true
+        elements: str
+        version_ranges: *id007
+        description: Do not quarantine files detected by machine learning found in sessions using the selected protocols.
+          Dropped files are deleted instead of being quarantined.
+        source_attribute: drop_machine_learning
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: drop_machine_learning
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Do not quarantine files detected by machine learning found in sessions using the selected protocols.
+          Dropped files are deleted instead of being quarantined.
+        source_attribute: drop-machine-learning
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  lowspace:
+    canonical:
+      type: enum
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      choices: &id008
+      - drop-new
+      - ovrw-old
+      default: ovrw-old
+      description: Select the method for handling additional files when running low on disk space.
+      source_attribute: lowspace
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id008
+        version_ranges: *id009
+        description: Select the method for handling additional files when running low on disk space.
+        source_attribute: lowspace
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: lowspace
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Select the method for handling additional files when running low on disk space.
+        default: ovrw-old
+        source_attribute: lowspace
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  maxfilesize:
+    canonical:
+      type: integer
+      version_ranges: &id010
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 500
+      description: Maximum file size to quarantine (0 - 500 Mbytes, 0 means unlimited).
+      source_attribute: maxfilesize
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id010
+        description: Maximum file size to quarantine (0 - 500 Mbytes, 0 means unlimited).
+        source_attribute: maxfilesize
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 500
+        source_attribute: maxfilesize
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum file size to quarantine (0 - 500 Mbytes, 0 means unlimited).
+        default: '0'
+        min: 0
+        max: 500
+        source_attribute: maxfilesize
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  quarantine_quota:
+    canonical:
+      type: integer
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: The amount of disk space to reserve for quarantining files (0 - 4294967295 Mbytes, 0 means unlimited and
+        depends on disk space).
+      source_attribute: quarantine-quota
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id011
+        description: The amount of disk space to reserve for quarantining files (0 - 4294967295 Mbytes, 0 means unlimited
+          and depends on disk space).
+        source_attribute: quarantine_quota
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: quarantine_quota
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The amount of disk space to reserve for quarantining files (0 - 4294967295 Mbytes, 0 means unlimited
+          and depends on disk space).
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: quarantine-quota
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  store_blocked:
+    canonical:
+      type: string
+      source_attribute: store_blocked
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: store_blocked
+    sources:
+    - terraform
+  store_heuristic:
+    canonical:
+      type: string
+      source_attribute: store_heuristic
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: store_heuristic
+    sources:
+    - terraform
+  store_infected:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id013
+      - - v6.0.0
+        - ''
+      choices: &id012
+      - imap
+      - smtp
+      - pop3
+      - http
+      - ftp
+      - nntp
+      - imaps
+      - smtps
+      - pop3s
+      - https
+      - ftps
+      - mapi
+      - cifs
+      - ssh
+      default: imap smtp pop3 http ftp nntp imaps smtps pop3s https ftps mapi cifs ssh
+      description: Quarantine infected files found in sessions using the selected protocols.
+      source_attribute: store-infected
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id012
+        multiple_values: true
+        elements: str
+        version_ranges: *id013
+        description: Quarantine infected files found in sessions using the selected protocols.
+        source_attribute: store_infected
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: store_infected
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Quarantine infected files found in sessions using the selected protocols.
+        default: imap smtp pop3 http ftp nntp imaps smtps pop3s https ftps mapi cifs ssh
+        source_attribute: store-infected
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  store_machine_learning:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id015
+      - - v7.0.1
+        - ''
+      choices: &id014
+      - imap
+      - smtp
+      - pop3
+      - http
+      - ftp
+      - nntp
+      - imaps
+      - smtps
+      - pop3s
+      - https
+      - ftps
+      - mapi
+      - cifs
+      - ssh
+      default: imap smtp pop3 http ftp nntp imaps smtps pop3s https ftps mapi cifs ssh
+      description: Quarantine files detected by machine learning found in sessions using the selected protocols.
+      source_attribute: store-machine-learning
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id014
+        multiple_values: true
+        elements: str
+        version_ranges: *id015
+        description: Quarantine files detected by machine learning found in sessions using the selected protocols.
+        source_attribute: store_machine_learning
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: store_machine_learning
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Quarantine files detected by machine learning found in sessions using the selected protocols.
+        default: imap smtp pop3 http ftp nntp imaps smtps pop3s https ftps mapi cifs ssh
+        source_attribute: store-machine-learning
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

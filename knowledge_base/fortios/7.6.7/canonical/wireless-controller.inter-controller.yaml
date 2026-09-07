@@ -1,0 +1,569 @@
+id: wireless-controller.inter-controller
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  fast_failover_max:
+    canonical:
+      type: integer
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      default: '10'
+      min: 3
+      max: 64
+      description: Maximum number of retransmissions for fast failover HA messages between peer wireless controllers (3 -
+        64, default = 10).
+      source_attribute: fast-failover-max
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id001
+        description: Maximum number of retransmissions for fast failover HA messages between peer wireless controllers (3
+          - 64).
+        source_attribute: fast_failover_max
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 3
+        max: 64
+        source_attribute: fast_failover_max
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum number of retransmissions for fast failover HA messages between peer wireless controllers (3
+          - 64, default = 10).
+        default: '10'
+        min: 3
+        max: 64
+        source_attribute: fast-failover-max
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fast_failover_wait:
+    canonical:
+      type: integer
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      default: '10'
+      min: 10
+      max: 86400
+      description: Minimum wait time before an AP transitions from secondary controller to primary controller (10 - 86400
+        sec, default = 10).
+      source_attribute: fast-failover-wait
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id002
+        description: Minimum wait time before an AP transitions from secondary controller to primary controller (10 - 86400
+          sec).
+        source_attribute: fast_failover_wait
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 10
+        max: 86400
+        source_attribute: fast_failover_wait
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Minimum wait time before an AP transitions from secondary controller to primary controller (10 - 86400
+          sec, default = 10).
+        default: '10'
+        min: 10
+        max: 86400
+        source_attribute: fast-failover-wait
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  inter_controller_key:
+    canonical:
+      type: password
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 127
+      description: Secret key for inter-controller communications.
+      source_attribute: inter-controller-key
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Secret key for inter-controller communications.
+        source_attribute: inter_controller_key
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: inter_controller_key
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Secret key for inter-controller communications.
+        source_attribute: inter-controller-key
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id004
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id004
+  inter_controller_mode:
+    canonical:
+      type: enum
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      choices: &id005
+      - disable
+      - l2-roaming
+      - 1+1
+      default: disable
+      description: Configure inter-controller mode (disable, l2-roaming, 1+1, default = disable).
+      source_attribute: inter-controller-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Configure inter-controller mode (disable, l2-roaming, 1+1).
+        source_attribute: inter_controller_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: inter_controller_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Configure inter-controller mode (disable, l2-roaming, 1+1, default = disable).
+        default: disable
+        source_attribute: inter-controller-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  inter_controller_peer:
+    canonical:
+      type: list
+      elements: dict
+      children: &id008
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id009
+          - - v6.0.0
+            - ''
+          description: ID. see <a href='#notes'>Notes</a>.
+        peer_ip:
+          type: string
+          raw_type: string
+          version_ranges: &id010
+          - - v6.0.0
+            - ''
+          description: Peer wireless controller"s IP address.
+        peer_port:
+          type: integer
+          raw_type: integer
+          version_ranges: &id011
+          - - v6.0.0
+            - ''
+          description: Port used by the wireless controller"s for inter-controller communications (1024 - 49150).
+        peer_priority:
+          type: enum
+          raw_type: string
+          choices: &id013
+          - primary
+          - secondary
+          version_ranges: &id012
+          - - v6.0.0
+            - ''
+          description: Peer wireless controller"s priority (primary or secondary).
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      description: Fast failover peer wireless controller list.
+      source_attribute: inter_controller_peer
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id007
+        description: Fast failover peer wireless controller list.
+        children: *id008
+        source_attribute: inter_controller_peer
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          peer_ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          peer_port:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1024
+            max: 49150
+          peer_priority:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: inter_controller_peer
+    sources:
+    - ansible
+    - terraform
+  inter_controller_peer.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id009
+      description: ID. see <a href='#notes'>Notes</a>.
+      source_attribute: inter_controller_peer.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id009
+        description: ID. see <a href='#notes'>Notes</a>.
+        source_attribute: inter_controller_peer.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: inter_controller_peer.id
+    sources:
+    - ansible
+    - terraform
+  inter_controller_peer.peer_ip:
+    canonical:
+      type: string
+      version_ranges: *id010
+      description: Peer wireless controller"s IP address.
+      source_attribute: inter_controller_peer.peer_ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id010
+        description: Peer wireless controller"s IP address.
+        source_attribute: inter_controller_peer.peer_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: inter_controller_peer.peer_ip
+    sources:
+    - ansible
+    - terraform
+  inter_controller_peer.peer_port:
+    canonical:
+      type: integer
+      version_ranges: *id011
+      min: 1024
+      max: 49150
+      description: Port used by the wireless controller"s for inter-controller communications (1024 - 49150).
+      source_attribute: inter_controller_peer.peer_port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id011
+        description: Port used by the wireless controller"s for inter-controller communications (1024 - 49150).
+        source_attribute: inter_controller_peer.peer_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1024
+        max: 49150
+        source_attribute: inter_controller_peer.peer_port
+    sources:
+    - ansible
+    - terraform
+  inter_controller_peer.peer_priority:
+    canonical:
+      type: enum
+      version_ranges: *id012
+      choices: *id013
+      description: Peer wireless controller"s priority (primary or secondary).
+      source_attribute: inter_controller_peer.peer_priority
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id012
+        description: Peer wireless controller"s priority (primary or secondary).
+        source_attribute: inter_controller_peer.peer_priority
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: inter_controller_peer.peer_priority
+    sources:
+    - ansible
+    - terraform
+  inter_controller_pri:
+    canonical:
+      type: enum
+      version_ranges: &id015
+      - - v6.0.0
+        - ''
+      choices: &id014
+      - primary
+      - secondary
+      default: primary
+      description: Configure inter-controller's priority (primary or secondary, default = primary).
+      source_attribute: inter-controller-pri
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id014
+        version_ranges: *id015
+        description: Configure inter-controller"s priority (primary or secondary).
+        source_attribute: inter_controller_pri
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: inter_controller_pri
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Configure inter-controller's priority (primary or secondary, default = primary).
+        default: primary
+        source_attribute: inter-controller-pri
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  l3_roaming:
+    canonical:
+      type: enum
+      version_ranges: &id017
+      - - v7.2.0
+        - ''
+      choices: &id016
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable layer 3 roaming (default = disable).
+      source_attribute: l3-roaming
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id016
+        version_ranges: *id017
+        description: Enable/disable layer 3 roaming .
+        source_attribute: l3_roaming
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: l3_roaming
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable layer 3 roaming (default = disable).
+        default: disable
+        source_attribute: l3-roaming
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: inter_controller_key
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict

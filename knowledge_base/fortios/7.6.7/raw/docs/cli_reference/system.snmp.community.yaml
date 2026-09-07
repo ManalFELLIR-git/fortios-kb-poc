@@ -1,0 +1,198 @@
+id: system.snmp.community
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/111967164/config-system-snmp-community
+attributes:
+  events:
+    type: enum
+    raw_type: option
+    description: SNMP trap events.
+    default: cpu-high mem-low log-full intf-ip vpn-tun-up vpn-tun-down ha-switch ha-hb-failure ips-signature ips-anomaly av-virus
+      av-oversize av-pattern av-fragmented fm-if-change bgp-established bgp-backward-transition ha-member-up ha-member-down
+      ent-conf-change av-conserve av-bypass av-oversize-passed av-oversize-blocked ips-pkg-update ips-fail-open temperature-high
+      voltage-alert power-supply faz-disconnect faz fan-failure wc-ap-up wc-ap-down fswctl-session-up fswctl-session-down
+      load-balance-real-server-down per-cpu-high dhcp pool-usage ippool interface ospf-nbr-state-change ospf-virtnbr-state-change
+      bfd **
+  id:
+    type: integer
+    raw_type: integer
+    description: Community ID.
+    default: '0'
+    min: 0
+    max: 4294967295
+  mib-view:
+    type: string
+    raw_type: string
+    description: SNMP access control MIB view.
+    max_length: 32
+  name:
+    type: string
+    raw_type: string
+    description: Community name.
+    max_length: 35
+  query-v1-port:
+    type: integer
+    raw_type: integer
+    description: SNMP v1 query port (default = 161).
+    default: '161'
+    min: 1
+    max: 65535
+  query-v1-status:
+    type: enum
+    raw_type: option
+    description: Enable/disable SNMP v1 queries.
+    default: enable
+  query-v2c-port:
+    type: integer
+    raw_type: integer
+    description: SNMP v2c query port (default = 161).
+    default: '161'
+    min: 0
+    max: 65535
+  query-v2c-status:
+    type: enum
+    raw_type: option
+    description: Enable/disable SNMP v2c queries.
+    default: enable
+  status:
+    type: enum
+    raw_type: option
+    description: Enable/disable this SNMP community.
+    default: enable
+  trap-v1-lport:
+    type: integer
+    raw_type: integer
+    description: SNMP v1 trap local port (default = 162).
+    default: '162'
+    min: 1
+    max: 65535
+  trap-v1-rport:
+    type: integer
+    raw_type: integer
+    description: SNMP v1 trap remote port (default = 162).
+    default: '162'
+    min: 1
+    max: 65535
+  trap-v1-status:
+    type: enum
+    raw_type: option
+    description: Enable/disable SNMP v1 traps.
+    default: enable
+  trap-v2c-lport:
+    type: integer
+    raw_type: integer
+    description: SNMP v2c trap local port (default = 162).
+    default: '162'
+    min: 1
+    max: 65535
+  trap-v2c-rport:
+    type: integer
+    raw_type: integer
+    description: SNMP v2c trap remote port (default = 162).
+    default: '162'
+    min: 1
+    max: 65535
+  trap-v2c-status:
+    type: enum
+    raw_type: option
+    description: Enable/disable SNMP v2c traps.
+    default: enable
+  vdoms:
+    type: string
+    raw_type: string
+    description: SNMP access control VDOMs. VDOM name.
+    max_length: 79
+children:
+  hosts:
+    attributes:
+      ha-direct:
+        type: enum
+        raw_type: option
+        description: Enable/disable direct management of HA cluster members.
+        default: disable
+      host-type:
+        type: enum
+        raw_type: option
+        description: Control whether the SNMP manager sends SNMP queries, receives SNMP traps, or both. No traps will be sent
+          when IP type is subnet.
+        default: any
+      id:
+        type: integer
+        raw_type: integer
+        description: Host entry ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      interface:
+        type: string
+        raw_type: string
+        description: Specify outgoing interface to reach server.
+        max_length: 15
+      interface-select-method:
+        type: enum
+        raw_type: option
+        description: Specify how to select outgoing interface to reach server.
+        default: auto
+      ip:
+        type: string
+        raw_type: user
+        description: IPv4 address of the SNMP manager (host).
+      source-ip:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Source IPv4 address for SNMP traps.
+        default: 0.0.0.0
+      vrf-select:
+        type: integer
+        raw_type: integer
+        description: VRF ID used for connection to server.
+        default: '0'
+        min: 0
+        max: 511
+  hosts6:
+    attributes:
+      ha-direct:
+        type: enum
+        raw_type: option
+        description: Enable/disable direct management of HA cluster members.
+        default: disable
+      host-type:
+        type: enum
+        raw_type: option
+        description: Control whether the SNMP manager sends SNMP queries, receives SNMP traps, or both.
+        default: any
+      id:
+        type: integer
+        raw_type: integer
+        description: Host6 entry ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      interface:
+        type: string
+        raw_type: string
+        description: Specify outgoing interface to reach server.
+        max_length: 15
+      interface-select-method:
+        type: enum
+        raw_type: option
+        description: Specify how to select outgoing interface to reach server.
+        default: auto
+      ipv6:
+        type: ipv6-prefix
+        raw_type: ipv6-prefix
+        description: SNMP manager IPv6 address prefix.
+        default: ::/0
+      source-ipv6:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: Source IPv6 address for SNMP traps.
+        default: '::'
+      vrf-select:
+        type: integer
+        raw_type: integer
+        description: VRF ID used for connection to server.
+        default: '0'
+        min: 0
+        max: 511

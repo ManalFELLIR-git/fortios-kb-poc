@@ -1,0 +1,6097 @@
+id: voip.profile
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Comment.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Comment.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 255
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fabric_force_sync:
+    canonical:
+      type: string
+      source_attribute: fabric_force_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_force_sync
+    sources:
+    - terraform
+  fabric_object:
+    canonical:
+      type: string
+      source_attribute: fabric_object
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object
+    sources:
+    - terraform
+  fabric_object_source:
+    canonical:
+      type: string
+      source_attribute: fabric_object_source
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object_source
+    sources:
+    - terraform
+  feature_set:
+    canonical:
+      type: enum
+      version_ranges: &id003
+      - - v7.0.0
+        - ''
+      choices: &id002
+      - ips
+      - voipd
+      default: voipd
+      description: IPS or voipd (SIP-ALG) inspection feature set.
+      source_attribute: feature-set
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id002
+        version_ranges: *id003
+        description: IPS or voipd (SIP-ALG) inspection feature set.
+        source_attribute: feature_set
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: feature_set
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: IPS or voipd (SIP-ALG) inspection feature set.
+        default: voipd
+        source_attribute: feature-set
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  msrp:
+    canonical:
+      type: list
+      children: &id005
+        status:
+          type: enum
+          raw_type: string
+          choices: &id013
+          - disable
+          - enable
+          version_ranges: &id012
+          - - v7.0.2
+            - ''
+          description: Enable/disable MSRP.
+        log_violations:
+          type: enum
+          raw_type: string
+          choices: &id008
+          - disable
+          - enable
+          version_ranges: &id007
+          - - v7.0.2
+            - ''
+          description: Enable/disable logging of MSRP violations.
+        max_msg_size:
+          type: integer
+          raw_type: integer
+          version_ranges: &id009
+          - - v7.0.2
+            - ''
+          description: Maximum allowable MSRP message size (1-65535).
+        max_msg_size_action:
+          type: enum
+          raw_type: string
+          choices: &id011
+          - pass
+          - block
+          - reset
+          - monitor
+          version_ranges: &id010
+          - - v7.0.2
+            - ''
+          description: Action for violation of max-msg-size.
+      version_ranges: &id004
+      - - v7.0.2
+        - ''
+      description: MSRP.
+      source_attribute: msrp
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id004
+        description: MSRP.
+        children: *id005
+        source_attribute: msrp
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          log_violations:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          max_msg_size:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 65535
+          max_msg_size_action:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: msrp
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id006
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id006
+  msrp.log_violations:
+    canonical:
+      type: enum
+      version_ranges: *id007
+      choices: *id008
+      description: Enable/disable logging of MSRP violations.
+      source_attribute: msrp.log_violations
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id008
+        version_ranges: *id007
+        description: Enable/disable logging of MSRP violations.
+        source_attribute: msrp.log_violations
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: msrp.log_violations
+    sources:
+    - ansible
+    - terraform
+  msrp.max_msg_size:
+    canonical:
+      type: integer
+      version_ranges: *id009
+      min: 0
+      max: 65535
+      description: Maximum allowable MSRP message size (1-65535).
+      source_attribute: msrp.max_msg_size
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id009
+        description: Maximum allowable MSRP message size (1-65535).
+        source_attribute: msrp.max_msg_size
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: msrp.max_msg_size
+    sources:
+    - ansible
+    - terraform
+  msrp.max_msg_size_action:
+    canonical:
+      type: enum
+      version_ranges: *id010
+      choices: *id011
+      description: Action for violation of max-msg-size.
+      source_attribute: msrp.max_msg_size_action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id011
+        version_ranges: *id010
+        description: Action for violation of max-msg-size.
+        source_attribute: msrp.max_msg_size_action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: msrp.max_msg_size_action
+    sources:
+    - ansible
+    - terraform
+  msrp.status:
+    canonical:
+      type: enum
+      version_ranges: *id012
+      choices: *id013
+      description: Enable/disable MSRP.
+      source_attribute: msrp.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id012
+        description: Enable/disable MSRP.
+        source_attribute: msrp.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: msrp.status
+    sources:
+    - ansible
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id014
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 47
+      description: Profile name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id014
+        description: Profile name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        force_new: true
+        min_length: 0
+        max_length: 47
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Profile name.
+        max_length: 47
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sccp:
+    canonical:
+      type: list
+      children: &id016
+        status:
+          type: enum
+          raw_type: string
+          choices: &id026
+          - disable
+          - enable
+          version_ranges: &id025
+          - - v6.0.0
+            - ''
+          description: Enable/disable SCCP.
+        block_mcast:
+          type: enum
+          raw_type: string
+          choices: &id019
+          - disable
+          - enable
+          version_ranges: &id018
+          - - v6.0.0
+            - ''
+          description: Enable/disable block multicast RTP connections.
+        verify_header:
+          type: enum
+          raw_type: string
+          choices: &id028
+          - disable
+          - enable
+          version_ranges: &id027
+          - - v6.0.0
+            - ''
+          description: Enable/disable verify SCCP header content.
+        log_call_summary:
+          type: enum
+          raw_type: string
+          choices: &id021
+          - disable
+          - enable
+          version_ranges: &id020
+          - - v6.0.0
+            - ''
+          description: Enable/disable log summary of SCCP calls.
+        log_violations:
+          type: enum
+          raw_type: string
+          choices: &id023
+          - disable
+          - enable
+          version_ranges: &id022
+          - - v6.0.0
+            - ''
+          description: Enable/disable logging of SCCP violations.
+        max_calls:
+          type: integer
+          raw_type: integer
+          version_ranges: &id024
+          - - v6.0.0
+            - ''
+          description: Maximum calls per minute per SCCP client (max 65535).
+      version_ranges: &id015
+      - - v6.0.0
+        - ''
+      description: SCCP.
+      source_attribute: sccp
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id015
+        description: SCCP.
+        children: *id016
+        source_attribute: sccp
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          block_mcast:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          verify_header:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          log_call_summary:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          log_violations:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          max_calls:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 65535
+        source_attribute: sccp
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id017
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id017
+  sccp.block_mcast:
+    canonical:
+      type: enum
+      version_ranges: *id018
+      choices: *id019
+      description: Enable/disable block multicast RTP connections.
+      source_attribute: sccp.block_mcast
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id019
+        version_ranges: *id018
+        description: Enable/disable block multicast RTP connections.
+        source_attribute: sccp.block_mcast
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sccp.block_mcast
+    sources:
+    - ansible
+    - terraform
+  sccp.log_call_summary:
+    canonical:
+      type: enum
+      version_ranges: *id020
+      choices: *id021
+      description: Enable/disable log summary of SCCP calls.
+      source_attribute: sccp.log_call_summary
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id021
+        version_ranges: *id020
+        description: Enable/disable log summary of SCCP calls.
+        source_attribute: sccp.log_call_summary
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sccp.log_call_summary
+    sources:
+    - ansible
+    - terraform
+  sccp.log_violations:
+    canonical:
+      type: enum
+      version_ranges: *id022
+      choices: *id023
+      description: Enable/disable logging of SCCP violations.
+      source_attribute: sccp.log_violations
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id023
+        version_ranges: *id022
+        description: Enable/disable logging of SCCP violations.
+        source_attribute: sccp.log_violations
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sccp.log_violations
+    sources:
+    - ansible
+    - terraform
+  sccp.max_calls:
+    canonical:
+      type: integer
+      version_ranges: *id024
+      min: 0
+      max: 65535
+      description: Maximum calls per minute per SCCP client (max 65535).
+      source_attribute: sccp.max_calls
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id024
+        description: Maximum calls per minute per SCCP client (max 65535).
+        source_attribute: sccp.max_calls
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: sccp.max_calls
+    sources:
+    - ansible
+    - terraform
+  sccp.status:
+    canonical:
+      type: enum
+      version_ranges: *id025
+      choices: *id026
+      description: Enable/disable SCCP.
+      source_attribute: sccp.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id026
+        version_ranges: *id025
+        description: Enable/disable SCCP.
+        source_attribute: sccp.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sccp.status
+    sources:
+    - ansible
+    - terraform
+  sccp.verify_header:
+    canonical:
+      type: enum
+      version_ranges: *id027
+      choices: *id028
+      description: Enable/disable verify SCCP header content.
+      source_attribute: sccp.verify_header
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id028
+        version_ranges: *id027
+        description: Enable/disable verify SCCP header content.
+        source_attribute: sccp.verify_header
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sccp.verify_header
+    sources:
+    - ansible
+    - terraform
+  sip:
+    canonical:
+      type: list
+      children: &id030
+        status:
+          type: enum
+          raw_type: string
+          choices: &id228
+          - disable
+          - enable
+          version_ranges: &id227
+          - - v6.0.0
+            - ''
+          description: Enable/disable SIP.
+        rtp:
+          type: enum
+          raw_type: string
+          choices: &id204
+          - disable
+          - enable
+          version_ranges: &id203
+          - - v6.0.0
+            - ''
+          description: Enable/disable create pinholes for RTP traffic to traverse firewall.
+        nat_port_range:
+          type: string
+          raw_type: string
+          version_ranges: &id165
+          - - v6.2.0
+            - ''
+          description: RTP NAT port range.
+        open_register_pinhole:
+          type: enum
+          raw_type: string
+          choices: &id178
+          - disable
+          - enable
+          version_ranges: &id177
+          - - v6.0.0
+            - ''
+          description: Enable/disable open pinhole for REGISTER Contact port.
+        open_contact_pinhole:
+          type: enum
+          raw_type: string
+          choices: &id174
+          - disable
+          - enable
+          version_ranges: &id173
+          - - v6.0.0
+            - ''
+          description: Enable/disable open pinhole for non-REGISTER Contact port.
+        strict_register:
+          type: enum
+          raw_type: string
+          choices: &id230
+          - disable
+          - enable
+          version_ranges: &id229
+          - - v6.0.0
+            - ''
+          description: Enable/disable only allow the registrar to connect.
+        register_rate:
+          type: integer
+          raw_type: integer
+          version_ranges: &id198
+          - - v6.0.0
+            - ''
+          description: REGISTER request rate limit (per second, per policy).
+        register_rate_track:
+          type: enum
+          raw_type: string
+          choices: &id200
+          - none
+          - src-ip
+          - dest-ip
+          version_ranges: &id199
+          - - v7.0.0
+            - ''
+          description: Track the packet protocol field.
+        invite_rate:
+          type: integer
+          raw_type: integer
+          version_ranges: &id087
+          - - v6.0.0
+            - ''
+          description: INVITE request rate limit (per second, per policy).
+        invite_rate_track:
+          type: enum
+          raw_type: string
+          choices: &id089
+          - none
+          - src-ip
+          - dest-ip
+          version_ranges: &id088
+          - - v7.0.0
+            - ''
+          description: Track the packet protocol field.
+        max_dialogs:
+          type: integer
+          raw_type: integer
+          version_ranges: &id159
+          - - v6.0.0
+            - ''
+          description: Maximum number of concurrent calls/dialogs (per policy).
+        max_line_length:
+          type: integer
+          raw_type: integer
+          version_ranges: &id161
+          - - v6.0.0
+            - ''
+          description: Maximum SIP header line length (78-4096).
+        block_long_lines:
+          type: enum
+          raw_type: string
+          choices: &id048
+          - disable
+          - enable
+          version_ranges: &id047
+          - - v6.0.0
+            - ''
+          description: Enable/disable block requests with headers exceeding max-line-length.
+        block_unknown:
+          type: enum
+          raw_type: string
+          choices: &id066
+          - disable
+          - enable
+          version_ranges: &id065
+          - - v6.0.0
+            - ''
+          description: Block unrecognized SIP requests (enabled by default).
+        call_keepalive:
+          type: integer
+          raw_type: integer
+          version_ranges: &id073
+          - - v6.0.0
+            - ''
+          description: Continue tracking calls with no RTP for this many minutes.
+        block_ack:
+          type: enum
+          raw_type: string
+          choices: &id036
+          - disable
+          - enable
+          version_ranges: &id035
+          - - v6.0.0
+            - ''
+          description: Enable/disable block ACK requests.
+        block_bye:
+          type: enum
+          raw_type: string
+          choices: &id038
+          - disable
+          - enable
+          version_ranges: &id037
+          - - v6.0.0
+            - ''
+          description: Enable/disable block BYE requests.
+        block_cancel:
+          type: enum
+          raw_type: string
+          choices: &id040
+          - disable
+          - enable
+          version_ranges: &id039
+          - - v6.0.0
+            - ''
+          description: Enable/disable block CANCEL requests.
+        block_info:
+          type: enum
+          raw_type: string
+          choices: &id044
+          - disable
+          - enable
+          version_ranges: &id043
+          - - v6.0.0
+            - ''
+          description: Enable/disable block INFO requests.
+        block_invite:
+          type: enum
+          raw_type: string
+          choices: &id046
+          - disable
+          - enable
+          version_ranges: &id045
+          - - v6.0.0
+            - ''
+          description: Enable/disable block INVITE requests.
+        block_message:
+          type: enum
+          raw_type: string
+          choices: &id050
+          - disable
+          - enable
+          version_ranges: &id049
+          - - v6.0.0
+            - ''
+          description: Enable/disable block MESSAGE requests.
+        block_notify:
+          type: enum
+          raw_type: string
+          choices: &id052
+          - disable
+          - enable
+          version_ranges: &id051
+          - - v6.0.0
+            - ''
+          description: Enable/disable block NOTIFY requests.
+        block_options:
+          type: enum
+          raw_type: string
+          choices: &id054
+          - disable
+          - enable
+          version_ranges: &id053
+          - - v6.0.0
+            - ''
+          description: Enable/disable block OPTIONS requests and no OPTIONS as notifying message for redundancy either.
+        block_prack:
+          type: enum
+          raw_type: string
+          choices: &id056
+          - disable
+          - enable
+          version_ranges: &id055
+          - - v6.0.0
+            - ''
+          description: Enable/disable block prack requests.
+        block_publish:
+          type: enum
+          raw_type: string
+          choices: &id058
+          - disable
+          - enable
+          version_ranges: &id057
+          - - v6.0.0
+            - ''
+          description: Enable/disable block PUBLISH requests.
+        block_refer:
+          type: enum
+          raw_type: string
+          choices: &id060
+          - disable
+          - enable
+          version_ranges: &id059
+          - - v6.0.0
+            - ''
+          description: Enable/disable block REFER requests.
+        block_register:
+          type: enum
+          raw_type: string
+          choices: &id062
+          - disable
+          - enable
+          version_ranges: &id061
+          - - v6.0.0
+            - ''
+          description: Enable/disable block REGISTER requests.
+        block_subscribe:
+          type: enum
+          raw_type: string
+          choices: &id064
+          - disable
+          - enable
+          version_ranges: &id063
+          - - v6.0.0
+            - ''
+          description: Enable/disable block SUBSCRIBE requests.
+        block_update:
+          type: enum
+          raw_type: string
+          choices: &id068
+          - disable
+          - enable
+          version_ranges: &id067
+          - - v6.0.0
+            - ''
+          description: Enable/disable block UPDATE requests.
+        register_contact_trace:
+          type: enum
+          raw_type: string
+          choices: &id197
+          - disable
+          - enable
+          version_ranges: &id196
+          - - v6.0.0
+            - ''
+          description: Enable/disable trace original IP/port within the contact header of REGISTER requests.
+        open_via_pinhole:
+          type: enum
+          raw_type: string
+          choices: &id180
+          - disable
+          - enable
+          version_ranges: &id179
+          - - v6.0.0
+            - ''
+          description: Enable/disable open pinhole for Via port.
+        open_record_route_pinhole:
+          type: enum
+          raw_type: string
+          choices: &id176
+          - disable
+          - enable
+          version_ranges: &id175
+          - - v6.0.0
+            - ''
+          description: Enable/disable open pinhole for Record-Route port.
+        rfc2543_branch:
+          type: enum
+          raw_type: string
+          choices: &id202
+          - disable
+          - enable
+          version_ranges: &id201
+          - - v6.0.0
+            - ''
+          description: Enable/disable support via branch compliant with RFC 2543.
+        log_violations:
+          type: enum
+          raw_type: string
+          choices: &id095
+          - disable
+          - enable
+          version_ranges: &id094
+          - - v6.0.0
+            - ''
+          description: Enable/disable logging of SIP violations.
+        log_call_summary:
+          type: enum
+          raw_type: string
+          choices: &id093
+          - disable
+          - enable
+          version_ranges: &id092
+          - - v6.0.0
+            - ''
+          description: Enable/disable logging of SIP call summary.
+        nat_trace:
+          type: enum
+          raw_type: string
+          choices: &id167
+          - disable
+          - enable
+          version_ranges: &id166
+          - - v6.0.0
+            - ''
+          description: Enable/disable preservation of original IP in SDP i line.
+        subscribe_rate:
+          type: integer
+          raw_type: integer
+          version_ranges: &id231
+          - - v6.0.0
+            - ''
+          description: SUBSCRIBE request rate limit (per second, per policy).
+        subscribe_rate_track:
+          type: enum
+          raw_type: string
+          choices: &id233
+          - none
+          - src-ip
+          - dest-ip
+          version_ranges: &id232
+          - - v7.0.0
+            - ''
+          description: Track the packet protocol field.
+        message_rate:
+          type: integer
+          raw_type: integer
+          version_ranges: &id162
+          - - v6.0.0
+            - ''
+          description: MESSAGE request rate limit (per second, per policy).
+        message_rate_track:
+          type: enum
+          raw_type: string
+          choices: &id164
+          - none
+          - src-ip
+          - dest-ip
+          version_ranges: &id163
+          - - v7.0.0
+            - ''
+          description: Track the packet protocol field.
+        notify_rate:
+          type: integer
+          raw_type: integer
+          version_ranges: &id170
+          - - v6.0.0
+            - ''
+          description: NOTIFY request rate limit (per second, per policy).
+        notify_rate_track:
+          type: enum
+          raw_type: string
+          choices: &id172
+          - none
+          - src-ip
+          - dest-ip
+          version_ranges: &id171
+          - - v7.0.0
+            - ''
+          description: Track the packet protocol field.
+        refer_rate:
+          type: integer
+          raw_type: integer
+          version_ranges: &id193
+          - - v6.0.0
+            - ''
+          description: REFER request rate limit (per second, per policy).
+        refer_rate_track:
+          type: enum
+          raw_type: string
+          choices: &id195
+          - none
+          - src-ip
+          - dest-ip
+          version_ranges: &id194
+          - - v7.0.0
+            - ''
+          description: Track the packet protocol field.
+        update_rate:
+          type: integer
+          raw_type: integer
+          version_ranges: &id236
+          - - v6.0.0
+            - ''
+          description: UPDATE request rate limit (per second, per policy).
+        update_rate_track:
+          type: enum
+          raw_type: string
+          choices: &id238
+          - none
+          - src-ip
+          - dest-ip
+          version_ranges: &id237
+          - - v7.0.0
+            - ''
+          description: Track the packet protocol field.
+        options_rate:
+          type: integer
+          raw_type: integer
+          version_ranges: &id181
+          - - v6.0.0
+            - ''
+          description: OPTIONS request rate limit (per second, per policy).
+        options_rate_track:
+          type: enum
+          raw_type: string
+          choices: &id183
+          - none
+          - src-ip
+          - dest-ip
+          version_ranges: &id182
+          - - v7.0.0
+            - ''
+          description: Track the packet protocol field.
+        ack_rate:
+          type: integer
+          raw_type: integer
+          version_ranges: &id032
+          - - v6.0.0
+            - ''
+          description: ACK request rate limit (per second, per policy).
+        ack_rate_track:
+          type: enum
+          raw_type: string
+          choices: &id034
+          - none
+          - src-ip
+          - dest-ip
+          version_ranges: &id033
+          - - v7.0.0
+            - ''
+          description: Track the packet protocol field.
+        prack_rate:
+          type: integer
+          raw_type: integer
+          version_ranges: &id184
+          - - v6.0.0
+            - ''
+          description: PRACK request rate limit (per second, per policy).
+        prack_rate_track:
+          type: enum
+          raw_type: string
+          choices: &id186
+          - none
+          - src-ip
+          - dest-ip
+          version_ranges: &id185
+          - - v7.0.0
+            - ''
+          description: Track the packet protocol field.
+        info_rate:
+          type: integer
+          raw_type: integer
+          version_ranges: &id084
+          - - v6.0.0
+            - ''
+          description: INFO request rate limit (per second, per policy).
+        info_rate_track:
+          type: enum
+          raw_type: string
+          choices: &id086
+          - none
+          - src-ip
+          - dest-ip
+          version_ranges: &id085
+          - - v7.0.0
+            - ''
+          description: Track the packet protocol field.
+        publish_rate:
+          type: integer
+          raw_type: integer
+          version_ranges: &id190
+          - - v6.0.0
+            - ''
+          description: PUBLISH request rate limit (per second, per policy).
+        publish_rate_track:
+          type: enum
+          raw_type: string
+          choices: &id192
+          - none
+          - src-ip
+          - dest-ip
+          version_ranges: &id191
+          - - v7.0.0
+            - ''
+          description: Track the packet protocol field.
+        bye_rate:
+          type: integer
+          raw_type: integer
+          version_ranges: &id069
+          - - v6.0.0
+            - ''
+          description: BYE request rate limit (per second, per policy).
+        bye_rate_track:
+          type: enum
+          raw_type: string
+          choices: &id071
+          - none
+          - src-ip
+          - dest-ip
+          version_ranges: &id070
+          - - v7.0.0
+            - ''
+          description: Track the packet protocol field.
+        cancel_rate:
+          type: integer
+          raw_type: integer
+          version_ranges: &id074
+          - - v6.0.0
+            - ''
+          description: CANCEL request rate limit (per second, per policy).
+        cancel_rate_track:
+          type: enum
+          raw_type: string
+          choices: &id076
+          - none
+          - src-ip
+          - dest-ip
+          version_ranges: &id075
+          - - v7.0.0
+            - ''
+          description: Track the packet protocol field.
+        preserve_override:
+          type: enum
+          raw_type: string
+          choices: &id188
+          - disable
+          - enable
+          version_ranges: &id187
+          - - v6.0.0
+            - ''
+          description: Override i line to preserve original IPs .
+        no_sdp_fixup:
+          type: enum
+          raw_type: string
+          choices: &id169
+          - disable
+          - enable
+          version_ranges: &id168
+          - - v6.0.0
+            - ''
+          description: Enable/disable no SDP fix-up.
+        contact_fixup:
+          type: enum
+          raw_type: string
+          choices: &id078
+          - disable
+          - enable
+          version_ranges: &id077
+          - - v6.0.0
+            - ''
+          description: Fixup contact anyway even if contact"s IP:port doesn"t match session"s IP:port.
+        max_idle_dialogs:
+          type: integer
+          raw_type: integer
+          version_ranges: &id160
+          - - v6.0.0
+            - ''
+          description: Maximum number established but idle dialogs to retain (per policy).
+        block_geo_red_options:
+          type: enum
+          raw_type: string
+          choices: &id042
+          - disable
+          - enable
+          version_ranges: &id041
+          - - v6.0.0
+            - ''
+          description: Enable/disable block OPTIONS requests, but OPTIONS requests still notify for redundancy.
+        hosted_nat_traversal:
+          type: enum
+          raw_type: string
+          choices: &id083
+          - disable
+          - enable
+          version_ranges: &id082
+          - - v6.0.0
+            - ''
+          description: Hosted NAT Traversal (HNT).
+        hnt_restrict_source_ip:
+          type: enum
+          raw_type: string
+          choices: &id081
+          - disable
+          - enable
+          version_ranges: &id080
+          - - v6.0.0
+            - ''
+          description: Enable/disable restrict RTP source IP to be the same as SIP source IP when HNT is enabled.
+        call_id_regex:
+          type: string
+          raw_type: string
+          version_ranges: &id072
+          - - v7.4.0
+            - ''
+          description: Validate PCRE regular expression for Call-Id header value.
+        content_type_regex:
+          type: string
+          raw_type: string
+          version_ranges: &id079
+          - - v7.4.0
+            - ''
+          description: Validate PCRE regular expression for Content-Type header value.
+        max_body_length:
+          type: integer
+          raw_type: integer
+          version_ranges: &id158
+          - - v6.0.0
+            - ''
+          description: Maximum SIP message body length (0 meaning no limit).
+        unknown_header:
+          type: enum
+          raw_type: string
+          choices: &id235
+          - discard
+          - pass
+          - respond
+          version_ranges: &id234
+          - - v6.0.0
+            - ''
+          description: Action for unknown SIP header.
+        malformed_request_line:
+          type: enum
+          raw_type: string
+          choices: &id157
+          - discard
+          - pass
+          - respond
+          version_ranges: &id156
+          - - v6.0.0
+            - ''
+          description: Action for malformed request line.
+        malformed_header_via:
+          type: enum
+          raw_type: string
+          choices: &id155
+          - discard
+          - pass
+          - respond
+          version_ranges: &id154
+          - - v6.0.0
+            - ''
+          description: Action for malformed VIA header.
+        malformed_header_from:
+          type: enum
+          raw_type: string
+          choices: &id111
+          - discard
+          - pass
+          - respond
+          version_ranges: &id110
+          - - v6.0.0
+            - ''
+          description: Action for malformed From header.
+        malformed_header_to:
+          type: enum
+          raw_type: string
+          choices: &id153
+          - discard
+          - pass
+          - respond
+          version_ranges: &id152
+          - - v6.0.0
+            - ''
+          description: Action for malformed To header.
+        malformed_header_call_id:
+          type: enum
+          raw_type: string
+          choices: &id099
+          - discard
+          - pass
+          - respond
+          version_ranges: &id098
+          - - v6.0.0
+            - ''
+          description: Action for malformed Call-ID header.
+        malformed_header_cseq:
+          type: enum
+          raw_type: string
+          choices: &id107
+          - discard
+          - pass
+          - respond
+          version_ranges: &id106
+          - - v6.0.0
+            - ''
+          description: Action for malformed CSeq header.
+        malformed_header_rack:
+          type: enum
+          raw_type: string
+          choices: &id121
+          - discard
+          - pass
+          - respond
+          version_ranges: &id120
+          - - v6.0.0
+            - ''
+          description: Action for malformed RAck header.
+        malformed_header_rseq:
+          type: enum
+          raw_type: string
+          choices: &id127
+          - discard
+          - pass
+          - respond
+          version_ranges: &id126
+          - - v6.0.0
+            - ''
+          description: Action for malformed RSeq header.
+        malformed_header_contact:
+          type: enum
+          raw_type: string
+          choices: &id101
+          - discard
+          - pass
+          - respond
+          version_ranges: &id100
+          - - v6.0.0
+            - ''
+          description: Action for malformed Contact header.
+        malformed_header_record_route:
+          type: enum
+          raw_type: string
+          choices: &id123
+          - discard
+          - pass
+          - respond
+          version_ranges: &id122
+          - - v6.0.0
+            - ''
+          description: Action for malformed Record-Route header.
+        malformed_header_route:
+          type: enum
+          raw_type: string
+          choices: &id125
+          - discard
+          - pass
+          - respond
+          version_ranges: &id124
+          - - v6.0.0
+            - ''
+          description: Action for malformed Route header.
+        malformed_header_expires:
+          type: enum
+          raw_type: string
+          choices: &id109
+          - discard
+          - pass
+          - respond
+          version_ranges: &id108
+          - - v6.0.0
+            - ''
+          description: Action for malformed Expires header.
+        malformed_header_content_type:
+          type: enum
+          raw_type: string
+          choices: &id105
+          - discard
+          - pass
+          - respond
+          version_ranges: &id104
+          - - v6.0.0
+            - ''
+          description: Action for malformed Content-Type header.
+        malformed_header_content_length:
+          type: enum
+          raw_type: string
+          choices: &id103
+          - discard
+          - pass
+          - respond
+          version_ranges: &id102
+          - - v6.0.0
+            - ''
+          description: Action for malformed Content-Length header.
+        malformed_header_max_forwards:
+          type: enum
+          raw_type: string
+          choices: &id113
+          - discard
+          - pass
+          - respond
+          version_ranges: &id112
+          - - v6.0.0
+            - ''
+          description: Action for malformed Max-Forwards header.
+        malformed_header_allow:
+          type: enum
+          raw_type: string
+          choices: &id097
+          - discard
+          - pass
+          - respond
+          version_ranges: &id096
+          - - v6.0.0
+            - ''
+          description: Action for malformed Allow header.
+        malformed_header_p_asserted_identity:
+          type: enum
+          raw_type: string
+          choices: &id119
+          - discard
+          - pass
+          - respond
+          version_ranges: &id118
+          - - v6.0.0
+            - ''
+          description: Action for malformed P-Asserted-Identity header.
+        malformed_header_no_require:
+          type: enum
+          raw_type: string
+          choices: &id117
+          - discard
+          - pass
+          - respond
+          version_ranges: &id116
+          - - v7.0.0
+            - ''
+          description: Action for malformed SIP messages without Require header.
+        malformed_header_no_proxy_require:
+          type: enum
+          raw_type: string
+          choices: &id115
+          - discard
+          - pass
+          - respond
+          version_ranges: &id114
+          - - v7.0.0
+            - ''
+          description: Action for malformed SIP messages without Proxy-Require header.
+        malformed_header_sdp_v:
+          type: enum
+          raw_type: string
+          choices: &id149
+          - discard
+          - pass
+          - respond
+          version_ranges: &id148
+          - - v6.0.0
+            - ''
+          description: Action for malformed SDP v line.
+        malformed_header_sdp_o:
+          type: enum
+          raw_type: string
+          choices: &id141
+          - discard
+          - pass
+          - respond
+          version_ranges: &id140
+          - - v6.0.0
+            - ''
+          description: Action for malformed SDP o line.
+        malformed_header_sdp_s:
+          type: enum
+          raw_type: string
+          choices: &id145
+          - discard
+          - pass
+          - respond
+          version_ranges: &id144
+          - - v6.0.0
+            - ''
+          description: Action for malformed SDP s line.
+        malformed_header_sdp_i:
+          type: enum
+          raw_type: string
+          choices: &id135
+          - discard
+          - pass
+          - respond
+          version_ranges: &id134
+          - - v6.0.0
+            - ''
+          description: Action for malformed SDP i line.
+        malformed_header_sdp_c:
+          type: enum
+          raw_type: string
+          choices: &id133
+          - discard
+          - pass
+          - respond
+          version_ranges: &id132
+          - - v6.0.0
+            - ''
+          description: Action for malformed SDP c line.
+        malformed_header_sdp_b:
+          type: enum
+          raw_type: string
+          choices: &id131
+          - discard
+          - pass
+          - respond
+          version_ranges: &id130
+          - - v6.0.0
+            - ''
+          description: Action for malformed SDP b line.
+        malformed_header_sdp_z:
+          type: enum
+          raw_type: string
+          choices: &id151
+          - discard
+          - pass
+          - respond
+          version_ranges: &id150
+          - - v6.0.0
+            - ''
+          description: Action for malformed SDP z line.
+        malformed_header_sdp_k:
+          type: enum
+          raw_type: string
+          choices: &id137
+          - discard
+          - pass
+          - respond
+          version_ranges: &id136
+          - - v6.0.0
+            - ''
+          description: Action for malformed SDP k line.
+        malformed_header_sdp_a:
+          type: enum
+          raw_type: string
+          choices: &id129
+          - discard
+          - pass
+          - respond
+          version_ranges: &id128
+          - - v6.0.0
+            - ''
+          description: Action for malformed SDP a line.
+        malformed_header_sdp_t:
+          type: enum
+          raw_type: string
+          choices: &id147
+          - discard
+          - pass
+          - respond
+          version_ranges: &id146
+          - - v6.0.0
+            - ''
+          description: Action for malformed SDP t line.
+        malformed_header_sdp_r:
+          type: enum
+          raw_type: string
+          choices: &id143
+          - discard
+          - pass
+          - respond
+          version_ranges: &id142
+          - - v6.0.0
+            - ''
+          description: Action for malformed SDP r line.
+        malformed_header_sdp_m:
+          type: enum
+          raw_type: string
+          choices: &id139
+          - discard
+          - pass
+          - respond
+          version_ranges: &id138
+          - - v6.0.0
+            - ''
+          description: Action for malformed SDP m line.
+        provisional_invite_expiry_time:
+          type: integer
+          raw_type: integer
+          version_ranges: &id189
+          - - v6.0.0
+            - ''
+          description: Expiry time (10-3600, in seconds) for provisional INVITE.
+        ips_rtp:
+          type: enum
+          raw_type: string
+          choices: &id091
+          - disable
+          - enable
+          version_ranges: &id090
+          - - v6.0.0
+            - ''
+          description: Enable/disable allow IPS on RTP.
+        ssl_mode:
+          type: enum
+          raw_type: string
+          choices: &id220
+          - 'off'
+          - full
+          version_ranges: &id219
+          - - v6.0.0
+            - ''
+          description: SSL/TLS mode for encryption & decryption of traffic.
+        ssl_send_empty_frags:
+          type: enum
+          raw_type: string
+          choices: &id224
+          - enable
+          - disable
+          version_ranges: &id223
+          - - v6.0.0
+            - ''
+          description: Send empty fragments to avoid attack on CBC IV (SSL 3.0 & TLS 1.0 only).
+        ssl_client_renegotiation:
+          type: enum
+          raw_type: string
+          choices: &id214
+          - allow
+          - deny
+          - secure
+          version_ranges: &id213
+          - - v6.0.0
+            - ''
+          description: Allow/block client renegotiation by server.
+        ssl_algorithm:
+          type: enum
+          raw_type: string
+          choices: &id206
+          - high
+          - medium
+          - low
+          version_ranges: &id205
+          - - v6.0.0
+            - ''
+          description: Relative strength of encryption algorithms accepted in negotiation.
+        ssl_pfs:
+          type: enum
+          raw_type: string
+          choices: &id222
+          - require
+          - deny
+          - allow
+          version_ranges: &id221
+          - - v6.0.0
+            - ''
+          description: SSL Perfect Forward Secrecy.
+        ssl_min_version:
+          type: enum
+          raw_type: string
+          choices: &id218
+          - ssl-3.0
+          - tls-1.0
+          - tls-1.1
+          - tls-1.2
+          - tls-1.3
+          version_ranges: &id217
+          - - v6.0.0
+            - ''
+          description: Lowest SSL/TLS version to negotiate.
+        ssl_max_version:
+          type: enum
+          raw_type: string
+          choices: &id216
+          - ssl-3.0
+          - tls-1.0
+          - tls-1.1
+          - tls-1.2
+          - tls-1.3
+          version_ranges: &id215
+          - - v6.0.0
+            - ''
+          description: Highest SSL/TLS version to negotiate.
+        ssl_client_certificate:
+          type: string
+          raw_type: string
+          version_ranges: &id212
+          - - v6.0.0
+            - ''
+          description: Name of Certificate to offer to server if requested. Source vpn.certificate.local.name.
+          references: &id211
+          - vpn.certificate.local.name
+        ssl_server_certificate:
+          type: string
+          raw_type: string
+          version_ranges: &id226
+          - - v6.0.0
+            - ''
+          description: Name of Certificate return to the client in every SSL connection. Source vpn.certificate.local.name.
+          references: &id225
+          - vpn.certificate.local.name
+        ssl_auth_client:
+          type: string
+          raw_type: string
+          version_ranges: &id208
+          - - v6.0.0
+            - ''
+          description: Require a client certificate and authenticate it with the peer/peergrp. Source user.peer.name user.peergrp.name.
+          references: &id207
+          - user.peer.name
+          - user.peergrp.name
+        ssl_auth_server:
+          type: string
+          raw_type: string
+          version_ranges: &id210
+          - - v6.0.0
+            - ''
+          description: Authenticate the server"s certificate with the peer/peergrp. Source user.peer.name user.peergrp.name.
+          references: &id209
+          - user.peer.name
+          - user.peergrp.name
+      version_ranges: &id029
+      - - v6.0.0
+        - ''
+      description: SIP.
+      source_attribute: sip
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id029
+        description: SIP.
+        children: *id030
+        source_attribute: sip
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          rtp:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          nat_port_range:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          open_register_pinhole:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          open_contact_pinhole:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          strict_register:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          register_rate:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          register_rate_track:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          invite_rate:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          invite_rate_track:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          max_dialogs:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          max_line_length:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 78
+            max: 4096
+          block_long_lines:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          block_unknown:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          call_keepalive:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 10080
+          block_ack:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          block_bye:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          block_cancel:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          block_info:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          block_invite:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          block_message:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          block_notify:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          block_options:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          block_prack:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          block_publish:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          block_refer:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          block_register:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          block_subscribe:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          block_update:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          register_contact_trace:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          open_via_pinhole:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          open_record_route_pinhole:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          rfc2543_branch:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          log_violations:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          log_call_summary:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          nat_trace:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          subscribe_rate:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          subscribe_rate_track:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          message_rate:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          message_rate_track:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          notify_rate:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          notify_rate_track:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          refer_rate:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          refer_rate_track:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          update_rate:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          update_rate_track:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          options_rate:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          options_rate_track:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ack_rate:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          ack_rate_track:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          prack_rate:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          prack_rate_track:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          info_rate:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          info_rate_track:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          publish_rate:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          publish_rate_track:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          bye_rate:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          bye_rate_track:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          cancel_rate:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          cancel_rate_track:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          preserve_override:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          no_sdp_fixup:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          contact_fixup:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          max_idle_dialogs:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          block_geo_red_options:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          hosted_nat_traversal:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          hnt_restrict_source_ip:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          call_id_regex:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 511
+          content_type_regex:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 511
+          max_body_length:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          unknown_header:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_request_line:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_via:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_from:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_to:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_call_id:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_cseq:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_rack:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_rseq:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_contact:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_record_route:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_route:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_expires:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_content_type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_content_length:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_max_forwards:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_allow:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_p_asserted_identity:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_no_require:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_no_proxy_require:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_sdp_v:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_sdp_o:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_sdp_s:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_sdp_i:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_sdp_c:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_sdp_b:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_sdp_z:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_sdp_k:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_sdp_a:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_sdp_t:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_sdp_r:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          malformed_header_sdp_m:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          provisional_invite_expiry_time:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 10
+            max: 3600
+          ips_rtp:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ssl_mode:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ssl_send_empty_frags:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ssl_client_renegotiation:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ssl_algorithm:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ssl_pfs:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ssl_min_version:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ssl_max_version:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          ssl_client_certificate:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          ssl_server_certificate:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          ssl_auth_client:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          ssl_auth_server:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+        source_attribute: sip
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id031
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id031
+  sip.ack_rate:
+    canonical:
+      type: integer
+      version_ranges: *id032
+      description: ACK request rate limit (per second, per policy).
+      source_attribute: sip.ack_rate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id032
+        description: ACK request rate limit (per second, per policy).
+        source_attribute: sip.ack_rate
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: sip.ack_rate
+    sources:
+    - ansible
+    - terraform
+  sip.ack_rate_track:
+    canonical:
+      type: enum
+      version_ranges: *id033
+      choices: *id034
+      description: Track the packet protocol field.
+      source_attribute: sip.ack_rate_track
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id034
+        version_ranges: *id033
+        description: Track the packet protocol field.
+        source_attribute: sip.ack_rate_track
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.ack_rate_track
+    sources:
+    - ansible
+    - terraform
+  sip.block_ack:
+    canonical:
+      type: enum
+      version_ranges: *id035
+      choices: *id036
+      description: Enable/disable block ACK requests.
+      source_attribute: sip.block_ack
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id036
+        version_ranges: *id035
+        description: Enable/disable block ACK requests.
+        source_attribute: sip.block_ack
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.block_ack
+    sources:
+    - ansible
+    - terraform
+  sip.block_bye:
+    canonical:
+      type: enum
+      version_ranges: *id037
+      choices: *id038
+      description: Enable/disable block BYE requests.
+      source_attribute: sip.block_bye
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id038
+        version_ranges: *id037
+        description: Enable/disable block BYE requests.
+        source_attribute: sip.block_bye
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.block_bye
+    sources:
+    - ansible
+    - terraform
+  sip.block_cancel:
+    canonical:
+      type: enum
+      version_ranges: *id039
+      choices: *id040
+      description: Enable/disable block CANCEL requests.
+      source_attribute: sip.block_cancel
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id040
+        version_ranges: *id039
+        description: Enable/disable block CANCEL requests.
+        source_attribute: sip.block_cancel
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.block_cancel
+    sources:
+    - ansible
+    - terraform
+  sip.block_geo_red_options:
+    canonical:
+      type: enum
+      version_ranges: *id041
+      choices: *id042
+      description: Enable/disable block OPTIONS requests, but OPTIONS requests still notify for redundancy.
+      source_attribute: sip.block_geo_red_options
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id042
+        version_ranges: *id041
+        description: Enable/disable block OPTIONS requests, but OPTIONS requests still notify for redundancy.
+        source_attribute: sip.block_geo_red_options
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.block_geo_red_options
+    sources:
+    - ansible
+    - terraform
+  sip.block_info:
+    canonical:
+      type: enum
+      version_ranges: *id043
+      choices: *id044
+      description: Enable/disable block INFO requests.
+      source_attribute: sip.block_info
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id044
+        version_ranges: *id043
+        description: Enable/disable block INFO requests.
+        source_attribute: sip.block_info
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.block_info
+    sources:
+    - ansible
+    - terraform
+  sip.block_invite:
+    canonical:
+      type: enum
+      version_ranges: *id045
+      choices: *id046
+      description: Enable/disable block INVITE requests.
+      source_attribute: sip.block_invite
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id046
+        version_ranges: *id045
+        description: Enable/disable block INVITE requests.
+        source_attribute: sip.block_invite
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.block_invite
+    sources:
+    - ansible
+    - terraform
+  sip.block_long_lines:
+    canonical:
+      type: enum
+      version_ranges: *id047
+      choices: *id048
+      description: Enable/disable block requests with headers exceeding max-line-length.
+      source_attribute: sip.block_long_lines
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id048
+        version_ranges: *id047
+        description: Enable/disable block requests with headers exceeding max-line-length.
+        source_attribute: sip.block_long_lines
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.block_long_lines
+    sources:
+    - ansible
+    - terraform
+  sip.block_message:
+    canonical:
+      type: enum
+      version_ranges: *id049
+      choices: *id050
+      description: Enable/disable block MESSAGE requests.
+      source_attribute: sip.block_message
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id050
+        version_ranges: *id049
+        description: Enable/disable block MESSAGE requests.
+        source_attribute: sip.block_message
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.block_message
+    sources:
+    - ansible
+    - terraform
+  sip.block_notify:
+    canonical:
+      type: enum
+      version_ranges: *id051
+      choices: *id052
+      description: Enable/disable block NOTIFY requests.
+      source_attribute: sip.block_notify
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id052
+        version_ranges: *id051
+        description: Enable/disable block NOTIFY requests.
+        source_attribute: sip.block_notify
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.block_notify
+    sources:
+    - ansible
+    - terraform
+  sip.block_options:
+    canonical:
+      type: enum
+      version_ranges: *id053
+      choices: *id054
+      description: Enable/disable block OPTIONS requests and no OPTIONS as notifying message for redundancy either.
+      source_attribute: sip.block_options
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id054
+        version_ranges: *id053
+        description: Enable/disable block OPTIONS requests and no OPTIONS as notifying message for redundancy either.
+        source_attribute: sip.block_options
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.block_options
+    sources:
+    - ansible
+    - terraform
+  sip.block_prack:
+    canonical:
+      type: enum
+      version_ranges: *id055
+      choices: *id056
+      description: Enable/disable block prack requests.
+      source_attribute: sip.block_prack
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id056
+        version_ranges: *id055
+        description: Enable/disable block prack requests.
+        source_attribute: sip.block_prack
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.block_prack
+    sources:
+    - ansible
+    - terraform
+  sip.block_publish:
+    canonical:
+      type: enum
+      version_ranges: *id057
+      choices: *id058
+      description: Enable/disable block PUBLISH requests.
+      source_attribute: sip.block_publish
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id058
+        version_ranges: *id057
+        description: Enable/disable block PUBLISH requests.
+        source_attribute: sip.block_publish
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.block_publish
+    sources:
+    - ansible
+    - terraform
+  sip.block_refer:
+    canonical:
+      type: enum
+      version_ranges: *id059
+      choices: *id060
+      description: Enable/disable block REFER requests.
+      source_attribute: sip.block_refer
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id060
+        version_ranges: *id059
+        description: Enable/disable block REFER requests.
+        source_attribute: sip.block_refer
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.block_refer
+    sources:
+    - ansible
+    - terraform
+  sip.block_register:
+    canonical:
+      type: enum
+      version_ranges: *id061
+      choices: *id062
+      description: Enable/disable block REGISTER requests.
+      source_attribute: sip.block_register
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id062
+        version_ranges: *id061
+        description: Enable/disable block REGISTER requests.
+        source_attribute: sip.block_register
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.block_register
+    sources:
+    - ansible
+    - terraform
+  sip.block_subscribe:
+    canonical:
+      type: enum
+      version_ranges: *id063
+      choices: *id064
+      description: Enable/disable block SUBSCRIBE requests.
+      source_attribute: sip.block_subscribe
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id064
+        version_ranges: *id063
+        description: Enable/disable block SUBSCRIBE requests.
+        source_attribute: sip.block_subscribe
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.block_subscribe
+    sources:
+    - ansible
+    - terraform
+  sip.block_unknown:
+    canonical:
+      type: enum
+      version_ranges: *id065
+      choices: *id066
+      description: Block unrecognized SIP requests (enabled by default).
+      source_attribute: sip.block_unknown
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id066
+        version_ranges: *id065
+        description: Block unrecognized SIP requests (enabled by default).
+        source_attribute: sip.block_unknown
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.block_unknown
+    sources:
+    - ansible
+    - terraform
+  sip.block_update:
+    canonical:
+      type: enum
+      version_ranges: *id067
+      choices: *id068
+      description: Enable/disable block UPDATE requests.
+      source_attribute: sip.block_update
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id068
+        version_ranges: *id067
+        description: Enable/disable block UPDATE requests.
+        source_attribute: sip.block_update
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.block_update
+    sources:
+    - ansible
+    - terraform
+  sip.bye_rate:
+    canonical:
+      type: integer
+      version_ranges: *id069
+      description: BYE request rate limit (per second, per policy).
+      source_attribute: sip.bye_rate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id069
+        description: BYE request rate limit (per second, per policy).
+        source_attribute: sip.bye_rate
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: sip.bye_rate
+    sources:
+    - ansible
+    - terraform
+  sip.bye_rate_track:
+    canonical:
+      type: enum
+      version_ranges: *id070
+      choices: *id071
+      description: Track the packet protocol field.
+      source_attribute: sip.bye_rate_track
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id071
+        version_ranges: *id070
+        description: Track the packet protocol field.
+        source_attribute: sip.bye_rate_track
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.bye_rate_track
+    sources:
+    - ansible
+    - terraform
+  sip.call_id_regex:
+    canonical:
+      type: string
+      version_ranges: *id072
+      min_length: 0
+      max_length: 511
+      description: Validate PCRE regular expression for Call-Id header value.
+      source_attribute: sip.call_id_regex
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id072
+        description: Validate PCRE regular expression for Call-Id header value.
+        source_attribute: sip.call_id_regex
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 511
+        source_attribute: sip.call_id_regex
+    sources:
+    - ansible
+    - terraform
+  sip.call_keepalive:
+    canonical:
+      type: integer
+      version_ranges: *id073
+      min: 0
+      max: 10080
+      description: Continue tracking calls with no RTP for this many minutes.
+      source_attribute: sip.call_keepalive
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id073
+        description: Continue tracking calls with no RTP for this many minutes.
+        source_attribute: sip.call_keepalive
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 10080
+        source_attribute: sip.call_keepalive
+    sources:
+    - ansible
+    - terraform
+  sip.cancel_rate:
+    canonical:
+      type: integer
+      version_ranges: *id074
+      description: CANCEL request rate limit (per second, per policy).
+      source_attribute: sip.cancel_rate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id074
+        description: CANCEL request rate limit (per second, per policy).
+        source_attribute: sip.cancel_rate
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: sip.cancel_rate
+    sources:
+    - ansible
+    - terraform
+  sip.cancel_rate_track:
+    canonical:
+      type: enum
+      version_ranges: *id075
+      choices: *id076
+      description: Track the packet protocol field.
+      source_attribute: sip.cancel_rate_track
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id076
+        version_ranges: *id075
+        description: Track the packet protocol field.
+        source_attribute: sip.cancel_rate_track
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.cancel_rate_track
+    sources:
+    - ansible
+    - terraform
+  sip.contact_fixup:
+    canonical:
+      type: enum
+      version_ranges: *id077
+      choices: *id078
+      description: Fixup contact anyway even if contact"s IP:port doesn"t match session"s IP:port.
+      source_attribute: sip.contact_fixup
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id078
+        version_ranges: *id077
+        description: Fixup contact anyway even if contact"s IP:port doesn"t match session"s IP:port.
+        source_attribute: sip.contact_fixup
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.contact_fixup
+    sources:
+    - ansible
+    - terraform
+  sip.content_type_regex:
+    canonical:
+      type: string
+      version_ranges: *id079
+      min_length: 0
+      max_length: 511
+      description: Validate PCRE regular expression for Content-Type header value.
+      source_attribute: sip.content_type_regex
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id079
+        description: Validate PCRE regular expression for Content-Type header value.
+        source_attribute: sip.content_type_regex
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 511
+        source_attribute: sip.content_type_regex
+    sources:
+    - ansible
+    - terraform
+  sip.hnt_restrict_source_ip:
+    canonical:
+      type: enum
+      version_ranges: *id080
+      choices: *id081
+      description: Enable/disable restrict RTP source IP to be the same as SIP source IP when HNT is enabled.
+      source_attribute: sip.hnt_restrict_source_ip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id081
+        version_ranges: *id080
+        description: Enable/disable restrict RTP source IP to be the same as SIP source IP when HNT is enabled.
+        source_attribute: sip.hnt_restrict_source_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.hnt_restrict_source_ip
+    sources:
+    - ansible
+    - terraform
+  sip.hosted_nat_traversal:
+    canonical:
+      type: enum
+      version_ranges: *id082
+      choices: *id083
+      description: Hosted NAT Traversal (HNT).
+      source_attribute: sip.hosted_nat_traversal
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id083
+        version_ranges: *id082
+        description: Hosted NAT Traversal (HNT).
+        source_attribute: sip.hosted_nat_traversal
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.hosted_nat_traversal
+    sources:
+    - ansible
+    - terraform
+  sip.info_rate:
+    canonical:
+      type: integer
+      version_ranges: *id084
+      description: INFO request rate limit (per second, per policy).
+      source_attribute: sip.info_rate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id084
+        description: INFO request rate limit (per second, per policy).
+        source_attribute: sip.info_rate
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: sip.info_rate
+    sources:
+    - ansible
+    - terraform
+  sip.info_rate_track:
+    canonical:
+      type: enum
+      version_ranges: *id085
+      choices: *id086
+      description: Track the packet protocol field.
+      source_attribute: sip.info_rate_track
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id086
+        version_ranges: *id085
+        description: Track the packet protocol field.
+        source_attribute: sip.info_rate_track
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.info_rate_track
+    sources:
+    - ansible
+    - terraform
+  sip.invite_rate:
+    canonical:
+      type: integer
+      version_ranges: *id087
+      description: INVITE request rate limit (per second, per policy).
+      source_attribute: sip.invite_rate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id087
+        description: INVITE request rate limit (per second, per policy).
+        source_attribute: sip.invite_rate
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: sip.invite_rate
+    sources:
+    - ansible
+    - terraform
+  sip.invite_rate_track:
+    canonical:
+      type: enum
+      version_ranges: *id088
+      choices: *id089
+      description: Track the packet protocol field.
+      source_attribute: sip.invite_rate_track
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id089
+        version_ranges: *id088
+        description: Track the packet protocol field.
+        source_attribute: sip.invite_rate_track
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.invite_rate_track
+    sources:
+    - ansible
+    - terraform
+  sip.ips_rtp:
+    canonical:
+      type: enum
+      version_ranges: *id090
+      choices: *id091
+      description: Enable/disable allow IPS on RTP.
+      source_attribute: sip.ips_rtp
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id091
+        version_ranges: *id090
+        description: Enable/disable allow IPS on RTP.
+        source_attribute: sip.ips_rtp
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.ips_rtp
+    sources:
+    - ansible
+    - terraform
+  sip.log_call_summary:
+    canonical:
+      type: enum
+      version_ranges: *id092
+      choices: *id093
+      description: Enable/disable logging of SIP call summary.
+      source_attribute: sip.log_call_summary
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id093
+        version_ranges: *id092
+        description: Enable/disable logging of SIP call summary.
+        source_attribute: sip.log_call_summary
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.log_call_summary
+    sources:
+    - ansible
+    - terraform
+  sip.log_violations:
+    canonical:
+      type: enum
+      version_ranges: *id094
+      choices: *id095
+      description: Enable/disable logging of SIP violations.
+      source_attribute: sip.log_violations
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id095
+        version_ranges: *id094
+        description: Enable/disable logging of SIP violations.
+        source_attribute: sip.log_violations
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.log_violations
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_allow:
+    canonical:
+      type: enum
+      version_ranges: *id096
+      choices: *id097
+      description: Action for malformed Allow header.
+      source_attribute: sip.malformed_header_allow
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id097
+        version_ranges: *id096
+        description: Action for malformed Allow header.
+        source_attribute: sip.malformed_header_allow
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_allow
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_call_id:
+    canonical:
+      type: enum
+      version_ranges: *id098
+      choices: *id099
+      description: Action for malformed Call-ID header.
+      source_attribute: sip.malformed_header_call_id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id099
+        version_ranges: *id098
+        description: Action for malformed Call-ID header.
+        source_attribute: sip.malformed_header_call_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_call_id
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_contact:
+    canonical:
+      type: enum
+      version_ranges: *id100
+      choices: *id101
+      description: Action for malformed Contact header.
+      source_attribute: sip.malformed_header_contact
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id101
+        version_ranges: *id100
+        description: Action for malformed Contact header.
+        source_attribute: sip.malformed_header_contact
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_contact
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_content_length:
+    canonical:
+      type: enum
+      version_ranges: *id102
+      choices: *id103
+      description: Action for malformed Content-Length header.
+      source_attribute: sip.malformed_header_content_length
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id103
+        version_ranges: *id102
+        description: Action for malformed Content-Length header.
+        source_attribute: sip.malformed_header_content_length
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_content_length
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_content_type:
+    canonical:
+      type: enum
+      version_ranges: *id104
+      choices: *id105
+      description: Action for malformed Content-Type header.
+      source_attribute: sip.malformed_header_content_type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id105
+        version_ranges: *id104
+        description: Action for malformed Content-Type header.
+        source_attribute: sip.malformed_header_content_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_content_type
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_cseq:
+    canonical:
+      type: enum
+      version_ranges: *id106
+      choices: *id107
+      description: Action for malformed CSeq header.
+      source_attribute: sip.malformed_header_cseq
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id107
+        version_ranges: *id106
+        description: Action for malformed CSeq header.
+        source_attribute: sip.malformed_header_cseq
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_cseq
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_expires:
+    canonical:
+      type: enum
+      version_ranges: *id108
+      choices: *id109
+      description: Action for malformed Expires header.
+      source_attribute: sip.malformed_header_expires
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id109
+        version_ranges: *id108
+        description: Action for malformed Expires header.
+        source_attribute: sip.malformed_header_expires
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_expires
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_from:
+    canonical:
+      type: enum
+      version_ranges: *id110
+      choices: *id111
+      description: Action for malformed From header.
+      source_attribute: sip.malformed_header_from
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id111
+        version_ranges: *id110
+        description: Action for malformed From header.
+        source_attribute: sip.malformed_header_from
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_from
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_max_forwards:
+    canonical:
+      type: enum
+      version_ranges: *id112
+      choices: *id113
+      description: Action for malformed Max-Forwards header.
+      source_attribute: sip.malformed_header_max_forwards
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id113
+        version_ranges: *id112
+        description: Action for malformed Max-Forwards header.
+        source_attribute: sip.malformed_header_max_forwards
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_max_forwards
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_no_proxy_require:
+    canonical:
+      type: enum
+      version_ranges: *id114
+      choices: *id115
+      description: Action for malformed SIP messages without Proxy-Require header.
+      source_attribute: sip.malformed_header_no_proxy_require
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id115
+        version_ranges: *id114
+        description: Action for malformed SIP messages without Proxy-Require header.
+        source_attribute: sip.malformed_header_no_proxy_require
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_no_proxy_require
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_no_require:
+    canonical:
+      type: enum
+      version_ranges: *id116
+      choices: *id117
+      description: Action for malformed SIP messages without Require header.
+      source_attribute: sip.malformed_header_no_require
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id117
+        version_ranges: *id116
+        description: Action for malformed SIP messages without Require header.
+        source_attribute: sip.malformed_header_no_require
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_no_require
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_p_asserted_identity:
+    canonical:
+      type: enum
+      version_ranges: *id118
+      choices: *id119
+      description: Action for malformed P-Asserted-Identity header.
+      source_attribute: sip.malformed_header_p_asserted_identity
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id119
+        version_ranges: *id118
+        description: Action for malformed P-Asserted-Identity header.
+        source_attribute: sip.malformed_header_p_asserted_identity
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_p_asserted_identity
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_rack:
+    canonical:
+      type: enum
+      version_ranges: *id120
+      choices: *id121
+      description: Action for malformed RAck header.
+      source_attribute: sip.malformed_header_rack
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id121
+        version_ranges: *id120
+        description: Action for malformed RAck header.
+        source_attribute: sip.malformed_header_rack
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_rack
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_record_route:
+    canonical:
+      type: enum
+      version_ranges: *id122
+      choices: *id123
+      description: Action for malformed Record-Route header.
+      source_attribute: sip.malformed_header_record_route
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id123
+        version_ranges: *id122
+        description: Action for malformed Record-Route header.
+        source_attribute: sip.malformed_header_record_route
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_record_route
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_route:
+    canonical:
+      type: enum
+      version_ranges: *id124
+      choices: *id125
+      description: Action for malformed Route header.
+      source_attribute: sip.malformed_header_route
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id125
+        version_ranges: *id124
+        description: Action for malformed Route header.
+        source_attribute: sip.malformed_header_route
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_route
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_rseq:
+    canonical:
+      type: enum
+      version_ranges: *id126
+      choices: *id127
+      description: Action for malformed RSeq header.
+      source_attribute: sip.malformed_header_rseq
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id127
+        version_ranges: *id126
+        description: Action for malformed RSeq header.
+        source_attribute: sip.malformed_header_rseq
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_rseq
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_sdp_a:
+    canonical:
+      type: enum
+      version_ranges: *id128
+      choices: *id129
+      description: Action for malformed SDP a line.
+      source_attribute: sip.malformed_header_sdp_a
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id129
+        version_ranges: *id128
+        description: Action for malformed SDP a line.
+        source_attribute: sip.malformed_header_sdp_a
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_sdp_a
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_sdp_b:
+    canonical:
+      type: enum
+      version_ranges: *id130
+      choices: *id131
+      description: Action for malformed SDP b line.
+      source_attribute: sip.malformed_header_sdp_b
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id131
+        version_ranges: *id130
+        description: Action for malformed SDP b line.
+        source_attribute: sip.malformed_header_sdp_b
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_sdp_b
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_sdp_c:
+    canonical:
+      type: enum
+      version_ranges: *id132
+      choices: *id133
+      description: Action for malformed SDP c line.
+      source_attribute: sip.malformed_header_sdp_c
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id133
+        version_ranges: *id132
+        description: Action for malformed SDP c line.
+        source_attribute: sip.malformed_header_sdp_c
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_sdp_c
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_sdp_i:
+    canonical:
+      type: enum
+      version_ranges: *id134
+      choices: *id135
+      description: Action for malformed SDP i line.
+      source_attribute: sip.malformed_header_sdp_i
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id135
+        version_ranges: *id134
+        description: Action for malformed SDP i line.
+        source_attribute: sip.malformed_header_sdp_i
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_sdp_i
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_sdp_k:
+    canonical:
+      type: enum
+      version_ranges: *id136
+      choices: *id137
+      description: Action for malformed SDP k line.
+      source_attribute: sip.malformed_header_sdp_k
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id137
+        version_ranges: *id136
+        description: Action for malformed SDP k line.
+        source_attribute: sip.malformed_header_sdp_k
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_sdp_k
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_sdp_m:
+    canonical:
+      type: enum
+      version_ranges: *id138
+      choices: *id139
+      description: Action for malformed SDP m line.
+      source_attribute: sip.malformed_header_sdp_m
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id139
+        version_ranges: *id138
+        description: Action for malformed SDP m line.
+        source_attribute: sip.malformed_header_sdp_m
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_sdp_m
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_sdp_o:
+    canonical:
+      type: enum
+      version_ranges: *id140
+      choices: *id141
+      description: Action for malformed SDP o line.
+      source_attribute: sip.malformed_header_sdp_o
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id141
+        version_ranges: *id140
+        description: Action for malformed SDP o line.
+        source_attribute: sip.malformed_header_sdp_o
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_sdp_o
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_sdp_r:
+    canonical:
+      type: enum
+      version_ranges: *id142
+      choices: *id143
+      description: Action for malformed SDP r line.
+      source_attribute: sip.malformed_header_sdp_r
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id143
+        version_ranges: *id142
+        description: Action for malformed SDP r line.
+        source_attribute: sip.malformed_header_sdp_r
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_sdp_r
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_sdp_s:
+    canonical:
+      type: enum
+      version_ranges: *id144
+      choices: *id145
+      description: Action for malformed SDP s line.
+      source_attribute: sip.malformed_header_sdp_s
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id145
+        version_ranges: *id144
+        description: Action for malformed SDP s line.
+        source_attribute: sip.malformed_header_sdp_s
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_sdp_s
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_sdp_t:
+    canonical:
+      type: enum
+      version_ranges: *id146
+      choices: *id147
+      description: Action for malformed SDP t line.
+      source_attribute: sip.malformed_header_sdp_t
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id147
+        version_ranges: *id146
+        description: Action for malformed SDP t line.
+        source_attribute: sip.malformed_header_sdp_t
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_sdp_t
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_sdp_v:
+    canonical:
+      type: enum
+      version_ranges: *id148
+      choices: *id149
+      description: Action for malformed SDP v line.
+      source_attribute: sip.malformed_header_sdp_v
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id149
+        version_ranges: *id148
+        description: Action for malformed SDP v line.
+        source_attribute: sip.malformed_header_sdp_v
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_sdp_v
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_sdp_z:
+    canonical:
+      type: enum
+      version_ranges: *id150
+      choices: *id151
+      description: Action for malformed SDP z line.
+      source_attribute: sip.malformed_header_sdp_z
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id151
+        version_ranges: *id150
+        description: Action for malformed SDP z line.
+        source_attribute: sip.malformed_header_sdp_z
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_sdp_z
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_to:
+    canonical:
+      type: enum
+      version_ranges: *id152
+      choices: *id153
+      description: Action for malformed To header.
+      source_attribute: sip.malformed_header_to
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id153
+        version_ranges: *id152
+        description: Action for malformed To header.
+        source_attribute: sip.malformed_header_to
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_to
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_header_via:
+    canonical:
+      type: enum
+      version_ranges: *id154
+      choices: *id155
+      description: Action for malformed VIA header.
+      source_attribute: sip.malformed_header_via
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id155
+        version_ranges: *id154
+        description: Action for malformed VIA header.
+        source_attribute: sip.malformed_header_via
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_header_via
+    sources:
+    - ansible
+    - terraform
+  sip.malformed_request_line:
+    canonical:
+      type: enum
+      version_ranges: *id156
+      choices: *id157
+      description: Action for malformed request line.
+      source_attribute: sip.malformed_request_line
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id157
+        version_ranges: *id156
+        description: Action for malformed request line.
+        source_attribute: sip.malformed_request_line
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.malformed_request_line
+    sources:
+    - ansible
+    - terraform
+  sip.max_body_length:
+    canonical:
+      type: integer
+      version_ranges: *id158
+      description: Maximum SIP message body length (0 meaning no limit).
+      source_attribute: sip.max_body_length
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id158
+        description: Maximum SIP message body length (0 meaning no limit).
+        source_attribute: sip.max_body_length
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: sip.max_body_length
+    sources:
+    - ansible
+    - terraform
+  sip.max_dialogs:
+    canonical:
+      type: integer
+      version_ranges: *id159
+      description: Maximum number of concurrent calls/dialogs (per policy).
+      source_attribute: sip.max_dialogs
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id159
+        description: Maximum number of concurrent calls/dialogs (per policy).
+        source_attribute: sip.max_dialogs
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: sip.max_dialogs
+    sources:
+    - ansible
+    - terraform
+  sip.max_idle_dialogs:
+    canonical:
+      type: integer
+      version_ranges: *id160
+      description: Maximum number established but idle dialogs to retain (per policy).
+      source_attribute: sip.max_idle_dialogs
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id160
+        description: Maximum number established but idle dialogs to retain (per policy).
+        source_attribute: sip.max_idle_dialogs
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: sip.max_idle_dialogs
+    sources:
+    - ansible
+    - terraform
+  sip.max_line_length:
+    canonical:
+      type: integer
+      version_ranges: *id161
+      min: 78
+      max: 4096
+      description: Maximum SIP header line length (78-4096).
+      source_attribute: sip.max_line_length
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id161
+        description: Maximum SIP header line length (78-4096).
+        source_attribute: sip.max_line_length
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 78
+        max: 4096
+        source_attribute: sip.max_line_length
+    sources:
+    - ansible
+    - terraform
+  sip.message_rate:
+    canonical:
+      type: integer
+      version_ranges: *id162
+      description: MESSAGE request rate limit (per second, per policy).
+      source_attribute: sip.message_rate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id162
+        description: MESSAGE request rate limit (per second, per policy).
+        source_attribute: sip.message_rate
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: sip.message_rate
+    sources:
+    - ansible
+    - terraform
+  sip.message_rate_track:
+    canonical:
+      type: enum
+      version_ranges: *id163
+      choices: *id164
+      description: Track the packet protocol field.
+      source_attribute: sip.message_rate_track
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id164
+        version_ranges: *id163
+        description: Track the packet protocol field.
+        source_attribute: sip.message_rate_track
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.message_rate_track
+    sources:
+    - ansible
+    - terraform
+  sip.nat_port_range:
+    canonical:
+      type: string
+      version_ranges: *id165
+      description: RTP NAT port range.
+      source_attribute: sip.nat_port_range
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id165
+        description: RTP NAT port range.
+        source_attribute: sip.nat_port_range
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.nat_port_range
+    sources:
+    - ansible
+    - terraform
+  sip.nat_trace:
+    canonical:
+      type: enum
+      version_ranges: *id166
+      choices: *id167
+      description: Enable/disable preservation of original IP in SDP i line.
+      source_attribute: sip.nat_trace
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id167
+        version_ranges: *id166
+        description: Enable/disable preservation of original IP in SDP i line.
+        source_attribute: sip.nat_trace
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.nat_trace
+    sources:
+    - ansible
+    - terraform
+  sip.no_sdp_fixup:
+    canonical:
+      type: enum
+      version_ranges: *id168
+      choices: *id169
+      description: Enable/disable no SDP fix-up.
+      source_attribute: sip.no_sdp_fixup
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id169
+        version_ranges: *id168
+        description: Enable/disable no SDP fix-up.
+        source_attribute: sip.no_sdp_fixup
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.no_sdp_fixup
+    sources:
+    - ansible
+    - terraform
+  sip.notify_rate:
+    canonical:
+      type: integer
+      version_ranges: *id170
+      description: NOTIFY request rate limit (per second, per policy).
+      source_attribute: sip.notify_rate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id170
+        description: NOTIFY request rate limit (per second, per policy).
+        source_attribute: sip.notify_rate
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: sip.notify_rate
+    sources:
+    - ansible
+    - terraform
+  sip.notify_rate_track:
+    canonical:
+      type: enum
+      version_ranges: *id171
+      choices: *id172
+      description: Track the packet protocol field.
+      source_attribute: sip.notify_rate_track
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id172
+        version_ranges: *id171
+        description: Track the packet protocol field.
+        source_attribute: sip.notify_rate_track
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.notify_rate_track
+    sources:
+    - ansible
+    - terraform
+  sip.open_contact_pinhole:
+    canonical:
+      type: enum
+      version_ranges: *id173
+      choices: *id174
+      description: Enable/disable open pinhole for non-REGISTER Contact port.
+      source_attribute: sip.open_contact_pinhole
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id174
+        version_ranges: *id173
+        description: Enable/disable open pinhole for non-REGISTER Contact port.
+        source_attribute: sip.open_contact_pinhole
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.open_contact_pinhole
+    sources:
+    - ansible
+    - terraform
+  sip.open_record_route_pinhole:
+    canonical:
+      type: enum
+      version_ranges: *id175
+      choices: *id176
+      description: Enable/disable open pinhole for Record-Route port.
+      source_attribute: sip.open_record_route_pinhole
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id176
+        version_ranges: *id175
+        description: Enable/disable open pinhole for Record-Route port.
+        source_attribute: sip.open_record_route_pinhole
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.open_record_route_pinhole
+    sources:
+    - ansible
+    - terraform
+  sip.open_register_pinhole:
+    canonical:
+      type: enum
+      version_ranges: *id177
+      choices: *id178
+      description: Enable/disable open pinhole for REGISTER Contact port.
+      source_attribute: sip.open_register_pinhole
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id178
+        version_ranges: *id177
+        description: Enable/disable open pinhole for REGISTER Contact port.
+        source_attribute: sip.open_register_pinhole
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.open_register_pinhole
+    sources:
+    - ansible
+    - terraform
+  sip.open_via_pinhole:
+    canonical:
+      type: enum
+      version_ranges: *id179
+      choices: *id180
+      description: Enable/disable open pinhole for Via port.
+      source_attribute: sip.open_via_pinhole
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id180
+        version_ranges: *id179
+        description: Enable/disable open pinhole for Via port.
+        source_attribute: sip.open_via_pinhole
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.open_via_pinhole
+    sources:
+    - ansible
+    - terraform
+  sip.options_rate:
+    canonical:
+      type: integer
+      version_ranges: *id181
+      description: OPTIONS request rate limit (per second, per policy).
+      source_attribute: sip.options_rate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id181
+        description: OPTIONS request rate limit (per second, per policy).
+        source_attribute: sip.options_rate
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: sip.options_rate
+    sources:
+    - ansible
+    - terraform
+  sip.options_rate_track:
+    canonical:
+      type: enum
+      version_ranges: *id182
+      choices: *id183
+      description: Track the packet protocol field.
+      source_attribute: sip.options_rate_track
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id183
+        version_ranges: *id182
+        description: Track the packet protocol field.
+        source_attribute: sip.options_rate_track
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.options_rate_track
+    sources:
+    - ansible
+    - terraform
+  sip.prack_rate:
+    canonical:
+      type: integer
+      version_ranges: *id184
+      description: PRACK request rate limit (per second, per policy).
+      source_attribute: sip.prack_rate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id184
+        description: PRACK request rate limit (per second, per policy).
+        source_attribute: sip.prack_rate
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: sip.prack_rate
+    sources:
+    - ansible
+    - terraform
+  sip.prack_rate_track:
+    canonical:
+      type: enum
+      version_ranges: *id185
+      choices: *id186
+      description: Track the packet protocol field.
+      source_attribute: sip.prack_rate_track
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id186
+        version_ranges: *id185
+        description: Track the packet protocol field.
+        source_attribute: sip.prack_rate_track
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.prack_rate_track
+    sources:
+    - ansible
+    - terraform
+  sip.preserve_override:
+    canonical:
+      type: enum
+      version_ranges: *id187
+      choices: *id188
+      description: Override i line to preserve original IPs .
+      source_attribute: sip.preserve_override
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id188
+        version_ranges: *id187
+        description: Override i line to preserve original IPs .
+        source_attribute: sip.preserve_override
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.preserve_override
+    sources:
+    - ansible
+    - terraform
+  sip.provisional_invite_expiry_time:
+    canonical:
+      type: integer
+      version_ranges: *id189
+      min: 10
+      max: 3600
+      description: Expiry time (10-3600, in seconds) for provisional INVITE.
+      source_attribute: sip.provisional_invite_expiry_time
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id189
+        description: Expiry time (10-3600, in seconds) for provisional INVITE.
+        source_attribute: sip.provisional_invite_expiry_time
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 10
+        max: 3600
+        source_attribute: sip.provisional_invite_expiry_time
+    sources:
+    - ansible
+    - terraform
+  sip.publish_rate:
+    canonical:
+      type: integer
+      version_ranges: *id190
+      description: PUBLISH request rate limit (per second, per policy).
+      source_attribute: sip.publish_rate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id190
+        description: PUBLISH request rate limit (per second, per policy).
+        source_attribute: sip.publish_rate
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: sip.publish_rate
+    sources:
+    - ansible
+    - terraform
+  sip.publish_rate_track:
+    canonical:
+      type: enum
+      version_ranges: *id191
+      choices: *id192
+      description: Track the packet protocol field.
+      source_attribute: sip.publish_rate_track
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id192
+        version_ranges: *id191
+        description: Track the packet protocol field.
+        source_attribute: sip.publish_rate_track
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.publish_rate_track
+    sources:
+    - ansible
+    - terraform
+  sip.refer_rate:
+    canonical:
+      type: integer
+      version_ranges: *id193
+      description: REFER request rate limit (per second, per policy).
+      source_attribute: sip.refer_rate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id193
+        description: REFER request rate limit (per second, per policy).
+        source_attribute: sip.refer_rate
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: sip.refer_rate
+    sources:
+    - ansible
+    - terraform
+  sip.refer_rate_track:
+    canonical:
+      type: enum
+      version_ranges: *id194
+      choices: *id195
+      description: Track the packet protocol field.
+      source_attribute: sip.refer_rate_track
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id195
+        version_ranges: *id194
+        description: Track the packet protocol field.
+        source_attribute: sip.refer_rate_track
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.refer_rate_track
+    sources:
+    - ansible
+    - terraform
+  sip.register_contact_trace:
+    canonical:
+      type: enum
+      version_ranges: *id196
+      choices: *id197
+      description: Enable/disable trace original IP/port within the contact header of REGISTER requests.
+      source_attribute: sip.register_contact_trace
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id197
+        version_ranges: *id196
+        description: Enable/disable trace original IP/port within the contact header of REGISTER requests.
+        source_attribute: sip.register_contact_trace
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.register_contact_trace
+    sources:
+    - ansible
+    - terraform
+  sip.register_rate:
+    canonical:
+      type: integer
+      version_ranges: *id198
+      description: REGISTER request rate limit (per second, per policy).
+      source_attribute: sip.register_rate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id198
+        description: REGISTER request rate limit (per second, per policy).
+        source_attribute: sip.register_rate
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: sip.register_rate
+    sources:
+    - ansible
+    - terraform
+  sip.register_rate_track:
+    canonical:
+      type: enum
+      version_ranges: *id199
+      choices: *id200
+      description: Track the packet protocol field.
+      source_attribute: sip.register_rate_track
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id200
+        version_ranges: *id199
+        description: Track the packet protocol field.
+        source_attribute: sip.register_rate_track
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.register_rate_track
+    sources:
+    - ansible
+    - terraform
+  sip.rfc2543_branch:
+    canonical:
+      type: enum
+      version_ranges: *id201
+      choices: *id202
+      description: Enable/disable support via branch compliant with RFC 2543.
+      source_attribute: sip.rfc2543_branch
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id202
+        version_ranges: *id201
+        description: Enable/disable support via branch compliant with RFC 2543.
+        source_attribute: sip.rfc2543_branch
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.rfc2543_branch
+    sources:
+    - ansible
+    - terraform
+  sip.rtp:
+    canonical:
+      type: enum
+      version_ranges: *id203
+      choices: *id204
+      description: Enable/disable create pinholes for RTP traffic to traverse firewall.
+      source_attribute: sip.rtp
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id204
+        version_ranges: *id203
+        description: Enable/disable create pinholes for RTP traffic to traverse firewall.
+        source_attribute: sip.rtp
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.rtp
+    sources:
+    - ansible
+    - terraform
+  sip.ssl_algorithm:
+    canonical:
+      type: enum
+      version_ranges: *id205
+      choices: *id206
+      description: Relative strength of encryption algorithms accepted in negotiation.
+      source_attribute: sip.ssl_algorithm
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id206
+        version_ranges: *id205
+        description: Relative strength of encryption algorithms accepted in negotiation.
+        source_attribute: sip.ssl_algorithm
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.ssl_algorithm
+    sources:
+    - ansible
+    - terraform
+  sip.ssl_auth_client:
+    canonical:
+      type: string
+      references: *id207
+      version_ranges: *id208
+      min_length: 0
+      max_length: 35
+      description: Require a client certificate and authenticate it with the peer/peergrp. Source user.peer.name user.peergrp.name.
+      source_attribute: sip.ssl_auth_client
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id208
+        description: Require a client certificate and authenticate it with the peer/peergrp. Source user.peer.name user.peergrp.name.
+        references: *id207
+        source_attribute: sip.ssl_auth_client
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: sip.ssl_auth_client
+    sources:
+    - ansible
+    - terraform
+  sip.ssl_auth_server:
+    canonical:
+      type: string
+      references: *id209
+      version_ranges: *id210
+      min_length: 0
+      max_length: 35
+      description: Authenticate the server"s certificate with the peer/peergrp. Source user.peer.name user.peergrp.name.
+      source_attribute: sip.ssl_auth_server
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id210
+        description: Authenticate the server"s certificate with the peer/peergrp. Source user.peer.name user.peergrp.name.
+        references: *id209
+        source_attribute: sip.ssl_auth_server
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: sip.ssl_auth_server
+    sources:
+    - ansible
+    - terraform
+  sip.ssl_client_certificate:
+    canonical:
+      type: string
+      references: *id211
+      version_ranges: *id212
+      min_length: 0
+      max_length: 35
+      description: Name of Certificate to offer to server if requested. Source vpn.certificate.local.name.
+      source_attribute: sip.ssl_client_certificate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id212
+        description: Name of Certificate to offer to server if requested. Source vpn.certificate.local.name.
+        references: *id211
+        source_attribute: sip.ssl_client_certificate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: sip.ssl_client_certificate
+    sources:
+    - ansible
+    - terraform
+  sip.ssl_client_renegotiation:
+    canonical:
+      type: enum
+      version_ranges: *id213
+      choices: *id214
+      description: Allow/block client renegotiation by server.
+      source_attribute: sip.ssl_client_renegotiation
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id214
+        version_ranges: *id213
+        description: Allow/block client renegotiation by server.
+        source_attribute: sip.ssl_client_renegotiation
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.ssl_client_renegotiation
+    sources:
+    - ansible
+    - terraform
+  sip.ssl_max_version:
+    canonical:
+      type: enum
+      version_ranges: *id215
+      choices: *id216
+      description: Highest SSL/TLS version to negotiate.
+      source_attribute: sip.ssl_max_version
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id216
+        version_ranges: *id215
+        description: Highest SSL/TLS version to negotiate.
+        source_attribute: sip.ssl_max_version
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.ssl_max_version
+    sources:
+    - ansible
+    - terraform
+  sip.ssl_min_version:
+    canonical:
+      type: enum
+      version_ranges: *id217
+      choices: *id218
+      description: Lowest SSL/TLS version to negotiate.
+      source_attribute: sip.ssl_min_version
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id218
+        version_ranges: *id217
+        description: Lowest SSL/TLS version to negotiate.
+        source_attribute: sip.ssl_min_version
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.ssl_min_version
+    sources:
+    - ansible
+    - terraform
+  sip.ssl_mode:
+    canonical:
+      type: enum
+      version_ranges: *id219
+      choices: *id220
+      description: SSL/TLS mode for encryption & decryption of traffic.
+      source_attribute: sip.ssl_mode
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id220
+        version_ranges: *id219
+        description: SSL/TLS mode for encryption & decryption of traffic.
+        source_attribute: sip.ssl_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.ssl_mode
+    sources:
+    - ansible
+    - terraform
+  sip.ssl_pfs:
+    canonical:
+      type: enum
+      version_ranges: *id221
+      choices: *id222
+      description: SSL Perfect Forward Secrecy.
+      source_attribute: sip.ssl_pfs
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id222
+        version_ranges: *id221
+        description: SSL Perfect Forward Secrecy.
+        source_attribute: sip.ssl_pfs
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.ssl_pfs
+    sources:
+    - ansible
+    - terraform
+  sip.ssl_send_empty_frags:
+    canonical:
+      type: enum
+      version_ranges: *id223
+      choices: *id224
+      description: Send empty fragments to avoid attack on CBC IV (SSL 3.0 & TLS 1.0 only).
+      source_attribute: sip.ssl_send_empty_frags
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id224
+        version_ranges: *id223
+        description: Send empty fragments to avoid attack on CBC IV (SSL 3.0 & TLS 1.0 only).
+        source_attribute: sip.ssl_send_empty_frags
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.ssl_send_empty_frags
+    sources:
+    - ansible
+    - terraform
+  sip.ssl_server_certificate:
+    canonical:
+      type: string
+      references: *id225
+      version_ranges: *id226
+      min_length: 0
+      max_length: 35
+      description: Name of Certificate return to the client in every SSL connection. Source vpn.certificate.local.name.
+      source_attribute: sip.ssl_server_certificate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id226
+        description: Name of Certificate return to the client in every SSL connection. Source vpn.certificate.local.name.
+        references: *id225
+        source_attribute: sip.ssl_server_certificate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: sip.ssl_server_certificate
+    sources:
+    - ansible
+    - terraform
+  sip.status:
+    canonical:
+      type: enum
+      version_ranges: *id227
+      choices: *id228
+      description: Enable/disable SIP.
+      source_attribute: sip.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id228
+        version_ranges: *id227
+        description: Enable/disable SIP.
+        source_attribute: sip.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.status
+    sources:
+    - ansible
+    - terraform
+  sip.strict_register:
+    canonical:
+      type: enum
+      version_ranges: *id229
+      choices: *id230
+      description: Enable/disable only allow the registrar to connect.
+      source_attribute: sip.strict_register
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id230
+        version_ranges: *id229
+        description: Enable/disable only allow the registrar to connect.
+        source_attribute: sip.strict_register
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.strict_register
+    sources:
+    - ansible
+    - terraform
+  sip.subscribe_rate:
+    canonical:
+      type: integer
+      version_ranges: *id231
+      description: SUBSCRIBE request rate limit (per second, per policy).
+      source_attribute: sip.subscribe_rate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id231
+        description: SUBSCRIBE request rate limit (per second, per policy).
+        source_attribute: sip.subscribe_rate
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: sip.subscribe_rate
+    sources:
+    - ansible
+    - terraform
+  sip.subscribe_rate_track:
+    canonical:
+      type: enum
+      version_ranges: *id232
+      choices: *id233
+      description: Track the packet protocol field.
+      source_attribute: sip.subscribe_rate_track
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id233
+        version_ranges: *id232
+        description: Track the packet protocol field.
+        source_attribute: sip.subscribe_rate_track
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.subscribe_rate_track
+    sources:
+    - ansible
+    - terraform
+  sip.unknown_header:
+    canonical:
+      type: enum
+      version_ranges: *id234
+      choices: *id235
+      description: Action for unknown SIP header.
+      source_attribute: sip.unknown_header
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id235
+        version_ranges: *id234
+        description: Action for unknown SIP header.
+        source_attribute: sip.unknown_header
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.unknown_header
+    sources:
+    - ansible
+    - terraform
+  sip.update_rate:
+    canonical:
+      type: integer
+      version_ranges: *id236
+      description: UPDATE request rate limit (per second, per policy).
+      source_attribute: sip.update_rate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id236
+        description: UPDATE request rate limit (per second, per policy).
+        source_attribute: sip.update_rate
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: sip.update_rate
+    sources:
+    - ansible
+    - terraform
+  sip.update_rate_track:
+    canonical:
+      type: enum
+      version_ranges: *id237
+      choices: *id238
+      description: Track the packet protocol field.
+      source_attribute: sip.update_rate_track
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id238
+        version_ranges: *id237
+        description: Track the packet protocol field.
+        source_attribute: sip.update_rate_track
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sip.update_rate_track
+    sources:
+    - ansible
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  uuid:
+    canonical:
+      type: string
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: msrp
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: sccp
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict
+- attribute: sip
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict

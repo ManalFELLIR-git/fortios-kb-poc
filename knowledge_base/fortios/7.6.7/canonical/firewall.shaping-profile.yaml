@@ -1,0 +1,854 @@
+id: firewall.shaping-profile
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 1023
+      description: Comment.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Comment.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 1023
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 1023
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  default_class_id:
+    canonical:
+      type: integer
+      references: &id003
+      - firewall.traffic-class.class-id
+      required: true
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Default class ID to handle unclassified packets (including all local traffic).
+      source_attribute: default-class-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id002
+        description: Default class ID to handle unclassified packets (including all local traffic). Source firewall.traffic-class.class-id.
+        references: *id003
+        source_attribute: default_class_id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        required: true
+        source_attribute: default_class_id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Default class ID to handle unclassified packets (including all local traffic).
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: default-class-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  npu_offloading:
+    canonical:
+      type: enum
+      version_ranges: &id005
+      - - v7.6.0
+        - ''
+      choices: &id004
+      - disable
+      - enable
+      default: enable
+      description: Enable/disable NPU offloading.
+      source_attribute: npu-offloading
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id004
+        version_ranges: *id005
+        description: Enable/disable NPU offloading.
+        source_attribute: npu_offloading
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: npu_offloading
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable NPU offloading.
+        default: enable
+        source_attribute: npu-offloading
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  profile_name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Shaping profile name.
+      source_attribute: profile-name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id006
+        description: Shaping profile name.
+        source_attribute: profile_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 35
+        source_attribute: profile_name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Shaping profile name.
+        max_length: 35
+        source_attribute: profile-name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  shaping_entries:
+    canonical:
+      type: list
+      elements: dict
+      children: &id008
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id014
+          - - v6.0.0
+            - ''
+          description: ID number. see <a href='#notes'>Notes</a>.
+        class_id:
+          type: integer
+          raw_type: integer
+          version_ranges: &id012
+          - - v6.0.0
+            - ''
+          description: Class ID. Source firewall.traffic-class.class-id.
+          references: &id011
+          - firewall.traffic-class.class-id
+        priority:
+          type: enum
+          raw_type: string
+          choices: &id020
+          - top
+          - critical
+          - high
+          - medium
+          - low
+          version_ranges: &id019
+          - - v6.0.0
+            - ''
+          description: Priority.
+        guaranteed_bandwidth_percentage:
+          type: integer
+          raw_type: integer
+          version_ranges: &id013
+          - - v6.0.0
+            - ''
+          description: Guaranteed bandwidth in percentage.
+        maximum_bandwidth_percentage:
+          type: integer
+          raw_type: integer
+          version_ranges: &id017
+          - - v6.0.0
+            - ''
+          description: Maximum bandwidth in percentage.
+        limit:
+          type: integer
+          raw_type: integer
+          version_ranges: &id015
+          - - v6.2.0
+            - ''
+          description: Hard limit on the real queue size in packets.
+        burst_in_msec:
+          type: integer
+          raw_type: integer
+          version_ranges: &id009
+          - - v6.2.0
+            - ''
+          description: 'Number of bytes that can be burst at maximum-bandwidth speed. Formula: burst = maximum-bandwidth*burst-in-msec.'
+        cburst_in_msec:
+          type: integer
+          raw_type: integer
+          version_ranges: &id010
+          - - v6.2.0
+            - ''
+          description: 'Number of bytes that can be burst as fast as the interface can transmit. Formula: cburst = maximum-bandwidth*cburst-in-msec.'
+        red_probability:
+          type: integer
+          raw_type: integer
+          version_ranges: &id021
+          - - v6.2.0
+            - ''
+          description: Maximum probability (in percentage) for RED marking.
+        min:
+          type: integer
+          raw_type: integer
+          version_ranges: &id018
+          - - v6.2.0
+            - ''
+          description: Average queue size in packets at which RED drop becomes a possibility.
+        max:
+          type: integer
+          raw_type: integer
+          version_ranges: &id016
+          - - v6.2.0
+            - ''
+          description: Average queue size in packets at which RED drop probability is maximal.
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      description: Define shaping entries of this shaping profile.
+      source_attribute: shaping_entries
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id007
+        description: Define shaping entries of this shaping profile.
+        children: *id008
+        source_attribute: shaping_entries
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          class_id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          priority:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          guaranteed_bandwidth_percentage:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 100
+          maximum_bandwidth_percentage:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 100
+          limit:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 5
+            max: 10000
+          burst_in_msec:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 2000
+          cburst_in_msec:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 2000
+          red_probability:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 20
+          min:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 3
+            max: 3000
+          max:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 3
+            max: 3000
+        source_attribute: shaping_entries
+    sources:
+    - ansible
+    - terraform
+  shaping_entries.burst_in_msec:
+    canonical:
+      type: integer
+      version_ranges: *id009
+      min: 0
+      max: 2000
+      description: 'Number of bytes that can be burst at maximum-bandwidth speed. Formula: burst = maximum-bandwidth*burst-in-msec.'
+      source_attribute: shaping_entries.burst_in_msec
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id009
+        description: 'Number of bytes that can be burst at maximum-bandwidth speed. Formula: burst = maximum-bandwidth*burst-in-msec.'
+        source_attribute: shaping_entries.burst_in_msec
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 2000
+        source_attribute: shaping_entries.burst_in_msec
+    sources:
+    - ansible
+    - terraform
+  shaping_entries.cburst_in_msec:
+    canonical:
+      type: integer
+      version_ranges: *id010
+      min: 0
+      max: 2000
+      description: 'Number of bytes that can be burst as fast as the interface can transmit. Formula: cburst = maximum-bandwidth*cburst-in-msec.'
+      source_attribute: shaping_entries.cburst_in_msec
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id010
+        description: 'Number of bytes that can be burst as fast as the interface can transmit. Formula: cburst = maximum-bandwidth*cburst-in-msec.'
+        source_attribute: shaping_entries.cburst_in_msec
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 2000
+        source_attribute: shaping_entries.cburst_in_msec
+    sources:
+    - ansible
+    - terraform
+  shaping_entries.class_id:
+    canonical:
+      type: integer
+      references: *id011
+      version_ranges: *id012
+      description: Class ID. Source firewall.traffic-class.class-id.
+      source_attribute: shaping_entries.class_id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id012
+        description: Class ID. Source firewall.traffic-class.class-id.
+        references: *id011
+        source_attribute: shaping_entries.class_id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: shaping_entries.class_id
+    sources:
+    - ansible
+    - terraform
+  shaping_entries.guaranteed_bandwidth_percentage:
+    canonical:
+      type: integer
+      version_ranges: *id013
+      min: 0
+      max: 100
+      description: Guaranteed bandwidth in percentage.
+      source_attribute: shaping_entries.guaranteed_bandwidth_percentage
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id013
+        description: Guaranteed bandwidth in percentage.
+        source_attribute: shaping_entries.guaranteed_bandwidth_percentage
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 100
+        source_attribute: shaping_entries.guaranteed_bandwidth_percentage
+    sources:
+    - ansible
+    - terraform
+  shaping_entries.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id014
+      description: ID number. see <a href='#notes'>Notes</a>.
+      source_attribute: shaping_entries.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id014
+        description: ID number. see <a href='#notes'>Notes</a>.
+        source_attribute: shaping_entries.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: shaping_entries.id
+    sources:
+    - ansible
+    - terraform
+  shaping_entries.limit:
+    canonical:
+      type: integer
+      version_ranges: *id015
+      min: 5
+      max: 10000
+      description: Hard limit on the real queue size in packets.
+      source_attribute: shaping_entries.limit
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id015
+        description: Hard limit on the real queue size in packets.
+        source_attribute: shaping_entries.limit
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 5
+        max: 10000
+        source_attribute: shaping_entries.limit
+    sources:
+    - ansible
+    - terraform
+  shaping_entries.max:
+    canonical:
+      type: integer
+      version_ranges: *id016
+      min: 3
+      max: 3000
+      description: Average queue size in packets at which RED drop probability is maximal.
+      source_attribute: shaping_entries.max
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id016
+        description: Average queue size in packets at which RED drop probability is maximal.
+        source_attribute: shaping_entries.max
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 3
+        max: 3000
+        source_attribute: shaping_entries.max
+    sources:
+    - ansible
+    - terraform
+  shaping_entries.maximum_bandwidth_percentage:
+    canonical:
+      type: integer
+      version_ranges: *id017
+      min: 1
+      max: 100
+      description: Maximum bandwidth in percentage.
+      source_attribute: shaping_entries.maximum_bandwidth_percentage
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id017
+        description: Maximum bandwidth in percentage.
+        source_attribute: shaping_entries.maximum_bandwidth_percentage
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 100
+        source_attribute: shaping_entries.maximum_bandwidth_percentage
+    sources:
+    - ansible
+    - terraform
+  shaping_entries.min:
+    canonical:
+      type: integer
+      version_ranges: *id018
+      min: 3
+      max: 3000
+      description: Average queue size in packets at which RED drop becomes a possibility.
+      source_attribute: shaping_entries.min
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id018
+        description: Average queue size in packets at which RED drop becomes a possibility.
+        source_attribute: shaping_entries.min
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 3
+        max: 3000
+        source_attribute: shaping_entries.min
+    sources:
+    - ansible
+    - terraform
+  shaping_entries.priority:
+    canonical:
+      type: enum
+      version_ranges: *id019
+      choices: *id020
+      description: Priority.
+      source_attribute: shaping_entries.priority
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id020
+        version_ranges: *id019
+        description: Priority.
+        source_attribute: shaping_entries.priority
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: shaping_entries.priority
+    sources:
+    - ansible
+    - terraform
+  shaping_entries.red_probability:
+    canonical:
+      type: integer
+      version_ranges: *id021
+      min: 0
+      max: 20
+      description: Maximum probability (in percentage) for RED marking.
+      source_attribute: shaping_entries.red_probability
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id021
+        description: Maximum probability (in percentage) for RED marking.
+        source_attribute: shaping_entries.red_probability
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 20
+        source_attribute: shaping_entries.red_probability
+    sources:
+    - ansible
+    - terraform
+  type:
+    canonical:
+      type: enum
+      version_ranges: &id023
+      - - v6.2.0
+        - ''
+      choices: &id022
+      - policing
+      - queuing
+      default: policing
+      description: 'Select shaping profile type: policing / queuing.'
+      source_attribute: type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id022
+        version_ranges: *id023
+        description: 'Select shaping profile type: policing / queuing.'
+        source_attribute: type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: 'Select shaping profile type: policing / queuing.'
+        default: policing
+        source_attribute: type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

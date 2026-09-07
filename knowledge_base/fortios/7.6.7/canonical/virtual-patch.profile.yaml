@@ -1,0 +1,685 @@
+id: virtual-patch.profile
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  action:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.4.1
+        - ''
+      choices: &id001
+      - pass
+      - block
+      default: block
+      description: Action (pass/block).
+      source_attribute: action
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Action (pass/block).
+        source_attribute: action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: action
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Action (pass/block).
+        default: block
+        source_attribute: action
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id003
+      - - v7.4.1
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Comment.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Comment.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 255
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  exemption:
+    canonical:
+      type: list
+      elements: dict
+      children: &id005
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id010
+          - - v7.4.1
+            - ''
+          description: IDs. see <a href='#notes'>Notes</a>.
+        status:
+          type: enum
+          raw_type: string
+          choices: &id016
+          - enable
+          - disable
+          version_ranges: &id015
+          - - v7.4.1
+            - ''
+          description: Enable/disable exemption.
+        rule:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id012
+          - - v7.4.1
+            - ''
+          description: Patch signature rule IDs.
+          children: &id011
+            id:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id014
+              - - v7.4.1
+                - ''
+              description: Rule IDs. see <a href='#notes'>Notes</a>.
+        device:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id007
+          - - v7.4.1
+            - ''
+          description: Device MAC addresses.
+          children: &id006
+            mac:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id009
+              - - v7.4.1
+                - ''
+              description: Device MAC address.
+      version_ranges: &id004
+      - - v7.4.1
+        - ''
+      description: Exempt devices or rules.
+      source_attribute: exemption
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id004
+        description: Exempt devices or rules.
+        children: *id005
+        source_attribute: exemption
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          rule:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id013
+              id:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+          device:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id008
+              mac:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+        source_attribute: exemption
+    sources:
+    - ansible
+    - terraform
+  exemption.device:
+    canonical:
+      type: list
+      elements: dict
+      children: *id006
+      version_ranges: *id007
+      description: Device MAC addresses.
+      source_attribute: exemption.device
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id007
+        description: Device MAC addresses.
+        children: *id006
+        source_attribute: exemption.device
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id008
+        source_attribute: exemption.device
+    sources:
+    - ansible
+    - terraform
+  exemption.device.mac:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id009
+      description: Device MAC address.
+      source_attribute: exemption.device.mac
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id009
+        description: Device MAC address.
+        source_attribute: exemption.device.mac
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: exemption.device.mac
+    sources:
+    - ansible
+    - terraform
+  exemption.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id010
+      description: IDs. see <a href='#notes'>Notes</a>.
+      source_attribute: exemption.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id010
+        description: IDs. see <a href='#notes'>Notes</a>.
+        source_attribute: exemption.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: exemption.id
+    sources:
+    - ansible
+    - terraform
+  exemption.rule:
+    canonical:
+      type: list
+      elements: dict
+      children: *id011
+      version_ranges: *id012
+      description: Patch signature rule IDs.
+      source_attribute: exemption.rule
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id012
+        description: Patch signature rule IDs.
+        children: *id011
+        source_attribute: exemption.rule
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id013
+        source_attribute: exemption.rule
+    sources:
+    - ansible
+    - terraform
+  exemption.rule.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id014
+      description: Rule IDs. see <a href='#notes'>Notes</a>.
+      source_attribute: exemption.rule.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id014
+        description: Rule IDs. see <a href='#notes'>Notes</a>.
+        source_attribute: exemption.rule.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: exemption.rule.id
+    sources:
+    - ansible
+    - terraform
+  exemption.status:
+    canonical:
+      type: enum
+      version_ranges: *id015
+      choices: *id016
+      description: Enable/disable exemption.
+      source_attribute: exemption.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id016
+        version_ranges: *id015
+        description: Enable/disable exemption.
+        source_attribute: exemption.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: exemption.status
+    sources:
+    - ansible
+    - terraform
+  fabric_force_sync:
+    canonical:
+      type: string
+      source_attribute: fabric_force_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_force_sync
+    sources:
+    - terraform
+  fabric_object:
+    canonical:
+      type: string
+      source_attribute: fabric_object
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object
+    sources:
+    - terraform
+  fabric_object_source:
+    canonical:
+      type: string
+      source_attribute: fabric_object_source
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object_source
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  log:
+    canonical:
+      type: enum
+      version_ranges: &id018
+      - - v7.4.1
+        - ''
+      choices: &id017
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable logging of detection.
+      source_attribute: log
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id017
+        version_ranges: *id018
+        description: Enable/disable logging of detection.
+        source_attribute: log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: log
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable logging of detection.
+        default: enable
+        source_attribute: log
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id019
+      - - v7.4.1
+        - ''
+      min_length: 0
+      max_length: 47
+      description: Profile name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id019
+        description: Profile name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 47
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Profile name.
+        max_length: 47
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  severity:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id021
+      - - v7.4.1
+        - ''
+      choices: &id020
+      - info
+      - low
+      - medium
+      - high
+      - critical
+      default: info low medium high critical
+      description: Relative severity of the signature (low, medium, high, critical).
+      source_attribute: severity
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id020
+        multiple_values: true
+        elements: str
+        version_ranges: *id021
+        description: Relative severity of the signature (low, medium, high, critical).
+        source_attribute: severity
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: severity
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Relative severity of the signature (low, medium, high, critical).
+        default: info low medium high critical
+        source_attribute: severity
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  uuid:
+    canonical:
+      type: string
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

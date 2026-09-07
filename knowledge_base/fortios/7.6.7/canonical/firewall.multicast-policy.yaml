@@ -1,0 +1,1273 @@
+id: firewall.multicast-policy
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  action:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - accept
+      - deny
+      default: accept
+      description: Accept or deny traffic matching the policy.
+      source_attribute: action
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Accept or deny traffic matching the policy.
+        source_attribute: action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: action
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Accept or deny traffic matching the policy.
+        default: accept
+        source_attribute: action
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  auto_asic_offload:
+    canonical:
+      type: enum
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      choices: &id003
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable offloading policy traffic for hardware acceleration.
+      source_attribute: auto-asic-offload
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: Enable/disable offloading policy traffic for hardware acceleration.
+        source_attribute: auto_asic_offload
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auto_asic_offload
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable offloading policy traffic for hardware acceleration.
+        default: enable
+        source_attribute: auto-asic-offload
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  comments:
+    canonical:
+      type: string
+      version_ranges: &id005
+      - - v6.4.0
+        - ''
+      min_length: 0
+      max_length: 1023
+      description: Comment.
+      source_attribute: comments
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: Comment.
+        source_attribute: comments
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 1023
+        source_attribute: comments
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 1023
+        source_attribute: comments
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  custom_tags:
+    canonical:
+      type: list
+      children: &id006
+        name:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 35
+      source_attribute: custom_tags
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id006
+        source_attribute: custom_tags
+    sources:
+    - terraform
+  custom_tags.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: custom_tags.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: custom_tags.name
+    sources:
+    - terraform
+  dnat:
+    canonical:
+      type: ipv4-address-any
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: IPv4 DNAT address used for multicast destination addresses.
+      source_attribute: dnat
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: IPv4 DNAT address used for multicast destination addresses.
+        source_attribute: dnat
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dnat
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: IPv4 DNAT address used for multicast destination addresses.
+        default: 0.0.0.0
+        source_attribute: dnat
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id008
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id008
+  dstaddr:
+    canonical:
+      type: list
+      elements: dict
+      children: &id010
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id013
+          - - v6.0.0
+            - ''
+          description: Destination address objects. Source firewall.multicast-address.name.
+          references: &id012
+          - firewall.multicast-address.name
+      required: true
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Destination address objects. Destination address objects.
+      source_attribute: dstaddr
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      required: terraform
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id009
+        description: Destination address objects.
+        children: *id010
+        source_attribute: dstaddr
+      terraform:
+        type: list
+        raw_type: TypeSet
+        required: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: dstaddr
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Destination address objects. Destination address objects.
+        max_length: 79
+        source_attribute: dstaddr
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id011
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id011
+  dstaddr.name:
+    canonical:
+      type: string
+      references: *id012
+      required: true
+      version_ranges: *id013
+      min_length: 0
+      max_length: 79
+      description: Destination address objects. Source firewall.multicast-address.name.
+      source_attribute: dstaddr.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id013
+        description: Destination address objects. Source firewall.multicast-address.name.
+        references: *id012
+        source_attribute: dstaddr.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: dstaddr.name
+    sources:
+    - ansible
+    - terraform
+  dstintf:
+    canonical:
+      type: string
+      references: &id015
+      - system.interface.name
+      - system.sdwan.zone.name
+      - system.zone.name
+      required: true
+      version_ranges: &id014
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Destination interface name.
+      source_attribute: dstintf
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: Destination interface name. Source system.interface.name system.zone.name system.sdwan.zone.name.
+        references: *id015
+        source_attribute: dstintf
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 35
+        source_attribute: dstintf
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Destination interface name.
+        max_length: 35
+        source_attribute: dstintf
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  end_port:
+    canonical:
+      type: integer
+      version_ranges: &id016
+      - - v6.0.0
+        - ''
+      default: '65535'
+      min: 0
+      max: 65535
+      description: Integer value for ending TCP/UDP/SCTP destination port in range (1 - 65535, default = 1).
+      source_attribute: end-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id016
+        description: Integer value for ending TCP/UDP/SCTP destination port in range (1 - 65535).
+        source_attribute: end_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: end_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Integer value for ending TCP/UDP/SCTP destination port in range (1 - 65535, default = 1).
+        default: '65535'
+        min: 0
+        max: 65535
+        source_attribute: end-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fosid:
+    canonical:
+      type: integer
+      source_attribute: fosid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: fosid
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id017
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967294
+      description: Policy ID ((0 - 4294967294).
+      source_attribute: id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id017
+        description: Policy ID ((0 - 4294967294). see <a href='#notes'>Notes</a>.
+        source_attribute: id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Policy ID ((0 - 4294967294).
+        default: '0'
+        min: 0
+        max: 4294967294
+        source_attribute: id
+    sources:
+    - ansible
+    - cli_reference
+  ips_sensor:
+    canonical:
+      type: string
+      references: &id019
+      - ips.sensor.name
+      version_ranges: &id018
+      - - v7.4.2
+        - ''
+      min_length: 0
+      max_length: 47
+      description: Name of an existing IPS sensor.
+      source_attribute: ips-sensor
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id018
+        description: Name of an existing IPS sensor. Source ips.sensor.name.
+        references: *id019
+        source_attribute: ips_sensor
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 47
+        source_attribute: ips_sensor
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of an existing IPS sensor.
+        max_length: 47
+        source_attribute: ips-sensor
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  logtraffic:
+    canonical:
+      type: enum
+      version_ranges: &id021
+      - - v6.0.0
+        - ''
+      choices: &id020
+      - all
+      - utm
+      - disable
+      default: utm
+      description: Enable or disable logging. Log all sessions or security profile sessions.
+      source_attribute: logtraffic
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id020
+        version_ranges: *id021
+        description: Enable or disable logging. Log all sessions or security profile sessions.
+        source_attribute: logtraffic
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: logtraffic
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable or disable logging. Log all sessions or security profile sessions.
+        default: utm
+        source_attribute: logtraffic
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      version_ranges: &id022
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Policy name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id022
+        description: Policy name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Policy name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  protocol:
+    canonical:
+      type: integer
+      version_ranges: &id023
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 255
+      description: Integer value for the protocol type as defined by IANA (0 - 255, default = 0).
+      source_attribute: protocol
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id023
+        description: Integer value for the protocol type as defined by IANA (0 - 255).
+        source_attribute: protocol
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: protocol
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Integer value for the protocol type as defined by IANA (0 - 255, default = 0).
+        default: '0'
+        min: 0
+        max: 255
+        source_attribute: protocol
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  snat:
+    canonical:
+      type: enum
+      version_ranges: &id025
+      - - v6.0.0
+        - ''
+      choices: &id024
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable substitution of the outgoing interface IP address for the original source IP address (called
+        source NAT or SNAT).
+      source_attribute: snat
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id024
+        version_ranges: *id025
+        description: Enable/disable substitution of the outgoing interface IP address for the original source IP address (called
+          source NAT or SNAT).
+        source_attribute: snat
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: snat
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable substitution of the outgoing interface IP address for the original source IP address (called
+          source NAT or SNAT).
+        default: disable
+        source_attribute: snat
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  snat_ip:
+    canonical:
+      type: ipv4-address
+      version_ranges: &id026
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: IPv4 address to be used as the source address for NATed traffic.
+      source_attribute: snat-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id026
+        description: IPv4 address to be used as the source address for NATed traffic.
+        source_attribute: snat_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: snat_ip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: IPv4 address to be used as the source address for NATed traffic.
+        default: 0.0.0.0
+        source_attribute: snat-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id027
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id027
+  srcaddr:
+    canonical:
+      type: list
+      elements: dict
+      children: &id029
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id032
+          - - v6.0.0
+            - ''
+          description: Source address objects. Source firewall.address.name firewall.addrgrp.name.
+          references: &id031
+          - firewall.address.name
+          - firewall.addrgrp.name
+      required: true
+      version_ranges: &id028
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Source address objects. Source address objects.
+      source_attribute: srcaddr
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      required: terraform
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id028
+        description: Source address objects.
+        children: *id029
+        source_attribute: srcaddr
+      terraform:
+        type: list
+        raw_type: TypeSet
+        required: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: srcaddr
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Source address objects. Source address objects.
+        max_length: 79
+        source_attribute: srcaddr
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id030
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id030
+  srcaddr.name:
+    canonical:
+      type: string
+      references: *id031
+      required: true
+      version_ranges: *id032
+      min_length: 0
+      max_length: 79
+      description: Source address objects. Source firewall.address.name firewall.addrgrp.name.
+      source_attribute: srcaddr.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id032
+        description: Source address objects. Source firewall.address.name firewall.addrgrp.name.
+        references: *id031
+        source_attribute: srcaddr.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: srcaddr.name
+    sources:
+    - ansible
+    - terraform
+  srcintf:
+    canonical:
+      type: string
+      references: &id034
+      - system.interface.name
+      - system.sdwan.zone.name
+      - system.zone.name
+      required: true
+      version_ranges: &id033
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Source interface name.
+      source_attribute: srcintf
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id033
+        description: Source interface name. Source system.interface.name system.zone.name system.sdwan.zone.name.
+        references: *id034
+        source_attribute: srcintf
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 35
+        source_attribute: srcintf
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Source interface name.
+        max_length: 35
+        source_attribute: srcintf
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  start_port:
+    canonical:
+      type: integer
+      version_ranges: &id035
+      - - v6.0.0
+        - ''
+      default: '1'
+      min: 0
+      max: 65535
+      description: Integer value for starting TCP/UDP/SCTP destination port in range (1 - 65535, default = 1).
+      source_attribute: start-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id035
+        description: Integer value for starting TCP/UDP/SCTP destination port in range (1 - 65535).
+        source_attribute: start_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: start_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Integer value for starting TCP/UDP/SCTP destination port in range (1 - 65535, default = 1).
+        default: '1'
+        min: 0
+        max: 65535
+        source_attribute: start-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id037
+      - - v6.0.0
+        - ''
+      choices: &id036
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable this policy.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id036
+        version_ranges: *id037
+        description: Enable/disable this policy.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable this policy.
+        default: enable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  traffic_shaper:
+    canonical:
+      type: string
+      references: &id039
+      - firewall.shaper.traffic-shaper.name
+      version_ranges: &id038
+      - - v7.2.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Traffic shaper to apply to traffic forwarded by the multicast policy.
+      source_attribute: traffic-shaper
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id038
+        description: Traffic shaper to apply to traffic forwarded by the multicast policy. Source firewall.shaper.traffic-shaper.name.
+        references: *id039
+        source_attribute: traffic_shaper
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: traffic_shaper
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Traffic shaper to apply to traffic forwarded by the multicast policy.
+        max_length: 35
+        source_attribute: traffic-shaper
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  utm_status:
+    canonical:
+      type: enum
+      version_ranges: &id041
+      - - v7.4.2
+        - ''
+      choices: &id040
+      - enable
+      - disable
+      default: disable
+      description: Enable to add an IPS security profile to the policy.
+      source_attribute: utm-status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id040
+        version_ranges: *id041
+        description: Enable to add an IPS security profile to the policy.
+        source_attribute: utm_status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: utm_status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable to add an IPS security profile to the policy.
+        default: disable
+        source_attribute: utm-status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  uuid:
+    canonical:
+      type: uuid
+      version_ranges: &id042
+      - - v6.4.0
+        - ''
+      default: 00000000-0000-0000-0000-000000000000
+      description: Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id042
+        description: Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+        source_attribute: uuid
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+      cli_reference:
+        type: uuid
+        raw_type: uuid
+        description: Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+        default: 00000000-0000-0000-0000-000000000000
+        source_attribute: uuid
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id043
+          primitive: string
+          format: uuid
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id043
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: dnat
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict
+- attribute: dstaddr
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: snat_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: srcaddr
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: uuid
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: uuid
+  classification: representation_or_real_conflict

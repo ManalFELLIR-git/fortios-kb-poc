@@ -1,0 +1,246 @@
+id: system.lte-modem
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/156534764/config-system-lte-modem
+attributes:
+  allow-modify-mtu-size:
+    type: enum
+    raw_type: option
+    description: Allow FortiGate to modify the wireless WAN interface MTU size.
+    default: enable
+  allow-modify-wireless-profile-table:
+    type: enum
+    raw_type: option
+    description: Allow FortiGate to modify the wireless profile table if the internal LTE modem is running the GENERIC modem
+      firmware.
+    default: enable
+  apn:
+    type: string
+    raw_type: string
+    description: Login APN string for PDP-IP packet data calls.
+    max_length: 127
+  authtype:
+    type: enum
+    raw_type: option
+    description: Authentication type for PDP-IP packet data calls.
+    default: none
+  auto-connect:
+    type: enum
+    raw_type: option
+    description: Enable/disable modem auto connect.
+    default: disable
+  band-restrictions:
+    type: string
+    raw_type: string
+    description: 'Bitmaps for the allowed 3G and LTE bands.Ex: 0000000000000000-0000000000001008 (3G Mask-LTE Mask)'
+    max_length: 35
+  data-usage-tracking:
+    type: enum
+    raw_type: option
+    description: Enable/disable data usage tracking.
+    default: disable
+  dhcp-relay:
+    type: enum
+    raw_type: option
+    description: Enable/disable DHCP relay over modem.
+    default: disable
+  extra-init:
+    type: string
+    raw_type: string
+    description: Extra initialization string for USB LTE/WIMAX devices.
+    max_length: 127
+  force-wireless-profile:
+    type: integer
+    raw_type: integer
+    description: Force to use wireless profile index (1 - 16), 0 if don't force.
+    default: '0'
+    min: 0
+    max: 16
+  gps-port:
+    type: integer
+    raw_type: integer
+    description: Modem GPS port index (0 - 20).
+    default: '255'
+    min: 0
+    max: 20
+  gps-service:
+    type: enum
+    raw_type: option
+    description: Enable/disable GPS daemon.
+    default: enable
+  image-preference:
+    type: enum
+    raw_type: option
+    description: Modem Image Preference.
+    default: auto-sim
+  manual-handover:
+    type: enum
+    raw_type: option
+    description: Enable/Disable manual handover from 3G to LTE network.
+    default: disable
+  modem-port:
+    type: integer
+    raw_type: integer
+    description: Modem port index (0 - 20).
+    default: '255'
+    min: 0
+    max: 20
+  network-type:
+    type: enum
+    raw_type: option
+    description: Wireless network type.
+    default: auto
+  override-gateway:
+    type: enum
+    raw_type: option
+    description: Enable/disable LTE gateway override (default = disable).
+    default: disable
+  passwd:
+    type: password
+    raw_type: password
+    description: Authentication password for PDP-IP packet data calls.
+  pdptype:
+    type: enum
+    raw_type: option
+    description: Packet Data Protocol (PDP) context type.
+    default: '**'
+  sim1-pin:
+    type: password
+    raw_type: password
+    description: 'PIN code for SIM #1 (if applicable).'
+  sim2-pin:
+    type: password
+    raw_type: password
+    description: 'PIN code for SIM #2 (if applicable).'
+  status:
+    type: enum
+    raw_type: option
+    description: Enable/disable USB LTE/WIMAX device.
+    default: disable **
+  username:
+    type: string
+    raw_type: string
+    description: Authentication username for PDP-IP packet data calls.
+    max_length: 63
+children:
+  data-plan:
+    attributes:
+      billing-date:
+        type: integer
+        raw_type: integer
+        description: LTE MODEM billing date (1 - 31).
+        default: '4294967295'
+        min: 1
+        max: 31
+      billing-hour:
+        type: integer
+        raw_type: integer
+        description: LTE MODEM billing hour (0 - 23).
+        default: '4294967295'
+        min: 0
+        max: 23
+      billing-period:
+        type: enum
+        raw_type: option
+        description: <MONTH, WEEK, DAY>
+      billing-weekday:
+        type: enum
+        raw_type: option
+        description: LTE MODEM billing weekday (Mon - Sun).
+      data-limit:
+        type: integer
+        raw_type: integer
+        description: LTE MODEM data limit in megabytes (0 - 100000, use zero for unlimited data).
+        default: '4294967295'
+        min: 0
+        max: 100000
+      data-limit-alert:
+        type: integer
+        raw_type: integer
+        description: LTE MODEM data usage percentage at which to trigger log. (1 - 99 percent, default = 75).
+        default: '75'
+        min: 1
+        max: 99
+      delay-switch-time:
+        type: string
+        raw_type: string
+        description: Instead of SIM switching shortly after data limit is reached, schedule a delay switch time in format
+          hh:mm.
+        default: NA
+        max_length: 35
+      iccid:
+        type: string
+        raw_type: string
+        description: Dedicated data plan to specific ICCID.
+        max_length: 35
+      name:
+        type: string
+        raw_type: string
+        description: Data plan name.
+        max_length: 35
+      overage:
+        type: enum
+        raw_type: option
+        description: Enable/disable allowance of data overage as configured by data-limit (default = enable). If disabled,
+          perform sim-swap/stop-network as configured by by-data-plan.
+        default: enable
+      target-sim-slot:
+        type: enum
+        raw_type: option
+        description: Target sim slot <1 or 2>
+  sim-switch:
+    attributes:
+      by-connection-state:
+        type: enum
+        raw_type: option
+        description: Enable/disable automatic switch of SIM by MODEM connection state (mobile data usage charges not incurred).
+        default: enable
+      by-data-plan:
+        type: enum
+        raw_type: option
+        description: Enable/disable SIM auto switch by data-plan config.
+        default: disable
+      by-link-monitor:
+        type: enum
+        raw_type: option
+        description: Enable/disable automatic switch of SIM by link monitor (mobile data usage charges incurred).
+        default: disable
+      by-sim-state:
+        type: enum
+        raw_type: option
+        description: Enable/disable automatic switch of SIM when MODEM SIM state is empty or in error.
+        default: enable
+      link-monitor:
+        type: string
+        raw_type: string
+        description: Set link monitor name.
+        max_length: 35
+      modem-disconnection-time:
+        type: integer
+        raw_type: integer
+        description: Configure connection-based automatic switch of SIM time interval in seconds (30 - 86400).
+        default: '300'
+        min: 30
+        max: 86400
+      sim-slot:
+        type: integer
+        raw_type: integer
+        description: 'SIM card slot (1 - 2). 1: SIM-slot 1. 2: SIM-slot 2.'
+        default: '1'
+        min: 1
+        max: 2
+      sim-switch-log-alert-interval:
+        type: integer
+        raw_type: integer
+        description: When sim-switch > X threshold within Y interval, trigger log event (Y:1 - 99999 min, default = 15).
+        default: '15'
+        min: 1
+        max: 99999
+      sim-switch-log-alert-threshold:
+        type: integer
+        raw_type: integer
+        description: When sim-switch > X threshold within Y interval, trigger log event (X:1 - 1000 times, default = 5).
+        default: '5'
+        min: 1
+        max: 1000

@@ -1,0 +1,2069 @@
+id: system.link-monitor
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  addr_mode:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - ipv4
+      - ipv6
+      default: ipv4
+      description: Address mode (IPv4 or IPv6).
+      source_attribute: addr-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Address mode (IPv4 or IPv6).
+        source_attribute: addr_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: addr_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Address mode (IPv4 or IPv6).
+        default: ipv4
+        source_attribute: addr-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  class_id:
+    canonical:
+      type: integer
+      references: &id004
+      - firewall.traffic-class.class-id
+      version_ranges: &id003
+      - - v7.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Traffic class ID.
+      source_attribute: class-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id003
+        description: Traffic class ID. Source firewall.traffic-class.class-id.
+        references: *id004
+        source_attribute: class_id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: class_id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Traffic class ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: class-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  diffservcode:
+    canonical:
+      type: string
+      version_ranges: &id005
+      - - v7.0.0
+        - ''
+      description: Differentiated services code point (DSCP) in the IP header of the probe packet.
+      source_attribute: diffservcode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id005
+        description: Differentiated services code point (DSCP) in the IP header of the probe packet.
+        source_attribute: diffservcode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: diffservcode
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Differentiated services code point (DSCP) in the IP header of the probe packet.
+        source_attribute: diffservcode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  fail_weight:
+    canonical:
+      type: integer
+      version_ranges: &id006
+      - - v7.0.1
+        - ''
+      default: '0'
+      min: 0
+      max: 255
+      description: Threshold weight to trigger link failure alert.
+      source_attribute: fail-weight
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id006
+        description: Threshold weight to trigger link failure alert.
+        source_attribute: fail_weight
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: fail_weight
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Threshold weight to trigger link failure alert.
+        default: '0'
+        min: 0
+        max: 255
+        source_attribute: fail-weight
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  failtime:
+    canonical:
+      type: integer
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      default: '5'
+      min: 1
+      max: 3600
+      description: Number of retry attempts before the server is considered down (1 - 3600, default = 5).
+      source_attribute: failtime
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id007
+        description: Number of retry attempts before the server is considered down (1 - 3600).
+        source_attribute: failtime
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 3600
+        source_attribute: failtime
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Number of retry attempts before the server is considered down (1 - 3600, default = 5).
+        default: '5'
+        min: 1
+        max: 3600
+        source_attribute: failtime
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  gateway_ip:
+    canonical:
+      type: ipv4-address-any
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: Gateway IP address used to probe the server.
+      source_attribute: gateway-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: Gateway IP address used to probe the server.
+        source_attribute: gateway_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: gateway_ip
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: Gateway IP address used to probe the server.
+        default: 0.0.0.0
+        source_attribute: gateway-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id009
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id009
+  gateway_ip6:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id010
+      - - v6.0.0
+        - ''
+      default: '::'
+      description: Gateway IPv6 address used to probe the server.
+      source_attribute: gateway-ip6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id010
+        description: Gateway IPv6 address used to probe the server.
+        source_attribute: gateway_ip6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: gateway_ip6
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: Gateway IPv6 address used to probe the server.
+        default: '::'
+        source_attribute: gateway-ip6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id011
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id011
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  ha_priority:
+    canonical:
+      type: integer
+      version_ranges: &id012
+      - - v6.0.0
+        - ''
+      default: '1'
+      min: 1
+      max: 50
+      description: HA election priority (1 - 50).
+      source_attribute: ha-priority
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id012
+        description: HA election priority (1 - 50).
+        source_attribute: ha_priority
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 50
+        source_attribute: ha_priority
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: HA election priority (1 - 50).
+        default: '1'
+        min: 1
+        max: 50
+        source_attribute: ha-priority
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  http_agent:
+    canonical:
+      type: string
+      version_ranges: &id013
+      - - v6.0.0
+        - ''
+      default: Chrome/ Safari/
+      min_length: 0
+      max_length: 1024
+      description: String in the http-agent field in the HTTP header.
+      source_attribute: http-agent
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id013
+        description: String in the http-agent field in the HTTP header.
+        source_attribute: http_agent
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 1024
+        source_attribute: http_agent
+      cli_reference:
+        type: string
+        raw_type: string
+        description: String in the http-agent field in the HTTP header.
+        default: Chrome/ Safari/
+        max_length: 1024
+        source_attribute: http-agent
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  http_get:
+    canonical:
+      type: string
+      version_ranges: &id014
+      - - v6.0.0
+        - ''
+      default: /
+      min_length: 0
+      max_length: 1024
+      description: If you are monitoring an HTML server you can send an HTTP-GET request with a custom string. Use this option
+        to define the string.
+      source_attribute: http-get
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: If you are monitoring an HTML server you can send an HTTP-GET request with a custom string. Use this
+          option to define the string.
+        source_attribute: http_get
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 1024
+        source_attribute: http_get
+      cli_reference:
+        type: string
+        raw_type: string
+        description: If you are monitoring an HTML server you can send an HTTP-GET request with a custom string. Use this
+          option to define the string.
+        default: /
+        max_length: 1024
+        source_attribute: http-get
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  http_match:
+    canonical:
+      type: string
+      version_ranges: &id015
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 1024
+      description: String that you expect to see in the HTTP-GET requests of the traffic to be monitored.
+      source_attribute: http-match
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id015
+        description: String that you expect to see in the HTTP-GET requests of the traffic to be monitored.
+        source_attribute: http_match
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 1024
+        source_attribute: http_match
+      cli_reference:
+        type: string
+        raw_type: string
+        description: String that you expect to see in the HTTP-GET requests of the traffic to be monitored.
+        max_length: 1024
+        source_attribute: http-match
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interval:
+    canonical:
+      type: integer
+      version_ranges: &id016
+      - - v6.0.0
+        - ''
+      default: '500'
+      min: 20
+      max: 3600000
+      description: Detection interval in milliseconds (20 - 3600 * 1000 msec, default = 500).
+      source_attribute: interval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id016
+        description: Detection interval in milliseconds (20 - 3600 * 1000 msec).
+        source_attribute: interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 3600000
+        source_attribute: interval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Detection interval in milliseconds (20 - 3600 * 1000 msec, default = 500).
+        default: '500'
+        min: 20
+        max: 3600000
+        source_attribute: interval
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      range:
+        min:
+          resolution: terraform_constraint_mismatch
+          status: resolved
+          confidence: high
+          canonical_policy: prefer_exact_version_cli_range
+          special_values: []
+          requires_hardware_overlay: false
+          requires_runtime_validation: false
+          ansible_ranges_detected:
+          - - '20'
+            - '3600000'
+          cli_ranges_detected:
+          - - '20'
+            - '3600000'
+          cli_units:
+          - milliseconds
+          ansible_units:
+          - milliseconds
+          cli_internal_inconsistency: false
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id017
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Link monitor name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id017
+        description: Link monitor name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Link monitor name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  packet_size:
+    canonical:
+      type: integer
+      version_ranges: &id018
+      - - v6.0.0
+        - ''
+      default: '124'
+      min: 0
+      max: 65535
+      description: Packet size of a TWAMP test session (124/158 - 1024).
+      source_attribute: packet-size
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id018
+        description: Packet size of a TWAMP test session (124/158 - 1024).
+        source_attribute: packet_size
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: packet_size
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Packet size of a TWAMP test session (124/158 - 1024).
+        default: '124'
+        min: 0
+        max: 65535
+        source_attribute: packet-size
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  password:
+    canonical:
+      type: password
+      version_ranges: &id019
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: TWAMP controller password in authentication mode.
+      source_attribute: password
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id019
+        description: TWAMP controller password in authentication mode.
+        source_attribute: password
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: password
+      cli_reference:
+        type: password
+        raw_type: password
+        description: TWAMP controller password in authentication mode.
+        source_attribute: password
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id020
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id020
+  port:
+    canonical:
+      type: integer
+      version_ranges: &id021
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 1
+      max: 65535
+      description: Port number of the traffic to be used to monitor the server.
+      source_attribute: port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id021
+        description: Port number of the traffic to be used to monitor the server.
+        source_attribute: port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 65535
+        source_attribute: port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Port number of the traffic to be used to monitor the server.
+        default: '0'
+        min: 1
+        max: 65535
+        source_attribute: port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  probe_count:
+    canonical:
+      type: integer
+      version_ranges: &id022
+      - - v6.4.0
+        - ''
+      default: '30'
+      min: 5
+      max: 30
+      description: Number of most recent probes that should be used to calculate latency and jitter (5 - 30, default = 30).
+      source_attribute: probe-count
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id022
+        description: Number of most recent probes that should be used to calculate latency and jitter (5 - 30).
+        source_attribute: probe_count
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 5
+        max: 30
+        source_attribute: probe_count
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Number of most recent probes that should be used to calculate latency and jitter (5 - 30, default = 30).
+        default: '30'
+        min: 5
+        max: 30
+        source_attribute: probe-count
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  probe_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id023
+      - - v6.2.0
+        - v6.2.0
+      - - v6.2.5
+        - ''
+      default: '500'
+      min: 20
+      max: 5000
+      description: Time to wait before a probe packet is considered lost (20 - 5000 msec, default = 500).
+      source_attribute: probe-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id023
+        description: Time to wait before a probe packet is considered lost (20 - 5000 msec).
+        source_attribute: probe_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 20
+        max: 5000
+        source_attribute: probe_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time to wait before a probe packet is considered lost (20 - 5000 msec, default = 500).
+        default: '500'
+        min: 20
+        max: 5000
+        source_attribute: probe-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  protocol:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id025
+      - - v6.0.0
+        - ''
+      choices: &id024
+      - ping
+      - tcp-echo
+      - udp-echo
+      - http
+      - https
+      - twamp
+      default: ping
+      description: Protocols used to monitor the server.
+      source_attribute: protocol
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id024
+        multiple_values: true
+        elements: str
+        version_ranges: *id025
+        description: Protocols used to monitor the server.
+        source_attribute: protocol
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: protocol
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Protocols used to monitor the server.
+        default: ping
+        source_attribute: protocol
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  recoverytime:
+    canonical:
+      type: integer
+      version_ranges: &id026
+      - - v6.0.0
+        - ''
+      default: '5'
+      min: 1
+      max: 3600
+      description: Number of successful responses received before server is considered recovered (1 - 3600, default = 5).
+      source_attribute: recoverytime
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id026
+        description: Number of successful responses received before server is considered recovered (1 - 3600).
+        source_attribute: recoverytime
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 3600
+        source_attribute: recoverytime
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Number of successful responses received before server is considered recovered (1 - 3600, default = 5).
+        default: '5'
+        min: 1
+        max: 3600
+        source_attribute: recoverytime
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  route:
+    canonical:
+      type: list
+      elements: dict
+      children: &id028
+        subnet:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id030
+          - - v7.0.0
+            - ''
+          description: IP and netmask (x.x.x.x/y).
+      version_ranges: &id027
+      - - v7.0.0
+        - ''
+      max_length: 79
+      description: Subnet to monitor. IP and netmask (x.x.x.x/y).
+      source_attribute: route
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id027
+        description: Subnet to monitor.
+        children: *id028
+        source_attribute: route
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          subnet:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: route
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Subnet to monitor. IP and netmask (x.x.x.x/y).
+        max_length: 79
+        source_attribute: route
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id029
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id029
+  route.subnet:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id030
+      min_length: 0
+      max_length: 79
+      description: IP and netmask (x.x.x.x/y).
+      source_attribute: route.subnet
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id030
+        description: IP and netmask (x.x.x.x/y).
+        source_attribute: route.subnet
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: route.subnet
+    sources:
+    - ansible
+    - terraform
+  security_mode:
+    canonical:
+      type: enum
+      version_ranges: &id032
+      - - v6.0.0
+        - ''
+      choices: &id031
+      - none
+      - authentication
+      default: none
+      description: Twamp controller security mode.
+      source_attribute: security-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id031
+        version_ranges: *id032
+        description: Twamp controller security mode.
+        source_attribute: security_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: security_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Twamp controller security mode.
+        default: none
+        source_attribute: security-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  server:
+    canonical:
+      type: list
+      elements: dict
+      children: &id034
+        address:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id036
+          - - v6.0.0
+            - ''
+          description: Server address.
+      required: true
+      version_ranges: &id033
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: IP address of the server(s) to be monitored. Server address.
+      source_attribute: server
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      required: terraform
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id033
+        description: IP address of the server(s) to be monitored.
+        children: *id034
+        source_attribute: server
+      terraform:
+        type: list
+        raw_type: TypeSet
+        required: true
+        children:
+          address:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: server
+      cli_reference:
+        type: string
+        raw_type: string
+        description: IP address of the server(s) to be monitored. Server address.
+        max_length: 79
+        source_attribute: server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id035
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id035
+  server.address:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id036
+      min_length: 0
+      max_length: 79
+      description: Server address.
+      source_attribute: server.address
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id036
+        description: Server address.
+        source_attribute: server.address
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: server.address
+    sources:
+    - ansible
+    - terraform
+  server_config:
+    canonical:
+      type: enum
+      version_ranges: &id038
+      - - v7.0.1
+        - ''
+      choices: &id037
+      - default
+      - individual
+      default: default
+      description: Mode of server configuration.
+      source_attribute: server-config
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id037
+        version_ranges: *id038
+        description: Mode of server configuration.
+        source_attribute: server_config
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: server_config
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Mode of server configuration.
+        default: default
+        source_attribute: server-config
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  server_list:
+    canonical:
+      type: list
+      elements: dict
+      children: &id040
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id042
+          - - v7.0.1
+            - ''
+          description: Server ID. see <a href='#notes'>Notes</a>.
+        dst:
+          type: string
+          raw_type: string
+          version_ranges: &id041
+          - - v7.0.1
+            - ''
+          description: IP address of the server to be monitored.
+        protocol:
+          type: enum
+          raw_type: list
+          choices: &id045
+          - ping
+          - tcp-echo
+          - udp-echo
+          - http
+          - https
+          - twamp
+          multiple_values: true
+          elements: str
+          version_ranges: &id044
+          - - v7.0.1
+            - ''
+          description: Protocols used to monitor the server.
+        port:
+          type: integer
+          raw_type: integer
+          version_ranges: &id043
+          - - v7.0.1
+            - ''
+          description: Port number of the traffic to be used to monitor the server.
+        weight:
+          type: integer
+          raw_type: integer
+          version_ranges: &id046
+          - - v7.0.1
+            - ''
+          description: Weight of the monitor to this dst (0 - 255).
+      version_ranges: &id039
+      - - v7.0.1
+        - ''
+      description: Servers for link-monitor to monitor.
+      source_attribute: server_list
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id039
+        description: Servers for link-monitor to monitor.
+        children: *id040
+        source_attribute: server_list
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 32
+          dst:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 64
+          protocol:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          port:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 65535
+          weight:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 255
+        source_attribute: server_list
+    sources:
+    - ansible
+    - terraform
+  server_list.dst:
+    canonical:
+      type: string
+      version_ranges: *id041
+      min_length: 0
+      max_length: 64
+      description: IP address of the server to be monitored.
+      source_attribute: server_list.dst
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id041
+        description: IP address of the server to be monitored.
+        source_attribute: server_list.dst
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 64
+        source_attribute: server_list.dst
+    sources:
+    - ansible
+    - terraform
+  server_list.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id042
+      min: 1
+      max: 32
+      description: Server ID. see <a href='#notes'>Notes</a>.
+      source_attribute: server_list.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id042
+        description: Server ID. see <a href='#notes'>Notes</a>.
+        source_attribute: server_list.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 32
+        source_attribute: server_list.id
+    sources:
+    - ansible
+    - terraform
+  server_list.port:
+    canonical:
+      type: integer
+      version_ranges: *id043
+      min: 1
+      max: 65535
+      description: Port number of the traffic to be used to monitor the server.
+      source_attribute: server_list.port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id043
+        description: Port number of the traffic to be used to monitor the server.
+        source_attribute: server_list.port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 65535
+        source_attribute: server_list.port
+    sources:
+    - ansible
+    - terraform
+  server_list.protocol:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: *id044
+      choices: *id045
+      description: Protocols used to monitor the server.
+      source_attribute: server_list.protocol
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id045
+        multiple_values: true
+        elements: str
+        version_ranges: *id044
+        description: Protocols used to monitor the server.
+        source_attribute: server_list.protocol
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: server_list.protocol
+    sources:
+    - ansible
+    - terraform
+  server_list.weight:
+    canonical:
+      type: integer
+      version_ranges: *id046
+      min: 0
+      max: 255
+      description: Weight of the monitor to this dst (0 - 255).
+      source_attribute: server_list.weight
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id046
+        description: Weight of the monitor to this dst (0 - 255).
+        source_attribute: server_list.weight
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: server_list.weight
+    sources:
+    - ansible
+    - terraform
+  server_type:
+    canonical:
+      type: enum
+      version_ranges: &id048
+      - - v7.2.0
+        - ''
+      choices: &id047
+      - static
+      - dynamic
+      default: static
+      description: Server type (static or dynamic).
+      source_attribute: server-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id047
+        version_ranges: *id048
+        description: Server type (static or dynamic).
+        source_attribute: server_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: server_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Server type (static or dynamic).
+        default: static
+        source_attribute: server-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  service_detection:
+    canonical:
+      type: enum
+      version_ranges: &id050
+      - - v7.0.0
+        - ''
+      choices: &id049
+      - enable
+      - disable
+      default: disable
+      description: Only use monitor to read quality values. If enabled, static routes and cascade interfaces will not be updated.
+      source_attribute: service-detection
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id049
+        version_ranges: *id050
+        description: Only use monitor to read quality values. If enabled, static routes and cascade interfaces will not be
+          updated.
+        source_attribute: service_detection
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: service_detection
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Only use monitor to read quality values. If enabled, static routes and cascade interfaces will not be
+          updated.
+        default: disable
+        source_attribute: service-detection
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source_ip:
+    canonical:
+      type: ipv4-address-any
+      version_ranges: &id051
+      - - v6.0.0
+        - ''
+      default: 0.0.0.0
+      description: Source IP address used in packet to the server.
+      source_attribute: source-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id051
+        description: Source IP address used in packet to the server.
+        source_attribute: source_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_ip
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: Source IP address used in packet to the server.
+        default: 0.0.0.0
+        source_attribute: source-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id052
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id052
+  source_ip6:
+    canonical:
+      type: ipv6-address
+      version_ranges: &id053
+      - - v6.0.0
+        - ''
+      default: '::'
+      description: Source IPv6 address used in packet to the server.
+      source_attribute: source-ip6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id053
+        description: Source IPv6 address used in packet to the server.
+        source_attribute: source_ip6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_ip6
+      cli_reference:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: Source IPv6 address used in packet to the server.
+        default: '::'
+        source_attribute: source-ip6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id054
+          primitive: string
+          format: ipv6-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id054
+  srcintf:
+    canonical:
+      type: string
+      references: &id056
+      - system.interface.name
+      version_ranges: &id055
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Interface that receives the traffic to be monitored.
+      source_attribute: srcintf
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id055
+        description: Interface that receives the traffic to be monitored. Source system.interface.name.
+        references: *id056
+        source_attribute: srcintf
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: srcintf
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Interface that receives the traffic to be monitored.
+        max_length: 15
+        source_attribute: srcintf
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id058
+      - - v6.0.0
+        - ''
+      choices: &id057
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable this link monitor.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id057
+        version_ranges: *id058
+        description: Enable/disable this link monitor.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable this link monitor.
+        default: enable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_cascade_interface:
+    canonical:
+      type: enum
+      version_ranges: &id060
+      - - v6.0.0
+        - ''
+      choices: &id059
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable update cascade interface.
+      source_attribute: update-cascade-interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id059
+        version_ranges: *id060
+        description: Enable/disable update cascade interface.
+        source_attribute: update_cascade_interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: update_cascade_interface
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable update cascade interface.
+        default: enable
+        source_attribute: update-cascade-interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  update_policy_route:
+    canonical:
+      type: enum
+      version_ranges: &id062
+      - - v7.0.1
+        - ''
+      choices: &id061
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable updating the policy route.
+      source_attribute: update-policy-route
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id061
+        version_ranges: *id062
+        description: Enable/disable updating the policy route.
+        source_attribute: update_policy_route
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: update_policy_route
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable updating the policy route.
+        default: enable
+        source_attribute: update-policy-route
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_static_route:
+    canonical:
+      type: enum
+      version_ranges: &id064
+      - - v6.0.0
+        - ''
+      choices: &id063
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable updating the static route.
+      source_attribute: update-static-route
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id063
+        version_ranges: *id064
+        description: Enable/disable updating the static route.
+        source_attribute: update_static_route
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: update_static_route
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable updating the static route.
+        default: enable
+        source_attribute: update-static-route
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: gateway_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict
+- attribute: gateway_ip6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict
+- attribute: password
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict
+- attribute: route
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: server
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: source_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict
+- attribute: source_ip6
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv6-address
+  classification: representation_or_real_conflict

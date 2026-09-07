@@ -1,0 +1,1053 @@
+id: webfilter.urlfilter
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Optional comments.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Optional comments.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Optional comments.
+        max_length: 255
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  entries:
+    canonical:
+      type: list
+      elements: dict
+      children: &id003
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id013
+          - - v6.0.0
+            - ''
+          description: Id. see <a href='#notes'>Notes</a>.
+        url:
+          type: string
+          raw_type: string
+          version_ranges: &id019
+          - - v6.0.0
+            - ''
+          description: URL to be filtered.
+        type:
+          type: enum
+          raw_type: string
+          choices: &id018
+          - simple
+          - regex
+          - wildcard
+          version_ranges: &id017
+          - - v6.0.0
+            - ''
+          description: Filter type (simple or wildcard). If table type "profile", regex also supported.
+        action:
+          type: enum
+          raw_type: string
+          choices: &id005
+          - exempt
+          - block
+          - allow
+          - monitor
+          version_ranges: &id004
+          - - v6.0.0
+            - ''
+          description: Action to take for URL filter matches.
+        antiphish_action:
+          type: enum
+          raw_type: string
+          choices: &id007
+          - block
+          - log
+          version_ranges: &id006
+          - - v6.4.0
+            - ''
+          description: Action to take for AntiPhishing matches.
+        status:
+          type: enum
+          raw_type: string
+          choices: &id016
+          - enable
+          - disable
+          version_ranges: &id015
+          - - v6.0.0
+            - ''
+          description: Enable/disable this URL filter.
+        exempt:
+          type: enum
+          raw_type: list
+          choices: &id012
+          - av
+          - web-content
+          - activex-java-cookie
+          - dlp
+          - fortiguard
+          - range-block
+          - pass
+          - antiphish
+          - all
+          multiple_values: true
+          elements: str
+          version_ranges: &id011
+          - - v6.0.0
+            - ''
+          description: If action is set to exempt, select the security profile operations that exempt URLs skip. Separate
+            multiple options with a space.
+        web_proxy_profile:
+          type: string
+          raw_type: string
+          version_ranges: &id021
+          - - v6.0.0
+            - ''
+          description: Web proxy profile. Source web-proxy.profile.name.
+          references: &id020
+          - web-proxy.profile.name
+        referrer_host:
+          type: string
+          raw_type: string
+          version_ranges: &id014
+          - - v6.0.0
+            - ''
+          description: Referrer host name.
+        dns_address_family:
+          type: enum
+          raw_type: string
+          choices: &id010
+          - ipv4
+          - ipv6
+          - both
+          version_ranges: &id009
+          - - v6.0.0
+            - ''
+          description: Resolve IPv4 address, IPv6 address, or both from DNS server.
+        comment:
+          type: string
+          raw_type: string
+          version_ranges: &id008
+          - - v7.6.4
+            - ''
+          description: Comment.
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      description: URL filter entries.
+      source_attribute: entries
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id002
+        description: URL filter entries.
+        children: *id003
+        source_attribute: entries
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          url:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 511
+          type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          action:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          antiphish_action:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          exempt:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          web_proxy_profile:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          referrer_host:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 255
+          dns_address_family:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          comment:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 255
+        source_attribute: entries
+    sources:
+    - ansible
+    - terraform
+  entries.action:
+    canonical:
+      type: enum
+      version_ranges: *id004
+      choices: *id005
+      description: Action to take for URL filter matches.
+      source_attribute: entries.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id004
+        description: Action to take for URL filter matches.
+        source_attribute: entries.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.action
+    sources:
+    - ansible
+    - terraform
+  entries.antiphish_action:
+    canonical:
+      type: enum
+      version_ranges: *id006
+      choices: *id007
+      description: Action to take for AntiPhishing matches.
+      source_attribute: entries.antiphish_action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id007
+        version_ranges: *id006
+        description: Action to take for AntiPhishing matches.
+        source_attribute: entries.antiphish_action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.antiphish_action
+    sources:
+    - ansible
+    - terraform
+  entries.comment:
+    canonical:
+      type: string
+      version_ranges: *id008
+      min_length: 0
+      max_length: 255
+      description: Comment.
+      source_attribute: entries.comment
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: Comment.
+        source_attribute: entries.comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: entries.comment
+    sources:
+    - ansible
+    - terraform
+  entries.dns_address_family:
+    canonical:
+      type: enum
+      version_ranges: *id009
+      choices: *id010
+      description: Resolve IPv4 address, IPv6 address, or both from DNS server.
+      source_attribute: entries.dns_address_family
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id009
+        description: Resolve IPv4 address, IPv6 address, or both from DNS server.
+        source_attribute: entries.dns_address_family
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.dns_address_family
+    sources:
+    - ansible
+    - terraform
+  entries.exempt:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: *id011
+      choices: *id012
+      description: If action is set to exempt, select the security profile operations that exempt URLs skip. Separate multiple
+        options with a space.
+      source_attribute: entries.exempt
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id012
+        multiple_values: true
+        elements: str
+        version_ranges: *id011
+        description: If action is set to exempt, select the security profile operations that exempt URLs skip. Separate multiple
+          options with a space.
+        source_attribute: entries.exempt
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.exempt
+    sources:
+    - ansible
+    - terraform
+  entries.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id013
+      description: Id. see <a href='#notes'>Notes</a>.
+      source_attribute: entries.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id013
+        description: Id. see <a href='#notes'>Notes</a>.
+        source_attribute: entries.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: entries.id
+    sources:
+    - ansible
+    - terraform
+  entries.referrer_host:
+    canonical:
+      type: string
+      version_ranges: *id014
+      min_length: 0
+      max_length: 255
+      description: Referrer host name.
+      source_attribute: entries.referrer_host
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: Referrer host name.
+        source_attribute: entries.referrer_host
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: entries.referrer_host
+    sources:
+    - ansible
+    - terraform
+  entries.status:
+    canonical:
+      type: enum
+      version_ranges: *id015
+      choices: *id016
+      description: Enable/disable this URL filter.
+      source_attribute: entries.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id016
+        version_ranges: *id015
+        description: Enable/disable this URL filter.
+        source_attribute: entries.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.status
+    sources:
+    - ansible
+    - terraform
+  entries.type:
+    canonical:
+      type: enum
+      version_ranges: *id017
+      choices: *id018
+      description: Filter type (simple or wildcard). If table type "profile", regex also supported.
+      source_attribute: entries.type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id018
+        version_ranges: *id017
+        description: Filter type (simple or wildcard). If table type "profile", regex also supported.
+        source_attribute: entries.type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: entries.type
+    sources:
+    - ansible
+    - terraform
+  entries.url:
+    canonical:
+      type: string
+      version_ranges: *id019
+      min_length: 0
+      max_length: 511
+      description: URL to be filtered.
+      source_attribute: entries.url
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id019
+        description: URL to be filtered.
+        source_attribute: entries.url
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 511
+        source_attribute: entries.url
+    sources:
+    - ansible
+    - terraform
+  entries.web_proxy_profile:
+    canonical:
+      type: string
+      references: *id020
+      version_ranges: *id021
+      min_length: 0
+      max_length: 63
+      description: Web proxy profile. Source web-proxy.profile.name.
+      source_attribute: entries.web_proxy_profile
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id021
+        description: Web proxy profile. Source web-proxy.profile.name.
+        references: *id020
+        source_attribute: entries.web_proxy_profile
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: entries.web_proxy_profile
+    sources:
+    - ansible
+    - terraform
+  fabric_force_sync:
+    canonical:
+      type: string
+      source_attribute: fabric_force_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_force_sync
+    sources:
+    - terraform
+  fabric_object:
+    canonical:
+      type: string
+      source_attribute: fabric_object
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object
+    sources:
+    - terraform
+  fabric_object_source:
+    canonical:
+      type: string
+      source_attribute: fabric_object_source
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fabric_object_source
+    sources:
+    - terraform
+  fosid:
+    canonical:
+      type: integer
+      required: true
+      source_attribute: fosid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      required: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        required: true
+        force_new: true
+        source_attribute: fosid
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id022
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: ID.
+      source_attribute: id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id022
+        description: ID. see <a href='#notes'>Notes</a>.
+        source_attribute: id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: id
+    sources:
+    - ansible
+    - cli_reference
+  include_subdomains:
+    canonical:
+      type: enum
+      version_ranges: &id024
+      - - v7.6.3
+        - ''
+      choices: &id023
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable matching subdomains. Applies only to simple type (default = enable).
+      source_attribute: include-subdomains
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id023
+        version_ranges: *id024
+        description: Enable/disable matching subdomains. Applies only to simple type .
+        source_attribute: include_subdomains
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: include_subdomains
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable matching subdomains. Applies only to simple type (default = enable).
+        default: enable
+        source_attribute: include-subdomains
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ip4_mapped_ip6:
+    canonical:
+      type: enum
+      version_ranges: &id026
+      - - v7.2.4
+        - ''
+      choices: &id025
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable matching of IPv4 mapped IPv6 URLs.
+      source_attribute: ip4-mapped-ip6
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id025
+        version_ranges: *id026
+        description: Enable/disable matching of IPv4 mapped IPv6 URLs.
+        source_attribute: ip4_mapped_ip6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ip4_mapped_ip6
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable matching of IPv4 mapped IPv6 URLs.
+        default: disable
+        source_attribute: ip4-mapped-ip6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ip_addr_block:
+    canonical:
+      type: enum
+      version_ranges: &id028
+      - - v6.0.0
+        - ''
+      choices: &id027
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable blocking URLs when the hostname appears as an IP address.
+      source_attribute: ip-addr-block
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id027
+        version_ranges: *id028
+        description: Enable/disable blocking URLs when the hostname appears as an IP address.
+        source_attribute: ip_addr_block
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ip_addr_block
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable blocking URLs when the hostname appears as an IP address.
+        default: disable
+        source_attribute: ip-addr-block
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id029
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Name of URL filter list.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id029
+        description: Name of URL filter list.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 63
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of URL filter list.
+        max_length: 63
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  one_arm_ips_urlfilter:
+    canonical:
+      type: enum
+      version_ranges: &id031
+      - - v6.0.0
+        - ''
+      choices: &id030
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable DNS resolver for one-arm IPS URL filter operation.
+      source_attribute: one-arm-ips-urlfilter
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id030
+        version_ranges: *id031
+        description: Enable/disable DNS resolver for one-arm IPS URL filter operation.
+        source_attribute: one_arm_ips_urlfilter
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: one_arm_ips_urlfilter
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable DNS resolver for one-arm IPS URL filter operation.
+        default: disable
+        source_attribute: one-arm-ips-urlfilter
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  type:
+    canonical:
+      type: string
+      source_attribute: type
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: type
+    sources:
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  uuid:
+    canonical:
+      type: string
+      source_attribute: uuid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uuid
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

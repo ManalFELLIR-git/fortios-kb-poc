@@ -1,0 +1,663 @@
+id: firewall.access-proxy-ssh-client-cert
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  auth_ca:
+    canonical:
+      type: string
+      references: &id002
+      - firewall.ssh.local-ca.name
+      version_ranges: &id001
+      - - v7.0.1
+        - ''
+      min_length: 0
+      max_length: 79
+      description: Name of the SSH server public key authentication CA.
+      source_attribute: auth-ca
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Name of the SSH server public key authentication CA. Source firewall.ssh.local-ca.name.
+        references: *id002
+        source_attribute: auth_ca
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: auth_ca
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of the SSH server public key authentication CA.
+        max_length: 79
+        source_attribute: auth-ca
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cert_extension:
+    canonical:
+      type: list
+      elements: dict
+      children: &id004
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id008
+          - - v7.0.1
+            - ''
+          description: Name of certificate extension.
+        critical:
+          type: enum
+          raw_type: string
+          choices: &id006
+          - 'no'
+          - 'yes'
+          version_ranges: &id005
+          - - v7.0.1
+            - ''
+          description: Critical option.
+        type:
+          type: enum
+          raw_type: string
+          choices: &id010
+          - fixed
+          - user
+          version_ranges: &id009
+          - - v7.0.1
+            - ''
+          description: Type of certificate extension.
+        data:
+          type: string
+          raw_type: string
+          version_ranges: &id007
+          - - v7.0.1
+            - ''
+          description: Data of certificate extension.
+      version_ranges: &id003
+      - - v7.0.1
+        - ''
+      description: Configure certificate extension for user certificate.
+      source_attribute: cert_extension
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id003
+        description: Configure certificate extension for user certificate.
+        children: *id004
+        source_attribute: cert_extension
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 127
+          critical:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          type:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          data:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 127
+        source_attribute: cert_extension
+    sources:
+    - ansible
+    - terraform
+  cert_extension.critical:
+    canonical:
+      type: enum
+      version_ranges: *id005
+      choices: *id006
+      description: Critical option.
+      source_attribute: cert_extension.critical
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id006
+        version_ranges: *id005
+        description: Critical option.
+        source_attribute: cert_extension.critical
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cert_extension.critical
+    sources:
+    - ansible
+    - terraform
+  cert_extension.data:
+    canonical:
+      type: string
+      version_ranges: *id007
+      min_length: 0
+      max_length: 127
+      description: Data of certificate extension.
+      source_attribute: cert_extension.data
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: Data of certificate extension.
+        source_attribute: cert_extension.data
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: cert_extension.data
+    sources:
+    - ansible
+    - terraform
+  cert_extension.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id008
+      min_length: 0
+      max_length: 127
+      description: Name of certificate extension.
+      source_attribute: cert_extension.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id008
+        description: Name of certificate extension.
+        source_attribute: cert_extension.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: cert_extension.name
+    sources:
+    - ansible
+    - terraform
+  cert_extension.type:
+    canonical:
+      type: enum
+      version_ranges: *id009
+      choices: *id010
+      description: Type of certificate extension.
+      source_attribute: cert_extension.type
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id009
+        description: Type of certificate extension.
+        source_attribute: cert_extension.type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cert_extension.type
+    sources:
+    - ansible
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id011
+      - - v7.0.1
+        - ''
+      min_length: 0
+      max_length: 79
+      description: SSH client certificate name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id011
+        description: SSH client certificate name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: SSH client certificate name.
+        max_length: 79
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  permit_agent_forwarding:
+    canonical:
+      type: enum
+      version_ranges: &id013
+      - - v7.0.1
+        - ''
+      choices: &id012
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable appending permit-agent-forwarding certificate extension.
+      source_attribute: permit-agent-forwarding
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id012
+        version_ranges: *id013
+        description: Enable/disable appending permit-agent-forwarding certificate extension.
+        source_attribute: permit_agent_forwarding
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: permit_agent_forwarding
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable appending permit-agent-forwarding certificate extension.
+        default: enable
+        source_attribute: permit-agent-forwarding
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  permit_port_forwarding:
+    canonical:
+      type: enum
+      version_ranges: &id015
+      - - v7.0.1
+        - ''
+      choices: &id014
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable appending permit-port-forwarding certificate extension.
+      source_attribute: permit-port-forwarding
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id014
+        version_ranges: *id015
+        description: Enable/disable appending permit-port-forwarding certificate extension.
+        source_attribute: permit_port_forwarding
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: permit_port_forwarding
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable appending permit-port-forwarding certificate extension.
+        default: enable
+        source_attribute: permit-port-forwarding
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  permit_pty:
+    canonical:
+      type: enum
+      version_ranges: &id017
+      - - v7.0.1
+        - ''
+      choices: &id016
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable appending permit-pty certificate extension.
+      source_attribute: permit-pty
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id016
+        version_ranges: *id017
+        description: Enable/disable appending permit-pty certificate extension.
+        source_attribute: permit_pty
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: permit_pty
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable appending permit-pty certificate extension.
+        default: enable
+        source_attribute: permit-pty
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  permit_user_rc:
+    canonical:
+      type: enum
+      version_ranges: &id019
+      - - v7.0.1
+        - ''
+      choices: &id018
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable appending permit-user-rc certificate extension.
+      source_attribute: permit-user-rc
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id018
+        version_ranges: *id019
+        description: Enable/disable appending permit-user-rc certificate extension.
+        source_attribute: permit_user_rc
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: permit_user_rc
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable appending permit-user-rc certificate extension.
+        default: enable
+        source_attribute: permit-user-rc
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  permit_x11_forwarding:
+    canonical:
+      type: enum
+      version_ranges: &id021
+      - - v7.0.1
+        - ''
+      choices: &id020
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable appending permit-x11-forwarding certificate extension.
+      source_attribute: permit-x11-forwarding
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id020
+        version_ranges: *id021
+        description: Enable/disable appending permit-x11-forwarding certificate extension.
+        source_attribute: permit_x11_forwarding
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: permit_x11_forwarding
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable appending permit-x11-forwarding certificate extension.
+        default: enable
+        source_attribute: permit-x11-forwarding
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source_address:
+    canonical:
+      type: enum
+      version_ranges: &id023
+      - - v7.0.1
+        - ''
+      choices: &id022
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable appending source-address certificate critical option. This option ensure certificate only
+        accepted from FortiGate source address.
+      source_attribute: source-address
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id022
+        version_ranges: *id023
+        description: Enable/disable appending source-address certificate critical option. This option ensure certificate only
+          accepted from FortiGate source address.
+        source_attribute: source_address
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_address
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable appending source-address certificate critical option. This option ensure certificate only
+          accepted from FortiGate source address.
+        default: disable
+        source_attribute: source-address
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

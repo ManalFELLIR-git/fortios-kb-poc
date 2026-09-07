@@ -1,0 +1,209 @@
+id: wanopt.settings
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  auto_detect_algorithm:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - simple
+      - diff-req-resp
+      default: simple
+      description: Auto detection algorithms used in tunnel negotiations.
+      source_attribute: auto-detect-algorithm
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Auto detection algorithms used in tunnel negotiations.
+        source_attribute: auto_detect_algorithm
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auto_detect_algorithm
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Auto detection algorithms used in tunnel negotiations.
+        default: simple
+        source_attribute: auto-detect-algorithm
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  host_id:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      default: default-id
+      min_length: 0
+      max_length: 35
+      description: Local host ID (must also be entered in the remote FortiGate's peer list).
+      source_attribute: host-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Local host ID (must also be entered in the remote FortiGate"s peer list).
+        source_attribute: host_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 35
+        source_attribute: host_id
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Local host ID (must also be entered in the remote FortiGate's peer list).
+        default: default-id
+        max_length: 35
+        source_attribute: host-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  tunnel_optimization:
+    canonical:
+      type: enum
+      version_ranges: &id005
+      - - v7.0.6
+        - v7.0.12
+      - - v7.2.1
+        - ''
+      choices: &id004
+      - memory-usage
+      - balanced
+      - throughput
+      default: balanced **
+      description: WANOpt tunnel optimization option.
+      source_attribute: tunnel-optimization
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id004
+        version_ranges: *id005
+        description: WANOpt tunnel optimization option.
+        source_attribute: tunnel_optimization
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: tunnel_optimization
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: WANOpt tunnel optimization option.
+        default: balanced **
+        source_attribute: tunnel-optimization
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  tunnel_ssl_algorithm:
+    canonical:
+      type: enum
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      choices: &id006
+      - high
+      - medium
+      - low
+      default: high
+      description: Relative strength of encryption algorithms accepted during tunnel negotiation.
+      source_attribute: tunnel-ssl-algorithm
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id006
+        version_ranges: *id007
+        description: Relative strength of encryption algorithms accepted during tunnel negotiation.
+        source_attribute: tunnel_ssl_algorithm
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: tunnel_ssl_algorithm
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Relative strength of encryption algorithms accepted during tunnel negotiation.
+        default: high
+        source_attribute: tunnel-ssl-algorithm
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

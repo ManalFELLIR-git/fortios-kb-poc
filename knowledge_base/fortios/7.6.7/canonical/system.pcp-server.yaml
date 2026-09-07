@@ -1,0 +1,1260 @@
+id: system.pcp-server
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  pools:
+    canonical:
+      type: list
+      elements: dict
+      children: &id002
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id030
+          - - v7.4.0
+            - ''
+          description: PCP pool name.
+        description:
+          type: string
+          raw_type: string
+          version_ranges: &id014
+          - - v7.4.0
+            - ''
+          description: Description.
+        id:
+          type: integer
+          raw_type: integer
+          version_ranges: &id019
+          - - v7.4.0
+            - ''
+          description: ID.
+        client_subnet:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id011
+          - - v7.4.0
+            - ''
+          description: Subnets from which PCP requests are accepted.
+          children: &id010
+            subnet:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id013
+              - - v7.4.0
+                - ''
+              description: Client subnets.
+        ext_intf:
+          type: string
+          raw_type: string
+          version_ranges: &id016
+          - - v7.4.0
+            - ''
+          description: External interface name. Source system.interface.name.
+          references: &id015
+          - system.interface.name
+        arp_reply:
+          type: enum
+          raw_type: string
+          choices: &id007
+          - disable
+          - enable
+          version_ranges: &id006
+          - - v7.4.0
+            - ''
+          description: Enable to respond to ARP requests for external IP .
+        extip:
+          type: string
+          raw_type: string
+          version_ranges: &id017
+          - - v7.4.0
+            - ''
+          description: IP address or address range on the external interface that you want to map to an address on the internal
+            network.
+        extport:
+          type: string
+          raw_type: string
+          version_ranges: &id018
+          - - v7.4.0
+            - ''
+          description: Incoming port number range that you want to map to a port number on the internal network.
+        minimal_lifetime:
+          type: integer
+          raw_type: integer
+          version_ranges: &id027
+          - - v7.4.0
+            - ''
+          description: Minimal lifetime of a PCP mapping in seconds (60 - 300).
+        maximal_lifetime:
+          type: integer
+          raw_type: integer
+          version_ranges: &id026
+          - - v7.4.0
+            - ''
+          description: Maximal lifetime of a PCP mapping in seconds (3600 - 604800).
+        client_mapping_limit:
+          type: integer
+          raw_type: integer
+          version_ranges: &id009
+          - - v7.4.0
+            - ''
+          description: Mapping limit per client (0 - 65535).
+        mapping_filter_limit:
+          type: integer
+          raw_type: integer
+          version_ranges: &id025
+          - - v7.4.0
+            - ''
+          description: Filter limit per mapping (0 - 5).
+        allow_opcode:
+          type: enum
+          raw_type: list
+          choices: &id004
+          - map
+          - peer
+          - announce
+          multiple_values: true
+          elements: str
+          version_ranges: &id003
+          - - v7.4.0
+            - ''
+          description: Allowed PCP opcode.
+        third_party:
+          type: enum
+          raw_type: string
+          choices: &id033
+          - allow
+          - disallow
+          version_ranges: &id032
+          - - v7.4.0
+            - ''
+          description: Allow/disallow third party option.
+        third_party_subnet:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id035
+          - - v7.4.0
+            - ''
+          description: Subnets from which third party requests are accepted.
+          children: &id034
+            subnet:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id037
+              - - v7.4.0
+                - ''
+              description: Third party subnets.
+        multicast_announcement:
+          type: enum
+          raw_type: string
+          choices: &id029
+          - enable
+          - disable
+          version_ranges: &id028
+          - - v7.4.0
+            - ''
+          description: Enable/disable multicast announcements.
+        announcement_count:
+          type: integer
+          raw_type: integer
+          version_ranges: &id005
+          - - v7.4.0
+            - ''
+          description: Number of multicast announcements.
+        intl_intf:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id021
+          - - v7.4.0
+            - ''
+          description: Internal interface name.
+          children: &id020
+            interface_name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id024
+              - - v7.4.0
+                - ''
+              description: Interface name. Source system.interface.name.
+              references: &id023
+              - system.interface.name
+        recycle_delay:
+          type: integer
+          raw_type: integer
+          version_ranges: &id031
+          - - v7.4.0
+            - ''
+          description: Minimum delay (in seconds) the PCP Server will wait before recycling mappings that have expired (0
+            - 3600).
+      version_ranges: &id001
+      - - v7.4.0
+        - ''
+      description: Configure PCP pools.
+      source_attribute: pools
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id001
+        description: Configure PCP pools.
+        children: *id002
+        source_attribute: pools
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+          description:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 127
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          client_subnet:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id012
+              subnet:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+          client6_prefix:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id008
+              prefix:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+          ext_intf:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          arp_reply:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          extip:
+            type: string
+            raw_type: TypeString
+            optional: true
+          extport:
+            type: string
+            raw_type: TypeString
+            optional: true
+          minimal_lifetime:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 60
+            max: 300
+          maximal_lifetime:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 3600
+            max: 604800
+          client_mapping_limit:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 65535
+          mapping_filter_limit:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 5
+          allow_opcode:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          third_party:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          third_party_subnet:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id036
+              subnet:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+          multicast_announcement:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          announcement_count:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 3
+            max: 10
+          intl_intf:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id022
+              interface_name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+          recycle_delay:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 3600
+          nat46:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: pools
+    sources:
+    - ansible
+    - terraform
+  pools.allow_opcode:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: *id003
+      choices: *id004
+      description: Allowed PCP opcode.
+      source_attribute: pools.allow_opcode
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id004
+        multiple_values: true
+        elements: str
+        version_ranges: *id003
+        description: Allowed PCP opcode.
+        source_attribute: pools.allow_opcode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pools.allow_opcode
+    sources:
+    - ansible
+    - terraform
+  pools.announcement_count:
+    canonical:
+      type: integer
+      version_ranges: *id005
+      min: 3
+      max: 10
+      description: Number of multicast announcements.
+      source_attribute: pools.announcement_count
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id005
+        description: Number of multicast announcements.
+        source_attribute: pools.announcement_count
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 3
+        max: 10
+        source_attribute: pools.announcement_count
+    sources:
+    - ansible
+    - terraform
+  pools.arp_reply:
+    canonical:
+      type: enum
+      version_ranges: *id006
+      choices: *id007
+      description: Enable to respond to ARP requests for external IP .
+      source_attribute: pools.arp_reply
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id007
+        version_ranges: *id006
+        description: Enable to respond to ARP requests for external IP .
+        source_attribute: pools.arp_reply
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pools.arp_reply
+    sources:
+    - ansible
+    - terraform
+  pools.client6_prefix:
+    canonical:
+      type: list
+      children: *id008
+      source_attribute: pools.client6_prefix
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id008
+        source_attribute: pools.client6_prefix
+    sources:
+    - terraform
+  pools.client6_prefix.prefix:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 79
+      source_attribute: pools.client6_prefix.prefix
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: pools.client6_prefix.prefix
+    sources:
+    - terraform
+  pools.client_mapping_limit:
+    canonical:
+      type: integer
+      version_ranges: *id009
+      min: 0
+      max: 65535
+      description: Mapping limit per client (0 - 65535).
+      source_attribute: pools.client_mapping_limit
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id009
+        description: Mapping limit per client (0 - 65535).
+        source_attribute: pools.client_mapping_limit
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: pools.client_mapping_limit
+    sources:
+    - ansible
+    - terraform
+  pools.client_subnet:
+    canonical:
+      type: list
+      elements: dict
+      children: *id010
+      version_ranges: *id011
+      description: Subnets from which PCP requests are accepted.
+      source_attribute: pools.client_subnet
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id011
+        description: Subnets from which PCP requests are accepted.
+        children: *id010
+        source_attribute: pools.client_subnet
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id012
+        source_attribute: pools.client_subnet
+    sources:
+    - ansible
+    - terraform
+  pools.client_subnet.subnet:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id013
+      min_length: 0
+      max_length: 79
+      description: Client subnets.
+      source_attribute: pools.client_subnet.subnet
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id013
+        description: Client subnets.
+        source_attribute: pools.client_subnet.subnet
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: pools.client_subnet.subnet
+    sources:
+    - ansible
+    - terraform
+  pools.description:
+    canonical:
+      type: string
+      version_ranges: *id014
+      min_length: 0
+      max_length: 127
+      description: Description.
+      source_attribute: pools.description
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: Description.
+        source_attribute: pools.description
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 127
+        source_attribute: pools.description
+    sources:
+    - ansible
+    - terraform
+  pools.ext_intf:
+    canonical:
+      type: string
+      references: *id015
+      version_ranges: *id016
+      min_length: 0
+      max_length: 35
+      description: External interface name. Source system.interface.name.
+      source_attribute: pools.ext_intf
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id016
+        description: External interface name. Source system.interface.name.
+        references: *id015
+        source_attribute: pools.ext_intf
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: pools.ext_intf
+    sources:
+    - ansible
+    - terraform
+  pools.extip:
+    canonical:
+      type: string
+      version_ranges: *id017
+      description: IP address or address range on the external interface that you want to map to an address on the internal
+        network.
+      source_attribute: pools.extip
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id017
+        description: IP address or address range on the external interface that you want to map to an address on the internal
+          network.
+        source_attribute: pools.extip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: pools.extip
+    sources:
+    - ansible
+    - terraform
+  pools.extport:
+    canonical:
+      type: string
+      version_ranges: *id018
+      description: Incoming port number range that you want to map to a port number on the internal network.
+      source_attribute: pools.extport
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id018
+        description: Incoming port number range that you want to map to a port number on the internal network.
+        source_attribute: pools.extport
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: pools.extport
+    sources:
+    - ansible
+    - terraform
+  pools.id:
+    canonical:
+      type: integer
+      version_ranges: *id019
+      description: ID.
+      source_attribute: pools.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id019
+        description: ID.
+        source_attribute: pools.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: pools.id
+    sources:
+    - ansible
+    - terraform
+  pools.intl_intf:
+    canonical:
+      type: list
+      elements: dict
+      children: *id020
+      version_ranges: *id021
+      description: Internal interface name.
+      source_attribute: pools.intl_intf
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id021
+        description: Internal interface name.
+        children: *id020
+        source_attribute: pools.intl_intf
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id022
+        source_attribute: pools.intl_intf
+    sources:
+    - ansible
+    - terraform
+  pools.intl_intf.interface_name:
+    canonical:
+      type: string
+      references: *id023
+      required: true
+      version_ranges: *id024
+      min_length: 0
+      max_length: 79
+      description: Interface name. Source system.interface.name.
+      source_attribute: pools.intl_intf.interface_name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id024
+        description: Interface name. Source system.interface.name.
+        references: *id023
+        source_attribute: pools.intl_intf.interface_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: pools.intl_intf.interface_name
+    sources:
+    - ansible
+    - terraform
+  pools.mapping_filter_limit:
+    canonical:
+      type: integer
+      version_ranges: *id025
+      min: 0
+      max: 5
+      description: Filter limit per mapping (0 - 5).
+      source_attribute: pools.mapping_filter_limit
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id025
+        description: Filter limit per mapping (0 - 5).
+        source_attribute: pools.mapping_filter_limit
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 5
+        source_attribute: pools.mapping_filter_limit
+    sources:
+    - ansible
+    - terraform
+  pools.maximal_lifetime:
+    canonical:
+      type: integer
+      version_ranges: *id026
+      min: 3600
+      max: 604800
+      description: Maximal lifetime of a PCP mapping in seconds (3600 - 604800).
+      source_attribute: pools.maximal_lifetime
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id026
+        description: Maximal lifetime of a PCP mapping in seconds (3600 - 604800).
+        source_attribute: pools.maximal_lifetime
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 3600
+        max: 604800
+        source_attribute: pools.maximal_lifetime
+    sources:
+    - ansible
+    - terraform
+  pools.minimal_lifetime:
+    canonical:
+      type: integer
+      version_ranges: *id027
+      min: 60
+      max: 300
+      description: Minimal lifetime of a PCP mapping in seconds (60 - 300).
+      source_attribute: pools.minimal_lifetime
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id027
+        description: Minimal lifetime of a PCP mapping in seconds (60 - 300).
+        source_attribute: pools.minimal_lifetime
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 60
+        max: 300
+        source_attribute: pools.minimal_lifetime
+    sources:
+    - ansible
+    - terraform
+  pools.multicast_announcement:
+    canonical:
+      type: enum
+      version_ranges: *id028
+      choices: *id029
+      description: Enable/disable multicast announcements.
+      source_attribute: pools.multicast_announcement
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id029
+        version_ranges: *id028
+        description: Enable/disable multicast announcements.
+        source_attribute: pools.multicast_announcement
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pools.multicast_announcement
+    sources:
+    - ansible
+    - terraform
+  pools.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id030
+      min_length: 0
+      max_length: 79
+      description: PCP pool name.
+      source_attribute: pools.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id030
+        description: PCP pool name.
+        source_attribute: pools.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: pools.name
+    sources:
+    - ansible
+    - terraform
+  pools.nat46:
+    canonical:
+      type: string
+      source_attribute: pools.nat46
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pools.nat46
+    sources:
+    - terraform
+  pools.recycle_delay:
+    canonical:
+      type: integer
+      version_ranges: *id031
+      min: 0
+      max: 3600
+      description: Minimum delay (in seconds) the PCP Server will wait before recycling mappings that have expired (0 - 3600).
+      source_attribute: pools.recycle_delay
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id031
+        description: Minimum delay (in seconds) the PCP Server will wait before recycling mappings that have expired (0 -
+          3600).
+        source_attribute: pools.recycle_delay
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 3600
+        source_attribute: pools.recycle_delay
+    sources:
+    - ansible
+    - terraform
+  pools.third_party:
+    canonical:
+      type: enum
+      version_ranges: *id032
+      choices: *id033
+      description: Allow/disallow third party option.
+      source_attribute: pools.third_party
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id033
+        version_ranges: *id032
+        description: Allow/disallow third party option.
+        source_attribute: pools.third_party
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pools.third_party
+    sources:
+    - ansible
+    - terraform
+  pools.third_party_subnet:
+    canonical:
+      type: list
+      elements: dict
+      children: *id034
+      version_ranges: *id035
+      description: Subnets from which third party requests are accepted.
+      source_attribute: pools.third_party_subnet
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id035
+        description: Subnets from which third party requests are accepted.
+        children: *id034
+        source_attribute: pools.third_party_subnet
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id036
+        source_attribute: pools.third_party_subnet
+    sources:
+    - ansible
+    - terraform
+  pools.third_party_subnet.subnet:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id037
+      min_length: 0
+      max_length: 79
+      description: Third party subnets.
+      source_attribute: pools.third_party_subnet.subnet
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id037
+        description: Third party subnets.
+        source_attribute: pools.third_party_subnet.subnet
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: pools.third_party_subnet.subnet
+    sources:
+    - ansible
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id039
+      - - v7.4.0
+        - ''
+      choices: &id038
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable PCP server.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id038
+        version_ranges: *id039
+        description: Enable/disable PCP server.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable PCP server.
+        default: disable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

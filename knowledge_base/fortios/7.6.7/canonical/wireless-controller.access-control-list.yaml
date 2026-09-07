@@ -1,0 +1,954 @@
+id: wireless-controller.access-control-list
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id001
+      - - v6.4.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Description.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id001
+        description: Description.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Description.
+        max_length: 63
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  layer3_ipv4_rules:
+    canonical:
+      type: list
+      elements: dict
+      children: &id003
+        rule_id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id010
+          - - v6.4.0
+            - ''
+          description: Rule ID (1 - 65535). see <a href='#notes'>Notes</a>.
+        comment:
+          type: string
+          raw_type: string
+          version_ranges: &id006
+          - - v6.4.0
+            - ''
+          description: Description.
+        srcaddr:
+          type: string
+          raw_type: string
+          version_ranges: &id011
+          - - v6.4.0
+            - ''
+          description: Source IP address (any | local-LAN | IPv4 address[/<network mask | mask length>] | fqdn).
+        srcport:
+          type: integer
+          raw_type: integer
+          version_ranges: &id012
+          - - v6.4.0
+            - ''
+          description: Source port (0 - 65535).
+        dstaddr:
+          type: string
+          raw_type: string
+          version_ranges: &id007
+          - - v6.4.0
+            - ''
+          description: Destination IP address (any | local-LAN | IPv4 address[/<network mask | mask length>]).
+        dstport:
+          type: integer
+          raw_type: integer
+          version_ranges: &id008
+          - - v6.4.0
+            - ''
+          description: Destination port (0 - 65535).
+        protocol:
+          type: integer
+          raw_type: integer
+          version_ranges: &id009
+          - - v6.4.0
+            - ''
+          description: Protocol type as defined by IANA (0 - 255).
+        action:
+          type: enum
+          raw_type: string
+          choices: &id005
+          - allow
+          - deny
+          version_ranges: &id004
+          - - v6.4.0
+            - ''
+          description: Policy action (allow | deny).
+      version_ranges: &id002
+      - - v6.4.0
+        - ''
+      description: AP ACL layer3 ipv4 rule list.
+      source_attribute: layer3_ipv4_rules
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id002
+        description: AP ACL layer3 ipv4 rule list.
+        children: *id003
+        source_attribute: layer3_ipv4_rules
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          rule_id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 65535
+          comment:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          srcaddr:
+            type: string
+            raw_type: TypeString
+            optional: true
+          srcport:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 65535
+          dstaddr:
+            type: string
+            raw_type: TypeString
+            optional: true
+          dstport:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 65535
+          protocol:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 255
+          action:
+            type: string
+            raw_type: TypeString
+            optional: true
+        source_attribute: layer3_ipv4_rules
+    sources:
+    - ansible
+    - terraform
+  layer3_ipv4_rules.action:
+    canonical:
+      type: enum
+      version_ranges: *id004
+      choices: *id005
+      description: Policy action (allow | deny).
+      source_attribute: layer3_ipv4_rules.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id004
+        description: Policy action (allow | deny).
+        source_attribute: layer3_ipv4_rules.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: layer3_ipv4_rules.action
+    sources:
+    - ansible
+    - terraform
+  layer3_ipv4_rules.comment:
+    canonical:
+      type: string
+      version_ranges: *id006
+      min_length: 0
+      max_length: 63
+      description: Description.
+      source_attribute: layer3_ipv4_rules.comment
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id006
+        description: Description.
+        source_attribute: layer3_ipv4_rules.comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: layer3_ipv4_rules.comment
+    sources:
+    - ansible
+    - terraform
+  layer3_ipv4_rules.dstaddr:
+    canonical:
+      type: string
+      version_ranges: *id007
+      description: Destination IP address (any | local-LAN | IPv4 address[/<network mask | mask length>]).
+      source_attribute: layer3_ipv4_rules.dstaddr
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: Destination IP address (any | local-LAN | IPv4 address[/<network mask | mask length>]).
+        source_attribute: layer3_ipv4_rules.dstaddr
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: layer3_ipv4_rules.dstaddr
+    sources:
+    - ansible
+    - terraform
+  layer3_ipv4_rules.dstport:
+    canonical:
+      type: integer
+      version_ranges: *id008
+      min: 0
+      max: 65535
+      description: Destination port (0 - 65535).
+      source_attribute: layer3_ipv4_rules.dstport
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id008
+        description: Destination port (0 - 65535).
+        source_attribute: layer3_ipv4_rules.dstport
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: layer3_ipv4_rules.dstport
+    sources:
+    - ansible
+    - terraform
+  layer3_ipv4_rules.protocol:
+    canonical:
+      type: integer
+      version_ranges: *id009
+      min: 0
+      max: 255
+      description: Protocol type as defined by IANA (0 - 255).
+      source_attribute: layer3_ipv4_rules.protocol
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id009
+        description: Protocol type as defined by IANA (0 - 255).
+        source_attribute: layer3_ipv4_rules.protocol
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 255
+        source_attribute: layer3_ipv4_rules.protocol
+    sources:
+    - ansible
+    - terraform
+  layer3_ipv4_rules.rule_id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id010
+      min: 1
+      max: 65535
+      description: Rule ID (1 - 65535). see <a href='#notes'>Notes</a>.
+      source_attribute: layer3_ipv4_rules.rule_id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id010
+        description: Rule ID (1 - 65535). see <a href='#notes'>Notes</a>.
+        source_attribute: layer3_ipv4_rules.rule_id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 65535
+        source_attribute: layer3_ipv4_rules.rule_id
+    sources:
+    - ansible
+    - terraform
+  layer3_ipv4_rules.srcaddr:
+    canonical:
+      type: string
+      version_ranges: *id011
+      description: Source IP address (any | local-LAN | IPv4 address[/<network mask | mask length>] | fqdn).
+      source_attribute: layer3_ipv4_rules.srcaddr
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: Source IP address (any | local-LAN | IPv4 address[/<network mask | mask length>] | fqdn).
+        source_attribute: layer3_ipv4_rules.srcaddr
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: layer3_ipv4_rules.srcaddr
+    sources:
+    - ansible
+    - terraform
+  layer3_ipv4_rules.srcport:
+    canonical:
+      type: integer
+      version_ranges: *id012
+      min: 0
+      max: 65535
+      description: Source port (0 - 65535).
+      source_attribute: layer3_ipv4_rules.srcport
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id012
+        description: Source port (0 - 65535).
+        source_attribute: layer3_ipv4_rules.srcport
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: layer3_ipv4_rules.srcport
+    sources:
+    - ansible
+    - terraform
+  layer3_ipv6_rules:
+    canonical:
+      type: list
+      elements: dict
+      children: &id014
+        rule_id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id021
+          - - v6.4.0
+            - ''
+          description: Rule ID (1 - 65535). see <a href='#notes'>Notes</a>.
+        comment:
+          type: string
+          raw_type: string
+          version_ranges: &id017
+          - - v6.4.0
+            - ''
+          description: Description.
+        srcaddr:
+          type: string
+          raw_type: string
+          version_ranges: &id022
+          - - v6.4.0
+            - ''
+          description: Source IPv6 address (any | local-LAN | IPv6 address[/prefix length] | fqdn), default = any.
+        srcport:
+          type: integer
+          raw_type: integer
+          version_ranges: &id023
+          - - v6.4.0
+            - ''
+          description: Source port (0 - 65535).
+        dstaddr:
+          type: string
+          raw_type: string
+          version_ranges: &id018
+          - - v6.4.0
+            - ''
+          description: Destination IPv6 address (any | local-LAN | IPv6 address[/prefix length]), default = any.
+        dstport:
+          type: integer
+          raw_type: integer
+          version_ranges: &id019
+          - - v6.4.0
+            - ''
+          description: Destination port (0 - 65535).
+        protocol:
+          type: integer
+          raw_type: integer
+          version_ranges: &id020
+          - - v6.4.0
+            - ''
+          description: Protocol type as defined by IANA (0 - 255).
+        action:
+          type: enum
+          raw_type: string
+          choices: &id016
+          - allow
+          - deny
+          version_ranges: &id015
+          - - v6.4.0
+            - ''
+          description: Policy action (allow | deny).
+      version_ranges: &id013
+      - - v6.4.0
+        - ''
+      description: AP ACL layer3 ipv6 rule list.
+      source_attribute: layer3_ipv6_rules
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id013
+        description: AP ACL layer3 ipv6 rule list.
+        children: *id014
+        source_attribute: layer3_ipv6_rules
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          rule_id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 65535
+          comment:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          srcaddr:
+            type: string
+            raw_type: TypeString
+            optional: true
+          srcport:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 65535
+          dstaddr:
+            type: string
+            raw_type: TypeString
+            optional: true
+          dstport:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 65535
+          protocol:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 255
+          action:
+            type: string
+            raw_type: TypeString
+            optional: true
+        source_attribute: layer3_ipv6_rules
+    sources:
+    - ansible
+    - terraform
+  layer3_ipv6_rules.action:
+    canonical:
+      type: enum
+      version_ranges: *id015
+      choices: *id016
+      description: Policy action (allow | deny).
+      source_attribute: layer3_ipv6_rules.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id016
+        version_ranges: *id015
+        description: Policy action (allow | deny).
+        source_attribute: layer3_ipv6_rules.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: layer3_ipv6_rules.action
+    sources:
+    - ansible
+    - terraform
+  layer3_ipv6_rules.comment:
+    canonical:
+      type: string
+      version_ranges: *id017
+      min_length: 0
+      max_length: 63
+      description: Description.
+      source_attribute: layer3_ipv6_rules.comment
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id017
+        description: Description.
+        source_attribute: layer3_ipv6_rules.comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: layer3_ipv6_rules.comment
+    sources:
+    - ansible
+    - terraform
+  layer3_ipv6_rules.dstaddr:
+    canonical:
+      type: string
+      version_ranges: *id018
+      description: Destination IPv6 address (any | local-LAN | IPv6 address[/prefix length]), default = any.
+      source_attribute: layer3_ipv6_rules.dstaddr
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id018
+        description: Destination IPv6 address (any | local-LAN | IPv6 address[/prefix length]), default = any.
+        source_attribute: layer3_ipv6_rules.dstaddr
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: layer3_ipv6_rules.dstaddr
+    sources:
+    - ansible
+    - terraform
+  layer3_ipv6_rules.dstport:
+    canonical:
+      type: integer
+      version_ranges: *id019
+      min: 0
+      max: 65535
+      description: Destination port (0 - 65535).
+      source_attribute: layer3_ipv6_rules.dstport
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id019
+        description: Destination port (0 - 65535).
+        source_attribute: layer3_ipv6_rules.dstport
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: layer3_ipv6_rules.dstport
+    sources:
+    - ansible
+    - terraform
+  layer3_ipv6_rules.protocol:
+    canonical:
+      type: integer
+      version_ranges: *id020
+      min: 0
+      max: 255
+      description: Protocol type as defined by IANA (0 - 255).
+      source_attribute: layer3_ipv6_rules.protocol
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id020
+        description: Protocol type as defined by IANA (0 - 255).
+        source_attribute: layer3_ipv6_rules.protocol
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 255
+        source_attribute: layer3_ipv6_rules.protocol
+    sources:
+    - ansible
+    - terraform
+  layer3_ipv6_rules.rule_id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id021
+      min: 1
+      max: 65535
+      description: Rule ID (1 - 65535). see <a href='#notes'>Notes</a>.
+      source_attribute: layer3_ipv6_rules.rule_id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id021
+        description: Rule ID (1 - 65535). see <a href='#notes'>Notes</a>.
+        source_attribute: layer3_ipv6_rules.rule_id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 65535
+        source_attribute: layer3_ipv6_rules.rule_id
+    sources:
+    - ansible
+    - terraform
+  layer3_ipv6_rules.srcaddr:
+    canonical:
+      type: string
+      version_ranges: *id022
+      description: Source IPv6 address (any | local-LAN | IPv6 address[/prefix length] | fqdn), default = any.
+      source_attribute: layer3_ipv6_rules.srcaddr
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id022
+        description: Source IPv6 address (any | local-LAN | IPv6 address[/prefix length] | fqdn), default = any.
+        source_attribute: layer3_ipv6_rules.srcaddr
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: layer3_ipv6_rules.srcaddr
+    sources:
+    - ansible
+    - terraform
+  layer3_ipv6_rules.srcport:
+    canonical:
+      type: integer
+      version_ranges: *id023
+      min: 0
+      max: 65535
+      description: Source port (0 - 65535).
+      source_attribute: layer3_ipv6_rules.srcport
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id023
+        description: Source port (0 - 65535).
+        source_attribute: layer3_ipv6_rules.srcport
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: layer3_ipv6_rules.srcport
+    sources:
+    - ansible
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id024
+      - - v6.4.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: AP access control list name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id024
+        description: AP access control list name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: AP access control list name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

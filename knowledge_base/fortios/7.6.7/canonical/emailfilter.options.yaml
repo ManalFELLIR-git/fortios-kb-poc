@@ -1,0 +1,73 @@
+id: emailfilter.options
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dns_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id001
+      - - v6.2.0
+        - ''
+      default: '7'
+      min: 1
+      max: 30
+      description: DNS query time out (1 - 30 sec).
+      source_attribute: dns-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id001
+        description: DNS query time out (1 - 30 sec).
+        source_attribute: dns_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 30
+        source_attribute: dns_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: DNS query time out (1 - 30 sec).
+        default: '7'
+        min: 1
+        max: 30
+        source_attribute: dns-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

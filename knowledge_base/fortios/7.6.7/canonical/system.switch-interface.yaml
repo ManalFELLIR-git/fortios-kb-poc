@@ -1,0 +1,688 @@
+id: system.switch-interface
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  intra_switch_policy:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - implicit
+      - explicit
+      default: implicit
+      description: Allow any traffic between switch interfaces or require firewall policies to allow traffic between switch
+        interfaces.
+      source_attribute: intra-switch-policy
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Allow any traffic between switch interfaces or require firewall policies to allow traffic between switch
+          interfaces.
+        source_attribute: intra_switch_policy
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: intra_switch_policy
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Allow any traffic between switch interfaces or require firewall policies to allow traffic between switch
+          interfaces.
+        default: implicit
+        source_attribute: intra-switch-policy
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  mac_ttl:
+    canonical:
+      type: integer
+      version_ranges: &id003
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      default: '300'
+      min: 300
+      max: 8640000
+      description: Duration for which MAC addresses are held in the ARP table (300 - 8640000 sec, default = 300).
+      source_attribute: mac-ttl
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id003
+        description: Duration for which MAC addresses are held in the ARP table (300 - 8640000 sec).
+        source_attribute: mac_ttl
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 300
+        max: 8640000
+        source_attribute: mac_ttl
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Duration for which MAC addresses are held in the ARP table (300 - 8640000 sec, default = 300).
+        default: '300'
+        min: 300
+        max: 8640000
+        source_attribute: mac-ttl
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  member:
+    canonical:
+      type: list
+      elements: dict
+      children: &id005
+        interface_name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id008
+          - - v6.0.0
+            - ''
+          description: Interface name. Source system.interface.name.
+          references: &id007
+          - system.interface.name
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Names of the interfaces that belong to the virtual switch. Interface name.
+      source_attribute: member
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id004
+        description: Names of the interfaces that belong to the software switch.
+        children: *id005
+        source_attribute: member
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          interface_name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: member
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Names of the interfaces that belong to the virtual switch. Interface name.
+        max_length: 79
+        source_attribute: member
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id006
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id006
+  member.interface_name:
+    canonical:
+      type: string
+      references: *id007
+      required: true
+      version_ranges: *id008
+      min_length: 0
+      max_length: 79
+      description: Interface name. Source system.interface.name.
+      source_attribute: member.interface_name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id008
+        description: Interface name. Source system.interface.name.
+        references: *id007
+        source_attribute: member.interface_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: member.interface_name
+    sources:
+    - ansible
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Interface name (name cannot be in use by any other interfaces, VLANs, or inter-VDOM links).
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id009
+        description: Interface name (name cannot be in use by any other interfaces, VLANs, or inter-VDOM links).
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        force_new: true
+        min_length: 0
+        max_length: 15
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Interface name (name cannot be in use by any other interfaces, VLANs, or inter-VDOM links).
+        max_length: 15
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  span:
+    canonical:
+      type: enum
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      choices: &id010
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable port spanning. Port spanning echoes traffic received by the software switch to the span
+        destination port.
+      source_attribute: span
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id011
+        description: Enable/disable port spanning. Port spanning echoes traffic received by the software switch to the span
+          destination port.
+        source_attribute: span
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: span
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable port spanning. Port spanning echoes traffic received by the software switch to the span
+          destination port.
+        default: disable
+        source_attribute: span
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  span_dest_port:
+    canonical:
+      type: string
+      references: &id013
+      - system.interface.name
+      version_ranges: &id012
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: SPAN destination port name. All traffic on the SPAN source ports is echoed to the SPAN destination port.
+      source_attribute: span-dest-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id012
+        description: SPAN destination port name. All traffic on the SPAN source ports is echoed to the SPAN destination port.
+          Source system.interface.name.
+        references: *id013
+        source_attribute: span_dest_port
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: span_dest_port
+      cli_reference:
+        type: string
+        raw_type: string
+        description: SPAN destination port name. All traffic on the SPAN source ports is echoed to the SPAN destination port.
+        max_length: 15
+        source_attribute: span-dest-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  span_direction:
+    canonical:
+      type: enum
+      version_ranges: &id015
+      - - v6.0.0
+        - ''
+      choices: &id014
+      - rx
+      - tx
+      - both
+      default: both
+      description: 'The direction in which the SPAN port operates, either: rx, tx, or both.'
+      source_attribute: span-direction
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id014
+        version_ranges: *id015
+        description: 'The direction in which the SPAN port operates, either: rx, tx, or both.'
+        source_attribute: span_direction
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: span_direction
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: 'The direction in which the SPAN port operates, either: rx, tx, or both.'
+        default: both
+        source_attribute: span-direction
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  span_source_port:
+    canonical:
+      type: list
+      elements: dict
+      children: &id017
+        interface_name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id020
+          - - v6.0.0
+            - ''
+          description: Physical interface name. Source system.interface.name.
+          references: &id019
+          - system.interface.name
+      version_ranges: &id016
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Physical interface name. Port spanning echoes all traffic on the SPAN source ports to the SPAN destination
+        port. Physical interface name.
+      source_attribute: span-source-port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id016
+        description: Physical interface name. Port spanning echoes all traffic on the SPAN source ports to the SPAN destination
+          port.
+        children: *id017
+        source_attribute: span_source_port
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          interface_name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: span_source_port
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Physical interface name. Port spanning echoes all traffic on the SPAN source ports to the SPAN destination
+          port. Physical interface name.
+        max_length: 79
+        source_attribute: span-source-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id018
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id018
+  span_source_port.interface_name:
+    canonical:
+      type: string
+      references: *id019
+      required: true
+      version_ranges: *id020
+      min_length: 0
+      max_length: 79
+      description: Physical interface name. Source system.interface.name.
+      source_attribute: span_source_port.interface_name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id020
+        description: Physical interface name. Source system.interface.name.
+        references: *id019
+        source_attribute: span_source_port.interface_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: span_source_port.interface_name
+    sources:
+    - ansible
+    - terraform
+  type:
+    canonical:
+      type: enum
+      version_ranges: &id022
+      - - v6.0.0
+        - ''
+      choices: &id021
+      - switch
+      - hub
+      default: switch
+      description: 'Type of switch based on functionality: switch for normal functionality, or hub to duplicate packets to
+        all port members.'
+      source_attribute: type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id021
+        version_ranges: *id022
+        description: 'Type of switch based on functionality: switch for normal functionality, or hub to duplicate packets
+          to all port members.'
+        source_attribute: type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: 'Type of switch based on functionality: switch for normal functionality, or hub to duplicate packets
+          to all port members.'
+        default: switch
+        source_attribute: type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdom:
+    canonical:
+      type: string
+      references: &id024
+      - system.vdom.name
+      version_ranges: &id023
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 31
+      description: VDOM that the software switch belongs to.
+      source_attribute: vdom
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id023
+        description: VDOM that the software switch belongs to. Source system.vdom.name.
+        references: *id024
+        source_attribute: vdom
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 31
+        source_attribute: vdom
+      cli_reference:
+        type: string
+        raw_type: string
+        description: VDOM that the software switch belongs to.
+        max_length: 31
+        source_attribute: vdom
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: member
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: span_source_port
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

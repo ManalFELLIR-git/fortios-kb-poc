@@ -1,0 +1,1108 @@
+id: authentication.scheme
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  captcha:
+    canonical:
+      type: string
+      source_attribute: captcha
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: captcha
+    sources:
+    - terraform
+  captcha_secret_key:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 63
+      source_attribute: captcha_secret_key
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: captcha_secret_key
+    sources:
+    - terraform
+  captcha_site_key:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 63
+      source_attribute: captcha_site_key
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: captcha_site_key
+    sources:
+    - terraform
+  captcha_vendor:
+    canonical:
+      type: string
+      source_attribute: captcha_vendor
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: captcha_vendor
+    sources:
+    - terraform
+  cert_http_header:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.6.5
+        - ''
+      choices: &id001
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable authentication with user certificate in Client-Cert HTTP header (default = disable).
+      source_attribute: cert-http-header
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable authentication with user certificate in Client-Cert HTTP header .
+        source_attribute: cert_http_header
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cert_http_header
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable authentication with user certificate in Client-Cert HTTP header (default = disable).
+        default: disable
+        source_attribute: cert-http-header
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  digest_algo:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id004
+      - - v7.6.3
+        - ''
+      choices: &id003
+      - md5
+      - sha-256
+      default: md5 sha-256
+      description: Digest Authentication Algorithms.
+      source_attribute: digest-algo
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id003
+        multiple_values: true
+        elements: str
+        version_ranges: *id004
+        description: Digest Authentication Algorithms.
+        source_attribute: digest_algo
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: digest_algo
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Digest Authentication Algorithms.
+        default: md5 sha-256
+        source_attribute: digest-algo
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  digest_rfc2069:
+    canonical:
+      type: enum
+      version_ranges: &id006
+      - - v7.6.4
+        - ''
+      choices: &id005
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable support for the deprecated RFC2069 Digest Client (no cnonce field, default = disable).
+      source_attribute: digest-rfc2069
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Enable/disable support for the deprecated RFC2069 Digest Client (no cnonce field).
+        source_attribute: digest_rfc2069
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: digest_rfc2069
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable support for the deprecated RFC2069 Digest Client (no cnonce field, default = disable).
+        default: disable
+        source_attribute: digest-rfc2069
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  domain_controller:
+    canonical:
+      type: string
+      references: &id008
+      - user.domain-controller.name
+      version_ranges: &id007
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Domain controller setting.
+      source_attribute: domain-controller
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: Domain controller setting. Source user.domain-controller.name.
+        references: *id008
+        source_attribute: domain_controller
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: domain_controller
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Domain controller setting.
+        max_length: 35
+        source_attribute: domain-controller
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  external_idp:
+    canonical:
+      type: string
+      references: &id010
+      - user.external-identity-provider.name
+      version_ranges: &id009
+      - - v7.6.1
+        - ''
+      min_length: 0
+      max_length: 35
+      description: External identity provider configuration.
+      source_attribute: external-idp
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id009
+        description: External identity provider configuration. Source user.external-identity-provider.name.
+        references: *id010
+        source_attribute: external_idp
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: external_idp
+      cli_reference:
+        type: string
+        raw_type: string
+        description: External identity provider configuration.
+        max_length: 35
+        source_attribute: external-idp
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fsso_agent_for_ntlm:
+    canonical:
+      type: string
+      references: &id012
+      - user.fsso.name
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: FSSO agent to use for NTLM authentication.
+      source_attribute: fsso-agent-for-ntlm
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id011
+        description: FSSO agent to use for NTLM authentication. Source user.fsso.name.
+        references: *id012
+        source_attribute: fsso_agent_for_ntlm
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: fsso_agent_for_ntlm
+      cli_reference:
+        type: string
+        raw_type: string
+        description: FSSO agent to use for NTLM authentication.
+        max_length: 35
+        source_attribute: fsso-agent-for-ntlm
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fsso_guest:
+    canonical:
+      type: enum
+      version_ranges: &id014
+      - - v6.0.0
+        - ''
+      choices: &id013
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable user fsso-guest authentication (default = disable).
+      source_attribute: fsso-guest
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id014
+        description: Enable/disable user fsso-guest authentication .
+        source_attribute: fsso_guest
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fsso_guest
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable user fsso-guest authentication (default = disable).
+        default: disable
+        source_attribute: fsso-guest
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  group_attr_type:
+    canonical:
+      type: enum
+      version_ranges: &id016
+      - - v7.6.3
+        - ''
+      choices: &id015
+      - display-name
+      - external-id
+      default: display-name
+      description: Group attribute type used to match SCIM groups (default = display-name).
+      source_attribute: group-attr-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id015
+        version_ranges: *id016
+        description: Group attribute type used to match SCIM groups .
+        source_attribute: group_attr_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: group_attr_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Group attribute type used to match SCIM groups (default = display-name).
+        default: display-name
+        source_attribute: group-attr-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  kerberos_keytab:
+    canonical:
+      type: string
+      references: &id018
+      - user.krb-keytab.name
+      version_ranges: &id017
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Kerberos keytab setting.
+      source_attribute: kerberos-keytab
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id017
+        description: Kerberos keytab setting. Source user.krb-keytab.name.
+        references: *id018
+        source_attribute: kerberos_keytab
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: kerberos_keytab
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Kerberos keytab setting.
+        max_length: 35
+        source_attribute: kerberos-keytab
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  method:
+    canonical:
+      type: enum
+      elements: str
+      required: true
+      version_ranges: &id020
+      - - v6.0.0
+        - ''
+      choices: &id019
+      - ntlm
+      - basic
+      - digest
+      - form
+      - negotiate
+      - fsso
+      - rsso
+      - ssh-publickey
+      - cert
+      - saml
+      - entra-sso
+      description: Authentication methods (default = basic).
+      source_attribute: method
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      required: terraform
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id019
+        multiple_values: true
+        elements: str
+        version_ranges: *id020
+        description: Authentication methods .
+        source_attribute: method
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: method
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Authentication methods (default = basic).
+        source_attribute: method
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id021
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Authentication scheme name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id021
+        description: Authentication scheme name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Authentication scheme name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  negotiate_ntlm:
+    canonical:
+      type: enum
+      version_ranges: &id023
+      - - v6.0.0
+        - ''
+      choices: &id022
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable negotiate authentication for NTLM (default = disable).
+      source_attribute: negotiate-ntlm
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id022
+        version_ranges: *id023
+        description: Enable/disable negotiate authentication for NTLM .
+        source_attribute: negotiate_ntlm
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: negotiate_ntlm
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable negotiate authentication for NTLM (default = disable).
+        default: enable
+        source_attribute: negotiate-ntlm
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  oidc_server:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: oidc_server
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: oidc_server
+    sources:
+    - terraform
+  oidc_timeout:
+    canonical:
+      type: integer
+      min: 30
+      max: 1200
+      source_attribute: oidc_timeout
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 30
+        max: 1200
+        source_attribute: oidc_timeout
+    sources:
+    - terraform
+  require_tfa:
+    canonical:
+      type: enum
+      version_ranges: &id025
+      - - v6.0.0
+        - ''
+      choices: &id024
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable two-factor authentication (default = disable).
+      source_attribute: require-tfa
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id024
+        version_ranges: *id025
+        description: Enable/disable two-factor authentication .
+        source_attribute: require_tfa
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: require_tfa
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable two-factor authentication (default = disable).
+        default: disable
+        source_attribute: require-tfa
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  saml_server:
+    canonical:
+      type: string
+      references: &id027
+      - user.saml.name
+      version_ranges: &id026
+      - - v7.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: SAML configuration.
+      source_attribute: saml-server
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id026
+        description: SAML configuration. Source user.saml.name.
+        references: *id027
+        source_attribute: saml_server
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: saml_server
+      cli_reference:
+        type: string
+        raw_type: string
+        description: SAML configuration.
+        max_length: 35
+        source_attribute: saml-server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  saml_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id028
+      - - v7.0.0
+        - ''
+      default: '120'
+      min: 30
+      max: 1200
+      description: SAML authentication timeout in seconds.
+      source_attribute: saml-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id028
+        description: SAML authentication timeout in seconds.
+        source_attribute: saml_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 30
+        max: 1200
+        source_attribute: saml_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: SAML authentication timeout in seconds.
+        default: '120'
+        min: 30
+        max: 1200
+        source_attribute: saml-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssh_ca:
+    canonical:
+      type: string
+      references: &id030
+      - firewall.ssh.local-ca.name
+      version_ranges: &id029
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: SSH CA name.
+      source_attribute: ssh-ca
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id029
+        description: SSH CA name. Source firewall.ssh.local-ca.name.
+        references: *id030
+        source_attribute: ssh_ca
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: ssh_ca
+      cli_reference:
+        type: string
+        raw_type: string
+        description: SSH CA name.
+        max_length: 35
+        source_attribute: ssh-ca
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  user_cert:
+    canonical:
+      type: enum
+      version_ranges: &id032
+      - - v7.0.1
+        - ''
+      choices: &id031
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable authentication with user certificate (default = disable).
+      source_attribute: user-cert
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id031
+        version_ranges: *id032
+        description: Enable/disable authentication with user certificate .
+        source_attribute: user_cert
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: user_cert
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable authentication with user certificate (default = disable).
+        default: disable
+        source_attribute: user-cert
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  user_database:
+    canonical:
+      type: list
+      elements: dict
+      children: &id034
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id037
+          - - v6.0.0
+            - ''
+          description: Authentication server name. Source system.datasource.name user.radius.name user.tacacs+.name user.ldap.name
+            user.group.name user .scim.name.
+          references: &id036
+          - system.datasource.name
+          - user.group.name
+          - user.ldap.name
+          - user.radius.name
+      version_ranges: &id033
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Authentication server to contain user information; "local-user-db" (default) or "123" (for LDAP). Authentication
+        server name.
+      source_attribute: user-database
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id033
+        description: Authentication server to contain user information; "local-user-db" (default) or "123" (for LDAP).
+        children: *id034
+        source_attribute: user_database
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: user_database
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Authentication server to contain user information; "local-user-db" (default) or "123" (for LDAP). Authentication
+          server name.
+        max_length: 79
+        source_attribute: user-database
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id035
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id035
+  user_database.name:
+    canonical:
+      type: string
+      references: *id036
+      required: true
+      version_ranges: *id037
+      min_length: 0
+      max_length: 79
+      description: Authentication server name. Source system.datasource.name user.radius.name user.tacacs+.name user.ldap.name
+        user.group.name user .scim.name.
+      source_attribute: user_database.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id037
+        description: Authentication server name. Source system.datasource.name user.radius.name user.tacacs+.name user.ldap.name
+          user.group.name user .scim.name.
+        references: *id036
+        source_attribute: user_database.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: user_database.name
+    sources:
+    - ansible
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: user_database
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

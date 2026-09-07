@@ -1,0 +1,124 @@
+id: system.speed-test-setting
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  latency_threshold:
+    canonical:
+      type: integer
+      version_ranges: &id001
+      - - v7.4.1
+        - ''
+      default: '60'
+      min: 0
+      max: 2000
+      description: Speed test latency threshold in milliseconds (0 - 2000, default = 60) for the Auto mode. If the latency
+        exceeds this threshold, the speed test will use the UDP protocol; otherwise, it will use the TCP protocol.
+      source_attribute: latency-threshold
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id001
+        description: Speed test latency threshold in milliseconds (0 - 2000) for the Auto mode. If the latency exceeds this
+          threshold, the speed test will use the UDP protocol; otherwise, it will use the TCP protocol.
+        source_attribute: latency_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 2000
+        source_attribute: latency_threshold
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Speed test latency threshold in milliseconds (0 - 2000, default = 60) for the Auto mode. If the latency
+          exceeds this threshold, the speed test will use the UDP protocol; otherwise, it will use the TCP protocol.
+        default: '60'
+        min: 0
+        max: 2000
+        source_attribute: latency-threshold
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  multiple_tcp_stream:
+    canonical:
+      type: integer
+      version_ranges: &id002
+      - - v7.4.1
+        - ''
+      default: '4'
+      min: 1
+      max: 64
+      description: Number of parallel client streams (1 - 64, default = 4) for the TCP protocol to run during the speed test.
+      source_attribute: multiple-tcp-stream
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id002
+        description: Number of parallel client streams (1 - 64) for the TCP protocol to run during the speed test.
+        source_attribute: multiple_tcp_stream
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 64
+        source_attribute: multiple_tcp_stream
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Number of parallel client streams (1 - 64, default = 4) for the TCP protocol to run during the speed
+          test.
+        default: '4'
+        min: 1
+        max: 64
+        source_attribute: multiple-tcp-stream
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

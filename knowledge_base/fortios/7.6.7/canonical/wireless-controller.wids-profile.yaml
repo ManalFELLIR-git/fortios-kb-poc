@@ -1,0 +1,5357 @@
+id: wireless-controller.wids-profile
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  adhoc_network:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.6.1
+        - ''
+      choices: &id001
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable adhoc network detection (default = disable).
+      source_attribute: adhoc-network
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable adhoc network detection .
+        source_attribute: adhoc_network
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: adhoc_network
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable adhoc network detection (default = disable).
+        default: disable
+        source_attribute: adhoc-network
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  adhoc_valid_ssid:
+    canonical:
+      type: enum
+      version_ranges: &id004
+      - - v7.6.1
+        - ''
+      choices: &id003
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable adhoc using valid SSID detection (default = disable).
+      source_attribute: adhoc-valid-ssid
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: Enable/disable adhoc using valid SSID detection .
+        source_attribute: adhoc_valid_ssid
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: adhoc_valid_ssid
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable adhoc using valid SSID detection (default = disable).
+        default: disable
+        source_attribute: adhoc-valid-ssid
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  air_jack:
+    canonical:
+      type: enum
+      version_ranges: &id006
+      - - v7.6.1
+        - ''
+      choices: &id005
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable AirJack detection (default = disable).
+      source_attribute: air-jack
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Enable/disable AirJack detection .
+        source_attribute: air_jack
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: air_jack
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable AirJack detection (default = disable).
+        default: disable
+        source_attribute: air-jack
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ap_auto_suppress:
+    canonical:
+      type: enum
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      choices: &id007
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable on-wire rogue AP auto-suppression (default = disable).
+      source_attribute: ap-auto-suppress
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id007
+        version_ranges: *id008
+        description: Enable/disable on-wire rogue AP auto-suppression .
+        source_attribute: ap_auto_suppress
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ap_auto_suppress
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable on-wire rogue AP auto-suppression (default = disable).
+        default: disable
+        source_attribute: ap-auto-suppress
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ap_bgscan_disable_day:
+    canonical:
+      type: string
+      source_attribute: ap_bgscan_disable_day
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: ap_bgscan_disable_day
+    sources:
+    - terraform
+  ap_bgscan_disable_end:
+    canonical:
+      type: string
+      source_attribute: ap_bgscan_disable_end
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: ap_bgscan_disable_end
+    sources:
+    - terraform
+  ap_bgscan_disable_schedules:
+    canonical:
+      type: list
+      elements: dict
+      children: &id010
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id013
+          - - v6.2.0
+            - ''
+          description: Schedule name. Source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name.
+          references: &id012
+          - firewall.schedule.group.name
+          - firewall.schedule.onetime.name
+          - firewall.schedule.recurring.name
+      version_ranges: &id009
+      - - v6.2.0
+        - ''
+      max_length: 35
+      description: Firewall schedules for turning off FortiAP radio background scan. Background scan will be disabled when
+        at least one of the schedules is valid. Separate multiple schedule names with a space. Schedule name.
+      source_attribute: ap-bgscan-disable-schedules
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id009
+        description: Firewall schedules for turning off FortiAP radio background scan. Background scan will be disabled when
+          at least one of the schedules is valid. Separate multiple schedule names with a space.
+        children: *id010
+        source_attribute: ap_bgscan_disable_schedules
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+        source_attribute: ap_bgscan_disable_schedules
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Firewall schedules for turning off FortiAP radio background scan. Background scan will be disabled when
+          at least one of the schedules is valid. Separate multiple schedule names with a space. Schedule name.
+        max_length: 35
+        source_attribute: ap-bgscan-disable-schedules
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id011
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id011
+  ap_bgscan_disable_schedules.name:
+    canonical:
+      type: string
+      references: *id012
+      required: true
+      version_ranges: *id013
+      min_length: 0
+      max_length: 35
+      description: Schedule name. Source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name.
+      source_attribute: ap_bgscan_disable_schedules.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id013
+        description: Schedule name. Source firewall.schedule.group.name firewall.schedule.recurring.name firewall.schedule.onetime.name.
+        references: *id012
+        source_attribute: ap_bgscan_disable_schedules.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: ap_bgscan_disable_schedules.name
+    sources:
+    - ansible
+    - terraform
+  ap_bgscan_disable_start:
+    canonical:
+      type: string
+      source_attribute: ap_bgscan_disable_start
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: ap_bgscan_disable_start
+    sources:
+    - terraform
+  ap_bgscan_duration:
+    canonical:
+      type: integer
+      version_ranges: &id014
+      - - v6.0.0
+        - ''
+      default: '30'
+      min: 10
+      max: 1000
+      description: Listen time on scanning a channel (10 - 1000 msec, default = 30).
+      source_attribute: ap-bgscan-duration
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id014
+        description: Listen time on scanning a channel (10 - 1000 msec).
+        source_attribute: ap_bgscan_duration
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 10
+        max: 1000
+        source_attribute: ap_bgscan_duration
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Listen time on scanning a channel (10 - 1000 msec, default = 30).
+        default: '30'
+        min: 10
+        max: 1000
+        source_attribute: ap-bgscan-duration
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ap_bgscan_idle:
+    canonical:
+      type: integer
+      version_ranges: &id015
+      - - v6.0.0
+        - ''
+      default: '20'
+      min: 0
+      max: 1000
+      description: Wait time for channel inactivity before scanning this channel (0 - 1000 msec, default = 20).
+      source_attribute: ap-bgscan-idle
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id015
+        description: Wait time for channel inactivity before scanning this channel (0 - 1000 msec).
+        source_attribute: ap_bgscan_idle
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 1000
+        source_attribute: ap_bgscan_idle
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Wait time for channel inactivity before scanning this channel (0 - 1000 msec, default = 20).
+        default: '20'
+        min: 0
+        max: 1000
+        source_attribute: ap-bgscan-idle
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ap_bgscan_intv:
+    canonical:
+      type: integer
+      version_ranges: &id016
+      - - v6.0.0
+        - ''
+      default: '3'
+      min: 1
+      max: 600
+      description: Period between successive channel scans (1 - 600 sec, default = 3).
+      source_attribute: ap-bgscan-intv
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id016
+        description: Period between successive channel scans (1 - 600 sec).
+        source_attribute: ap_bgscan_intv
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 600
+        source_attribute: ap_bgscan_intv
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Period between successive channel scans (1 - 600 sec, default = 3).
+        default: '3'
+        min: 1
+        max: 600
+        source_attribute: ap-bgscan-intv
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ap_bgscan_period:
+    canonical:
+      type: integer
+      version_ranges: &id017
+      - - v6.0.0
+        - ''
+      default: '600'
+      min: 10
+      max: 3600
+      description: Period between background scans (10 - 3600 sec, default = 600).
+      source_attribute: ap-bgscan-period
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id017
+        description: Period between background scans (10 - 3600 sec).
+        source_attribute: ap_bgscan_period
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 10
+        max: 3600
+        source_attribute: ap_bgscan_period
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Period between background scans (10 - 3600 sec, default = 600).
+        default: '600'
+        min: 10
+        max: 3600
+        source_attribute: ap-bgscan-period
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ap_bgscan_report_intv:
+    canonical:
+      type: integer
+      version_ranges: &id018
+      - - v6.0.0
+        - ''
+      default: '30'
+      min: 15
+      max: 600
+      description: Period between background scan reports (15 - 600 sec, default = 30).
+      source_attribute: ap-bgscan-report-intv
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id018
+        description: Period between background scan reports (15 - 600 sec).
+        source_attribute: ap_bgscan_report_intv
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 15
+        max: 600
+        source_attribute: ap_bgscan_report_intv
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Period between background scan reports (15 - 600 sec, default = 30).
+        default: '30'
+        min: 15
+        max: 600
+        source_attribute: ap-bgscan-report-intv
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ap_fgscan_report_intv:
+    canonical:
+      type: integer
+      version_ranges: &id019
+      - - v6.0.0
+        - ''
+      default: '15'
+      min: 15
+      max: 600
+      description: Period between foreground scan reports (15 - 600 sec, default = 15).
+      source_attribute: ap-fgscan-report-intv
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id019
+        description: Period between foreground scan reports (15 - 600 sec).
+        source_attribute: ap_fgscan_report_intv
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 15
+        max: 600
+        source_attribute: ap_fgscan_report_intv
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Period between foreground scan reports (15 - 600 sec, default = 15).
+        default: '15'
+        min: 15
+        max: 600
+        source_attribute: ap-fgscan-report-intv
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ap_impersonation:
+    canonical:
+      type: enum
+      version_ranges: &id021
+      - - v7.6.1
+        - ''
+      choices: &id020
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable AP impersonation detection (default = disable).
+      source_attribute: ap-impersonation
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id020
+        version_ranges: *id021
+        description: Enable/disable AP impersonation detection .
+        source_attribute: ap_impersonation
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ap_impersonation
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable AP impersonation detection (default = disable).
+        default: disable
+        source_attribute: ap-impersonation
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ap_scan:
+    canonical:
+      type: enum
+      version_ranges: &id023
+      - - v6.0.0
+        - ''
+      choices: &id022
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable rogue AP detection.
+      source_attribute: ap-scan
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id022
+        version_ranges: *id023
+        description: Enable/disable rogue AP detection.
+        source_attribute: ap_scan
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ap_scan
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable rogue AP detection.
+        default: disable
+        source_attribute: ap-scan
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ap_scan_channel_list_2G_5G:
+    canonical:
+      type: list
+      elements: dict
+      children: &id025
+        chan:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id027
+          - - v7.4.1
+            - ''
+          description: Channel number.
+      version_ranges: &id024
+      - - v7.4.1
+        - ''
+      max_length: 3
+      description: Selected ap scan channel list for 2.4G and 5G bands. Channel number.
+      source_attribute: ap-scan-channel-list-2G-5G
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id024
+        description: Selected ap scan channel list for 2.4G and 5G bands.
+        children: *id025
+        source_attribute: ap_scan_channel_list_2G_5G
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Selected ap scan channel list for 2.4G and 5G bands. Channel number.
+        max_length: 3
+        source_attribute: ap-scan-channel-list-2G-5G
+    sources:
+    - ansible
+    - cli_reference
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id026
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id026
+  ap_scan_channel_list_2G_5G.chan:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id027
+      description: Channel number.
+      source_attribute: ap_scan_channel_list_2G_5G.chan
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id027
+        description: Channel number.
+        source_attribute: ap_scan_channel_list_2G_5G.chan
+    sources:
+    - ansible
+  ap_scan_channel_list_2g_5g:
+    canonical:
+      type: list
+      children: &id028
+        chan:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 3
+      source_attribute: ap_scan_channel_list_2g_5g
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id028
+        source_attribute: ap_scan_channel_list_2g_5g
+    sources:
+    - terraform
+  ap_scan_channel_list_2g_5g.chan:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 3
+      source_attribute: ap_scan_channel_list_2g_5g.chan
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 3
+        source_attribute: ap_scan_channel_list_2g_5g.chan
+    sources:
+    - terraform
+  ap_scan_channel_list_6G:
+    canonical:
+      type: list
+      elements: dict
+      children: &id030
+        chan:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id032
+          - - v7.4.1
+            - ''
+          description: Channel 6g number.
+      version_ranges: &id029
+      - - v7.4.1
+        - ''
+      max_length: 3
+      description: Selected ap scan channel list for 6G band. Channel 6g number.
+      source_attribute: ap-scan-channel-list-6G
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id029
+        description: Selected ap scan channel list for 6G band.
+        children: *id030
+        source_attribute: ap_scan_channel_list_6G
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Selected ap scan channel list for 6G band. Channel 6g number.
+        max_length: 3
+        source_attribute: ap-scan-channel-list-6G
+    sources:
+    - ansible
+    - cli_reference
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id031
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id031
+  ap_scan_channel_list_6G.chan:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id032
+      description: Channel 6g number.
+      source_attribute: ap_scan_channel_list_6G.chan
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id032
+        description: Channel 6g number.
+        source_attribute: ap_scan_channel_list_6G.chan
+    sources:
+    - ansible
+  ap_scan_channel_list_6g:
+    canonical:
+      type: list
+      children: &id033
+        chan:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 3
+      source_attribute: ap_scan_channel_list_6g
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id033
+        source_attribute: ap_scan_channel_list_6g
+    sources:
+    - terraform
+  ap_scan_channel_list_6g.chan:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 3
+      source_attribute: ap_scan_channel_list_6g.chan
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 3
+        source_attribute: ap_scan_channel_list_6g.chan
+    sources:
+    - terraform
+  ap_scan_passive:
+    canonical:
+      type: enum
+      version_ranges: &id035
+      - - v6.0.0
+        - ''
+      choices: &id034
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable passive scanning. Enable means do not send probe request on any channels (default = disable).
+      source_attribute: ap-scan-passive
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id034
+        version_ranges: *id035
+        description: Enable/disable passive scanning. Enable means do not send probe request on any channels .
+        source_attribute: ap_scan_passive
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ap_scan_passive
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable passive scanning. Enable means do not send probe request on any channels (default = disable).
+        default: disable
+        source_attribute: ap-scan-passive
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ap_scan_threshold:
+    canonical:
+      type: string
+      version_ranges: &id036
+      - - v6.2.0
+        - ''
+      default: '-90'
+      min_length: 0
+      max_length: 7
+      description: Minimum signal level/threshold in dBm required for the AP to report detected rogue AP (-95 to -20, default
+        = -90).
+      source_attribute: ap-scan-threshold
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id036
+        description: Minimum signal level/threshold in dBm required for the AP to report detected rogue AP (-95 to -20).
+        source_attribute: ap_scan_threshold
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 7
+        source_attribute: ap_scan_threshold
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Minimum signal level/threshold in dBm required for the AP to report detected rogue AP (-95 to -20, default
+          = -90).
+        default: '-90'
+        max_length: 7
+        source_attribute: ap-scan-threshold
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ap_spoofing:
+    canonical:
+      type: enum
+      version_ranges: &id038
+      - - v7.6.1
+        - ''
+      choices: &id037
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable AP spoofing detection (default = disable).
+      source_attribute: ap-spoofing
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id037
+        version_ranges: *id038
+        description: Enable/disable AP spoofing detection .
+        source_attribute: ap_spoofing
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ap_spoofing
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable AP spoofing detection (default = disable).
+        default: disable
+        source_attribute: ap-spoofing
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  asleap_attack:
+    canonical:
+      type: enum
+      version_ranges: &id040
+      - - v6.0.0
+        - ''
+      choices: &id039
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable asleap attack detection (default = disable).
+      source_attribute: asleap-attack
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id039
+        version_ranges: *id040
+        description: Enable/disable asleap attack detection .
+        source_attribute: asleap_attack
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: asleap_attack
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable asleap attack detection (default = disable).
+        default: disable
+        source_attribute: asleap-attack
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  assoc_flood_thresh:
+    canonical:
+      type: integer
+      version_ranges: &id041
+      - - v6.0.0
+        - ''
+      default: '30'
+      min: 1
+      max: 100
+      description: The threshold value for association frame flooding.
+      source_attribute: assoc-flood-thresh
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id041
+        description: The threshold value for association frame flooding.
+        source_attribute: assoc_flood_thresh
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 100
+        source_attribute: assoc_flood_thresh
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The threshold value for association frame flooding.
+        default: '30'
+        min: 1
+        max: 100
+        source_attribute: assoc-flood-thresh
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  assoc_flood_time:
+    canonical:
+      type: integer
+      version_ranges: &id042
+      - - v6.0.0
+        - ''
+      default: '10'
+      min: 5
+      max: 120
+      description: Number of seconds after which a station is considered not connected.
+      source_attribute: assoc-flood-time
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id042
+        description: Number of seconds after which a station is considered not connected.
+        source_attribute: assoc_flood_time
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 5
+        max: 120
+        source_attribute: assoc_flood_time
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Number of seconds after which a station is considered not connected.
+        default: '10'
+        min: 5
+        max: 120
+        source_attribute: assoc-flood-time
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  assoc_frame_flood:
+    canonical:
+      type: enum
+      version_ranges: &id044
+      - - v6.0.0
+        - ''
+      choices: &id043
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable association frame flooding detection (default = disable).
+      source_attribute: assoc-frame-flood
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id043
+        version_ranges: *id044
+        description: Enable/disable association frame flooding detection .
+        source_attribute: assoc_frame_flood
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: assoc_frame_flood
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable association frame flooding detection (default = disable).
+        default: disable
+        source_attribute: assoc-frame-flood
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  auth_flood_thresh:
+    canonical:
+      type: integer
+      version_ranges: &id045
+      - - v6.0.0
+        - ''
+      default: '30'
+      min: 1
+      max: 100
+      description: The threshold value for authentication frame flooding.
+      source_attribute: auth-flood-thresh
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id045
+        description: The threshold value for authentication frame flooding.
+        source_attribute: auth_flood_thresh
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 100
+        source_attribute: auth_flood_thresh
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The threshold value for authentication frame flooding.
+        default: '30'
+        min: 1
+        max: 100
+        source_attribute: auth-flood-thresh
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  auth_flood_time:
+    canonical:
+      type: integer
+      version_ranges: &id046
+      - - v6.0.0
+        - ''
+      default: '10'
+      min: 5
+      max: 120
+      description: Number of seconds after which a station is considered not connected.
+      source_attribute: auth-flood-time
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id046
+        description: Number of seconds after which a station is considered not connected.
+        source_attribute: auth_flood_time
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 5
+        max: 120
+        source_attribute: auth_flood_time
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Number of seconds after which a station is considered not connected.
+        default: '10'
+        min: 5
+        max: 120
+        source_attribute: auth-flood-time
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  auth_frame_flood:
+    canonical:
+      type: enum
+      version_ranges: &id048
+      - - v6.0.0
+        - ''
+      choices: &id047
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable authentication frame flooding detection (default = disable).
+      source_attribute: auth-frame-flood
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id047
+        version_ranges: *id048
+        description: Enable/disable authentication frame flooding detection .
+        source_attribute: auth_frame_flood
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auth_frame_flood
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable authentication frame flooding detection (default = disable).
+        default: disable
+        source_attribute: auth-frame-flood
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  bcn_flood:
+    canonical:
+      type: enum
+      version_ranges: &id050
+      - - v7.6.1
+        - ''
+      choices: &id049
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable bcn flood detection (default = disable).
+      source_attribute: bcn-flood
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id049
+        version_ranges: *id050
+        description: Enable/disable bcn flood detection .
+        source_attribute: bcn_flood
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: bcn_flood
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable bcn flood detection (default = disable).
+        default: disable
+        source_attribute: bcn-flood
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  bcn_flood_thresh:
+    canonical:
+      type: integer
+      version_ranges: &id051
+      - - v7.6.1
+        - ''
+      default: '15'
+      min: 1
+      max: 65100
+      description: The threshold value for bcn flood.
+      source_attribute: bcn-flood-thresh
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id051
+        description: The threshold value for bcn flood.
+        source_attribute: bcn_flood_thresh
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65100
+        source_attribute: bcn_flood_thresh
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The threshold value for bcn flood.
+        default: '15'
+        min: 1
+        max: 65100
+        source_attribute: bcn-flood-thresh
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  bcn_flood_time:
+    canonical:
+      type: integer
+      version_ranges: &id052
+      - - v7.6.1
+        - ''
+      default: '1'
+      min: 1
+      max: 120
+      description: Detection Window Period.
+      source_attribute: bcn-flood-time
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id052
+        description: Detection Window Period.
+        source_attribute: bcn_flood_time
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 120
+        source_attribute: bcn_flood_time
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Detection Window Period.
+        default: '1'
+        min: 1
+        max: 120
+        source_attribute: bcn-flood-time
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  beacon_wrong_channel:
+    canonical:
+      type: enum
+      version_ranges: &id054
+      - - v7.6.1
+        - ''
+      choices: &id053
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable beacon wrong channel detection (default = disable).
+      source_attribute: beacon-wrong-channel
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id053
+        version_ranges: *id054
+        description: Enable/disable beacon wrong channel detection .
+        source_attribute: beacon_wrong_channel
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: beacon_wrong_channel
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable beacon wrong channel detection (default = disable).
+        default: disable
+        source_attribute: beacon-wrong-channel
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  block_ack_flood:
+    canonical:
+      type: enum
+      version_ranges: &id056
+      - - v7.6.1
+        - ''
+      choices: &id055
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable block_ack flood detection (default = disable).
+      source_attribute: block_ack-flood
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id055
+        version_ranges: *id056
+        description: Enable/disable block_ack flood detection .
+        source_attribute: block_ack_flood
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: block_ack_flood
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable block_ack flood detection (default = disable).
+        default: disable
+        source_attribute: block_ack-flood
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  block_ack_flood_thresh:
+    canonical:
+      type: integer
+      version_ranges: &id057
+      - - v7.6.1
+        - ''
+      default: '50'
+      min: 1
+      max: 65100
+      description: The threshold value for block_ack flood.
+      source_attribute: block_ack-flood-thresh
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id057
+        description: The threshold value for block_ack flood.
+        source_attribute: block_ack_flood_thresh
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65100
+        source_attribute: block_ack_flood_thresh
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The threshold value for block_ack flood.
+        default: '50'
+        min: 1
+        max: 65100
+        source_attribute: block_ack-flood-thresh
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  block_ack_flood_time:
+    canonical:
+      type: integer
+      version_ranges: &id058
+      - - v7.6.1
+        - ''
+      default: '1'
+      min: 1
+      max: 120
+      description: Detection Window Period.
+      source_attribute: block_ack-flood-time
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id058
+        description: Detection Window Period.
+        source_attribute: block_ack_flood_time
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 120
+        source_attribute: block_ack_flood_time
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Detection Window Period.
+        default: '1'
+        min: 1
+        max: 120
+        source_attribute: block_ack-flood-time
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  chan_based_mitm:
+    canonical:
+      type: enum
+      version_ranges: &id060
+      - - v7.6.1
+        - ''
+      choices: &id059
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable channel based mitm detection (default = disable).
+      source_attribute: chan-based-mitm
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id059
+        version_ranges: *id060
+        description: Enable/disable channel based mitm detection .
+        source_attribute: chan_based_mitm
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: chan_based_mitm
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable channel based mitm detection (default = disable).
+        default: disable
+        source_attribute: chan-based-mitm
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  client_flood:
+    canonical:
+      type: enum
+      version_ranges: &id062
+      - - v7.6.1
+        - ''
+      choices: &id061
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable client flood detection (default = disable).
+      source_attribute: client-flood
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id061
+        version_ranges: *id062
+        description: Enable/disable client flood detection .
+        source_attribute: client_flood
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: client_flood
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable client flood detection (default = disable).
+        default: disable
+        source_attribute: client-flood
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  client_flood_thresh:
+    canonical:
+      type: integer
+      version_ranges: &id063
+      - - v7.6.1
+        - ''
+      default: '30'
+      min: 1
+      max: 65100
+      description: The threshold value for client flood.
+      source_attribute: client-flood-thresh
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id063
+        description: The threshold value for client flood.
+        source_attribute: client_flood_thresh
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65100
+        source_attribute: client_flood_thresh
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The threshold value for client flood.
+        default: '30'
+        min: 1
+        max: 65100
+        source_attribute: client-flood-thresh
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  client_flood_time:
+    canonical:
+      type: integer
+      version_ranges: &id064
+      - - v7.6.1
+        - ''
+      default: '10'
+      min: 1
+      max: 120
+      description: Detection Window Period.
+      source_attribute: client-flood-time
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id064
+        description: Detection Window Period.
+        source_attribute: client_flood_time
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 120
+        source_attribute: client_flood_time
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Detection Window Period.
+        default: '10'
+        min: 1
+        max: 120
+        source_attribute: client-flood-time
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  comment:
+    canonical:
+      type: string
+      version_ranges: &id065
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 63
+      description: Comment.
+      source_attribute: comment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id065
+        description: Comment.
+        source_attribute: comment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: comment
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Comment.
+        max_length: 63
+        source_attribute: comment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cts_flood:
+    canonical:
+      type: enum
+      version_ranges: &id067
+      - - v7.6.1
+        - ''
+      choices: &id066
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable cts flood detection (default = disable).
+      source_attribute: cts-flood
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id066
+        version_ranges: *id067
+        description: Enable/disable cts flood detection .
+        source_attribute: cts_flood
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cts_flood
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable cts flood detection (default = disable).
+        default: disable
+        source_attribute: cts-flood
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cts_flood_thresh:
+    canonical:
+      type: integer
+      version_ranges: &id068
+      - - v7.6.1
+        - ''
+      default: '30'
+      min: 1
+      max: 65100
+      description: The threshold value for cts flood.
+      source_attribute: cts-flood-thresh
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id068
+        description: The threshold value for cts flood.
+        source_attribute: cts_flood_thresh
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65100
+        source_attribute: cts_flood_thresh
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The threshold value for cts flood.
+        default: '30'
+        min: 1
+        max: 65100
+        source_attribute: cts-flood-thresh
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cts_flood_time:
+    canonical:
+      type: integer
+      version_ranges: &id069
+      - - v7.6.1
+        - ''
+      default: '10'
+      min: 1
+      max: 120
+      description: Detection Window Period.
+      source_attribute: cts-flood-time
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id069
+        description: Detection Window Period.
+        source_attribute: cts_flood_time
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 120
+        source_attribute: cts_flood_time
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Detection Window Period.
+        default: '10'
+        min: 1
+        max: 120
+        source_attribute: cts-flood-time
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  deauth_broadcast:
+    canonical:
+      type: enum
+      version_ranges: &id071
+      - - v6.0.0
+        - ''
+      choices: &id070
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable broadcasting de-authentication detection (default = disable).
+      source_attribute: deauth-broadcast
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id070
+        version_ranges: *id071
+        description: Enable/disable broadcasting de-authentication detection .
+        source_attribute: deauth_broadcast
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: deauth_broadcast
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable broadcasting de-authentication detection (default = disable).
+        default: disable
+        source_attribute: deauth-broadcast
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  deauth_unknown_src_thresh:
+    canonical:
+      type: integer
+      version_ranges: &id072
+      - - v6.0.0
+        - ''
+      default: '10'
+      min: 0
+      max: 65535
+      description: 'Threshold value per second to deauth unknown src for DoS attack (0: no limit).'
+      source_attribute: deauth-unknown-src-thresh
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id072
+        description: 'Threshold value per second to deauth unknown src for DoS attack (0: no limit).'
+        source_attribute: deauth_unknown_src_thresh
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: deauth_unknown_src_thresh
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: 'Threshold value per second to deauth unknown src for DoS attack (0: no limit).'
+        default: '10'
+        min: 0
+        max: 65535
+        source_attribute: deauth-unknown-src-thresh
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  disassoc_broadcast:
+    canonical:
+      type: enum
+      version_ranges: &id074
+      - - v7.6.1
+        - ''
+      choices: &id073
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable broadcast dis-association detection (default = disable).
+      source_attribute: disassoc-broadcast
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id073
+        version_ranges: *id074
+        description: Enable/disable broadcast dis-association detection .
+        source_attribute: disassoc_broadcast
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: disassoc_broadcast
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable broadcast dis-association detection (default = disable).
+        default: disable
+        source_attribute: disassoc-broadcast
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  disconnect_station:
+    canonical:
+      type: enum
+      version_ranges: &id076
+      - - v7.6.1
+        - ''
+      choices: &id075
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable disconnect station detection (default = disable).
+      source_attribute: disconnect-station
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id075
+        version_ranges: *id076
+        description: Enable/disable disconnect station detection .
+        source_attribute: disconnect_station
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: disconnect_station
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable disconnect station detection (default = disable).
+        default: disable
+        source_attribute: disconnect-station
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  eapol_fail_flood:
+    canonical:
+      type: enum
+      version_ranges: &id078
+      - - v6.0.0
+        - ''
+      choices: &id077
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable EAPOL-Failure flooding (to AP) detection (default = disable).
+      source_attribute: eapol-fail-flood
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id077
+        version_ranges: *id078
+        description: Enable/disable EAPOL-Failure flooding (to AP) detection .
+        source_attribute: eapol_fail_flood
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: eapol_fail_flood
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable EAPOL-Failure flooding (to AP) detection (default = disable).
+        default: disable
+        source_attribute: eapol-fail-flood
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  eapol_fail_intv:
+    canonical:
+      type: integer
+      version_ranges: &id079
+      - - v6.0.0
+        - ''
+      default: '1'
+      min: 1
+      max: 3600
+      description: The detection interval for EAPOL-Failure flooding (1 - 3600 sec).
+      source_attribute: eapol-fail-intv
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id079
+        description: The detection interval for EAPOL-Failure flooding (1 - 3600 sec).
+        source_attribute: eapol_fail_intv
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 3600
+        source_attribute: eapol_fail_intv
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The detection interval for EAPOL-Failure flooding (1 - 3600 sec).
+        default: '1'
+        min: 1
+        max: 3600
+        source_attribute: eapol-fail-intv
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  eapol_fail_thresh:
+    canonical:
+      type: integer
+      version_ranges: &id080
+      - - v6.0.0
+        - ''
+      default: '10'
+      min: 2
+      max: 100
+      description: The threshold value for EAPOL-Failure flooding in specified interval.
+      source_attribute: eapol-fail-thresh
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id080
+        description: The threshold value for EAPOL-Failure flooding in specified interval.
+        source_attribute: eapol_fail_thresh
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 2
+        max: 100
+        source_attribute: eapol_fail_thresh
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The threshold value for EAPOL-Failure flooding in specified interval.
+        default: '10'
+        min: 2
+        max: 100
+        source_attribute: eapol-fail-thresh
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  eapol_key_overflow:
+    canonical:
+      type: enum
+      version_ranges: &id082
+      - - v7.6.1
+        - ''
+      choices: &id081
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable overflow EAPOL key detection (default = disable).
+      source_attribute: eapol-key-overflow
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id081
+        version_ranges: *id082
+        description: Enable/disable overflow EAPOL key detection .
+        source_attribute: eapol_key_overflow
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: eapol_key_overflow
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable overflow EAPOL key detection (default = disable).
+        default: disable
+        source_attribute: eapol-key-overflow
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  eapol_logoff_flood:
+    canonical:
+      type: enum
+      version_ranges: &id084
+      - - v6.0.0
+        - ''
+      choices: &id083
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable EAPOL-Logoff flooding (to AP) detection (default = disable).
+      source_attribute: eapol-logoff-flood
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id083
+        version_ranges: *id084
+        description: Enable/disable EAPOL-Logoff flooding (to AP) detection .
+        source_attribute: eapol_logoff_flood
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: eapol_logoff_flood
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable EAPOL-Logoff flooding (to AP) detection (default = disable).
+        default: disable
+        source_attribute: eapol-logoff-flood
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  eapol_logoff_intv:
+    canonical:
+      type: integer
+      version_ranges: &id085
+      - - v6.0.0
+        - ''
+      default: '1'
+      min: 1
+      max: 3600
+      description: The detection interval for EAPOL-Logoff flooding (1 - 3600 sec).
+      source_attribute: eapol-logoff-intv
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id085
+        description: The detection interval for EAPOL-Logoff flooding (1 - 3600 sec).
+        source_attribute: eapol_logoff_intv
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 3600
+        source_attribute: eapol_logoff_intv
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The detection interval for EAPOL-Logoff flooding (1 - 3600 sec).
+        default: '1'
+        min: 1
+        max: 3600
+        source_attribute: eapol-logoff-intv
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  eapol_logoff_thresh:
+    canonical:
+      type: integer
+      version_ranges: &id086
+      - - v6.0.0
+        - ''
+      default: '10'
+      min: 2
+      max: 100
+      description: The threshold value for EAPOL-Logoff flooding in specified interval.
+      source_attribute: eapol-logoff-thresh
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id086
+        description: The threshold value for EAPOL-Logoff flooding in specified interval.
+        source_attribute: eapol_logoff_thresh
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 2
+        max: 100
+        source_attribute: eapol_logoff_thresh
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The threshold value for EAPOL-Logoff flooding in specified interval.
+        default: '10'
+        min: 2
+        max: 100
+        source_attribute: eapol-logoff-thresh
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  eapol_pre_fail_flood:
+    canonical:
+      type: enum
+      version_ranges: &id088
+      - - v6.0.0
+        - ''
+      choices: &id087
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable premature EAPOL-Failure flooding (to STA) detection (default = disable).
+      source_attribute: eapol-pre-fail-flood
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id087
+        version_ranges: *id088
+        description: Enable/disable premature EAPOL-Failure flooding (to STA) detection .
+        source_attribute: eapol_pre_fail_flood
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: eapol_pre_fail_flood
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable premature EAPOL-Failure flooding (to STA) detection (default = disable).
+        default: disable
+        source_attribute: eapol-pre-fail-flood
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  eapol_pre_fail_intv:
+    canonical:
+      type: integer
+      version_ranges: &id089
+      - - v6.0.0
+        - ''
+      default: '1'
+      min: 1
+      max: 3600
+      description: The detection interval for premature EAPOL-Failure flooding (1 - 3600 sec).
+      source_attribute: eapol-pre-fail-intv
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id089
+        description: The detection interval for premature EAPOL-Failure flooding (1 - 3600 sec).
+        source_attribute: eapol_pre_fail_intv
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 3600
+        source_attribute: eapol_pre_fail_intv
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The detection interval for premature EAPOL-Failure flooding (1 - 3600 sec).
+        default: '1'
+        min: 1
+        max: 3600
+        source_attribute: eapol-pre-fail-intv
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  eapol_pre_fail_thresh:
+    canonical:
+      type: integer
+      version_ranges: &id090
+      - - v6.0.0
+        - ''
+      default: '10'
+      min: 2
+      max: 100
+      description: The threshold value for premature EAPOL-Failure flooding in specified interval.
+      source_attribute: eapol-pre-fail-thresh
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id090
+        description: The threshold value for premature EAPOL-Failure flooding in specified interval.
+        source_attribute: eapol_pre_fail_thresh
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 2
+        max: 100
+        source_attribute: eapol_pre_fail_thresh
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The threshold value for premature EAPOL-Failure flooding in specified interval.
+        default: '10'
+        min: 2
+        max: 100
+        source_attribute: eapol-pre-fail-thresh
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  eapol_pre_succ_flood:
+    canonical:
+      type: enum
+      version_ranges: &id092
+      - - v6.0.0
+        - ''
+      choices: &id091
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable premature EAPOL-Success flooding (to STA) detection (default = disable).
+      source_attribute: eapol-pre-succ-flood
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id091
+        version_ranges: *id092
+        description: Enable/disable premature EAPOL-Success flooding (to STA) detection .
+        source_attribute: eapol_pre_succ_flood
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: eapol_pre_succ_flood
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable premature EAPOL-Success flooding (to STA) detection (default = disable).
+        default: disable
+        source_attribute: eapol-pre-succ-flood
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  eapol_pre_succ_intv:
+    canonical:
+      type: integer
+      version_ranges: &id093
+      - - v6.0.0
+        - ''
+      default: '1'
+      min: 1
+      max: 3600
+      description: The detection interval for premature EAPOL-Success flooding (1 - 3600 sec).
+      source_attribute: eapol-pre-succ-intv
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id093
+        description: The detection interval for premature EAPOL-Success flooding (1 - 3600 sec).
+        source_attribute: eapol_pre_succ_intv
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 3600
+        source_attribute: eapol_pre_succ_intv
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The detection interval for premature EAPOL-Success flooding (1 - 3600 sec).
+        default: '1'
+        min: 1
+        max: 3600
+        source_attribute: eapol-pre-succ-intv
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  eapol_pre_succ_thresh:
+    canonical:
+      type: integer
+      version_ranges: &id094
+      - - v6.0.0
+        - ''
+      default: '10'
+      min: 2
+      max: 100
+      description: The threshold value for premature EAPOL-Success flooding in specified interval.
+      source_attribute: eapol-pre-succ-thresh
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id094
+        description: The threshold value for premature EAPOL-Success flooding in specified interval.
+        source_attribute: eapol_pre_succ_thresh
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 2
+        max: 100
+        source_attribute: eapol_pre_succ_thresh
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The threshold value for premature EAPOL-Success flooding in specified interval.
+        default: '10'
+        min: 2
+        max: 100
+        source_attribute: eapol-pre-succ-thresh
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  eapol_start_flood:
+    canonical:
+      type: enum
+      version_ranges: &id096
+      - - v6.0.0
+        - ''
+      choices: &id095
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable EAPOL-Start flooding (to AP) detection (default = disable).
+      source_attribute: eapol-start-flood
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id095
+        version_ranges: *id096
+        description: Enable/disable EAPOL-Start flooding (to AP) detection .
+        source_attribute: eapol_start_flood
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: eapol_start_flood
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable EAPOL-Start flooding (to AP) detection (default = disable).
+        default: disable
+        source_attribute: eapol-start-flood
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  eapol_start_intv:
+    canonical:
+      type: integer
+      version_ranges: &id097
+      - - v6.0.0
+        - ''
+      default: '1'
+      min: 1
+      max: 3600
+      description: The detection interval for EAPOL-Start flooding (1 - 3600 sec).
+      source_attribute: eapol-start-intv
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id097
+        description: The detection interval for EAPOL-Start flooding (1 - 3600 sec).
+        source_attribute: eapol_start_intv
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 3600
+        source_attribute: eapol_start_intv
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The detection interval for EAPOL-Start flooding (1 - 3600 sec).
+        default: '1'
+        min: 1
+        max: 3600
+        source_attribute: eapol-start-intv
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  eapol_start_thresh:
+    canonical:
+      type: integer
+      version_ranges: &id098
+      - - v6.0.0
+        - ''
+      default: '10'
+      min: 2
+      max: 100
+      description: The threshold value for EAPOL-Start flooding in specified interval.
+      source_attribute: eapol-start-thresh
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id098
+        description: The threshold value for EAPOL-Start flooding in specified interval.
+        source_attribute: eapol_start_thresh
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 2
+        max: 100
+        source_attribute: eapol_start_thresh
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The threshold value for EAPOL-Start flooding in specified interval.
+        default: '10'
+        min: 2
+        max: 100
+        source_attribute: eapol-start-thresh
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  eapol_succ_flood:
+    canonical:
+      type: enum
+      version_ranges: &id100
+      - - v6.0.0
+        - ''
+      choices: &id099
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable EAPOL-Success flooding (to AP) detection (default = disable).
+      source_attribute: eapol-succ-flood
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id099
+        version_ranges: *id100
+        description: Enable/disable EAPOL-Success flooding (to AP) detection .
+        source_attribute: eapol_succ_flood
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: eapol_succ_flood
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable EAPOL-Success flooding (to AP) detection (default = disable).
+        default: disable
+        source_attribute: eapol-succ-flood
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  eapol_succ_intv:
+    canonical:
+      type: integer
+      version_ranges: &id101
+      - - v6.0.0
+        - ''
+      default: '1'
+      min: 1
+      max: 3600
+      description: The detection interval for EAPOL-Success flooding (1 - 3600 sec).
+      source_attribute: eapol-succ-intv
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id101
+        description: The detection interval for EAPOL-Success flooding (1 - 3600 sec).
+        source_attribute: eapol_succ_intv
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 3600
+        source_attribute: eapol_succ_intv
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The detection interval for EAPOL-Success flooding (1 - 3600 sec).
+        default: '1'
+        min: 1
+        max: 3600
+        source_attribute: eapol-succ-intv
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  eapol_succ_thresh:
+    canonical:
+      type: integer
+      version_ranges: &id102
+      - - v6.0.0
+        - ''
+      default: '10'
+      min: 2
+      max: 100
+      description: The threshold value for EAPOL-Success flooding in specified interval.
+      source_attribute: eapol-succ-thresh
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id102
+        description: The threshold value for EAPOL-Success flooding in specified interval.
+        source_attribute: eapol_succ_thresh
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 2
+        max: 100
+        source_attribute: eapol_succ_thresh
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The threshold value for EAPOL-Success flooding in specified interval.
+        default: '10'
+        min: 2
+        max: 100
+        source_attribute: eapol-succ-thresh
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fata_jack:
+    canonical:
+      type: enum
+      version_ranges: &id104
+      - - v7.6.1
+        - ''
+      choices: &id103
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable FATA-Jack detection (default = disable).
+      source_attribute: fata-jack
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id103
+        version_ranges: *id104
+        description: Enable/disable FATA-Jack detection .
+        source_attribute: fata_jack
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fata_jack
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable FATA-Jack detection (default = disable).
+        default: disable
+        source_attribute: fata-jack
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fuzzed_beacon:
+    canonical:
+      type: enum
+      version_ranges: &id106
+      - - v7.6.1
+        - ''
+      choices: &id105
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable fuzzed beacon detection (default = disable).
+      source_attribute: fuzzed-beacon
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id105
+        version_ranges: *id106
+        description: Enable/disable fuzzed beacon detection .
+        source_attribute: fuzzed_beacon
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fuzzed_beacon
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable fuzzed beacon detection (default = disable).
+        default: disable
+        source_attribute: fuzzed-beacon
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fuzzed_probe_request:
+    canonical:
+      type: enum
+      version_ranges: &id108
+      - - v7.6.1
+        - ''
+      choices: &id107
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable fuzzed probe request detection (default = disable).
+      source_attribute: fuzzed-probe-request
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id107
+        version_ranges: *id108
+        description: Enable/disable fuzzed probe request detection .
+        source_attribute: fuzzed_probe_request
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fuzzed_probe_request
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable fuzzed probe request detection (default = disable).
+        default: disable
+        source_attribute: fuzzed-probe-request
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fuzzed_probe_response:
+    canonical:
+      type: enum
+      version_ranges: &id110
+      - - v7.6.1
+        - ''
+      choices: &id109
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable fuzzed probe response detection (default = disable).
+      source_attribute: fuzzed-probe-response
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id109
+        version_ranges: *id110
+        description: Enable/disable fuzzed probe response detection .
+        source_attribute: fuzzed_probe_response
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fuzzed_probe_response
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable fuzzed probe response detection (default = disable).
+        default: disable
+        source_attribute: fuzzed-probe-response
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  hotspotter_attack:
+    canonical:
+      type: enum
+      version_ranges: &id112
+      - - v7.6.1
+        - ''
+      choices: &id111
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable hotspotter attack detection (default = disable).
+      source_attribute: hotspotter-attack
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id111
+        version_ranges: *id112
+        description: Enable/disable hotspotter attack detection .
+        source_attribute: hotspotter_attack
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: hotspotter_attack
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable hotspotter attack detection (default = disable).
+        default: disable
+        source_attribute: hotspotter-attack
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ht_40mhz_intolerance:
+    canonical:
+      type: enum
+      version_ranges: &id114
+      - - v7.6.1
+        - ''
+      choices: &id113
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable HT 40 MHz intolerance detection (default = disable).
+      source_attribute: ht-40mhz-intolerance
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id113
+        version_ranges: *id114
+        description: Enable/disable HT 40 MHz intolerance detection .
+        source_attribute: ht_40mhz_intolerance
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ht_40mhz_intolerance
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable HT 40 MHz intolerance detection (default = disable).
+        default: disable
+        source_attribute: ht-40mhz-intolerance
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ht_greenfield:
+    canonical:
+      type: enum
+      version_ranges: &id116
+      - - v7.6.1
+        - ''
+      choices: &id115
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable HT greenfield detection (default = disable).
+      source_attribute: ht-greenfield
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id115
+        version_ranges: *id116
+        description: Enable/disable HT greenfield detection .
+        source_attribute: ht_greenfield
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ht_greenfield
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable HT greenfield detection (default = disable).
+        default: disable
+        source_attribute: ht-greenfield
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  invalid_addr_combination:
+    canonical:
+      type: enum
+      version_ranges: &id118
+      - - v7.6.1
+        - ''
+      choices: &id117
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable invalid address combination detection (default = disable).
+      source_attribute: invalid-addr-combination
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id117
+        version_ranges: *id118
+        description: Enable/disable invalid address combination detection .
+        source_attribute: invalid_addr_combination
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: invalid_addr_combination
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable invalid address combination detection (default = disable).
+        default: disable
+        source_attribute: invalid-addr-combination
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  invalid_mac_oui:
+    canonical:
+      type: enum
+      version_ranges: &id120
+      - - v6.0.0
+        - ''
+      choices: &id119
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable invalid MAC OUI detection.
+      source_attribute: invalid-mac-oui
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id119
+        version_ranges: *id120
+        description: Enable/disable invalid MAC OUI detection.
+        source_attribute: invalid_mac_oui
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: invalid_mac_oui
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable invalid MAC OUI detection.
+        default: disable
+        source_attribute: invalid-mac-oui
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  long_duration_attack:
+    canonical:
+      type: enum
+      version_ranges: &id122
+      - - v6.0.0
+        - ''
+      choices: &id121
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable long duration attack detection based on user configured threshold (default = disable).
+      source_attribute: long-duration-attack
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id121
+        version_ranges: *id122
+        description: Enable/disable long duration attack detection based on user configured threshold .
+        source_attribute: long_duration_attack
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: long_duration_attack
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable long duration attack detection based on user configured threshold (default = disable).
+        default: disable
+        source_attribute: long-duration-attack
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  long_duration_thresh:
+    canonical:
+      type: integer
+      version_ranges: &id123
+      - - v6.0.0
+        - ''
+      default: '8200'
+      min: 1000
+      max: 32767
+      description: Threshold value for long duration attack detection (1000 - 32767 usec, default = 8200).
+      source_attribute: long-duration-thresh
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id123
+        description: Threshold value for long duration attack detection (1000 - 32767 usec).
+        source_attribute: long_duration_thresh
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1000
+        max: 32767
+        source_attribute: long_duration_thresh
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Threshold value for long duration attack detection (1000 - 32767 usec, default = 8200).
+        default: '8200'
+        min: 1000
+        max: 32767
+        source_attribute: long-duration-thresh
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  malformed_association:
+    canonical:
+      type: enum
+      version_ranges: &id125
+      - - v7.6.1
+        - ''
+      choices: &id124
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable malformed association request detection (default = disable).
+      source_attribute: malformed-association
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id124
+        version_ranges: *id125
+        description: Enable/disable malformed association request detection .
+        source_attribute: malformed_association
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: malformed_association
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable malformed association request detection (default = disable).
+        default: disable
+        source_attribute: malformed-association
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  malformed_auth:
+    canonical:
+      type: enum
+      version_ranges: &id127
+      - - v7.6.1
+        - ''
+      choices: &id126
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable malformed auth frame detection (default = disable).
+      source_attribute: malformed-auth
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id126
+        version_ranges: *id127
+        description: Enable/disable malformed auth frame detection .
+        source_attribute: malformed_auth
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: malformed_auth
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable malformed auth frame detection (default = disable).
+        default: disable
+        source_attribute: malformed-auth
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  malformed_ht_ie:
+    canonical:
+      type: enum
+      version_ranges: &id129
+      - - v7.6.1
+        - ''
+      choices: &id128
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable malformed HT IE detection (default = disable).
+      source_attribute: malformed-ht-ie
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id128
+        version_ranges: *id129
+        description: Enable/disable malformed HT IE detection .
+        source_attribute: malformed_ht_ie
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: malformed_ht_ie
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable malformed HT IE detection (default = disable).
+        default: disable
+        source_attribute: malformed-ht-ie
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id130
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: WIDS profile name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id130
+        description: WIDS profile name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: WIDS profile name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  netstumbler:
+    canonical:
+      type: enum
+      version_ranges: &id132
+      - - v7.6.1
+        - ''
+      choices: &id131
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable netstumbler detection (default = disable).
+      source_attribute: netstumbler
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id131
+        version_ranges: *id132
+        description: Enable/disable netstumbler detection .
+        source_attribute: netstumbler
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: netstumbler
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable netstumbler detection (default = disable).
+        default: disable
+        source_attribute: netstumbler
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  netstumbler_thresh:
+    canonical:
+      type: integer
+      version_ranges: &id133
+      - - v7.6.1
+        - ''
+      default: '5'
+      min: 1
+      max: 65100
+      description: The threshold value for netstumbler.
+      source_attribute: netstumbler-thresh
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id133
+        description: The threshold value for netstumbler.
+        source_attribute: netstumbler_thresh
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65100
+        source_attribute: netstumbler_thresh
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The threshold value for netstumbler.
+        default: '5'
+        min: 1
+        max: 65100
+        source_attribute: netstumbler-thresh
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  netstumbler_time:
+    canonical:
+      type: integer
+      version_ranges: &id134
+      - - v7.6.1
+        - ''
+      default: '30'
+      min: 1
+      max: 120
+      description: Detection Window Period.
+      source_attribute: netstumbler-time
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id134
+        description: Detection Window Period.
+        source_attribute: netstumbler_time
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 120
+        source_attribute: netstumbler_time
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Detection Window Period.
+        default: '30'
+        min: 1
+        max: 120
+        source_attribute: netstumbler-time
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  null_ssid_probe_resp:
+    canonical:
+      type: enum
+      version_ranges: &id136
+      - - v6.0.0
+        - ''
+      choices: &id135
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable null SSID probe response detection (default = disable).
+      source_attribute: null-ssid-probe-resp
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id135
+        version_ranges: *id136
+        description: Enable/disable null SSID probe response detection .
+        source_attribute: null_ssid_probe_resp
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: null_ssid_probe_resp
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable null SSID probe response detection (default = disable).
+        default: disable
+        source_attribute: null-ssid-probe-resp
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  omerta_attack:
+    canonical:
+      type: enum
+      version_ranges: &id138
+      - - v7.6.1
+        - ''
+      choices: &id137
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable omerta attack detection (default = disable).
+      source_attribute: omerta-attack
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id137
+        version_ranges: *id138
+        description: Enable/disable omerta attack detection .
+        source_attribute: omerta_attack
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: omerta_attack
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable omerta attack detection (default = disable).
+        default: disable
+        source_attribute: omerta-attack
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  overflow_ie:
+    canonical:
+      type: enum
+      version_ranges: &id140
+      - - v7.6.1
+        - ''
+      choices: &id139
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable overflow IE detection (default = disable).
+      source_attribute: overflow-ie
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id139
+        version_ranges: *id140
+        description: Enable/disable overflow IE detection .
+        source_attribute: overflow_ie
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: overflow_ie
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable overflow IE detection (default = disable).
+        default: disable
+        source_attribute: overflow-ie
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  probe_flood:
+    canonical:
+      type: enum
+      version_ranges: &id142
+      - - v7.6.1
+        - ''
+      choices: &id141
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable probe flood detection (default = disable).
+      source_attribute: probe-flood
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id141
+        version_ranges: *id142
+        description: Enable/disable probe flood detection .
+        source_attribute: probe_flood
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: probe_flood
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable probe flood detection (default = disable).
+        default: disable
+        source_attribute: probe-flood
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  probe_flood_thresh:
+    canonical:
+      type: integer
+      version_ranges: &id143
+      - - v7.6.1
+        - ''
+      default: '30'
+      min: 1
+      max: 65100
+      description: The threshold value for probe flood.
+      source_attribute: probe-flood-thresh
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id143
+        description: The threshold value for probe flood.
+        source_attribute: probe_flood_thresh
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65100
+        source_attribute: probe_flood_thresh
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The threshold value for probe flood.
+        default: '30'
+        min: 1
+        max: 65100
+        source_attribute: probe-flood-thresh
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  probe_flood_time:
+    canonical:
+      type: integer
+      version_ranges: &id144
+      - - v7.6.1
+        - ''
+      default: '1'
+      min: 1
+      max: 120
+      description: Detection Window Period.
+      source_attribute: probe-flood-time
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id144
+        description: Detection Window Period.
+        source_attribute: probe_flood_time
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 120
+        source_attribute: probe_flood_time
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Detection Window Period.
+        default: '1'
+        min: 1
+        max: 120
+        source_attribute: probe-flood-time
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  pspoll_flood:
+    canonical:
+      type: enum
+      version_ranges: &id146
+      - - v7.6.1
+        - ''
+      choices: &id145
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable pspoll flood detection (default = disable).
+      source_attribute: pspoll-flood
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id145
+        version_ranges: *id146
+        description: Enable/disable pspoll flood detection .
+        source_attribute: pspoll_flood
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pspoll_flood
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable pspoll flood detection (default = disable).
+        default: disable
+        source_attribute: pspoll-flood
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  pspoll_flood_thresh:
+    canonical:
+      type: integer
+      version_ranges: &id147
+      - - v7.6.1
+        - ''
+      default: '30'
+      min: 1
+      max: 65100
+      description: The threshold value for pspoll flood.
+      source_attribute: pspoll-flood-thresh
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id147
+        description: The threshold value for pspoll flood.
+        source_attribute: pspoll_flood_thresh
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65100
+        source_attribute: pspoll_flood_thresh
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The threshold value for pspoll flood.
+        default: '30'
+        min: 1
+        max: 65100
+        source_attribute: pspoll-flood-thresh
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  pspoll_flood_time:
+    canonical:
+      type: integer
+      version_ranges: &id148
+      - - v7.6.1
+        - ''
+      default: '1'
+      min: 1
+      max: 120
+      description: Detection Window Period.
+      source_attribute: pspoll-flood-time
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id148
+        description: Detection Window Period.
+        source_attribute: pspoll_flood_time
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 120
+        source_attribute: pspoll_flood_time
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Detection Window Period.
+        default: '1'
+        min: 1
+        max: 120
+        source_attribute: pspoll-flood-time
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  pwsave_dos_attack:
+    canonical:
+      type: enum
+      version_ranges: &id150
+      - - v7.6.1
+        - ''
+      choices: &id149
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable power save DOS attack detection (default = disable).
+      source_attribute: pwsave-dos-attack
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id149
+        version_ranges: *id150
+        description: Enable/disable power save DOS attack detection .
+        source_attribute: pwsave_dos_attack
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pwsave_dos_attack
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable power save DOS attack detection (default = disable).
+        default: disable
+        source_attribute: pwsave-dos-attack
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  reassoc_flood:
+    canonical:
+      type: enum
+      version_ranges: &id152
+      - - v7.6.1
+        - ''
+      choices: &id151
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable reassociation flood detection (default = disable).
+      source_attribute: reassoc-flood
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id151
+        version_ranges: *id152
+        description: Enable/disable reassociation flood detection .
+        source_attribute: reassoc_flood
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: reassoc_flood
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable reassociation flood detection (default = disable).
+        default: disable
+        source_attribute: reassoc-flood
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  reassoc_flood_thresh:
+    canonical:
+      type: integer
+      version_ranges: &id153
+      - - v7.6.1
+        - ''
+      default: '30'
+      min: 1
+      max: 65100
+      description: The threshold value for reassociation flood.
+      source_attribute: reassoc-flood-thresh
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id153
+        description: The threshold value for reassociation flood.
+        source_attribute: reassoc_flood_thresh
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65100
+        source_attribute: reassoc_flood_thresh
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The threshold value for reassociation flood.
+        default: '30'
+        min: 1
+        max: 65100
+        source_attribute: reassoc-flood-thresh
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  reassoc_flood_time:
+    canonical:
+      type: integer
+      version_ranges: &id154
+      - - v7.6.1
+        - ''
+      default: '10'
+      min: 1
+      max: 120
+      description: Detection Window Period.
+      source_attribute: reassoc-flood-time
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id154
+        description: Detection Window Period.
+        source_attribute: reassoc_flood_time
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 120
+        source_attribute: reassoc_flood_time
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Detection Window Period.
+        default: '10'
+        min: 1
+        max: 120
+        source_attribute: reassoc-flood-time
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  risky_encryption:
+    canonical:
+      type: enum
+      version_ranges: &id156
+      - - v7.6.1
+        - ''
+      choices: &id155
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable Risky Encryption detection (default = disable).
+      source_attribute: risky-encryption
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id155
+        version_ranges: *id156
+        description: Enable/disable Risky Encryption detection .
+        source_attribute: risky_encryption
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: risky_encryption
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable Risky Encryption detection (default = disable).
+        default: disable
+        source_attribute: risky-encryption
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rts_flood:
+    canonical:
+      type: enum
+      version_ranges: &id158
+      - - v7.6.1
+        - ''
+      choices: &id157
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable rts flood detection (default = disable).
+      source_attribute: rts-flood
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id157
+        version_ranges: *id158
+        description: Enable/disable rts flood detection .
+        source_attribute: rts_flood
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rts_flood
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable rts flood detection (default = disable).
+        default: disable
+        source_attribute: rts-flood
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rts_flood_thresh:
+    canonical:
+      type: integer
+      version_ranges: &id159
+      - - v7.6.1
+        - ''
+      default: '30'
+      min: 1
+      max: 65100
+      description: The threshold value for rts flood.
+      source_attribute: rts-flood-thresh
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id159
+        description: The threshold value for rts flood.
+        source_attribute: rts_flood_thresh
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65100
+        source_attribute: rts_flood_thresh
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The threshold value for rts flood.
+        default: '30'
+        min: 1
+        max: 65100
+        source_attribute: rts-flood-thresh
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rts_flood_time:
+    canonical:
+      type: integer
+      version_ranges: &id160
+      - - v7.6.1
+        - ''
+      default: '10'
+      min: 1
+      max: 120
+      description: Detection Window Period.
+      source_attribute: rts-flood-time
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id160
+        description: Detection Window Period.
+        source_attribute: rts_flood_time
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 120
+        source_attribute: rts_flood_time
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Detection Window Period.
+        default: '10'
+        min: 1
+        max: 120
+        source_attribute: rts-flood-time
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sensor_mode:
+    canonical:
+      type: enum
+      version_ranges: &id162
+      - - v6.0.0
+        - ''
+      choices: &id161
+      - disable
+      - foreign
+      - both
+      default: disable
+      description: Scan nearby WiFi stations (default = disable).
+      source_attribute: sensor-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id161
+        version_ranges: *id162
+        description: Scan nearby WiFi stations .
+        source_attribute: sensor_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sensor_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Scan nearby WiFi stations (default = disable).
+        default: disable
+        source_attribute: sensor-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  spoofed_deauth:
+    canonical:
+      type: enum
+      version_ranges: &id164
+      - - v6.0.0
+        - ''
+      choices: &id163
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable spoofed de-authentication attack detection (default = disable).
+      source_attribute: spoofed-deauth
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id163
+        version_ranges: *id164
+        description: Enable/disable spoofed de-authentication attack detection .
+        source_attribute: spoofed_deauth
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: spoofed_deauth
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable spoofed de-authentication attack detection (default = disable).
+        default: disable
+        source_attribute: spoofed-deauth
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  unencrypted_valid:
+    canonical:
+      type: enum
+      version_ranges: &id166
+      - - v7.6.1
+        - ''
+      choices: &id165
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable unencrypted valid detection (default = disable).
+      source_attribute: unencrypted-valid
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id165
+        version_ranges: *id166
+        description: Enable/disable unencrypted valid detection .
+        source_attribute: unencrypted_valid
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: unencrypted_valid
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable unencrypted valid detection (default = disable).
+        default: disable
+        source_attribute: unencrypted-valid
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  valid_client_misassociation:
+    canonical:
+      type: enum
+      version_ranges: &id168
+      - - v7.6.1
+        - ''
+      choices: &id167
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable valid client misassociation detection (default = disable).
+      source_attribute: valid-client-misassociation
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id167
+        version_ranges: *id168
+        description: Enable/disable valid client misassociation detection .
+        source_attribute: valid_client_misassociation
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: valid_client_misassociation
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable valid client misassociation detection (default = disable).
+        default: disable
+        source_attribute: valid-client-misassociation
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  valid_ssid_misuse:
+    canonical:
+      type: enum
+      version_ranges: &id170
+      - - v7.6.1
+        - ''
+      choices: &id169
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable valid SSID misuse detection (default = disable).
+      source_attribute: valid-ssid-misuse
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id169
+        version_ranges: *id170
+        description: Enable/disable valid SSID misuse detection .
+        source_attribute: valid_ssid_misuse
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: valid_ssid_misuse
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable valid SSID misuse detection (default = disable).
+        default: disable
+        source_attribute: valid-ssid-misuse
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  weak_wep_iv:
+    canonical:
+      type: enum
+      version_ranges: &id172
+      - - v6.0.0
+        - ''
+      choices: &id171
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable weak WEP IV (Initialization Vector) detection (default = disable).
+      source_attribute: weak-wep-iv
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id171
+        version_ranges: *id172
+        description: Enable/disable weak WEP IV (Initialization Vector) detection .
+        source_attribute: weak_wep_iv
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: weak_wep_iv
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable weak WEP IV (Initialization Vector) detection (default = disable).
+        default: disable
+        source_attribute: weak-wep-iv
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  wellenreiter:
+    canonical:
+      type: enum
+      version_ranges: &id174
+      - - v7.6.1
+        - ''
+      choices: &id173
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable wellenreiter detection (default = disable).
+      source_attribute: wellenreiter
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id173
+        version_ranges: *id174
+        description: Enable/disable wellenreiter detection .
+        source_attribute: wellenreiter
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: wellenreiter
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable wellenreiter detection (default = disable).
+        default: disable
+        source_attribute: wellenreiter
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  wellenreiter_thresh:
+    canonical:
+      type: integer
+      version_ranges: &id175
+      - - v7.6.1
+        - ''
+      default: '5'
+      min: 1
+      max: 65100
+      description: The threshold value for wellenreiter.
+      source_attribute: wellenreiter-thresh
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id175
+        description: The threshold value for wellenreiter.
+        source_attribute: wellenreiter_thresh
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65100
+        source_attribute: wellenreiter_thresh
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The threshold value for wellenreiter.
+        default: '5'
+        min: 1
+        max: 65100
+        source_attribute: wellenreiter-thresh
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  wellenreiter_time:
+    canonical:
+      type: integer
+      version_ranges: &id176
+      - - v7.6.1
+        - ''
+      default: '30'
+      min: 1
+      max: 120
+      description: Detection Window Period.
+      source_attribute: wellenreiter-time
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id176
+        description: Detection Window Period.
+        source_attribute: wellenreiter_time
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 120
+        source_attribute: wellenreiter_time
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Detection Window Period.
+        default: '30'
+        min: 1
+        max: 120
+        source_attribute: wellenreiter-time
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  windows_bridge:
+    canonical:
+      type: enum
+      version_ranges: &id178
+      - - v7.6.1
+        - ''
+      choices: &id177
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable windows bridge detection (default = disable).
+      source_attribute: windows-bridge
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id177
+        version_ranges: *id178
+        description: Enable/disable windows bridge detection .
+        source_attribute: windows_bridge
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: windows_bridge
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable windows bridge detection (default = disable).
+        default: disable
+        source_attribute: windows-bridge
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  wireless_bridge:
+    canonical:
+      type: enum
+      version_ranges: &id180
+      - - v6.0.0
+        - ''
+      choices: &id179
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable wireless bridge detection (default = disable).
+      source_attribute: wireless-bridge
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id179
+        version_ranges: *id180
+        description: Enable/disable wireless bridge detection .
+        source_attribute: wireless_bridge
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: wireless_bridge
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable wireless bridge detection (default = disable).
+        default: disable
+        source_attribute: wireless-bridge
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  wpa_ft_attack:
+    canonical:
+      type: enum
+      version_ranges: &id182
+      - - v7.6.1
+        - ''
+      choices: &id181
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable WPA FT attack detection (default = disable).
+      source_attribute: wpa-ft-attack
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id181
+        version_ranges: *id182
+        description: Enable/disable WPA FT attack detection .
+        source_attribute: wpa_ft_attack
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: wpa_ft_attack
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable WPA FT attack detection (default = disable).
+        default: disable
+        source_attribute: wpa-ft-attack
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: ap_bgscan_disable_schedules
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: ap_scan_channel_list_2G_5G
+  field: type
+  values:
+    ansible: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: ap_scan_channel_list_6G
+  field: type
+  values:
+    ansible: list
+    cli_reference: string
+  classification: representation_or_real_conflict

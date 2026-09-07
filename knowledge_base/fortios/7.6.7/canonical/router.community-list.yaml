@@ -1,0 +1,390 @@
+id: router.community-list
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Community list name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id001
+        description: Community list name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Community list name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rule:
+    canonical:
+      type: list
+      elements: dict
+      children: &id003
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id006
+          - - v6.0.0
+            - ''
+          description: ID. see <a href='#notes'>Notes</a>.
+        action:
+          type: enum
+          raw_type: string
+          choices: &id005
+          - deny
+          - permit
+          version_ranges: &id004
+          - - v6.0.0
+            - ''
+          description: Permit or deny route-based operations, based on the route"s COMMUNITY attribute.
+        regexp:
+          type: string
+          raw_type: string
+          version_ranges: &id008
+          - - v6.0.0
+            - ''
+          description: Ordered list of COMMUNITY attributes as a regular expression.
+        match:
+          type: string
+          raw_type: string
+          version_ranges: &id007
+          - - v6.0.0
+            - ''
+          description: Community specifications for matching a reserved community.
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      description: Community list rule.
+      source_attribute: rule
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id002
+        description: Community list rule.
+        children: *id003
+        source_attribute: rule
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          action:
+            type: string
+            raw_type: TypeString
+            optional: true
+          regexp:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+            min_length: 0
+            max_length: 255
+          match:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 255
+        source_attribute: rule
+    sources:
+    - ansible
+    - terraform
+  rule.action:
+    canonical:
+      type: enum
+      version_ranges: *id004
+      choices: *id005
+      description: Permit or deny route-based operations, based on the route"s COMMUNITY attribute.
+      source_attribute: rule.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id004
+        description: Permit or deny route-based operations, based on the route"s COMMUNITY attribute.
+        source_attribute: rule.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: rule.action
+    sources:
+    - ansible
+    - terraform
+  rule.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id006
+      description: ID. see <a href='#notes'>Notes</a>.
+      source_attribute: rule.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id006
+        description: ID. see <a href='#notes'>Notes</a>.
+        source_attribute: rule.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: rule.id
+    sources:
+    - ansible
+    - terraform
+  rule.match:
+    canonical:
+      type: string
+      version_ranges: *id007
+      min_length: 0
+      max_length: 255
+      description: Community specifications for matching a reserved community.
+      source_attribute: rule.match
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: Community specifications for matching a reserved community.
+        source_attribute: rule.match
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: rule.match
+    sources:
+    - ansible
+    - terraform
+  rule.regexp:
+    canonical:
+      type: string
+      version_ranges: *id008
+      min_length: 0
+      max_length: 255
+      description: Ordered list of COMMUNITY attributes as a regular expression.
+      source_attribute: rule.regexp
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: Ordered list of COMMUNITY attributes as a regular expression.
+        source_attribute: rule.regexp
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 255
+        source_attribute: rule.regexp
+    sources:
+    - ansible
+    - terraform
+  type:
+    canonical:
+      type: enum
+      required: true
+      version_ranges: &id010
+      - - v6.0.0
+        - ''
+      choices: &id009
+      - standard
+      - expanded
+      default: standard
+      description: Community list type (standard or expanded).
+      source_attribute: type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id010
+        description: Community list type (standard or expanded).
+        source_attribute: type
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Community list type (standard or expanded).
+        default: standard
+        source_attribute: type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

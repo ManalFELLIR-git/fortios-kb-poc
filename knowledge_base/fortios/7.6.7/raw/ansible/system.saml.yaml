@@ -1,0 +1,241 @@
+id: system.saml
+version: 7.6.7
+source_object: fortios_system_saml
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_system_saml.py
+root_type: object
+attributes:
+  status:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: Enable/disable SAML authentication .
+  role:
+    type: enum
+    raw_type: string
+    choices:
+    - identity-provider
+    - service-provider
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: SAML role.
+  default_login_page:
+    type: enum
+    raw_type: string
+    choices:
+    - normal
+    - sso
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: Choose default login page.
+  default_profile:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: Default profile for new SSO admin. Source system.accprofile.name.
+    references:
+    - system.accprofile.name
+  cert:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: Certificate to sign SAML messages. Source certificate.local.name.
+    references:
+    - certificate.local.name
+  binding_protocol:
+    type: enum
+    raw_type: string
+    choices:
+    - post
+    - redirect
+    version_ranges:
+    - - v6.2.3
+      - v6.2.3
+    - - v7.0.0
+      - ''
+    description: IdP Binding protocol.
+  entity_id:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.2.0
+      - v7.0.5
+    - - v7.2.0
+      - v7.2.0
+    - - v7.4.1
+      - ''
+    description: SP entity ID.
+  idp_entity_id:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: IDP entity ID.
+  idp_single_sign_on_url:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: IDP single sign-on URL.
+  idp_single_logout_url:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: IDP single logout URL.
+  idp_cert:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: IDP certificate name. Source certificate.remote.name.
+    references:
+    - certificate.remote.name
+  server_address:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: Server address.
+  require_signed_resp_and_asrt:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v7.6.5
+      - ''
+    description: Require both response and assertion from IDP to be signed when FGT acts as SP .
+  tolerance:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: Tolerance to the range of time when the assertion is valid (in minutes).
+  life:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: Length of the range of time when the assertion is valid (in minutes).
+  service_providers:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: Authorized service providers.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: Name.
+      prefix:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: Prefix.
+      sp_binding_protocol:
+        type: enum
+        raw_type: string
+        choices:
+        - post
+        - redirect
+        version_ranges:
+        - - v6.2.3
+          - v6.2.3
+        - - v7.0.0
+          - ''
+        description: SP binding protocol.
+      sp_cert:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: SP certificate name. Source certificate.remote.name.
+        references:
+        - certificate.remote.name
+      sp_entity_id:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: SP entity ID.
+      sp_single_sign_on_url:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: SP single sign-on URL.
+      sp_single_logout_url:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: SP single logout URL.
+      sp_portal_url:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: SP portal URL.
+      assertion_attributes:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.2.0
+          - ''
+        description: Customized SAML attributes to send along with assertion.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.2.0
+              - ''
+            description: Name.
+          type:
+            type: enum
+            raw_type: string
+            choices:
+            - username
+            - email
+            - profile-name
+            version_ranges:
+            - - v6.2.0
+              - ''
+            description: Type.

@@ -1,0 +1,334 @@
+id: wanopt.auth-group
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  auth_method:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - cert
+      - psk
+      default: cert
+      description: Select certificate or pre-shared key authentication for this authentication group.
+      source_attribute: auth-method
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Select certificate or pre-shared key authentication for this authentication group.
+        source_attribute: auth_method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auth_method
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Select certificate or pre-shared key authentication for this authentication group.
+        default: cert
+        source_attribute: auth-method
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cert:
+    canonical:
+      type: string
+      references: &id004
+      - vpn.certificate.local.name
+      required: true
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Name of certificate to identify this peer.
+      source_attribute: cert
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Name of certificate to identify this peer. Source vpn.certificate.local.name.
+        references: *id004
+        source_attribute: cert
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 35
+        source_attribute: cert
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of certificate to identify this peer.
+        max_length: 35
+        source_attribute: cert
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Auth-group name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id005
+        description: Auth-group name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Auth-group name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  peer:
+    canonical:
+      type: string
+      references: &id007
+      - wanopt.peer.peer-host-id
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: If peer-accept is set to one, select the name of one peer to add to this authentication group. The peer
+        must have added with the wanopt peer command.
+      source_attribute: peer
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id006
+        description: If peer-accept is set to one, select the name of one peer to add to this authentication group. The peer
+          must have added with the wanopt peer command. Source wanopt.peer.peer-host-id.
+        references: *id007
+        source_attribute: peer
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: peer
+      cli_reference:
+        type: string
+        raw_type: string
+        description: If peer-accept is set to one, select the name of one peer to add to this authentication group. The peer
+          must have added with the wanopt peer command.
+        max_length: 35
+        source_attribute: peer
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  peer_accept:
+    canonical:
+      type: enum
+      version_ranges: &id009
+      - - v6.0.0
+        - ''
+      choices: &id008
+      - any
+      - defined
+      - one
+      default: any
+      description: Determine if this auth group accepts, any peer, a list of defined peers, or just one peer.
+      source_attribute: peer-accept
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id008
+        version_ranges: *id009
+        description: Determine if this auth group accepts, any peer, a list of defined peers, or just one peer.
+        source_attribute: peer_accept
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: peer_accept
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Determine if this auth group accepts, any peer, a list of defined peers, or just one peer.
+        default: any
+        source_attribute: peer-accept
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  psk:
+    canonical:
+      type: password
+      version_ranges: &id010
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: Pre-shared key used by the peers in this authentication group.
+      source_attribute: psk
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id010
+        description: Pre-shared key used by the peers in this authentication group.
+        source_attribute: psk
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: psk
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Pre-shared key used by the peers in this authentication group.
+        source_attribute: psk
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id011
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id011
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: psk
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict

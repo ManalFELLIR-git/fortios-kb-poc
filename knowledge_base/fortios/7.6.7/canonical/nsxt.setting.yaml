@@ -1,0 +1,85 @@
+id: nsxt.setting
+version: 7.6.7
+source_presence:
+  ansible: false
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  liveness:
+    canonical:
+      type: enum
+      default: disable
+      description: Enable/disable liveness detection packet forwarding.
+      source_attribute: liveness
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: liveness
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable liveness detection packet forwarding.
+        default: disable
+        source_attribute: liveness
+    sources:
+    - cli_reference
+    - terraform
+  service:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 63
+      description: Service name.
+      source_attribute: service
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: service
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Service name.
+        max_length: 63
+        source_attribute: service
+    sources:
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

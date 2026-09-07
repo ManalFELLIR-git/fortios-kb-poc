@@ -1,0 +1,144 @@
+id: ips.global
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/146663270/config-ips-global
+attributes:
+  anomaly-mode:
+    type: enum
+    raw_type: option
+    description: Global blocking mode for rate-based anomalies.
+    default: continuous
+  av-mem-limit:
+    type: integer
+    raw_type: integer
+    description: Maximum percentage of system memory allowed for use on AV scanning (10 - 50, default = zero). To disable
+      set to zero. When disabled, there is no limit on the AV memory usage.
+    default: '0'
+    min: 10
+    max: 50
+  cp-accel-mode:
+    type: enum
+    raw_type: option
+    description: IPS Pattern matching acceleration/offloading to CPx processors.
+    default: advanced **
+  database:
+    type: enum
+    raw_type: option
+    description: Regular or extended IPS database. Regular protects against the latest common and in-the-wild attacks. Extended
+      includes protection from legacy attacks.
+    default: extended **
+  deep-app-insp-db-limit:
+    type: integer
+    raw_type: integer
+    description: Limit on number of entries in deep application inspection database (1 - 2147483647, use recommended setting
+      = 0).
+    default: '0'
+    min: 0
+    max: 2147483647
+  deep-app-insp-timeout:
+    type: integer
+    raw_type: integer
+    description: Timeout for Deep application inspection (1 - 2147483647 sec., 0 = use recommended setting).
+    default: '0'
+    min: 0
+    max: 2147483647
+  engine-count:
+    type: integer
+    raw_type: integer
+    description: Number of IPS engines running. If set to the default value of 0, FortiOS sets the number to optimize performance
+      depending on the number of CPU cores.
+    default: '0'
+    min: 0
+    max: 255
+  exclude-signatures:
+    type: enum
+    raw_type: option
+    description: Excluded signatures.
+    default: ot
+  fail-open:
+    type: enum
+    raw_type: option
+    description: Enable to allow traffic if the IPS buffer is full. Default is disable and IPS traffic is blocked when the
+      IPS buffer is full.
+    default: disable
+  ips-reserve-cpu:
+    type: enum
+    raw_type: option
+    description: Enable/disable IPS daemon's use of CPUs other than CPU 0.
+    default: disable
+  machine-learning-detection:
+    type: enum
+    raw_type: option
+    description: Enable/disable machine learning detection.
+    default: enable
+  ngfw-max-scan-range:
+    type: integer
+    raw_type: integer
+    description: NGFW policy-mode app detection threshold.
+    default: '4096'
+    min: 0
+    max: 4294967295
+  np-accel-mode:
+    type: enum
+    raw_type: option
+    description: Acceleration mode for IPS processing by NPx processors.
+    default: basic
+  packet-log-queue-depth:
+    type: integer
+    raw_type: integer
+    description: Packet/pcap log queue depth per IPS engine.
+    default: '128'
+    min: 128
+    max: 4096
+  session-limit-mode:
+    type: enum
+    raw_type: option
+    description: Method of counting concurrent sessions used by session limit anomalies. Choose between greater accuracy (accurate)
+      or improved performance (heuristics).
+    default: heuristic
+  socket-size:
+    type: integer
+    raw_type: integer
+    description: IPS socket buffer size. Max and default value depend on available memory. Can be changed to tune performance.
+    default: 128 **
+    min: 0
+    max: 256
+  sync-session-ttl:
+    type: enum
+    raw_type: option
+    description: Enable/disable use of kernel session TTL for IPS sessions.
+    default: enable
+  traffic-submit:
+    type: enum
+    raw_type: option
+    description: Enable/disable submitting attack data found by this FortiGate to FortiGuard.
+    default: disable
+children:
+  tls-active-probe:
+    attributes:
+      interface:
+        type: string
+        raw_type: string
+        description: Specify outgoing interface to reach server.
+        max_length: 15
+      interface-select-method:
+        type: enum
+        raw_type: option
+        description: Specify how to select outgoing interface to reach server.
+        default: auto
+      source-ip:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Source IP address used for TLS active probe.
+        default: 0.0.0.0
+      source-ip6:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: Source IPv6 address used for TLS active probe.
+        default: '::'
+      vdom:
+        type: string
+        raw_type: string
+        description: Virtual domain name for TLS active probe.
+        max_length: 31

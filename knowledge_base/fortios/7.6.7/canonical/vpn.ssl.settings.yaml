@@ -1,0 +1,4207 @@
+id: vpn.ssl.settings
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  algorithm:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - high
+      - medium
+      - default
+      - low
+      default: high
+      description: Force the Agentless VPN security level. High allows only high. Medium allows medium and high. Low allows
+        any.
+      source_attribute: algorithm
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Force the Agentless VPN security level. High allows only high. Medium allows medium and high. Low allows
+          any.
+        source_attribute: algorithm
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: algorithm
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Force the Agentless VPN security level. High allows only high. Medium allows medium and high. Low allows
+          any.
+        default: high
+        source_attribute: algorithm
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  auth_session_check_source_ip:
+    canonical:
+      type: enum
+      version_ranges: &id004
+      - - v6.2.0
+        - ''
+      choices: &id003
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable checking of source IP for authentication session.
+      source_attribute: auth-session-check-source-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: Enable/disable checking of source IP for authentication session.
+        source_attribute: auth_session_check_source_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auth_session_check_source_ip
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable checking of source IP for authentication session.
+        default: enable
+        source_attribute: auth-session-check-source-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  auth_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id005
+      - - v6.0.0
+        - ''
+      default: '28800'
+      min: 0
+      max: 259200
+      description: Agentless VPN authentication timeout (1 - 259200 sec (3 days), 0 for no timeout).
+      source_attribute: auth-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id005
+        description: Agentless VPN authentication timeout (1 - 259200 sec (3 days), 0 for no timeout).
+        source_attribute: auth_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 259200
+        source_attribute: auth_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Agentless VPN authentication timeout (1 - 259200 sec (3 days), 0 for no timeout).
+        default: '28800'
+        min: 0
+        max: 259200
+        source_attribute: auth-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  authentication_rule:
+    canonical:
+      type: list
+      elements: dict
+      children: &id007
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id019
+          - - v6.0.0
+            - ''
+          description: ID (0 - 4294967295). see <a href='#notes'>Notes</a>.
+        source_interface:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id039
+          - - v6.0.0
+            - ''
+          description: Agentless VPN source interface of incoming traffic.
+          children: &id038
+            name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id042
+              - - v6.0.0
+                - ''
+              description: Interface name. Source system.interface.name system.zone.name.
+              references: &id041
+              - system.interface.name
+              - system.zone.name
+        source_address:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id025
+          - - v6.0.0
+            - ''
+          description: Source address of incoming traffic.
+          children: &id024
+            name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id028
+              - - v6.0.0
+                - ''
+              description: Address name. Source firewall.address.name firewall.addrgrp.name system.external-resource.name.
+              references: &id027
+              - firewall.address.name
+              - firewall.addrgrp.name
+              - system.external-resource.name
+        source_address_negate:
+          type: enum
+          raw_type: string
+          choices: &id037
+          - enable
+          - disable
+          version_ranges: &id036
+          - - v6.0.0
+            - ''
+          description: Enable/disable negated source address match.
+        source_address6:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id030
+          - - v6.0.0
+            - ''
+          description: IPv6 source address of incoming traffic.
+          children: &id029
+            name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id033
+              - - v6.0.0
+                - ''
+              description: IPv6 address name. Source firewall.address6.name firewall.addrgrp6.name system.external-resource.name.
+              references: &id032
+              - firewall.address6.name
+              - firewall.addrgrp6.name
+              - system.external-resource.name
+        source_address6_negate:
+          type: enum
+          raw_type: string
+          choices: &id035
+          - enable
+          - disable
+          version_ranges: &id034
+          - - v6.0.0
+            - ''
+          description: Enable/disable negated source IPv6 address match.
+        users:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id046
+          - - v6.0.0
+            - ''
+          description: User name.
+          children: &id045
+            name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id049
+              - - v6.0.0
+                - ''
+              description: User name. Source user.local.name.
+              references: &id048
+              - user.local.name
+        groups:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id015
+          - - v6.0.0
+            - ''
+          description: User groups.
+          children: &id014
+            name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id018
+              - - v6.0.0
+                - ''
+              description: Group name. Source user.group.name.
+              references: &id017
+              - user.group.name
+        portal:
+          type: string
+          raw_type: string
+          version_ranges: &id021
+          - - v6.0.0
+            - ''
+          description: Agentless VPN portal. Source vpn.ssl.web.portal.name.
+          references: &id020
+          - vpn.ssl.web.portal.name
+        realm:
+          type: string
+          raw_type: string
+          version_ranges: &id023
+          - - v6.0.0
+            - ''
+          description: Agentless VPN realm. Source vpn.ssl.web.realm.url-path.
+          references: &id022
+          - vpn.ssl.web.realm.url-path
+        client_cert:
+          type: enum
+          raw_type: string
+          choices: &id013
+          - enable
+          - disable
+          version_ranges: &id012
+          - - v6.0.0
+            - ''
+          description: Enable/disable Agentless VPN client certificate restrictive.
+        user_peer:
+          type: string
+          raw_type: string
+          version_ranges: &id044
+          - - v6.2.0
+            - ''
+          description: Name of user peer. Source user.peer.name.
+          references: &id043
+          - user.peer.name
+        cipher:
+          type: enum
+          raw_type: string
+          choices: &id011
+          - any
+          - high
+          - medium
+          version_ranges: &id010
+          - - v6.0.0
+            - ''
+          description: Agentless VPN cipher strength.
+        auth:
+          type: enum
+          raw_type: string
+          choices: &id009
+          - any
+          - local
+          - radius
+          - tacacs+
+          - ldap
+          - peer
+          version_ranges: &id008
+          - - v6.0.0
+            - ''
+          description: Agentless VPN authentication method restriction.
+      version_ranges: &id006
+      - - v6.0.0
+        - ''
+      description: Authentication rule for Agentless VPN.
+      source_attribute: authentication_rule
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id006
+        description: Authentication rule for Agentless VPN.
+        children: *id007
+        source_attribute: authentication_rule
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          source_interface:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id040
+              name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 35
+          source_address:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id026
+              name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+          source_address_negate:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          source_address6:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id031
+              name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+          source_address6_negate:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          users:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id047
+              name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+          groups:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id016
+              name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+          portal:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          realm:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          client_cert:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          user_peer:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          cipher:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          auth:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: authentication_rule
+    sources:
+    - ansible
+    - terraform
+  authentication_rule.auth:
+    canonical:
+      type: enum
+      version_ranges: *id008
+      choices: *id009
+      description: Agentless VPN authentication method restriction.
+      source_attribute: authentication_rule.auth
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id008
+        description: Agentless VPN authentication method restriction.
+        source_attribute: authentication_rule.auth
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: authentication_rule.auth
+    sources:
+    - ansible
+    - terraform
+  authentication_rule.cipher:
+    canonical:
+      type: enum
+      version_ranges: *id010
+      choices: *id011
+      description: Agentless VPN cipher strength.
+      source_attribute: authentication_rule.cipher
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id011
+        version_ranges: *id010
+        description: Agentless VPN cipher strength.
+        source_attribute: authentication_rule.cipher
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: authentication_rule.cipher
+    sources:
+    - ansible
+    - terraform
+  authentication_rule.client_cert:
+    canonical:
+      type: enum
+      version_ranges: *id012
+      choices: *id013
+      description: Enable/disable Agentless VPN client certificate restrictive.
+      source_attribute: authentication_rule.client_cert
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id013
+        version_ranges: *id012
+        description: Enable/disable Agentless VPN client certificate restrictive.
+        source_attribute: authentication_rule.client_cert
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: authentication_rule.client_cert
+    sources:
+    - ansible
+    - terraform
+  authentication_rule.groups:
+    canonical:
+      type: list
+      elements: dict
+      children: *id014
+      version_ranges: *id015
+      description: User groups.
+      source_attribute: authentication_rule.groups
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id015
+        description: User groups.
+        children: *id014
+        source_attribute: authentication_rule.groups
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id016
+        source_attribute: authentication_rule.groups
+    sources:
+    - ansible
+    - terraform
+  authentication_rule.groups.name:
+    canonical:
+      type: string
+      references: *id017
+      required: true
+      version_ranges: *id018
+      min_length: 0
+      max_length: 79
+      description: Group name. Source user.group.name.
+      source_attribute: authentication_rule.groups.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id018
+        description: Group name. Source user.group.name.
+        references: *id017
+        source_attribute: authentication_rule.groups.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: authentication_rule.groups.name
+    sources:
+    - ansible
+    - terraform
+  authentication_rule.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id019
+      description: ID (0 - 4294967295). see <a href='#notes'>Notes</a>.
+      source_attribute: authentication_rule.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id019
+        description: ID (0 - 4294967295). see <a href='#notes'>Notes</a>.
+        source_attribute: authentication_rule.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: authentication_rule.id
+    sources:
+    - ansible
+    - terraform
+  authentication_rule.portal:
+    canonical:
+      type: string
+      references: *id020
+      version_ranges: *id021
+      min_length: 0
+      max_length: 35
+      description: Agentless VPN portal. Source vpn.ssl.web.portal.name.
+      source_attribute: authentication_rule.portal
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id021
+        description: Agentless VPN portal. Source vpn.ssl.web.portal.name.
+        references: *id020
+        source_attribute: authentication_rule.portal
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: authentication_rule.portal
+    sources:
+    - ansible
+    - terraform
+  authentication_rule.realm:
+    canonical:
+      type: string
+      references: *id022
+      version_ranges: *id023
+      min_length: 0
+      max_length: 35
+      description: Agentless VPN realm. Source vpn.ssl.web.realm.url-path.
+      source_attribute: authentication_rule.realm
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id023
+        description: Agentless VPN realm. Source vpn.ssl.web.realm.url-path.
+        references: *id022
+        source_attribute: authentication_rule.realm
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: authentication_rule.realm
+    sources:
+    - ansible
+    - terraform
+  authentication_rule.source_address:
+    canonical:
+      type: list
+      elements: dict
+      children: *id024
+      version_ranges: *id025
+      description: Source address of incoming traffic.
+      source_attribute: authentication_rule.source_address
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id025
+        description: Source address of incoming traffic.
+        children: *id024
+        source_attribute: authentication_rule.source_address
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id026
+        source_attribute: authentication_rule.source_address
+    sources:
+    - ansible
+    - terraform
+  authentication_rule.source_address.name:
+    canonical:
+      type: string
+      references: *id027
+      required: true
+      version_ranges: *id028
+      min_length: 0
+      max_length: 79
+      description: Address name. Source firewall.address.name firewall.addrgrp.name system.external-resource.name.
+      source_attribute: authentication_rule.source_address.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id028
+        description: Address name. Source firewall.address.name firewall.addrgrp.name system.external-resource.name.
+        references: *id027
+        source_attribute: authentication_rule.source_address.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: authentication_rule.source_address.name
+    sources:
+    - ansible
+    - terraform
+  authentication_rule.source_address6:
+    canonical:
+      type: list
+      elements: dict
+      children: *id029
+      version_ranges: *id030
+      description: IPv6 source address of incoming traffic.
+      source_attribute: authentication_rule.source_address6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id030
+        description: IPv6 source address of incoming traffic.
+        children: *id029
+        source_attribute: authentication_rule.source_address6
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id031
+        source_attribute: authentication_rule.source_address6
+    sources:
+    - ansible
+    - terraform
+  authentication_rule.source_address6.name:
+    canonical:
+      type: string
+      references: *id032
+      required: true
+      version_ranges: *id033
+      min_length: 0
+      max_length: 79
+      description: IPv6 address name. Source firewall.address6.name firewall.addrgrp6.name system.external-resource.name.
+      source_attribute: authentication_rule.source_address6.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id033
+        description: IPv6 address name. Source firewall.address6.name firewall.addrgrp6.name system.external-resource.name.
+        references: *id032
+        source_attribute: authentication_rule.source_address6.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: authentication_rule.source_address6.name
+    sources:
+    - ansible
+    - terraform
+  authentication_rule.source_address6_negate:
+    canonical:
+      type: enum
+      version_ranges: *id034
+      choices: *id035
+      description: Enable/disable negated source IPv6 address match.
+      source_attribute: authentication_rule.source_address6_negate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id035
+        version_ranges: *id034
+        description: Enable/disable negated source IPv6 address match.
+        source_attribute: authentication_rule.source_address6_negate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: authentication_rule.source_address6_negate
+    sources:
+    - ansible
+    - terraform
+  authentication_rule.source_address_negate:
+    canonical:
+      type: enum
+      version_ranges: *id036
+      choices: *id037
+      description: Enable/disable negated source address match.
+      source_attribute: authentication_rule.source_address_negate
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id037
+        version_ranges: *id036
+        description: Enable/disable negated source address match.
+        source_attribute: authentication_rule.source_address_negate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: authentication_rule.source_address_negate
+    sources:
+    - ansible
+    - terraform
+  authentication_rule.source_interface:
+    canonical:
+      type: list
+      elements: dict
+      children: *id038
+      version_ranges: *id039
+      description: Agentless VPN source interface of incoming traffic.
+      source_attribute: authentication_rule.source_interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id039
+        description: Agentless VPN source interface of incoming traffic.
+        children: *id038
+        source_attribute: authentication_rule.source_interface
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id040
+        source_attribute: authentication_rule.source_interface
+    sources:
+    - ansible
+    - terraform
+  authentication_rule.source_interface.name:
+    canonical:
+      type: string
+      references: *id041
+      required: true
+      version_ranges: *id042
+      min_length: 0
+      max_length: 35
+      description: Interface name. Source system.interface.name system.zone.name.
+      source_attribute: authentication_rule.source_interface.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id042
+        description: Interface name. Source system.interface.name system.zone.name.
+        references: *id041
+        source_attribute: authentication_rule.source_interface.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: authentication_rule.source_interface.name
+    sources:
+    - ansible
+    - terraform
+  authentication_rule.user_peer:
+    canonical:
+      type: string
+      references: *id043
+      version_ranges: *id044
+      min_length: 0
+      max_length: 35
+      description: Name of user peer. Source user.peer.name.
+      source_attribute: authentication_rule.user_peer
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id044
+        description: Name of user peer. Source user.peer.name.
+        references: *id043
+        source_attribute: authentication_rule.user_peer
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: authentication_rule.user_peer
+    sources:
+    - ansible
+    - terraform
+  authentication_rule.users:
+    canonical:
+      type: list
+      elements: dict
+      children: *id045
+      version_ranges: *id046
+      description: User name.
+      source_attribute: authentication_rule.users
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id046
+        description: User name.
+        children: *id045
+        source_attribute: authentication_rule.users
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id047
+        source_attribute: authentication_rule.users
+    sources:
+    - ansible
+    - terraform
+  authentication_rule.users.name:
+    canonical:
+      type: string
+      references: *id048
+      required: true
+      version_ranges: *id049
+      min_length: 0
+      max_length: 79
+      description: User name. Source user.local.name.
+      source_attribute: authentication_rule.users.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id049
+        description: User name. Source user.local.name.
+        references: *id048
+        source_attribute: authentication_rule.users.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: authentication_rule.users.name
+    sources:
+    - ansible
+    - terraform
+  auto_tunnel_static_route:
+    canonical:
+      type: string
+      source_attribute: auto_tunnel_static_route
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auto_tunnel_static_route
+    sources:
+    - terraform
+  banned_cipher:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id051
+      - - v6.0.0
+        - ''
+      choices: &id050
+      - RSA
+      - DHE
+      - ECDHE
+      - DSS
+      - ECDSA
+      - AES
+      - AESGCM
+      - CAMELLIA
+      - 3DES
+      - SHA1
+      - SHA256
+      - SHA384
+      - STATIC
+      - CHACHA20
+      - ARIA
+      - AESCCM
+      default: SHA1 SHA256 SHA384
+      description: Select one or more cipher technologies that cannot be used in Agentless VPN negotiations. Only applies
+        to TLS 1.2 and below.
+      source_attribute: banned-cipher
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id050
+        multiple_values: true
+        elements: str
+        version_ranges: *id051
+        description: Select one or more cipher technologies that cannot be used in Agentless VPN negotiations. Only applies
+          to TLS 1.2 and below.
+        source_attribute: banned_cipher
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: banned_cipher
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Select one or more cipher technologies that cannot be used in Agentless VPN negotiations. Only applies
+          to TLS 1.2 and below.
+        default: SHA1 SHA256 SHA384
+        source_attribute: banned-cipher
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  browser_language_detection:
+    canonical:
+      type: enum
+      version_ranges: &id053
+      - - v7.2.0
+        - ''
+      choices: &id052
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable overriding the configured system language based on the preferred language of the browser.
+      source_attribute: browser-language-detection
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id052
+        version_ranges: *id053
+        description: Enable/disable overriding the configured system language based on the preferred language of the browser.
+        source_attribute: browser_language_detection
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: browser_language_detection
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable overriding the configured system language based on the preferred language of the browser.
+        default: enable
+        source_attribute: browser-language-detection
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  check_referer:
+    canonical:
+      type: enum
+      version_ranges: &id055
+      - - v6.0.0
+        - ''
+      choices: &id054
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable verification of referer field in HTTP request header.
+      source_attribute: check-referer
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id054
+        version_ranges: *id055
+        description: Enable/disable verification of referer field in HTTP request header.
+        source_attribute: check_referer
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: check_referer
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable verification of referer field in HTTP request header.
+        default: disable
+        source_attribute: check-referer
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ciphersuite:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id057
+      - - v7.0.0
+        - ''
+      choices: &id056
+      - TLS-AES-128-GCM-SHA256
+      - TLS-AES-256-GCM-SHA384
+      - TLS-CHACHA20-POLY1305-SHA256
+      - TLS-AES-128-CCM-SHA256
+      - TLS-AES-128-CCM-8-SHA256
+      default: TLS-AES-128-GCM-SHA256 TLS-AES-256-GCM-SHA384 TLS-CHACHA20-POLY1305-SHA256
+      description: Select one or more TLS 1.3 ciphersuites to enable. Does not affect ciphers in TLS 1.2 and below. At least
+        one must be enabled. To disable all, set ssl-max-proto-ver to tls1-2 or below.
+      source_attribute: ciphersuite
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id056
+        multiple_values: true
+        elements: str
+        version_ranges: *id057
+        description: Select one or more TLS 1.3 ciphersuites to enable. Does not affect ciphers in TLS 1.2 and below. At least
+          one must be enabled. To disable all, set ssl-max-proto-ver to tls1-2 or below.
+        source_attribute: ciphersuite
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ciphersuite
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Select one or more TLS 1.3 ciphersuites to enable. Does not affect ciphers in TLS 1.2 and below. At least
+          one must be enabled. To disable all, set ssl-max-proto-ver to tls1-2 or below.
+        default: TLS-AES-128-GCM-SHA256 TLS-AES-256-GCM-SHA384 TLS-CHACHA20-POLY1305-SHA256
+        source_attribute: ciphersuite
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  client_sigalgs:
+    canonical:
+      type: enum
+      version_ranges: &id059
+      - - v6.4.4
+        - ''
+      choices: &id058
+      - no-rsa-pss
+      - all
+      default: all
+      description: Set signature algorithms related to client authentication. Affects TLS version <= 1.2 only.
+      source_attribute: client-sigalgs
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id058
+        version_ranges: *id059
+        description: Set signature algorithms related to client authentication. Affects TLS version <= 1.2 only.
+        source_attribute: client_sigalgs
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: client_sigalgs
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Set signature algorithms related to client authentication. Affects TLS version <= 1.2 only.
+        default: all
+        source_attribute: client-sigalgs
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  default_portal:
+    canonical:
+      type: string
+      references: &id061
+      - vpn.ssl.web.portal.name
+      version_ranges: &id060
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Default Agentless VPN portal.
+      source_attribute: default-portal
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id060
+        description: Default Agentless VPN portal. Source vpn.ssl.web.portal.name.
+        references: *id061
+        source_attribute: default_portal
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: default_portal
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Default Agentless VPN portal.
+        max_length: 35
+        source_attribute: default-portal
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  deflate_compression_level:
+    canonical:
+      type: integer
+      version_ranges: &id062
+      - - v6.0.0
+        - ''
+      default: '6'
+      min: 0
+      max: 9
+      description: Compression level (0~9).
+      source_attribute: deflate-compression-level
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id062
+        description: Compression level (0~9).
+        source_attribute: deflate_compression_level
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 9
+        source_attribute: deflate_compression_level
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Compression level (0~9).
+        default: '6'
+        min: 0
+        max: 9
+        source_attribute: deflate-compression-level
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  deflate_min_data_size:
+    canonical:
+      type: integer
+      version_ranges: &id063
+      - - v6.0.0
+        - ''
+      default: '300'
+      min: 200
+      max: 65535
+      description: Minimum amount of data that triggers compression (200 - 65535 bytes).
+      source_attribute: deflate-min-data-size
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id063
+        description: Minimum amount of data that triggers compression (200 - 65535 bytes).
+        source_attribute: deflate_min_data_size
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 200
+        max: 65535
+        source_attribute: deflate_min_data_size
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Minimum amount of data that triggers compression (200 - 65535 bytes).
+        default: '300'
+        min: 200
+        max: 65535
+        source_attribute: deflate-min-data-size
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dns_server1:
+    canonical:
+      type: string
+      source_attribute: dns_server1
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dns_server1
+    sources:
+    - terraform
+  dns_server2:
+    canonical:
+      type: string
+      source_attribute: dns_server2
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dns_server2
+    sources:
+    - terraform
+  dns_suffix:
+    canonical:
+      type: string
+      version_ranges: &id064
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 253
+      description: DNS suffix used for Agentless VPN clients.
+      source_attribute: dns-suffix
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id064
+        description: DNS suffix used for Agentless VPN clients.
+        source_attribute: dns_suffix
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 253
+        source_attribute: dns_suffix
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: DNS suffix used for Agentless VPN clients.
+        max_length: 253
+        source_attribute: dns-suffix
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dtls_heartbeat_fail_count:
+    canonical:
+      type: integer
+      version_ranges: &id065
+      - - v7.4.0
+        - ''
+      default: '3'
+      min: 3
+      max: 10
+      description: Number of missing heartbeats before the connection is considered dropped.
+      source_attribute: dtls-heartbeat-fail-count
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id065
+        description: Number of missing heartbeats before the connection is considered dropped.
+        source_attribute: dtls_heartbeat_fail_count
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 3
+        max: 10
+        source_attribute: dtls_heartbeat_fail_count
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Number of missing heartbeats before the connection is considered dropped.
+        default: '3'
+        min: 3
+        max: 10
+        source_attribute: dtls-heartbeat-fail-count
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dtls_heartbeat_idle_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id066
+      - - v7.4.0
+        - ''
+      default: '3'
+      min: 3
+      max: 10
+      description: Idle timeout before DTLS heartbeat is sent.
+      source_attribute: dtls-heartbeat-idle-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id066
+        description: Idle timeout before DTLS heartbeat is sent.
+        source_attribute: dtls_heartbeat_idle_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 3
+        max: 10
+        source_attribute: dtls_heartbeat_idle_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Idle timeout before DTLS heartbeat is sent.
+        default: '3'
+        min: 3
+        max: 10
+        source_attribute: dtls-heartbeat-idle-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dtls_heartbeat_interval:
+    canonical:
+      type: integer
+      version_ranges: &id067
+      - - v7.4.0
+        - ''
+      default: '3'
+      min: 3
+      max: 10
+      description: Interval between DTLS heartbeat.
+      source_attribute: dtls-heartbeat-interval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id067
+        description: Interval between DTLS heartbeat.
+        source_attribute: dtls_heartbeat_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 3
+        max: 10
+        source_attribute: dtls_heartbeat_interval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Interval between DTLS heartbeat.
+        default: '3'
+        min: 3
+        max: 10
+        source_attribute: dtls-heartbeat-interval
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dtls_hello_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id068
+      - - v6.0.0
+        - ''
+      default: '10'
+      min: 10
+      max: 60
+      description: SSLVPN maximum DTLS hello timeout (10 - 60 sec, default = 10).
+      source_attribute: dtls-hello-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id068
+        description: SSLVPN maximum DTLS hello timeout (10 - 60 sec).
+        source_attribute: dtls_hello_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 10
+        max: 60
+        source_attribute: dtls_hello_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: SSLVPN maximum DTLS hello timeout (10 - 60 sec, default = 10).
+        default: '10'
+        min: 10
+        max: 60
+        source_attribute: dtls-hello-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dtls_max_proto_ver:
+    canonical:
+      type: string
+      source_attribute: dtls_max_proto_ver
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dtls_max_proto_ver
+    sources:
+    - terraform
+  dtls_min_proto_ver:
+    canonical:
+      type: string
+      source_attribute: dtls_min_proto_ver
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dtls_min_proto_ver
+    sources:
+    - terraform
+  dtls_tunnel:
+    canonical:
+      type: string
+      source_attribute: dtls_tunnel
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dtls_tunnel
+    sources:
+    - terraform
+  dual_stack_mode:
+    canonical:
+      type: enum
+      version_ranges: &id070
+      - - v7.0.0
+        - ''
+      choices: &id069
+      - enable
+      - disable
+      default: disable
+      description: 'Agentless web mode: support IPv4 and IPv6 bookmarks in the portal.'
+      source_attribute: dual-stack-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id069
+        version_ranges: *id070
+        description: 'Agentless web mode: support IPv4 and IPv6 bookmarks in the portal.'
+        source_attribute: dual_stack_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dual_stack_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: 'Agentless web mode: support IPv4 and IPv6 bookmarks in the portal.'
+        default: disable
+        source_attribute: dual-stack-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  encode_2f_sequence:
+    canonical:
+      type: enum
+      version_ranges: &id072
+      - - v6.2.0
+        - v6.2.0
+      - - v6.2.5
+        - ''
+      choices: &id071
+      - enable
+      - disable
+      default: disable
+      description: Encode \2F sequence to forward slash in URLs.
+      source_attribute: encode-2f-sequence
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id071
+        version_ranges: *id072
+        description: Encode 2F sequence to forward slash in URLs.
+        source_attribute: encode_2f_sequence
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: encode_2f_sequence
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Encode \2F sequence to forward slash in URLs.
+        default: disable
+        source_attribute: encode-2f-sequence
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  encrypt_and_store_password:
+    canonical:
+      type: enum
+      version_ranges: &id074
+      - - v6.4.0
+        - ''
+      choices: &id073
+      - enable
+      - disable
+      default: disable
+      description: Encrypt and store user passwords for Agentless VPN web sessions.
+      source_attribute: encrypt-and-store-password
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id073
+        version_ranges: *id074
+        description: Encrypt and store user passwords for Agentless VPN web sessions.
+        source_attribute: encrypt_and_store_password
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: encrypt_and_store_password
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Encrypt and store user passwords for Agentless VPN web sessions.
+        default: disable
+        source_attribute: encrypt-and-store-password
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  force_two_factor_auth:
+    canonical:
+      type: enum
+      version_ranges: &id076
+      - - v6.0.0
+        - ''
+      choices: &id075
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable only PKI users with two-factor authentication for Agentless VPNs.
+      source_attribute: force-two-factor-auth
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id075
+        version_ranges: *id076
+        description: Enable/disable only PKI users with two-factor authentication for Agentless VPNs.
+        source_attribute: force_two_factor_auth
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: force_two_factor_auth
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable only PKI users with two-factor authentication for Agentless VPNs.
+        default: disable
+        source_attribute: force-two-factor-auth
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  header_x_forwarded_for:
+    canonical:
+      type: enum
+      version_ranges: &id078
+      - - v6.0.0
+        - ''
+      choices: &id077
+      - pass
+      - add
+      - remove
+      default: add
+      description: Forward the same, add, or remove HTTP header.
+      source_attribute: header-x-forwarded-for
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id077
+        version_ranges: *id078
+        description: Forward the same, add, or remove HTTP header.
+        source_attribute: header_x_forwarded_for
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: header_x_forwarded_for
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Forward the same, add, or remove HTTP header.
+        default: add
+        source_attribute: header-x-forwarded-for
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  hsts_include_subdomains:
+    canonical:
+      type: enum
+      version_ranges: &id080
+      - - v6.2.0
+        - ''
+      choices: &id079
+      - enable
+      - disable
+      default: disable
+      description: Add HSTS includeSubDomains response header.
+      source_attribute: hsts-include-subdomains
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id079
+        version_ranges: *id080
+        description: Add HSTS includeSubDomains response header.
+        source_attribute: hsts_include_subdomains
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: hsts_include_subdomains
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Add HSTS includeSubDomains response header.
+        default: disable
+        source_attribute: hsts-include-subdomains
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  http_compression:
+    canonical:
+      type: enum
+      version_ranges: &id082
+      - - v6.0.0
+        - ''
+      choices: &id081
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable to allow HTTP compression over Agentless VPN connections.
+      source_attribute: http-compression
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id081
+        version_ranges: *id082
+        description: Enable/disable to allow HTTP compression over Agentless VPN connections.
+        source_attribute: http_compression
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: http_compression
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable to allow HTTP compression over Agentless VPN connections.
+        default: disable
+        source_attribute: http-compression
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  http_only_cookie:
+    canonical:
+      type: enum
+      version_ranges: &id084
+      - - v6.0.0
+        - ''
+      choices: &id083
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable Agentless VPN support for HttpOnly cookies.
+      source_attribute: http-only-cookie
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id083
+        version_ranges: *id084
+        description: Enable/disable Agentless VPN support for HttpOnly cookies.
+        source_attribute: http_only_cookie
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: http_only_cookie
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable Agentless VPN support for HttpOnly cookies.
+        default: enable
+        source_attribute: http-only-cookie
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  http_request_body_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id085
+      - - v6.0.0
+        - ''
+      default: '30'
+      min: 0
+      max: 4294967295
+      description: Agentless VPN session is disconnected if an HTTP request body is not received within this time (1 - 60
+        sec, default = 20).
+      source_attribute: http-request-body-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id085
+        description: Agentless VPN session is disconnected if an HTTP request body is not received within this time (1 - 60
+          sec).
+        source_attribute: http_request_body_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: http_request_body_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Agentless VPN session is disconnected if an HTTP request body is not received within this time (1 - 60
+          sec, default = 20).
+        default: '30'
+        min: 0
+        max: 4294967295
+        source_attribute: http-request-body-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  http_request_header_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id086
+      - - v6.0.0
+        - ''
+      default: '20'
+      min: 0
+      max: 4294967295
+      description: Agentless VPN session is disconnected if an HTTP request header is not received within this time (1 - 60
+        sec, default = 20).
+      source_attribute: http-request-header-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id086
+        description: Agentless VPN session is disconnected if an HTTP request header is not received within this time (1 -
+          60 sec).
+        source_attribute: http_request_header_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: http_request_header_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Agentless VPN session is disconnected if an HTTP request header is not received within this time (1 -
+          60 sec, default = 20).
+        default: '20'
+        min: 0
+        max: 4294967295
+        source_attribute: http-request-header-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  https_redirect:
+    canonical:
+      type: enum
+      version_ranges: &id088
+      - - v6.0.0
+        - ''
+      choices: &id087
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable redirect of port 80 to Agentless VPN port.
+      source_attribute: https-redirect
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id087
+        version_ranges: *id088
+        description: Enable/disable redirect of port 80 to Agentless VPN port.
+        source_attribute: https_redirect
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: https_redirect
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable redirect of port 80 to Agentless VPN port.
+        default: disable
+        source_attribute: https-redirect
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  idle_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id089
+      - - v6.0.0
+        - ''
+      default: '300'
+      min: 0
+      max: 259200
+      description: Agentless VPN disconnects if idle for specified time in seconds.
+      source_attribute: idle-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id089
+        description: Agentless VPN disconnects if idle for specified time in seconds.
+        source_attribute: idle_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 259200
+        source_attribute: idle_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Agentless VPN disconnects if idle for specified time in seconds.
+        default: '300'
+        min: 0
+        max: 259200
+        source_attribute: idle-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ipv6_dns_server1:
+    canonical:
+      type: string
+      source_attribute: ipv6_dns_server1
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ipv6_dns_server1
+    sources:
+    - terraform
+  ipv6_dns_server2:
+    canonical:
+      type: string
+      source_attribute: ipv6_dns_server2
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ipv6_dns_server2
+    sources:
+    - terraform
+  ipv6_wins_server1:
+    canonical:
+      type: string
+      source_attribute: ipv6_wins_server1
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ipv6_wins_server1
+    sources:
+    - terraform
+  ipv6_wins_server2:
+    canonical:
+      type: string
+      source_attribute: ipv6_wins_server2
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ipv6_wins_server2
+    sources:
+    - terraform
+  login_attempt_limit:
+    canonical:
+      type: integer
+      version_ranges: &id090
+      - - v6.0.0
+        - ''
+      default: '2'
+      min: 0
+      max: 10
+      description: Agentless VPN maximum login attempt times before block (0 - 10, default = 2, 0 = no limit).
+      source_attribute: login-attempt-limit
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id090
+        description: Agentless VPN maximum login attempt times before block (0 - 10).
+        source_attribute: login_attempt_limit
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: login_attempt_limit
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Agentless VPN maximum login attempt times before block (0 - 10, default = 2, 0 = no limit).
+        default: '2'
+        min: 0
+        max: 10
+        source_attribute: login-attempt-limit
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  login_block_time:
+    canonical:
+      type: integer
+      version_ranges: &id091
+      - - v6.0.0
+        - ''
+      default: '60'
+      min: 0
+      max: 86400
+      description: Time for which a user is blocked from logging in after too many failed login attempts (0 - 86400 sec, default
+        = 60).
+      source_attribute: login-block-time
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id091
+        description: Time for which a user is blocked from logging in after too many failed login attempts (0 - 86400 sec).
+        source_attribute: login_block_time
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: login_block_time
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time for which a user is blocked from logging in after too many failed login attempts (0 - 86400 sec,
+          default = 60).
+        default: '60'
+        min: 0
+        max: 86400
+        source_attribute: login-block-time
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  login_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id092
+      - - v6.0.0
+        - ''
+      default: '30'
+      min: 10
+      max: 180
+      description: Agentless VPN maximum login timeout (10 - 180 sec, default = 30).
+      source_attribute: login-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id092
+        description: Agentless VPN maximum login timeout (10 - 180 sec).
+        source_attribute: login_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 10
+        max: 180
+        source_attribute: login_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Agentless VPN maximum login timeout (10 - 180 sec, default = 30).
+        default: '30'
+        min: 10
+        max: 180
+        source_attribute: login-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  port:
+    canonical:
+      type: integer
+      version_ranges: &id093
+      - - v6.0.0
+        - ''
+      default: '10443'
+      min: 1
+      max: 65535
+      description: Agentless VPN access port (1 - 65535).
+      source_attribute: port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id093
+        description: Agentless VPN access port (1 - 65535).
+        source_attribute: port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Agentless VPN access port (1 - 65535).
+        default: '10443'
+        min: 1
+        max: 65535
+        source_attribute: port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  port_precedence:
+    canonical:
+      type: enum
+      version_ranges: &id095
+      - - v6.0.0
+        - ''
+      choices: &id094
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable, Enable means that if Agentless VPN connections are allowed on an interface admin GUI connections
+        are blocked on that interface.
+      source_attribute: port-precedence
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id094
+        version_ranges: *id095
+        description: Enable/disable, Enable means that if Agentless VPN connections are allowed on an interface admin GUI
+          connections are blocked on that interface.
+        source_attribute: port_precedence
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: port_precedence
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable, Enable means that if Agentless VPN connections are allowed on an interface admin GUI
+          connections are blocked on that interface.
+        default: enable
+        source_attribute: port-precedence
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  remote_https_cert_check:
+    canonical:
+      type: enum
+      version_ranges: &id097
+      - - v7.6.5
+        - ''
+      choices: &id096
+      - no-check
+      - warn-on-error
+      - reject-on-error
+      default: warn-on-error
+      description: Configure how the FortiGate unit checks and responds to the remote HTTPS server's certificate (default
+        = warn-on-error).
+      source_attribute: remote-https-cert-check
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id096
+        version_ranges: *id097
+        description: Configure how the FortiGate unit checks and responds to the remote HTTPS server"s certificate .
+        source_attribute: remote_https_cert_check
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: remote_https_cert_check
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Configure how the FortiGate unit checks and responds to the remote HTTPS server's certificate (default
+          = warn-on-error).
+        default: warn-on-error
+        source_attribute: remote-https-cert-check
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  reqclientcert:
+    canonical:
+      type: enum
+      version_ranges: &id099
+      - - v6.0.0
+        - ''
+      choices: &id098
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable to require client certificates for all Agentless VPN users.
+      source_attribute: reqclientcert
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id098
+        version_ranges: *id099
+        description: Enable/disable to require client certificates for all Agentless VPN users.
+        source_attribute: reqclientcert
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: reqclientcert
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable to require client certificates for all Agentless VPN users.
+        default: disable
+        source_attribute: reqclientcert
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  route_source_interface:
+    canonical:
+      type: string
+      source_attribute: route_source_interface
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: route_source_interface
+    sources:
+    - terraform
+  saml_redirect_port:
+    canonical:
+      type: integer
+      min: 0
+      max: 65535
+      source_attribute: saml_redirect_port
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: saml_redirect_port
+    sources:
+    - terraform
+  server_hostname:
+    canonical:
+      type: string
+      version_ranges: &id100
+      - - v7.4.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Server hostname for HTTPS. When set, will be used for Agentless VPN web proxy host header for any redirection.
+      source_attribute: server-hostname
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id100
+        description: Server hostname for HTTPS. When set, will be used for Agentless VPN web proxy host header for any redirection.
+        source_attribute: server_hostname
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: server_hostname
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Server hostname for HTTPS. When set, will be used for Agentless VPN web proxy host header for any redirection.
+        max_length: 255
+        source_attribute: server-hostname
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  servercert:
+    canonical:
+      type: string
+      references: &id102
+      - vpn.certificate.local.name
+      version_ranges: &id101
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Name of the server certificate to be used for Agentless VPNs.
+      source_attribute: servercert
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id101
+        description: Name of the server certificate to be used for Agentless VPNs. Source vpn.certificate.local.name.
+        references: *id102
+        source_attribute: servercert
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 35
+        source_attribute: servercert
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of the server certificate to be used for Agentless VPNs.
+        max_length: 35
+        source_attribute: servercert
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source_address:
+    canonical:
+      type: list
+      elements: dict
+      children: &id104
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id107
+          - - v6.0.0
+            - ''
+          description: Address name. Source firewall.address.name firewall.addrgrp.name system.external-resource.name.
+          references: &id106
+          - firewall.address.name
+          - firewall.addrgrp.name
+          - system.external-resource.name
+      version_ranges: &id103
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Source address of incoming traffic. Address name.
+      source_attribute: source-address
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id103
+        description: Source address of incoming traffic.
+        children: *id104
+        source_attribute: source_address
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: source_address
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Source address of incoming traffic. Address name.
+        max_length: 79
+        source_attribute: source-address
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id105
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id105
+  source_address.name:
+    canonical:
+      type: string
+      references: *id106
+      required: true
+      version_ranges: *id107
+      min_length: 0
+      max_length: 79
+      description: Address name. Source firewall.address.name firewall.addrgrp.name system.external-resource.name.
+      source_attribute: source_address.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id107
+        description: Address name. Source firewall.address.name firewall.addrgrp.name system.external-resource.name.
+        references: *id106
+        source_attribute: source_address.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: source_address.name
+    sources:
+    - ansible
+    - terraform
+  source_address6:
+    canonical:
+      type: list
+      elements: dict
+      children: &id109
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id112
+          - - v6.0.0
+            - ''
+          description: IPv6 address name. Source firewall.address6.name firewall.addrgrp6.name system.external-resource.name.
+          references: &id111
+          - firewall.address6.name
+          - firewall.addrgrp6.name
+          - system.external-resource.name
+      version_ranges: &id108
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: IPv6 source address of incoming traffic. IPv6 address name.
+      source_attribute: source-address6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id108
+        description: IPv6 source address of incoming traffic.
+        children: *id109
+        source_attribute: source_address6
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: source_address6
+      cli_reference:
+        type: string
+        raw_type: string
+        description: IPv6 source address of incoming traffic. IPv6 address name.
+        max_length: 79
+        source_attribute: source-address6
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id110
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id110
+  source_address6.name:
+    canonical:
+      type: string
+      references: *id111
+      required: true
+      version_ranges: *id112
+      min_length: 0
+      max_length: 79
+      description: IPv6 address name. Source firewall.address6.name firewall.addrgrp6.name system.external-resource.name.
+      source_attribute: source_address6.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id112
+        description: IPv6 address name. Source firewall.address6.name firewall.addrgrp6.name system.external-resource.name.
+        references: *id111
+        source_attribute: source_address6.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: source_address6.name
+    sources:
+    - ansible
+    - terraform
+  source_address6_negate:
+    canonical:
+      type: enum
+      version_ranges: &id114
+      - - v6.0.0
+        - ''
+      choices: &id113
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable negated source IPv6 address match.
+      source_attribute: source-address6-negate
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id113
+        version_ranges: *id114
+        description: Enable/disable negated source IPv6 address match.
+        source_attribute: source_address6_negate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_address6_negate
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable negated source IPv6 address match.
+        default: disable
+        source_attribute: source-address6-negate
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source_address_negate:
+    canonical:
+      type: enum
+      version_ranges: &id116
+      - - v6.0.0
+        - ''
+      choices: &id115
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable negated source address match.
+      source_attribute: source-address-negate
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id115
+        version_ranges: *id116
+        description: Enable/disable negated source address match.
+        source_attribute: source_address_negate
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_address_negate
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable negated source address match.
+        default: disable
+        source_attribute: source-address-negate
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source_interface:
+    canonical:
+      type: list
+      elements: dict
+      children: &id118
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id121
+          - - v6.0.0
+            - ''
+          description: Interface name. Source system.interface.name system.zone.name.
+          references: &id120
+          - system.interface.name
+          - system.zone.name
+      version_ranges: &id117
+      - - v6.0.0
+        - ''
+      max_length: 35
+      description: Agentless VPN source interface of incoming traffic. Interface name.
+      source_attribute: source-interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id117
+        description: Agentless VPN source interface of incoming traffic.
+        children: *id118
+        source_attribute: source_interface
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+        source_attribute: source_interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Agentless VPN source interface of incoming traffic. Interface name.
+        max_length: 35
+        source_attribute: source-interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id119
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id119
+  source_interface.name:
+    canonical:
+      type: string
+      references: *id120
+      required: true
+      version_ranges: *id121
+      min_length: 0
+      max_length: 35
+      description: Interface name. Source system.interface.name system.zone.name.
+      source_attribute: source_interface.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id121
+        description: Interface name. Source system.interface.name system.zone.name.
+        references: *id120
+        source_attribute: source_interface.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: source_interface.name
+    sources:
+    - ansible
+    - terraform
+  ssl_client_renegotiation:
+    canonical:
+      type: enum
+      version_ranges: &id123
+      - - v6.0.0
+        - ''
+      choices: &id122
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable to allow client renegotiation by the server if the tunnel goes down.
+      source_attribute: ssl-client-renegotiation
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id122
+        version_ranges: *id123
+        description: Enable/disable to allow client renegotiation by the server if the tunnel goes down.
+        source_attribute: ssl_client_renegotiation
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssl_client_renegotiation
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable to allow client renegotiation by the server if the tunnel goes down.
+        default: disable
+        source_attribute: ssl-client-renegotiation
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssl_insert_empty_fragment:
+    canonical:
+      type: enum
+      version_ranges: &id125
+      - - v6.0.0
+        - ''
+      choices: &id124
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable insertion of empty fragment.
+      source_attribute: ssl-insert-empty-fragment
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id124
+        version_ranges: *id125
+        description: Enable/disable insertion of empty fragment.
+        source_attribute: ssl_insert_empty_fragment
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssl_insert_empty_fragment
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable insertion of empty fragment.
+        default: enable
+        source_attribute: ssl-insert-empty-fragment
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssl_max_proto_ver:
+    canonical:
+      type: enum
+      version_ranges: &id127
+      - - v6.2.0
+        - ''
+      choices: &id126
+      - tls1-0
+      - tls1-1
+      - tls1-2
+      - tls1-3
+      default: tls1-3
+      description: SSL maximum protocol version.
+      source_attribute: ssl-max-proto-ver
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id126
+        version_ranges: *id127
+        description: SSL maximum protocol version.
+        source_attribute: ssl_max_proto_ver
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssl_max_proto_ver
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: SSL maximum protocol version.
+        default: tls1-3
+        source_attribute: ssl-max-proto-ver
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssl_min_proto_ver:
+    canonical:
+      type: enum
+      version_ranges: &id129
+      - - v6.2.0
+        - ''
+      choices: &id128
+      - tls1-0
+      - tls1-1
+      - tls1-2
+      - tls1-3
+      default: tls1-2
+      description: SSL minimum protocol version.
+      source_attribute: ssl-min-proto-ver
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id128
+        version_ranges: *id129
+        description: SSL minimum protocol version.
+        source_attribute: ssl_min_proto_ver
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssl_min_proto_ver
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: SSL minimum protocol version.
+        default: tls1-2
+        source_attribute: ssl-min-proto-ver
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id131
+      - - v7.0.1
+        - ''
+      choices: &id130
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable Agentless VPN.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id130
+        version_ranges: *id131
+        description: Enable/disable Agentless VPN.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable Agentless VPN.
+        default: enable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  tls_groups:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id133
+      - - v7.6.5
+        - ''
+      choices: &id132
+      - P-521
+      - P-384
+      - P-256
+      - ML-KEM512
+      - ML-KEM768
+      - ML-KEM1024
+      - P-384-MLKEM1024
+      - P-256-MLKEM768
+      - X25519-MLKEM768
+      - X448
+      - X25519
+      - FFDHE2048
+      - FFDHE3072
+      - FFDHE4096
+      - FFDHE6144
+      - FFDHE8192
+      default: P-521 P-384 ML-KEM768 ML-KEM1024 P-384-MLKEM1024 P-256-MLKEM768 X25519-MLKEM768 X448 FFDHE4096 FFDHE6144 FFDHE8192
+      description: Configure the supported groups for TLS negotiation.
+      source_attribute: tls-groups
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id132
+        multiple_values: true
+        elements: str
+        version_ranges: *id133
+        description: Configure the supported groups for TLS negotiation.
+        source_attribute: tls_groups
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: tls_groups
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Configure the supported groups for TLS negotiation.
+        default: P-521 P-384 ML-KEM768 ML-KEM1024 P-384-MLKEM1024 P-256-MLKEM768 X25519-MLKEM768 X448 FFDHE4096 FFDHE6144
+          FFDHE8192
+        source_attribute: tls-groups
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  tlsv1_0:
+    canonical:
+      type: string
+      source_attribute: tlsv1_0
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: tlsv1_0
+    sources:
+    - terraform
+  tlsv1_1:
+    canonical:
+      type: string
+      source_attribute: tlsv1_1
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: tlsv1_1
+    sources:
+    - terraform
+  tlsv1_2:
+    canonical:
+      type: string
+      source_attribute: tlsv1_2
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: tlsv1_2
+    sources:
+    - terraform
+  tlsv1_3:
+    canonical:
+      type: string
+      source_attribute: tlsv1_3
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: tlsv1_3
+    sources:
+    - terraform
+  transform_backward_slashes:
+    canonical:
+      type: enum
+      version_ranges: &id135
+      - - v6.4.0
+        - ''
+      choices: &id134
+      - enable
+      - disable
+      default: disable
+      description: Transform backward slashes to forward slashes in URLs.
+      source_attribute: transform-backward-slashes
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id134
+        version_ranges: *id135
+        description: Transform backward slashes to forward slashes in URLs.
+        source_attribute: transform_backward_slashes
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: transform_backward_slashes
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Transform backward slashes to forward slashes in URLs.
+        default: disable
+        source_attribute: transform-backward-slashes
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  tunnel_addr_assigned_method:
+    canonical:
+      type: string
+      source_attribute: tunnel_addr_assigned_method
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: tunnel_addr_assigned_method
+    sources:
+    - terraform
+  tunnel_connect_without_reauth:
+    canonical:
+      type: string
+      source_attribute: tunnel_connect_without_reauth
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: tunnel_connect_without_reauth
+    sources:
+    - terraform
+  tunnel_ip_pools:
+    canonical:
+      type: list
+      children: &id136
+        name:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 79
+      source_attribute: tunnel_ip_pools
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id136
+        source_attribute: tunnel_ip_pools
+    sources:
+    - terraform
+  tunnel_ip_pools.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 79
+      source_attribute: tunnel_ip_pools.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: tunnel_ip_pools.name
+    sources:
+    - terraform
+  tunnel_ipv6_pools:
+    canonical:
+      type: list
+      children: &id137
+        name:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 79
+      source_attribute: tunnel_ipv6_pools
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id137
+        source_attribute: tunnel_ipv6_pools
+    sources:
+    - terraform
+  tunnel_ipv6_pools.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 79
+      source_attribute: tunnel_ipv6_pools.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: tunnel_ipv6_pools.name
+    sources:
+    - terraform
+  tunnel_user_session_timeout:
+    canonical:
+      type: integer
+      min: 1
+      max: 86400
+      source_attribute: tunnel_user_session_timeout
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 86400
+        source_attribute: tunnel_user_session_timeout
+    sources:
+    - terraform
+  unsafe_legacy_renegotiation:
+    canonical:
+      type: enum
+      version_ranges: &id139
+      - - v6.0.0
+        - ''
+      choices: &id138
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable unsafe legacy re-negotiation.
+      source_attribute: unsafe-legacy-renegotiation
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id138
+        version_ranges: *id139
+        description: Enable/disable unsafe legacy re-negotiation.
+        source_attribute: unsafe_legacy_renegotiation
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: unsafe_legacy_renegotiation
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable unsafe legacy re-negotiation.
+        default: disable
+        source_attribute: unsafe-legacy-renegotiation
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  url_obscuration:
+    canonical:
+      type: enum
+      version_ranges: &id141
+      - - v6.0.0
+        - ''
+      choices: &id140
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable to obscure the host name of the URL of the web browser display.
+      source_attribute: url-obscuration
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id140
+        version_ranges: *id141
+        description: Enable/disable to obscure the host name of the URL of the web browser display.
+        source_attribute: url_obscuration
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: url_obscuration
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable to obscure the host name of the URL of the web browser display.
+        default: disable
+        source_attribute: url-obscuration
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  user_peer:
+    canonical:
+      type: string
+      references: &id143
+      - user.peer.name
+      version_ranges: &id142
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Name of user peer.
+      source_attribute: user-peer
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id142
+        description: Name of user peer. Source user.peer.name.
+        references: *id143
+        source_attribute: user_peer
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: user_peer
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Name of user peer.
+        max_length: 35
+        source_attribute: user-peer
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  web_mode_snat:
+    canonical:
+      type: string
+      source_attribute: web_mode_snat
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_mode_snat
+    sources:
+    - terraform
+  wins_server1:
+    canonical:
+      type: string
+      source_attribute: wins_server1
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: wins_server1
+    sources:
+    - terraform
+  wins_server2:
+    canonical:
+      type: string
+      source_attribute: wins_server2
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: wins_server2
+    sources:
+    - terraform
+  x_content_type_options:
+    canonical:
+      type: enum
+      version_ranges: &id145
+      - - v6.0.0
+        - ''
+      choices: &id144
+      - enable
+      - disable
+      default: enable
+      description: Add HTTP X-Content-Type-Options header.
+      source_attribute: x-content-type-options
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id144
+        version_ranges: *id145
+        description: Add HTTP X-Content-Type-Options header.
+        source_attribute: x_content_type_options
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: x_content_type_options
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Add HTTP X-Content-Type-Options header.
+        default: enable
+        source_attribute: x-content-type-options
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ztna_trusted_client:
+    canonical:
+      type: string
+      source_attribute: ztna_trusted_client
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ztna_trusted_client
+    sources:
+    - terraform
+conflicts:
+- attribute: source_address
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: source_address6
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: source_interface
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

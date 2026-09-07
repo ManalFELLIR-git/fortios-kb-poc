@@ -1,0 +1,130 @@
+id: switch-controller.flow-tracking
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/773472463/config-switch-controller-flow-tracking
+attributes:
+  format:
+    type: enum
+    raw_type: option
+    description: Configure flow tracking protocol.
+    default: netflow9
+  level:
+    type: enum
+    raw_type: option
+    description: Configure flow tracking level.
+    default: ip
+  max-export-pkt-size:
+    type: integer
+    raw_type: integer
+    description: Configure flow max export packet size (512-9216, default=512 bytes).
+    default: '512'
+    min: 512
+    max: 9216
+  sample-mode:
+    type: enum
+    raw_type: option
+    description: Configure sample mode for the flow tracking.
+    default: perimeter
+  sample-rate:
+    type: integer
+    raw_type: integer
+    description: Configure sample rate for the perimeter and device-ingress sampling(0 - 99999).
+    default: '512'
+    min: 0
+    max: 99999
+  template-export-period:
+    type: integer
+    raw_type: integer
+    description: Configure template export period (1-60, default=5 minutes).
+    default: '5'
+    min: 1
+    max: 60
+  timeout-general:
+    type: integer
+    raw_type: integer
+    description: Configure flow session general timeout (60-604800, default=3600 seconds).
+    default: '3600'
+    min: 60
+    max: 604800
+  timeout-icmp:
+    type: integer
+    raw_type: integer
+    description: Configure flow session ICMP timeout (60-604800, default=300 seconds).
+    default: '300'
+    min: 60
+    max: 604800
+  timeout-max:
+    type: integer
+    raw_type: integer
+    description: Configure flow session max timeout (60-604800, default=604800 seconds).
+    default: '604800'
+    min: 60
+    max: 604800
+  timeout-tcp:
+    type: integer
+    raw_type: integer
+    description: Configure flow session TCP timeout (60-604800, default=3600 seconds).
+    default: '3600'
+    min: 60
+    max: 604800
+  timeout-tcp-fin:
+    type: integer
+    raw_type: integer
+    description: Configure flow session TCP FIN timeout (60-604800, default=300 seconds).
+    default: '300'
+    min: 60
+    max: 604800
+  timeout-tcp-rst:
+    type: integer
+    raw_type: integer
+    description: Configure flow session TCP RST timeout (60-604800, default=120 seconds).
+    default: '120'
+    min: 60
+    max: 604800
+  timeout-udp:
+    type: integer
+    raw_type: integer
+    description: Configure flow session UDP timeout (60-604800, default=300 seconds).
+    default: '300'
+    min: 60
+    max: 604800
+children:
+  aggregates:
+    attributes:
+      id:
+        type: integer
+        raw_type: integer
+        description: Aggregate id.
+        default: '0'
+        min: 0
+        max: 4294967295
+      ip:
+        type: ipv4-classnet
+        raw_type: ipv4-classnet
+        description: IP address to group all matching traffic sessions to a flow.
+        default: 0.0.0.0 0.0.0.0
+  collectors:
+    attributes:
+      ip:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: Collector IP address.
+        default: 0.0.0.0
+      name:
+        type: string
+        raw_type: string
+        description: Collector name.
+        max_length: 63
+      port:
+        type: integer
+        raw_type: integer
+        description: Collector port number(0-65535, default:0, netflow:2055, ipfix:4739).
+        default: '0'
+        min: 0
+        max: 65535
+      transport:
+        type: enum
+        raw_type: option
+        description: Collector L4 transport protocol for exporting packets.
+        default: udp

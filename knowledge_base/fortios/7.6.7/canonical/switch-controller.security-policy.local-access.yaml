@@ -1,0 +1,196 @@
+id: switch-controller.security-policy.local-access
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  internal_allowaccess:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id002
+      - - v6.2.0
+        - ''
+      choices: &id001
+      - https
+      - ping
+      - ssh
+      - snmp
+      - http
+      - telnet
+      - radius-acct
+      default: https ping ssh
+      description: Allowed access on the switch internal interface.
+      source_attribute: internal-allowaccess
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id001
+        multiple_values: true
+        elements: str
+        version_ranges: *id002
+        description: Allowed access on the switch internal interface.
+        source_attribute: internal_allowaccess
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: internal_allowaccess
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Allowed access on the switch internal interface.
+        default: https ping ssh
+        source_attribute: internal-allowaccess
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  mgmt_allowaccess:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id004
+      - - v6.2.0
+        - ''
+      choices: &id003
+      - https
+      - ping
+      - ssh
+      - snmp
+      - http
+      - telnet
+      - radius-acct
+      default: https ping ssh
+      description: Allowed access on the switch management interface.
+      source_attribute: mgmt-allowaccess
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id003
+        multiple_values: true
+        elements: str
+        version_ranges: *id004
+        description: Allowed access on the switch management interface.
+        source_attribute: mgmt_allowaccess
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mgmt_allowaccess
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Allowed access on the switch management interface.
+        default: https ping ssh
+        source_attribute: mgmt-allowaccess
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id005
+      - - v6.2.0
+        - ''
+      min_length: 0
+      max_length: 31
+      description: Policy name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id005
+        description: Policy name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 31
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Policy name.
+        max_length: 31
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

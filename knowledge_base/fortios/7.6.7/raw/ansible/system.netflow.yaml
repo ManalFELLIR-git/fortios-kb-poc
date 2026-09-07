@@ -1,0 +1,173 @@
+id: system.netflow
+version: 7.6.7
+source_object: fortios_system_netflow
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_system_netflow.py
+root_type: object
+attributes:
+  active_flow_timeout:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Timeout to report active flows (60 - 3600 sec).
+  inactive_flow_timeout:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Timeout for periodic report of finished flows (10 - 600 sec).
+  template_tx_timeout:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Timeout for periodic template flowset transmission (60 - 86400 sec).
+  template_tx_counter:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Counter of flowset records before resending a template flowset record.
+  session_cache_size:
+    type: enum
+    raw_type: string
+    choices:
+    - min
+    - default
+    - max
+    version_ranges:
+    - - v7.6.3
+      - ''
+    description: Maximum RAM usage allowed for Netflow session cache.
+  exclusion_filters:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v7.6.0
+      - ''
+    description: Exclusion filters
+    children:
+      id:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v7.6.0
+          - ''
+        description: Filter ID. see <a href='#notes'>Notes</a>.
+      source_ip:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.6.0
+          - ''
+        description: Session source address.
+      destination_ip:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.6.0
+          - ''
+        description: Session destination address.
+      source_port:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.6.0
+          - ''
+        description: Session source port number or range.
+      destination_port:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.6.0
+          - ''
+        description: Session destination port number or range.
+      protocol:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.6.0
+          - ''
+        description: Session IP protocol (0 - 255).
+  collectors:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v7.4.2
+      - ''
+    description: Netflow collectors.
+    children:
+      id:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v7.4.2
+          - ''
+        description: ID. see <a href='#notes'>Notes</a>.
+      collector_ip:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.4.2
+          - ''
+        description: Collector IP.
+      collector_port:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.4.2
+          - ''
+        description: NetFlow collector port number.
+      source_ip:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.4.2
+          - ''
+        description: Source IP address for communication with the NetFlow agent.
+      source_ip_interface:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.6.0
+          - ''
+        description: Name of the interface used to determine the source IP for exporting packets. Source system.interface.name.
+        references:
+        - system.interface.name
+      interface_select_method:
+        type: enum
+        raw_type: string
+        choices:
+        - auto
+        - sdwan
+        - specify
+        version_ranges:
+        - - v7.4.2
+          - ''
+        description: Specify how to select outgoing interface to reach server.
+      interface:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.4.2
+          - ''
+        description: Specify outgoing interface to reach server. Source system.interface.name.
+        references:
+        - system.interface.name
+      vrf_select:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.6.1
+          - ''
+        description: VRF ID used for connection to server.

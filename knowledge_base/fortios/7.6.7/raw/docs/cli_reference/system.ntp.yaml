@@ -1,0 +1,131 @@
+id: system.ntp
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/105110478/config-system-ntp
+attributes:
+  authentication:
+    type: enum
+    raw_type: option
+    description: Enable/disable authentication.
+    default: disable
+  interface:
+    type: string
+    raw_type: string
+    description: FortiGate interface(s) with NTP server mode enabled. Devices on your network can contact these interfaces
+      for NTP services. Interface name.
+    max_length: 79
+  key:
+    type: password
+    raw_type: password
+    description: Key for authentication.
+  key-id:
+    type: integer
+    raw_type: integer
+    description: Key ID for authentication.
+    default: '0'
+    min: 0
+    max: 4294967295
+  key-type:
+    type: enum
+    raw_type: option
+    description: Key type for authentication (MD5, SHA1, SHA256).
+    default: MD5
+  ntpsync:
+    type: enum
+    raw_type: option
+    description: Enable/disable setting the FortiGate system time by synchronizing with an NTP Server. This option is disabled
+      when unset, but enabled after a factory reset.
+    default: disable
+  server-mode:
+    type: enum
+    raw_type: option
+    description: Enable/disable FortiGate NTP Server Mode. Your FortiGate becomes an NTP server for other devices on your
+      network. The FortiGate relays NTP requests to its configured NTP server. This option is disabled when unset, but enabled
+      after a factory reset.
+    default: disable
+  source-ip:
+    type: ipv4-address
+    raw_type: ipv4-address
+    description: Source IP address for communication to the NTP server.
+    default: 0.0.0.0
+  source-ip6:
+    type: ipv6-address
+    raw_type: ipv6-address
+    description: Source IPv6 address for communication to the NTP server.
+    default: '::'
+  syncinterval:
+    type: integer
+    raw_type: integer
+    description: NTP synchronization interval (1 - 1440 min).
+    default: '60'
+    min: 1
+    max: 1440
+  type:
+    type: enum
+    raw_type: option
+    description: Use the FortiGuard NTP server or any other available NTP Server.
+    default: fortiguard
+children:
+  ntpserver:
+    attributes:
+      authentication:
+        type: enum
+        raw_type: option
+        description: Enable/disable authentication.
+        default: disable
+      id:
+        type: integer
+        raw_type: integer
+        description: NTP server ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      interface:
+        type: string
+        raw_type: string
+        description: Specify outgoing interface to reach server.
+        max_length: 15
+      interface-select-method:
+        type: enum
+        raw_type: option
+        description: Specify how to select outgoing interface to reach server.
+        default: auto
+      ip-type:
+        type: enum
+        raw_type: option
+        description: Choose to connect to IPv4 or/and IPv6 NTP server.
+        default: Both
+      key:
+        type: password
+        raw_type: password
+        description: Key for MD5(NTPv3)/SHA1(NTPv4)/SHA256(NTPv4) authentication.
+      key-id:
+        type: integer
+        raw_type: integer
+        description: Key ID for authentication.
+        default: '0'
+        min: 0
+        max: 4294967295
+      key-type:
+        type: enum
+        raw_type: option
+        description: Select NTP authentication type.
+        default: MD5
+      ntpv3:
+        type: enum
+        raw_type: option
+        description: Enable to use NTPv3 instead of NTPv4.
+        default: disable
+      server:
+        type: string
+        raw_type: string
+        description: IP address or hostname of the NTP Server.
+        max_length: 63
+      vrf-select:
+        type: integer
+        raw_type: integer
+        description: VRF ID used for connection to server.
+        default: '0'
+        min: 0
+        max: 511

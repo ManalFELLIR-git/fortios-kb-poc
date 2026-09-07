@@ -1,0 +1,4908 @@
+id: vpn.ssl.web.portal
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  allow_user_access:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      choices: &id001
+      - web
+      - ftp
+      - smb
+      - sftp
+      - telnet
+      - ssh
+      - vnc
+      - rdp
+      - ping
+      default: web ftp smb sftp telnet ssh vnc rdp ping
+      description: Allow user access to Agentless VPN applications.
+      source_attribute: allow-user-access
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id001
+        multiple_values: true
+        elements: str
+        version_ranges: *id002
+        description: Allow user access to Agentless VPN applications.
+        source_attribute: allow_user_access
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: allow_user_access
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Allow user access to Agentless VPN applications.
+        default: web ftp smb sftp telnet ssh vnc rdp ping
+        source_attribute: allow-user-access
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  auto_connect:
+    canonical:
+      type: string
+      source_attribute: auto_connect
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: auto_connect
+    sources:
+    - terraform
+  bookmark_group:
+    canonical:
+      type: list
+      elements: dict
+      children: &id004
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id050
+          - - v6.0.0
+            - ''
+          description: Bookmark group name.
+        bookmarks:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id006
+          - - v6.0.0
+            - ''
+          description: Bookmark table.
+          children: &id005
+            name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id028
+              - - v6.0.0
+                - ''
+              description: Bookmark name.
+            apptype:
+              type: enum
+              raw_type: string
+              choices: &id010
+              - ftp
+              - rdp
+              - sftp
+              - smb
+              - ssh
+              - telnet
+              - vnc
+              - web
+              version_ranges: &id009
+              - - v6.0.0
+                - ''
+              description: Application type.
+            url:
+              type: string
+              raw_type: string
+              version_ranges: &id046
+              - - v6.0.0
+                - ''
+              description: URL parameter.
+            host:
+              type: string
+              raw_type: string
+              version_ranges: &id022
+              - - v6.0.0
+                - ''
+              description: Host name/IP parameter.
+            folder:
+              type: string
+              raw_type: string
+              version_ranges: &id015
+              - - v6.0.0
+                - ''
+              description: Network shared file folder parameter.
+            domain:
+              type: string
+              raw_type: string
+              version_ranges: &id014
+              - - v6.4.0
+                - v6.4.0
+              - - v6.4.4
+                - ''
+              description: Login domain.
+            additional_params:
+              type: string
+              raw_type: string
+              version_ranges: &id008
+              - - v6.0.0
+                - ''
+              description: Additional parameters.
+            description:
+              type: string
+              raw_type: string
+              version_ranges: &id013
+              - - v6.0.0
+                - ''
+              description: Description.
+            keyboard_layout:
+              type: enum
+              raw_type: string
+              choices: &id024
+              - ar-101
+              - ar-102
+              - ar-102-azerty
+              - can-mul
+              - cz
+              - cz-qwerty
+              - cz-pr
+              - da
+              - nl
+              - de
+              - de-ch
+              - de-ibm
+              - en-uk
+              - en-uk-ext
+              - en-us
+              - en-us-dvorak
+              - es
+              - es-var
+              - fi
+              - fi-sami
+              - fr
+              - fr-apple
+              - fr-ca
+              - fr-ch
+              - fr-be
+              - hr
+              - hu
+              - hu-101
+              - it
+              - it-142
+              - ja
+              - ja-106
+              - ko
+              - la-am
+              - lt
+              - lt-ibm
+              - lt-std
+              - lav-std
+              - lav-leg
+              - mk
+              - mk-std
+              - 'no'
+              - no-sami
+              - pol-214
+              - pol-pr
+              - pt
+              - pt-br
+              - pt-br-abnt2
+              - ru
+              - ru-mne
+              - ru-t
+              - sl
+              - sv
+              - sv-sami
+              - tuk
+              - tur-f
+              - tur-q
+              - zh-sym-sg-us
+              - zh-sym-us
+              - zh-tr-hk
+              - zh-tr-mo
+              - zh-tr-us
+              version_ranges: &id023
+              - - v7.0.1
+                - ''
+              description: Keyboard layout.
+            security:
+              type: enum
+              raw_type: string
+              choices: &id035
+              - any
+              - rdp
+              - nla
+              - tls
+              version_ranges: &id034
+              - - v6.0.0
+                - ''
+              description: Security mode for RDP connection .
+            send_preconnection_id:
+              type: enum
+              raw_type: string
+              choices: &id037
+              - enable
+              - disable
+              version_ranges: &id036
+              - - v7.0.1
+                - ''
+              description: Enable/disable sending of preconnection ID.
+            preconnection_id:
+              type: integer
+              raw_type: integer
+              version_ranges: &id031
+              - - v6.0.0
+                - ''
+              description: The numeric ID of the RDP source (0-4294967295).
+            preconnection_blob:
+              type: string
+              raw_type: string
+              version_ranges: &id030
+              - - v6.0.0
+                - ''
+              description: An arbitrary string which identifies the RDP source.
+            load_balancing_info:
+              type: string
+              raw_type: string
+              version_ranges: &id025
+              - - v6.0.0
+                - ''
+              description: The load balancing information or cookie which should be provided to the connection broker.
+            restricted_admin:
+              type: enum
+              raw_type: string
+              choices: &id033
+              - enable
+              - disable
+              version_ranges: &id032
+              - - v7.0.1
+                - ''
+              description: Enable/disable restricted admin mode for RDP.
+            port:
+              type: integer
+              raw_type: integer
+              version_ranges: &id029
+              - - v6.0.0
+                - ''
+              description: Remote port.
+            logon_user:
+              type: string
+              raw_type: string
+              version_ranges: &id027
+              - - v6.0.0
+                - ''
+              description: Logon user.
+            logon_password:
+              type: string
+              raw_type: string
+              version_ranges: &id026
+              - - v6.0.0
+                - ''
+              description: Logon password.
+            color_depth:
+              type: enum
+              raw_type: string
+              choices: &id012
+              - '32'
+              - '16'
+              - '8'
+              version_ranges: &id011
+              - - v7.0.1
+                - ''
+              description: Color depth per pixel.
+            sso:
+              type: enum
+              raw_type: string
+              choices: &id039
+              - disable
+              - static
+              - auto
+              version_ranges: &id038
+              - - v6.0.0
+                - ''
+              description: Single sign-on.
+            form_data:
+              type: list
+              raw_type: list
+              elements: dict
+              version_ranges: &id017
+              - - v6.0.0
+                - ''
+              description: Form data.
+              children: &id016
+                name:
+                  type: string
+                  raw_type: string
+                  required: true
+                  version_ranges: &id019
+                  - - v6.0.0
+                    - ''
+                  description: Name.
+                value:
+                  type: string
+                  raw_type: string
+                  version_ranges: &id020
+                  - - v6.0.0
+                    - ''
+                  description: Value.
+            sso_credential:
+              type: enum
+              raw_type: string
+              choices: &id041
+              - sslvpn-login
+              - alternative
+              version_ranges: &id040
+              - - v6.0.0
+                - ''
+              description: Single sign-on credentials.
+            sso_username:
+              type: string
+              raw_type: string
+              version_ranges: &id045
+              - - v6.0.0
+                - ''
+              description: SSO user name.
+            sso_password:
+              type: string
+              raw_type: string
+              version_ranges: &id044
+              - - v6.0.0
+                - ''
+              description: SSO password.
+            sso_credential_sent_once:
+              type: enum
+              raw_type: string
+              choices: &id043
+              - enable
+              - disable
+              version_ranges: &id042
+              - - v6.0.0
+                - ''
+              description: Single sign-on credentials are only sent once to remote server.
+            width:
+              type: integer
+              raw_type: integer
+              version_ranges: &id049
+              - - v7.0.4
+                - ''
+              description: Screen width (range from 0 - 65535).
+            height:
+              type: integer
+              raw_type: integer
+              version_ranges: &id021
+              - - v7.0.4
+                - ''
+              description: Screen height (range from 0 - 65535).
+            vnc_keyboard_layout:
+              type: enum
+              raw_type: string
+              choices: &id048
+              - default
+              - da
+              - nl
+              - en-uk
+              - en-uk-ext
+              - fi
+              - fr
+              - fr-be
+              - fr-ca-mul
+              - de
+              - de-ch
+              - it
+              - it-142
+              - pt
+              - pt-br-abnt2
+              - 'no'
+              - gd
+              - es
+              - sv
+              - us-intl
+              version_ranges: &id047
+              - - v7.2.4
+                - ''
+              description: Keyboard layout.
+      version_ranges: &id003
+      - - v6.0.0
+        - ''
+      description: Portal bookmark group.
+      source_attribute: bookmark_group
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id003
+        description: Portal bookmark group.
+        children: *id004
+        source_attribute: bookmark_group
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          bookmarks:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id007
+              name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 35
+              apptype:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              url:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 128
+              host:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 128
+              folder:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 128
+              domain:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 128
+              additional_params:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 128
+              listening_port:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                min: 0
+                max: 65535
+              remote_port:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                min: 0
+                max: 65535
+              show_status_window:
+                type: string
+                raw_type: TypeString
+                optional: true
+              description:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 128
+              keyboard_layout:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              server_layout:
+                type: string
+                raw_type: TypeString
+                optional: true
+              security:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              send_preconnection_id:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              preconnection_id:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+              preconnection_blob:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 511
+              load_balancing_info:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 511
+              restricted_admin:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              port:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                min: 0
+                max: 65535
+              logon_user:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 35
+              logon_password:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 128
+              color_depth:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              sso:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              form_data:
+                type: list
+                raw_type: TypeList
+                optional: true
+                children: &id018
+                  name:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    min_length: 0
+                    max_length: 35
+                  value:
+                    type: string
+                    raw_type: TypeString
+                    optional: true
+                    min_length: 0
+                    max_length: 63
+              sso_credential:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              sso_username:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 35
+              sso_password:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 128
+              sso_credential_sent_once:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              width:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+                min: 0
+                max: 65535
+              height:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+                min: 0
+                max: 65535
+              vnc_keyboard_layout:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+        source_attribute: bookmark_group
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks:
+    canonical:
+      type: list
+      elements: dict
+      children: *id005
+      version_ranges: *id006
+      description: Bookmark table.
+      source_attribute: bookmark_group.bookmarks
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id006
+        description: Bookmark table.
+        children: *id005
+        source_attribute: bookmark_group.bookmarks
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id007
+        source_attribute: bookmark_group.bookmarks
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.additional_params:
+    canonical:
+      type: string
+      version_ranges: *id008
+      min_length: 0
+      max_length: 128
+      description: Additional parameters.
+      source_attribute: bookmark_group.bookmarks.additional_params
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: Additional parameters.
+        source_attribute: bookmark_group.bookmarks.additional_params
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: bookmark_group.bookmarks.additional_params
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.apptype:
+    canonical:
+      type: enum
+      version_ranges: *id009
+      choices: *id010
+      description: Application type.
+      source_attribute: bookmark_group.bookmarks.apptype
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id010
+        version_ranges: *id009
+        description: Application type.
+        source_attribute: bookmark_group.bookmarks.apptype
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: bookmark_group.bookmarks.apptype
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.color_depth:
+    canonical:
+      type: enum
+      version_ranges: *id011
+      choices: *id012
+      description: Color depth per pixel.
+      source_attribute: bookmark_group.bookmarks.color_depth
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id012
+        version_ranges: *id011
+        description: Color depth per pixel.
+        source_attribute: bookmark_group.bookmarks.color_depth
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: bookmark_group.bookmarks.color_depth
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.description:
+    canonical:
+      type: string
+      version_ranges: *id013
+      min_length: 0
+      max_length: 128
+      description: Description.
+      source_attribute: bookmark_group.bookmarks.description
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id013
+        description: Description.
+        source_attribute: bookmark_group.bookmarks.description
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: bookmark_group.bookmarks.description
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.domain:
+    canonical:
+      type: string
+      version_ranges: *id014
+      min_length: 0
+      max_length: 128
+      description: Login domain.
+      source_attribute: bookmark_group.bookmarks.domain
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id014
+        description: Login domain.
+        source_attribute: bookmark_group.bookmarks.domain
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: bookmark_group.bookmarks.domain
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.folder:
+    canonical:
+      type: string
+      version_ranges: *id015
+      min_length: 0
+      max_length: 128
+      description: Network shared file folder parameter.
+      source_attribute: bookmark_group.bookmarks.folder
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id015
+        description: Network shared file folder parameter.
+        source_attribute: bookmark_group.bookmarks.folder
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: bookmark_group.bookmarks.folder
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.form_data:
+    canonical:
+      type: list
+      elements: dict
+      children: *id016
+      version_ranges: *id017
+      description: Form data.
+      source_attribute: bookmark_group.bookmarks.form_data
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id017
+        description: Form data.
+        children: *id016
+        source_attribute: bookmark_group.bookmarks.form_data
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id018
+        source_attribute: bookmark_group.bookmarks.form_data
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.form_data.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id019
+      min_length: 0
+      max_length: 35
+      description: Name.
+      source_attribute: bookmark_group.bookmarks.form_data.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id019
+        description: Name.
+        source_attribute: bookmark_group.bookmarks.form_data.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: bookmark_group.bookmarks.form_data.name
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.form_data.value:
+    canonical:
+      type: string
+      version_ranges: *id020
+      min_length: 0
+      max_length: 63
+      description: Value.
+      source_attribute: bookmark_group.bookmarks.form_data.value
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id020
+        description: Value.
+        source_attribute: bookmark_group.bookmarks.form_data.value
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: bookmark_group.bookmarks.form_data.value
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.height:
+    canonical:
+      type: integer
+      version_ranges: *id021
+      min: 0
+      max: 65535
+      description: Screen height (range from 0 - 65535).
+      source_attribute: bookmark_group.bookmarks.height
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id021
+        description: Screen height (range from 0 - 65535).
+        source_attribute: bookmark_group.bookmarks.height
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: bookmark_group.bookmarks.height
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.host:
+    canonical:
+      type: string
+      version_ranges: *id022
+      min_length: 0
+      max_length: 128
+      description: Host name/IP parameter.
+      source_attribute: bookmark_group.bookmarks.host
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id022
+        description: Host name/IP parameter.
+        source_attribute: bookmark_group.bookmarks.host
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: bookmark_group.bookmarks.host
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.keyboard_layout:
+    canonical:
+      type: enum
+      version_ranges: *id023
+      choices: *id024
+      description: Keyboard layout.
+      source_attribute: bookmark_group.bookmarks.keyboard_layout
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id024
+        version_ranges: *id023
+        description: Keyboard layout.
+        source_attribute: bookmark_group.bookmarks.keyboard_layout
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: bookmark_group.bookmarks.keyboard_layout
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.listening_port:
+    canonical:
+      type: integer
+      min: 0
+      max: 65535
+      source_attribute: bookmark_group.bookmarks.listening_port
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: bookmark_group.bookmarks.listening_port
+    sources:
+    - terraform
+  bookmark_group.bookmarks.load_balancing_info:
+    canonical:
+      type: string
+      version_ranges: *id025
+      min_length: 0
+      max_length: 511
+      description: The load balancing information or cookie which should be provided to the connection broker.
+      source_attribute: bookmark_group.bookmarks.load_balancing_info
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id025
+        description: The load balancing information or cookie which should be provided to the connection broker.
+        source_attribute: bookmark_group.bookmarks.load_balancing_info
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 511
+        source_attribute: bookmark_group.bookmarks.load_balancing_info
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.logon_password:
+    canonical:
+      type: string
+      version_ranges: *id026
+      min_length: 0
+      max_length: 128
+      description: Logon password.
+      source_attribute: bookmark_group.bookmarks.logon_password
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id026
+        description: Logon password.
+        source_attribute: bookmark_group.bookmarks.logon_password
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: bookmark_group.bookmarks.logon_password
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.logon_user:
+    canonical:
+      type: string
+      version_ranges: *id027
+      min_length: 0
+      max_length: 35
+      description: Logon user.
+      source_attribute: bookmark_group.bookmarks.logon_user
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id027
+        description: Logon user.
+        source_attribute: bookmark_group.bookmarks.logon_user
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: bookmark_group.bookmarks.logon_user
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id028
+      min_length: 0
+      max_length: 35
+      description: Bookmark name.
+      source_attribute: bookmark_group.bookmarks.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id028
+        description: Bookmark name.
+        source_attribute: bookmark_group.bookmarks.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: bookmark_group.bookmarks.name
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.port:
+    canonical:
+      type: integer
+      version_ranges: *id029
+      min: 0
+      max: 65535
+      description: Remote port.
+      source_attribute: bookmark_group.bookmarks.port
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id029
+        description: Remote port.
+        source_attribute: bookmark_group.bookmarks.port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: bookmark_group.bookmarks.port
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.preconnection_blob:
+    canonical:
+      type: string
+      version_ranges: *id030
+      min_length: 0
+      max_length: 511
+      description: An arbitrary string which identifies the RDP source.
+      source_attribute: bookmark_group.bookmarks.preconnection_blob
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id030
+        description: An arbitrary string which identifies the RDP source.
+        source_attribute: bookmark_group.bookmarks.preconnection_blob
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 511
+        source_attribute: bookmark_group.bookmarks.preconnection_blob
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.preconnection_id:
+    canonical:
+      type: integer
+      version_ranges: *id031
+      description: The numeric ID of the RDP source (0-4294967295).
+      source_attribute: bookmark_group.bookmarks.preconnection_id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id031
+        description: The numeric ID of the RDP source (0-4294967295).
+        source_attribute: bookmark_group.bookmarks.preconnection_id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: bookmark_group.bookmarks.preconnection_id
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.remote_port:
+    canonical:
+      type: integer
+      min: 0
+      max: 65535
+      source_attribute: bookmark_group.bookmarks.remote_port
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: bookmark_group.bookmarks.remote_port
+    sources:
+    - terraform
+  bookmark_group.bookmarks.restricted_admin:
+    canonical:
+      type: enum
+      version_ranges: *id032
+      choices: *id033
+      description: Enable/disable restricted admin mode for RDP.
+      source_attribute: bookmark_group.bookmarks.restricted_admin
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id033
+        version_ranges: *id032
+        description: Enable/disable restricted admin mode for RDP.
+        source_attribute: bookmark_group.bookmarks.restricted_admin
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: bookmark_group.bookmarks.restricted_admin
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.security:
+    canonical:
+      type: enum
+      version_ranges: *id034
+      choices: *id035
+      description: Security mode for RDP connection .
+      source_attribute: bookmark_group.bookmarks.security
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id035
+        version_ranges: *id034
+        description: Security mode for RDP connection .
+        source_attribute: bookmark_group.bookmarks.security
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: bookmark_group.bookmarks.security
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.send_preconnection_id:
+    canonical:
+      type: enum
+      version_ranges: *id036
+      choices: *id037
+      description: Enable/disable sending of preconnection ID.
+      source_attribute: bookmark_group.bookmarks.send_preconnection_id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id037
+        version_ranges: *id036
+        description: Enable/disable sending of preconnection ID.
+        source_attribute: bookmark_group.bookmarks.send_preconnection_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: bookmark_group.bookmarks.send_preconnection_id
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.server_layout:
+    canonical:
+      type: string
+      source_attribute: bookmark_group.bookmarks.server_layout
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: bookmark_group.bookmarks.server_layout
+    sources:
+    - terraform
+  bookmark_group.bookmarks.show_status_window:
+    canonical:
+      type: string
+      source_attribute: bookmark_group.bookmarks.show_status_window
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: bookmark_group.bookmarks.show_status_window
+    sources:
+    - terraform
+  bookmark_group.bookmarks.sso:
+    canonical:
+      type: enum
+      version_ranges: *id038
+      choices: *id039
+      description: Single sign-on.
+      source_attribute: bookmark_group.bookmarks.sso
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id039
+        version_ranges: *id038
+        description: Single sign-on.
+        source_attribute: bookmark_group.bookmarks.sso
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: bookmark_group.bookmarks.sso
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.sso_credential:
+    canonical:
+      type: enum
+      version_ranges: *id040
+      choices: *id041
+      description: Single sign-on credentials.
+      source_attribute: bookmark_group.bookmarks.sso_credential
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id041
+        version_ranges: *id040
+        description: Single sign-on credentials.
+        source_attribute: bookmark_group.bookmarks.sso_credential
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: bookmark_group.bookmarks.sso_credential
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.sso_credential_sent_once:
+    canonical:
+      type: enum
+      version_ranges: *id042
+      choices: *id043
+      description: Single sign-on credentials are only sent once to remote server.
+      source_attribute: bookmark_group.bookmarks.sso_credential_sent_once
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id043
+        version_ranges: *id042
+        description: Single sign-on credentials are only sent once to remote server.
+        source_attribute: bookmark_group.bookmarks.sso_credential_sent_once
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: bookmark_group.bookmarks.sso_credential_sent_once
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.sso_password:
+    canonical:
+      type: string
+      version_ranges: *id044
+      min_length: 0
+      max_length: 128
+      description: SSO password.
+      source_attribute: bookmark_group.bookmarks.sso_password
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id044
+        description: SSO password.
+        source_attribute: bookmark_group.bookmarks.sso_password
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: bookmark_group.bookmarks.sso_password
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.sso_username:
+    canonical:
+      type: string
+      version_ranges: *id045
+      min_length: 0
+      max_length: 35
+      description: SSO user name.
+      source_attribute: bookmark_group.bookmarks.sso_username
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id045
+        description: SSO user name.
+        source_attribute: bookmark_group.bookmarks.sso_username
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: bookmark_group.bookmarks.sso_username
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.url:
+    canonical:
+      type: string
+      version_ranges: *id046
+      min_length: 0
+      max_length: 128
+      description: URL parameter.
+      source_attribute: bookmark_group.bookmarks.url
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id046
+        description: URL parameter.
+        source_attribute: bookmark_group.bookmarks.url
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: bookmark_group.bookmarks.url
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.vnc_keyboard_layout:
+    canonical:
+      type: enum
+      version_ranges: *id047
+      choices: *id048
+      description: Keyboard layout.
+      source_attribute: bookmark_group.bookmarks.vnc_keyboard_layout
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id048
+        version_ranges: *id047
+        description: Keyboard layout.
+        source_attribute: bookmark_group.bookmarks.vnc_keyboard_layout
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: bookmark_group.bookmarks.vnc_keyboard_layout
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.bookmarks.width:
+    canonical:
+      type: integer
+      version_ranges: *id049
+      min: 0
+      max: 65535
+      description: Screen width (range from 0 - 65535).
+      source_attribute: bookmark_group.bookmarks.width
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id049
+        description: Screen width (range from 0 - 65535).
+        source_attribute: bookmark_group.bookmarks.width
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: bookmark_group.bookmarks.width
+    sources:
+    - ansible
+    - terraform
+  bookmark_group.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id050
+      min_length: 0
+      max_length: 35
+      description: Bookmark group name.
+      source_attribute: bookmark_group.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id050
+        description: Bookmark group name.
+        source_attribute: bookmark_group.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: bookmark_group.name
+    sources:
+    - ansible
+    - terraform
+  client_src_range:
+    canonical:
+      type: string
+      source_attribute: client_src_range
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: client_src_range
+    sources:
+    - terraform
+  clipboard:
+    canonical:
+      type: enum
+      version_ranges: &id052
+      - - v7.0.1
+        - ''
+      choices: &id051
+      - enable
+      - disable
+      default: enable
+      description: Enable to support RDP/VPC clipboard functionality.
+      source_attribute: clipboard
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id051
+        version_ranges: *id052
+        description: Enable to support RDP/VPC clipboard functionality.
+        source_attribute: clipboard
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: clipboard
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable to support RDP/VPC clipboard functionality.
+        default: enable
+        source_attribute: clipboard
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  custom_lang:
+    canonical:
+      type: string
+      references: &id054
+      - system.custom-language.name
+      version_ranges: &id053
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Change the web portal display language. Overrides config system global set language. You can use config
+        system custom-language and execute system custom-language to add custom language files.
+      source_attribute: custom-lang
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id053
+        description: Change the web portal display language. Overrides config system global set language. You can use config
+          system custom-language and execute system custom-language to add custom language files. Source system.custom-language.name.
+        references: *id054
+        source_attribute: custom_lang
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: custom_lang
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Change the web portal display language. Overrides config system global set language. You can use config
+          system custom-language and execute system custom-language to add custom language files.
+        max_length: 35
+        source_attribute: custom-lang
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  customize_forticlient_download_url:
+    canonical:
+      type: string
+      source_attribute: customize_forticlient_download_url
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: customize_forticlient_download_url
+    sources:
+    - terraform
+  default_protocol:
+    canonical:
+      type: enum
+      version_ranges: &id056
+      - - v7.4.1
+        - ''
+      choices: &id055
+      - web
+      - ftp
+      - telnet
+      - smb
+      - vnc
+      - rdp
+      - ssh
+      - sftp
+      default: web
+      description: Application type that is set by default.
+      source_attribute: default-protocol
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id055
+        version_ranges: *id056
+        description: Application type that is set by default.
+        source_attribute: default_protocol
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: default_protocol
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Application type that is set by default.
+        default: web
+        source_attribute: default-protocol
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  default_window_height:
+    canonical:
+      type: integer
+      version_ranges: &id057
+      - - v7.0.6
+        - ''
+      default: '768'
+      min: 0
+      max: 65535
+      description: Screen height (range from 0 - 65535, default = 768).
+      source_attribute: default-window-height
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id057
+        description: Screen height (range from 0 - 65535).
+        source_attribute: default_window_height
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: default_window_height
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Screen height (range from 0 - 65535, default = 768).
+        default: '768'
+        min: 0
+        max: 65535
+        source_attribute: default-window-height
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  default_window_width:
+    canonical:
+      type: integer
+      version_ranges: &id058
+      - - v7.0.6
+        - ''
+      default: '1024'
+      min: 0
+      max: 65535
+      description: Screen width (range from 0 - 65535, default = 1024).
+      source_attribute: default-window-width
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id058
+        description: Screen width (range from 0 - 65535).
+        source_attribute: default_window_width
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 65535
+        source_attribute: default_window_width
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Screen width (range from 0 - 65535, default = 1024).
+        default: '1024'
+        min: 0
+        max: 65535
+        source_attribute: default-window-width
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dhcp6_ra_linkaddr:
+    canonical:
+      type: string
+      source_attribute: dhcp6_ra_linkaddr
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dhcp6_ra_linkaddr
+    sources:
+    - terraform
+  dhcp_ip_overlap:
+    canonical:
+      type: string
+      source_attribute: dhcp_ip_overlap
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dhcp_ip_overlap
+    sources:
+    - terraform
+  dhcp_ra_giaddr:
+    canonical:
+      type: string
+      source_attribute: dhcp_ra_giaddr
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dhcp_ra_giaddr
+    sources:
+    - terraform
+  dhcp_reservation:
+    canonical:
+      type: string
+      source_attribute: dhcp_reservation
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dhcp_reservation
+    sources:
+    - terraform
+  display_bookmark:
+    canonical:
+      type: enum
+      version_ranges: &id060
+      - - v6.0.0
+        - ''
+      choices: &id059
+      - enable
+      - disable
+      default: enable
+      description: Enable to display the web portal bookmark widget.
+      source_attribute: display-bookmark
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id059
+        version_ranges: *id060
+        description: Enable to display the web portal bookmark widget.
+        source_attribute: display_bookmark
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: display_bookmark
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable to display the web portal bookmark widget.
+        default: enable
+        source_attribute: display-bookmark
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  display_connection_tools:
+    canonical:
+      type: enum
+      version_ranges: &id062
+      - - v6.0.0
+        - ''
+      choices: &id061
+      - enable
+      - disable
+      default: enable
+      description: Enable to display the web portal connection tools widget.
+      source_attribute: display-connection-tools
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id061
+        version_ranges: *id062
+        description: Enable to display the web portal connection tools widget.
+        source_attribute: display_connection_tools
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: display_connection_tools
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable to display the web portal connection tools widget.
+        default: enable
+        source_attribute: display-connection-tools
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  display_history:
+    canonical:
+      type: enum
+      version_ranges: &id064
+      - - v6.0.0
+        - ''
+      choices: &id063
+      - enable
+      - disable
+      default: enable
+      description: Enable to display the web portal user login history widget.
+      source_attribute: display-history
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id063
+        version_ranges: *id064
+        description: Enable to display the web portal user login history widget.
+        source_attribute: display_history
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: display_history
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable to display the web portal user login history widget.
+        default: enable
+        source_attribute: display-history
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  display_status:
+    canonical:
+      type: enum
+      version_ranges: &id066
+      - - v6.0.0
+        - ''
+      choices: &id065
+      - enable
+      - disable
+      default: enable
+      description: Enable to display the web portal status widget.
+      source_attribute: display-status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id065
+        version_ranges: *id066
+        description: Enable to display the web portal status widget.
+        source_attribute: display_status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: display_status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable to display the web portal status widget.
+        default: enable
+        source_attribute: display-status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dns_server1:
+    canonical:
+      type: string
+      source_attribute: dns_server1
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dns_server1
+    sources:
+    - terraform
+  dns_server2:
+    canonical:
+      type: string
+      source_attribute: dns_server2
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dns_server2
+    sources:
+    - terraform
+  dns_suffix:
+    canonical:
+      type: string
+      version_ranges: &id067
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 253
+      description: DNS suffix.
+      source_attribute: dns-suffix
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id067
+        description: DNS suffix.
+        source_attribute: dns_suffix
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 253
+        source_attribute: dns_suffix
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: DNS suffix.
+        max_length: 253
+        source_attribute: dns-suffix
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  exclusive_routing:
+    canonical:
+      type: string
+      source_attribute: exclusive_routing
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: exclusive_routing
+    sources:
+    - terraform
+  focus_bookmark:
+    canonical:
+      type: enum
+      version_ranges: &id069
+      - - v7.4.1
+        - ''
+      choices: &id068
+      - enable
+      - disable
+      default: disable
+      description: Enable to prioritize the placement of the bookmark section over the quick-connection section in the Agentless
+        VPN application.
+      source_attribute: focus-bookmark
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id068
+        version_ranges: *id069
+        description: Enable to prioritize the placement of the bookmark section over the quick-connection section in the Agentless
+          VPN application.
+        source_attribute: focus_bookmark
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: focus_bookmark
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable to prioritize the placement of the bookmark section over the quick-connection section in the Agentless
+          VPN application.
+        default: disable
+        source_attribute: focus-bookmark
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  forticlient_download:
+    canonical:
+      type: string
+      source_attribute: forticlient_download
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: forticlient_download
+    sources:
+    - terraform
+  forticlient_download_method:
+    canonical:
+      type: string
+      source_attribute: forticlient_download_method
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: forticlient_download_method
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  heading:
+    canonical:
+      type: string
+      version_ranges: &id070
+      - - v6.0.0
+        - ''
+      default: Agentless VPN Portal
+      min_length: 0
+      max_length: 31
+      description: Web portal heading message.
+      source_attribute: heading
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id070
+        description: Web portal heading message.
+        source_attribute: heading
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 31
+        source_attribute: heading
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Web portal heading message.
+        default: Agentless VPN Portal
+        max_length: 31
+        source_attribute: heading
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  hide_sso_credential:
+    canonical:
+      type: enum
+      version_ranges: &id072
+      - - v6.0.0
+        - ''
+      choices: &id071
+      - enable
+      - disable
+      default: enable
+      description: Enable to prevent SSO credential being sent to client.
+      source_attribute: hide-sso-credential
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id071
+        version_ranges: *id072
+        description: Enable to prevent SSO credential being sent to client.
+        source_attribute: hide_sso_credential
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: hide_sso_credential
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable to prevent SSO credential being sent to client.
+        default: enable
+        source_attribute: hide-sso-credential
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  host_check:
+    canonical:
+      type: string
+      source_attribute: host_check
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: host_check
+    sources:
+    - terraform
+  host_check_interval:
+    canonical:
+      type: integer
+      source_attribute: host_check_interval
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: host_check_interval
+    sources:
+    - terraform
+  host_check_policy:
+    canonical:
+      type: list
+      children: &id073
+        name:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 79
+      source_attribute: host_check_policy
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id073
+        source_attribute: host_check_policy
+    sources:
+    - terraform
+  host_check_policy.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 79
+      source_attribute: host_check_policy.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: host_check_policy.name
+    sources:
+    - terraform
+  ip_mode:
+    canonical:
+      type: string
+      source_attribute: ip_mode
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ip_mode
+    sources:
+    - terraform
+  ip_pools:
+    canonical:
+      type: list
+      children: &id074
+        name:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 79
+      source_attribute: ip_pools
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id074
+        source_attribute: ip_pools
+    sources:
+    - terraform
+  ip_pools.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 79
+      source_attribute: ip_pools.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: ip_pools.name
+    sources:
+    - terraform
+  ipv6_dns_server1:
+    canonical:
+      type: string
+      source_attribute: ipv6_dns_server1
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ipv6_dns_server1
+    sources:
+    - terraform
+  ipv6_dns_server2:
+    canonical:
+      type: string
+      source_attribute: ipv6_dns_server2
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ipv6_dns_server2
+    sources:
+    - terraform
+  ipv6_exclusive_routing:
+    canonical:
+      type: string
+      source_attribute: ipv6_exclusive_routing
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ipv6_exclusive_routing
+    sources:
+    - terraform
+  ipv6_pools:
+    canonical:
+      type: list
+      children: &id075
+        name:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 79
+      source_attribute: ipv6_pools
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id075
+        source_attribute: ipv6_pools
+    sources:
+    - terraform
+  ipv6_pools.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 79
+      source_attribute: ipv6_pools.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: ipv6_pools.name
+    sources:
+    - terraform
+  ipv6_service_restriction:
+    canonical:
+      type: string
+      source_attribute: ipv6_service_restriction
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ipv6_service_restriction
+    sources:
+    - terraform
+  ipv6_split_tunneling:
+    canonical:
+      type: string
+      source_attribute: ipv6_split_tunneling
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ipv6_split_tunneling
+    sources:
+    - terraform
+  ipv6_split_tunneling_routing_address:
+    canonical:
+      type: list
+      children: &id076
+        name:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 79
+      source_attribute: ipv6_split_tunneling_routing_address
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id076
+        source_attribute: ipv6_split_tunneling_routing_address
+    sources:
+    - terraform
+  ipv6_split_tunneling_routing_address.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 79
+      source_attribute: ipv6_split_tunneling_routing_address.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: ipv6_split_tunneling_routing_address.name
+    sources:
+    - terraform
+  ipv6_split_tunneling_routing_negate:
+    canonical:
+      type: string
+      source_attribute: ipv6_split_tunneling_routing_negate
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ipv6_split_tunneling_routing_negate
+    sources:
+    - terraform
+  ipv6_tunnel_mode:
+    canonical:
+      type: string
+      source_attribute: ipv6_tunnel_mode
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ipv6_tunnel_mode
+    sources:
+    - terraform
+  ipv6_wins_server1:
+    canonical:
+      type: string
+      source_attribute: ipv6_wins_server1
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ipv6_wins_server1
+    sources:
+    - terraform
+  ipv6_wins_server2:
+    canonical:
+      type: string
+      source_attribute: ipv6_wins_server2
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ipv6_wins_server2
+    sources:
+    - terraform
+  keep_alive:
+    canonical:
+      type: string
+      source_attribute: keep_alive
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: keep_alive
+    sources:
+    - terraform
+  landing_page:
+    canonical:
+      type: list
+      children: &id078
+        url:
+          type: string
+          raw_type: string
+          version_ranges: &id091
+          - - v7.4.0
+            - ''
+          description: Landing page URL.
+        sso:
+          type: enum
+          raw_type: string
+          choices: &id086
+          - disable
+          - static
+          - auto
+          version_ranges: &id085
+          - - v7.4.0
+            - ''
+          description: Single sign-on.
+        form_data:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id081
+          - - v7.4.0
+            - ''
+          description: Form data.
+          children: &id080
+            name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id083
+              - - v7.4.0
+                - ''
+              description: Name.
+            value:
+              type: string
+              raw_type: string
+              version_ranges: &id084
+              - - v7.4.0
+                - ''
+              description: Value.
+        sso_credential:
+          type: enum
+          raw_type: string
+          choices: &id088
+          - sslvpn-login
+          - alternative
+          version_ranges: &id087
+          - - v7.4.0
+            - ''
+          description: Single sign-on credentials.
+        sso_username:
+          type: string
+          raw_type: string
+          version_ranges: &id090
+          - - v7.4.0
+            - ''
+          description: SSO user name.
+        sso_password:
+          type: string
+          raw_type: string
+          version_ranges: &id089
+          - - v7.4.0
+            - ''
+          description: SSO password.
+      version_ranges: &id077
+      - - v7.4.0
+        - ''
+      description: Landing page options.
+      source_attribute: landing_page
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id077
+        description: Landing page options.
+        children: *id078
+        source_attribute: landing_page
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          url:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 511
+          logout_url:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 511
+          sso:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          form_data:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id082
+              name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 35
+              value:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 63
+          sso_credential:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          sso_username:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          sso_password:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 128
+        source_attribute: landing_page
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id079
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id079
+  landing_page.form_data:
+    canonical:
+      type: list
+      elements: dict
+      children: *id080
+      version_ranges: *id081
+      description: Form data.
+      source_attribute: landing_page.form_data
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id081
+        description: Form data.
+        children: *id080
+        source_attribute: landing_page.form_data
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id082
+        source_attribute: landing_page.form_data
+    sources:
+    - ansible
+    - terraform
+  landing_page.form_data.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id083
+      min_length: 0
+      max_length: 35
+      description: Name.
+      source_attribute: landing_page.form_data.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id083
+        description: Name.
+        source_attribute: landing_page.form_data.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: landing_page.form_data.name
+    sources:
+    - ansible
+    - terraform
+  landing_page.form_data.value:
+    canonical:
+      type: string
+      version_ranges: *id084
+      min_length: 0
+      max_length: 63
+      description: Value.
+      source_attribute: landing_page.form_data.value
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id084
+        description: Value.
+        source_attribute: landing_page.form_data.value
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: landing_page.form_data.value
+    sources:
+    - ansible
+    - terraform
+  landing_page.logout_url:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 511
+      source_attribute: landing_page.logout_url
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 511
+        source_attribute: landing_page.logout_url
+    sources:
+    - terraform
+  landing_page.sso:
+    canonical:
+      type: enum
+      version_ranges: *id085
+      choices: *id086
+      description: Single sign-on.
+      source_attribute: landing_page.sso
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id086
+        version_ranges: *id085
+        description: Single sign-on.
+        source_attribute: landing_page.sso
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: landing_page.sso
+    sources:
+    - ansible
+    - terraform
+  landing_page.sso_credential:
+    canonical:
+      type: enum
+      version_ranges: *id087
+      choices: *id088
+      description: Single sign-on credentials.
+      source_attribute: landing_page.sso_credential
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id088
+        version_ranges: *id087
+        description: Single sign-on credentials.
+        source_attribute: landing_page.sso_credential
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: landing_page.sso_credential
+    sources:
+    - ansible
+    - terraform
+  landing_page.sso_password:
+    canonical:
+      type: string
+      version_ranges: *id089
+      min_length: 0
+      max_length: 128
+      description: SSO password.
+      source_attribute: landing_page.sso_password
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id089
+        description: SSO password.
+        source_attribute: landing_page.sso_password
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: landing_page.sso_password
+    sources:
+    - ansible
+    - terraform
+  landing_page.sso_username:
+    canonical:
+      type: string
+      version_ranges: *id090
+      min_length: 0
+      max_length: 35
+      description: SSO user name.
+      source_attribute: landing_page.sso_username
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id090
+        description: SSO user name.
+        source_attribute: landing_page.sso_username
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: landing_page.sso_username
+    sources:
+    - ansible
+    - terraform
+  landing_page.url:
+    canonical:
+      type: string
+      version_ranges: *id091
+      min_length: 0
+      max_length: 511
+      description: Landing page URL.
+      source_attribute: landing_page.url
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id091
+        description: Landing page URL.
+        source_attribute: landing_page.url
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 511
+        source_attribute: landing_page.url
+    sources:
+    - ansible
+    - terraform
+  landing_page_mode:
+    canonical:
+      type: enum
+      version_ranges: &id093
+      - - v7.4.0
+        - ''
+      choices: &id092
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable Agentless VPN landing page mode.
+      source_attribute: landing-page-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id092
+        version_ranges: *id093
+        description: Enable/disable Agentless VPN landing page mode.
+        source_attribute: landing_page_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: landing_page_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable Agentless VPN landing page mode.
+        default: disable
+        source_attribute: landing-page-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  limit_user_logins:
+    canonical:
+      type: enum
+      version_ranges: &id095
+      - - v6.0.0
+        - ''
+      choices: &id094
+      - enable
+      - disable
+      default: disable
+      description: Enable to limit each user to one Agentless VPN session at a time.
+      source_attribute: limit-user-logins
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id094
+        version_ranges: *id095
+        description: Enable to limit each user to one Agentless VPN session at a time.
+        source_attribute: limit_user_logins
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: limit_user_logins
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable to limit each user to one Agentless VPN session at a time.
+        default: disable
+        source_attribute: limit-user-logins
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  mac_addr_action:
+    canonical:
+      type: string
+      source_attribute: mac_addr_action
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mac_addr_action
+    sources:
+    - terraform
+  mac_addr_check:
+    canonical:
+      type: string
+      source_attribute: mac_addr_check
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mac_addr_check
+    sources:
+    - terraform
+  mac_addr_check_rule:
+    canonical:
+      type: list
+      children: &id096
+        name:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 35
+        mac_addr_mask:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+          computed: true
+          min: 1
+          max: 48
+        mac_addr_list:
+          type: list
+          raw_type: TypeSet
+          optional: true
+          children: &id097
+            addr:
+              type: string
+              raw_type: TypeString
+              optional: true
+              computed: true
+      source_attribute: mac_addr_check_rule
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id096
+        source_attribute: mac_addr_check_rule
+    sources:
+    - terraform
+  mac_addr_check_rule.mac_addr_list:
+    canonical:
+      type: list
+      children: *id097
+      source_attribute: mac_addr_check_rule.mac_addr_list
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id097
+        source_attribute: mac_addr_check_rule.mac_addr_list
+    sources:
+    - terraform
+  mac_addr_check_rule.mac_addr_list.addr:
+    canonical:
+      type: string
+      source_attribute: mac_addr_check_rule.mac_addr_list.addr
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mac_addr_check_rule.mac_addr_list.addr
+    sources:
+    - terraform
+  mac_addr_check_rule.mac_addr_mask:
+    canonical:
+      type: integer
+      min: 1
+      max: 48
+      source_attribute: mac_addr_check_rule.mac_addr_mask
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 48
+        source_attribute: mac_addr_check_rule.mac_addr_mask
+    sources:
+    - terraform
+  mac_addr_check_rule.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: mac_addr_check_rule.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: mac_addr_check_rule.name
+    sources:
+    - terraform
+  macos_forticlient_download_url:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 1023
+      source_attribute: macos_forticlient_download_url
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 1023
+        source_attribute: macos_forticlient_download_url
+    sources:
+    - terraform
+  name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id098
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Portal name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id098
+        description: Portal name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Portal name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  os_check:
+    canonical:
+      type: string
+      source_attribute: os_check
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: os_check
+    sources:
+    - terraform
+  os_check_list:
+    canonical:
+      type: list
+      children: &id099
+        name:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 35
+        minor_version:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+          min: 0
+          max: 65535
+        action:
+          type: string
+          raw_type: TypeString
+          optional: true
+          computed: true
+        tolerance:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+          min: 0
+          max: 65535
+        latest_patch_level:
+          type: string
+          raw_type: TypeString
+          optional: true
+          computed: true
+      source_attribute: os_check_list
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id099
+        source_attribute: os_check_list
+    sources:
+    - terraform
+  os_check_list.action:
+    canonical:
+      type: string
+      source_attribute: os_check_list.action
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: os_check_list.action
+    sources:
+    - terraform
+  os_check_list.latest_patch_level:
+    canonical:
+      type: string
+      source_attribute: os_check_list.latest_patch_level
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: os_check_list.latest_patch_level
+    sources:
+    - terraform
+  os_check_list.minor_version:
+    canonical:
+      type: integer
+      min: 0
+      max: 65535
+      source_attribute: os_check_list.minor_version
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: os_check_list.minor_version
+    sources:
+    - terraform
+  os_check_list.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: os_check_list.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: os_check_list.name
+    sources:
+    - terraform
+  os_check_list.tolerance:
+    canonical:
+      type: integer
+      min: 0
+      max: 65535
+      source_attribute: os_check_list.tolerance
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: os_check_list.tolerance
+    sources:
+    - terraform
+  prefer_ipv6_dns:
+    canonical:
+      type: enum
+      version_ranges: &id101
+      - - v7.0.0
+        - ''
+      choices: &id100
+      - enable
+      - disable
+      default: disable
+      description: Prefer to query IPv6 DNS server first if enabled.
+      source_attribute: prefer-ipv6-dns
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id100
+        version_ranges: *id101
+        description: Prefer to query IPv6 DNS server first if enabled.
+        source_attribute: prefer_ipv6_dns
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: prefer_ipv6_dns
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Prefer to query IPv6 DNS server first if enabled.
+        default: disable
+        source_attribute: prefer-ipv6-dns
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  redir_url:
+    canonical:
+      type: string
+      version_ranges: &id102
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: Client login redirect URL.
+      source_attribute: redir-url
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id102
+        description: Client login redirect URL.
+        source_attribute: redir_url
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: redir_url
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Client login redirect URL.
+        max_length: 255
+        source_attribute: redir-url
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  rewrite_ip_uri_ui:
+    canonical:
+      type: enum
+      version_ranges: &id104
+      - - v7.0.0
+        - ''
+      choices: &id103
+      - enable
+      - disable
+      default: disable
+      description: Rewrite contents for URI contains IP and /ui/ (default = disable).
+      source_attribute: rewrite-ip-uri-ui
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id103
+        version_ranges: *id104
+        description: Rewrite contents for URI contains IP and /ui/ .
+        source_attribute: rewrite_ip_uri_ui
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: rewrite_ip_uri_ui
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Rewrite contents for URI contains IP and /ui/ (default = disable).
+        default: disable
+        source_attribute: rewrite-ip-uri-ui
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  save_password:
+    canonical:
+      type: string
+      source_attribute: save_password
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: save_password
+    sources:
+    - terraform
+  service_restriction:
+    canonical:
+      type: string
+      source_attribute: service_restriction
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: service_restriction
+    sources:
+    - terraform
+  skip_check_for_browser:
+    canonical:
+      type: string
+      source_attribute: skip_check_for_browser
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: skip_check_for_browser
+    sources:
+    - terraform
+  skip_check_for_unsupported_os:
+    canonical:
+      type: string
+      source_attribute: skip_check_for_unsupported_os
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: skip_check_for_unsupported_os
+    sources:
+    - terraform
+  smb_max_version:
+    canonical:
+      type: enum
+      version_ranges: &id106
+      - - v6.2.0
+        - ''
+      choices: &id105
+      - smbv1
+      - smbv2
+      - smbv3
+      default: smbv3
+      description: SMB maximum client protocol version.
+      source_attribute: smb-max-version
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id105
+        version_ranges: *id106
+        description: SMB maximum client protocol version.
+        source_attribute: smb_max_version
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: smb_max_version
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: SMB maximum client protocol version.
+        default: smbv3
+        source_attribute: smb-max-version
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  smb_min_version:
+    canonical:
+      type: enum
+      version_ranges: &id108
+      - - v6.2.0
+        - ''
+      choices: &id107
+      - smbv1
+      - smbv2
+      - smbv3
+      default: smbv2
+      description: SMB minimum client protocol version.
+      source_attribute: smb-min-version
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id107
+        version_ranges: *id108
+        description: SMB minimum client protocol version.
+        source_attribute: smb_min_version
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: smb_min_version
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: SMB minimum client protocol version.
+        default: smbv2
+        source_attribute: smb-min-version
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  smb_ntlmv1_auth:
+    canonical:
+      type: enum
+      version_ranges: &id110
+      - - v6.0.0
+        - ''
+      choices: &id109
+      - enable
+      - disable
+      default: disable
+      description: Enable support of NTLMv1 for Samba authentication.
+      source_attribute: smb-ntlmv1-auth
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id109
+        version_ranges: *id110
+        description: Enable support of NTLMv1 for Samba authentication.
+        source_attribute: smb_ntlmv1_auth
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: smb_ntlmv1_auth
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable support of NTLMv1 for Samba authentication.
+        default: disable
+        source_attribute: smb-ntlmv1-auth
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  smbv1:
+    canonical:
+      type: enum
+      version_ranges: &id112
+      - - v6.0.0
+        - ''
+      choices: &id111
+      - enable
+      - disable
+      default: disable
+      description: SMB version 1.
+      source_attribute: smbv1
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id111
+        version_ranges: *id112
+        description: SMB version 1.
+        source_attribute: smbv1
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: smbv1
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: SMB version 1.
+        default: disable
+        source_attribute: smbv1
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  split_dns:
+    canonical:
+      type: list
+      children: &id113
+        id:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+          computed: true
+        domains:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 1024
+        dns_server1:
+          type: string
+          raw_type: TypeString
+          optional: true
+          computed: true
+        dns_server2:
+          type: string
+          raw_type: TypeString
+          optional: true
+          computed: true
+        ipv6_dns_server1:
+          type: string
+          raw_type: TypeString
+          optional: true
+          computed: true
+        ipv6_dns_server2:
+          type: string
+          raw_type: TypeString
+          optional: true
+          computed: true
+      source_attribute: split_dns
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id113
+        source_attribute: split_dns
+    sources:
+    - terraform
+  split_dns.dns_server1:
+    canonical:
+      type: string
+      source_attribute: split_dns.dns_server1
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: split_dns.dns_server1
+    sources:
+    - terraform
+  split_dns.dns_server2:
+    canonical:
+      type: string
+      source_attribute: split_dns.dns_server2
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: split_dns.dns_server2
+    sources:
+    - terraform
+  split_dns.domains:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 1024
+      source_attribute: split_dns.domains
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 1024
+        source_attribute: split_dns.domains
+    sources:
+    - terraform
+  split_dns.id:
+    canonical:
+      type: integer
+      source_attribute: split_dns.id
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: split_dns.id
+    sources:
+    - terraform
+  split_dns.ipv6_dns_server1:
+    canonical:
+      type: string
+      source_attribute: split_dns.ipv6_dns_server1
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: split_dns.ipv6_dns_server1
+    sources:
+    - terraform
+  split_dns.ipv6_dns_server2:
+    canonical:
+      type: string
+      source_attribute: split_dns.ipv6_dns_server2
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: split_dns.ipv6_dns_server2
+    sources:
+    - terraform
+  split_tunneling:
+    canonical:
+      type: string
+      source_attribute: split_tunneling
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: split_tunneling
+    sources:
+    - terraform
+  split_tunneling_routing_address:
+    canonical:
+      type: list
+      children: &id114
+        name:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 79
+      source_attribute: split_tunneling_routing_address
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id114
+        source_attribute: split_tunneling_routing_address
+    sources:
+    - terraform
+  split_tunneling_routing_address.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 79
+      source_attribute: split_tunneling_routing_address.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: split_tunneling_routing_address.name
+    sources:
+    - terraform
+  split_tunneling_routing_negate:
+    canonical:
+      type: string
+      source_attribute: split_tunneling_routing_negate
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: split_tunneling_routing_negate
+    sources:
+    - terraform
+  theme:
+    canonical:
+      type: enum
+      version_ranges: &id116
+      - - v6.0.0
+        - ''
+      choices: &id115
+      - jade
+      - neutrino
+      - mariner
+      - graphite
+      - melongene
+      - jet-stream
+      - security-fabric
+      - dark-matter
+      - onyx
+      - eclipse
+      default: security-fabric
+      description: Web portal color scheme.
+      source_attribute: theme
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id115
+        version_ranges: *id116
+        description: Web portal color scheme.
+        source_attribute: theme
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: theme
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Web portal color scheme.
+        default: security-fabric
+        source_attribute: theme
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  transform_backward_slashes:
+    canonical:
+      type: string
+      source_attribute: transform_backward_slashes
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: transform_backward_slashes
+    sources:
+    - terraform
+  tunnel_mode:
+    canonical:
+      type: string
+      source_attribute: tunnel_mode
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: tunnel_mode
+    sources:
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  use_sdwan:
+    canonical:
+      type: enum
+      version_ranges: &id118
+      - - v6.2.7
+        - v6.2.7
+      - - v6.4.4
+        - ''
+      choices: &id117
+      - enable
+      - disable
+      default: disable
+      description: Use SD-WAN rules to get output interface.
+      source_attribute: use-sdwan
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id117
+        version_ranges: *id118
+        description: Use SD-WAN rules to get output interface.
+        source_attribute: use_sdwan
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: use_sdwan
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Use SD-WAN rules to get output interface.
+        default: disable
+        source_attribute: use-sdwan
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  user_bookmark:
+    canonical:
+      type: enum
+      version_ranges: &id120
+      - - v6.0.0
+        - ''
+      choices: &id119
+      - enable
+      - disable
+      default: enable
+      description: Enable to allow web portal users to create their own bookmarks.
+      source_attribute: user-bookmark
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id119
+        version_ranges: *id120
+        description: Enable to allow web portal users to create their own bookmarks.
+        source_attribute: user_bookmark
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: user_bookmark
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable to allow web portal users to create their own bookmarks.
+        default: enable
+        source_attribute: user-bookmark
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  user_group_bookmark:
+    canonical:
+      type: enum
+      version_ranges: &id122
+      - - v6.0.0
+        - ''
+      choices: &id121
+      - enable
+      - disable
+      default: enable
+      description: Enable to allow web portal users to create bookmarks for all users in the same user group.
+      source_attribute: user-group-bookmark
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id121
+        version_ranges: *id122
+        description: Enable to allow web portal users to create bookmarks for all users in the same user group.
+        source_attribute: user_group_bookmark
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: user_group_bookmark
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable to allow web portal users to create bookmarks for all users in the same user group.
+        default: enable
+        source_attribute: user-group-bookmark
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  web_mode:
+    canonical:
+      type: enum
+      version_ranges: &id124
+      - - v6.0.0
+        - ''
+      choices: &id123
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable Agentless VPN web mode.
+      source_attribute: web-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id123
+        version_ranges: *id124
+        description: Enable/disable Agentless VPN web mode.
+        source_attribute: web_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: web_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable Agentless VPN web mode.
+        default: disable
+        source_attribute: web-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  windows_forticlient_download_url:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 1023
+      source_attribute: windows_forticlient_download_url
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 1023
+        source_attribute: windows_forticlient_download_url
+    sources:
+    - terraform
+  wins_server1:
+    canonical:
+      type: string
+      source_attribute: wins_server1
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: wins_server1
+    sources:
+    - terraform
+  wins_server2:
+    canonical:
+      type: string
+      source_attribute: wins_server2
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: wins_server2
+    sources:
+    - terraform
+conflicts:
+- attribute: landing_page
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict

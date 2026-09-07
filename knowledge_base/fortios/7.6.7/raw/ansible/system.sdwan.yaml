@@ -1,0 +1,2055 @@
+id: system.sdwan
+version: 7.6.7
+source_object: fortios_system_sdwan
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_system_sdwan.py
+root_type: object
+attributes:
+  status:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v6.4.0
+      - ''
+    description: Enable/disable SD-WAN.
+  load_balance_mode:
+    type: enum
+    raw_type: string
+    choices:
+    - source-ip-based
+    - weight-based
+    - usage-based
+    - source-dest-ip-based
+    - measured-volume-based
+    version_ranges:
+    - - v6.4.0
+      - ''
+    description: Algorithm or mode to use for load balancing Internet traffic to SD-WAN members.
+  speedtest_bypass_routing:
+    type: enum
+    raw_type: string
+    choices:
+    - disable
+    - enable
+    version_ranges:
+    - - v7.0.1
+      - ''
+    description: Enable/disable bypass routing when speedtest on a SD-WAN member.
+  duplication_max_num:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.4.0
+      - v6.4.0
+    - - v6.4.4
+      - ''
+    description: Maximum number of interface members a packet is duplicated in the SD-WAN zone (2 - 4).
+  duplication_max_discrepancy:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.6.1
+      - ''
+    description: Maximum discrepancy between two packets for deduplication in milliseconds (250 - 1000).
+  neighbor_hold_down:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.4.0
+      - ''
+    description: Enable/disable hold switching from the secondary neighbor to the primary neighbor.
+  neighbor_hold_down_time:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.4.0
+      - ''
+    description: Waiting period in seconds when switching from the secondary neighbor to the primary neighbor when hold-down
+      is disabled. (0 - 10000000).
+  app_perf_log_period:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.4.0
+      - ''
+    description: Time interval in seconds that application performance logs are generated (0 - 3600).
+  neighbor_hold_boot_time:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v6.4.0
+      - ''
+    description: Waiting period in seconds when switching from the primary neighbor to the secondary neighbor from the neighbor
+      start. (0 - 10000000).
+  fail_detect:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.4.0
+      - ''
+    description: Enable/disable SD-WAN Internet connection status checking (failure detection).
+  fail_alert_interfaces:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.4.0
+      - ''
+    description: Physical interfaces that will be alerted.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Physical interface name. Source system.interface.name.
+        references:
+        - system.interface.name
+  zone:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.4.0
+      - ''
+    description: Configure SD-WAN zones.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Zone name.
+      advpn_select:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v7.4.2
+          - ''
+        description: Enable/disable selection of ADVPN based on SDWAN information.
+      advpn_health_check:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.4.2
+          - ''
+        description: Health check for ADVPN local overlay link quality. Source system.sdwan.health-check.name.
+        references:
+        - system.sdwan.health-check.name
+      service_sla_tie_break:
+        type: enum
+        raw_type: string
+        choices:
+        - cfg-order
+        - fib-best-match
+        - priority
+        - input-device
+        version_ranges:
+        - - v6.4.4
+          - ''
+        description: Method of selecting member if more than one meets the SLA.
+      minimum_sla_meet_members:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.4.1
+          - ''
+        description: Minimum number of members which meet SLA when the neighbor is preferred.
+  members:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.4.0
+      - ''
+    description: FortiGate interfaces added to the SD-WAN.
+    children:
+      seq_num:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Sequence number(1-512). see <a href='#notes'>Notes</a>.
+      interface:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Interface name. Source system.interface.name.
+        references:
+        - system.interface.name
+      zone:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Zone name. Source system.sdwan.zone.name.
+        references:
+        - system.sdwan.zone.name
+      gateway:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: The default gateway for this interface. Usually the default gateway of the Internet service provider
+          that this interface is connected to.
+      preferred_source:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.4.0
+          - ''
+        description: Preferred source of route for this member.
+      source:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Source IP address used in the health-check packet to the server.
+      gateway6:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: IPv6 gateway.
+      source6:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Source IPv6 address used in the health-check packet to the server.
+      cost:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Cost of this interface for services in SLA mode (0 - 4294967295).
+      weight:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Weight of this interface for weighted load balancing. (1 - 255) More traffic is directed to interfaces
+          with higher weights.
+      priority:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Priority of the interface for IPv4 (1 - 65535). Used for SD-WAN rules or priority rules.
+      priority6:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.0.0
+          - ''
+        description: Priority of the interface for IPv6 (1 - 65535). Used for SD-WAN rules or priority rules.
+      priority_in_sla:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.6.0
+          - ''
+        description: Preferred priority of routes to this member when this member is in-sla (0 - 65535).
+      priority_out_sla:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.6.0
+          - ''
+        description: Preferred priority of routes to this member when this member is out-of-sla (0 - 65535).
+      spillover_threshold:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Egress spillover threshold for this interface (0 - 16776000 kbit/s). When this traffic volume threshold
+          is reached, new sessions spill over to other interfaces in the SD-WAN.
+      ingress_spillover_threshold:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Ingress spillover threshold for this interface (0 - 16776000 kbit/s). When this traffic volume threshold
+          is reached, new sessions spill over to other interfaces in the SD-WAN.
+      volume_ratio:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Measured volume ratio (this value / sum of all values = percentage of link volume, 1 - 255).
+      status:
+        type: enum
+        raw_type: string
+        choices:
+        - disable
+        - enable
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Enable/disable this interface in the SD-WAN.
+      transport_group:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.4.2
+          - ''
+        description: Measured transport group (0 - 255).
+      comment:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Comments.
+  health_check:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.4.0
+      - ''
+    description: SD-WAN status checking or health checking. Identify a server on the Internet and determine how SD-WAN verifies
+      that the FortiGate can communicate with it.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Status check or health check name.
+      fortiguard:
+        type: enum
+        raw_type: string
+        choices:
+        - disable
+        - enable
+        version_ranges:
+        - - v7.6.1
+          - ''
+        description: Enable/disable use of FortiGuard predefined server.
+      fortiguard_name:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.6.1
+          - ''
+        description: Predefined health-check target name. Source system.health-check-fortiguard.name.
+        references:
+        - system.health-check-fortiguard.name
+      probe_packets:
+        type: enum
+        raw_type: string
+        choices:
+        - disable
+        - enable
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Enable/disable transmission of probe packets.
+      addr_mode:
+        type: enum
+        raw_type: string
+        choices:
+        - ipv4
+        - ipv6
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Address mode (IPv4 or IPv6).
+      system_dns:
+        type: enum
+        raw_type: string
+        choices:
+        - disable
+        - enable
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Enable/disable system DNS as the probe server.
+      server:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: IP address or FQDN name of the server.
+      detect_mode:
+        type: enum
+        raw_type: string
+        choices:
+        - active
+        - passive
+        - prefer-passive
+        - remote
+        - agent-based
+        version_ranges:
+        - - v7.0.0
+          - ''
+        description: The mode determining how to detect the server.
+      protocol:
+        type: enum
+        raw_type: string
+        choices:
+        - ping
+        - tcp-echo
+        - udp-echo
+        - http
+        - https
+        - twamp
+        - dns
+        - tcp-connect
+        - ftp
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Protocol used to determine if the FortiGate can communicate with the server.
+      port:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Port number used to communicate with the server over the selected protocol (0 - 65535).
+      quality_measured_method:
+        type: enum
+        raw_type: string
+        choices:
+        - half-open
+        - half-close
+        version_ranges:
+        - - v6.4.0
+          - v6.4.0
+        - - v6.4.4
+          - ''
+        description: Method to measure the quality of tcp-connect.
+      security_mode:
+        type: enum
+        raw_type: string
+        choices:
+        - none
+        - authentication
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Twamp controller security mode.
+      user:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - v6.4.0
+        - - v6.4.4
+          - ''
+        description: The user name to access probe server.
+      password:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: TWAMP controller password in authentication mode.
+      packet_size:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Packet size of a TWAMP test session. (124/158 - 1024)
+      ha_priority:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: HA election priority (1 - 50).
+      ftp_mode:
+        type: enum
+        raw_type: string
+        choices:
+        - passive
+        - port
+        version_ranges:
+        - - v6.4.0
+          - v6.4.0
+        - - v6.4.4
+          - ''
+        description: FTP mode.
+      ftp_file:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - v6.4.0
+        - - v6.4.4
+          - ''
+        description: Full path and file name on the FTP server to download for FTP health-check to probe.
+      http_get:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: URL used to communicate with the server if the protocol if the protocol is HTTP.
+      http_agent:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: String in the http-agent field in the HTTP header.
+      http_match:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Response string expected from the server if the protocol is HTTP.
+      dns_request_domain:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Fully qualified domain name to resolve for the DNS probe.
+      dns_match_ip:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - v6.4.0
+        - - v6.4.4
+          - ''
+        description: Response IP expected from DNS server if the protocol is DNS.
+      interval:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Status check interval in milliseconds, or the time between attempting to connect to the server (20 -
+          3600*1000 msec).
+      probe_timeout:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Time to wait before a probe packet is considered lost (20 - 3600*1000 msec).
+      agent_probe_timeout:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.6.3
+          - ''
+        description: Time to wait before a probe packet is considered lost when detect-mode is agent (5000 - 3600*1000 msec).
+      remote_probe_timeout:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.6.3
+          - ''
+        description: Time to wait before a probe packet is considered lost when detect-mode is remote (20 - 3600*1000 msec).
+      failtime:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Number of failures before server is considered lost (1 - 3600).
+      recoverytime:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Number of successful responses received before server is considered recovered (1 - 3600).
+      probe_count:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Number of most recent probes that should be used to calculate latency and jitter (5 - 30).
+      diffservcode:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Differentiated services code point (DSCP) in the IP header of the probe packet.
+      update_cascade_interface:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Enable/disable update cascade interface.
+      update_static_route:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Enable/disable updating the static route.
+      update_bgp_route:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v7.6.5
+          - ''
+        description: Enable/disable updating the BGP route.
+      embed_measured_health:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v7.2.1
+          - ''
+        description: Enable/disable embedding measured health information.
+      sla_id_redistribute:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.2.1
+          - ''
+        description: Select the ID from the SLA sub-table. The selected SLA"s priority value will be distributed into the
+          routing table (0 - 32).
+      sla_fail_log_period:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Time interval in seconds that SLA fail log messages will be generated (0 - 3600).
+      sla_pass_log_period:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Time interval in seconds that SLA pass log messages will be generated (0 - 3600).
+      threshold_warning_packetloss:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Warning threshold for packet loss (percentage).
+      threshold_alert_packetloss:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Alert threshold for packet loss (percentage).
+      threshold_warning_latency:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Warning threshold for latency (ms).
+      threshold_alert_latency:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Alert threshold for latency (ms).
+      threshold_warning_jitter:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Warning threshold for jitter (ms).
+      threshold_alert_jitter:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Alert threshold for jitter (ms).
+      vrf:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Virtual Routing Forwarding ID.
+      source:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Source IP address used in the health-check packet to the server.
+      source6:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.4.0
+          - ''
+        description: Source IPv6 address used in the health-check packet to server.
+      members:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Member sequence number list.
+        children:
+          seq_num:
+            type: integer
+            raw_type: integer
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Member sequence number. see <a href='#notes'>Notes</a>. Source system.sdwan.members.seq-num.
+            references:
+            - system.sdwan.members.seq-num
+      mos_codec:
+        type: enum
+        raw_type: string
+        choices:
+        - g711
+        - g722
+        - g729
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Codec to use for MOS calculation .
+      class_id:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.4.0
+          - ''
+        description: Traffic class ID. Source firewall.traffic-class.class-id.
+        references:
+        - firewall.traffic-class.class-id
+      packet_loss_weight:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.6.4
+          - ''
+        description: Coefficient of packet-loss in the formula of custom-profile-1.
+      latency_weight:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.6.4
+          - ''
+        description: Coefficient of latency in the formula of custom-profile-1.
+      jitter_weight:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.6.4
+          - ''
+        description: Coefficient of jitter in the formula of custom-profile-1.
+      bandwidth_weight:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.6.4
+          - ''
+        description: Coefficient of reciprocal of available bidirectional bandwidth in the formula of custom-profile-1.
+      sla:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Service level agreement (SLA).
+        children:
+          id:
+            type: integer
+            raw_type: integer
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: SLA ID. see <a href='#notes'>Notes</a>.
+          link_cost_factor:
+            type: enum
+            raw_type: list
+            choices:
+            - latency
+            - jitter
+            - packet-loss
+            - custom-profile-1
+            - mos
+            - remote
+            multiple_values: true
+            elements: str
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Criteria on which to base link selection.
+          latency_threshold:
+            type: integer
+            raw_type: integer
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Latency for SLA to make decision in milliseconds. (0 - 10000000).
+          jitter_threshold:
+            type: integer
+            raw_type: integer
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Jitter for SLA to make decision in milliseconds. (0 - 10000000).
+          packetloss_threshold:
+            type: integer
+            raw_type: integer
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Packet loss for SLA to make decision in percentage. (0 - 100).
+          mos_threshold:
+            type: string
+            raw_type: string
+            version_ranges:
+            - - v7.2.0
+              - ''
+            description: Minimum mean opinion score for SLA to be marked as pass(1.0 - 5.0).
+          custom_profile_threshold:
+            type: integer
+            raw_type: integer
+            version_ranges:
+            - - v7.6.4
+              - ''
+            description: Custom profile threshold for SLA to be marked as pass(0 - 10000000).
+          priority_in_sla:
+            type: integer
+            raw_type: integer
+            version_ranges:
+            - - v7.2.1
+              - ''
+            description: Value to be distributed into routing table when in-sla (0 - 65535).
+          priority_out_sla:
+            type: integer
+            raw_type: integer
+            version_ranges:
+            - - v7.2.1
+              - ''
+            description: Value to be distributed into routing table when out-sla (0 - 65535).
+  service:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.4.0
+      - ''
+    description: Create SD-WAN rules (also called services) to control how sessions are distributed to interfaces in the SD-WAN.
+    children:
+      id:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: SD-WAN rule ID (1 - 4000). see <a href='#notes'>Notes</a>.
+      name:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: SD-WAN rule name.
+      addr_mode:
+        type: enum
+        raw_type: string
+        choices:
+        - ipv4
+        - ipv6
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Address mode (IPv4 or IPv6).
+      load_balance:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v7.4.1
+          - ''
+        description: Enable/disable load-balance.
+      input_device:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Source interface name.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Interface name. Source system.interface.name.
+            references:
+            - system.interface.name
+      input_device_negate:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Enable/disable negation of input device match.
+      input_zone:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Source input-zone name.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v7.2.0
+              - ''
+            description: Zone. Source system.sdwan.zone.name.
+            references:
+            - system.sdwan.zone.name
+      mode:
+        type: enum
+        raw_type: string
+        choices:
+        - auto
+        - manual
+        - priority
+        - sla
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Control how the SD-WAN rule sets the priority of interfaces in the SD-WAN.
+      zone_mode:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v7.4.1
+          - ''
+        description: Enable/disable zone mode.
+      minimum_sla_meet_members:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - v6.4.0
+        - - v6.4.4
+          - ''
+        description: Minimum number of members which meet SLA.
+      hash_mode:
+        type: enum
+        raw_type: string
+        choices:
+        - round-robin
+        - source-ip-based
+        - source-dest-ip-based
+        - inbandwidth
+        - outbandwidth
+        - bibandwidth
+        version_ranges:
+        - - v6.4.0
+          - v6.4.0
+        - - v6.4.4
+          - ''
+        description: Hash algorithm for selected priority members for load balance mode.
+      shortcut_priority:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        - auto
+        version_ranges:
+        - - v7.4.2
+          - ''
+        description: High priority of ADVPN shortcut for this service.
+      role:
+        type: enum
+        raw_type: string
+        choices:
+        - standalone
+        - primary
+        - secondary
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Service role to work with neighbor.
+      standalone_action:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Enable/disable service when selected neighbor role is standalone while service role is not standalone.
+      quality_link:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Quality grade.
+      tos:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Type of service bit pattern.
+      tos_mask:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Type of service evaluated bits.
+      protocol:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Protocol number.
+      start_port:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Start destination port number.
+      end_port:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: End destination port number.
+      start_src_port:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.4.1
+          - ''
+        description: Start source port number.
+      end_src_port:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.4.1
+          - ''
+        description: End source port number.
+      dst:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Destination address name.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Address or address group name. Source firewall.address.name firewall.addrgrp.name.
+            references:
+            - firewall.address.name
+            - firewall.addrgrp.name
+      dst_negate:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Enable/disable negation of destination address match.
+      src:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Source address name.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Address or address group name. Source firewall.address.name firewall.addrgrp.name.
+            references:
+            - firewall.address.name
+            - firewall.addrgrp.name
+      dst6:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Destination address6 name.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Address6 or address6 group name. Source firewall.address6.name firewall.addrgrp6.name.
+            references:
+            - firewall.address6.name
+            - firewall.addrgrp6.name
+      src6:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Source address6 name.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Address6 or address6 group name. Source firewall.address6.name firewall.addrgrp6.name.
+            references:
+            - firewall.address6.name
+            - firewall.addrgrp6.name
+      src_negate:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Enable/disable negation of source address match.
+      users:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: User name.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: User name. Source user.local.name.
+            references:
+            - user.local.name
+      groups:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: User groups.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Group name. Source user.group.name.
+            references:
+            - user.group.name
+      internet_service:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Enable/disable use of Internet service for application-based load balancing.
+      internet_service_custom:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Custom Internet service name list.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Custom Internet service name. Source firewall.internet-service-custom.name.
+            references:
+            - firewall.internet-service-custom.name
+      internet_service_custom_group:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Custom Internet Service group list.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Custom Internet Service group name. Source firewall.internet-service-custom-group.name.
+            references:
+            - firewall.internet-service-custom-group.name
+      internet_service_fortiguard:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v7.6.4
+          - ''
+        description: FortiGuard Internet service name list.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v7.6.4
+              - ''
+            description: FortiGuard Internet service name. Source firewall.internet-service-fortiguard.name.
+            references:
+            - firewall.internet-service-fortiguard.name
+      internet_service_name:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Internet service name list.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Internet service name. Source firewall.internet-service-name.name.
+            references:
+            - firewall.internet-service-name.name
+      internet_service_group:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Internet Service group list.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Internet Service group name. Source firewall.internet-service-group.name.
+            references:
+            - firewall.internet-service-group.name
+      internet_service_app_ctrl:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Application control based Internet Service ID list.
+        children:
+          id:
+            type: integer
+            raw_type: integer
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Application control based Internet Service ID. see <a href='#notes'>Notes</a>.
+      internet_service_app_ctrl_group:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Application control based Internet Service group list.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Application control based Internet Service group name. Source application.group.name.
+            references:
+            - application.group.name
+      internet_service_app_ctrl_category:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: IDs of one or more application control categories.
+        children:
+          id:
+            type: integer
+            raw_type: integer
+            required: true
+            version_ranges:
+            - - v7.2.0
+              - ''
+            description: Application control category ID. see <a href='#notes'>Notes</a>.
+      health_check:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Health check list.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Health check name. Source system.sdwan.health-check.name.
+            references:
+            - system.sdwan.health-check.name
+      link_cost_factor:
+        type: enum
+        raw_type: string
+        choices:
+        - latency
+        - jitter
+        - packet-loss
+        - inbandwidth
+        - outbandwidth
+        - bibandwidth
+        - custom-profile-1
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Link cost factor.
+      packet_loss_weight:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Coefficient of packet-loss in the formula of custom-profile-1.
+      latency_weight:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Coefficient of latency in the formula of custom-profile-1.
+      jitter_weight:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Coefficient of jitter in the formula of custom-profile-1.
+      bandwidth_weight:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Coefficient of reciprocal of available bidirectional bandwidth in the formula of custom-profile-1.
+      link_cost_threshold:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Percentage threshold change of link cost values that will result in policy route regeneration (0 - 10000000).
+      hold_down_time:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Waiting period in seconds when switching from the back-up member to the primary member (0 - 10000000).
+      sla_stickiness:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v7.4.1
+          - ''
+        description: Enable/disable SLA stickiness .
+      dscp_forward:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Enable/disable forward traffic DSCP tag.
+      dscp_reverse:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Enable/disable reverse traffic DSCP tag.
+      dscp_forward_tag:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Forward traffic DSCP tag.
+      dscp_reverse_tag:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Reverse traffic DSCP tag.
+      sla:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Service level agreement (SLA).
+        children:
+          health_check:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: SD-WAN health-check. Source system.sdwan.health-check.name.
+            references:
+            - system.sdwan.health-check.name
+          id:
+            type: integer
+            raw_type: integer
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: SLA ID.
+      priority_members:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Member sequence number list.
+        children:
+          seq_num:
+            type: integer
+            raw_type: integer
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - ''
+            description: Member sequence number. see <a href='#notes'>Notes</a>. Source system.sdwan.members.seq-num.
+            references:
+            - system.sdwan.members.seq-num
+      priority_zone:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v7.0.1
+          - ''
+        description: Priority zone name list.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v7.0.1
+              - ''
+            description: Priority zone name. Source system.sdwan.zone.name.
+            references:
+            - system.sdwan.zone.name
+      status:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Enable/disable SD-WAN service.
+      gateway:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Enable/disable SD-WAN service gateway.
+      default:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Enable/disable use of SD-WAN as default service.
+      sla_compare_method:
+        type: enum
+        raw_type: string
+        choices:
+        - order
+        - number
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Method to compare SLA value for SLA mode.
+      fib_best_match_force:
+        type: enum
+        raw_type: string
+        choices:
+        - disable
+        - enable
+        version_ranges:
+        - - v7.6.3
+          - ''
+        description: Enable/disable force using fib-best-match oif as outgoing interface.
+      tie_break:
+        type: enum
+        raw_type: string
+        choices:
+        - zone
+        - cfg-order
+        - fib-best-match
+        - priority
+        - input-device
+        version_ranges:
+        - - v6.4.4
+          - ''
+        description: Method of selecting member if more than one meets the SLA.
+      use_shortcut_sla:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.4.4
+          - ''
+        description: Enable/disable use of ADVPN shortcut for quality comparison.
+      passive_measurement:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v7.0.2
+          - ''
+        description: Enable/disable passive measurement based on the service criteria.
+      agent_exclusive:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v7.2.4
+          - ''
+        description: Set/unset the service as agent use exclusively.
+      shortcut:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v7.4.0
+          - ''
+        description: Enable/disable shortcut for this service.
+      comment:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v7.6.0
+          - ''
+        description: Comments.
+  neighbor:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.4.0
+      - ''
+    description: Create SD-WAN neighbors from BGP neighbor table to control route advertisements according to SLA status.
+    children:
+      ip:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: IP/IPv6 address of neighbor or neighbor-group name. Source router.bgp.neighbor-group.name router.bgp.neighbor.ip.
+        references:
+        - router.bgp.neighbor-group.name
+        - router.bgp.neighbor.ip
+      member:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Member sequence number list. Source system.sdwan.members.seq-num.
+        references:
+        - system.sdwan.members.seq-num
+        children:
+          seq_num:
+            type: integer
+            raw_type: integer
+            required: true
+            version_ranges:
+            - - v7.2.0
+              - ''
+            description: Member sequence number. see <a href='#notes'>Notes</a>. Source system.sdwan.members.seq-num.
+            references:
+            - system.sdwan.members.seq-num
+      service_id:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.4.1
+          - ''
+        description: SD-WAN service ID to work with the neighbor. Source system.sdwan.service.id.
+        references:
+        - system.sdwan.service.id
+      minimum_sla_meet_members:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Minimum number of members which meet SLA when the neighbor is preferred.
+      mode:
+        type: enum
+        raw_type: string
+        choices:
+        - sla
+        - speedtest
+        version_ranges:
+        - - v7.0.1
+          - ''
+        description: What metric to select the neighbor.
+      role:
+        type: enum
+        raw_type: string
+        choices:
+        - standalone
+        - primary
+        - secondary
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: Role of neighbor.
+      route_metric:
+        type: enum
+        raw_type: string
+        choices:
+        - preferable
+        - priority
+        version_ranges:
+        - - v7.6.1
+          - ''
+        description: Route-metric of neighbor.
+      health_check:
+        type: string
+        raw_type: string
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: SD-WAN health-check name. Source system.sdwan.health-check.name.
+        references:
+        - system.sdwan.health-check.name
+      sla_id:
+        type: integer
+        raw_type: integer
+        version_ranges:
+        - - v6.4.0
+          - ''
+        description: SLA ID.
+  duplication:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.4.0
+      - v6.4.0
+    - - v6.4.4
+      - ''
+    description: Create SD-WAN duplication rules.
+    children:
+      id:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges:
+        - - v6.4.0
+          - v6.4.0
+        - - v6.4.4
+          - ''
+        description: Duplication rule ID (1 - 255). see <a href='#notes'>Notes</a>.
+      service_id:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.4
+          - ''
+        description: SD-WAN service rule ID list.
+        children:
+          id:
+            type: integer
+            raw_type: integer
+            required: true
+            version_ranges:
+            - - v6.4.4
+              - ''
+            description: SD-WAN service rule ID. see <a href='#notes'>Notes</a>. Source system.sdwan.service.id.
+            references:
+            - system.sdwan.service.id
+      srcaddr:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - v6.4.0
+        - - v6.4.4
+          - ''
+        description: Source address or address group names.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - v6.4.0
+            - - v6.4.4
+              - ''
+            description: Address or address group name. Source firewall.address.name firewall.addrgrp.name.
+            references:
+            - firewall.address.name
+            - firewall.addrgrp.name
+      dstaddr:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - v6.4.0
+        - - v6.4.4
+          - ''
+        description: Destination address or address group names.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - v6.4.0
+            - - v6.4.4
+              - ''
+            description: Address or address group name. Source firewall.address.name firewall.addrgrp.name.
+            references:
+            - firewall.address.name
+            - firewall.addrgrp.name
+      srcaddr6:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - v6.4.0
+        - - v6.4.4
+          - ''
+        description: Source address6 or address6 group names.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - v6.4.0
+            - - v6.4.4
+              - ''
+            description: Address6 or address6 group name. Source firewall.address6.name firewall.addrgrp6.name.
+            references:
+            - firewall.address6.name
+            - firewall.addrgrp6.name
+      dstaddr6:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - v6.4.0
+        - - v6.4.4
+          - ''
+        description: Destination address6 or address6 group names.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - v6.4.0
+            - - v6.4.4
+              - ''
+            description: Address6 or address6 group name. Source firewall.address6.name firewall.addrgrp6.name.
+            references:
+            - firewall.address6.name
+            - firewall.addrgrp6.name
+      srcintf:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - v6.4.0
+        - - v6.4.4
+          - ''
+        description: Incoming (ingress) interfaces or zones.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - v6.4.0
+            - - v6.4.4
+              - ''
+            description: Interface, zone or SDWAN zone name. Source system.interface.name system.zone.name system.sdwan.zone.name.
+            references:
+            - system.interface.name
+            - system.sdwan.zone.name
+            - system.zone.name
+      dstintf:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - v6.4.0
+        - - v6.4.4
+          - ''
+        description: Outgoing (egress) interfaces or zones.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - v6.4.0
+            - - v6.4.4
+              - ''
+            description: Interface, zone or SDWAN zone name. Source system.interface.name system.zone.name system.sdwan.zone.name.
+            references:
+            - system.interface.name
+            - system.sdwan.zone.name
+            - system.zone.name
+      service:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges:
+        - - v6.4.0
+          - v6.4.0
+        - - v6.4.4
+          - ''
+        description: Service and service group name.
+        children:
+          name:
+            type: string
+            raw_type: string
+            required: true
+            version_ranges:
+            - - v6.4.0
+              - v6.4.0
+            - - v6.4.4
+              - ''
+            description: Service and service group name. Source firewall.service.custom.name firewall.service.group.name.
+            references:
+            - firewall.service.custom.name
+            - firewall.service.group.name
+      packet_duplication:
+        type: enum
+        raw_type: string
+        choices:
+        - disable
+        - force
+        - on-demand
+        version_ranges:
+        - - v6.4.0
+          - v6.4.0
+        - - v6.4.4
+          - ''
+        description: Configure packet duplication method.
+      sla_match_service:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v7.2.0
+          - ''
+        description: Enable/disable packet duplication matching health-check SLAs in service rule.
+      packet_de_duplication:
+        type: enum
+        raw_type: string
+        choices:
+        - enable
+        - disable
+        version_ranges:
+        - - v6.4.0
+          - v6.4.0
+        - - v6.4.4
+          - ''
+        description: Enable/disable discarding of packets that have been duplicated.

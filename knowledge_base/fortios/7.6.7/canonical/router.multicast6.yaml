@@ -1,0 +1,1296 @@
+id: router.multicast6
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  interface:
+    canonical:
+      type: list
+      elements: dict
+      children: &id002
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id006
+          - - v6.0.0
+            - ''
+          description: Interface name. Source system.interface.name.
+          references: &id005
+          - system.interface.name
+        hello_interval:
+          type: integer
+          raw_type: integer
+          version_ranges: &id004
+          - - v6.0.0
+            - ''
+          description: Interval between sending PIM hello messages in seconds (1 - 65535).
+        hello_holdtime:
+          type: integer
+          raw_type: integer
+          version_ranges: &id003
+          - - v6.0.0
+            - ''
+          description: Time before old neighbor information expires in seconds (1 - 65535).
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      description: Protocol Independent Multicast (PIM) interfaces.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id001
+        description: Protocol Independent Multicast (PIM) interfaces.
+        children: *id002
+        source_attribute: interface
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          hello_interval:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 65535
+          hello_holdtime:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 1
+            max: 65535
+          rp_candidate:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          rp_candidate_group:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          rp_candidate_priority:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 255
+          rp_candidate_interval:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 16383
+          static_group:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+        source_attribute: interface
+    sources:
+    - ansible
+    - terraform
+  interface.hello_holdtime:
+    canonical:
+      type: integer
+      version_ranges: *id003
+      min: 1
+      max: 65535
+      description: Time before old neighbor information expires in seconds (1 - 65535).
+      source_attribute: interface.hello_holdtime
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id003
+        description: Time before old neighbor information expires in seconds (1 - 65535).
+        source_attribute: interface.hello_holdtime
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 1
+        max: 65535
+        source_attribute: interface.hello_holdtime
+    sources:
+    - ansible
+    - terraform
+  interface.hello_interval:
+    canonical:
+      type: integer
+      version_ranges: *id004
+      min: 1
+      max: 65535
+      description: Interval between sending PIM hello messages in seconds (1 - 65535).
+      source_attribute: interface.hello_interval
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id004
+        description: Interval between sending PIM hello messages in seconds (1 - 65535).
+        source_attribute: interface.hello_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: interface.hello_interval
+    sources:
+    - ansible
+    - terraform
+  interface.name:
+    canonical:
+      type: string
+      references: *id005
+      required: true
+      version_ranges: *id006
+      min_length: 0
+      max_length: 15
+      description: Interface name. Source system.interface.name.
+      source_attribute: interface.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id006
+        description: Interface name. Source system.interface.name.
+        references: *id005
+        source_attribute: interface.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface.name
+    sources:
+    - ansible
+    - terraform
+  interface.rp_candidate:
+    canonical:
+      type: string
+      source_attribute: interface.rp_candidate
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface.rp_candidate
+    sources:
+    - terraform
+  interface.rp_candidate_group:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: interface.rp_candidate_group
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: interface.rp_candidate_group
+    sources:
+    - terraform
+  interface.rp_candidate_interval:
+    canonical:
+      type: integer
+      min: 1
+      max: 16383
+      source_attribute: interface.rp_candidate_interval
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 16383
+        source_attribute: interface.rp_candidate_interval
+    sources:
+    - terraform
+  interface.rp_candidate_priority:
+    canonical:
+      type: integer
+      min: 0
+      max: 255
+      source_attribute: interface.rp_candidate_priority
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 255
+        source_attribute: interface.rp_candidate_priority
+    sources:
+    - terraform
+  interface.static_group:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: interface.static_group
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: interface.static_group
+    sources:
+    - terraform
+  multicast_pmtu:
+    canonical:
+      type: enum
+      version_ranges: &id008
+      - - v6.0.0
+        - ''
+      choices: &id007
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable PMTU for IPv6 multicast.
+      source_attribute: multicast-pmtu
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id007
+        version_ranges: *id008
+        description: Enable/disable PMTU for IPv6 multicast.
+        source_attribute: multicast_pmtu
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: multicast_pmtu
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable PMTU for IPv6 multicast.
+        default: disable
+        source_attribute: multicast-pmtu
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  multicast_routing:
+    canonical:
+      type: enum
+      version_ranges: &id010
+      - - v6.0.0
+        - ''
+      choices: &id009
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable IPv6 multicast routing.
+      source_attribute: multicast-routing
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id010
+        description: Enable/disable IPv6 multicast routing.
+        source_attribute: multicast_routing
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: multicast_routing
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable IPv6 multicast routing.
+        default: disable
+        source_attribute: multicast-routing
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  pim_sm_global:
+    canonical:
+      type: list
+      children: &id012
+        register_rate_limit:
+          type: integer
+          raw_type: integer
+          version_ranges: &id016
+          - - v6.0.0
+            - ''
+          description: Limit of packets/sec per source registered through this RP (0 means unlimited).
+        pim_use_sdwan:
+          type: enum
+          raw_type: string
+          choices: &id015
+          - enable
+          - disable
+          version_ranges: &id014
+          - - v7.6.0
+            - ''
+          description: Enable/disable use of SDWAN when checking RPF neighbor and sending of REG packet.
+        rp_address:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id018
+          - - v6.0.0
+            - ''
+          description: Statically configured RP addresses.
+          children: &id017
+            id:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id020
+              - - v6.0.0
+                - ''
+              description: ID of the entry. see <a href='#notes'>Notes</a>.
+            ip6_address:
+              type: string
+              raw_type: string
+              version_ranges: &id021
+              - - v6.0.0
+                - ''
+              description: RP router IPv6 address.
+      version_ranges: &id011
+      - - v6.0.0
+        - ''
+      description: PIM sparse-mode global settings.
+      source_attribute: pim_sm_global
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: object
+        raw_type: dict
+        version_ranges: *id011
+        description: PIM sparse-mode global settings.
+        children: *id012
+        source_attribute: pim_sm_global
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children:
+          bsr_candidate:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          bsr_interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          bsr_priority:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 255
+          bsr_hash:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 128
+          bsr_allow_quick_refresh:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          cisco_crp_prefix:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          register_rate_limit:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 65535
+          cisco_ignore_rp_set_priority:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          spt_threshold:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          spt_threshold_group:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 35
+          pim_use_sdwan:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          rp_address:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id019
+              id:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+              ip6_address:
+                type: string
+                raw_type: TypeString
+                optional: true
+                computed: true
+              group:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 35
+        source_attribute: pim_sm_global
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id013
+          kind: object
+          container_representation: list
+        confidence: high
+    semantic_type: *id013
+  pim_sm_global.bsr_allow_quick_refresh:
+    canonical:
+      type: string
+      source_attribute: pim_sm_global.bsr_allow_quick_refresh
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global.bsr_allow_quick_refresh
+    sources:
+    - terraform
+  pim_sm_global.bsr_candidate:
+    canonical:
+      type: string
+      source_attribute: pim_sm_global.bsr_candidate
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global.bsr_candidate
+    sources:
+    - terraform
+  pim_sm_global.bsr_hash:
+    canonical:
+      type: integer
+      min: 0
+      max: 128
+      source_attribute: pim_sm_global.bsr_hash
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 128
+        source_attribute: pim_sm_global.bsr_hash
+    sources:
+    - terraform
+  pim_sm_global.bsr_interface:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 15
+      source_attribute: pim_sm_global.bsr_interface
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: pim_sm_global.bsr_interface
+    sources:
+    - terraform
+  pim_sm_global.bsr_priority:
+    canonical:
+      type: integer
+      min: 0
+      max: 255
+      source_attribute: pim_sm_global.bsr_priority
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: pim_sm_global.bsr_priority
+    sources:
+    - terraform
+  pim_sm_global.cisco_crp_prefix:
+    canonical:
+      type: string
+      source_attribute: pim_sm_global.cisco_crp_prefix
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global.cisco_crp_prefix
+    sources:
+    - terraform
+  pim_sm_global.cisco_ignore_rp_set_priority:
+    canonical:
+      type: string
+      source_attribute: pim_sm_global.cisco_ignore_rp_set_priority
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global.cisco_ignore_rp_set_priority
+    sources:
+    - terraform
+  pim_sm_global.pim_use_sdwan:
+    canonical:
+      type: enum
+      version_ranges: *id014
+      choices: *id015
+      description: Enable/disable use of SDWAN when checking RPF neighbor and sending of REG packet.
+      source_attribute: pim_sm_global.pim_use_sdwan
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id015
+        version_ranges: *id014
+        description: Enable/disable use of SDWAN when checking RPF neighbor and sending of REG packet.
+        source_attribute: pim_sm_global.pim_use_sdwan
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global.pim_use_sdwan
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.register_rate_limit:
+    canonical:
+      type: integer
+      version_ranges: *id016
+      min: 0
+      max: 65535
+      description: Limit of packets/sec per source registered through this RP (0 means unlimited).
+      source_attribute: pim_sm_global.register_rate_limit
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id016
+        description: Limit of packets/sec per source registered through this RP (0 means unlimited).
+        source_attribute: pim_sm_global.register_rate_limit
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: pim_sm_global.register_rate_limit
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.rp_address:
+    canonical:
+      type: list
+      elements: dict
+      children: *id017
+      version_ranges: *id018
+      description: Statically configured RP addresses.
+      source_attribute: pim_sm_global.rp_address
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id018
+        description: Statically configured RP addresses.
+        children: *id017
+        source_attribute: pim_sm_global.rp_address
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id019
+        source_attribute: pim_sm_global.rp_address
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.rp_address.group:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: pim_sm_global.rp_address.group
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: pim_sm_global.rp_address.group
+    sources:
+    - terraform
+  pim_sm_global.rp_address.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id020
+      description: ID of the entry. see <a href='#notes'>Notes</a>.
+      source_attribute: pim_sm_global.rp_address.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id020
+        description: ID of the entry. see <a href='#notes'>Notes</a>.
+        source_attribute: pim_sm_global.rp_address.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global.rp_address.id
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.rp_address.ip6_address:
+    canonical:
+      type: string
+      version_ranges: *id021
+      description: RP router IPv6 address.
+      source_attribute: pim_sm_global.rp_address.ip6_address
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id021
+        description: RP router IPv6 address.
+        source_attribute: pim_sm_global.rp_address.ip6_address
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global.rp_address.ip6_address
+    sources:
+    - ansible
+    - terraform
+  pim_sm_global.spt_threshold:
+    canonical:
+      type: string
+      source_attribute: pim_sm_global.spt_threshold
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global.spt_threshold
+    sources:
+    - terraform
+  pim_sm_global.spt_threshold_group:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: pim_sm_global.spt_threshold_group
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: pim_sm_global.spt_threshold_group
+    sources:
+    - terraform
+  pim_sm_global_vrf:
+    canonical:
+      type: list
+      children: &id022
+        vrf:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+          computed: true
+          min: 1
+          max: 511
+        bsr_candidate:
+          type: string
+          raw_type: TypeString
+          optional: true
+          computed: true
+        bsr_interface:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 15
+        bsr_priority:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+          min: 0
+          max: 255
+        bsr_hash:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+          computed: true
+          min: 0
+          max: 128
+        bsr_allow_quick_refresh:
+          type: string
+          raw_type: TypeString
+          optional: true
+          computed: true
+        cisco_crp_prefix:
+          type: string
+          raw_type: TypeString
+          optional: true
+          computed: true
+        rp_address:
+          type: list
+          raw_type: TypeList
+          optional: true
+          children: &id023
+            id:
+              type: integer
+              raw_type: TypeInt
+              optional: true
+              computed: true
+            ip6_address:
+              type: string
+              raw_type: TypeString
+              optional: true
+              computed: true
+            group:
+              type: string
+              raw_type: TypeString
+              optional: true
+              min_length: 0
+              max_length: 35
+      source_attribute: pim_sm_global_vrf
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id022
+        source_attribute: pim_sm_global_vrf
+    sources:
+    - terraform
+  pim_sm_global_vrf.bsr_allow_quick_refresh:
+    canonical:
+      type: string
+      source_attribute: pim_sm_global_vrf.bsr_allow_quick_refresh
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global_vrf.bsr_allow_quick_refresh
+    sources:
+    - terraform
+  pim_sm_global_vrf.bsr_candidate:
+    canonical:
+      type: string
+      source_attribute: pim_sm_global_vrf.bsr_candidate
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global_vrf.bsr_candidate
+    sources:
+    - terraform
+  pim_sm_global_vrf.bsr_hash:
+    canonical:
+      type: integer
+      min: 0
+      max: 128
+      source_attribute: pim_sm_global_vrf.bsr_hash
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 128
+        source_attribute: pim_sm_global_vrf.bsr_hash
+    sources:
+    - terraform
+  pim_sm_global_vrf.bsr_interface:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 15
+      source_attribute: pim_sm_global_vrf.bsr_interface
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: pim_sm_global_vrf.bsr_interface
+    sources:
+    - terraform
+  pim_sm_global_vrf.bsr_priority:
+    canonical:
+      type: integer
+      min: 0
+      max: 255
+      source_attribute: pim_sm_global_vrf.bsr_priority
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: pim_sm_global_vrf.bsr_priority
+    sources:
+    - terraform
+  pim_sm_global_vrf.cisco_crp_prefix:
+    canonical:
+      type: string
+      source_attribute: pim_sm_global_vrf.cisco_crp_prefix
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global_vrf.cisco_crp_prefix
+    sources:
+    - terraform
+  pim_sm_global_vrf.rp_address:
+    canonical:
+      type: list
+      children: *id023
+      source_attribute: pim_sm_global_vrf.rp_address
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id023
+        source_attribute: pim_sm_global_vrf.rp_address
+    sources:
+    - terraform
+  pim_sm_global_vrf.rp_address.group:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: pim_sm_global_vrf.rp_address.group
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: pim_sm_global_vrf.rp_address.group
+    sources:
+    - terraform
+  pim_sm_global_vrf.rp_address.id:
+    canonical:
+      type: integer
+      source_attribute: pim_sm_global_vrf.rp_address.id
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global_vrf.rp_address.id
+    sources:
+    - terraform
+  pim_sm_global_vrf.rp_address.ip6_address:
+    canonical:
+      type: string
+      source_attribute: pim_sm_global_vrf.rp_address.ip6_address
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pim_sm_global_vrf.rp_address.ip6_address
+    sources:
+    - terraform
+  pim_sm_global_vrf.vrf:
+    canonical:
+      type: integer
+      min: 1
+      max: 511
+      source_attribute: pim_sm_global_vrf.vrf
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 511
+        source_attribute: pim_sm_global_vrf.vrf
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: pim_sm_global
+  field: type
+  values:
+    ansible: object
+    terraform: list
+  classification: representation_or_real_conflict

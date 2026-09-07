@@ -1,0 +1,5260 @@
+id: system.ha
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  arps:
+    canonical:
+      type: integer
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      default: '5'
+      min: 1
+      max: 60
+      description: Number of gratuitous ARPs (1 - 60). Lower to reduce traffic. Higher to reduce failover time.
+      source_attribute: arps
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id001
+        description: Number of gratuitous ARPs (1 - 60). Lower to reduce traffic. Higher to reduce failover time.
+        source_attribute: arps
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 60
+        source_attribute: arps
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Number of gratuitous ARPs (1 - 60). Lower to reduce traffic. Higher to reduce failover time.
+        default: '5'
+        min: 1
+        max: 60
+        source_attribute: arps
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  arps_interval:
+    canonical:
+      type: integer
+      version_ranges: &id002
+      - - v6.0.0
+        - ''
+      default: '8'
+      min: 1
+      max: 20
+      description: Time between gratuitous ARPs (1 - 20 sec). Lower to reduce failover time. Higher to reduce traffic.
+      source_attribute: arps-interval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id002
+        description: Time between gratuitous ARPs  (1 - 20 sec). Lower to reduce failover time. Higher to reduce traffic.
+        source_attribute: arps_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 20
+        source_attribute: arps_interval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time between gratuitous ARPs (1 - 20 sec). Lower to reduce failover time. Higher to reduce traffic.
+        default: '8'
+        min: 1
+        max: 20
+        source_attribute: arps-interval
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  authentication:
+    canonical:
+      type: enum
+      version_ranges: &id004
+      - - v6.0.0
+        - ''
+      choices: &id003
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable heartbeat message authentication.
+      source_attribute: authentication
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: Enable/disable heartbeat message authentication.
+        source_attribute: authentication
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: authentication
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable heartbeat message authentication.
+        default: disable
+        source_attribute: authentication
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  auto_virtual_mac_interface:
+    canonical:
+      type: list
+      elements: dict
+      children: &id006
+        interface_name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id009
+          - - v7.6.0
+            - ''
+          description: Interface name. Source system.interface.name.
+          references: &id008
+          - system.interface.name
+      version_ranges: &id005
+      - - v7.6.0
+        - ''
+      max_length: 15
+      description: The physical interface that will be assigned an auto-generated virtual MAC address. Interface name.
+      source_attribute: auto-virtual-mac-interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id005
+        description: The physical interface that will be assigned an auto-generated virtual MAC address.
+        children: *id006
+        source_attribute: auto_virtual_mac_interface
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          interface_name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+        source_attribute: auto_virtual_mac_interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: The physical interface that will be assigned an auto-generated virtual MAC address. Interface name.
+        max_length: 15
+        source_attribute: auto-virtual-mac-interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id007
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id007
+  auto_virtual_mac_interface.interface_name:
+    canonical:
+      type: string
+      references: *id008
+      required: true
+      version_ranges: *id009
+      min_length: 0
+      max_length: 15
+      description: Interface name. Source system.interface.name.
+      source_attribute: auto_virtual_mac_interface.interface_name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id009
+        description: Interface name. Source system.interface.name.
+        references: *id008
+        source_attribute: auto_virtual_mac_interface.interface_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: auto_virtual_mac_interface.interface_name
+    sources:
+    - ansible
+    - terraform
+  backup_hbdev:
+    canonical:
+      type: list
+      elements: dict
+      children: &id011
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id014
+          - - v7.6.0
+            - ''
+          description: Interface name. Source system.interface.name.
+          references: &id013
+          - system.interface.name
+      version_ranges: &id010
+      - - v7.6.0
+        - ''
+      max_length: 79
+      description: Backup heartbeat interfaces. Must be the same for all members. Interface name.
+      source_attribute: backup-hbdev
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id010
+        description: Backup heartbeat interfaces. Must be the same for all members.
+        children: *id011
+        source_attribute: backup_hbdev
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: backup_hbdev
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Backup heartbeat interfaces. Must be the same for all members. Interface name.
+        max_length: 79
+        source_attribute: backup-hbdev
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id012
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id012
+  backup_hbdev.name:
+    canonical:
+      type: string
+      references: *id013
+      required: true
+      version_ranges: *id014
+      min_length: 0
+      max_length: 79
+      description: Interface name. Source system.interface.name.
+      source_attribute: backup_hbdev.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id014
+        description: Interface name. Source system.interface.name.
+        references: *id013
+        source_attribute: backup_hbdev.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: backup_hbdev.name
+    sources:
+    - ansible
+    - terraform
+  bounce_intf_upon_failover:
+    canonical:
+      type: enum
+      version_ranges: &id016
+      - - v7.6.4
+        - ''
+      choices: &id015
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable notification of kernel to bring down and up all monitored interfaces. The setting is used
+        during failovers if gratuitous ARPs do not update the network.
+      source_attribute: bounce-intf-upon-failover
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id015
+        version_ranges: *id016
+        description: Enable/disable notification of kernel to bring down and up all monitored interfaces. The setting is used
+          during failovers if gratuitous ARPs do not update the network.
+        source_attribute: bounce_intf_upon_failover
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: bounce_intf_upon_failover
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable notification of kernel to bring down and up all monitored interfaces. The setting is used
+          during failovers if gratuitous ARPs do not update the network.
+        default: disable
+        source_attribute: bounce-intf-upon-failover
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  check_secondary_dev_health:
+    canonical:
+      type: enum
+      version_ranges: &id018
+      - - v7.6.0
+        - ''
+      choices: &id017
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable secondary dev health check for session load-balance in HA A-A mode.
+      source_attribute: check-secondary-dev-health
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id017
+        version_ranges: *id018
+        description: Enable/disable secondary dev health check for session load-balance in HA A-A mode.
+        source_attribute: check_secondary_dev_health
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: check_secondary_dev_health
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable secondary dev health check for session load-balance in HA A-A mode.
+        default: disable
+        source_attribute: check-secondary-dev-health
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cpu_threshold:
+    canonical:
+      type: string
+      version_ranges: &id019
+      - - v6.0.0
+        - ''
+      description: Dynamic weighted load balancing CPU usage weight and high and low thresholds.
+      source_attribute: cpu-threshold
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id019
+        description: Dynamic weighted load balancing CPU usage weight and high and low thresholds.
+        source_attribute: cpu_threshold
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cpu_threshold
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Dynamic weighted load balancing CPU usage weight and high and low thresholds.
+        source_attribute: cpu-threshold
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  encryption:
+    canonical:
+      type: enum
+      version_ranges: &id021
+      - - v6.0.0
+        - ''
+      choices: &id020
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable heartbeat message encryption.
+      source_attribute: encryption
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id020
+        version_ranges: *id021
+        description: Enable/disable heartbeat message encryption.
+        source_attribute: encryption
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: encryption
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable heartbeat message encryption.
+        default: disable
+        source_attribute: encryption
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  evpn_ttl:
+    canonical:
+      type: integer
+      version_ranges: &id022
+      - - v7.4.0
+        - ''
+      default: '60'
+      min: 5
+      max: 3600
+      description: HA EVPN FDB TTL on primary box (5 - 3600 sec).
+      source_attribute: evpn-ttl
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id022
+        description: HA EVPN FDB TTL on primary box (5 - 3600 sec).
+        source_attribute: evpn_ttl
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 5
+        max: 3600
+        source_attribute: evpn_ttl
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: HA EVPN FDB TTL on primary box (5 - 3600 sec).
+        default: '60'
+        min: 5
+        max: 3600
+        source_attribute: evpn-ttl
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  failover_hold_time:
+    canonical:
+      type: integer
+      version_ranges: &id023
+      - - v7.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 300
+      description: Time to wait before failover (0 - 300 sec, default = 0), to avoid flip.
+      source_attribute: failover-hold-time
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id023
+        description: Time to wait before failover (0 - 300 sec), to avoid flip.
+        source_attribute: failover_hold_time
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 300
+        source_attribute: failover_hold_time
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time to wait before failover (0 - 300 sec, default = 0), to avoid flip.
+        default: '0'
+        min: 0
+        max: 300
+        source_attribute: failover-hold-time
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ftp_proxy_threshold:
+    canonical:
+      type: string
+      version_ranges: &id024
+      - - v6.0.0
+        - ''
+      description: Dynamic weighted load balancing weight and high and low number of FTP proxy sessions.
+      source_attribute: ftp-proxy-threshold
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id024
+        description: Dynamic weighted load balancing weight and high and low number of FTP proxy sessions.
+        source_attribute: ftp_proxy_threshold
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ftp_proxy_threshold
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Dynamic weighted load balancing weight and high and low number of FTP proxy sessions.
+        source_attribute: ftp-proxy-threshold
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  gratuitous_arps:
+    canonical:
+      type: enum
+      version_ranges: &id026
+      - - v6.0.0
+        - ''
+      choices: &id025
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable gratuitous ARPs. Disable if link-failed-signal enabled.
+      source_attribute: gratuitous-arps
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id025
+        version_ranges: *id026
+        description: Enable/disable gratuitous ARPs. Recommended to disable if link-failed-signal is enabled.
+        source_attribute: gratuitous_arps
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: gratuitous_arps
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable gratuitous ARPs. Disable if link-failed-signal enabled.
+        default: enable
+        source_attribute: gratuitous-arps
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  group_id:
+    canonical:
+      type: integer
+      version_ranges: &id027
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 1023
+      description: HA group ID (0 - 1023; or 0 - 7 when there are more than 2 vclusters). Must be the same for all members.
+      source_attribute: group-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id027
+        description: HA group ID  (0 - 1023;  or 0 - 7 when there are more than 2 vclusters). Must be the same for all members.
+        source_attribute: group_id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 1023
+        source_attribute: group_id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: HA group ID (0 - 1023; or 0 - 7 when there are more than 2 vclusters). Must be the same for all members.
+        default: '0'
+        min: 0
+        max: 1023
+        source_attribute: group-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  group_name:
+    canonical:
+      type: string
+      version_ranges: &id028
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 32
+      description: Cluster group name. Must be the same for all members.
+      source_attribute: group-name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id028
+        description: Cluster group name. Must be the same for all members.
+        source_attribute: group_name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 32
+        source_attribute: group_name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Cluster group name. Must be the same for all members.
+        max_length: 32
+        source_attribute: group-name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ha_direct:
+    canonical:
+      type: enum
+      version_ranges: &id030
+      - - v6.0.0
+        - ''
+      choices: &id029
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable using ha-mgmt interface for syslog, remote authentication (RADIUS), FortiAnalyzer, FortiSandbox,
+        sFlow, and Netflow.
+      source_attribute: ha-direct
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id029
+        version_ranges: *id030
+        description: Enable/disable using ha-mgmt interface for syslog, remote authentication (RADIUS), FortiAnalyzer, FortiSandbox,
+          sFlow, and Netflow.
+        source_attribute: ha_direct
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ha_direct
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable using ha-mgmt interface for syslog, remote authentication (RADIUS), FortiAnalyzer, FortiSandbox,
+          sFlow, and Netflow.
+        default: disable
+        source_attribute: ha-direct
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ha_eth_type:
+    canonical:
+      type: string
+      version_ranges: &id031
+      - - v6.0.0
+        - ''
+      default: '8890'
+      min_length: 0
+      max_length: 4
+      description: HA heartbeat packet Ethertype (4-digit hex).
+      source_attribute: ha-eth-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id031
+        description: HA heartbeat packet Ethertype (4-digit hex).
+        source_attribute: ha_eth_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 4
+        source_attribute: ha_eth_type
+      cli_reference:
+        type: string
+        raw_type: string
+        description: HA heartbeat packet Ethertype (4-digit hex).
+        default: '8890'
+        max_length: 4
+        source_attribute: ha-eth-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ha_mgmt_interfaces:
+    canonical:
+      type: list
+      elements: dict
+      children: &id033
+        id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id038
+          - - v6.0.0
+            - ''
+          description: Table ID. see <a href='#notes'>Notes</a>.
+        interface:
+          type: string
+          raw_type: string
+          version_ranges: &id040
+          - - v6.0.0
+            - ''
+          description: Interface to reserve for HA management. Source system.interface.name.
+          references: &id039
+          - system.interface.name
+        dst:
+          type: string
+          raw_type: string
+          version_ranges: &id034
+          - - v6.0.0
+            - ''
+          description: Default route destination for reserved HA management interface.
+        gateway:
+          type: string
+          raw_type: string
+          version_ranges: &id036
+          - - v6.0.0
+            - ''
+          description: Default route gateway for reserved HA management interface.
+        dst6:
+          type: string
+          raw_type: string
+          version_ranges: &id035
+          - - v7.6.3
+            - ''
+          description: Default IPv6 destination for reserved HA management interface.
+        gateway6:
+          type: string
+          raw_type: string
+          version_ranges: &id037
+          - - v6.0.0
+            - ''
+          description: Default IPv6 gateway for reserved HA management interface.
+      version_ranges: &id032
+      - - v6.0.0
+        - ''
+      description: Reserve interfaces to manage individual cluster units.
+      source_attribute: ha_mgmt_interfaces
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id032
+        description: Reserve interfaces to manage individual cluster units.
+        children: *id033
+        source_attribute: ha_mgmt_interfaces
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+          dst:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          gateway:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          dst6:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          gateway6:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+        source_attribute: ha_mgmt_interfaces
+    sources:
+    - ansible
+    - terraform
+  ha_mgmt_interfaces.dst:
+    canonical:
+      type: string
+      version_ranges: *id034
+      description: Default route destination for reserved HA management interface.
+      source_attribute: ha_mgmt_interfaces.dst
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id034
+        description: Default route destination for reserved HA management interface.
+        source_attribute: ha_mgmt_interfaces.dst
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ha_mgmt_interfaces.dst
+    sources:
+    - ansible
+    - terraform
+  ha_mgmt_interfaces.dst6:
+    canonical:
+      type: string
+      version_ranges: *id035
+      description: Default IPv6 destination for reserved HA management interface.
+      source_attribute: ha_mgmt_interfaces.dst6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id035
+        description: Default IPv6 destination for reserved HA management interface.
+        source_attribute: ha_mgmt_interfaces.dst6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ha_mgmt_interfaces.dst6
+    sources:
+    - ansible
+    - terraform
+  ha_mgmt_interfaces.gateway:
+    canonical:
+      type: string
+      version_ranges: *id036
+      description: Default route gateway for reserved HA management interface.
+      source_attribute: ha_mgmt_interfaces.gateway
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id036
+        description: Default route gateway for reserved HA management interface.
+        source_attribute: ha_mgmt_interfaces.gateway
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ha_mgmt_interfaces.gateway
+    sources:
+    - ansible
+    - terraform
+  ha_mgmt_interfaces.gateway6:
+    canonical:
+      type: string
+      version_ranges: *id037
+      description: Default IPv6 gateway for reserved HA management interface.
+      source_attribute: ha_mgmt_interfaces.gateway6
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id037
+        description: Default IPv6 gateway for reserved HA management interface.
+        source_attribute: ha_mgmt_interfaces.gateway6
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ha_mgmt_interfaces.gateway6
+    sources:
+    - ansible
+    - terraform
+  ha_mgmt_interfaces.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id038
+      description: Table ID. see <a href='#notes'>Notes</a>.
+      source_attribute: ha_mgmt_interfaces.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id038
+        description: Table ID. see <a href='#notes'>Notes</a>.
+        source_attribute: ha_mgmt_interfaces.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: ha_mgmt_interfaces.id
+    sources:
+    - ansible
+    - terraform
+  ha_mgmt_interfaces.interface:
+    canonical:
+      type: string
+      references: *id039
+      version_ranges: *id040
+      min_length: 0
+      max_length: 15
+      description: Interface to reserve for HA management. Source system.interface.name.
+      source_attribute: ha_mgmt_interfaces.interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id040
+        description: Interface to reserve for HA management. Source system.interface.name.
+        references: *id039
+        source_attribute: ha_mgmt_interfaces.interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: ha_mgmt_interfaces.interface
+    sources:
+    - ansible
+    - terraform
+  ha_mgmt_status:
+    canonical:
+      type: enum
+      version_ranges: &id042
+      - - v6.0.0
+        - ''
+      choices: &id041
+      - enable
+      - disable
+      default: disable
+      description: Enable to reserve interfaces to manage individual cluster units.
+      source_attribute: ha-mgmt-status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id041
+        version_ranges: *id042
+        description: Enable to reserve interfaces to manage individual cluster units.
+        source_attribute: ha_mgmt_status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ha_mgmt_status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable to reserve interfaces to manage individual cluster units.
+        default: disable
+        source_attribute: ha-mgmt-status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ha_uptime_diff_margin:
+    canonical:
+      type: integer
+      version_ranges: &id043
+      - - v6.0.0
+        - ''
+      default: '300'
+      min: 1
+      max: 65535
+      description: Normally you would only reduce this value for failover testing.
+      source_attribute: ha-uptime-diff-margin
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id043
+        description: Normally you would only reduce this value for failover testing.
+        source_attribute: ha_uptime_diff_margin
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: ha_uptime_diff_margin
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Normally you would only reduce this value for failover testing.
+        default: '300'
+        min: 1
+        max: 65535
+        source_attribute: ha-uptime-diff-margin
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  hb_interval:
+    canonical:
+      type: integer
+      version_ranges: &id044
+      - - v6.0.0
+        - ''
+      default: '2'
+      min: 1
+      max: 20
+      description: Time between sending heartbeat packets (1 - 20). Increase to reduce false positives.
+      source_attribute: hb-interval
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id044
+        description: Time between sending heartbeat packets (1 - 20). Increase to reduce false positives.
+        source_attribute: hb_interval
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 20
+        source_attribute: hb_interval
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time between sending heartbeat packets (1 - 20). Increase to reduce false positives.
+        default: '2'
+        min: 1
+        max: 20
+        source_attribute: hb-interval
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  hb_interval_in_milliseconds:
+    canonical:
+      type: enum
+      version_ranges: &id046
+      - - v7.0.0
+        - ''
+      choices: &id045
+      - 100ms
+      - 10ms
+      default: 100ms
+      description: Units of heartbeat interval time between sending heartbeat packets. Default is 100ms.
+      source_attribute: hb-interval-in-milliseconds
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id045
+        version_ranges: *id046
+        description: Units of heartbeat interval time between sending heartbeat packets. Default is 100ms.
+        source_attribute: hb_interval_in_milliseconds
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: hb_interval_in_milliseconds
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Units of heartbeat interval time between sending heartbeat packets. Default is 100ms.
+        default: 100ms
+        source_attribute: hb-interval-in-milliseconds
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  hb_lost_threshold:
+    canonical:
+      type: integer
+      version_ranges: &id047
+      - - v6.0.0
+        - ''
+      default: 6 **
+      min: 1
+      max: 60
+      description: Number of lost heartbeats to signal a failure (1 - 60). Increase to reduce false positives.
+      source_attribute: hb-lost-threshold
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id047
+        description: Number of lost heartbeats to signal a failure (1 - 60). Increase to reduce false positives.
+        source_attribute: hb_lost_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 60
+        source_attribute: hb_lost_threshold
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Number of lost heartbeats to signal a failure (1 - 60). Increase to reduce false positives.
+        default: 6 **
+        min: 1
+        max: 60
+        source_attribute: hb-lost-threshold
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  hbdev:
+    canonical:
+      type: list
+      elements: str
+      version_ranges: &id048
+      - - v6.0.0
+        - ''
+      description: Heartbeat interfaces. Must be the same for all members. Enter <interface> <priority> pairs to specify the
+        priority of each heartbeat interface. Higher priority takes precedence.
+      source_attribute: hbdev
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id048
+        description: Heartbeat interfaces. Must be the same for all members.
+        source_attribute: hbdev
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: hbdev
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Heartbeat interfaces. Must be the same for all members. Enter <interface> <priority> pairs to specify
+          the priority of each heartbeat interface. Higher priority takes precedence.
+        source_attribute: hbdev
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id049
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id049
+  hc_eth_type:
+    canonical:
+      type: string
+      version_ranges: &id050
+      - - v6.0.0
+        - ''
+      default: '8891'
+      min_length: 0
+      max_length: 4
+      description: Transparent mode HA heartbeat packet Ethertype (4-digit hex).
+      source_attribute: hc-eth-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id050
+        description: Transparent mode HA heartbeat packet Ethertype (4-digit hex).
+        source_attribute: hc_eth_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 4
+        source_attribute: hc_eth_type
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Transparent mode HA heartbeat packet Ethertype (4-digit hex).
+        default: '8891'
+        max_length: 4
+        source_attribute: hc-eth-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  hello_holddown:
+    canonical:
+      type: integer
+      version_ranges: &id051
+      - - v6.0.0
+        - ''
+      default: '20'
+      min: 5
+      max: 300
+      description: Time to wait before changing from hello to work state (5 - 300 sec).
+      source_attribute: hello-holddown
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id051
+        description: Time to wait before changing from hello to work state (5 - 300 sec).
+        source_attribute: hello_holddown
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 5
+        max: 300
+        source_attribute: hello_holddown
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time to wait before changing from hello to work state (5 - 300 sec).
+        default: '20'
+        min: 5
+        max: 300
+        source_attribute: hello-holddown
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  http_proxy_threshold:
+    canonical:
+      type: string
+      version_ranges: &id052
+      - - v6.0.0
+        - ''
+      description: Dynamic weighted load balancing weight and high and low number of HTTP proxy sessions.
+      source_attribute: http-proxy-threshold
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id052
+        description: Dynamic weighted load balancing weight and high and low number of HTTP proxy sessions.
+        source_attribute: http_proxy_threshold
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: http_proxy_threshold
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Dynamic weighted load balancing weight and high and low number of HTTP proxy sessions.
+        source_attribute: http-proxy-threshold
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  imap_proxy_threshold:
+    canonical:
+      type: string
+      version_ranges: &id053
+      - - v6.0.0
+        - ''
+      description: Dynamic weighted load balancing weight and high and low number of IMAP proxy sessions.
+      source_attribute: imap-proxy-threshold
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id053
+        description: Dynamic weighted load balancing weight and high and low number of IMAP proxy sessions.
+        source_attribute: imap_proxy_threshold
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: imap_proxy_threshold
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Dynamic weighted load balancing weight and high and low number of IMAP proxy sessions.
+        source_attribute: imap-proxy-threshold
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  inter_cluster_session_sync:
+    canonical:
+      type: string
+      source_attribute: inter_cluster_session_sync
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: inter_cluster_session_sync
+    sources:
+    - terraform
+  ipsec_phase2_proposal:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id055
+      - - v7.4.2
+        - ''
+      choices: &id054
+      - aes128-sha1
+      - aes128-sha256
+      - aes128-sha384
+      - aes128-sha512
+      - aes192-sha1
+      - aes192-sha256
+      - aes192-sha384
+      - aes192-sha512
+      - aes256-sha1
+      - aes256-sha256
+      - aes256-sha384
+      - aes256-sha512
+      - aes128gcm
+      - aes256gcm
+      - chacha20poly1305
+      description: IPsec phase2 proposal.
+      source_attribute: ipsec-phase2-proposal
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id054
+        multiple_values: true
+        elements: str
+        version_ranges: *id055
+        description: IPsec phase2 proposal.
+        source_attribute: ipsec_phase2_proposal
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: ipsec_phase2_proposal
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: IPsec phase2 proposal.
+        source_attribute: ipsec-phase2-proposal
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  key:
+    canonical:
+      type: password
+      version_ranges: &id056
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 16
+      description: Key.
+      source_attribute: key
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id056
+        description: Key.
+        source_attribute: key
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 16
+        source_attribute: key
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Key.
+        source_attribute: key
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id057
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id057
+  l2ep_eth_type:
+    canonical:
+      type: string
+      version_ranges: &id058
+      - - v6.0.0
+        - ''
+      default: '8893'
+      min_length: 0
+      max_length: 4
+      description: Telnet session HA heartbeat packet Ethertype (4-digit hex).
+      source_attribute: l2ep-eth-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id058
+        description: Telnet session HA heartbeat packet Ethertype (4-digit hex).
+        source_attribute: l2ep_eth_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        min_length: 0
+        max_length: 4
+        source_attribute: l2ep_eth_type
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Telnet session HA heartbeat packet Ethertype (4-digit hex).
+        default: '8893'
+        max_length: 4
+        source_attribute: l2ep-eth-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  link_failed_signal:
+    canonical:
+      type: enum
+      version_ranges: &id060
+      - - v6.0.0
+        - ''
+      choices: &id059
+      - enable
+      - disable
+      default: disable
+      description: Enable to shut down all interfaces for 1 sec after a failover. Use if gratuitous ARPs do not update network.
+      source_attribute: link-failed-signal
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id059
+        version_ranges: *id060
+        description: Enable to shut down all interfaces for 1 sec after a failover. Use if gratuitous ARPs do not update network.
+        source_attribute: link_failed_signal
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: link_failed_signal
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable to shut down all interfaces for 1 sec after a failover. Use if gratuitous ARPs do not update network.
+        default: disable
+        source_attribute: link-failed-signal
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  link_group:
+    canonical:
+      type: list
+      children: &id061
+        name:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 15
+        member:
+          type: list
+          raw_type: TypeSet
+          optional: true
+          children: &id062
+            devname:
+              type: string
+              raw_type: TypeString
+              optional: true
+              min_length: 0
+              max_length: 15
+        min_members:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+          computed: true
+          min: 1
+          max: 64
+      source_attribute: link_group
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id061
+        source_attribute: link_group
+    sources:
+    - terraform
+  link_group.member:
+    canonical:
+      type: list
+      children: *id062
+      source_attribute: link_group.member
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id062
+        source_attribute: link_group.member
+    sources:
+    - terraform
+  link_group.member.devname:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 15
+      source_attribute: link_group.member.devname
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: link_group.member.devname
+    sources:
+    - terraform
+  link_group.min_members:
+    canonical:
+      type: integer
+      min: 1
+      max: 64
+      source_attribute: link_group.min_members
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 64
+        source_attribute: link_group.min_members
+    sources:
+    - terraform
+  link_group.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 15
+      source_attribute: link_group.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: link_group.name
+    sources:
+    - terraform
+  link_group_monitor:
+    canonical:
+      type: string
+      source_attribute: link_group_monitor
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: link_group_monitor
+    sources:
+    - terraform
+  load_balance_all:
+    canonical:
+      type: enum
+      version_ranges: &id064
+      - - v6.0.0
+        - ''
+      choices: &id063
+      - enable
+      - disable
+      default: disable
+      description: Enable to load balance TCP sessions. Disable to load balance proxy sessions only.
+      source_attribute: load-balance-all
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id063
+        version_ranges: *id064
+        description: Enable to load balance TCP sessions. Disable to load balance proxy sessions only.
+        source_attribute: load_balance_all
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: load_balance_all
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable to load balance TCP sessions. Disable to load balance proxy sessions only.
+        default: disable
+        source_attribute: load-balance-all
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  logical_sn:
+    canonical:
+      type: enum
+      default: disable
+      description: Enable/disable usage of the logical serial number.
+      source_attribute: logical-sn
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: logical_sn
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable usage of the logical serial number.
+        default: disable
+        source_attribute: logical-sn
+    sources:
+    - cli_reference
+    - terraform
+  memory_based_failover:
+    canonical:
+      type: enum
+      version_ranges: &id066
+      - - v7.0.0
+        - ''
+      choices: &id065
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable memory based failover.
+      source_attribute: memory-based-failover
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id065
+        version_ranges: *id066
+        description: Enable/disable memory based failover.
+        source_attribute: memory_based_failover
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: memory_based_failover
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable memory based failover.
+        default: disable
+        source_attribute: memory-based-failover
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  memory_compatible_mode:
+    canonical:
+      type: enum
+      version_ranges: &id068
+      - - v6.0.0
+        - ''
+      choices: &id067
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable memory compatible mode.
+      source_attribute: memory-compatible-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id067
+        version_ranges: *id068
+        description: Enable/disable memory compatible mode.
+        source_attribute: memory_compatible_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: memory_compatible_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable memory compatible mode.
+        default: disable
+        source_attribute: memory-compatible-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  memory_failover_flip_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id069
+      - - v7.0.0
+        - ''
+      default: '6'
+      min: 6
+      max: 2147483647
+      description: Time to wait between subsequent memory based failovers in minutes (6 - 2147483647, default = 6).
+      source_attribute: memory-failover-flip-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id069
+        description: Time to wait between subsequent memory based failovers in minutes (6 - 2147483647).
+        source_attribute: memory_failover_flip_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: memory_failover_flip_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time to wait between subsequent memory based failovers in minutes (6 - 2147483647, default = 6).
+        default: '6'
+        min: 6
+        max: 2147483647
+        source_attribute: memory-failover-flip-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  memory_failover_monitor_period:
+    canonical:
+      type: integer
+      version_ranges: &id070
+      - - v7.0.0
+        - ''
+      default: '60'
+      min: 1
+      max: 300
+      description: Duration of high memory usage before memory based failover is triggered in seconds (1 - 300, default =
+        60).
+      source_attribute: memory-failover-monitor-period
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id070
+        description: Duration of high memory usage before memory based failover is triggered in seconds (1 - 300).
+        source_attribute: memory_failover_monitor_period
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 300
+        source_attribute: memory_failover_monitor_period
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Duration of high memory usage before memory based failover is triggered in seconds (1 - 300, default
+          = 60).
+        default: '60'
+        min: 1
+        max: 300
+        source_attribute: memory-failover-monitor-period
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  memory_failover_sample_rate:
+    canonical:
+      type: integer
+      version_ranges: &id071
+      - - v7.0.0
+        - ''
+      default: '1'
+      min: 1
+      max: 60
+      description: Rate at which memory usage is sampled in order to measure memory usage in seconds (1 - 60, default = 1).
+      source_attribute: memory-failover-sample-rate
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id071
+        description: Rate at which memory usage is sampled in order to measure memory usage in seconds (1 - 60).
+        source_attribute: memory_failover_sample_rate
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 60
+        source_attribute: memory_failover_sample_rate
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Rate at which memory usage is sampled in order to measure memory usage in seconds (1 - 60, default =
+          1).
+        default: '1'
+        min: 1
+        max: 60
+        source_attribute: memory-failover-sample-rate
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  memory_failover_threshold:
+    canonical:
+      type: integer
+      version_ranges: &id072
+      - - v7.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 95
+      description: Memory usage threshold to trigger memory based failover (0 means using conserve mode threshold in system.global).
+      source_attribute: memory-failover-threshold
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id072
+        description: Memory usage threshold to trigger memory based failover (0 means using conserve mode threshold in system.global).
+        source_attribute: memory_failover_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 95
+        source_attribute: memory_failover_threshold
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Memory usage threshold to trigger memory based failover (0 means using conserve mode threshold in system.global).
+        default: '0'
+        min: 0
+        max: 95
+        source_attribute: memory-failover-threshold
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  memory_threshold:
+    canonical:
+      type: string
+      version_ranges: &id073
+      - - v6.0.0
+        - ''
+      description: Dynamic weighted load balancing memory usage weight and high and low thresholds.
+      source_attribute: memory-threshold
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id073
+        description: Dynamic weighted load balancing memory usage weight and high and low thresholds.
+        source_attribute: memory_threshold
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: memory_threshold
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Dynamic weighted load balancing memory usage weight and high and low thresholds.
+        source_attribute: memory-threshold
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  mode:
+    canonical:
+      type: enum
+      version_ranges: &id075
+      - - v6.0.0
+        - ''
+      choices: &id074
+      - standalone
+      - a-a
+      - a-p
+      default: standalone
+      description: HA mode. Must be the same for all members. FGSP requires standalone.
+      source_attribute: mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id074
+        version_ranges: *id075
+        description: HA mode. Must be the same for all members.
+        source_attribute: mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: HA mode. Must be the same for all members. FGSP requires standalone.
+        default: standalone
+        source_attribute: mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  monitor:
+    canonical:
+      type: list
+      elements: str
+      references: &id077
+      - system.interface.name
+      version_ranges: &id076
+      - - v6.0.0
+        - ''
+      description: Interfaces to check for port monitoring (or link failure).
+      source_attribute: monitor
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      references: ansible
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id076
+        description: Interfaces to check for port monitoring (or link failure). Source system.interface.name.
+        references: *id077
+        source_attribute: monitor
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: monitor
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Interfaces to check for port monitoring (or link failure).
+        source_attribute: monitor
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id078
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id078
+  multicast_ttl:
+    canonical:
+      type: integer
+      version_ranges: &id079
+      - - v6.0.0
+        - ''
+      default: '600'
+      min: 5
+      max: 3600
+      description: HA multicast TTL on primary (5 - 3600 sec).
+      source_attribute: multicast-ttl
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id079
+        description: HA multicast TTL on primary (5 - 3600 sec).
+        source_attribute: multicast_ttl
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 5
+        max: 3600
+        source_attribute: multicast_ttl
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: HA multicast TTL on primary (5 - 3600 sec).
+        default: '600'
+        min: 5
+        max: 3600
+        source_attribute: multicast-ttl
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  nntp_proxy_threshold:
+    canonical:
+      type: string
+      version_ranges: &id080
+      - - v6.0.0
+        - ''
+      description: Dynamic weighted load balancing weight and high and low number of NNTP proxy sessions.
+      source_attribute: nntp-proxy-threshold
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id080
+        description: Dynamic weighted load balancing weight and high and low number of NNTP proxy sessions.
+        source_attribute: nntp_proxy_threshold
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: nntp_proxy_threshold
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Dynamic weighted load balancing weight and high and low number of NNTP proxy sessions.
+        source_attribute: nntp-proxy-threshold
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  override:
+    canonical:
+      type: enum
+      version_ranges: &id082
+      - - v6.0.0
+        - ''
+      choices: &id081
+      - enable
+      - disable
+      default: disable
+      description: Enable and increase the priority of the unit that should always be primary (master).
+      source_attribute: override
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id081
+        version_ranges: *id082
+        description: Enable and increase the priority of the unit that should always be primary (master).
+        source_attribute: override
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: override
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable and increase the priority of the unit that should always be primary (master).
+        default: disable
+        source_attribute: override
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  override_wait_time:
+    canonical:
+      type: integer
+      version_ranges: &id083
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 3600
+      description: Delay negotiating if override is enabled (0 - 3600 sec). Reduces how often the cluster negotiates.
+      source_attribute: override-wait-time
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id083
+        description: Delay negotiating if override is enabled (0 - 3600 sec). Reduces how often the cluster negotiates.
+        source_attribute: override_wait_time
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 3600
+        source_attribute: override_wait_time
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Delay negotiating if override is enabled (0 - 3600 sec). Reduces how often the cluster negotiates.
+        default: '0'
+        min: 0
+        max: 3600
+        source_attribute: override-wait-time
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  password:
+    canonical:
+      type: password
+      version_ranges: &id084
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 128
+      description: Cluster password. Must be the same for all members.
+      source_attribute: password
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id084
+        description: Cluster password. It is mandatory and must be the same for all members
+        source_attribute: password
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: password
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Cluster password. Must be the same for all members.
+        source_attribute: password
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id085
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id085
+  pingserver_failover_threshold:
+    canonical:
+      type: integer
+      version_ranges: &id086
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 50
+      description: Remote IP monitoring failover threshold (0 - 50).
+      source_attribute: pingserver-failover-threshold
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id086
+        description: Remote IP monitoring failover threshold (0 - 50).
+        source_attribute: pingserver_failover_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 50
+        source_attribute: pingserver_failover_threshold
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Remote IP monitoring failover threshold (0 - 50).
+        default: '0'
+        min: 0
+        max: 50
+        source_attribute: pingserver-failover-threshold
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  pingserver_flip_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id087
+      - - v6.0.0
+        - ''
+      default: '60'
+      min: 6
+      max: 2147483647
+      description: Time to wait in minutes before renegotiating after a remote IP monitoring failover.
+      source_attribute: pingserver-flip-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id087
+        description: Time to wait in minutes before renegotiating after a remote IP monitoring failover.
+        source_attribute: pingserver_flip_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: pingserver_flip_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time to wait in minutes before renegotiating after a remote IP monitoring failover.
+        default: '60'
+        min: 6
+        max: 2147483647
+        source_attribute: pingserver-flip-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  pingserver_monitor_interface:
+    canonical:
+      type: list
+      elements: str
+      references: &id089
+      - system.interface.name
+      version_ranges: &id088
+      - - v6.0.0
+        - ''
+      description: Interfaces to check for remote IP monitoring.
+      source_attribute: pingserver-monitor-interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      references: ansible
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id088
+        description: Interfaces to check for remote IP monitoring. Source system.interface.name.
+        references: *id089
+        source_attribute: pingserver_monitor_interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: pingserver_monitor_interface
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Interfaces to check for remote IP monitoring.
+        source_attribute: pingserver-monitor-interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id090
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id090
+  pingserver_secondary_force_reset:
+    canonical:
+      type: enum
+      version_ranges: &id092
+      - - v6.4.4
+        - v7.0.12
+      - - v7.2.1
+        - ''
+      choices: &id091
+      - enable
+      - disable
+      default: enable
+      description: Enable to force the cluster to negotiate after a remote IP monitoring failover.
+      source_attribute: pingserver-secondary-force-reset
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id091
+        version_ranges: *id092
+        description: Enable to force the cluster to negotiate after a remote IP monitoring failover.
+        source_attribute: pingserver_secondary_force_reset
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pingserver_secondary_force_reset
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable to force the cluster to negotiate after a remote IP monitoring failover.
+        default: enable
+        source_attribute: pingserver-secondary-force-reset
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  pingserver_slave_force_reset:
+    canonical:
+      type: string
+      source_attribute: pingserver_slave_force_reset
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pingserver_slave_force_reset
+    sources:
+    - terraform
+  pop3_proxy_threshold:
+    canonical:
+      type: string
+      version_ranges: &id093
+      - - v6.0.0
+        - ''
+      description: Dynamic weighted load balancing weight and high and low number of POP3 proxy sessions.
+      source_attribute: pop3-proxy-threshold
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id093
+        description: Dynamic weighted load balancing weight and high and low number of POP3 proxy sessions.
+        source_attribute: pop3_proxy_threshold
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pop3_proxy_threshold
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Dynamic weighted load balancing weight and high and low number of POP3 proxy sessions.
+        source_attribute: pop3-proxy-threshold
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  priority:
+    canonical:
+      type: integer
+      version_ranges: &id094
+      - - v6.0.0
+        - ''
+      default: '128'
+      min: 0
+      max: 255
+      description: Increase the priority to select the primary unit (0 - 255).
+      source_attribute: priority
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id094
+        description: Increase the priority to select the primary unit (0 - 255).
+        source_attribute: priority
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 255
+        source_attribute: priority
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Increase the priority to select the primary unit (0 - 255).
+        default: '128'
+        min: 0
+        max: 255
+        source_attribute: priority
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  route_hold:
+    canonical:
+      type: integer
+      version_ranges: &id095
+      - - v6.0.0
+        - ''
+      default: '10'
+      min: 0
+      max: 3600
+      description: Time to wait between routing table updates to the cluster (0 - 3600 sec).
+      source_attribute: route-hold
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id095
+        description: Time to wait between routing table updates to the cluster (0 - 3600 sec).
+        source_attribute: route_hold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 3600
+        source_attribute: route_hold
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time to wait between routing table updates to the cluster (0 - 3600 sec).
+        default: '10'
+        min: 0
+        max: 3600
+        source_attribute: route-hold
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  route_ttl:
+    canonical:
+      type: integer
+      version_ranges: &id096
+      - - v6.0.0
+        - ''
+      default: '10'
+      min: 5
+      max: 3600
+      description: TTL for primary unit routes (5 - 3600 sec). Increase to maintain active routes during failover.
+      source_attribute: route-ttl
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id096
+        description: TTL for primary unit routes (5 - 3600 sec). Increase to maintain active routes during failover.
+        source_attribute: route_ttl
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 5
+        max: 3600
+        source_attribute: route_ttl
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: TTL for primary unit routes (5 - 3600 sec). Increase to maintain active routes during failover.
+        default: '10'
+        min: 5
+        max: 3600
+        source_attribute: route-ttl
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  route_wait:
+    canonical:
+      type: integer
+      version_ranges: &id097
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 3600
+      description: Time to wait before sending new routes to the cluster (0 - 3600 sec).
+      source_attribute: route-wait
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id097
+        description: Time to wait before sending new routes to the cluster (0 - 3600 sec).
+        source_attribute: route_wait
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 3600
+        source_attribute: route_wait
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Time to wait before sending new routes to the cluster (0 - 3600 sec).
+        default: '0'
+        min: 0
+        max: 3600
+        source_attribute: route-wait
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  schedule:
+    canonical:
+      type: enum
+      version_ranges: &id099
+      - - v6.0.0
+        - ''
+      choices: &id098
+      - none
+      - leastconnection
+      - round-robin
+      - weight-round-robin
+      - random
+      - ip
+      - ipport
+      default: round-robin
+      description: Type of A-A load balancing. Use none if you have external load balancers.
+      source_attribute: schedule
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id098
+        version_ranges: *id099
+        description: Type of A-A load balancing. Use none if you have external load balancers.
+        source_attribute: schedule
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: schedule
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Type of A-A load balancing. Use none if you have external load balancers.
+        default: round-robin
+        source_attribute: schedule
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  secondary_vcluster:
+    canonical:
+      type: list
+      children: &id100
+        vcluster_id:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+          computed: true
+          min: 0
+          max: 255
+        override:
+          type: string
+          raw_type: TypeString
+          optional: true
+          computed: true
+        priority:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+          computed: true
+          min: 0
+          max: 255
+        override_wait_time:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+          min: 0
+          max: 3600
+        monitor:
+          type: string
+          raw_type: TypeString
+          optional: true
+        pingserver_monitor_interface:
+          type: string
+          raw_type: TypeString
+          optional: true
+        pingserver_failover_threshold:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+          min: 0
+          max: 50
+        pingserver_secondary_force_reset:
+          type: string
+          raw_type: TypeString
+          optional: true
+          computed: true
+        pingserver_slave_force_reset:
+          type: string
+          raw_type: TypeString
+          optional: true
+        vdom:
+          type: string
+          raw_type: TypeString
+          optional: true
+      source_attribute: secondary_vcluster
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        computed: true
+        children: *id100
+        source_attribute: secondary_vcluster
+    sources:
+    - terraform
+  secondary_vcluster.monitor:
+    canonical:
+      type: string
+      source_attribute: secondary_vcluster.monitor
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: secondary_vcluster.monitor
+    sources:
+    - terraform
+  secondary_vcluster.override:
+    canonical:
+      type: string
+      source_attribute: secondary_vcluster.override
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: secondary_vcluster.override
+    sources:
+    - terraform
+  secondary_vcluster.override_wait_time:
+    canonical:
+      type: integer
+      min: 0
+      max: 3600
+      source_attribute: secondary_vcluster.override_wait_time
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 3600
+        source_attribute: secondary_vcluster.override_wait_time
+    sources:
+    - terraform
+  secondary_vcluster.pingserver_failover_threshold:
+    canonical:
+      type: integer
+      min: 0
+      max: 50
+      source_attribute: secondary_vcluster.pingserver_failover_threshold
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 50
+        source_attribute: secondary_vcluster.pingserver_failover_threshold
+    sources:
+    - terraform
+  secondary_vcluster.pingserver_monitor_interface:
+    canonical:
+      type: string
+      source_attribute: secondary_vcluster.pingserver_monitor_interface
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: secondary_vcluster.pingserver_monitor_interface
+    sources:
+    - terraform
+  secondary_vcluster.pingserver_secondary_force_reset:
+    canonical:
+      type: string
+      source_attribute: secondary_vcluster.pingserver_secondary_force_reset
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: secondary_vcluster.pingserver_secondary_force_reset
+    sources:
+    - terraform
+  secondary_vcluster.pingserver_slave_force_reset:
+    canonical:
+      type: string
+      source_attribute: secondary_vcluster.pingserver_slave_force_reset
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: secondary_vcluster.pingserver_slave_force_reset
+    sources:
+    - terraform
+  secondary_vcluster.priority:
+    canonical:
+      type: integer
+      min: 0
+      max: 255
+      source_attribute: secondary_vcluster.priority
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 255
+        source_attribute: secondary_vcluster.priority
+    sources:
+    - terraform
+  secondary_vcluster.vcluster_id:
+    canonical:
+      type: integer
+      min: 0
+      max: 255
+      source_attribute: secondary_vcluster.vcluster_id
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 255
+        source_attribute: secondary_vcluster.vcluster_id
+    sources:
+    - terraform
+  secondary_vcluster.vdom:
+    canonical:
+      type: string
+      source_attribute: secondary_vcluster.vdom
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: secondary_vcluster.vdom
+    sources:
+    - terraform
+  session_pickup:
+    canonical:
+      type: enum
+      version_ranges: &id102
+      - - v6.0.0
+        - ''
+      choices: &id101
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable session pickup. Enabling it can reduce session down time when fail over happens.
+      source_attribute: session-pickup
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id101
+        version_ranges: *id102
+        description: Enable/disable session pickup. Enabling it can reduce session down time when fail over happens.
+        source_attribute: session_pickup
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: session_pickup
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable session pickup. Enabling it can reduce session down time when fail over happens.
+        default: disable
+        source_attribute: session-pickup
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  session_pickup_connectionless:
+    canonical:
+      type: enum
+      version_ranges: &id104
+      - - v6.0.0
+        - ''
+      choices: &id103
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable UDP and ICMP session sync.
+      source_attribute: session-pickup-connectionless
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id103
+        version_ranges: *id104
+        description: Enable/disable UDP and ICMP session sync.
+        source_attribute: session_pickup_connectionless
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: session_pickup_connectionless
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable UDP and ICMP session sync.
+        default: disable
+        source_attribute: session-pickup-connectionless
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  session_pickup_delay:
+    canonical:
+      type: enum
+      version_ranges: &id106
+      - - v6.0.0
+        - ''
+      choices: &id105
+      - enable
+      - disable
+      default: disable
+      description: Enable to sync sessions longer than 30 sec. Only longer lived sessions need to be synced.
+      source_attribute: session-pickup-delay
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id105
+        version_ranges: *id106
+        description: Enable to sync sessions longer than 30 sec. Only longer lived sessions need to be synced.
+        source_attribute: session_pickup_delay
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: session_pickup_delay
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable to sync sessions longer than 30 sec. Only longer lived sessions need to be synced.
+        default: disable
+        source_attribute: session-pickup-delay
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  session_pickup_expectation:
+    canonical:
+      type: enum
+      version_ranges: &id108
+      - - v6.0.0
+        - ''
+      choices: &id107
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable session helper expectation session sync for FGSP.
+      source_attribute: session-pickup-expectation
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id107
+        version_ranges: *id108
+        description: Enable/disable session helper expectation session sync for FGSP.
+        source_attribute: session_pickup_expectation
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: session_pickup_expectation
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable session helper expectation session sync for FGSP.
+        default: disable
+        source_attribute: session-pickup-expectation
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  session_pickup_nat:
+    canonical:
+      type: enum
+      version_ranges: &id110
+      - - v6.0.0
+        - ''
+      choices: &id109
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable NAT session sync for FGSP.
+      source_attribute: session-pickup-nat
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id109
+        version_ranges: *id110
+        description: Enable/disable NAT session sync for FGSP.
+        source_attribute: session_pickup_nat
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: session_pickup_nat
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable NAT session sync for FGSP.
+        default: disable
+        source_attribute: session-pickup-nat
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  session_sync_dev:
+    canonical:
+      type: list
+      elements: str
+      references: &id112
+      - system.interface.name
+      version_ranges: &id111
+      - - v6.0.0
+        - ''
+      description: Offload session-sync process to kernel and sync sessions using connected interface(s) directly.
+      source_attribute: session-sync-dev
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      references: ansible
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id111
+        description: Offload session-sync process to kernel and sync sessions using connected interface(s) directly. Source
+          system.interface.name.
+        references: *id112
+        source_attribute: session_sync_dev
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: session_sync_dev
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Offload session-sync process to kernel and sync sessions using connected interface(s) directly.
+        source_attribute: session-sync-dev
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id113
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id113
+  smtp_proxy_threshold:
+    canonical:
+      type: string
+      version_ranges: &id114
+      - - v6.0.0
+        - ''
+      description: Dynamic weighted load balancing weight and high and low number of SMTP proxy sessions.
+      source_attribute: smtp-proxy-threshold
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id114
+        description: Dynamic weighted load balancing weight and high and low number of SMTP proxy sessions.
+        source_attribute: smtp_proxy_threshold
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: smtp_proxy_threshold
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Dynamic weighted load balancing weight and high and low number of SMTP proxy sessions.
+        source_attribute: smtp-proxy-threshold
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssd_failover:
+    canonical:
+      type: enum
+      version_ranges: &id116
+      - - v6.2.0
+        - v7.4.1
+      - - v7.4.3
+        - ''
+      choices: &id115
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable automatic HA failover on SSD disk failure.
+      source_attribute: ssd-failover
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id115
+        version_ranges: *id116
+        description: Enable/disable automatic HA failover on SSD disk failure.
+        source_attribute: ssd_failover
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssd_failover
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable automatic HA failover on SSD disk failure.
+        default: disable
+        source_attribute: ssd-failover
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  standalone_config_sync:
+    canonical:
+      type: enum
+      version_ranges: &id118
+      - - v6.0.0
+        - ''
+      choices: &id117
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable FGSP configuration synchronization.
+      source_attribute: standalone-config-sync
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id117
+        version_ranges: *id118
+        description: Enable/disable FGSP configuration synchronization.
+        source_attribute: standalone_config_sync
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: standalone_config_sync
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable FGSP configuration synchronization.
+        default: disable
+        source_attribute: standalone-config-sync
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  standalone_mgmt_vdom:
+    canonical:
+      type: enum
+      version_ranges: &id120
+      - - v6.0.0
+        - ''
+      choices: &id119
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable standalone management VDOM.
+      source_attribute: standalone-mgmt-vdom
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id119
+        version_ranges: *id120
+        description: Enable/disable standalone management VDOM.
+        source_attribute: standalone_mgmt_vdom
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: standalone_mgmt_vdom
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable standalone management VDOM.
+        default: disable
+        source_attribute: standalone-mgmt-vdom
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sync_config:
+    canonical:
+      type: enum
+      version_ranges: &id122
+      - - v6.0.0
+        - ''
+      choices: &id121
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable configuration synchronization.
+      source_attribute: sync-config
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id121
+        version_ranges: *id122
+        description: Enable/disable configuration synchronization.
+        source_attribute: sync_config
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sync_config
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable configuration synchronization.
+        default: enable
+        source_attribute: sync-config
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  sync_packet_balance:
+    canonical:
+      type: enum
+      version_ranges: &id124
+      - - v6.0.0
+        - ''
+      choices: &id123
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable HA packet distribution to multiple CPUs.
+      source_attribute: sync-packet-balance
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id123
+        version_ranges: *id124
+        description: Enable/disable HA packet distribution to multiple CPUs.
+        source_attribute: sync_packet_balance
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: sync_packet_balance
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable HA packet distribution to multiple CPUs.
+        default: disable
+        source_attribute: sync-packet-balance
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  unicast_gateway:
+    canonical:
+      type: ipv4-address
+      default: 0.0.0.0
+      description: Default route gateway for unicast interface.
+      source_attribute: unicast-gateway
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        description: Default route gateway for unicast interface.
+        source_attribute: unicast_gateway
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: unicast_gateway
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Default route gateway for unicast interface.
+        default: 0.0.0.0
+        source_attribute: unicast-gateway
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id125
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id125
+  unicast_hb:
+    canonical:
+      type: enum
+      default: disable
+      description: Enable/disable unicast heartbeat.
+      source_attribute: unicast-hb
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        description: Enable/disable unicast heartbeat.
+        source_attribute: unicast_hb
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: unicast_hb
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable unicast heartbeat.
+        default: disable
+        source_attribute: unicast-hb
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  unicast_hb_netmask:
+    canonical:
+      type: ipv4-netmask
+      default: 0.0.0.0
+      description: Unicast heartbeat netmask.
+      source_attribute: unicast-hb-netmask
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        description: Unicast heartbeat netmask.
+        source_attribute: unicast_hb_netmask
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: unicast_hb_netmask
+      cli_reference:
+        type: ipv4-netmask
+        raw_type: ipv4-netmask
+        description: Unicast heartbeat netmask.
+        default: 0.0.0.0
+        source_attribute: unicast-hb-netmask
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id126
+          primitive: string
+          format: ipv4-netmask
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id126
+  unicast_hb_peerip:
+    canonical:
+      type: ipv4-address
+      default: 0.0.0.0
+      description: Unicast heartbeat peer IP.
+      source_attribute: unicast-hb-peerip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        description: Unicast heartbeat peer IP.
+        source_attribute: unicast_hb_peerip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: unicast_hb_peerip
+      cli_reference:
+        type: ipv4-address
+        raw_type: ipv4-address
+        description: Unicast heartbeat peer IP.
+        default: 0.0.0.0
+        source_attribute: unicast-hb-peerip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id127
+          primitive: string
+          format: ipv4-address
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id127
+  unicast_peers:
+    canonical:
+      type: list
+      elements: dict
+      children: &id128
+        id:
+          type: integer
+          raw_type: TypeInt
+          optional: true
+          computed: true
+        peer_ip:
+          type: string
+          raw_type: TypeString
+          optional: true
+          computed: true
+      description: Number of unicast peers.
+      source_attribute: unicast_peers
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        description: Number of unicast peers.
+        source_attribute: unicast_peers
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id128
+        source_attribute: unicast_peers
+    sources:
+    - ansible
+    - terraform
+  unicast_peers.id:
+    canonical:
+      type: integer
+      source_attribute: unicast_peers.id
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: unicast_peers.id
+    sources:
+    - terraform
+  unicast_peers.peer_ip:
+    canonical:
+      type: string
+      source_attribute: unicast_peers.peer_ip
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: unicast_peers.peer_ip
+    sources:
+    - terraform
+  unicast_status:
+    canonical:
+      type: enum
+      default: disable
+      description: Enable/disable unicast connection.
+      source_attribute: unicast-status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        description: Enable/disable unicast connection.
+        source_attribute: unicast_status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: unicast_status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable unicast connection.
+        default: disable
+        source_attribute: unicast-status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  uninterruptible_primary_wait:
+    canonical:
+      type: integer
+      version_ranges: &id129
+      - - v7.0.2
+        - ''
+      default: '30'
+      min: 15
+      max: 300
+      description: Number of minutes the primary HA unit waits before the secondary HA unit is considered upgraded and the
+        system is started before starting its own upgrade (15 - 300, default = 30).
+      source_attribute: uninterruptible-primary-wait
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id129
+        description: Number of minutes the primary HA unit waits before the secondary HA unit is considered upgraded and the
+          system is started before starting its own upgrade (15 - 300).
+        source_attribute: uninterruptible_primary_wait
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 300
+        source_attribute: uninterruptible_primary_wait
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Number of minutes the primary HA unit waits before the secondary HA unit is considered upgraded and the
+          system is started before starting its own upgrade (15 - 300, default = 30).
+        default: '30'
+        min: 15
+        max: 300
+        source_attribute: uninterruptible-primary-wait
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      range:
+        min:
+          resolution: terraform_constraint_mismatch
+          status: resolved
+          confidence: high
+          canonical_policy: prefer_exact_version_cli_range
+          special_values: []
+          requires_hardware_overlay: false
+          requires_runtime_validation: false
+          ansible_ranges_detected:
+          - - '15'
+            - '300'
+          cli_ranges_detected:
+          - - '15'
+            - '300'
+          cli_units:
+          - minutes
+          - seconds
+          ansible_units:
+          - minutes
+          - seconds
+          cli_internal_inconsistency: false
+  uninterruptible_upgrade:
+    canonical:
+      type: string
+      source_attribute: uninterruptible_upgrade
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: uninterruptible_upgrade
+    sources:
+    - terraform
+  upgrade_mode:
+    canonical:
+      type: enum
+      version_ranges: &id131
+      - - v7.4.1
+        - ''
+      choices: &id130
+      - simultaneous
+      - uninterruptible
+      - local-only
+      - secondary-only
+      default: uninterruptible
+      description: The mode to upgrade a cluster.
+      source_attribute: upgrade-mode
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id130
+        version_ranges: *id131
+        description: The mode to upgrade a cluster.
+        source_attribute: upgrade_mode
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: upgrade_mode
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: The mode to upgrade a cluster.
+        default: uninterruptible
+        source_attribute: upgrade-mode
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vcluster:
+    canonical:
+      type: list
+      elements: dict
+      children: &id133
+        vcluster_id:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id148
+          - - v7.2.0
+            - ''
+          description: ID. see <a href='#notes'>Notes</a>.
+        override:
+          type: enum
+          raw_type: string
+          choices: &id138
+          - enable
+          - disable
+          version_ranges: &id137
+          - - v7.2.0
+            - ''
+          description: Enable and increase the priority of the unit that should always be primary (master).
+        priority:
+          type: integer
+          raw_type: integer
+          version_ranges: &id147
+          - - v7.2.0
+            - ''
+          description: Increase the priority to select the primary unit (0 - 255).
+        override_wait_time:
+          type: integer
+          raw_type: integer
+          version_ranges: &id139
+          - - v7.2.0
+            - ''
+          description: Delay negotiating if override is enabled (0 - 3600 sec). Reduces how often the cluster negotiates.
+        monitor:
+          type: list
+          raw_type: list
+          multiple_values: true
+          elements: str
+          version_ranges: &id135
+          - - v7.2.0
+            - ''
+          description: Interfaces to check for port monitoring (or link failure). Source system.interface.name.
+          references: &id134
+          - system.interface.name
+        pingserver_monitor_interface:
+          type: list
+          raw_type: list
+          multiple_values: true
+          elements: str
+          version_ranges: &id143
+          - - v7.2.0
+            - ''
+          description: Interfaces to check for remote IP monitoring. Source system.interface.name.
+          references: &id142
+          - system.interface.name
+        pingserver_failover_threshold:
+          type: integer
+          raw_type: integer
+          version_ranges: &id140
+          - - v7.2.0
+            - ''
+          description: Remote IP monitoring failover threshold (0 - 50).
+        pingserver_secondary_force_reset:
+          type: enum
+          raw_type: string
+          choices: &id146
+          - enable
+          - disable
+          version_ranges: &id145
+          - - v7.2.1
+            - ''
+          description: Enable to force the cluster to negotiate after a remote IP monitoring failover.
+        pingserver_flip_timeout:
+          type: integer
+          raw_type: integer
+          version_ranges: &id141
+          - - v7.4.2
+            - ''
+          description: Time to wait in minutes before renegotiating after a remote IP monitoring failover.
+        vdom:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id150
+          - - v7.2.0
+            - ''
+          description: Virtual domain(s) in the virtual cluster.
+          children: &id149
+            name:
+              type: string
+              raw_type: string
+              required: true
+              version_ranges: &id153
+              - - v7.2.0
+                - ''
+              description: Virtual domain name. Source system.vdom.name.
+              references: &id152
+              - system.vdom.name
+      version_ranges: &id132
+      - - v7.2.0
+        - ''
+      description: Virtual cluster table.
+      source_attribute: vcluster
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id132
+        description: Virtual cluster table.
+        children: *id133
+        source_attribute: vcluster
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          vcluster_id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 1
+            max: 30
+          override:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          priority:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+            min: 0
+            max: 255
+          override_wait_time:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 3600
+          monitor:
+            type: string
+            raw_type: TypeString
+            optional: true
+          link_group_monitor:
+            type: string
+            raw_type: TypeString
+            optional: true
+          pingserver_monitor_interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+          pingserver_failover_threshold:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 50
+          pingserver_secondary_force_reset:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          pingserver_flip_timeout:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          pingserver_slave_force_reset:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          vdom:
+            type: list
+            raw_type: TypeSet
+            optional: true
+            children: &id151
+              name:
+                type: string
+                raw_type: TypeString
+                optional: true
+                min_length: 0
+                max_length: 79
+        source_attribute: vcluster
+    sources:
+    - ansible
+    - terraform
+  vcluster.link_group_monitor:
+    canonical:
+      type: string
+      source_attribute: vcluster.link_group_monitor
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: vcluster.link_group_monitor
+    sources:
+    - terraform
+  vcluster.monitor:
+    canonical:
+      type: list
+      elements: str
+      references: *id134
+      version_ranges: *id135
+      description: Interfaces to check for port monitoring (or link failure). Source system.interface.name.
+      source_attribute: vcluster.monitor
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      references: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id135
+        description: Interfaces to check for port monitoring (or link failure). Source system.interface.name.
+        references: *id134
+        source_attribute: vcluster.monitor
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: vcluster.monitor
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id136
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id136
+  vcluster.override:
+    canonical:
+      type: enum
+      version_ranges: *id137
+      choices: *id138
+      description: Enable and increase the priority of the unit that should always be primary (master).
+      source_attribute: vcluster.override
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id138
+        version_ranges: *id137
+        description: Enable and increase the priority of the unit that should always be primary (master).
+        source_attribute: vcluster.override
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: vcluster.override
+    sources:
+    - ansible
+    - terraform
+  vcluster.override_wait_time:
+    canonical:
+      type: integer
+      version_ranges: *id139
+      min: 0
+      max: 3600
+      description: Delay negotiating if override is enabled (0 - 3600 sec). Reduces how often the cluster negotiates.
+      source_attribute: vcluster.override_wait_time
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id139
+        description: Delay negotiating if override is enabled (0 - 3600 sec). Reduces how often the cluster negotiates.
+        source_attribute: vcluster.override_wait_time
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 3600
+        source_attribute: vcluster.override_wait_time
+    sources:
+    - ansible
+    - terraform
+  vcluster.pingserver_failover_threshold:
+    canonical:
+      type: integer
+      version_ranges: *id140
+      min: 0
+      max: 50
+      description: Remote IP monitoring failover threshold (0 - 50).
+      source_attribute: vcluster.pingserver_failover_threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id140
+        description: Remote IP monitoring failover threshold (0 - 50).
+        source_attribute: vcluster.pingserver_failover_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 50
+        source_attribute: vcluster.pingserver_failover_threshold
+    sources:
+    - ansible
+    - terraform
+  vcluster.pingserver_flip_timeout:
+    canonical:
+      type: integer
+      version_ranges: *id141
+      description: Time to wait in minutes before renegotiating after a remote IP monitoring failover.
+      source_attribute: vcluster.pingserver_flip_timeout
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id141
+        description: Time to wait in minutes before renegotiating after a remote IP monitoring failover.
+        source_attribute: vcluster.pingserver_flip_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: vcluster.pingserver_flip_timeout
+    sources:
+    - ansible
+    - terraform
+  vcluster.pingserver_monitor_interface:
+    canonical:
+      type: list
+      elements: str
+      references: *id142
+      version_ranges: *id143
+      description: Interfaces to check for remote IP monitoring. Source system.interface.name.
+      source_attribute: vcluster.pingserver_monitor_interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      references: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        multiple_values: true
+        elements: str
+        version_ranges: *id143
+        description: Interfaces to check for remote IP monitoring. Source system.interface.name.
+        references: *id142
+        source_attribute: vcluster.pingserver_monitor_interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: vcluster.pingserver_monitor_interface
+    sources:
+    - ansible
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id144
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id144
+  vcluster.pingserver_secondary_force_reset:
+    canonical:
+      type: enum
+      version_ranges: *id145
+      choices: *id146
+      description: Enable to force the cluster to negotiate after a remote IP monitoring failover.
+      source_attribute: vcluster.pingserver_secondary_force_reset
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id146
+        version_ranges: *id145
+        description: Enable to force the cluster to negotiate after a remote IP monitoring failover.
+        source_attribute: vcluster.pingserver_secondary_force_reset
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: vcluster.pingserver_secondary_force_reset
+    sources:
+    - ansible
+    - terraform
+  vcluster.pingserver_slave_force_reset:
+    canonical:
+      type: string
+      source_attribute: vcluster.pingserver_slave_force_reset
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: vcluster.pingserver_slave_force_reset
+    sources:
+    - terraform
+  vcluster.priority:
+    canonical:
+      type: integer
+      version_ranges: *id147
+      min: 0
+      max: 255
+      description: Increase the priority to select the primary unit (0 - 255).
+      source_attribute: vcluster.priority
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id147
+        description: Increase the priority to select the primary unit (0 - 255).
+        source_attribute: vcluster.priority
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 0
+        max: 255
+        source_attribute: vcluster.priority
+    sources:
+    - ansible
+    - terraform
+  vcluster.vcluster_id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id148
+      min: 1
+      max: 30
+      description: ID. see <a href='#notes'>Notes</a>.
+      source_attribute: vcluster.vcluster_id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min: terraform
+      max: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id148
+        description: ID. see <a href='#notes'>Notes</a>.
+        source_attribute: vcluster.vcluster_id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 30
+        source_attribute: vcluster.vcluster_id
+    sources:
+    - ansible
+    - terraform
+  vcluster.vdom:
+    canonical:
+      type: list
+      elements: dict
+      children: *id149
+      version_ranges: *id150
+      description: Virtual domain(s) in the virtual cluster.
+      source_attribute: vcluster.vdom
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id150
+        description: Virtual domain(s) in the virtual cluster.
+        children: *id149
+        source_attribute: vcluster.vdom
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id151
+        source_attribute: vcluster.vdom
+    sources:
+    - ansible
+    - terraform
+  vcluster.vdom.name:
+    canonical:
+      type: string
+      references: *id152
+      required: true
+      version_ranges: *id153
+      min_length: 0
+      max_length: 79
+      description: Virtual domain name. Source system.vdom.name.
+      source_attribute: vcluster.vdom.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id153
+        description: Virtual domain name. Source system.vdom.name.
+        references: *id152
+        source_attribute: vcluster.vdom.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: vcluster.vdom.name
+    sources:
+    - ansible
+    - terraform
+  vcluster2:
+    canonical:
+      type: string
+      source_attribute: vcluster2
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: vcluster2
+    sources:
+    - terraform
+  vcluster_id:
+    canonical:
+      type: integer
+      min: 0
+      max: 255
+      source_attribute: vcluster_id
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: vcluster_id
+    sources:
+    - terraform
+  vcluster_status:
+    canonical:
+      type: enum
+      version_ranges: &id155
+      - - v7.2.0
+        - ''
+      choices: &id154
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable virtual cluster for virtual clustering.
+      source_attribute: vcluster-status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id154
+        version_ranges: *id155
+        description: Enable/disable virtual cluster for virtual clustering.
+        source_attribute: vcluster_status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: vcluster_status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable virtual cluster for virtual clustering.
+        default: disable
+        source_attribute: vcluster-status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdom:
+    canonical:
+      type: string
+      source_attribute: vdom
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: vdom
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  weight:
+    canonical:
+      type: string
+      version_ranges: &id156
+      - - v6.0.0
+        - ''
+      default: 0 40
+      description: Weight-round-robin weight for each cluster unit. Syntax <priority> <weight>.
+      source_attribute: weight
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id156
+        description: Weight-round-robin weight for each cluster unit. Syntax <priority> <weight>.
+        source_attribute: weight
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: weight
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Weight-round-robin weight for each cluster unit. Syntax <priority> <weight>.
+        default: 0 40
+        source_attribute: weight
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: auto_virtual_mac_interface
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: backup_hbdev
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: hbdev
+  field: type
+  values:
+    ansible: list
+    terraform: string
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: key
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict
+- attribute: monitor
+  field: type
+  values:
+    ansible: list
+    terraform: string
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: password
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict
+- attribute: pingserver_monitor_interface
+  field: type
+  values:
+    ansible: list
+    terraform: string
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: session_sync_dev
+  field: type
+  values:
+    ansible: list
+    terraform: string
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: unicast_gateway
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: unicast_hb_netmask
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-netmask
+  classification: representation_or_real_conflict
+- attribute: unicast_hb_peerip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address
+  classification: representation_or_real_conflict
+- attribute: vcluster.monitor
+  field: type
+  values:
+    ansible: list
+    terraform: string
+  classification: representation_or_real_conflict
+- attribute: vcluster.pingserver_monitor_interface
+  field: type
+  values:
+    ansible: list
+    terraform: string
+  classification: representation_or_real_conflict

@@ -1,0 +1,451 @@
+id: router.ospf6
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/110953645/config-router-ospf6
+attributes:
+  abr-type:
+    type: enum
+    raw_type: option
+    description: Area border router type.
+    default: standard
+  auto-cost-ref-bandwidth:
+    type: integer
+    raw_type: integer
+    description: Reference bandwidth in terms of megabits per second.
+    default: '1000'
+    min: 1
+    max: 1000000
+  bfd:
+    type: enum
+    raw_type: option
+    description: Enable/disable Bidirectional Forwarding Detection (BFD).
+    default: disable
+  default-information-metric:
+    type: integer
+    raw_type: integer
+    description: Default information metric.
+    default: '10'
+    min: 1
+    max: 16777214
+  default-information-metric-type:
+    type: enum
+    raw_type: option
+    description: Default information metric type.
+    default: '2'
+  default-information-originate:
+    type: enum
+    raw_type: option
+    description: Enable/disable generation of default route.
+    default: disable
+  default-information-route-map:
+    type: string
+    raw_type: string
+    description: Default information route map.
+    max_length: 35
+  default-metric:
+    type: integer
+    raw_type: integer
+    description: Default metric of redistribute routes.
+    default: '10'
+    min: 1
+    max: 16777214
+  log-neighbour-changes:
+    type: enum
+    raw_type: option
+    description: Log OSPFv3 neighbor changes.
+    default: enable
+  passive-interface:
+    type: string
+    raw_type: string
+    description: Passive interface configuration. Passive interface name.
+    max_length: 79
+  restart-mode:
+    type: enum
+    raw_type: option
+    description: OSPFv3 restart mode (graceful or none).
+    default: none
+  restart-on-topology-change:
+    type: enum
+    raw_type: option
+    description: Enable/disable continuing graceful restart upon topology change.
+    default: disable
+  restart-period:
+    type: integer
+    raw_type: integer
+    description: Graceful restart period in seconds.
+    default: '120'
+    min: 1
+    max: 3600
+  router-id:
+    type: ipv4-address-any
+    raw_type: ipv4-address-any
+    description: A.B.C.D, in IPv4 address format.
+    default: 0.0.0.0
+  spf-timers:
+    type: string
+    raw_type: user
+    description: SPF calculation frequency.
+children:
+  area:
+    attributes:
+      authentication:
+        type: enum
+        raw_type: option
+        description: Authentication mode.
+        default: none
+      default-cost:
+        type: integer
+        raw_type: integer
+        description: Summary default cost of stub or NSSA area.
+        default: '10'
+        min: 0
+        max: 16777215
+      id:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: Area entry IP address.
+        default: 0.0.0.0
+      ipsec-auth-alg:
+        type: enum
+        raw_type: option
+        description: Authentication algorithm.
+        default: md5
+      ipsec-enc-alg:
+        type: enum
+        raw_type: option
+        description: Encryption algorithm.
+        default: 'null'
+      key-rollover-interval:
+        type: integer
+        raw_type: integer
+        description: Key roll-over interval.
+        default: '300'
+        min: 300
+        max: 216000
+      nssa-default-information-originate:
+        type: enum
+        raw_type: option
+        description: Enable/disable originate type 7 default into NSSA area.
+        default: disable
+      nssa-default-information-originate-metric:
+        type: integer
+        raw_type: integer
+        description: OSPFv3 default metric.
+        default: '10'
+        min: 0
+        max: 16777214
+      nssa-default-information-originate-metric-type:
+        type: enum
+        raw_type: option
+        description: OSPFv3 metric type for default routes.
+        default: '2'
+      nssa-redistribution:
+        type: enum
+        raw_type: option
+        description: Enable/disable redistribute into NSSA area.
+        default: enable
+      nssa-translator-role:
+        type: enum
+        raw_type: option
+        description: NSSA translator role type.
+        default: candidate
+      stub-type:
+        type: enum
+        raw_type: option
+        description: Stub summary setting.
+        default: summary
+      type:
+        type: enum
+        raw_type: option
+        description: Area type setting.
+        default: regular
+  ipsec-keys:
+    attributes:
+      auth-key:
+        type: password
+        raw_type: password
+        description: Authentication key.
+      enc-key:
+        type: password
+        raw_type: password
+        description: Encryption key.
+      spi:
+        type: integer
+        raw_type: integer
+        description: Security Parameters Index.
+        default: '0'
+        min: 256
+        max: 4294967295
+  range:
+    attributes:
+      advertise:
+        type: enum
+        raw_type: option
+        description: Enable/disable advertise status.
+        default: enable
+      id:
+        type: integer
+        raw_type: integer
+        description: Range entry ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      prefix6:
+        type: ipv6-network
+        raw_type: ipv6-network
+        description: IPv6 prefix.
+        default: ::/0
+  virtual-link:
+    attributes:
+      authentication:
+        type: enum
+        raw_type: option
+        description: Authentication mode.
+        default: area
+      dead-interval:
+        type: integer
+        raw_type: integer
+        description: Dead interval.
+        default: '40'
+        min: 1
+        max: 65535
+      hello-interval:
+        type: integer
+        raw_type: integer
+        description: Hello interval.
+        default: '10'
+        min: 1
+        max: 65535
+      ipsec-auth-alg:
+        type: enum
+        raw_type: option
+        description: Authentication algorithm.
+        default: md5
+      ipsec-enc-alg:
+        type: enum
+        raw_type: option
+        description: Encryption algorithm.
+        default: 'null'
+      key-rollover-interval:
+        type: integer
+        raw_type: integer
+        description: Key roll-over interval.
+        default: '300'
+        min: 300
+        max: 216000
+      name:
+        type: string
+        raw_type: string
+        description: Virtual link entry name.
+        max_length: 35
+      peer:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: A.B.C.D, peer router ID.
+        default: 0.0.0.0
+      retransmit-interval:
+        type: integer
+        raw_type: integer
+        description: Retransmit interval.
+        default: '5'
+        min: 1
+        max: 65535
+      transmit-delay:
+        type: integer
+        raw_type: integer
+        description: Transmit delay.
+        default: '1'
+        min: 1
+        max: 65535
+  ospf6-interface:
+    attributes:
+      area-id:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: A.B.C.D, in IPv4 address format.
+        default: 0.0.0.0
+      authentication:
+        type: enum
+        raw_type: option
+        description: Authentication mode.
+        default: area
+      bfd:
+        type: enum
+        raw_type: option
+        description: Enable/disable Bidirectional Forwarding Detection (BFD).
+        default: global
+      cost:
+        type: integer
+        raw_type: integer
+        description: Cost of the interface, value range from 0 to 65535, 0 means auto-cost.
+        default: '0'
+        min: 0
+        max: 65535
+      dead-interval:
+        type: integer
+        raw_type: integer
+        description: Dead interval.
+        default: '0'
+        min: 1
+        max: 65535
+      hello-interval:
+        type: integer
+        raw_type: integer
+        description: Hello interval.
+        default: '0'
+        min: 1
+        max: 65535
+      interface:
+        type: string
+        raw_type: string
+        description: Configuration interface name.
+        max_length: 15
+      ipsec-auth-alg:
+        type: enum
+        raw_type: option
+        description: Authentication algorithm.
+        default: md5
+      ipsec-enc-alg:
+        type: enum
+        raw_type: option
+        description: Encryption algorithm.
+        default: 'null'
+      key-rollover-interval:
+        type: integer
+        raw_type: integer
+        description: Key roll-over interval.
+        default: '300'
+        min: 300
+        max: 216000
+      mtu:
+        type: integer
+        raw_type: integer
+        description: MTU for OSPFv3 packets.
+        default: '0'
+        min: 576
+        max: 65535
+      mtu-ignore:
+        type: enum
+        raw_type: option
+        description: Enable/disable ignoring MTU field in DBD packets.
+        default: disable
+      name:
+        type: string
+        raw_type: string
+        description: Interface entry name.
+        max_length: 35
+      network-type:
+        type: enum
+        raw_type: option
+        description: Network type.
+        default: broadcast
+      priority:
+        type: integer
+        raw_type: integer
+        description: Priority.
+        default: '1'
+        min: 0
+        max: 255
+      retransmit-interval:
+        type: integer
+        raw_type: integer
+        description: Retransmit interval.
+        default: '5'
+        min: 1
+        max: 65535
+      status:
+        type: enum
+        raw_type: option
+        description: Enable/disable OSPF6 routing on this interface.
+        default: enable
+      transmit-delay:
+        type: integer
+        raw_type: integer
+        description: Transmit delay.
+        default: '1'
+        min: 1
+        max: 65535
+  neighbor:
+    attributes:
+      cost:
+        type: integer
+        raw_type: integer
+        description: Cost of the interface, value range from 0 to 65535, 0 means auto-cost.
+        default: '0'
+        min: 0
+        max: 65535
+      ip6:
+        type: ipv6-address
+        raw_type: ipv6-address
+        description: IPv6 link local address of the neighbor.
+        default: '::'
+      poll-interval:
+        type: integer
+        raw_type: integer
+        description: Poll interval time in seconds.
+        default: '10'
+        min: 1
+        max: 65535
+      priority:
+        type: integer
+        raw_type: integer
+        description: Priority.
+        default: '1'
+        min: 0
+        max: 255
+  redistribute:
+    attributes:
+      metric:
+        type: integer
+        raw_type: integer
+        description: Redistribute metric setting.
+        default: '0'
+        min: 0
+        max: 16777214
+      metric-type:
+        type: enum
+        raw_type: option
+        description: Metric type.
+        default: '2'
+      name:
+        type: string
+        raw_type: string
+        description: Redistribute name.
+        max_length: 35
+      routemap:
+        type: string
+        raw_type: string
+        description: Route map name.
+        max_length: 35
+      status:
+        type: enum
+        raw_type: option
+        description: Status.
+        default: disable
+  summary-address:
+    attributes:
+      advertise:
+        type: enum
+        raw_type: option
+        description: Enable/disable advertise status.
+        default: enable
+      id:
+        type: integer
+        raw_type: integer
+        description: Summary address entry ID.
+        default: '0'
+        min: 0
+        max: 4294967295
+      prefix6:
+        type: ipv6-network
+        raw_type: ipv6-network
+        description: IPv6 prefix.
+        default: ::/0
+      tag:
+        type: integer
+        raw_type: integer
+        description: Tag value.
+        default: '0'
+        min: 0
+        max: 4294967295

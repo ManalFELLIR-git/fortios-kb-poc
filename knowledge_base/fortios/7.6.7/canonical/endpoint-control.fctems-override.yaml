@@ -1,0 +1,1222 @@
+id: endpoint-control.fctems-override
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  call_timeout:
+    canonical:
+      type: integer
+      version_ranges: &id001
+      - - v7.4.0
+        - ''
+      default: '30'
+      min: 1
+      max: 180
+      description: FortiClient EMS call timeout in seconds (1 - 180 seconds, default = 30).
+      source_attribute: call-timeout
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id001
+        description: FortiClient EMS call timeout in seconds (1 - 180 seconds).
+        source_attribute: call_timeout
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 180
+        source_attribute: call_timeout
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: FortiClient EMS call timeout in seconds (1 - 180 seconds, default = 30).
+        default: '30'
+        min: 1
+        max: 180
+        source_attribute: call-timeout
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  capabilities:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id003
+      - - v7.4.0
+        - ''
+      choices: &id002
+      - fabric-auth
+      - silent-approval
+      - websocket
+      - websocket-malware
+      - push-ca-certs
+      - common-tags-api
+      - tenant-id
+      - client-avatars
+      - single-vdom-connector
+      - fgt-sysinfo-api
+      - ztna-server-info
+      - used-tags
+      - crl
+      description: List of EMS capabilities.
+      source_attribute: capabilities
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id002
+        multiple_values: true
+        elements: str
+        version_ranges: *id003
+        description: List of EMS capabilities.
+        source_attribute: capabilities
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: capabilities
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: List of EMS capabilities.
+        source_attribute: capabilities
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  cloud_authentication_access_key:
+    canonical:
+      type: password
+      version_ranges: &id004
+      - - v7.4.4
+        - ''
+      min_length: 0
+      max_length: 20
+      description: FortiClient EMS Cloud multitenancy access key
+      source_attribute: cloud-authentication-access-key
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id004
+        description: FortiClient EMS Cloud multitenancy access key
+        source_attribute: cloud_authentication_access_key
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 20
+        source_attribute: cloud_authentication_access_key
+      cli_reference:
+        type: password
+        raw_type: password
+        description: FortiClient EMS Cloud multitenancy access key
+        source_attribute: cloud-authentication-access-key
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id005
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id005
+  cloud_server_type:
+    canonical:
+      type: string
+      source_attribute: cloud_server_type
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: cloud_server_type
+    sources:
+    - terraform
+  dirty_reason:
+    canonical:
+      type: enum
+      version_ranges: &id007
+      - - v7.4.0
+        - ''
+      choices: &id006
+      - none
+      - mismatched-ems-sn
+      default: none
+      description: Dirty Reason for FortiClient EMS.
+      source_attribute: dirty-reason
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id006
+        version_ranges: *id007
+        description: Dirty Reason for FortiClient EMS.
+        source_attribute: dirty_reason
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: dirty_reason
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Dirty Reason for FortiClient EMS.
+        default: none
+        source_attribute: dirty-reason
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ems_id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id008
+      - - v7.4.0
+        - ''
+      default: '0'
+      min: 1
+      max: 7
+      description: EMS ID in order (1 - 7).
+      source_attribute: ems-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id008
+        description: EMS ID in order (1 - 7). see <a href='#notes'>Notes</a>.
+        source_attribute: ems_id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        force_new: true
+        min: 1
+        max: 7
+        source_attribute: ems_id
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: EMS ID in order (1 - 7).
+        default: '0'
+        min: 1
+        max: 7
+        source_attribute: ems-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  fortinetone_cloud_authentication:
+    canonical:
+      type: enum
+      version_ranges: &id010
+      - - v7.4.0
+        - ''
+      choices: &id009
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable authentication of FortiClient EMS Cloud through FortiCloud account.
+      source_attribute: fortinetone-cloud-authentication
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id010
+        description: Enable/disable authentication of FortiClient EMS Cloud through FortiCloud account.
+        source_attribute: fortinetone_cloud_authentication
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: fortinetone_cloud_authentication
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable authentication of FortiClient EMS Cloud through FortiCloud account.
+        default: disable
+        source_attribute: fortinetone-cloud-authentication
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  https_port:
+    canonical:
+      type: integer
+      version_ranges: &id011
+      - - v7.4.0
+        - ''
+      default: '443'
+      min: 1
+      max: 65535
+      description: 'FortiClient EMS HTTPS access port number. (1 - 65535, default: 443).'
+      source_attribute: https-port
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id011
+        description: FortiClient EMS HTTPS access port number. (1 - 65535).
+        source_attribute: https_port
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: https_port
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: 'FortiClient EMS HTTPS access port number. (1 - 65535, default: 443).'
+        default: '443'
+        min: 1
+        max: 65535
+        source_attribute: https-port
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface:
+    canonical:
+      type: string
+      references: &id013
+      - system.interface.name
+      version_ranges: &id012
+      - - v7.4.0
+        - ''
+      min_length: 0
+      max_length: 15
+      description: Specify outgoing interface to reach server.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id012
+        description: Specify outgoing interface to reach server. Source system.interface.name.
+        references: *id013
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Specify outgoing interface to reach server.
+        max_length: 15
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  interface_select_method:
+    canonical:
+      type: enum
+      version_ranges: &id015
+      - - v7.4.0
+        - ''
+      choices: &id014
+      - auto
+      - sdwan
+      - specify
+      default: auto
+      description: Specify how to select outgoing interface to reach server.
+      source_attribute: interface-select-method
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id014
+        version_ranges: *id015
+        description: Specify how to select outgoing interface to reach server.
+        source_attribute: interface_select_method
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: interface_select_method
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Specify how to select outgoing interface to reach server.
+        default: auto
+        source_attribute: interface-select-method
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      version_ranges: &id016
+      - - v7.4.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: FortiClient Enterprise Management Server (EMS) name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id016
+        description: FortiClient Enterprise Management Server (EMS) name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: FortiClient Enterprise Management Server (EMS) name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  out_of_sync_threshold:
+    canonical:
+      type: integer
+      version_ranges: &id017
+      - - v7.4.0
+        - ''
+      default: '180'
+      min: 10
+      max: 3600
+      description: Outdated resource threshold in seconds (10 - 3600, default = 180).
+      source_attribute: out-of-sync-threshold
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id017
+        description: Outdated resource threshold in seconds (10 - 2592000).
+        source_attribute: out_of_sync_threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 10
+        max: 2592000
+        source_attribute: out_of_sync_threshold
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Outdated resource threshold in seconds (10 - 3600, default = 180).
+        default: '180'
+        min: 10
+        max: 3600
+        source_attribute: out-of-sync-threshold
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      range:
+        max:
+          resolution: secondary_sources_disagree_with_exact_cli
+          status: resolved
+          confidence: medium
+          canonical_policy: prefer_exact_version_cli_range
+          special_values: []
+          requires_hardware_overlay: false
+          requires_runtime_validation: true
+          ansible_ranges_detected:
+          - - '10'
+            - '2592000'
+          cli_ranges_detected:
+          - - '10'
+            - '3600'
+          cli_units:
+          - seconds
+          ansible_units:
+          - seconds
+          cli_internal_inconsistency: false
+    requires_runtime_validation: true
+  preserve_ssl_session:
+    canonical:
+      type: string
+      source_attribute: preserve_ssl_session
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: preserve_ssl_session
+    sources:
+    - terraform
+  pull_avatars:
+    canonical:
+      type: string
+      source_attribute: pull_avatars
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pull_avatars
+    sources:
+    - terraform
+  pull_malware_hash:
+    canonical:
+      type: enum
+      version_ranges: &id019
+      - - v7.4.0
+        - ''
+      choices: &id018
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable pulling FortiClient malware hash from EMS.
+      source_attribute: pull-malware-hash
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id018
+        version_ranges: *id019
+        description: Enable/disable pulling FortiClient malware hash from EMS.
+        source_attribute: pull_malware_hash
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pull_malware_hash
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable pulling FortiClient malware hash from EMS.
+        default: enable
+        source_attribute: pull-malware-hash
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  pull_sysinfo:
+    canonical:
+      type: enum
+      version_ranges: &id021
+      - - v7.4.0
+        - ''
+      choices: &id020
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable pulling SysInfo from EMS.
+      source_attribute: pull-sysinfo
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id020
+        version_ranges: *id021
+        description: Enable/disable pulling SysInfo from EMS.
+        source_attribute: pull_sysinfo
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pull_sysinfo
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable pulling SysInfo from EMS.
+        default: enable
+        source_attribute: pull-sysinfo
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  pull_tags:
+    canonical:
+      type: enum
+      version_ranges: &id023
+      - - v7.4.0
+        - ''
+      choices: &id022
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable pulling FortiClient user tags from EMS.
+      source_attribute: pull-tags
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id022
+        version_ranges: *id023
+        description: Enable/disable pulling FortiClient user tags from EMS.
+        source_attribute: pull_tags
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pull_tags
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable pulling FortiClient user tags from EMS.
+        default: enable
+        source_attribute: pull-tags
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  pull_vulnerabilities:
+    canonical:
+      type: enum
+      version_ranges: &id025
+      - - v7.4.0
+        - ''
+      choices: &id024
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable pulling vulnerabilities from EMS.
+      source_attribute: pull-vulnerabilities
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id024
+        version_ranges: *id025
+        description: Enable/disable pulling vulnerabilities from EMS.
+        source_attribute: pull_vulnerabilities
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: pull_vulnerabilities
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable pulling vulnerabilities from EMS.
+        default: enable
+        source_attribute: pull-vulnerabilities
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  send_tags_to_all_vdoms:
+    canonical:
+      type: enum
+      version_ranges: &id027
+      - - v7.4.2
+        - ''
+      choices: &id026
+      - enable
+      - disable
+      default: disable
+      description: Relax restrictions on tags to send all EMS tags to all VDOMs
+      source_attribute: send-tags-to-all-vdoms
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id026
+        version_ranges: *id027
+        description: Relax restrictions on tags to send all EMS tags to all VDOMs
+        source_attribute: send_tags_to_all_vdoms
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: send_tags_to_all_vdoms
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Relax restrictions on tags to send all EMS tags to all VDOMs
+        default: disable
+        source_attribute: send-tags-to-all-vdoms
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  serial_number:
+    canonical:
+      type: string
+      version_ranges: &id028
+      - - v7.4.0
+        - ''
+      min_length: 0
+      max_length: 16
+      description: EMS Serial Number.
+      source_attribute: serial-number
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id028
+        description: EMS Serial Number.
+        source_attribute: serial_number
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 16
+        source_attribute: serial_number
+      cli_reference:
+        type: string
+        raw_type: string
+        description: EMS Serial Number.
+        max_length: 16
+        source_attribute: serial-number
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  server:
+    canonical:
+      type: string
+      version_ranges: &id029
+      - - v7.4.0
+        - ''
+      min_length: 0
+      max_length: 255
+      description: FortiClient EMS FQDN or IPv4 address.
+      source_attribute: server
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id029
+        description: FortiClient EMS FQDN or IPv4 address.
+        source_attribute: server
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 255
+        source_attribute: server
+      cli_reference:
+        type: string
+        raw_type: string
+        description: FortiClient EMS FQDN or IPv4 address.
+        max_length: 255
+        source_attribute: server
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  source_ip:
+    canonical:
+      type: ipv4-address-any
+      version_ranges: &id030
+      - - v7.4.0
+        - ''
+      default: 0.0.0.0
+      description: REST API call source IP.
+      source_attribute: source-ip
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id030
+        description: REST API call source IP.
+        source_attribute: source_ip
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: source_ip
+      cli_reference:
+        type: ipv4-address-any
+        raw_type: ipv4-address-any
+        description: REST API call source IP.
+        default: 0.0.0.0
+        source_attribute: source-ip
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id031
+          primitive: string
+          format: ipv4-address-any
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id031
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id033
+      - - v7.4.0
+        - ''
+      choices: &id032
+      - enable
+      - disable
+      default: disable
+      description: Enable or disable this EMS configuration.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id032
+        version_ranges: *id033
+        description: Enable or disable this EMS configuration.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable or disable this EMS configuration.
+        default: disable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  tenant_id:
+    canonical:
+      type: string
+      version_ranges: &id034
+      - - v7.4.0
+        - ''
+      min_length: 0
+      max_length: 32
+      description: EMS Tenant ID.
+      source_attribute: tenant-id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id034
+        description: EMS Tenant ID.
+        source_attribute: tenant_id
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 32
+        source_attribute: tenant_id
+      cli_reference:
+        type: string
+        raw_type: string
+        description: EMS Tenant ID.
+        max_length: 32
+        source_attribute: tenant-id
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  trust_ca_cn:
+    canonical:
+      type: enum
+      version_ranges: &id036
+      - - v7.4.0
+        - ''
+      choices: &id035
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable trust of the EMS certificate issuer(CA) and common name(CN) for certificate auto-renewal.
+      source_attribute: trust-ca-cn
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id035
+        version_ranges: *id036
+        description: Enable/disable trust of the EMS certificate issuer(CA) and common name(CN) for certificate auto-renewal.
+        source_attribute: trust_ca_cn
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: trust_ca_cn
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable trust of the EMS certificate issuer(CA) and common name(CN) for certificate auto-renewal.
+        default: enable
+        source_attribute: trust-ca-cn
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+  verifying_ca:
+    canonical:
+      type: string
+      references: &id038
+      - certificate.ca.name
+      - vpn.certificate.ca.name
+      version_ranges: &id037
+      - - v7.4.2
+        - ''
+      min_length: 0
+      max_length: 79
+      description: Lowest CA cert on Fortigate in verified EMS cert chain.
+      source_attribute: verifying-ca
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id037
+        description: Lowest CA cert on Fortigate in verified EMS cert chain. Source certificate.ca.name vpn.certificate.ca.name.
+        references: *id038
+        source_attribute: verifying_ca
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: verifying_ca
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Lowest CA cert on Fortigate in verified EMS cert chain.
+        max_length: 79
+        source_attribute: verifying-ca
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  websocket_override:
+    canonical:
+      type: enum
+      version_ranges: &id040
+      - - v7.4.0
+        - ''
+      choices: &id039
+      - enable
+      - disable
+      default: disable
+      description: Enable/disable override behavior for how this FortiGate unit connects to EMS using a WebSocket connection.
+      source_attribute: websocket-override
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id039
+        version_ranges: *id040
+        description: Enable/disable override behavior for how this FortiGate unit connects to EMS using a WebSocket connection.
+        source_attribute: websocket_override
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: websocket_override
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable override behavior for how this FortiGate unit connects to EMS using a WebSocket connection.
+        default: disable
+        source_attribute: websocket-override
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+conflicts:
+- attribute: cloud_authentication_access_key
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict
+- attribute: source_ip
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: ipv4-address-any
+  classification: representation_or_real_conflict

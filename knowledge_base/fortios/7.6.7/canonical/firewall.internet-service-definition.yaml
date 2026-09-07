@@ -1,0 +1,461 @@
+id: firewall.internet-service-definition
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  entry:
+    canonical:
+      type: list
+      elements: dict
+      children: &id002
+        seq_num:
+          type: integer
+          raw_type: integer
+          required: true
+          version_ranges: &id007
+          - - v6.2.0
+            - ''
+          description: Entry sequence number. see <a href='#notes'>Notes</a>.
+        port_range:
+          type: list
+          raw_type: list
+          elements: dict
+          version_ranges: &id004
+          - - v6.2.0
+            - ''
+          description: Port ranges in the definition entry.
+          children: &id003
+            id:
+              type: integer
+              raw_type: integer
+              required: true
+              version_ranges: &id006
+              - - v6.2.0
+                - ''
+              description: Custom entry port range ID. see <a href='#notes'>Notes</a>.
+      version_ranges: &id001
+      - - v6.2.0
+        - ''
+      description: Protocol and port information in an Internet Service entry.
+      source_attribute: entry
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id001
+        description: Protocol and port information in an Internet Service entry.
+        children: *id002
+        source_attribute: entry
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          seq_num:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            computed: true
+          category_id:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          protocol:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 255
+          port_range:
+            type: list
+            raw_type: TypeList
+            optional: true
+            children: &id005
+              id:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+              start_port:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+                min: 1
+                max: 65535
+              end_port:
+                type: integer
+                raw_type: TypeInt
+                optional: true
+                computed: true
+                min: 1
+                max: 65535
+          port:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+            min: 0
+            max: 65535
+        source_attribute: entry
+    sources:
+    - ansible
+    - terraform
+  entry.category_id:
+    canonical:
+      type: integer
+      source_attribute: entry.category_id
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: entry.category_id
+    sources:
+    - terraform
+  entry.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 63
+      source_attribute: entry.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: entry.name
+    sources:
+    - terraform
+  entry.port:
+    canonical:
+      type: integer
+      min: 0
+      max: 65535
+      source_attribute: entry.port
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 65535
+        source_attribute: entry.port
+    sources:
+    - terraform
+  entry.port_range:
+    canonical:
+      type: list
+      elements: dict
+      children: *id003
+      version_ranges: *id004
+      description: Port ranges in the definition entry.
+      source_attribute: entry.port_range
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id004
+        description: Port ranges in the definition entry.
+        children: *id003
+        source_attribute: entry.port_range
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children: *id005
+        source_attribute: entry.port_range
+    sources:
+    - ansible
+    - terraform
+  entry.port_range.end_port:
+    canonical:
+      type: integer
+      min: 1
+      max: 65535
+      source_attribute: entry.port_range.end_port
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: entry.port_range.end_port
+    sources:
+    - terraform
+  entry.port_range.id:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id006
+      description: Custom entry port range ID. see <a href='#notes'>Notes</a>.
+      source_attribute: entry.port_range.id
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id006
+        description: Custom entry port range ID. see <a href='#notes'>Notes</a>.
+        source_attribute: entry.port_range.id
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: entry.port_range.id
+    sources:
+    - ansible
+    - terraform
+  entry.port_range.start_port:
+    canonical:
+      type: integer
+      min: 1
+      max: 65535
+      source_attribute: entry.port_range.start_port
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 1
+        max: 65535
+        source_attribute: entry.port_range.start_port
+    sources:
+    - terraform
+  entry.protocol:
+    canonical:
+      type: integer
+      min: 0
+      max: 255
+      source_attribute: entry.protocol
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min: terraform
+      max: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 255
+        source_attribute: entry.protocol
+    sources:
+    - terraform
+  entry.seq_num:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: *id007
+      description: Entry sequence number. see <a href='#notes'>Notes</a>.
+      source_attribute: entry.seq_num
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id007
+        description: Entry sequence number. see <a href='#notes'>Notes</a>.
+        source_attribute: entry.seq_num
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: entry.seq_num
+    sources:
+    - ansible
+    - terraform
+  fosid:
+    canonical:
+      type: integer
+      source_attribute: fosid
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        source_attribute: fosid
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  id:
+    canonical:
+      type: integer
+      default: '0'
+      min: 0
+      max: 4294967295
+      description: Internet Service application list ID. Read-only.
+      source_attribute: id
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Internet Service application list ID. Read-only.
+        default: '0'
+        min: 0
+        max: 4294967295
+        source_attribute: id
+    sources:
+    - cli_reference
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

@@ -1,0 +1,1283 @@
+id: firewall.dos-policy
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  anomaly:
+    canonical:
+      type: list
+      elements: dict
+      children: &id002
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id007
+          - - v6.0.0
+            - ''
+          description: Anomaly name.
+        status:
+          type: enum
+          raw_type: string
+          choices: &id014
+          - disable
+          - enable
+          version_ranges: &id013
+          - - v6.0.0
+            - ''
+          description: Enable/disable this anomaly.
+        log:
+          type: enum
+          raw_type: string
+          choices: &id006
+          - enable
+          - disable
+          version_ranges: &id005
+          - - v6.0.0
+            - ''
+          description: Enable/disable anomaly logging.
+        action:
+          type: enum
+          raw_type: string
+          choices: &id004
+          - pass
+          - block
+          - proxy
+          version_ranges: &id003
+          - - v6.0.0
+            - ''
+          description: Action taken when the threshold is reached.
+        quarantine:
+          type: enum
+          raw_type: string
+          choices: &id009
+          - none
+          - attacker
+          version_ranges: &id008
+          - - v6.0.0
+            - ''
+          description: Quarantine method.
+        quarantine_expiry:
+          type: string
+          raw_type: string
+          version_ranges: &id010
+          - - v6.0.0
+            - ''
+          description: Duration of quarantine. (Format
+        quarantine_log:
+          type: enum
+          raw_type: string
+          choices: &id012
+          - disable
+          - enable
+          version_ranges: &id011
+          - - v6.0.0
+            - ''
+          description: Enable/disable quarantine logging.
+        threshold:
+          type: integer
+          raw_type: integer
+          version_ranges: &id015
+          - - v6.0.0
+            - ''
+          description: Anomaly threshold. Number of detected instances (packets per second or concurrent session number) that
+            triggers the anomaly action.
+      version_ranges: &id001
+      - - v6.0.0
+        - ''
+      description: Anomaly name.
+      source_attribute: anomaly
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id001
+        description: Anomaly name.
+        children: *id002
+        source_attribute: anomaly
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 63
+          status:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          log:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          action:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          synproxy_ttl:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          synproxy_tos:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          synproxy_tcp_mss:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          synproxy_tcp_sack:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          synproxy_tcp_timestamp:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          synproxy_tcp_window:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          synproxy_tcp_windowscale:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          quarantine:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          quarantine_expiry:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          quarantine_log:
+            type: string
+            raw_type: TypeString
+            optional: true
+            computed: true
+          threshold:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+          thresholddefault:
+            type: integer
+            raw_type: TypeInt
+            optional: true
+        source_attribute: anomaly
+    sources:
+    - ansible
+    - terraform
+  anomaly.action:
+    canonical:
+      type: enum
+      version_ranges: *id003
+      choices: *id004
+      description: Action taken when the threshold is reached.
+      source_attribute: anomaly.action
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id004
+        version_ranges: *id003
+        description: Action taken when the threshold is reached.
+        source_attribute: anomaly.action
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: anomaly.action
+    sources:
+    - ansible
+    - terraform
+  anomaly.log:
+    canonical:
+      type: enum
+      version_ranges: *id005
+      choices: *id006
+      description: Enable/disable anomaly logging.
+      source_attribute: anomaly.log
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id006
+        version_ranges: *id005
+        description: Enable/disable anomaly logging.
+        source_attribute: anomaly.log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: anomaly.log
+    sources:
+    - ansible
+    - terraform
+  anomaly.name:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id007
+      min_length: 0
+      max_length: 63
+      description: Anomaly name.
+      source_attribute: anomaly.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id007
+        description: Anomaly name.
+        source_attribute: anomaly.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 63
+        source_attribute: anomaly.name
+    sources:
+    - ansible
+    - terraform
+  anomaly.quarantine:
+    canonical:
+      type: enum
+      version_ranges: *id008
+      choices: *id009
+      description: Quarantine method.
+      source_attribute: anomaly.quarantine
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id009
+        version_ranges: *id008
+        description: Quarantine method.
+        source_attribute: anomaly.quarantine
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: anomaly.quarantine
+    sources:
+    - ansible
+    - terraform
+  anomaly.quarantine_expiry:
+    canonical:
+      type: string
+      version_ranges: *id010
+      description: Duration of quarantine. (Format
+      source_attribute: anomaly.quarantine_expiry
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id010
+        description: Duration of quarantine. (Format
+        source_attribute: anomaly.quarantine_expiry
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: anomaly.quarantine_expiry
+    sources:
+    - ansible
+    - terraform
+  anomaly.quarantine_log:
+    canonical:
+      type: enum
+      version_ranges: *id011
+      choices: *id012
+      description: Enable/disable quarantine logging.
+      source_attribute: anomaly.quarantine_log
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id012
+        version_ranges: *id011
+        description: Enable/disable quarantine logging.
+        source_attribute: anomaly.quarantine_log
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: anomaly.quarantine_log
+    sources:
+    - ansible
+    - terraform
+  anomaly.status:
+    canonical:
+      type: enum
+      version_ranges: *id013
+      choices: *id014
+      description: Enable/disable this anomaly.
+      source_attribute: anomaly.status
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      choices: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id014
+        version_ranges: *id013
+        description: Enable/disable this anomaly.
+        source_attribute: anomaly.status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: anomaly.status
+    sources:
+    - ansible
+    - terraform
+  anomaly.synproxy_tcp_mss:
+    canonical:
+      type: string
+      source_attribute: anomaly.synproxy_tcp_mss
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: anomaly.synproxy_tcp_mss
+    sources:
+    - terraform
+  anomaly.synproxy_tcp_sack:
+    canonical:
+      type: string
+      source_attribute: anomaly.synproxy_tcp_sack
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: anomaly.synproxy_tcp_sack
+    sources:
+    - terraform
+  anomaly.synproxy_tcp_timestamp:
+    canonical:
+      type: string
+      source_attribute: anomaly.synproxy_tcp_timestamp
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: anomaly.synproxy_tcp_timestamp
+    sources:
+    - terraform
+  anomaly.synproxy_tcp_window:
+    canonical:
+      type: string
+      source_attribute: anomaly.synproxy_tcp_window
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: anomaly.synproxy_tcp_window
+    sources:
+    - terraform
+  anomaly.synproxy_tcp_windowscale:
+    canonical:
+      type: string
+      source_attribute: anomaly.synproxy_tcp_windowscale
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: anomaly.synproxy_tcp_windowscale
+    sources:
+    - terraform
+  anomaly.synproxy_tos:
+    canonical:
+      type: string
+      source_attribute: anomaly.synproxy_tos
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: anomaly.synproxy_tos
+    sources:
+    - terraform
+  anomaly.synproxy_ttl:
+    canonical:
+      type: string
+      source_attribute: anomaly.synproxy_ttl
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: anomaly.synproxy_ttl
+    sources:
+    - terraform
+  anomaly.threshold:
+    canonical:
+      type: integer
+      version_ranges: *id015
+      description: Anomaly threshold. Number of detected instances (packets per second or concurrent session number) that
+        triggers the anomaly action.
+      source_attribute: anomaly.threshold
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id015
+        description: Anomaly threshold. Number of detected instances (packets per second or concurrent session number) that
+          triggers the anomaly action.
+        source_attribute: anomaly.threshold
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: anomaly.threshold
+    sources:
+    - ansible
+    - terraform
+  anomaly.thresholddefault:
+    canonical:
+      type: integer
+      source_attribute: anomaly.thresholddefault
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        source_attribute: anomaly.thresholddefault
+    sources:
+    - terraform
+  comments:
+    canonical:
+      type: string
+      version_ranges: &id016
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 1023
+      description: Comment.
+      source_attribute: comments
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id016
+        description: Comment.
+        source_attribute: comments
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 1023
+        source_attribute: comments
+      cli_reference:
+        type: string
+        raw_type: var-string
+        description: Comment.
+        max_length: 1023
+        source_attribute: comments
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  custom_tags:
+    canonical:
+      type: list
+      children: &id017
+        name:
+          type: string
+          raw_type: TypeString
+          optional: true
+          min_length: 0
+          max_length: 35
+      source_attribute: custom_tags
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      children: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children: *id017
+        source_attribute: custom_tags
+    sources:
+    - terraform
+  custom_tags.name:
+    canonical:
+      type: string
+      min_length: 0
+      max_length: 35
+      source_attribute: custom_tags.name
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      min_length: terraform
+      max_length: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: custom_tags.name
+    sources:
+    - terraform
+  dstaddr:
+    canonical:
+      type: list
+      elements: dict
+      children: &id019
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id022
+          - - v6.0.0
+            - ''
+          description: Address name. Source firewall.address.name firewall.addrgrp.name.
+          references: &id021
+          - firewall.address.name
+          - firewall.addrgrp.name
+      required: true
+      version_ranges: &id018
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Destination address name from available addresses. Address name.
+      source_attribute: dstaddr
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      required: terraform
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id018
+        description: Destination address name from available addresses.
+        children: *id019
+        source_attribute: dstaddr
+      terraform:
+        type: list
+        raw_type: TypeSet
+        required: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: dstaddr
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Destination address name from available addresses. Address name.
+        max_length: 79
+        source_attribute: dstaddr
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id020
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id020
+  dstaddr.name:
+    canonical:
+      type: string
+      references: *id021
+      required: true
+      version_ranges: *id022
+      min_length: 0
+      max_length: 79
+      description: Address name. Source firewall.address.name firewall.addrgrp.name.
+      source_attribute: dstaddr.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id022
+        description: Address name. Source firewall.address.name firewall.addrgrp.name.
+        references: *id021
+        source_attribute: dstaddr.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: dstaddr.name
+    sources:
+    - ansible
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  interface:
+    canonical:
+      type: string
+      references: &id024
+      - system.interface.name
+      - system.sdwan.zone.name
+      - system.zone.name
+      required: true
+      version_ranges: &id023
+      - - v6.0.0
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Incoming interface name from available interfaces.
+      source_attribute: interface
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      required: terraform
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id023
+        description: Incoming interface name from available interfaces. Source system.zone.name system.sdwan.zone.name system.interface.name.
+        references: *id024
+        source_attribute: interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        min_length: 0
+        max_length: 35
+        source_attribute: interface
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Incoming interface name from available interfaces.
+        max_length: 35
+        source_attribute: interface
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  name:
+    canonical:
+      type: string
+      version_ranges: &id025
+      - - v6.4.0
+        - v6.4.0
+      - - v6.4.4
+        - ''
+      min_length: 0
+      max_length: 35
+      description: Policy name.
+      source_attribute: name
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id025
+        description: Policy name.
+        source_attribute: name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 35
+        source_attribute: name
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Policy name.
+        max_length: 35
+        source_attribute: name
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  policyid:
+    canonical:
+      type: integer
+      required: true
+      version_ranges: &id026
+      - - v6.0.0
+        - ''
+      default: '0'
+      min: 0
+      max: 9999
+      description: Policy ID.
+      source_attribute: policyid
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        required: true
+        version_ranges: *id026
+        description: Policy ID. see <a href='#notes'>Notes</a>.
+        source_attribute: policyid
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        force_new: true
+        min: 0
+        max: 9999
+        source_attribute: policyid
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Policy ID.
+        default: '0'
+        min: 0
+        max: 9999
+        source_attribute: policyid
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  service:
+    canonical:
+      type: list
+      elements: dict
+      children: &id028
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id031
+          - - v6.0.0
+            - ''
+          description: Service name. Source firewall.service.custom.name firewall.service.group.name.
+          references: &id030
+          - firewall.service.custom.name
+          - firewall.service.group.name
+      version_ranges: &id027
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Service object from available options. Service name.
+      source_attribute: service
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id027
+        description: Service object from available options.
+        children: *id028
+        source_attribute: service
+      terraform:
+        type: list
+        raw_type: TypeSet
+        optional: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: service
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Service object from available options. Service name.
+        max_length: 79
+        source_attribute: service
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id029
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id029
+  service.name:
+    canonical:
+      type: string
+      references: *id030
+      required: true
+      version_ranges: *id031
+      min_length: 0
+      max_length: 79
+      description: Service name. Source firewall.service.custom.name firewall.service.group.name.
+      source_attribute: service.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id031
+        description: Service name. Source firewall.service.custom.name firewall.service.group.name.
+        references: *id030
+        source_attribute: service.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: service.name
+    sources:
+    - ansible
+    - terraform
+  srcaddr:
+    canonical:
+      type: list
+      elements: dict
+      children: &id033
+        name:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id036
+          - - v6.0.0
+            - ''
+          description: Address name. Source firewall.address.name firewall.addrgrp.name.
+          references: &id035
+          - firewall.address.name
+          - firewall.addrgrp.name
+      required: true
+      version_ranges: &id032
+      - - v6.0.0
+        - ''
+      max_length: 79
+      description: Source address name from available addresses. Address name.
+      source_attribute: srcaddr
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      required: terraform
+      version_ranges: ansible
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id032
+        description: Source address name from available addresses.
+        children: *id033
+        source_attribute: srcaddr
+      terraform:
+        type: list
+        raw_type: TypeSet
+        required: true
+        children:
+          name:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: srcaddr
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Source address name from available addresses. Address name.
+        max_length: 79
+        source_attribute: srcaddr
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_representation
+        semantic_type: &id034
+          element_type: string
+          cardinality: multiple
+        confidence: high
+    semantic_type: *id034
+  srcaddr.name:
+    canonical:
+      type: string
+      references: *id035
+      required: true
+      version_ranges: *id036
+      min_length: 0
+      max_length: 79
+      description: Address name. Source firewall.address.name firewall.addrgrp.name.
+      source_attribute: srcaddr.name
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id036
+        description: Address name. Source firewall.address.name firewall.addrgrp.name.
+        references: *id035
+        source_attribute: srcaddr.name
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: srcaddr.name
+    sources:
+    - ansible
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id038
+      - - v6.0.0
+        - ''
+      choices: &id037
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable this policy.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id037
+        version_ranges: *id038
+        description: Enable/disable this policy.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable this policy.
+        default: enable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: dstaddr
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: service
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict
+- attribute: srcaddr
+  field: type
+  values:
+    ansible: list
+    terraform: list
+    cli_reference: string
+  classification: representation_or_real_conflict

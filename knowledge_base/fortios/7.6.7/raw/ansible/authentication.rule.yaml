@@ -1,0 +1,253 @@
+id: authentication.rule
+version: 7.6.7
+source_object: fortios_authentication_rule
+source:
+  kind: ansible
+  file: .work\ansible\plugins\modules\fortios_authentication_rule.py
+root_type: list
+attributes:
+  name:
+    type: string
+    raw_type: string
+    required: true
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Authentication rule name.
+  status:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable this authentication rule.
+  protocol:
+    type: enum
+    raw_type: string
+    choices:
+    - http
+    - ftp
+    - socks
+    - ssh
+    - ztna-portal
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Authentication is required for the selected protocol .
+  srcintf:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v7.0.0
+      - ''
+    description: Incoming (ingress) interface.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v7.0.0
+          - ''
+        description: Interface name. Source system.interface.name system.zone.name system.sdwan.zone.name.
+        references:
+        - system.interface.name
+        - system.sdwan.zone.name
+        - system.zone.name
+  srcaddr:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Authentication is required for the selected IPv4 source address.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Address name. Source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name
+          system .external-resource.name.
+        references:
+        - firewall.address.name
+        - firewall.addrgrp.name
+        - firewall.proxy-address.name
+        - firewall.proxy-addrgrp.name
+  dstaddr:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v7.0.0
+      - ''
+    description: Select an IPv4 destination address from available options. Required for web proxy authentication.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v7.0.0
+          - ''
+        description: Address name. Source firewall.address.name firewall.addrgrp.name firewall.proxy-address.name firewall.proxy-addrgrp.name
+          system .external-resource.name.
+        references:
+        - firewall.address.name
+        - firewall.addrgrp.name
+        - firewall.proxy-address.name
+        - firewall.proxy-addrgrp.name
+  srcaddr6:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Authentication is required for the selected IPv6 source address.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v6.0.0
+          - ''
+        description: Address name. Source firewall.address6.name firewall.addrgrp6.name firewall.proxy-address6.name firewall.proxy-addrgrp6.name.
+        references:
+        - firewall.address6.name
+        - firewall.addrgrp6.name
+        - firewall.proxy-address6.name
+        - firewall.proxy-addrgrp6.name
+  dstaddr6:
+    type: list
+    raw_type: list
+    elements: dict
+    version_ranges:
+    - - v7.0.0
+      - ''
+    description: Select an IPv6 destination address from available options. Required for web proxy authentication.
+    children:
+      name:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges:
+        - - v7.0.0
+          - ''
+        description: Address name. Source firewall.address6.name firewall.addrgrp6.name firewall.proxy-address6.name firewall.proxy-addrgrp6.name.
+        references:
+        - firewall.address6.name
+        - firewall.addrgrp6.name
+        - firewall.proxy-address6.name
+        - firewall.proxy-addrgrp6.name
+  ip_based:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable IP-based authentication. When enabled, previously authenticated users from the same IP address
+      will be exempted.
+  active_auth_method:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Select an active authentication method. Source authentication.scheme.name.
+    references:
+    - authentication.scheme.name
+  sso_auth_method:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Select a single-sign on (SSO) authentication method. Source authentication.scheme.name.
+    references:
+    - authentication.scheme.name
+  web_auth_cookie:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable Web authentication cookies .
+  cors_stateful:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v7.4.1
+      - ''
+    description: Enable/disable allowance of CORS access .
+  cors_depth:
+    type: integer
+    raw_type: integer
+    version_ranges:
+    - - v7.4.1
+      - ''
+    description: Depth to allow CORS access .
+  cert_auth_cookie:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v7.4.4
+      - ''
+    description: Enable/disable to use device certificate as authentication cookie .
+  transaction_based:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Enable/disable transaction based authentication .
+  web_portal:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v6.2.0
+      - ''
+    description: Enable/disable web portal for proxy transparent policy .
+  comments:
+    type: string
+    raw_type: string
+    version_ranges:
+    - - v6.0.0
+      - ''
+    description: Comment.
+  session_logout:
+    type: enum
+    raw_type: string
+    choices:
+    - enable
+    - disable
+    version_ranges:
+    - - v7.6.5
+      - ''
+    description: Enable/disable logout of a user from the current session.

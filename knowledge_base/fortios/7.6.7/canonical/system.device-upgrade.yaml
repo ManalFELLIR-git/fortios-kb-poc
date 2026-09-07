@@ -1,0 +1,833 @@
+id: system.device-upgrade
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  allow_download:
+    canonical:
+      type: enum
+      version_ranges: &id002
+      - - v7.6.4
+        - ''
+      choices: &id001
+      - enable
+      - disable
+      default: enable
+      description: Enable/disable download firmware images.
+      source_attribute: allow-download
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id001
+        version_ranges: *id002
+        description: Enable/disable download firmware images.
+        source_attribute: allow_download
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: allow_download
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable download firmware images.
+        default: enable
+        source_attribute: allow-download
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  device_type:
+    canonical:
+      type: enum
+      version_ranges: &id004
+      - - v7.2.4
+        - ''
+      choices: &id003
+      - fortigate
+      - fortiswitch
+      - fortiap
+      - fortiextender
+      default: fortigate
+      description: Fortinet device type.
+      source_attribute: device-type
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id003
+        version_ranges: *id004
+        description: Fortinet device type.
+        source_attribute: device_type
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: device_type
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Fortinet device type.
+        default: fortigate
+        source_attribute: device-type
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  dynamic_sort_subtable:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: dynamic_sort_subtable
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: dynamic_sort_subtable
+    sources:
+    - terraform
+  failure_reason:
+    canonical:
+      type: enum
+      version_ranges: &id006
+      - - v7.2.4
+        - ''
+      choices: &id005
+      - none
+      - internal
+      - timeout
+      - device-type-unsupported
+      - download-failed
+      - device-missing
+      - version-unavailable
+      - staging-failed
+      - reboot-failed
+      - device-not-reconnected
+      - node-not-ready
+      - no-final-confirmation
+      - no-confirmation-query
+      - config-error-log-nonempty
+      - csf-tree-not-supported
+      - firmware-changed
+      - node-failed
+      - image-missing
+      default: none
+      description: Upgrade failure reason.
+      source_attribute: failure-reason
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Upgrade failure reason.
+        source_attribute: failure_reason
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: failure_reason
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Upgrade failure reason.
+        default: none
+        source_attribute: failure-reason
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  get_all_tables:
+    canonical:
+      type: string
+      default: 'false'
+      source_attribute: get_all_tables
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      default: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        default: 'false'
+        source_attribute: get_all_tables
+    sources:
+    - terraform
+  ha_reboot_controller:
+    canonical:
+      type: string
+      version_ranges: &id007
+      - - v7.4.2
+        - ''
+      min_length: 0
+      max_length: 79
+      description: Serial number of the FortiGate unit that will control the reboot process for the federated upgrade of the
+        HA cluster.
+      source_attribute: ha-reboot-controller
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id007
+        description: Serial number of the FortiGate unit that will control the reboot process for the federated upgrade of
+          the HA cluster.
+        source_attribute: ha_reboot_controller
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: ha_reboot_controller
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Serial number of the FortiGate unit that will control the reboot process for the federated upgrade of
+          the HA cluster.
+        max_length: 79
+        source_attribute: ha-reboot-controller
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  initial_version:
+    canonical:
+      type: string
+      version_ranges: &id008
+      - - v7.6.1
+        - ''
+      description: Firmware version when the upgrade was set up.
+      source_attribute: initial-version
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: Firmware version when the upgrade was set up.
+        source_attribute: initial_version
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: initial_version
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Firmware version when the upgrade was set up.
+        source_attribute: initial-version
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  known_ha_members:
+    canonical:
+      type: list
+      elements: dict
+      children: &id010
+        serial:
+          type: string
+          raw_type: string
+          required: true
+          version_ranges: &id011
+          - - v7.4.2
+            - ''
+          description: Serial number of HA member
+      version_ranges: &id009
+      - - v7.4.2
+        - ''
+      description: Known members of the HA cluster. If a member is missing at upgrade time, the upgrade will be cancelled.
+      source_attribute: known_ha_members
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id009
+        description: Known members of the HA cluster. If a member is missing at upgrade time, the upgrade will be cancelled.
+        children: *id010
+        source_attribute: known_ha_members
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          serial:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 79
+        source_attribute: known_ha_members
+    sources:
+    - ansible
+    - terraform
+  known_ha_members.serial:
+    canonical:
+      type: string
+      required: true
+      version_ranges: *id011
+      min_length: 0
+      max_length: 79
+      description: Serial number of HA member
+      source_attribute: known_ha_members.serial
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id011
+        description: Serial number of HA member
+        source_attribute: known_ha_members.serial
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 79
+        source_attribute: known_ha_members.serial
+    sources:
+    - ansible
+    - terraform
+  maximum_minutes:
+    canonical:
+      type: integer
+      version_ranges: &id012
+      - - v7.4.0
+        - ''
+      default: '15'
+      min: 5
+      max: 10080
+      description: Maximum number of minutes to allow for immediate upgrade preparation.
+      source_attribute: maximum-minutes
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id012
+        description: Maximum number of minutes to allow for immediate upgrade preparation.
+        source_attribute: maximum_minutes
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        computed: true
+        min: 5
+        max: 10080
+        source_attribute: maximum_minutes
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum number of minutes to allow for immediate upgrade preparation.
+        default: '15'
+        min: 5
+        max: 10080
+        source_attribute: maximum-minutes
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  next_path_index:
+    canonical:
+      type: integer
+      version_ranges: &id013
+      - - v7.6.0
+        - ''
+      default: '0'
+      min: 0
+      max: 10
+      description: The index of the next image to upgrade to.
+      source_attribute: next-path-index
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: integer
+        raw_type: integer
+        version_ranges: *id013
+        description: The index of the next image to upgrade to.
+        source_attribute: next_path_index
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 0
+        max: 10
+        source_attribute: next_path_index
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: The index of the next image to upgrade to.
+        default: '0'
+        min: 0
+        max: 10
+        source_attribute: next-path-index
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  serial:
+    canonical:
+      type: string
+      required: true
+      version_ranges: &id014
+      - - v7.2.4
+        - ''
+      min_length: 0
+      max_length: 79
+      description: Serial number of the node to include.
+      source_attribute: serial
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        required: true
+        version_ranges: *id014
+        description: Serial number of the node to include.
+        source_attribute: serial
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        min_length: 0
+        max_length: 79
+        source_attribute: serial
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Serial number of the node to include.
+        max_length: 79
+        source_attribute: serial
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  setup_time:
+    canonical:
+      type: string
+      version_ranges: &id015
+      - - v7.2.4
+        - ''
+      description: Upgrade preparation start time in UTC (hh:mm yyyy/mm/dd UTC).
+      source_attribute: setup-time
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id015
+        description: Upgrade preparation start time in UTC (hh:mm yyyy/mm/dd UTC).
+        source_attribute: setup_time
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: setup_time
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Upgrade preparation start time in UTC (hh:mm yyyy/mm/dd UTC).
+        source_attribute: setup-time
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  starter_admin:
+    canonical:
+      type: string
+      version_ranges: &id016
+      - - v7.6.1
+        - ''
+      min_length: 0
+      max_length: 64
+      description: Admin that started the upgrade.
+      source_attribute: starter-admin
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id016
+        description: Admin that started the upgrade.
+        source_attribute: starter_admin
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 64
+        source_attribute: starter_admin
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Admin that started the upgrade.
+        max_length: 64
+        source_attribute: starter-admin
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id018
+      - - v7.2.4
+        - ''
+      choices: &id017
+      - disabled
+      - initialized
+      - downloading
+      - device-disconnected
+      - ready
+      - coordinating
+      - staging
+      - final-check
+      - upgrade-devices
+      - cancelled
+      - confirmed
+      - done
+      - dry-run-done
+      - failed
+      default: disabled
+      description: Current status of the upgrade.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id017
+        version_ranges: *id018
+        description: Current status of the upgrade.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Current status of the upgrade.
+        default: disabled
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  time:
+    canonical:
+      type: string
+      version_ranges: &id019
+      - - v7.2.4
+        - ''
+      description: Scheduled upgrade execution time in UTC (hh:mm yyyy/mm/dd UTC).
+      source_attribute: time
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id019
+        description: Scheduled upgrade execution time in UTC (hh:mm yyyy/mm/dd UTC).
+        source_attribute: time
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: time
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Scheduled upgrade execution time in UTC (hh:mm yyyy/mm/dd UTC).
+        source_attribute: time
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  timing:
+    canonical:
+      type: enum
+      version_ranges: &id021
+      - - v7.2.4
+        - ''
+      choices: &id020
+      - immediate
+      - scheduled
+      default: immediate
+      description: Run immediately or at a scheduled time.
+      source_attribute: timing
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id020
+        version_ranges: *id021
+        description: Run immediately or at a scheduled time.
+        source_attribute: timing
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: timing
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Run immediately or at a scheduled time.
+        default: immediate
+        source_attribute: timing
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  update_if_exist:
+    canonical:
+      type: boolean
+      source_attribute: update_if_exist
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: boolean
+        raw_type: TypeBool
+        optional: true
+        computed: true
+        source_attribute: update_if_exist
+    sources:
+    - terraform
+  upgrade_path:
+    canonical:
+      type: string
+      version_ranges: &id022
+      - - v7.2.4
+        - ''
+      description: Fortinet OS image versions to upgrade through in major-minor-patch format, such as 7-0-4.
+      source_attribute: upgrade-path
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id022
+        description: Fortinet OS image versions to upgrade through in major-minor-patch format, such as 7-0-4.
+        source_attribute: upgrade_path
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: upgrade_path
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Fortinet OS image versions to upgrade through in major-minor-patch format, such as 7-0-4.
+        source_attribute: upgrade-path
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdom:
+    canonical:
+      type: string
+      references: &id024
+      - system.vdom.name
+      version_ranges: &id023
+      - - v7.6.1
+        - ''
+      min_length: 0
+      max_length: 31
+      description: Limit upgrade to this virtual domain (VDOM).
+      source_attribute: vdom
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id023
+        description: Limit upgrade to this virtual domain (VDOM). Source system.vdom.name.
+        references: *id024
+        source_attribute: vdom
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 31
+        source_attribute: vdom
+      cli_reference:
+        type: string
+        raw_type: string
+        description: Limit upgrade to this virtual domain (VDOM).
+        max_length: 31
+        source_attribute: vdom
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts: []

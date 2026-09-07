@@ -1,0 +1,202 @@
+id: system.csf
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/120351875/config-system-csf
+attributes:
+  accept-auth-by-cert:
+    type: enum
+    raw_type: option
+    description: Accept connections with unknown certificates and ask admin for approval.
+    default: enable
+  authorization-request-type:
+    type: enum
+    raw_type: option
+    description: Authorization request type.
+    default: serial
+  certificate:
+    type: string
+    raw_type: string
+    description: Certificate.
+    max_length: 35
+  configuration-sync:
+    type: enum
+    raw_type: option
+    description: Configuration sync mode.
+    default: default
+  downstream-access:
+    type: enum
+    raw_type: option
+    description: Enable/disable downstream device access to this device's configuration and data.
+    default: disable
+  downstream-accprofile:
+    type: string
+    raw_type: string
+    description: Default access profile for requests from downstream devices.
+    max_length: 35
+  fabric-object-unification:
+    type: enum
+    raw_type: option
+    description: Fabric CMDB Object Unification.
+    default: default
+  fabric-workers:
+    type: integer
+    raw_type: integer
+    description: Number of worker processes for Security Fabric daemon.
+    default: '2'
+    min: 1
+    max: 4
+  file-mgmt:
+    type: enum
+    raw_type: option
+    description: Enable/disable Security Fabric daemon file management.
+    default: enable
+  file-quota:
+    type: integer
+    raw_type: integer
+    description: Maximum amount of memory that can be used by the daemon files (in bytes).
+    default: '0'
+    min: 0
+    max: 4294967295
+  file-quota-warning:
+    type: integer
+    raw_type: integer
+    description: Warn when the set percentage of quota has been used.
+    default: '90'
+    min: 1
+    max: 99
+  forticloud-account-enforcement:
+    type: enum
+    raw_type: option
+    description: Fabric FortiCloud account unification.
+    default: enable
+  group-name:
+    type: string
+    raw_type: string
+    description: Security Fabric group name. All FortiGates in a Security Fabric must have the same group name.
+    max_length: 35
+  group-password:
+    type: password
+    raw_type: password
+    description: Security Fabric group password. For legacy authentication, fabric members must have the same group password.
+  legacy-authentication:
+    type: enum
+    raw_type: option
+    description: Enable/disable legacy authentication.
+    default: disable
+  log-unification:
+    type: enum
+    raw_type: option
+    description: Enable/disable broadcast of discovery messages for log unification.
+    default: enable
+  saml-configuration-sync:
+    type: enum
+    raw_type: option
+    description: SAML setting configuration synchronization.
+    default: default
+  source-ip:
+    type: ipv4-address
+    raw_type: ipv4-address
+    description: Source IP address for communication with the upstream FortiGate.
+    default: 0.0.0.0
+  status:
+    type: enum
+    raw_type: option
+    description: Enable/disable Security Fabric.
+    default: disable
+  uid:
+    type: string
+    raw_type: string
+    description: Unique ID of the current CSF node
+    max_length: 35
+  upstream:
+    type: string
+    raw_type: string
+    description: IP/FQDN of the FortiGate upstream from this FortiGate in the Security Fabric.
+    max_length: 255
+  upstream-interface:
+    type: string
+    raw_type: string
+    description: Specify outgoing interface to reach server.
+    max_length: 15
+  upstream-interface-select-method:
+    type: enum
+    raw_type: option
+    description: Specify how to select outgoing interface to reach server.
+    default: auto
+  upstream-port:
+    type: integer
+    raw_type: integer
+    description: The port number to use to communicate with the FortiGate upstream from this FortiGate in the Security Fabric
+      (default = 8013).
+    default: '8013'
+    min: 1
+    max: 65535
+children:
+  fabric-connector:
+    attributes:
+      accprofile:
+        type: string
+        raw_type: string
+        description: Override access profile.
+        max_length: 35
+      configuration-write-access:
+        type: enum
+        raw_type: option
+        description: Enable/disable downstream device write access to configuration.
+        default: disable
+      serial:
+        type: string
+        raw_type: string
+        description: Serial.
+        max_length: 19
+      vdom:
+        type: string
+        raw_type: string
+        description: Virtual domains that the connector has access to. If none are set, the connector will only have access
+          to the VDOM that it joins the Security Fabric through. Virtual domain name.
+        max_length: 79
+  trusted-list:
+    attributes:
+      action:
+        type: enum
+        raw_type: option
+        description: Security fabric authorization action.
+        default: accept
+      authorization-type:
+        type: enum
+        raw_type: option
+        description: Authorization type.
+        default: serial
+      certificate:
+        type: string
+        raw_type: var-string
+        description: Certificate.
+        max_length: 32767
+      downstream-authorization:
+        type: enum
+        raw_type: option
+        description: Trust authorizations by this node's administrator.
+        default: disable
+      ha-members:
+        type: string
+        raw_type: string
+        description: HA members.
+        max_length: 19
+      index:
+        type: integer
+        raw_type: integer
+        description: Index of the downstream in tree.
+        default: '0'
+        min: 1
+        max: 1024
+      name:
+        type: string
+        raw_type: string
+        description: Name.
+        max_length: 35
+      serial:
+        type: string
+        raw_type: string
+        description: Serial.
+        max_length: 19

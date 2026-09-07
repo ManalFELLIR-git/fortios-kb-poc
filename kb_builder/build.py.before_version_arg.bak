@@ -1,0 +1,47 @@
+from __future__ import annotations
+from pathlib import Path
+import argparse, json, shutil
+from .utils import load_yaml, dump_yaml
+from .bootstrap import clone_pinned
+from .ansible_extractor import extract_all as extract_ansible
+from .terraform_extractor import extract_all as extract_terraform
+from .fortinet_docs import build_docs
+from .reconcile import reconcile_all
+from .audit import audit
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description="FortiOS canonical KB POC builder")
+    ap.add_argument("--config", default="config/sources.yaml")
+    ap.add_argument("--work", default=".work")
+    ap.add_argument("--output", default="knowledge_base/fortios/7.6.7")
+    ap.add_argument("--no-bootstrap", action="store_true", help="Use already-present source repos")
+    ap.add_argument("--skip-docs", action="store_true")
+    ap.add_argument("--docs-max-pages", type=int, default=100, help="Per document family; 0 = unlimited")
+    args = ap.parse_args(argv)
+    cfg = load_yaml(Path(args.config)); version = cfg["target"]["version"]
+    work = Path(args.work); out = Path(args.output)
+    out.mkdir(parents=True, exist_ok=True)
+    src = cfg["sources"]
+    ans_dir = work/"ansible"; tf_dir = work/"terraform"
+    metadata = {"version":version,"sources":{}}
+    if not args.no_bootstrap:
+        asha = clone_pinned(src["ansible"]["repository"], src["ansible"]["tag"], ans_dir)
+        tsha = clone_pinned(src["terraform"]["repository"], src["terraform"]["tag"], tf_dir)
+        metadata["sources"]["ansible"]={"tag":src["ansible"]["tag"],"commit":asha}
+        metadata["sources"]["terraform"]={"tag":src["terraform"]["tag"],"commit":tsha}
+    errors=[]
+    a, e = extract_ansible(ans_dir/src["ansible"]["modules_dir"], version, out/"raw"/"ansible"); errors += e
+    t, e = extract_terraform(tf_dir/src["terraform"]["resources_dir"], version, out/"raw"/"terraform", tf_dir/src["terraform"]["docs_dir"]); errors += e
+    metadata["extraction"]={"ansible_sections":len(a),"terraform_sections":len(t)}
+    if not args.skip_docs:
+        ds, de = build_docs(version, src["fortinet_docs"], out/"raw"/"docs", args.docs_max_pages)
+        metadata["docs"] = ds; errors += de
+    dump_yaml(out/"metadata.yaml", metadata)
+    merged = reconcile_all(out, version)
+    report = audit(out, version, errors)
+    print(json.dumps(report, indent=2, default=str))
+    return 0
+
+if __name__ == "__main__":
+    raise SystemExit(main())

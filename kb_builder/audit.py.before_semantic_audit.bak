@@ -1,0 +1,46 @@
+from __future__ import annotations
+from pathlib import Path
+from .utils import load_yaml, dump_yaml
+
+
+def count_yaml(folder: Path):
+    return len(list(folder.glob("*.yaml"))) if folder.exists() else 0
+
+
+def audit(root: Path, version: str, extraction_errors=None):
+    extraction_errors = extraction_errors or []
+    canon_files = list((root/"canonical").glob("*.yaml")) if (root/"canonical").exists() else []
+    sections = []; invalid=[]
+    for p in canon_files:
+        try:
+            sections.append(load_yaml(p))
+        except Exception as exc:
+            invalid.append({"file":str(p),"error":repr(exc)})
+    conflicts = sum(len(x.get("conflicts") or []) for x in sections)
+    attrs = sum(len(x.get("attributes_flat") or {}) for x in sections)
+    coverage = {src: sum(1 for x in sections if x.get("source_presence",{}).get(src)) for src in ["ansible","terraform","cli_reference"]}
+    features = 0; feature_cli_refs=0
+    fp = root/"raw"/"docs"/"features"/"admin_topics.yaml"
+    if fp.exists():
+        f = load_yaml(fp) or {}; topics = f.get("topics") or []
+        features = len(topics); feature_cli_refs = sum(len(t.get("cli_sections") or []) for t in topics)
+    report = {
+        "target_version": version,
+        "sections": len(sections), "attributes_flat": attrs,
+        "coverage_sections": coverage,
+        "conflicts": conflicts,
+        "invalid_yaml": invalid,
+        "extraction_errors": extraction_errors,
+        "feature_topics": features,
+        "feature_cli_references": feature_cli_refs,
+        "raw_counts": {
+            "ansible": count_yaml(root/"raw"/"ansible"),
+            "terraform": count_yaml(root/"raw"/"terraform"),
+            "cli_reference": count_yaml(root/"raw"/"docs"/"cli_reference"),
+        },
+    }
+    dump_yaml(root/"audit"/"report.yaml", report)
+    md = [f"# FortiOS {version} KB audit", "", f"- Canonical sections: **{report['sections']}**", f"- Flattened attributes: **{attrs}**", f"- Conflicts: **{conflicts}**", f"- Extraction errors: **{len(extraction_errors)}**", f"- Feature/admin topics: **{features}**", "", "## Coverage", ""]
+    for k,v in coverage.items(): md.append(f"- {k}: {v} sections")
+    (root/"audit"/"report.md").write_text("\n".join(md)+"\n", encoding="utf-8")
+    return report

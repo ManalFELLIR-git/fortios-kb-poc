@@ -1,0 +1,400 @@
+id: system.ssh-config
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  ssh_enc_algo:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id002
+      - - v7.4.4
+        - ''
+      choices: &id001
+      - chacha20-poly1305@openssh.com
+      - aes128-ctr
+      - aes192-ctr
+      - aes256-ctr
+      - arcfour256
+      - arcfour128
+      - aes128-cbc
+      - 3des-cbc
+      - blowfish-cbc
+      - cast128-cbc
+      - aes192-cbc
+      - aes256-cbc
+      - arcfour
+      - rijndael-cbc@lysator.liu.se
+      - aes128-gcm@openssh.com
+      - aes256-gcm@openssh.com
+      default: aes256-ctr aes256-gcm@openssh.com
+      description: Select one or more SSH ciphers.
+      source_attribute: ssh-enc-algo
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id001
+        multiple_values: true
+        elements: str
+        version_ranges: *id002
+        description: Select one or more SSH ciphers.
+        source_attribute: ssh_enc_algo
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssh_enc_algo
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Select one or more SSH ciphers.
+        default: aes256-ctr aes256-gcm@openssh.com
+        source_attribute: ssh-enc-algo
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssh_hsk:
+    canonical:
+      type: string
+      version_ranges: &id003
+      - - v7.4.4
+        - ''
+      description: Config SSH host key.
+      source_attribute: ssh-hsk
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id003
+        description: Config SSH host key.
+        source_attribute: ssh_hsk
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: ssh_hsk
+      cli_reference:
+        type: string
+        raw_type: user
+        description: Config SSH host key.
+        source_attribute: ssh-hsk
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssh_hsk_algo:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id005
+      - - v7.4.4
+        - ''
+      choices: &id004
+      - ssh-rsa
+      - ecdsa-sha2-nistp521
+      - ecdsa-sha2-nistp384
+      - ecdsa-sha2-nistp256
+      - rsa-sha2-256
+      - rsa-sha2-512
+      - ssh-ed25519
+      default: ecdsa-sha2-nistp521 ecdsa-sha2-nistp384 ecdsa-sha2-nistp256 rsa-sha2-256 rsa-sha2-512 ssh-ed25519
+      description: Select one or more SSH hostkey algorithms.
+      source_attribute: ssh-hsk-algo
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id004
+        multiple_values: true
+        elements: str
+        version_ranges: *id005
+        description: Select one or more SSH hostkey algorithms.
+        source_attribute: ssh_hsk_algo
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssh_hsk_algo
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Select one or more SSH hostkey algorithms.
+        default: ecdsa-sha2-nistp521 ecdsa-sha2-nistp384 ecdsa-sha2-nistp256 rsa-sha2-256 rsa-sha2-512 ssh-ed25519
+        source_attribute: ssh-hsk-algo
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssh_hsk_override:
+    canonical:
+      type: enum
+      version_ranges: &id007
+      - - v7.4.4
+        - ''
+      choices: &id006
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable SSH host key override in SSH daemon.
+      source_attribute: ssh-hsk-override
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id006
+        version_ranges: *id007
+        description: Enable/disable SSH host key override in SSH daemon.
+        source_attribute: ssh_hsk_override
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssh_hsk_override
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable SSH host key override in SSH daemon.
+        default: disable
+        source_attribute: ssh-hsk-override
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssh_hsk_password:
+    canonical:
+      type: password
+      version_ranges: &id008
+      - - v7.4.4
+        - ''
+      min_length: 0
+      max_length: 128
+      description: Password for ssh-hostkey.
+      source_attribute: ssh-hsk-password
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id008
+        description: Password for ssh-hostkey.
+        source_attribute: ssh_hsk_password
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 128
+        source_attribute: ssh_hsk_password
+      cli_reference:
+        type: password
+        raw_type: password
+        description: Password for ssh-hostkey.
+        source_attribute: ssh-hsk-password
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    resolution:
+      type:
+        resolution: compatible_specialization
+        semantic_type: &id009
+          primitive: string
+          format: password
+          sensitive: true
+        authority: cli_reference
+        confidence: high
+    semantic_type: *id009
+  ssh_kex_algo:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id011
+      - - v7.4.4
+        - ''
+      choices: &id010
+      - diffie-hellman-group1-sha1
+      - diffie-hellman-group14-sha1
+      - diffie-hellman-group14-sha256
+      - diffie-hellman-group16-sha512
+      - diffie-hellman-group18-sha512
+      - diffie-hellman-group-exchange-sha1
+      - diffie-hellman-group-exchange-sha256
+      - curve25519-sha256@libssh.org
+      - ecdh-sha2-nistp256
+      - ecdh-sha2-nistp384
+      - ecdh-sha2-nistp521
+      default: diffie-hellman-group14-sha256 diffie-hellman-group16-sha512 diffie-hellman-group18-sha512 diffie-hellman-group-exchange-sha256
+        curve25519-sha256@libssh.org ecdh-sha2-nistp256 ecdh-sha2-nistp384 ecdh-sha2-nistp521
+      description: Select one or more SSH kex algorithms.
+      source_attribute: ssh-kex-algo
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id010
+        multiple_values: true
+        elements: str
+        version_ranges: *id011
+        description: Select one or more SSH kex algorithms.
+        source_attribute: ssh_kex_algo
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssh_kex_algo
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Select one or more SSH kex algorithms.
+        default: diffie-hellman-group14-sha256 diffie-hellman-group16-sha512 diffie-hellman-group18-sha512 diffie-hellman-group-exchange-sha256
+          curve25519-sha256@libssh.org ecdh-sha2-nistp256 ecdh-sha2-nistp384 ecdh-sha2-nistp521
+        source_attribute: ssh-kex-algo
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  ssh_mac_algo:
+    canonical:
+      type: enum
+      elements: str
+      version_ranges: &id013
+      - - v7.4.4
+        - ''
+      choices: &id012
+      - hmac-md5
+      - hmac-md5-etm@openssh.com
+      - hmac-md5-96
+      - hmac-md5-96-etm@openssh.com
+      - hmac-sha1
+      - hmac-sha1-etm@openssh.com
+      - hmac-sha2-256
+      - hmac-sha2-256-etm@openssh.com
+      - hmac-sha2-512
+      - hmac-sha2-512-etm@openssh.com
+      - hmac-ripemd160
+      - hmac-ripemd160@openssh.com
+      - hmac-ripemd160-etm@openssh.com
+      - umac-64@openssh.com
+      - umac-128@openssh.com
+      - umac-64-etm@openssh.com
+      - umac-128-etm@openssh.com
+      default: hmac-sha2-256 hmac-sha2-256-etm@openssh.com hmac-sha2-512 hmac-sha2-512-etm@openssh.com
+      description: Select one or more SSH MAC algorithms.
+      source_attribute: ssh-mac-algo
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      elements: ansible
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: list
+        choices: *id012
+        multiple_values: true
+        elements: str
+        version_ranges: *id013
+        description: Select one or more SSH MAC algorithms.
+        source_attribute: ssh_mac_algo
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: ssh_mac_algo
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Select one or more SSH MAC algorithms.
+        default: hmac-sha2-256 hmac-sha2-256-etm@openssh.com hmac-sha2-512 hmac-sha2-512-etm@openssh.com
+        source_attribute: ssh-mac-algo
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+  vdomparam:
+    canonical:
+      type: string
+      source_attribute: vdomparam
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        force_new: true
+        source_attribute: vdomparam
+    sources:
+    - terraform
+conflicts:
+- attribute: ssh_hsk_password
+  field: type
+  values:
+    ansible: string
+    terraform: string
+    cli_reference: password
+  classification: representation_or_real_conflict

@@ -1,0 +1,299 @@
+from __future__ import annotations
+from pathlib import Path
+from .utils import load_yaml, dump_yaml, flatten_attributes, canonical_type
+
+
+def load_sections(folder: Path):
+    out = {}
+    if not folder.exists(): return out
+    for p in folder.glob("*.yaml"):
+        try:
+            d = load_yaml(p)
+            if d and d.get("id"): out[d["id"]] = d
+        except Exception:
+            pass
+    return out
+
+
+
+def normalize_attr_path(path: str) -> str:
+    """
+    FortiOS CLI:
+        duplication-max-num
+
+    Ansible / Terraform:
+        duplication_max_num
+
+    Forme canonique interne:
+        duplication_max_num
+    """
+    return ".".join(
+        part.replace("-", "_")
+        for part in path.split(".")
+    )
+
+
+
+def attr_map(section):
+    if not section:
+        return {}
+
+    result = {}
+
+    for path, spec in flatten_attributes(section):
+
+        canonical_path = normalize_attr_path(
+            path
+        )
+
+        spec = dict(spec or {})
+
+        # Conserver le nom original.
+        spec.setdefault(
+            "source_attribute",
+            path
+        )
+
+        result[canonical_path] = spec
+
+    return result
+
+def sig(spec):
+    if not spec: return None
+    choices = spec.get("choices")
+    return {
+        "type": canonical_type(spec.get("type") or spec.get("raw_type"), choices),
+        "choices": tuple(choices or []),
+        "default": spec.get("default"),
+        "min": spec.get("min"), "max": spec.get("max"),
+        "min_length": spec.get("min_length"), "max_length": spec.get("max_length"),
+    }
+
+
+
+
+def choose_type(per):
+    """
+    Choisit le type canonique sans laisser une représentation CLI
+    plate écraser une structure list/dict connue par Ansible/Terraform.
+    """
+
+    # Une structure explicite list/dict avec enfants a priorité.
+    for src in ["ansible", "terraform", "cli_reference"]:
+        spec = per.get(src)
+
+        if not spec:
+            continue
+
+        stype = canonical_type(
+            spec.get("type") or spec.get("raw_type"),
+            spec.get("choices")
+        )
+
+        if (
+            stype in {"list", "dict"}
+            and (
+                spec.get("children")
+                or spec.get("elements")
+            )
+        ):
+            return stype, src
+
+    # Sinon CLI officielle en premier.
+    for src in ["cli_reference", "ansible", "terraform"]:
+        spec = per.get(src)
+
+        if not spec:
+            continue
+
+        stype = canonical_type(
+            spec.get("type") or spec.get("raw_type"),
+            spec.get("choices")
+        )
+
+        if stype:
+            # enum est plus précis que string si des choices existent
+            if (
+                stype == "string"
+                and spec.get("choices")
+            ):
+                return "enum", src
+
+            return stype, src
+
+    return None, None
+
+
+def first_value(per, field, order):
+    for src in order:
+        spec = per.get(src)
+
+        if (
+            spec
+            and field in spec
+            and spec[field] is not None
+        ):
+            return spec[field], src
+
+    return None, None
+
+
+def build_canonical(per):
+    """
+    Fusion champ par champ.
+
+    CLI Reference:
+      description/default/range/choices
+
+    Ansible/Terraform:
+      structure/list/children/references/version
+    """
+
+    canonical = {}
+    field_sources = {}
+
+    chosen_type, type_src = choose_type(per)
+
+    if chosen_type:
+        canonical["type"] = chosen_type
+        field_sources["type"] = type_src
+
+    # Structure : priorité aux sources structurées
+    for field in [
+        "elements",
+        "children",
+        "references",
+        "required",
+        "version_ranges",
+    ]:
+        value, src = first_value(
+            per,
+            field,
+            ["ansible", "terraform", "cli_reference"]
+        )
+
+        if value is not None:
+            canonical[field] = value
+            field_sources[field] = src
+
+    # Vérité documentaire officielle
+    for field in [
+        "choices",
+        "default",
+        "min",
+        "max",
+        "min_length",
+        "max_length",
+        "description",
+    ]:
+        value, src = first_value(
+            per,
+            field,
+            ["cli_reference", "ansible", "terraform"]
+        )
+
+        if value is not None:
+            canonical[field] = value
+            field_sources[field] = src
+
+    # Nom CLI original si disponible
+    value, src = first_value(
+        per,
+        "source_attribute",
+        ["cli_reference", "ansible", "terraform"]
+    )
+
+    if value is not None:
+        canonical["source_attribute"] = value
+        field_sources["source_attribute"] = src
+
+    return canonical, field_sources
+
+
+
+def reconcile_section(sid, a, t, c, version):
+    maps = {
+        "ansible": attr_map(a),
+        "terraform": attr_map(t),
+        "cli_reference": attr_map(c),
+    }
+
+    all_attrs = sorted(
+        set().union(
+            *(m.keys() for m in maps.values())
+        )
+    )
+
+    attrs = {}
+    conflicts = []
+
+    for ap in all_attrs:
+
+        per = {
+            src: m.get(ap)
+            for src, m in maps.items()
+            if m.get(ap) is not None
+        }
+
+        signatures = {
+            src: sig(value)
+            for src, value in per.items()
+        }
+
+        types = {
+            src: signature["type"]
+            for src, signature in signatures.items()
+            if signature and signature.get("type")
+        }
+
+        norm_types = set(types.values())
+
+        # enum/string = différence de représentation acceptable.
+        compatible = (
+            norm_types <= {"string", "enum"}
+            or len(norm_types) <= 1
+        )
+
+        if not compatible:
+            conflicts.append({
+                "attribute": ap,
+                "field": "type",
+                "values": types,
+                "classification": "representation_or_real_conflict",
+            })
+
+        canonical, field_sources = build_canonical(per)
+
+        attrs[ap] = {
+            "canonical": canonical,
+            "canonical_source": "merged",
+            "field_sources": field_sources,
+            "evidence": per,
+            "sources": sorted(per.keys()),
+        }
+
+    return {
+        "id": sid,
+        "version": version,
+
+        "source_presence": {
+            "ansible": bool(a),
+            "terraform": bool(t),
+            "cli_reference": bool(c),
+        },
+
+        "attributes_flat": attrs,
+        "conflicts": conflicts,
+    }
+
+def reconcile_all(root: Path, version: str):
+    a = load_sections(root/"raw"/"ansible")
+    t = load_sections(root/"raw"/"terraform")
+    c = load_sections(root/"raw"/"docs"/"cli_reference")
+    ids = sorted(set(a)|set(t)|set(c))
+    merged = []
+    for sid in ids:
+        item = reconcile_section(sid, a.get(sid), t.get(sid), c.get(sid), version)
+        dump_yaml(root/"canonical"/f"{sid}.yaml", item)
+        merged.append(item)
+    return merged

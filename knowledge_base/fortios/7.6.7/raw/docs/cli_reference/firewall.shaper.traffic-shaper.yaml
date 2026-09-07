@@ -1,0 +1,109 @@
+id: firewall.shaper.traffic-shaper
+version: 7.6.7
+source:
+  kind: fortinet_cli_reference
+  url: https://docs.fortinet.com/document/fortigate/7.6.7/cli-reference/315847846/config-firewall-shaper-traffic-shaper
+attributes:
+  bandwidth-unit:
+    type: enum
+    raw_type: option
+    description: Unit of measurement for guaranteed and maximum bandwidth for this shaper (Kbps, Mbps or Gbps).
+    default: kbps
+  cos:
+    type: string
+    raw_type: user
+    description: VLAN CoS mark.
+  cos-marking:
+    type: enum
+    raw_type: option
+    description: Enable/disable VLAN CoS marking.
+    default: disable
+  cos-marking-method:
+    type: enum
+    raw_type: option
+    description: Select VLAN CoS marking method.
+    default: static
+  diffserv:
+    type: enum
+    raw_type: option
+    description: Enable/disable changing the DiffServ setting applied to traffic accepted by this shaper.
+    default: disable
+  diffservcode:
+    type: string
+    raw_type: user
+    description: DiffServ setting to be applied to traffic accepted by this shaper.
+  dscp-marking-method:
+    type: enum
+    raw_type: option
+    description: Select DSCP marking method.
+    default: static
+  exceed-bandwidth:
+    type: integer
+    raw_type: integer
+    description: Exceed bandwidth used for DSCP/VLAN CoS multi-stage marking. Units depend on the bandwidth-unit setting.
+    default: '0'
+    min: 0
+    max: 80000000
+  exceed-class-id:
+    type: integer
+    raw_type: integer
+    description: Class ID for traffic in guaranteed-bandwidth and maximum-bandwidth.
+    default: '0'
+    min: 0
+    max: 4294967295
+  exceed-cos:
+    type: string
+    raw_type: user
+    description: VLAN CoS mark for traffic in [guaranteed-bandwidth, exceed-bandwidth].
+  exceed-dscp:
+    type: string
+    raw_type: user
+    description: DSCP mark for traffic in guaranteed-bandwidth and exceed-bandwidth.
+  guaranteed-bandwidth:
+    type: integer
+    raw_type: integer
+    description: Amount of bandwidth guaranteed for this shaper (0 - 80000000). Units depend on the bandwidth-unit setting.
+    default: '0'
+    min: 0
+    max: 80000000
+  maximum-bandwidth:
+    type: integer
+    raw_type: integer
+    description: Upper bandwidth limit enforced by this shaper (0 - 80000000). 0 means no limit. Units depend on the bandwidth-unit
+      setting.
+    default: '0'
+    min: 0
+    max: 80000000
+  maximum-cos:
+    type: string
+    raw_type: user
+    description: VLAN CoS mark for traffic in [exceed-bandwidth, maximum-bandwidth].
+  maximum-dscp:
+    type: string
+    raw_type: user
+    description: DSCP mark for traffic in exceed-bandwidth and maximum-bandwidth.
+  name:
+    type: string
+    raw_type: string
+    description: Traffic shaper name.
+    max_length: 35
+  overhead:
+    type: integer
+    raw_type: integer
+    description: Per-packet size overhead used in rate computations.
+    default: '0'
+    min: 0
+    max: 100
+  per-policy:
+    type: enum
+    raw_type: option
+    description: Enable/disable applying a separate shaper for each policy. For example, if enabled the guaranteed bandwidth
+      is applied separately for each policy.
+    default: disable
+  priority:
+    type: enum
+    raw_type: option
+    description: Higher priority traffic is more likely to be forwarded without delays and without compromising the guaranteed
+      bandwidth.
+    default: high
+children: {}
