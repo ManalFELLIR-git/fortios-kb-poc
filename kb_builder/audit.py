@@ -11,9 +11,25 @@ def count_yaml(folder: Path):
     )
 
 
-def audit(root: Path, version: str, extraction_errors=None):
+def audit(
+    root: Path,
+    version: str,
+    extraction_errors=None,
+    quality_gate_report=None,
+):
 
     extraction_errors = extraction_errors or []
+    if not quality_gate_report:
+        raise ValueError(
+            "audit requires the quality gate report; run run_quality_gate first"
+        )
+
+    quality_gate_version = quality_gate_report.get("version")
+    if quality_gate_version != version:
+        raise ValueError(
+            "quality gate report version does not match audit target: "
+            f"{quality_gate_version!r} != {version!r}"
+        )
 
     canonical_dir = root / "canonical"
 
@@ -136,6 +152,36 @@ def audit(root: Path, version: str, extraction_errors=None):
     )
 
 
+    quality_gate = {
+        "safe_attributes": int(
+            quality_gate_report.get("safe_attributes", 0)
+            or 0
+        ),
+        "quarantined_attributes": int(
+            quality_gate_report.get("quarantined_attributes", 0)
+            or 0
+        ),
+        "needs_review_attributes": int(
+            quality_gate_report.get("needs_review_attributes", 0)
+            or 0
+        ),
+    }
+
+    validated_attributes = sum(quality_gate.values())
+    expected_attributes = int(
+        quality_gate_report.get("total_attributes", 0)
+        or 0
+    )
+    missing_validations = int(
+        quality_gate_report.get("attributes_without_validation", 0)
+        or 0
+    )
+    if missing_validations or validated_attributes != expected_attributes:
+        raise ValueError(
+            "quality gate report has incomplete or inconsistent attribute coverage"
+        )
+
+
     # ========================================================
     # Feature layer
     # ========================================================
@@ -175,21 +221,20 @@ def audit(root: Path, version: str, extraction_errors=None):
     # KB status
     # ========================================================
 
-    if invalid or extraction_errors:
+    if invalid or extraction_errors or type_unresolved > 0:
 
-        kb_status = "PARTIAL"
+        kb_status = "BLOCKED"
 
-    elif semantic_unresolved > 0:
+    elif (
+        quality_gate["quarantined_attributes"] > 0
+        or quality_gate["needs_review_attributes"] > 0
+    ):
 
         kb_status = "PARTIAL_VALIDATED"
 
-    elif semantic_path.exists():
-
-        kb_status = "STATIC_VALIDATED"
-
     else:
 
-        kb_status = "RECONCILED"
+        kb_status = "READY_FOR_GENERATION"
 
 
     report = {
@@ -198,6 +243,9 @@ def audit(root: Path, version: str, extraction_errors=None):
             version,
 
         "kb_status":
+            kb_status,
+
+        "status":
             kb_status,
 
         "sections":
@@ -233,6 +281,9 @@ def audit(root: Path, version: str, extraction_errors=None):
 
         "semantic_unresolved_total":
             semantic_unresolved,
+
+        "quality_gate":
+            quality_gate,
 
         "coverage_sections":
             coverage,
@@ -303,6 +354,12 @@ def audit(root: Path, version: str, extraction_errors=None):
         f"- Range unresolved: **{range_unresolved}**",
         "",
         f"- Semantic unresolved total: **{semantic_unresolved}**",
+        "",
+        "## Quality gate",
+        "",
+        f"- Safe attributes: **{quality_gate['safe_attributes']}**",
+        f"- Quarantined attributes: **{quality_gate['quarantined_attributes']}**",
+        f"- Needs-review attributes: **{quality_gate['needs_review_attributes']}**",
         f"- Extraction errors: **{len(extraction_errors)}**",
         f"- Invalid YAML: **{len(invalid)}**",
         "",
