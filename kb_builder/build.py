@@ -12,6 +12,7 @@ from .terraform_extractor import extract_all as extract_terraform
 from .fortinet_docs import build_docs
 from .reconcile import reconcile_all
 from .semantic_resolution import resolve_semantics
+from .quality_gate import run_quality_gate
 from .audit import audit
 
 
@@ -417,6 +418,16 @@ def main(argv=None):
 
 
     # --------------------------------------------------
+    # Quality gate
+    # --------------------------------------------------
+
+    quality_gate_report = run_quality_gate(
+        out,
+        version,
+    )
+
+
+    # --------------------------------------------------
     # Audit
     # --------------------------------------------------
 
@@ -424,6 +435,7 @@ def main(argv=None):
         out,
         version,
         errors,
+        quality_gate_report=quality_gate_report,
     )
 
     print(
