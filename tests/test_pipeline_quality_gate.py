@@ -109,6 +109,24 @@ def test_build_runs_quality_gate_between_semantics_and_audit(tmp_path, monkeypat
 
     monkeypatch.setattr(
         build,
+        "resolve_sources",
+        lambda version: (
+            calls.append("resolve_sources")
+            or {
+                "version": version,
+                "cli_reference_url": (
+                    f"https://docs.fortinet.com/document/fortigate/{version}/"
+                    "cli-reference/84566/fortios-cli-reference"
+                ),
+                "ansible_tag": "2.6.0",
+                "terraform_tag": "1.26.0",
+                "resolution_evidence": {},
+            }
+        ),
+    )
+
+    monkeypatch.setattr(
+        build,
         "extract_ansible",
         lambda *args: (calls.append("extract_ansible") or [], []),
     )
@@ -155,6 +173,7 @@ def test_build_runs_quality_gate_between_semantics_and_audit(tmp_path, monkeypat
 
     assert result == 0
     assert calls == [
+        "resolve_sources",
         "extract_ansible",
         "extract_terraform",
         "reconcile",

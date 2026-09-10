@@ -1,0 +1,320 @@
+id: system.sdwan
+version: 7.6.7
+source_presence:
+  ansible: true
+  terraform: true
+  cli_reference: true
+attributes_flat:
+  duplication_max_num:
+    canonical:
+      type: integer
+      default: '2'
+      min: 2
+      max: 4
+      description: Maximum number.
+      source_attribute: duplication-max-num
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: integer
+        raw_type: TypeInt
+        optional: true
+        min: 2
+        max: 4
+        source_attribute: duplication_max_num
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Maximum number.
+        default: '2'
+        min: 2
+        max: 4
+        source_attribute: duplication-max-num
+    sources:
+    - cli_reference
+    - terraform
+    validation:
+      safe_for_cli_generation: true
+      status: confirmed
+      reasons: []
+      evidence:
+      - source: cli_reference
+      - source: terraform
+  enum_missing:
+    canonical:
+      type: enum
+      description: Enum whose choices are not listed.
+      source_attribute: enum-missing
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enum whose choices are not listed.
+        source_attribute: enum-missing
+    sources:
+    - cli_reference
+    validation:
+      safe_for_cli_generation: false
+      status: needs_review
+      reasons:
+      - enum_choices_missing
+      evidence:
+      - source: cli_reference
+  members:
+    canonical:
+      type: list
+      elements: dict
+      children: &id002
+        interface:
+          type: string
+          raw_type: string
+          version_ranges: &id004
+          - - v6.4.0
+            - ''
+          description: Interface. Source system.interface.name.
+          references: &id003
+          - system.interface.name
+      version_ranges: &id001
+      - - v6.4.0
+        - ''
+      source_attribute: members
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      elements: ansible
+      children: ansible
+      version_ranges: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: list
+        raw_type: list
+        elements: dict
+        version_ranges: *id001
+        children: *id002
+        source_attribute: members
+      terraform:
+        type: list
+        raw_type: TypeList
+        optional: true
+        children:
+          interface:
+            type: string
+            raw_type: TypeString
+            optional: true
+            min_length: 0
+            max_length: 15
+        source_attribute: members
+    sources:
+    - ansible
+    - terraform
+    validation:
+      safe_for_cli_generation: false
+      status: needs_review
+      reasons:
+      - not_confirmed_by_exact_fortios_sources
+      evidence:
+      - source: ansible
+      - source: terraform
+  members.interface:
+    canonical:
+      type: string
+      references: *id003
+      version_ranges: *id004
+      min_length: 0
+      max_length: 15
+      description: Interface. Source system.interface.name.
+      source_attribute: members.interface
+    canonical_source: merged
+    field_sources:
+      type: ansible
+      references: ansible
+      version_ranges: ansible
+      min_length: terraform
+      max_length: terraform
+      description: ansible
+      source_attribute: ansible
+    evidence:
+      ansible:
+        type: string
+        raw_type: string
+        version_ranges: *id004
+        description: Interface. Source system.interface.name.
+        references: *id003
+        source_attribute: members.interface
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        min_length: 0
+        max_length: 15
+        source_attribute: members.interface
+    sources:
+    - ansible
+    - terraform
+    validation:
+      safe_for_cli_generation: false
+      status: needs_review
+      reasons:
+      - not_confirmed_by_exact_fortios_sources
+      evidence:
+      - source: ansible
+      - source: terraform
+  outside_range:
+    canonical:
+      type: integer
+      default: '11'
+      min: 1
+      max: 10
+      description: Explicit inconsistent fixture.
+      source_attribute: outside-range
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      default: cli_reference
+      min: cli_reference
+      max: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      cli_reference:
+        type: integer
+        raw_type: integer
+        description: Explicit inconsistent fixture.
+        default: '11'
+        min: 1
+        max: 10
+        source_attribute: outside-range
+    sources:
+    - cli_reference
+    validation:
+      safe_for_cli_generation: false
+      status: needs_review
+      reasons:
+      - default_outside_range
+      evidence:
+      - source: cli_reference
+  provider_only:
+    canonical:
+      type: string
+      source_attribute: provider_only
+    canonical_source: merged
+    field_sources:
+      type: terraform
+      source_attribute: terraform
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        source_attribute: provider_only
+    sources:
+    - terraform
+    validation:
+      safe_for_cli_generation: false
+      status: quarantined
+      reasons:
+      - provider_only_candidate
+      - not_confirmed_by_exact_fortios_sources
+      evidence:
+      - source: terraform
+  provider_required:
+    canonical:
+      type: string
+      required: true
+      description: OS field also modeled as provider-required.
+      source_attribute: provider-required
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      required: terraform
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      terraform:
+        type: string
+        raw_type: TypeString
+        required: true
+        source_attribute: provider_required
+      cli_reference:
+        type: string
+        raw_type: string
+        description: OS field also modeled as provider-required.
+        source_attribute: provider-required
+    sources:
+    - cli_reference
+    - terraform
+    validation:
+      safe_for_cli_generation: false
+      status: needs_review
+      reasons:
+      - provider_required_only
+      evidence:
+      - source: cli_reference
+      - source: terraform
+  status:
+    canonical:
+      type: enum
+      version_ranges: &id006
+      - - v6.4.0
+        - ''
+      choices: &id005
+      - disable
+      - enable
+      default: disable
+      description: Enable/disable SD-WAN.
+      source_attribute: status
+    canonical_source: merged
+    field_sources:
+      type: cli_reference
+      version_ranges: ansible
+      choices: ansible
+      default: cli_reference
+      description: cli_reference
+      source_attribute: cli_reference
+    evidence:
+      ansible:
+        type: enum
+        raw_type: string
+        choices: *id005
+        version_ranges: *id006
+        description: Enable/disable SD-WAN.
+        source_attribute: status
+      terraform:
+        type: string
+        raw_type: TypeString
+        optional: true
+        computed: true
+        source_attribute: status
+      cli_reference:
+        type: enum
+        raw_type: option
+        description: Enable/disable SD-WAN.
+        default: disable
+        source_attribute: status
+    sources:
+    - ansible
+    - cli_reference
+    - terraform
+    validation:
+      safe_for_cli_generation: true
+      status: confirmed
+      reasons: []
+      evidence:
+      - source: ansible
+        observed_choices: *id005
+      - source: cli_reference
+      - source: terraform
+conflicts: []
