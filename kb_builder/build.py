@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import argparse
+from copy import deepcopy
 import json
 import re
 
@@ -12,6 +13,8 @@ from .terraform_extractor import extract_all as extract_terraform
 from .fortinet_docs import build_docs
 from .reconcile import reconcile_all
 from .semantic_resolution import resolve_semantics
+from .quality_gate import run_quality_gate
+from .source_resolver import resolve_sources
 from .audit import audit
 
 
@@ -168,6 +171,10 @@ def main(argv=None):
         else config_version
     )
 
+    resolved_sources = resolve_sources(
+        version
+    )
+
 
     # --------------------------------------------------
     # Output dynamique
@@ -198,7 +205,12 @@ def main(argv=None):
     )
 
 
-    src = cfg["sources"]
+    src = deepcopy(cfg["sources"])
+    src["ansible"]["tag"] = resolved_sources["ansible_tag"]
+    src["terraform"]["tag"] = resolved_sources["terraform_tag"]
+    src.setdefault("fortinet_docs", {})["cli_reference"] = (
+        resolved_sources["cli_reference_url"]
+    )
 
     ans_dir = (
         work
@@ -253,7 +265,23 @@ def main(argv=None):
             config_version,
 
         "sources":
-            {},
+            {
+                "cli_reference": {
+                    "url": resolved_sources["cli_reference_url"],
+                    "resolved_for": version,
+                },
+                "ansible": {
+                    "tag": resolved_sources["ansible_tag"],
+                    "resolved_for": version,
+                },
+                "terraform": {
+                    "tag": resolved_sources["terraform_tag"],
+                    "resolved_for": version,
+                },
+            },
+
+        "resolution_evidence":
+            resolved_sources["resolution_evidence"],
     }
 
 
@@ -289,30 +317,10 @@ def main(argv=None):
         )
 
 
-        metadata[
-            "sources"
-        ][
-            "ansible"
-        ] = {
-            "tag":
-                src["ansible"]["tag"],
-
-            "commit":
-                asha,
-        }
+        metadata["sources"]["ansible"]["commit"] = asha
 
 
-        metadata[
-            "sources"
-        ][
-            "terraform"
-        ] = {
-            "tag":
-                src["terraform"]["tag"],
-
-            "commit":
-                tsha,
-        }
+        metadata["sources"]["terraform"]["commit"] = tsha
 
 
     # --------------------------------------------------
@@ -417,6 +425,16 @@ def main(argv=None):
 
 
     # --------------------------------------------------
+    # Quality gate
+    # --------------------------------------------------
+
+    quality_gate_report = run_quality_gate(
+        out,
+        version,
+    )
+
+
+    # --------------------------------------------------
     # Audit
     # --------------------------------------------------
 
@@ -424,6 +442,16 @@ def main(argv=None):
         out,
         version,
         errors,
+        quality_gate_report=quality_gate_report,
+    )
+
+    dump_yaml(
+        out / "manifest.yaml",
+        {
+            "version": version,
+            "sources": metadata["sources"],
+            "status": report["status"],
+        },
     )
 
     print(
